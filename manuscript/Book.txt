@@ -1,0 +1,23 @@
+frontmatter:
+
+   markdown/front/preface.md
+   
+   markdown/front/introduction.md
+   
+mainmatter:
+
+   markdown/main/chapter7.md
+   
+   markdown/main/chapter8.md
+   
+   markdown/main/chapter9.md
+   
+   markdown/main/chapter10.md
+   
+backmatter:
+
+   markdown/back/additional-resources.md
+   
+   markdown/back/attributions.md
+
+
