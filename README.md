@@ -1,2 +1,3 @@
-# HolisticInfoSec-For-WebDevelopers-Fascicle1
-VPS Network Cloud Web Applications
+# Holistic InfoSec For Web Developers
+## Fascicle 1
+VPS, Network, Cloud, Web Applications
