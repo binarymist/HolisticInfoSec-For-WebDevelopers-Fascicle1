@@ -11,7 +11,7 @@ If there is something you would like to see included in this fascicle, please [s
 [![Stories in Ready](https://badge.waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1.png?label=ready&title=Ready)](https://waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1)
 [![Stories in Progress](https://badge.waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1.png?label=in%20progress&title=In%20Progress)](https://waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1)
 
-[![](manuscript/images/title_page.png)](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1)
+[![](manuscript/images/title_page.png)](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications)
 
 <br>
 
