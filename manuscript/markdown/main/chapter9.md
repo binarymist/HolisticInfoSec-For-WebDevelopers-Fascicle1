@@ -1,4 +1,4 @@
-# Cloud {#cloud}
+# 9. Cloud {#cloud}
 
 ![10,000' view of Cloud and In-house Cloud Security](images/10000Cloud.gif)
 

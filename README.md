@@ -1,12 +1,12 @@
 # Holistic InfoSec For Web Developers
 ## Fascicle 1
-VPS, Network, Cloud, Web Applications
+VPS, Network, Cloud and Web Applications
 
 To access the original (now out of date) training which the book was based on, head on over to the [wiki](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers/wiki/BinaryMist-Approach-To-Threat-Modelling) to get started.
 
-The contents of the fascicle that's WIP is listed below. The actual fascicle can be found [here](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications).
+The contents of fascicle 1 that's a WIP is listed below. The actual fascicle can be found [here](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications).
 
-If there is something you would like to see included in the fascicle, please [submit an issue](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/issues) for consideration.
+If there is something you would like to see included in this fascicle, please [submit an issue](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/issues) for consideration.
 
 [![Stories in Ready](https://badge.waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1.png?label=ready&title=Ready)](https://waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1)
 [![Stories in Progress](https://badge.waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1.png?label=in%20progress&title=In%20Progress)](https://waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1)

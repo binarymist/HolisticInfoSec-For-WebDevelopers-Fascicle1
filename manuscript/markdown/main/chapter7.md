@@ -1,4 +1,4 @@
-# VPS {#vps}
+# 7. VPS {#vps}
 
 ![10,000' view of VPS Security](images/10000VPS.gif)
 

@@ -1,5 +1,7 @@
 frontmatter:
 
+   markdown/front/foreword.md
+
    markdown/front/preface.md
    
    markdown/front/introduction.md
