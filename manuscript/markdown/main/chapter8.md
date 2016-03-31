@@ -14,7 +14,7 @@ Here are some possibilities to get you started:
 There will almost certainly be many others. Think about your network topology. What information is stored where and over which channels it may pass. If you have decided to hand your precious data over to a cloud provider, then you are not going to have much control over this and in most cases, your CSP will not have much control either (addressed in the [Cloud](#cloud) chapter). Also think about the areas that may be easier to compromise than others and take this information into the next step.
 
 ## 2. SSM Identify Risks
-Go through same process as we did at the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for the network.
+Go through the same process as we did at the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for the network.
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
@@ -121,7 +121,7 @@ Often the sender of a spoofed email will use a from address that you recognise i
 
 <!---Todo: Check out Subterfuge, mentioned in "Basic Security Testing With Kali Linux"-->
 <!---Todo: pg 160 of "The Hacker Playbook" could be worth demoing here-->
-An attacker can clone a legitimate website (with the likes of the Social Engineering Kit (SET)) or the Browser Exploitation Framework (BeEF) and through social engineering, phishing, email spoofing or any other number of tricks (as discussed in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), coerce a victim to browse the spoofed website. In fact, if you clone a website that you know your victim visits regularly, then you can just do that and sit and wait for them to take the bait. Better still automote your attack so that when they do take the bait exploits are fired at them automatically. Once the victim is on the spoofed website, the attacker can harvest credentials or carry out many other types of attacks against the non-suspecting user.
+An attacker can clone a legitimate website (with the likes of the Social Engineering Kit (SET)) or the Browser Exploitation Framework (BeEF) and through social engineering, phishing, email spoofing or any other number of tricks (as discussed in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)), coerce a victim to browse the spoofed website. In fact, if you clone a website that you know your victim visits regularly, then you can just do that and sit and wait for them to take the bait. Better still automote your attack so that when they do take the bait exploits are fired at them automatically. Once the victim is on the spoofed website, the attacker can harvest credentials or carry out many other types of attacks against the non-suspecting user.
 
 The victim may visit the attackers cloned website due to ARP and/or DNS spoofing. Subterfuge is handy to run a plethora of attacks against the victims browser through the likes of the Metasploit Browser AutoPwn module. If >0 attacks are successful (we have managed to install a root-kit), the attacker will usually get a remote command shell to the victims system by way of reverse or bind shell. Then simply forward them onto the legitimate website without them even being aware of the attack.
 
@@ -613,7 +613,7 @@ All of the CAs now use intermediate certificates to sign your certificate, so th
 
 What happened with Heartbleed is that the server's private keys were able to be located and stolen from RAM before they expired, so those keys had to be revoked. So the attackers that now had the private keys could set-up a cloned website with the stolen private key(s), then divert traffic to the cloned website using the following techniques:
 
-* Phishing as discussed in People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)
+* Phishing (as discussed in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers))
 * [DNS spoofing](#network-identify-risks-spoofing-dns)
 * [ARP spoofing](#network-identify-risks-spoofing-arp)
 * Many other ways
