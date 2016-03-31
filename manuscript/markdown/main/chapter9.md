@@ -19,7 +19,7 @@ If you are a start up, just be aware that the speed you have initially with a Pa
 %% Work through my "Does Your Cloud Solution Look Like a Mushroom?"
 
 ## 1. SSM Asset Identification
-Take results from [higher level Asset Identification](#asset-identification). Remove any that are not applicable. Add any newly discovered.
+Take results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered.
 
 _Todo_
 
@@ -31,7 +31,7 @@ We are blindly trusting huge amounts of IP to CSPs. In fact, I have worked for c
 
 ## 2. SSM Identify Risks {#cloud-identify-risks}
 
-Some of the thinking around the process we went through at the [top level](#identify-risks) may be helpful. The biggest risk when it comes to the cloud is loss of visibility and control. It is similar to the network chapter, but without the control you have over it.
+Some of the thinking around the process we went through at the top level in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)] may be helpful. The biggest risk when it comes to the cloud is loss of visibility and control. It is similar to the network chapter, but without the control you have over it.
 
 ### Questions to Ask Your CSP {#cloud-identify-risks-questions-to-ask-your-csp}
 

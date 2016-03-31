@@ -5,7 +5,7 @@
 If possible, I usually advocate bringing VPS(s) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have control. A lot of the ideas in this section originated from a blog post of mine on [hardening Debian web servers](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/).
 
 ## 1. SSM Asset Identification {#vps-asset-identification}
-Take results from [higher level Asset Identification](#asset-identification). Remove any that are not applicable. Add any newly discovered. Here are some to get you started:
+Take results from higher level Asset Identification found in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered. Here are some to get you started:
 
 * Ownership. At first this may sound strange, but that is because of an assumption you may have that it is a given that you will always own, or at least have control of your server(s). I am going to dispel this myth. When an attacker wants to compromise your server(s), they want to do so for a reason. Possibly it is just for kicks, possibly it is for some more sinister reason. They want an asset that presumably belongs to you, your organisation, or your customers. If they can take control of your server(s) (own it/steal it/what ever you want to call the act), then they have a foot hold to launch further attacks and gain other assets that do not belong to them. With this in mind, you could think of your server(s) as an asset. On the other hand you could think of your it as a liability. Both may be correct. In any case, you need to protect your server(s) and in many cases take it to school and teach it how to protect itself. This is covered under the [SSM Countermeasures](#vps-countermeasures) section with items such as HIDS and Logging and Alerting.
 * Visibility into and of many things, such as:
@@ -22,12 +22,12 @@ Take results from [higher level Asset Identification](#asset-identification). Re
   * Etc
 * Taking the confidential business and client information from the "Starting with the 30,000' view" chapter, here we can concretise these concepts into forms such as:
   * Email, Web, Data-store servers and of course the data on them.
-  * You could even stretch this to individuals PCs and other devices which may be carrying this sort of confidential information on them. Mobile devices are a huge risk for example (covered in the [Mobile](#mobile) chapter)
+  * You could even stretch this to individuals PCs and other devices which may be carrying this sort of confidential information on them. Mobile devices are a huge risk for example (covered in the Mobile chapter of [Fascicle 2](https://leanpub.com/holistic-infosec-for-web-developers-fascicle2-mobile-iot))
 
 This is probably an incomplete list for your domain. I have given you a start. Put your thinking cap on and populate the rest, or come back to it as additional assets enter your mind.
 
 ## 2. SSM Identify Risks
-Go through same process as we did at the [top level](#identify-risks), but for your VPS(s).
+Go through same process as we did at the top level in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for your VPS(s).
 
 * [MS Host Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007)
 * [MS Securing Your Web Server](https://msdn.microsoft.com/en-us/library/ff648653.aspx) This is Windows specific, but does offer some insight into technology agnostic risks and countermeasures.
@@ -109,7 +109,7 @@ The Metasploit PSExec module (`exploit/windows/smb/psexec`) uses basically the s
 {#wdcnz-demo-5}
 ![](images/HandsOnHack.png)
 
-The following attack was the last of five that I demonstrated at WDCNZ in 2015. The [previous demo](#wdcnz-demo-4) will provide some additional context and it is probably best to look at it first if you have not already.
+The following attack was the last of five that I demonstrated at WDCNZ in 2015. The [previous demo](#wdcnz-demo-4) of that series will provide some additional context and it is probably best to look at it first if you have not already.
 
 You can find the video of how it is played out [here](https://www.youtube.com/watch?v=1EvwwYiMrV4).
 
@@ -221,7 +221,7 @@ The rpcinfo command with `-p` will list all registered RPC programs. Many RPC pr
     100021    4   udp    679  nlockmgr
     100021    4   tcp    875  nlockmgr
 
-This provides lots of jucy information for an attacker to take into the [Vulnerability Searching](#process-and-practises-penetration-testing-vulnerability-searching) stage discussed in the Process and Practises chapter.
+This provides lots of jucy information for an attacker to take into the Vulnerability Searching stage discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
 #### NFS
 
@@ -251,8 +251,7 @@ All going well for the attacker, they will now have your VPS's `/` directory mou
 
 #### SSH
 
-You may remember we did some fingerprinting of the SSH daemon in the Processes and Practises chapter in the [Reconnaissance](#process-and-practises-penetration-testing-reconnaissance) section
-
+You may remember we did some fingerprinting of the SSH daemon in the Reconnaissance section of the Processes and Practises chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)
 
 _Todo_
 
@@ -458,7 +457,7 @@ _Todo_ detail configuring NFS if NFS is required
 #### [SSH](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#ssh)
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
-We covered fingerprinting of SSH in the Processes and Practises chapter under the [Reconnaissance](#process-and-practises-penetration-testing-reconnaissance-service-fingerprinting-other-services) section. Here we will discuss what you can do to harden SSH.
+We covered fingerprinting of SSH under the Reconnaissance section of the Processes and Practises chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Here we will discuss what you can do to harden SSH.
 
 _Todo_
 

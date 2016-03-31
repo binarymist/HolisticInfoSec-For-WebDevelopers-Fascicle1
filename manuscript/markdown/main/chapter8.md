@@ -3,7 +3,7 @@
 ![10,000' view of Network Security](images/10000Network.gif)
 
 ## 1. SSM Asset Identification
-Take results from [higher level Asset Identification](#asset-identification). Remove any that are not applicable. Add any newly discovered.
+Take results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered.
 
 Here are some possibilities to get you started:
 
@@ -14,7 +14,7 @@ Here are some possibilities to get you started:
 There will almost certainly be many others. Think about your network topology. What information is stored where and over which channels it may pass. If you have decided to hand your precious data over to a cloud provider, then you are not going to have much control over this and in most cases, your CSP will not have much control either (addressed in the [Cloud](#cloud) chapter). Also think about the areas that may be easier to compromise than others and take this information into the next step.
 
 ## 2. SSM Identify Risks
-Go through same process as we did at the [top level](#identify-risks), but for the network.
+Go through same process as we did at the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for the network.
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
@@ -49,7 +49,7 @@ The following are some of the different types of network spoofing
 
 Setting the IP address in your header to the victims IP address.
 
-Remember we did something similar to this under the [Reconnaissance](#process-and-practises-penetration-testing-reconnaissance-concealing-nmap-source-ip-address) section from the Process and Practises chapter with nmap decoy host `-D` and idle scan `-sI`.
+Remember we did something similar to this under the "Concealing NMap Source IP Address" of the Reconnaissance section from the Process and Practises chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) with nmap decoy host `-D` and idle scan `-sI`.
 
 This is where a sending node will spoof its public IP address (not actually change its IP address) (by forging the header) to look like someone else's. When the message is received and a reply crafted, the entity creating the reply will look up its ARP table and send the reply to the impersonated entity because the MAC address is still associated with the IP address of the message it received. This sort of play is commonly used in Denial of Service (DoS) attacks, because the attacker does not need or want the response.
 
@@ -121,7 +121,7 @@ Often the sender of a spoofed email will use a from address that you recognise i
 
 <!---Todo: Check out Subterfuge, mentioned in "Basic Security Testing With Kali Linux"-->
 <!---Todo: pg 160 of "The Hacker Playbook" could be worth demoing here-->
-An attacker can clone a legitimate website (with the likes of the Social Engineering Kit (SET)) or the Browser Exploitation Framework (BeEF) and through [social engineering](#people), phishing, email spoofing or any other number of tricks, coerce a victim to browse the spoofed website. In fact, if you clone a website that you know your victim visits regularly, then you can just do that and sit and wait for them to take the bait. Better still automote your attack so that when they do take the bait exploits are fired at them automatically. Once the victim is on the spoofed website, the attacker can harvest credentials or carry out many other types of attacks against the non-suspecting user.
+An attacker can clone a legitimate website (with the likes of the Social Engineering Kit (SET)) or the Browser Exploitation Framework (BeEF) and through social engineering, phishing, email spoofing or any other number of tricks (as discussed in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), coerce a victim to browse the spoofed website. In fact, if you clone a website that you know your victim visits regularly, then you can just do that and sit and wait for them to take the bait. Better still automote your attack so that when they do take the bait exploits are fired at them automatically. Once the victim is on the spoofed website, the attacker can harvest credentials or carry out many other types of attacks against the non-suspecting user.
 
 The victim may visit the attackers cloned website due to ARP and/or DNS spoofing. Subterfuge is handy to run a plethora of attacks against the victims browser through the likes of the Metasploit Browser AutoPwn module. If >0 attacks are successful (we have managed to install a root-kit), the attacker will usually get a remote command shell to the victims system by way of reverse or bind shell. Then simply forward them onto the legitimate website without them even being aware of the attack.
 
@@ -283,7 +283,9 @@ Often domain consumers (people: sending emails, browsing websites, SSHing, etc) 
 
 Useful for social engineering users to a spoofed web-site. The attacker may not be able to spoof the DNS entries, although this is the next best thing. For example `accountsgoogle.co.nz` could look reasonably legitimate for a New Zealand user intending to sign into their legitimate google account at `accounts.google.com`. In fact at the time of writing, this domain is available. Using the methods described in the Website section to clone and host a site and convince someone to browse to it with a doppelganger domain like this is reasonably easy.
 
-![](images/accountsgoogle-available.jpg)
+![](images/accountsgoogle-available0.jpg)
+
+![](images/accountsgoogle-available1.jpg)
 
 #### SMTP {#network-identify-risks-doppelganger-domains-smtp}
 ![](images/ThreatTags/average-common-difficult-moderate.png)
@@ -388,7 +390,7 @@ _Todo_ Add Security Onion Linux distro as an IDS, Network Security Monitoring (N
 %% http://www.unixmen.com/security-onion-linux-distro-ids-nsm-log-management/
 
 #### Network Intrusion Detection Systems (NIDS)
-Similar to [HIDS](#host-intrusion-detection-systems-hids) but acting as a network spy with its network interface (NIC) in promiscuous mode, capturing all traffic crossing the specific network segment that the NIDS is on.
+Similar to [HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) but acting as a network spy with its network interface (NIC) in promiscuous mode, capturing all traffic crossing the specific network segment that the NIDS is on.
 
 As HIDS, NIDS also operate with signatures.
 
@@ -609,9 +611,9 @@ End user browses to your website and they get the certificate from your server. 
 
 All of the CAs now use intermediate certificates to sign your certificate, so that they can keep their root certificate off line. Similar to what I did with GPG in my [blog post](http://blog.binarymist.net/2015/01/31/gnupg-key-pair-with-sub-keys/#master-key-pair-generation). This way if their main signing certificate is compromised, they can revoke it and create another one from their root certificate. You can see the root, intermediate and your certificate as part of the certificate chain when you check the details of a certificate in your browser.
 
-What happened with Heartbleed is that the server's private keys were able to be located and stolen from RAM before they expired, so those keys had to be revoked. So the attackers that now had the private keys could set-up a cloned website with the stolen private key(s), then divert traffic to the cloned website by:
+What happened with Heartbleed is that the server's private keys were able to be located and stolen from RAM before they expired, so those keys had to be revoked. So the attackers that now had the private keys could set-up a cloned website with the stolen private key(s), then divert traffic to the cloned website using the following techniques:
 
-* [Phishing](#people-identify-risks-phishing)
+* Phishing as discussed in People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)
 * [DNS spoofing](#network-identify-risks-spoofing-dns)
 * [ARP spoofing](#network-identify-risks-spoofing-arp)
 * Many other ways

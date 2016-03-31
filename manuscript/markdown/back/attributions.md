@@ -2,6 +2,11 @@
 
 # Attributions
 
+## Introduction
+
+**Bruce Schneier Sensible Security Model (SSM)**  
+[http://www.win.tue.nl/~wstomv/quotes/beyond-fear.html](http://www.win.tue.nl/~wstomv/quotes/beyond-fear.html)
+
 ## [VPS](#vps)
 
 **Any attacker worth their weight** will try to cover their tracks as they progress:  
