@@ -3956,6 +3956,14 @@ You could of course just list all of your projects and global packages and check
 
 &nbsp;
 
+
+%% Some ideas from Chetan Karande (NodeGoat maintainer)
+
+%% Tools for checking for outdated, incorrect, and unused dependencies: https://www.npmjs.com/package/npm-check, https://david-dm.org, and https://docs.npmjs.com/cli/outdated
+%% Tools for scanning external modules used in a project for known vulnerabilities: https://snyk.io/, https://www.npmjs.com/package/nsp, https://www.npmjs.com/package/requiresafe, and http://retirejs.github.io/retire.js/
+
+
+
 For **.Net developers**, there is the likes of [OWASP **SafeNuGet**](https://github.com/OWASP/SafeNuGet).
 
 ### Insecure Direct Object References

@@ -1,5 +1,7 @@
 # 9. Cloud {#cloud}
 
+%% Show 1212 "Cloud-Oriented Programming with Vishwas Lele" has a good section on instrumentation & logging from about 21:00
+
 ![10,000' view of Cloud and In-house Cloud Security](images/10000Cloud.gif)
 
 See [VPS](#vps), as it has a lot of similarities due to the fact that in many cases your VPS may be on someone else's hardware and in their control.
