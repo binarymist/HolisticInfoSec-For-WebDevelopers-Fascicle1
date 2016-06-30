@@ -2,19 +2,15 @@
 
 %% An introduction deals with the subject of the book, supplementing and introducing the text and indicating a point of view to be adopted by the reader. The introduction usually forms a part of the text [and the text numbering system]; the preface does not." (In other words, the arabic numbering of the book (1,2,3) starts with the introduction, if there is one. The other front matter takes i, ii, iii, etc.)
 
-Target Audience:
+%% https://www.linkedin.com/pulse/20140818005915-47802955-how-to-write-an-awesome-introduction-for-your-nonfiction-book
 
-* Software Architects
-* Software Developers/Engineers
-* Product Owners
+_Todo_
 
-If you're looking to save money and save face due to potential embarrassment because your business assets may have been compromised, continue reading. If your looking to become better at delivering secure solutions, continue reading.
+Follow on from the Introduction in Fascicle 0.
 
-Traditionally security has often been applied at the end of projects where it's most costly in the development life cycle to re-design and re-deploy. This is why security, in fact quality in general, is often seen as being to expensive and corners are cut.
+_Todo_
 
-Moving much of the focus of labour intensive and costly security assessments and tests being performed by deeply specialised security consultants to automated approaches that can be crafted by the Development Team within each Sprint.
 
-The processes and practices I'm going to introduce will help you reduce (the most likely to be compromised (thus removing wasted effort)) security defects at the earliest possible point in time. Right where they are introduced. Iterate on Design -> Build -> Break, at every point of the development life cycle. Including within each Sprint for each Product Backlog Item (PBI) that's pulled into work in progress (WIP). We become good at what we do by failing fast in development, fixing it, then trying again. This same strategy applies to all areas of life.
 
 W> Don't wait until you're on the stage, where the cost of your mistakes are at their highest.
 
