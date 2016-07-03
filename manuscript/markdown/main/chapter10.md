@@ -531,8 +531,7 @@ We are consuming far more free and open source libraries than we have ever befor
 
 Many vulnerabilities can hide in these external dependencies. It is not just one attack vector any more, it provides the opportunity for many vulnerabilities to be sitting waiting to be exploited. If you do not find and deal with them, I can assure you, someone else will.
 
-Running any type of scripts from non local sources without first downloading and inspecting them, has the potential to cause massive damage, for example, destroy or modify your systems and any other that may be reachable, send sensitive information to an attacker, or any number
-of other malicious activities.
+Running any type of scripts from non local sources without first downloading and inspecting them, has the potential to cause massive damage, for example, destroy or modify your systems and any other that may be reachable, send sensitive information to an attacker, or many other types of other malicious activity.
 
 ### Insecure Direct Object References
 
@@ -3875,16 +3874,16 @@ May produce output like the following:
     winston-email          0.0.10  0.0.10  0.0.11  winston-email
     winston-syslog-posix    0.1.5   0.1.5   1.1.0  winston-syslog
 
-* `Wanted` is the maximum version of the package that satisfies the semver range specified in package.json
+* `Wanted` is the maximum version of the package that satisfies the semver range specified in `package.json`
 * `latest` is the version of the package tagged as latest in the registry.
 
 ##### [npm-check](https://www.npmjs.com/package/npm-check)
 
-Is a similar tool to npm-outdated, but provides more information an an API useful for using in a CI tool-chain. Also informs you of missing or packages that are not currently being used.
+Is a similar tool to npm-outdated, but provides more information and an API useful for using in a CI tool-chain. npm-check can also inform you of missing or packages that are not currently being used.
 
 ##### [David](https://david-dm.org/)
 
-Uses your `package.json` file in your NodeJS project to check whether your dependencies are, up to date, no known vulnerabilities are found. You embed a badge on your Github page giving immediate feedback, which links to a page with details of any issues for your dependencies.
+Uses your `package.json` file in your NodeJS project to check whether your dependencies are up to date and no known vulnerabilities are found. You embed a badge on your Github page giving immediate feedback, which links to a page with details of any issues for your dependencies.
 
 ##### [RetireJS](https://github.com/RetireJS/retire.js)
 
@@ -3961,34 +3960,9 @@ RetireJS has the following:
 
 provides "_intentful auditing as a stream of intel for bithound_". Last time I spoke with [Adam Baldwin](https://twitter.com/adam_baldwin) this project was moving slowly. From all the redirects going on, it appears to be now soaked up into Node Security Platform (NSP).
 
-##### [Node Security Platform](https://nodesecurity.io/) (NSP)
-
-NSP at the time of writing is quite popular. It provides Github pull request integration, Has a Code Climate Node Security Engine. Code Climate was discussed briefly in the "Linting, Static Analysis" section of "Code Review" in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Also has a CLI, so is CI friendly.
-
-You can install the NSP CLI like:
-`npm install -g nsp`  
-To find out what nsp gives you:
-`nsp --help`
-To run a check, cd into your application directory and:
-`nsp check`
-Any known vulnerabilities present will be printed.
-
-There is also a:
-1. gulp plugin (`gulp-nsp`) which you can use to check all dependencies listed in your `package.json` or `shrinkwrap.json`.
-2. Visual Studio Code plugin that will run the NSP audit from within the editor. To install, open a command prompt with `Ctrl+Shift+C` and run the following command:  
-`ext install vscode-nsp`
-
-##### [Snyk](https://snyk.io)
-
-Has a fairly similar feature set to NSP, plus more, like:
-
-* Email notifications for new vulnerabilities and fixes
-* Customisation of the severity level at which the tests should fail
-* Automatically create Github pull requests to fix the vulnerability 
-
-Pricing seems a little dearer for non open source projects than NSP.
-
 ##### [bithound](https://www.bithound.io/)
+
+According to the Bithound Github, there doesn't appear to be much activity on this project currently, which may make sense as requireSafe appears to have been moved to NSP.
 
 In regards to NPM packages, we know the following things:
 
@@ -4014,17 +3988,39 @@ Analyses both NPM and Bower dependencies and notifies you if any are:
 
 Analysis of opensource projects are free.
 
-You could of course just list all of your projects and global packages and check that there are none in the [advisories](https://nodesecurity.io/advisories), but this would be more work and who is going to remember to do that all the time?
+##### [Node Security Platform](https://nodesecurity.io/) (NSP)
+
+NSP at the time of writing is quite popular. It provides Github pull request integration, Has a Code Climate Node Security Engine. Code Climate was discussed briefly in the "Linting, Static Analysis" section of "Code Review" in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Also has a CLI, so is CI friendly.
+
+You can install the NSP CLI like:  
+`npm install -g nsp`  
+To find out what nsp gives you:  
+`nsp --help`  
+To run a check, cd into your application directory and:  
+`nsp check`  
+Any known vulnerabilities present will be printed.
+
+There is also a:
+
+1. gulp plugin (`gulp-nsp`) which you can use to check all dependencies listed in your `package.json` or `shrinkwrap.json`.
+2. Visual Studio Code plugin that will run the NSP audit from within the editor. To install, open a command prompt with `Ctrl+Shift+C` and run the following command:  
+`ext install vscode-nsp`
+
+##### [Snyk](https://snyk.io)
+
+Has a fairly similar feature set to NSP, plus more, like:
+
+* Email notifications for new vulnerabilities and fixes
+* Customisation of the severity level at which the tests should fail
+* Automatically create Github pull requests to fix the vulnerability 
+
+The pricing model seems a little dearer for non open source projects than NSP.
 
 &nbsp;
 
+You could of course just list all of your projects and global packages and check that there are none in the [advisories](https://nodesecurity.io/advisories), but this would be more work and who is going to remember to do that all the time?
 
-%% Some ideas from Chetan Karande (NodeGoat maintainer)
-
-%% Tools for checking for outdated, incorrect, and unused dependencies: https://www.npmjs.com/package/npm-check, https://david-dm.org, and https://docs.npmjs.com/cli/outdated
-%% Tools for scanning external modules used in a project for known vulnerabilities: https://snyk.io/, https://www.npmjs.com/package/nsp, https://www.npmjs.com/package/requiresafe, and http://retirejs.github.io/retire.js/
-
-
+&nbsp;
 
 For **.Net developers**, there is the likes of [OWASP **SafeNuGet**](https://github.com/OWASP/SafeNuGet).
 
@@ -4197,20 +4193,23 @@ _Todo_
 
 ### Consuming Free and Open Source
 
-Some of the packages we consume may have good test coverage, but are the tests testing the right things? Are the tests testing that something can not happen? That is where the likes of RetireJS comes in.
+Adding process and tooling as discussed is a really good start, but it's not a complete solution alone to take care of the consumption of free and open source packages.  
+Some of the packages we consume may have good test coverage, be up to date, and have no known vulnerabilities. Are the tests testing the right things though? Are the tests testing that something bad can "not" happen, as we discussed in the creation of "Evil Test Conditions" in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)? This is where we really need something extra on top of a good process, static analysis and dependency checking tools. This is really where you need to leverage the likes of security regression testing, as I discussed in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
 #### Process
 
 There is a danger of implementing to much manual process thus slowing development down more than necessary. The way the process is implemented will have a lot to do with its level of success. For example automating as much as possible, so developers don't have to think about as much as possible is going to make for more productive, focused and [happier](https://en.wikipedia.org/wiki/Kaizen) developers.
 
-For example, when a Development Team needs to pull a library into their project, which often happens in the middle of working on a product backlog item (not planned at the beginning of the Sprint), if they have to context switch while a legal review and/or manual code review takes place, then this will cause friction and reduce the teams performance even though it may be out of their hands.  
+For example, when a Development Team needs to pull a library into their project, which often happens in the middle of working on a product backlog item, not necessarily planned at the beginning of the Sprint. If they have to context switch while a legal review and/or manual code review takes place, then this will cause friction and reduce the teams performance even though it may be out of their hands.  
 In this case, the Development Team really needs a dedicated resource to perform the legal review. The manual review could be done by another team member or even themselves with perhaps another team member having a quicker review after the fact. These sorts of decisions need to be made by the Development Team, not mandated by someone outside of the team that doesn't have skin in the game or does not have the localised understanding that the people working on the project do.
 
 Maintaining a list of the approved libraries really needs to be a process that does not take a lot of human interaction. How ever you work out your process, make sure it does not require a lot of extra developer effort on an ongoing basis. Some effort up front to automate as much as possible will facilitate this.
 
 #### Tooling
 
-Using the likes of pre-commit hooks, the other tooling options detailed in the [Countermeasures](#web-applications-countermeasures-consuming-free-and-open-source) section and creating scripts to do most of the work for us is probably going to be a good option to start with.
+Relying on tooling alone is not enough.
+
+Using the likes of pre-commit hooks with the CLIs and the other tooling options detailed in the [Countermeasures](#web-applications-countermeasures-consuming-free-and-open-source-tooling) section integrated with CI builds, and creating scripts to do most of the work for us, is going to be a good option to start with. Adding the automation of security regression testing on top of that, and your solution for managing potential vulnerabilities in free and open source packages is starting to look pretty solid.
 
 ### Insecure Direct Object References
 
