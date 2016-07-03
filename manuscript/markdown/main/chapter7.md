@@ -2,7 +2,7 @@
 
 ![10,000' view of VPS Security](images/10000VPS.gif)
 
-If possible, I usually advocate bringing VPS(s) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have control. A lot of the ideas in this section originated from a blog post of mine on [hardening Debian web servers](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/).
+If it makes sense, I usually advocate bringing VPS(s) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have control. A lot of the ideas in this section originated from a blog post of mine on [hardening Debian web servers](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/).
 
 ## 1. SSM Asset Identification {#vps-asset-identification}
 Take results from higher level Asset Identification found in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered. Here are some to get you started:
@@ -16,7 +16,7 @@ Take results from higher level Asset Identification found in the 30,000' View ch
   * File integrity and time stamp changes
   * Which system processes are running
   * System process health and responsiveness
-  * Current login sessions
+  * Current login sessions, and failed attempts
   * What any user is doing on the system currently
   * Network connections
   * Etc

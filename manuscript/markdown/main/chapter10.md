@@ -11,7 +11,7 @@ Take the results from the higher level Asset Identification in the 30,000' View 
 * Similarly to the [Asset Identification](#vps-asset-identification) section in the VPS chapter, Visibility is an asset that is up for grabs
 * Intellectual property or sensitive information within the code or configuration files such as email addresses and account credentials for the likes of data-stores, syslog servers, monitoring services. We address this in [Management of Application Secrets](#web-applications-identify-risks-management-of-application-secrets)
 * Sensitive Client/Customer data.
-* Sanity and piece of mind of people within your organisation. Those that are:
+* Sanity and peace of mind of people within your organisation. Those that are:
   * Well informed
   * Do not cut corners that should not be cut
   * Passionate and driven to be their best
@@ -531,8 +531,8 @@ We are consuming far more free and open source libraries than we have ever befor
 
 Many vulnerabilities can hide in these external dependencies. It is not just one attack vector any more, it provides the opportunity for many vulnerabilities to be sitting waiting to be exploited. If you do not find and deal with them, I can assure you, someone else will.
 
-Running install or any scripts from non local sources without first downloading them and inspecting can destroy or modify your and any other reachable systems, send sensitive information to an attacker, or any number
-of other criminal activities.
+Running any type of scripts from non local sources without first downloading and inspecting them, has the potential to cause massive damage, for example, destroy or modify your systems and any other that may be reachable, send sensitive information to an attacker, or any number
+of other malicious activities.
 
 ### Insecure Direct Object References
 
@@ -3841,15 +3841,50 @@ The most important step here is downloading and inspecting before you run.
 
 ##### Doppelganger Packages:
 
-Similarly to [Doppelganger Domains](#network-identify-risks-doppelganger-domains), People often miss-type what they want to install. If you were someone that wanted to do something malicious like have consumers of your package destroy or modify their systems, send sensitive information to you, or any number of other criminal activities (ideally identified in the [Identify Risks](#web-applications-identify-risks-consuming-free-and-open-source) section. If not already, add), doppelganger packages are an excellent avenue for raising the likelihood that someone will install your malicious package by miss typing the name of it with the name of another package that has a very similar name. I covered this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation, with demos.
+Similarly to [Doppelganger Domains](#network-identify-risks-doppelganger-domains), People often miss-type what they want to install. If you were someone that wanted to do something malicious like have consumers of your package destroy or modify their systems, send sensitive information to you, or any number of other malicious activities (ideally identified in the [Identify Risks](#web-applications-identify-risks-consuming-free-and-open-source) section. If not already, add), doppelganger packages are an excellent avenue for raising the likelihood that someone will install your malicious package by miss typing the name of it with the name of another package that has a very similar name. I covered this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation, with demos.
 
 Make sure you are typing the correct package name. Copy -> Pasting works.
 
 #### Tooling {#web-applications-countermeasures-consuming-free-and-open-source-tooling}
 
-_Todo_ Add nsp
-
 For **NodeJS developers**: Keep your eye on the [nodesecurity advisories](https://nodesecurity.io/advisories). Identified security issues can be posted to [NodeSecurity report](https://nodesecurity.io/report).
+
+Tooling for JavaScript package security defects is moving quickly, so although the below was correct at the time of writing, things may have progressed further.
+
+##### [npm-outdated](https://docs.npmjs.com/cli/outdated)
+
+Simply checking the NPM registry to see if any of your installed or specific packages are currently out of date.
+
+Running the following command in your application directory:  
+`npm outdated`  
+May produce output like the following:
+
+{title="npm-outdated", linenos=off}
+    Package               Current  Wanted  Latest  Location
+    body-parser            1.13.3  1.15.2  1.15.2  body-parser
+    config                 1.15.0  1.21.0  1.21.0  config
+    errorhandler            1.4.2   1.4.3   1.4.3  errorhandler
+    express                4.13.3  4.14.0  4.14.0  express
+    express-form           0.12.4  0.12.6  0.12.6  express-form
+    jade                   0.30.0  0.30.0  1.11.0  jade
+    less-middleware        0.1.11  0.1.11   2.1.0  less-middleware
+    method-override         2.3.5   2.3.6   2.3.6  method-override
+    morgan                  1.6.1   1.7.0   1.7.0  morgan
+    nodemailer              1.4.0  1.11.0   2.4.2  nodemailer
+    winston                 1.0.1   1.1.2   2.2.0  winston
+    winston-email          0.0.10  0.0.10  0.0.11  winston-email
+    winston-syslog-posix    0.1.5   0.1.5   1.1.0  winston-syslog
+
+* `Wanted` is the maximum version of the package that satisfies the semver range specified in package.json
+* `latest` is the version of the package tagged as latest in the registry.
+
+##### [npm-check](https://www.npmjs.com/package/npm-check)
+
+Is a similar tool to npm-outdated, but provides more information an an API useful for using in a CI tool-chain. Also informs you of missing or packages that are not currently being used.
+
+##### [David](https://david-dm.org/)
+
+Uses your `package.json` file in your NodeJS project to check whether your dependencies are, up to date, no known vulnerabilities are found. You embed a badge on your Github page giving immediate feedback, which links to a page with details of any issues for your dependencies.
 
 ##### [RetireJS](https://github.com/RetireJS/retire.js)
 
@@ -3914,7 +3949,7 @@ RetireJS has the following:
              "pre-commit": ["lint", "validate"]
           }
         
-      Keep in mind that `pre-commit` hooks can be very useful for all sorts of checking of things immediately before your code is committed. For example running security tests mentioned previously in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) with the OWASP ZAP API.
+      Keep in mind that `pre-commit` hooks can be very useful for all sorts of checking of things immediately before your code is committed. For example running [security regression tests](https://github.com/binarymist/NodeGoat/wiki/Security-Regression-Testing-with-Zap-API) mentioned previously in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) with the OWASP ZAP API, as demonstrated here: [https://youtu.be/DrwXUOJWMoo](https://youtu.be/DrwXUOJWMoo).
 2. Chrome extension
 3. Firefox extension
 4. Grunt plugin
@@ -3924,9 +3959,36 @@ RetireJS has the following:
 
 ##### requireSafe
 
-provides "_intentful auditing as a stream of intel for bithound_". I guess watch this space, as in speaking with [Adam Baldwin](https://twitter.com/adam_baldwin), there doesn't appear to be much happening here yet.
+provides "_intentful auditing as a stream of intel for bithound_". Last time I spoke with [Adam Baldwin](https://twitter.com/adam_baldwin) this project was moving slowly. From all the redirects going on, it appears to be now soaked up into Node Security Platform (NSP).
 
-##### bithound:
+##### [Node Security Platform](https://nodesecurity.io/) (NSP)
+
+NSP at the time of writing is quite popular. It provides Github pull request integration, Has a Code Climate Node Security Engine. Code Climate was discussed briefly in the "Linting, Static Analysis" section of "Code Review" in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Also has a CLI, so is CI friendly.
+
+You can install the NSP CLI like:
+`npm install -g nsp`  
+To find out what nsp gives you:
+`nsp --help`
+To run a check, cd into your application directory and:
+`nsp check`
+Any known vulnerabilities present will be printed.
+
+There is also a:
+1. gulp plugin (`gulp-nsp`) which you can use to check all dependencies listed in your `package.json` or `shrinkwrap.json`.
+2. Visual Studio Code plugin that will run the NSP audit from within the editor. To install, open a command prompt with `Ctrl+Shift+C` and run the following command:  
+`ext install vscode-nsp`
+
+##### [Snyk](https://snyk.io)
+
+Has a fairly similar feature set to NSP, plus more, like:
+
+* Email notifications for new vulnerabilities and fixes
+* Customisation of the severity level at which the tests should fail
+* Automatically create Github pull requests to fix the vulnerability 
+
+Pricing seems a little dearer for non open source projects than NSP.
+
+##### [bithound](https://www.bithound.io/)
 
 In regards to NPM packages, we know the following things:
 
@@ -4099,6 +4161,8 @@ Please keep your systems patched and updated.
 "_With Bromium micro-virtualization, we now have an answer: A desktop that is utterly secure and a joy to use_"
 
 There is a risk that people will believe this.
+
+%% t0x0 mentioned: Cred Guard was one thing. Others were EMET, https://support.microsoft.com/en-nz/kb/2458544 and PAWS https://technet.microsoft.com/en-us/library/mt634654.aspx
 
 ##### Linux:
 
