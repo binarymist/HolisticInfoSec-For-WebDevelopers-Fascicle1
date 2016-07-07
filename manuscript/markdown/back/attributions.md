@@ -160,6 +160,43 @@ Good resource on what XSS actually is:
 **The OWASP Top 10 risks** No. 2 Broken Authentication and Session Management  
 [https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management](https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management)
 
+
+
+
+
+
+**Exemptions have been granted so that OCB** can be used in software licensed under the GNU General Public License  
+[https://en.wikipedia.org/wiki/OCB_mode](https://en.wikipedia.org/wiki/OCB_mode)
+
+**Background on OCB** from the creator  
+[http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm#what-block-cipher](http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm#what-block-cipher)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 **the winston-syslog-posix package** was inspired by blargh  
 [https://www.npmjs.com/package/winston-syslog-posix](https://www.npmjs.com/package/winston-syslog-posix)  
 [http://tmont.com/blargh/2013/12/writing-to-the-syslog-with-winston](http://tmont.com/blargh/2013/12/writing-to-the-syslog-with-winston)

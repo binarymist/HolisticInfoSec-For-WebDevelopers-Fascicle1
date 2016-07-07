@@ -126,3 +126,14 @@ https://en.wikipedia.org/wiki/Blowfish_%28cipher%29
 
 **Good podcast on OWASP 24/7 soundcloud**  
 [https://soundcloud.com/owasp-podcast/john-melton-and-the-owasp-appsensor-project](https://soundcloud.com/owasp-podcast/john-melton-and-the-owasp-appsensor-project)
+
+
+
+**W3C Web Crypto API Update** Slides from Ryan Sleevi  
+[https://www.ietf.org/proceedings/86/slides/slides-86-saag-5.pdf](https://www.ietf.org/proceedings/86/slides/slides-86-saag-5.pdf)
+
+**What's wrong with in-browser cryptography** There is some great advice here, but I also don't agree with some of it.  
+[https://tonyarcieri.com/whats-wrong-with-webcrypto](https://tonyarcieri.com/whats-wrong-with-webcrypto)
+
+**Advice from Cryptographer Matt Green** to the W3C on the Web Cryptography APIs failure  
+[http://blog.cryptographyengineering.com/2012/12/the-anatomy-of-bad-idea.html](http://blog.cryptographyengineering.com/2012/12/the-anatomy-of-bad-idea.html)
