@@ -473,7 +473,8 @@ Cover `/etc/hosts.deny`, `/etc/hosts.allow`
 
 Cover sshuttle
 
-Cover the assymetric cryptosystems  
+Cover the assymetric cryptosystems
+
 %% RSA, DSA http://security.stackexchange.com/questions/5096/rsa-vs-dsa-for-ssh-authentication-keys
 
 ### Docker Containers

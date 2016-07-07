@@ -524,10 +524,10 @@ Being authorised, means the entity has the power or right to certain privileges.
 The things I see that seem to get many developers into trouble:
 
 1. Lack of understanding of what the tool is, where and how it should be used
-2. Use of low-level primitives with no to little knowledge of which are most suitable for which purposes. How to make them work together. How to use and configure them, so as to not introduce security defects, usually due to not understanding how the given primitive is designed and its purpose of used
+2. Use of low-level primitives with no to little knowledge of which are most suitable for which purposes. How to make them work together. How to use and configure them, so as to not introduce security defects, usually due to not understanding how the given primitive is designed and its purpose of use
 3. Many libraries have either:  
-  1. To many options which just helps to create confusion for developers as to what to use for which purpose. The options they do have are not the best for their intended purpose
-  2. The creators may be developers, but are not cryptographers
+    1. To many options which just helps to create confusion for developers as to what to use for which purpose. The options they do have are not the best for their intended purpose
+    2. The creators may be developers, but are not cryptographers
 
 There are so many use cases with the wider cryptography topic. There is no substitute for learning about your options, which to use in any given situation and how to use them.
 
@@ -3830,7 +3830,7 @@ Cryptography is one small ingredient that may go into creating a system that is 
 
 Has been implemented across browser vendors now.
 
-[![](images/ThreatTags/WebCryptoApi.png)](http://caniuse.com/cryptography)
+[![](images/WebCryptoApi.png)](http://caniuse.com/cryptography)
 
 > Above image from [http://caniuse.com/cryptography](http://caniuse.com/cryptography)  
 > Licensed under [CC by 4.0](https://creativecommons.org/licenses/by/4.0/)  
@@ -3845,7 +3845,7 @@ From the [W3C Web Cryptography API](https://dvcs.w3.org/hg/webcrypto-api/raw-fil
 
 For starters:
 
-* the user is untrusted, therefore their agent is untrusted
+* The user is untrusted, therefore their agent is untrusted
 * The key is the only thing that needs to be, and should be secret and trustworthy. Everything else should be public
 * If the key is managed by something that is untrusted (from the servers perspective), then the Web Crypto API is untrusted (from the servers perspective). Therefore crypto in the browser can not be trusted by the server, that is, if the server needs to trust it. 
 
@@ -4328,6 +4328,8 @@ Also consider that once an attacker has made off with your data-store, even if i
 Do not let over confidence be your weakness. An attacker will search out the weak link. Do your best to remove weak links.
 
 ### Lack of Authentication
+
+_Todo_
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-risks-that-solution-causes-cryptography-on-the-client}
 
