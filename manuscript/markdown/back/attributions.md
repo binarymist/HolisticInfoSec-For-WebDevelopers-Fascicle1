@@ -169,7 +169,7 @@ Good resource on what XSS actually is:
 [https://en.wikipedia.org/wiki/OCB_mode](https://en.wikipedia.org/wiki/OCB_mode)
 
 **Background on OCB** from the creator  
-[http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm#what-block-cipher](http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm#what-block-cipher)
+[http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm](http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm)
 
 
 

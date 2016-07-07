@@ -90,7 +90,7 @@ So I could say, just do not trust anyone or anything, but there comes a time and
 
 If you parse, render or execute data that you can not trust, that is data accepted by an unknown user, whether it be through a browser, intercepting communications somewhere along untrusted territory.
 
-The web stack today is very complicated. We have URLs, CSS, JavaScript, XML and its derivatives, templating languages and frameworks. Most of these languages have their own encoding, quoting, commenting, escaping, and most of which can be nested inside of each other. Making the web a very treacherous place in terms of security. Browsers have made their living out of being insanely convoluted at interpreting all of this. All scripts have the same level of privilege within the browser.
+The web stack today is very complicated. We have URLs, CSS, JavaScript, XML and its derivatives, templating languages and frameworks. Most of these languages have their own encoding, quoting, commenting, escaping, and most of which can be nested inside of each other. Making the web browser a very treacherous place in terms of security. Browsers have made their living out of being insanely convoluted at interpreting all of this. All scripts have the same level of privilege within the browser.
 
 This overly complex environment leads to confusion and a perfect haven for hiding malicious code chunks.
 
@@ -524,17 +524,16 @@ Being authorised, means the entity has the power or right to certain privileges.
 The things I see that seem to get many developers into trouble:
 
 1. Lack of understanding of what the tool is, where and how it should be used
-2. Use of low-level primitives with no to little knowledge of which are most suitable for which purposes. how to make them work together. How to use and configure them, so as to not introduce security defects, usually due to not understanding how the given primitive is designed and supposed to be used.
-3. Many libraries have either:
-  1. to many options which just helps to create confusion for developers as to what to use for which purpose. The options they do have are not the best for their intended purpose, The creators are not cryptographers. 
-
-Then there's the odd developer (not cryptographer) that tries to implement AES
+2. Use of low-level primitives with no to little knowledge of which are most suitable for which purposes. How to make them work together. How to use and configure them, so as to not introduce security defects, usually due to not understanding how the given primitive is designed and its purpose of used
+3. Many libraries have either:  
+  1. To many options which just helps to create confusion for developers as to what to use for which purpose. The options they do have are not the best for their intended purpose
+  2. The creators may be developers, but are not cryptographers
 
 There are so many use cases with the wider cryptography topic. There is no substitute for learning about your options, which to use in any given situation and how to use them.
 
 JavaScript crypto is wrought with problems.
 
-For example, there is nothing safe about having JavaScript in the browser store, read or manage an entropy pool. This gets a little better with the Web Cryptography API's (discussed in the [Countermeasures](#web-applications-countermeasures-cryptography-on-the-client) section) `window.crypto.getRandomValues()`. 
+For example, there is nothing safe about having JavaScript in the browser store, read or manage an entropy pool. This gets a little better with the Web Cryptography APIs (discussed in the [Countermeasures](#web-applications-countermeasures-cryptography-on-the-client) section) `window.crypto.getRandomValues()`. 
 
 Little trust should be placed in the browser and how it generally fails to manage attacks due to the complexities discussed in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-identify-risks-lack-of-input-validation-and-sanitisation) section. The browser has enough trouble getting all the technologies to work together and inside of each other, let-a-lone stopping malicious code fragments that do work from working. As most web developers have worked out, the browser is purposely designed to make even syntactically incorrect code work correctly.
 
@@ -546,42 +545,35 @@ Web development is hard. Web security is harder still.
 
 The following is a list of the best JavaScript crypto libraries we have available to us. I purposely left many out, as I don't want to muddy the waters and add more lower quality options:
 
-* Stanford JavaScript Crypto Library (SJCL)
+* **Stanford JavaScript Crypto Library (SJCL)**
   * Home page: [http://bitwiseshiftleft.github.io/sjcl/](http://bitwiseshiftleft.github.io/sjcl/) The default key stretching factor appears to be 1000. This should probably be adaptive to match the advances in hardware technology, as discussed under the [MembershipReboot](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-technology-and-design-decisions-membershipreboot) section. 
   * SJCL demo page: [http://bitwiseshiftleft.github.io/sjcl/demo/](http://bitwiseshiftleft.github.io/sjcl/demo/) which helps to explain some of the creators reasoning.
   * Source Code: [https://github.com/bitwiseshiftleft/sjcl/](https://github.com/bitwiseshiftleft/sjcl/)
-  * NPM package: [https://www.npmjs.com/package/sjcl](https://www.npmjs.com/package/sjcl). Yes the download count is way less than Forge, but SJCL is first in my list for a reason. SJCL provides minimal options of algorithms and cipher modes, etc. Just the best, to help ease the burdon of having to research many algorithms and cipher modes to find out which are now broken.   
+  * NPM package: [https://www.npmjs.com/package/sjcl](https://www.npmjs.com/package/sjcl). Yes the download count is way less than Forge, but SJCL is first in my list for a reason. SJCL provides minimal options of algorithms and cipher modes, etc. Just the best, to help ease the burden of having to research many algorithms and cipher modes to find out which are now broken.  
+    
   What's also really good to see is SJCL pushing consumers down the right path and issuing warnings around primitives that have issues. For example the warning against using CBC [https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers](https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers). I discuss this further in the [risks that solution causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
   
-  Other than the [countermeasure](#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api), This is probably the best offering we have for crypto in the browser. It has sensible defaults, good warnings, not to many options to understand in order to make good choices. This is one of those libraries that guide the developer down the right path.
+  Other than the [countermeasure](#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api), This is probably the best offering we have for crypto in the browser. It has sensible defaults, good warnings, not to many options to understand in order to make good choices. This is one of those libraries that guides the developer down the right path.
   
   Encrypts your plain text using the AES block cypher with a choice of cipher modes CCM or OCB2. AES is the industry-standard block-cipher for this purpose, one of the better choices for crypto in the browser if it must be done. AES comes in three forms. 128 bit (very efficient), 192 bit and 256 bit. The modes of operation that SJCL have provided for use with AES are the following two [Authenticated Encryption with Associated Data (AEAD)](https://en.wikipedia.org/wiki/Authenticated_encryption) ciphers:
   
-  AES-CCM. Counter with CBC-MAC (CCM) is a mode of operation for cryptographic block ciphers of 128 bits in length. It is an authenticated encryption algorithm designed to provide both authentication and confidentiality.
-  
-  AES-OCB2. [Offset CodeBook (OCB)](https://en.wikipedia.org/wiki/OCB_mode) is also a mode of operation for cryptographic block ciphers of 128 bits in length. OCB2 is an authenticated encryption algorithm designed to provide both authentication and confidentiality. OCB1 didn't allow associated data to be included with the message. Integrity verification is now part of the decryption step with OCB2. GCM is similar to OCB, but GCM and CCM don't have any patents. Although exemptions have been granted so that OCB can be used in software licensed under the GNU General Public License.  
+  1. AES-CCM. Counter with CBC-MAC (CCM) is a mode of operation for cryptographic block ciphers of 128 bits in length. It is an authenticated encryption algorithm designed to provide both authentication and confidentiality
+  2. AES-OCB2. [Offset CodeBook (OCB)](https://en.wikipedia.org/wiki/OCB_mode) is also a mode of operation for cryptographic block ciphers of 128 bits in length. OCB2 is an authenticated encryption algorithm designed to provide both authentication and confidentiality. OCB1 didn't allow associated data to be included with the message. Integrity verification is now part of the decryption step with OCB2. GCM is similar to OCB, but GCM and CCM don't have any patents. Although exemptions have been granted so that OCB can be used in software licensed under the GNU General Public License  
   
   * Uses PBKDF2 for One way hashing of passwords. More details around password hashing in the [Data-store Compromise](#web-applications-countermeasures-data-store-compromise) section.
-* Forge
+* **Forge**
   * Source Code: [https://github.com/digitalbazaar/forge](https://github.com/digitalbazaar/forge)
   * NPM package: [https://www.npmjs.com/package/node-forge](https://www.npmjs.com/package/node-forge)  
-  * JavaScript library that provides a native implementation of TLS and a large toolbox containing utilities and implementations (although many considered insecure now) for:
+  * Forge is a JavaScript library that provides a native implementation of TLS and a large toolbox containing utilities and implementations (although many considered insecure now) for:
     * Transports: TLS, HTTP, SSH, XHR, Sockets
     * Ciphers: AES, 3DES, DES and RC2
     * Cipher Modes:  GCM, ECB, CBC, CFB, OFB, and CTR
     * Asymmetric cryptography: RSA, RSA-KEM, X.509, PKCS#5, PKCS#7, PKCS#8, PKCS#10, PKCS#12 and ASN.1
     * Message Digests: SHA1, SHA256, SHA384, SHA512, MD5 and HMAC
     * Utilities: Prime number generator, pseudo-random number generator
-* OpenPGPjs
+* **OpenPGPjs**
   * Home page: [https://openpgpjs.org/](https://openpgpjs.org/)
   * Source Code: [https://github.com/openpgpjs/openpgpjs](https://github.com/openpgpjs/openpgpjs)
-
-
-
-
-
-
-
 
 ### Consuming Free and Open Source {#web-applications-identify-risks-consuming-free-and-open-source}
 ![](images/ThreatTags/average-widespread-difficult-moderate.png)
@@ -615,7 +607,7 @@ Your application should be actively defending itself.
 
 Every decision made in a project needs to factor in security. Just as with other non functional requirements, retrofitting means undoing what you've already done and rebuilding. Maintaining the mindset of going back later and bolting on security doesn't work.
 
-Often I'll hear people say "well we haven't been hacked so far". This shows a lack of understanding. I usually respond with "That you are aware of". Many of the most successful attacks go unnoticed. Even if you or your organisation haven't been compromised, business's are changing all the time, along with the attack surface and your assets. It's not a matter of if, it's a matter of when.
+Often I'll hear people say "well we haven't been hacked so far". This shows a lack of understanding. I usually respond with "That you are aware of". Many of the most successful attacks go unnoticed. Even if you or your organisation haven't been compromised, business's are changing all the time, along with the attack surface and your assets. It's more so a matter of when, than if.
 
 * [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008)
 
@@ -3826,6 +3818,8 @@ The OWASP [Session Management Cheat Sheet](https://www.owasp.org/index.php/Sessi
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-countermeasures-cryptography-on-the-client}
 
+![](images/ThreatTags/PreventionDIFFICULT.png)
+
 There are fundamental principles that we need to examine, understand and embrace before we dive into some details.
 
 The attackers will always target the easiest to compromise point of any given encryption protocol.
@@ -3836,7 +3830,7 @@ Cryptography is one small ingredient that may go into creating a system that is 
 
 Has been implemented across browser vendors now.
 
-[![](images/ThreatTags/average-widespread-average-severe.png)](http://caniuse.com/cryptography)
+[![](images/ThreatTags/WebCryptoApi.png)](http://caniuse.com/cryptography)
 
 > Above image from [http://caniuse.com/cryptography](http://caniuse.com/cryptography)  
 > Licensed under [CC by 4.0](https://creativecommons.org/licenses/by/4.0/)  
@@ -3849,15 +3843,13 @@ The browser is insecure and should never be trusted. HTML5 has added a lot of ex
 From the [W3C Web Cryptography API](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html)  
 "_The Web Crypto API defines a low-level interface to interacting with cryptographic key material that is managed or exposed by user agents._" but not exposed to the JavaScript application environment.
 
-For starters:  
+For starters:
+
 * the user is untrusted, therefore their agent is untrusted
 * The key is the only thing that needs to be, and should be secret and trustworthy. Everything else should be public
 * If the key is managed by something that is untrusted (from the servers perspective), then the Web Crypto API is untrusted (from the servers perspective). Therefore crypto in the browser can not be trusted by the server, that is, if the server needs to trust it. 
 
-
-
-
-The usual perspective in client/server relationships is that the server holds the single source of truth (the key). Where crypto in the browser comes into the picture is that the client holds the single source of truth. If the key is accessible to the JavaScript application environment, which it is if you are using your own JavaScript crypto or someone else's crypto libraries, then we're on very shaky ground. If however we can hide this key away from the JavaScript application environment, then we have a little more privacy.  
+The usual perspective in client/server relationships is that the server holds the single source of truth (the key). Where crypto in the browser comes into the picture is that the client holds the single source of truth. If the key is accessible to the JavaScript application environment, which it is if you are using your own JavaScript crypto or someone else's crypto libraries, then we're on very shaky ground. If however we can hide this key away from the JavaScript application environment and have the browser expose an API, then we have a little more privacy.  
 
 Relying on the Web Cryptography API as opposed to using low-level primitives provides a slightly better and more secure starting point. Why it's only slightly better is discussed in the [Risks that Solution Causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
 
@@ -3869,7 +3861,7 @@ In order, from the lower level to higher level, the following Web Crypto API con
 
 #### `[[handle]]`
 
-Internal slots and methods in the ECMA-262 (3, 5, 6) standards are usually represented within "`[[`", "`]]`" in the ECMA-262 specifications. Internal slots and methods are pseudo-properties/pseudo-methods that the specification uses to define required state (for internal slots), behaviour (for internal methods). Internal slots and methods are hidden from user code, never exposed to applications. They may or may not correspond to properties of objects used by the engine and/or exposed via the implementation of the public API. The internal slot named `[[handle]]`, just as all other internal slots and methods, represents an opaque, implementation specific type. The `[[handle]]` slot contains whatever data the underlying cryptographic implementation uses to represent a logical key. So in theory, the key material is never exposed to the JavaScript application environment, but rather via a user agent which manages or exposes to the internal `[[handle]]` slot.
+Internal slots and methods in the ECMA-262 (3, 5 and 6) standards are usually represented within "`[[`", "`]]`" in the ECMA-262 specifications. Internal slots and methods are pseudo-properties/pseudo-methods that the specification uses to define required state (for internal slots), behaviour (for internal methods). Internal slots and methods are hidden from user code, never exposed to applications. They may or may not correspond to properties of objects used by the engine and/or exposed via the implementation of the public API. The internal slot named `[[handle]]`, just as all other internal slots and methods, represents an opaque, implementation specific type. The `[[handle]]` slot contains whatever data the underlying cryptographic implementation uses to represent a logical key. So in theory, the key material is never exposed to the JavaScript application environment, but rather via a user agent which manages or exposes to the internal `[[handle]]` slot.
 
 #### `CryptoKey` (Web API interface)
 
@@ -4208,7 +4200,7 @@ At the time of writing the sample code is only in Java. The documentation is wel
 
 ## 4. SSM Risks that Solution Causes {#web-applications-risks-that-solution-causes}
 
-Often with increased security comes increased confidence. Increased confidence is a weakness in itself along with the fact that it brings with it other vulnerabilities. The more you know, the more you should be aware of how vulnerable you are.
+Often with increased security comes increased confidence. Increased confidence is a weakness in itself, along with the fact that it brings with it other vulnerabilities. The more you know, the more you should be aware of how vulnerable you are.
 
 ### Lack of Visibility
 
@@ -4337,21 +4329,13 @@ Do not let over confidence be your weakness. An attacker will search out the wea
 
 ### Lack of Authentication
 
-_Todo_
-
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-risks-that-solution-causes-cryptography-on-the-client}
 
-_Todo_
+The Web Cryptography API specification provides [algorithm recommendations](https://www.w3.org/TR/WebCryptoAPI/#algorithm-recommendations-implementers), that are not necessarily optimal, such as the most commonly used 30 year old AES-**CBC** mode of operation that have known vulnerabilities, and caveats that you must know about in order to use securely, such as:
 
-
-
-
-
-
-The Web Cryptography API specification provides [algorithm recommendations](https://www.w3.org/TR/WebCryptoAPI/#algorithm-recommendations-implementers), that are not necessarily optimal, such as the most commonly used 30 year old AES-**CBC** mode of operation that have known vulnerabilities, and caveats that you must know about in order to use securely, such as:  
 * The message must be padded to a multiple of the cipher block size
 * Encryption is sequential, it cannot be parallelized, because each block of plaintext must be XORed with the previous block of ciphertext before being encrypted. Because of this, each block of ciphertext depends on all previously processed blocks of plaintext up to that point
-* An initialisation vector must be used in the first block in order to create each message as unique
+* An initialisation vector (IV) must be used in the first block in order to create each message as unique
 * Requiring that the final block be padded before encryption
 * "_Decrypting with the incorrect IV causes the first block of plaintext to be corrupt but subsequent plaintext blocks will be correct_"
 * "_a one-bit change to the ciphertext causes complete corruption of the corresponding block of plaintext, and inverts the corresponding bit in the following block of plaintext, but the rest of the blocks remain intact. This peculiarity is exploited in different padding oracle attacks, such as POODLE._"
@@ -4359,7 +4343,7 @@ The Web Cryptography API specification provides [algorithm recommendations](http
 > Some of the above content was used from [https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)  
 > Licensed under [CC by 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License)
 
-There is no normative guidance in the specification as to which primitives have better qualities than others. For example the symmetric block cipher AES-GCM is good, but all of the other symmetric block ciphers listed are not [authenticated encryption modes](https://en.wikipedia.org/wiki/Authenticated_encryption). Thus they don't provide assurance that the data has not been modified. With a specification that is lacking normative advice to browser vendors, it's likely that the Web Crypto API will fail to serve the purpose it was created for, or at best provide the right primitives, but provide the dangerous ones also, and by looking at where chrome and firefox is heading, that's what it looks like.
+There is no normative guidance in the specification as to which primitives have better qualities than others. For example the symmetric block cipher AES-GCM is good, but all of the other symmetric block ciphers listed are not [authenticated encryption modes](https://en.wikipedia.org/wiki/Authenticated_encryption). Thus they don't provide assurance that the data has not been modified. With a specification that is lacking normative advice to browser vendors, it's likely that the Web Crypto API will fail to serve the purpose it was created for, or at best provide the right primitives, but provide the dangerous ones also, and by looking at where chrome and firefox is heading, that looks to be the case.
 
 Chrome Web Crypto API Supported Algorithms: [https://www.chromium.org/blink/webcrypto](https://www.chromium.org/blink/webcrypto)
 
@@ -4370,14 +4354,6 @@ At least both are offering AES-GCM, but now you have to make the decision, and t
 As usual, the [OWASP guidance](https://www.owasp.org/index.php/Cryptographic_Storage_Cheat_Sheet#Rule_-_Use_strong_approved_Authenticated_Encryption) (Cryptographic Storage Cheat Sheet) is excellent.
 
 There are many stack-overflow questions and answers where many think they have the answers but really don't and even accepted answers are completely incorrect and miss leading. Learn who the experts are, find out what they have to say and test their answers against what other experts have to say and for your self. All the information is available, you do have to take the time to absorb it though. There are few short-cuts that will put you in a good place for working out the optimal solution for your project.
-
-
-
-
-
-
-
-
 
 ### Consuming Free and Open Source
 
@@ -4511,28 +4487,15 @@ _Todo_
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-costs-and-trade-offs-cryptography-on-the-client}
 
+I've covered many technologies in this chapter and also in others, such as in the Network chapter under Countermeasures:
 
-
-
-
-
-
-
-I've covered many technologies in this chapter and also in others, such as in the Network chapter under Countermeasures:  
 * "Wrongfully Trusting the Loading of Untrusted Web Resources"  
   For example doing everything we can to validate that what we're downloading is in-fact what we think it is:
   * Content Security Policy (CSP)
   * Sub-resource Integrity (SRI), allowing us to cryptographically guarantee that the resources we are downloading have not been tampered with. There is no point in consuming what we think is the crypto library we designated if what we are actually consuming is an attackers side-channel attack
 * "TLS Downgrade"
 
-That if adopted and practised properly, along with selecting the right low level primitives for the Web Crypto API, can help us achieve a level of security that will work for us (the web application developers/owners). Of course this puts our best interests at the forefront, but not necessary the end users. As developers creating solutions for our users, We have a responsibility to put our users concerns first. 
-
-
-
-
-
-
-
+That if adopted and practised properly, along with selecting the right low level primitives for the Web Crypto API, can help us achieve a level of security that will work for us (the web application developers/owners). Of course this puts our best interests at the forefront, but not necessarily the end users. As developers creating solutions for our users, We have a responsibility to put our users concerns first. 
 
 ### Consuming Free and Open Source
 
