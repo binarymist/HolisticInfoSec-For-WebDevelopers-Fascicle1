@@ -525,7 +525,7 @@ The things I see that seem to get many developers into trouble:
 
 1. Lack of understanding of what the tool is, where and how it should be used
 2. Use of low-level primitives with no to little knowledge of which are most suitable for which purposes. How to make them work together. How to use and configure them, so as to not introduce security defects, usually due to not understanding how the given primitive is designed and its purpose of use
-3. Many libraries have either:  
+3. Many libraries have either:
     1. To many options which just helps to create confusion for developers as to what to use for which purpose. The options they do have are not the best for their intended purpose
     2. The creators may be developers, but are not cryptographers
 
