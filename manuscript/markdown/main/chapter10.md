@@ -574,6 +574,11 @@ The following is a list of the best JavaScript crypto libraries we have availabl
 * **OpenPGPjs**
   * Home page: [https://openpgpjs.org/](https://openpgpjs.org/)
   * Source Code: [https://github.com/openpgpjs/openpgpjs](https://github.com/openpgpjs/openpgpjs)
+* **SecurityDriven.Inferno**  
+  Although it's not a client side library, it's still worth mentioning, because it's opinionated and from the looks of it, Stan Drapkin is making good decisions and focussing on the best of bread components.
+  * Source Code: [https://github.com/sdrapkin/SecurityDriven.Inferno](https://github.com/sdrapkin/SecurityDriven.Inferno)
+  * Documentaion: [http://securitydriven.net/inferno/](http://securitydriven.net/inferno/)
+  * NuGet package: [https://www.nuget.org/packages/Inferno/](https://www.nuget.org/packages/Inferno/)
 
 ### Consuming Free and Open Source {#web-applications-identify-risks-consuming-free-and-open-source}
 ![](images/ThreatTags/average-widespread-difficult-moderate.png)
