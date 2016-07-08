@@ -126,13 +126,13 @@ There are other criteria that you can validate against as well, such as:
     is(/^[a-zA-Z ']+$/)
     // There is no sanitisation here.
 
-##### What is Filtering
+##### What is Filtering {#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-filtering}
 
 &nbsp;
 
 When some data can pass through (be received) and some is captured by the filter element (thou shalt not pass). OWASP has the RSnake donated seminal [XSS cheat sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) which has many tests you can use to check your vulnerability stance to XSS exploitation. This is highly recommended.
 
-##### What is Sanitisation
+##### What is Sanitisation {#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation}
 
 &nbsp;
 
@@ -338,6 +338,12 @@ There are two main problems here.
 
 1. SQL Injection
 2. Poor decisions around sensitive data protection. We discuss this in depth further on in this chapter in the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) section and even more so the [Countermeasures](#web-applications-countermeasures-data-store-compromise) of. Do not follow this example of a lack of well salted and quality strong key derivation functions (KDFs) used on all of the sensitive data in your own projects.
+
+#### NoSQLi {#web-applications-identify-risks-nosqli}
+
+_Todo_
+
+%% https://www.owasp.org/index.php/Testing_for_NoSQL_injection
 
 #### Command Injection {#web-applications-identify-risks-command-injection}
 
@@ -1075,11 +1081,18 @@ Attempt to use well tested, battle hardened language specific libraries that kno
 
 Create enough "Evil Test Conditions" as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) to verify that:
 
-* Only white listed characters can be received (both client and server side)
-* Your filtering routines are doing as expected with valid and non valid input (both client and server side)
-* All valid characters that need some modification are modified. Modifying could simply be a case of for example rounding a float down (removing precision), or changing the case of an alpha character. Not usually a security issue.
-* Sanitising or transforming the character signatures known to be dangerous in the execution contexts you have discovered you have in your code that these character signatures pass through / are placed in; are transformed into their safe counterparts. If your libraries cover all cases, which from my experience I have not seen yet, that is great, but often there will be edge cases that stop the libraries being useful in every case. I provide an example of this below where the available libraries did not cover the edge cases I had in a project I worked on a few years ago. When this happens you may need to create some sanitisation logic. At this point, you are really going to have to gain good understanding of the execution contexts that will affect you and the different types of escaping you need to know about.
-* Maximum and minimum field lengths are enforced
+* **Validation**
+  * Only white listed characters can be received (both client and server side)
+  * Maximum and minimum field lengths are enforced
+  * Constrain fields to well structured data, like: dates, social security numbers, area codes, e-mail addresses, etc. The more you can define the types of data that is permitted in any given field, the easier it is to apply a white list and validate effectively
+  * You have read, understood and implemented [Validation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) as per Identify Risks section
+* **Filtering**
+  * Your filtering routines are doing as expected with valid and non valid input (both client and server side)
+  * You have read, understood and implemented [Filtering](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-filtering) as per Identify Risks section
+* **Sanitisation**
+  * All valid characters that need some modification are modified. Modifying could simply be a case of for example rounding a float down (removing precision), or changing the case of an alpha character. Not usually a security issue.
+  * Sanitising or transforming the character signatures known to be dangerous in the execution contexts you have discovered you have in your code that these character signatures pass through / are placed in; are transformed into their safe counterparts. If your libraries cover all cases, which from my experience I have not seen yet, that is great, but often there will be edge cases that stop the libraries being useful in every case. I provide an example of this below where the available libraries did not cover the edge cases I had in a project I worked on a few years ago. When this happens you may need to create some sanitisation logic. At this point, you are really going to have to gain good understanding of the execution contexts that will affect you and the different types of escaping you need to know about.
+
 
 ##### Types of Escaping: {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-types-of-escaping}
 
@@ -2657,6 +2670,10 @@ There are a few options here:
 
 There are plenty of easy to find and understand resources on the inter-webs around SQLi mitigations and the countermeasures are generally very easy to implement. So now you have no excuse.
 
+#### NoSQLi {#web-applications-countermeasures-nosqli}
+
+_Todo_
+
 #### Command Injection {#web-applications-countermeasures-command-injection}
 
 On top of the points mentioned above under [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation), 
@@ -4184,6 +4201,8 @@ _Todo_
 1. [Fusker](https://www.npmjs.com/package/fusker). Not sure if this is still actively maintained. At this point, there has not been any recent commits for about three years, but it does look like the best offering we have at this stage for NodeJS. So if your looking to help a security project out...
 2. [express-waf](https://www.npmjs.com/package/express-waf) has recent commits, but there is only a single developer working on it when I checked.
 
+%% OWASP Wellington WAF talk: https://www.youtube.com/watch?v=iAPFf9Iqwos
+
 #### Application Intrusion Detection and Response
 
 You can think of this as taking a WAF one step closer to your application. In fact integrating it with your application. Augmenting your application with logic to detect and respond to threats.
@@ -4238,6 +4257,10 @@ _Todo_
 _Todo_
 
 #### SQLi
+
+_Todo_
+
+#### NoSQLi {#web-applications-risks-that-solution-causes-nosqli}
 
 _Todo_
 
@@ -4338,7 +4361,7 @@ _Todo_
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-risks-that-solution-causes-cryptography-on-the-client}
 
-The Web Cryptography API specification provides [algorithm recommendations](https://www.w3.org/TR/WebCryptoAPI/#algorithm-recommendations-implementers), that are not necessarily optimal, such as the most commonly used 30 year old AES-**CBC** mode of operation that have known vulnerabilities, and caveats that you must know about in order to use securely, such as:
+The Web Cryptography API specification provides [algorithm recommendations](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#algorithm-recommendations-implementers), that are not necessarily optimal, such as the most commonly used 30 year old AES-**CBC** mode of operation that have known vulnerabilities, and caveats that you must know about in order to use securely, such as:
 
 * The message must be padded to a multiple of the cipher block size
 * Encryption is sequential, it cannot be parallelized, because each block of plaintext must be XORed with the previous block of ciphertext before being encrypted. Because of this, each block of ciphertext depends on all previously processed blocks of plaintext up to that point
@@ -4427,6 +4450,10 @@ _Todo_
 _Todo_
 
 #### SQLi
+
+_Todo_
+
+#### NoSQLi {#web-applications-costs-and-trade-offs-nosqli}
 
 _Todo_
 
