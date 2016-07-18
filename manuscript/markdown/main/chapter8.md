@@ -363,9 +363,6 @@ https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulne
 
 
 
-_Todo_ Discuss the huge attack surface discussed briefly in the [Physical](#physical-identify-risks-wifi) chapter.
-
-
 ## 3. SSM Countermeasures
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
