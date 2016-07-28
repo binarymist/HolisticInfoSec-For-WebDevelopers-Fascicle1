@@ -4186,7 +4186,8 @@ You could of course just list all of your projects and global packages and check
 
 &nbsp;
 
-For **.Net developers**, there is the likes of [OWASP **SafeNuGet**](https://github.com/OWASP/SafeNuGet).
+For **.Net developers**, there is the likes of [OWASP **SafeNuGet**](https://github.com/OWASP/SafeNuGet).  
+OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) also notifies of known, publicly disclosed vulnerabilities in Java and .Net, with experimental support for Ruby, Node.js and Python. I haven't used DependencyCheck, it produces [false positives and false negatives](https://jeremylong.github.io/DependencyCheck/).
 
 ### Insecure Direct Object References
 
@@ -4375,7 +4376,7 @@ The Web Cryptography API specification provides [algorithm recommendations](http
 
 There is no normative guidance in the specification as to which primitives have better qualities than others. For example the symmetric block cipher AES-GCM is good, but all of the other symmetric block ciphers listed are not [authenticated encryption modes](https://en.wikipedia.org/wiki/Authenticated_encryption). Thus they don't provide assurance that the data has not been modified. With a specification that is lacking normative advice to browser vendors, it's likely that the Web Crypto API will fail to serve the purpose it was created for, or at best provide the right primitives, but provide the dangerous ones also, and by looking at where chrome and firefox is heading, that looks to be the case.
 
-The following table shows the Web Crypto API supported algorithms for Chromium (as of version 46) and Mozilla (as of July 2016)
+The following table shows the Web Crypto API supported algorithms for Chromium (as of version 46) and Mozilla (as of July 2016).
 
 | Algorithm                  | Chromium | Mozilla | 
 |----------------------------|----------|---------|
