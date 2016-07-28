@@ -4361,7 +4361,7 @@ _Todo_
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-risks-that-solution-causes-cryptography-on-the-client}
 
-The Web Cryptography API specification provides [algorithm recommendations](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#algorithm-recommendations-implementers), that are not necessarily optimal, such as the most commonly used 30 year old AES-**CBC** mode of operation that have known vulnerabilities, and caveats that you must know about in order to use securely, such as:
+The Web Cryptography API specification provides [algorithm recommendations](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#algorithm-recommendations-implementers), that are not necessarily optimal, such as the most commonly used 30 year old AES-**CBC** mode of operation that has known vulnerabilities, and caveats that you must know about in order to use securely, such as:
 
 * The message must be padded to a multiple of the cipher block size
 * Encryption is sequential, it cannot be parallelized, because each block of plaintext must be XORed with the previous block of ciphertext before being encrypted. Because of this, each block of ciphertext depends on all previously processed blocks of plaintext up to that point
@@ -4375,9 +4375,31 @@ The Web Cryptography API specification provides [algorithm recommendations](http
 
 There is no normative guidance in the specification as to which primitives have better qualities than others. For example the symmetric block cipher AES-GCM is good, but all of the other symmetric block ciphers listed are not [authenticated encryption modes](https://en.wikipedia.org/wiki/Authenticated_encryption). Thus they don't provide assurance that the data has not been modified. With a specification that is lacking normative advice to browser vendors, it's likely that the Web Crypto API will fail to serve the purpose it was created for, or at best provide the right primitives, but provide the dangerous ones also, and by looking at where chrome and firefox is heading, that looks to be the case.
 
-Chrome Web Crypto API Supported Algorithms: [https://www.chromium.org/blink/webcrypto](https://www.chromium.org/blink/webcrypto)
+The following table shows the Web Crypto API supported algorithms for Chromium (as of version 46) and Mozilla (as of July 2016)
 
-Firefox Web Crypto API Supported Algorithms: [https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API/Supported_algorithms](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API/Supported_algorithms)   
+| Algorithm                  | Chromium | Mozilla | 
+|----------------------------|----------|---------|
+| RSASSA-PKCS1-v1_5          | Yes      | Yes
+| RSA-PSS                    | Yes      | No
+| RSA-OAEP                   | Yes      | Yes
+| ECDSA                      | Yes      | Yes
+| ECDH                       | Yes      | Yes
+| AES-CTR                    | Yes      | Yes
+| AES-CBC                    | Yes      | Yes
+| AES-CMAC                   | No       | No
+| AES-GCM                    | Yes      | Yes
+| AES-CFB                    | No       | No
+| AES-KW                     | Yes      | Yes
+| HMAC                       | Yes      | Yes
+| Diffie-Hellman             | No       | Yes
+| SHA-1                      | Yes      | ?
+| SHA-256                    | Yes      | ?
+| SHA-384                    | Yes      | ?
+| SHA-512                    | Yes      | ?
+| Concat KDF                 | No       | No
+| HKDF                       | Yes      | No
+| PBKDF2                     | Yes      | No
+| RSAES-PKCS1-v1_5           | No       | No
 
 At least both are offering AES-GCM, but now you have to make the decision, and to much choice can bring confusion. The only way for us web developers to know which choices to make, is spend the time researching what to use where and asking your self the questions, why? Question everything.
 

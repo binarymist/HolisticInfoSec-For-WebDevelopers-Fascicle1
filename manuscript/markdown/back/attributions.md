@@ -342,3 +342,7 @@ OpenID Connect [http://openid.net/specs/openid-connect-core-1_0.html](http://ope
 **RequireSafe provides** "_intentful auditing as a stream of intel for bithound_":  
 [https://blog.liftsecurity.io/2015/02/10/introducing-requiresafe-peace-of-mind-third-party-node-modules](https://blog.liftsecurity.io/2015/02/10/introducing-requiresafe-peace-of-mind-third-party-node-modules)
 
+**The Web Crypto API supported algorithms** for Chromium (as of version 46) and Mozilla (as of July 2016)  
+[https://www.chromium.org/blink/webcrypto](https://www.chromium.org/blink/webcrypto)  
+[https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API/Supported_algorithms](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API/Supported_algorithms)
+
