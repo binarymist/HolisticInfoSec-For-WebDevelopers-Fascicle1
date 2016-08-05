@@ -3923,7 +3923,7 @@ Is one use case. In this scenario, the server doesn't need to trust the client. 
 which uses a similar concept as the cloud storage, but the data doesn't necessarily have to ever touch the server. A couple of offerings that come to mind are:
 
 1. Chris Campbells [DeadDrop](https://deaddrop.jadeworld.com/) which has been lovingly crafted and offered free of charge.
-2. [Tresorit](https://tresorit.com) which seems very expensive.
+2. [Tresorit](https://tresorit.com) which has a large price tag.
 
 &nbsp;
 
