@@ -3918,9 +3918,12 @@ Cryptography on the client does have its place. Use it in its designated place a
 
 Is one use case. In this scenario, the server doesn't need to trust the client. It receives data from the client, stores it and returns it. The user is exchanging their data with themselves in the future. So long as the server never attempts to parse or execute it and the only browser that it may end up in is from the client that sent it to start with. The client is responsible for the key. The data is usually encrypted on the client, sent to the server encrypted, then fetched back to the client and then finally decrypted again with the key that the client is responsible for.
 
-#### Protected Document Exchange
+#### Protected Data and Document Exchange
 
-which uses a similar concept as the cloud storage.
+which uses a similar concept as the cloud storage, but the data doesn't necessarily have to ever touch the server. A couple of offerings that come to mind are:
+
+1. Chris Campbells [DeadDrop](https://deaddrop.jadeworld.com/) which has been lovingly crafted and offered free of charge.
+2. [Tresorit](https://tresorit.com) which seems very expensive.
 
 &nbsp;
 
