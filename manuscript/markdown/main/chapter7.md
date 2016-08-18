@@ -184,7 +184,7 @@ _Todo_: [Take this further](https://github.com/binarymist/HolisticInfoSec-For-We
 
 Probe the portmapper on target host where target host is an IP address or a host name:
 
-%% http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#rpc-portmapper
+_Todo_ Review and add to: http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#rpc-portmapper
 
 The rpcinfo command with `-p` will list all registered RPC programs. Many RPC programs are vulnerable to a collection of attacks. 
 

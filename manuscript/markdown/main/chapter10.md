@@ -343,7 +343,7 @@ There are two main problems here.
 
 _Todo_
 
-%% https://www.owasp.org/index.php/Testing_for_NoSQL_injection
+https://www.owasp.org/index.php/Testing_for_NoSQL_injection
 
 #### Command Injection {#web-applications-identify-risks-command-injection}
 
@@ -606,7 +606,9 @@ Running any type of scripts from non local sources without first downloading and
 
 _Todo_
 
-%% Todo: Spider my website. Document how to. Node Goat also had some good exercises around this.
+NodeGoat also had some good exercises around this.
+
+%% Todo: Spider my website. Document how to.
 
 ### Lack of Active Automated Prevention
 
@@ -1050,6 +1052,8 @@ One of the ways we can generate statistics for our statsd daemon is by using one
 _Todo_
 
 Detail how we collect application statistics and send to graphite. Show real life example.
+
+See list of commented resources.
 
 %% The first and best set of resources are the four posts detailed at the bottom of this one: https://www.digitalocean.com/community/tutorials/an-introduction-to-tracking-statistics-with-graphite-statsd-and-collectd
 
@@ -4359,9 +4363,23 @@ Also consider that once an attacker has made off with your data-store, even if i
 
 Do not let over confidence be your weakness. An attacker will search out the weak link. Do your best to remove weak links.
 
-### Lack of Authentication
+### Lack of Authentication, Authorisation and Session Management
 
-_Todo_
+This is a complex topic with many areas that the developer must understand in order to make the best decisions. Having team members that already have strengths in these areas can help a lot. The technologies are moving fast, but many of the concepts encountered are similar across the technology generations. It helps to have a healthy fear, some experience of what can go wrong, and an understanding of just how many concepts must be understood in order to piece together a solution that is going to work well and resist the attacks of your enemies.
+
+The flows, what they are, how they work and in which situations you should use any one of them, can easily be misunderstood.
+
+When navigating the edge-cases and deciding on specific paths, the developer can often end up at a dead-end and must back-track/re-architect their approach.
+
+There are risks that you may misinterpret any of the specifications, such as OAuth and OpenID, as these are complicated and fraught with concepts that can be easily misunderstood.
+
+In regards to securing sessions, you have some options. If you are constrained by business requirements that insist that you use cookies, then your attack vectors are more dispersed (XSS and CSRF). If you are not constrained to use cookies, and decide to use LocalStorage for all storage of client-side session artefacts, then you can reduce your scope of focus to just XSS, but your XSS defence strategy is going to need to be water tight.
+
+
+
+
+
+
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-risks-that-solution-causes-cryptography-on-the-client}
 
@@ -4541,7 +4559,7 @@ Segmenting of resources is a common and effective measure to take for at least s
 
 The countermeasures discussed here go without saying, although many organisations do not do them well if at all. It is up to you whether you want to be one of the statistics that has all of their secrets revealed. Following the countermeasures here is something that just needs to be done if you have any data that is sensitive in your data-store(s). 
 
-### Lack of Authentication
+### Lack of Authentication, Authorisation and Session Management
 
 _Todo_
 
