@@ -4375,12 +4375,6 @@ There are risks that you may misinterpret any of the specifications, such as OAu
 
 In regards to securing sessions, you have some options. If you are constrained by business requirements that insist that you use cookies, then your attack vectors are more dispersed (XSS and CSRF). If you are not constrained to use cookies, and decide to use LocalStorage for all storage of client-side session artefacts, then you can reduce your scope of focus to just XSS, but your XSS defence strategy is going to need to be water tight.
 
-
-
-
-
-
-
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-risks-that-solution-causes-cryptography-on-the-client}
 
 The Web Cryptography API specification provides [algorithm recommendations](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#algorithm-recommendations-implementers), that are not necessarily optimal, such as the most commonly used 30 year old AES-**CBC** mode of operation that has known vulnerabilities, and caveats that you must know about in order to use securely, such as:
@@ -4561,7 +4555,11 @@ The countermeasures discussed here go without saying, although many organisation
 
 ### Lack of Authentication, Authorisation and Session Management
 
-_Todo_
+The cost of performing enough research and creating Proof of Concepts (PoC) is significant, even more so when your project is micro-service based, as you will have multiple technology environments to work through (server side, client side, mobile, IoT, etc). I've found that if your project has the luxury of being green-fields, then reducing the technologies used to the lowest common denominator can reduce a lot of effort. What I mean by this, is that if you can use the same technologies in all environments, or as many as possible, this will reduce the amount of Research and Development (R&D) that the team will need to do in order to prove a working solution. The lowest common denominator in terms of technology stacks that work in all environments is JavaScript. In case you hadn't noticed, JavaScript is creeping into all environments because of this very reason. Embrace it, and you'll likely save a lot of money.
+
+I've heard many times "but we just can't find enough people with solid JavaScript skills and experience". Now it doesn't matter what the specific speciality is, I've personally struggled with this type of comment. If you think back to the Countermeasures section of the People chapter of Fascicle 0, specifically "Morale, Productivity and Engagement Killers" onwards, there was quite a bit of information around how to treat people with the respect they deserve. Exceptionally talented technical workers have paid a high price to become what and who they are. If you learn to always respect them and build strong meaningful relationships with these highly talented people, when you need the talent, it'll be easy to find, they'll be your friends. This has been my experience anyway. You can find these individuals always attending after works tech meetups, tech conferences and other events. They are always pushing their own technical limits and increasing their knowledge and experience. They are not hard to find if you follow this advice.
+
+If you still struggle, reach out to me, and I'll do my best to help.
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-costs-and-trade-offs-cryptography-on-the-client}
 
