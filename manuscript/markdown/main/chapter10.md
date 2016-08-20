@@ -22,36 +22,28 @@ Take the results from the higher level Asset Identification in the 30,000' View 
   Some of the following risks will threaten the sanity of these people if the countermeasures are not employed.
 
 ## 2. SSM Identify Risks
-Go through same process as we did at the top level in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for Web Application.
+Go through the same process as we did at the top level, in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for Web Applications. Also [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008) is useful.
 
-* [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008)
-* _Todo_ Exploit WebRTC
-  * [Part 1](http://blog.beefproject.com/2015/01/hooked-browser-meshed-networks-with.html)
-  * [Part 2](http://blog.beefproject.com/2015/01/hooked-browser-meshed-networks-with_26.html)
-
-This slide was from a talk I did at OWASP NZ Day 2013. The top 10 vulnerabilities do not change a lot
+The following is the OWASP Top 10 vulnerabilities for 2003, 2004, 2007, 2010 and 2013.
 
 &nbsp;
 
-![](images/2013OWASPTop10.jpg)
+![](images/OWASPTop10OverTime.png)
 
 &nbsp;
 
-They were actually very similar 10 years ago.
-   
-The vulnerabilities that have not changed a lot are:
+As you can see there are some vulnerabilities that we are just not getting better at removing. I've listed them in order of most consistent to not quite as consistent:
 
-* No. 1 Injection (and the easiest to fix)
-* No. 2 Broken Authentication and Session Management
-* No. 3 XSS
-* No. 4 Insecure Direct Object References
-* No. 5 Security Misconfiguration
-* No. 8 Frameworks are helping with CSRF
-* No. 9 is new, because we are now consuming a lot more packages without vetting them.
+1. Injection (and the easiest to fix)
+2. Broken Authentication and Session Management
+3. XSS
+4. Insecure Direct Object References
+5. Missing Function Level Access Control
+6. We have gotten a little better at reducing CSRF with using the likes of the synchroniser token pattern, and possibly using LocalStorage more than cookies
+
+"Using Components with Known Vulnerabilities" is one that I think we are going to see get worse before it gets better, due to the fact that we are consuming a far greater amount of free and open source. With the increase of free and open source package repositories, such as NPM, NuGet and various others, we are now consuming a far greater number of packages without vetting them before including them in our projects. This is why I've devoted a set of sections ("Consuming Free and Open Source") within this chapter to this. There are also sections devoted to this topic in the VPS and Network chapters titled "Using Components with Known Vulnerabilities". It's not just a problem with software. We are trying to achieve more with less of our own work, so in many cases we are blindly trusting other sources. From the attackers perspective, this is an excellent vector to compromise for maximum exploitation.
 
 &nbsp;
-
-![](images/OWASPTop10SomeThingsDontChange.jpg)
 
 {pagebreak}
 
@@ -144,6 +136,8 @@ You need to know which contexts your input data will pass through in order to sa
 
 _Todo_
 <!--- https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008 -->
+
+%% https://github.com/trustedsec/unicorn
 
 #### Cross-Site Scripting (XSS) {#web-applications-identify-risks-cross-site-scripting}
 ![](images/ThreatTags/average-verywidespread-easy-moderate.png)
@@ -410,15 +404,14 @@ There are many examples of data-store compromise happening on a daily basis. If 
 
 Other notable data-store compromises were [LinkedIn](https://en.wikipedia.org/wiki/2012_LinkedIn_hack) with 6.5 million user accounts compromised and 95% of the users passwords cracked in days. Why so fast? Because they used simple hashing, specifically SHA-1. [EBay](http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-employee-credentials-/d/d-id/1269093) with 145 million active buyers. Many others coming to light regularly. 
 
-Are you using well salted and quality strong key derivation functions (KDFs) for all of your sensitive data? Are you making sure you are notifying your customers about using high quality passwords? Are you informing them what a high quality password is? Consider checking new user credentials against a list of the most frequently used and insecure passwords collected.
-
-%% http://www.windowsecurity.com/articles-tutorials/authentication_and_encryption/How-Cracked-Windows-Password-Part2.html
+Are you using well salted and quality strong key derivation functions (KDFs) for all of your sensitive data? Are you making sure you are notifying your customers about using high quality passwords? Are you informing them what a high quality password is? Consider checking new user credentials against a list of the most frequently used and insecure passwords collected. I discussed Password Lists in the Tooling Setup chapter. You could also use wordlists targeting the most commonly used passwords, or create an algorithm that works out  
 
 #### Caching of Sensitive Data {#web-applications-identify-risks-management-of-application-secrets-caching-of-sensitive-data}
 ![](images/ThreatTags/easy-common-difficult-moderate.png)
 
 _Todo_
 
+%% http://www.windowsecurity.com/articles-tutorials/authentication_and_encryption/How-Cracked-Windows-Password-Part2.html
 
 
 #### Physical Access
@@ -437,9 +430,9 @@ _Todo_
 
 _Todo_
 
-Remember we covered Password Profiling in the People chapter where we essentially made good guesses around the end users passwords. Here we already have the password hashes. We just need to find the source passwords that created the hashes.
+Remember we covered Password Profiling in the People chapter where we essentially made good guesses, both manually and with the use of profiling tools, around the end users passwords, and then feed the short-list to a brute forcing tool. Here we already have the password hashes. We just need to find the source passwords that created the hashes. This is where cracking comes in.
 
-When an attacker acquires a data-store or domain controller dump of hashed passwords, they need to crack the hashes in order to get the passwords. How this works is the attacker will find or create a suitable password list of possible passwords. The tool used will attempt to create a hash of each of these words based on the hashing algorithm used on the dump of hashes. Then compare each dumped hash with the hashes just created. When a match is found, we know that the word in our wordlist used to create the hash that matches the dumped hash is in fact a legitimate password.
+When an attacker acquires a data-store or domain controller dump of hashed passwords, they need to crack the hashes in order to get the passwords. How this works, is the attacker will find or create a suitable password list of possible passwords. The tool used will attempt to create a hash of each of these words based on the hashing algorithm used on the dump of hashes. Then compare each dumped hash with the hashes just created. When a match is found, we know that the word in our wordlist used to create the hash that matches the dumped hash is in fact a legitimate password.
 
 A smaller wordlist is going to take less time to create the hashes. As this is often an off-line attack, a larger wordlist is often preferred over a smaller one because the number of generated hashes will be greater, which when compared to the dump of hashes means the likelihood of a greater number of matches is increased.
 
@@ -615,6 +608,24 @@ NodeGoat also had some good exercises around this.
 _Todo_
 
 Your application should be actively defending itself.
+
+### Defective Real-Time Peer-to-Peer Browser Communication
+
+_Todo_
+
+%% https://www.google.com/search?q=webrtc+owasp&oq=webrtc+owasp&aqs=chrome..69i57.4423j0j7&client=ubuntu&sourceid=chrome&ie=UTF-8#q=%22webrtc%22+owasp
+%% https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2016#tab=Speakers_List
+%% https://owaspappseceurope2015.sched.org/event/36y4/webrtc-or-how-secure-is-p2p-browser-communication
+%% https://www.google.com/search?q=web+security+specification&oq=web+security+specification&aqs=chrome..69i57j0l3.4975j0j7&client=ubuntu&sourceid=chrome&ie=UTF-8#q=web+security+specification+webrtc
+%% https://www.w3.org/TR/webrtc/
+%% https://tools.ietf.org/html/draft-ietf-rtcweb-security-arch-07
+%% https://webrtc-security.github.io/
+
+%% BeEF: http://blog.beefproject.com/2015/01/hooked-browser-meshed-networks-with.html
+%% BeEF: http://blog.beefproject.com/2015/01/hooked-browser-meshed-networks-with_26.html
+
+%% Details from anti-child-trafficking set-up I did
+%% Research from Felix
 
 ## 3. SSM Countermeasures
 
@@ -4230,6 +4241,10 @@ AppSensor provides > 50 (signature based) detection points. Provides guidance on
 
 At the time of writing the sample code is only in Java. The documentation is well worth checking out though. Resources in [Additional Resources]() chapter.
 
+### Defective Real-Time Peer-to-Peer Browser Communication
+
+_Todo_
+
 ## 4. SSM Risks that Solution Causes {#web-applications-risks-that-solution-causes}
 
 Often with increased security comes increased confidence. Increased confidence is a weakness in itself, along with the fact that it brings with it other vulnerabilities. The more you know, the more you should be aware of how vulnerable you are.
@@ -4457,6 +4472,10 @@ _Todo_
 
 _Todo_
 
+### Defective Real-Time Peer-to-Peer Browser Communication
+
+_Todo_
+
 ## 5. SSM Costs and Trade-offs {#web-applications-costs-and-trade-offs}
 
 All security has a cost. Your resources are limited, spend them wisely.
@@ -4557,7 +4576,7 @@ The countermeasures discussed here go without saying, although many organisation
 
 The cost of performing enough research and creating Proof of Concepts (PoC) is significant, even more so when your project is micro-service based, as you will have multiple technology environments that cross cutting concerns such as authentication, authorisation and session management affect (server side, client side, mobile, IoT, etc). I've found that if your project has the luxury of being green-fields, then reducing the technologies used to the lowest common denominator can reduce a lot of effort. What I mean by this, is that if you can use the same technologies in all environments, or as many as possible, this will reduce the amount of Research and Development (R&D) that the team will need to do in order to prove a working solution. The lowest common denominator in terms of technology stacks that work in all environments is JavaScript. In case you hadn't noticed, JavaScript is creeping into all environments because of this very reason. Embrace it, and you'll likely save a lot of money.
 
-I've heard many times "but we just can't find enough people with solid JavaScript skills and experience". Now it doesn't matter what the specific speciality is, I've personally struggled with this type of comment. If you think back to the Countermeasures section of the People chapter of Fascicle 0, specifically "Morale, Productivity and Engagement Killers" onwards, there is quite a bit of information around how to treat people with the respect they deserve. Exceptionally talented technical workers have paid a high price to become what and who they are. If you learn to always respect them and build strong meaningful relationships with these highly talented people, when you need the talent, it'll be easy to find, they'll be your friends. This has been my experience anyway. You can find these individuals always attending after work tech meetups, tech conferences and other events. They will also often be the last to leave the office each day, as they struggle to tear themselves away from their work due to a high level of engagement. They are always pushing their own technical limits and increasing their knowledge and experience. They are not hard to find if you follow this advice.
+I've heard many times "but we just can't find enough people with solid JavaScript skills and experience". Now it doesn't matter what the specific speciality is, I've personally struggled with this type of comment. If you think back to the Countermeasures section of the People chapter of Fascicle 0, specifically "Morale, Productivity and Engagement Killers" onwards, there is quite a bit of information around how to treat people with the respect they deserve. Exceptionally talented technical workers have paid a high price to become what and who they are. If you learn to always respect them and build strong meaningful relationships with these highly talented people, when you need the talent, it'll be easy to find, they'll be your friends. This has been my experience anyway. You can find these individuals always attending (if not leading) after work tech meetups, tech conferences and other events. They will also often be the last to leave the office each day, as they struggle to tear themselves away from their work due to a high level of engagement. They are always pushing their own technical limits and increasing their knowledge and experience. They are not hard to find if you follow this advice.
 
 If you still struggle, reach out to me, and I'll do my best to help.
 
@@ -4590,5 +4609,9 @@ _Todo_
 _Todo_
 
 #### Application Intrusion Detection and Response
+
+_Todo_
+
+### Defective Real-Time Peer-to-Peer Browser Communication
 
 _Todo_

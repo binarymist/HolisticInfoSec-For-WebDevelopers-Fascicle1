@@ -137,6 +137,9 @@ and also the specification
 
 ## [Web Applications](#web-applications)
 
+**MS Application Threats and Countermeasures**  
+[https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008)
+
 **OWASP has the RSnake donated** seminal XSS cheat sheet  
 [https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) which has many tests you can use to check your vulnerability stance to XSS exploitation.
 
