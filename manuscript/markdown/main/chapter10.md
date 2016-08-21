@@ -43,13 +43,9 @@ As you can see there are some vulnerabilities that we are just not getting bette
 
 "Using Components with Known Vulnerabilities" is one that I think we are going to see get worse before it gets better, due to the fact that we are consuming a far greater amount of free and open source. With the increase of free and open source package repositories, such as NPM, NuGet and various others, we are now consuming a far greater number of packages without vetting them before including them in our projects. This is why I've devoted a set of sections ("Consuming Free and Open Source") within this chapter to this problem. There are also sections devoted to this topic in the VPS and Network chapters titled "Using Components with Known Vulnerabilities". It's not just a problem with software. We are trying to achieve more, with less of our own work, so in many cases we are blindly trusting other sources. From the attackers perspective, this is an excellent vector to compromise for maximum exploitation.
 
-&nbsp;
-
-{pagebreak}
-
 ### Lack of Visibility
 
-I see this as an indirect risk to the asset of [web application ownership](#web-applications-asset-identification-ownership). The same sections in the VPS and Network chapters may also be worth reading if you have not already as there is crossover.
+I see this as an indirect risk to the asset of [web application ownership](#web-applications-asset-identification-ownership). The same sections in the VPS and Network chapters may also be worth reading if you have not already, as there is some crossover.
 
 Not being able to introspect your application at any given time or being able to know how the health status is, is not a comfortable place to be in and there is no reason you should be there.
 
@@ -633,15 +629,15 @@ Every decision made in a project needs to factor in security. Just as with other
 
 Often I'll hear people say "well we haven't been hacked so far". This shows a lack of understanding. I usually respond with "That you are aware of". Many of the most successful attacks go unnoticed. Even if you or your organisation haven't been compromised, business's are changing all the time, along with the attack surface and your assets. It's more so a matter of when, than if.
 
-* [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008)
+One of the additional resources useful at this stage is the [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008).
 
 ### Lack of Visibility {#web-applications-countermeasures-lack-of-visibility}
 
-Also refer to the ["Lack of Visibility"](#vps-countermeasures-lack-of-visibility) section in the VPS chapter where I discuss a number of tried and tested solutions.
+Also refer to the ["Lack of Visibility"](#vps-countermeasures-lack-of-visibility) section in the VPS chapter, where I discuss a number of tried and tested solutions. Much of what we discuss here will also make use of and in some cases, such as the logging and monitoring depend on components being set-up from the VPS chapter's Countermeasures sections within the Lack of Visibility sections.
 
 As Bruce Schneier said: "_Detection works where prevention fails and detection is of no use without response_". This leads us to application logging.
 
-With good visibility we should be able to see anticipated and unanticipated exploitation of vulnerabilities as they occur and also be able to go back and review the events.
+With good visibility we should be able to see anticipated and unanticipated exploitation of vulnerabilities as they occur and also be able to go back and review/audit the events. Of course you're still going to need someone engaged enough to be reviewing logs and alerts, as discussed in the People chapter.
 
 #### Insufficient Logging {#web-applications-countermeasures-lack-of-visibility-insufficient-logging}
 ![](images/ThreatTags/PreventionAVERAGE.png)
@@ -674,7 +670,7 @@ I also looked at `express-winston`, but could not see why it needed to exist.
 
 ##### Opening UDP port
 
-with [`winston-syslog`](https://www.npmjs.com/package/winston-syslog) seems to be what a lot of people are using. I think it may be due to the fact that `winston-syslog` is the first package that works well for winston and syslog.
+with [`winston-syslog`](https://www.npmjs.com/package/winston-syslog), it seems to be what a lot of people are using. I think it may be due to the fact that `winston-syslog` is the first package that works well for winston and syslog.
 
 If going this route, you will need the following in your `/etc/rsyslog.conf`:
 
@@ -693,7 +689,7 @@ If going this route, you will need the following in your `/etc/rsyslog.conf`:
 
 I Also looked at `winston-rsyslog2` and `winston-syslogudp`, but they did not measure up for me.
 
-If you do not need to push syslog events to another machine, then it does not make much sense to push through a local network interface when you can use your posix syscalls as they are faster and safer. Line 7 below shows the open port.
+If you do not need to push syslog events to another machine, and I don't mean pusing logs, then it does not make much sense to push through a local network interface when you can use your posix syscalls as they are faster and safer. Line 7 below shows the open port.
 
 {title="nmap with winston-syslog", linenos=on}
     root@kali:~# nmap -p514 -sU -sV <target IP> --reason
@@ -709,7 +705,7 @@ If you do not need to push syslog events to another machine, then it does not ma
 
 The [`winston-syslog-posix`](https://www.npmjs.com/package/winston-syslog-posix) package was inspired by [blargh](http://tmont.com/blargh/2013/12/writing-to-the-syslog-with-winston). `winston-syslog-posix` uses [`node-posix`](https://www.npmjs.com/package/posix).
 
-If going this route, you will need the following in your `/etc/rsyslog.conf` instead of the above:
+If going this route, you will need the following in your `/etc/rsyslog.conf` instead of the above, you will still be able to push logs off-site, as discussed in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section in Countermeasures:
 
 {title="/etc/rsyslog.conf", linenos=off, lang=Bash}    
     # Logging for your app.
@@ -988,16 +984,16 @@ Here are some examples of how you can use the logger. The `logger.log(level` can
        {aPropertyName: 'Some message details'}, logger.emailLoggerFailure
     );
 
-Also consider hiding cross cutting concerns like logging using Aspect Oriented Programing (AOP)
+As an architectural concern, also consider hiding cross cutting concerns like logging using Aspect Oriented Programming (AOP).
 
 #### Insufficient Monitoring
 ![](images/ThreatTags/PreventionEASY.png)
 
-There are a couple of ways of approaching monitoring. You may want to see/be notified of the health of your application only when it is not fine (sometimes called the dark cockpit approach), or whether it is fine or not.
+There are a couple of ways of approaching monitoring. You may want to see and be notified of the health of your application only when it is not fine (sometimes called the dark cockpit approach), or whether it is fine or not. Personally I like to have both
 
 ##### Dark Cockpit:
 
-As discussed in the VPS chapter, Monit is an [excellent tool](http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#monit) for the dark cockpit approach. It's easy to configure. Has excellent short [documentation](https://mmonit.com/monit/documentation/monit.html) that is easy to understand and the configuration file has lots of examples commented out ready for you to take as is and modify to suite your environment. I've personally had excellent [success](http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#getting-started-with-monit) with Monit.
+As discussed in the VPS chapter, Monit is an excellent tool for the dark cockpit approach. It's easy to configure. Monit Has excellent short [documentation](https://mmonit.com/monit/documentation/monit.html) that is easy to understand, the configuration file has lots of examples commented out ready for you to take as is and modify to suite your environment, remember I provided examples of monitoring a VPS and NodeJS web application in the VPS chapter. I've personally had excellent success with Monit. Check the VPS chapter Monitoring section for a refresher. Monit doesn't just give you monitoring, it can also perform pre-defined actions based on current states of many VPS resources and their applications.
 
 ##### Statistics Graphing:
 

@@ -176,6 +176,9 @@ Good resource on what XSS actually is:
 **There were also some other options** for those using Papertrail as their off-site syslog and aggregation PaaS:  
 [http://help.papertrailapp.com/kb/configuration/configuring-centralized-logging-from-nodejs-apps/](http://help.papertrailapp.com/kb/configuration/configuring-centralized-logging-from-nodejs-apps/)
 
+**Monit Has excellent short documentation**  
+[https://mmonit.com/monit/documentation/monit.html](https://mmonit.com/monit/documentation/monit.html)
+
 **Excellent resource for dealing with user input** based on the execution contexts that it passes through  
 https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet
 
