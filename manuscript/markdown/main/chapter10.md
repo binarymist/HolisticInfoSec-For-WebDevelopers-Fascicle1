@@ -633,11 +633,11 @@ One of the additional resources useful at this stage is the [MS Application Thre
 
 ### Lack of Visibility {#web-applications-countermeasures-lack-of-visibility}
 
-Also refer to the ["Lack of Visibility"](#vps-countermeasures-lack-of-visibility) section in the VPS chapter, where I discuss a number of tried and tested solutions. Much of what we discuss here will also make use of and in some cases, such as the logging and monitoring depend on components being set-up from the VPS chapter's Countermeasures sections within the Lack of Visibility sections.
+Also refer to the ["Lack of Visibility"](#vps-countermeasures-lack-of-visibility) section in the VPS chapter, where I discuss a number of tried and tested solutions. Much of what we discuss here will also make use of, and in some cases, such as the logging and monitoring depend on components being set-up from the VPS chapter's Countermeasures sections within the Lack of Visibility sections.
 
 As Bruce Schneier said: "_Detection works where prevention fails and detection is of no use without response_". This leads us to application logging.
 
-With good visibility we should be able to see anticipated and unanticipated exploitation of vulnerabilities as they occur and also be able to go back and review/audit the events. Of course you're still going to need someone engaged enough to be reviewing logs and alerts, as discussed in the People chapter.
+With good visibility we should be able to see anticipated and unanticipated exploitation of vulnerabilities as they occur and also be able to go back and review/audit the events. Of course you're still going to need someone engaged enough (discussed in the People chapter) to be reviewing logs and alerts.
 
 #### Insufficient Logging {#web-applications-countermeasures-lack-of-visibility-insufficient-logging}
 ![](images/ThreatTags/PreventionAVERAGE.png)
@@ -689,7 +689,7 @@ If going this route, you will need the following in your `/etc/rsyslog.conf`:
 
 I Also looked at `winston-rsyslog2` and `winston-syslogudp`, but they did not measure up for me.
 
-If you do not need to push syslog events to another machine, and I don't mean pusing logs, then it does not make much sense to push through a local network interface when you can use your posix syscalls as they are faster and safer. Line 7 below shows the open port.
+If you do not need to push syslog events to another machine, and I don't mean pushing logs, then it does not make much sense to push through a local network interface when you can use your posix syscalls as they are faster and safer. Line 7 below shows the open port.
 
 {title="nmap with winston-syslog", linenos=on}
     root@kali:~# nmap -p514 -sU -sV <target IP> --reason
@@ -993,7 +993,7 @@ There are a couple of ways of approaching monitoring. You may want to see and be
 
 ##### Dark Cockpit:
 
-As discussed in the VPS chapter, Monit is an excellent tool for the dark cockpit approach. It's easy to configure. Monit Has excellent short [documentation](https://mmonit.com/monit/documentation/monit.html) that is easy to understand, the configuration file has lots of examples commented out ready for you to take as is and modify to suite your environment, remember I provided examples of monitoring a VPS and NodeJS web application in the VPS chapter. I've personally had excellent success with Monit. Check the VPS chapter Monitoring section for a refresher. Monit doesn't just give you monitoring, it can also perform pre-defined actions based on current states of many VPS resources and their applications.
+As discussed in the VPS chapter, Monit is an excellent tool for the dark cockpit approach. It's easy to configure. Monit Has excellent easy to read, short [documentation](https://mmonit.com/monit/documentation/monit.html) which is easy to understand, the configuration file has lots of examples commented out ready for you to take as is and modify to suite your environment. Remember I provided examples of monitoring a VPS and NodeJS web application in the VPS chapter. I've personally had excellent success with Monit. Check the VPS chapter Monitoring section for a refresher. Monit doesn't just give you monitoring, it can also perform pre-defined actions based on current states of many VPS resources and their applications.
 
 ##### Statistics Graphing:
 
