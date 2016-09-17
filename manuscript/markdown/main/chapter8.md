@@ -1,6 +1,6 @@
 # 8. Network {#network}
 
-![10,000' view of Network Security](images/10000Network.gif)
+![10,000' view of Network Security](images/10000Network.png)
 
 ## 1. SSM Asset Identification
 Take results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered.
@@ -24,7 +24,16 @@ Network risks are obviously huge. I will be just scratching the surface here at 
 
 _Todo_
 
-%% similar to Physical chapter
+%% https://www.optiv.com/blog/top-10-network-security-mistakes-3-belief-in-perimeter-security
+
+similar to Physical chapter
+
+### Lack of Segmentation
+
+Similar to the [same section](#vps-identify-risks-unnecessary-and--vulnerable-services-lack-of-segmentation) in the VPS chapter.
+
+%% https://www.optiv.com/blog/top-10-network-security-mistakes-5-lack-of-segmentation
+
 
 ### Lack of Visibility
 
@@ -95,7 +104,7 @@ There is a complete cloning example of a website, ARP spoof, DNS spoof and hands
 This comes under the [OWASP Top 10 A7 Missing Function Level Access Control](https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control)
 
 Often websites will allow access to certain resources so long as the request was referred from a specific page defined by the `referer` header.  
-The referrer (spelled `referer`) field in HTTP requests can be intercepted and modified, so it is not a good idea to use it for authentication or authorisation.
+The referrer (spelled `referer`) field in HTTP requests can be intercepted and modified, so it is not a good idea to use it for authentication or authorisation. The Social Engineering Toolkit (SET) also exploits the `referer` header, as discussed in the hands on hack within the Spear Phishing section of Identify Risks in Fascicle 0.
 
 ![](images/HandsOnHack.png)
 
@@ -327,7 +336,7 @@ This is a danger for all websites that do not enforce TLS for every page. For ex
 
 ### Firewall/Router {#network-identify-risks-firewall-router}
 
-Routing Configurations
+Routing Configurations. Discuss egrees which is often neglected
 _Todo_
 
 ### Component Placement {#network-identify-risks-component-placement}
@@ -363,11 +372,11 @@ https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulne
 
 
 
-## 3. SSM Countermeasures
+## 3. SSM Countermeasures {#network-countermeasures}
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
-### Fortress Mentality
+### Fortress Mentality {#network-countermeasures-fortress-mentality}
 
 _Todo_
 
@@ -381,12 +390,166 @@ _Todo_
 
 _Todo_ Add Security Onion Linux distro as an IDS, Network Security Monitoring (NSM) and log management.
 
+%% https://securityonion.net/#about
+%% https://github.com/Security-Onion-Solutions/security-onion/wiki/IntroductionToSecurityOnion
+
+%% https://packages.debian.org/wheezy/harden-surveillance
+
 %% http://www.kitploit.com/2015/11/security-onion-linux-distro-for.html
 %% http://blog.securityonion.net/p/securityonion.html
 %% http://www.sans.org/reading-room/whitepapers/detection/logging-monitoring-detect-network-intrusions-compliance-violations-environment-33985
 %% http://www.unixmen.com/security-onion-linux-distro-ids-nsm-log-management/
 
-#### Network Intrusion Detection Systems (NIDS)
+#### Insufficient Logging {#network-countermeasures-lack-of-visibility-insufficient-logging}
+
+If you think back to the Web Server Log Management countermeasures section in the VPS chapter, we outlined an [Environmental Considerations](#vps-countermeasures-lack-of-visibility-logging-and-alerting-web-server-log-management-environmental-considerations) section, in which I defered to this section, as it made more sense to discuss alternative device system logging such as routers, layer 3 switches, in some cases layer 2 switches, data-store, and file servers here in the Network chapter rather than under VPS. Let's address that now. 
+
+**Steps in order of dependencies**
+
+![](images/NetworkSysloging.png)
+
+None of these are ideal, as UDP provides no reliable messaging and it is crucial that "no" system log messages are lost, which we can not guarantee with UDP. Also with some network components, we may not be able to provide confidentiality or integrity of messages over the wire from network appliances that only support UDP without TLS (DTLS), a VPN, or any type of encryption. This means we can no longer relly on our logs to provide the truth. The best case below still falls short in terms of reliability, as the test setup used pfSense which only supports sending syslogs via UDP. The best you could hope for in this case is that there is not much internal network congestion, or find a router that supports TCP at a minimum.
+
+**Steps with details**
+
+1. As per the PaperTrail set-up we performed in our test lab
+2. 
+  * Create persistence of FreeNAS syslogs, as currently they are lost on shutdown because FreeNAS runs entirely in RAM
+    * Create a dataset called "syslog" on your ZFS zpool and reset.
+  * (Option first choice, for pfSense)
+    * Create a jail in FreeNAS, [install OpenVPN in the jail](https://forums.freenas.org/index.php?threads/how-to-install-openvpn-inside-a-jail-in-freenas-9-2-1-6-with-access-to-remote-hosts-via-nat.22873/), install rsyslogd in the jail and configure it to accept syslog events via UDP as TCP is not supported, from the host and the remote hosts, and forward them on via TCP(possibly with RELP)/TLS to the external syslog aggregator.
+  * (Option second choice) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs) and possibly some appliances that can send via TCP.
+    * Download and run [SyslogAppliance](http://www.syslogappliance.de/en/) which is a turn-key VM for any VMware environment. SyslogAppliance is a purpose built slim Debian instance with [no sshd installed](http://www.syslogappliance.de/download/syslogappliance-0.0.6/README.txt), that can receive syslog messages from many types of appliances, including routers, firewalls, switches, and even Windows event logs via UDP and TCP. SyslogAppliance also [supports TLS](http://www.syslog.org/forum/profile/?area=showposts;u=29) and comes preconfigured with rsyslog and [LogAnalyzer](http://loganalyzer.adiscon.com/), thus providing [log analysis and alerting](http://www.syslogappliance.de/en/features.php). This means step 3 is no longer required, as it is being performed by LogAnalyzer. This option could also store its logs on an iSCSI target from FreeNAS.
+  * (Option third choice) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs).
+    * The default syslogd in FreeBSD doesn't support TCP.
+    * Create a jail in FreeNAS, install rsyslogd in the jail and configure it to accept UDP syslog messages and then forward them on via TCP(possibly with RELP)/TLS.
+3.
+  * (Option first choice for pfSense) UDP as TCP is not available.
+    * In the pfSense Web UI: Set-up a vpn from site 'a' (syslog sending IP address) to site 'b' (syslog receiving IP address / remote log destination).
+    * Then in Status -> System Logs -> Settings -> Remote Logging Options, add the IP:port of the listening VPN server, which is hosted in the FreeBSD jail of the rsyslogd server (FreeNAS in this example) into one of the "Remote log servers" input boxes. The other option here is to send to option second choice of step two (SyslogAppliance).
+    * Your routing table will take care of the rest.  
+  * (Option second choice)
+    * Configure syslog UDP only appliances to forward their logs to the rsyslogd in the jail (option third choice of step two), or to option second choice of step two (SyslogAppliance).
+                
+There are also a collection of [Additional Resources](#additional-resources-network-insufficient-logging-internal-network-system-logging) worth looking at.
+
+##### Network Time Protocol (NTP) {#network-countermeasures-fortress-mentality-insufficient-logging-ntp}
+
+As we discussed in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section, being able to coalate the times of events of an attackers movements throughout your network is essential in auditing and recreating what actually happened.
+
+**Your NTP Server**
+
+With this set-up, we have got one-to-many Linux servers in a network that all want to be synced with the same up-stream Network Time Protocol (NTP) server(s) that your router (or what ever server you choose to be your NTP authority) uses.
+
+On your router or what ever your NTP server host is, add the NTP server pools. Now how you do this really depends on what you are using for your NTP server, so I will leave this part out of scope. There are many [NTP pools](https://www.google.ie/search?q=ntp+server+pools) you can choose from. Pick one or a collection that is as close to your NTP server as possible.
+
+If your NTP daemon is running on your router, you will need to decide and select which router interfaces you want the NTP daemon supplying time to. You almost certainly will not want it on the WAN interface (unless you are a pool member, or the WAN belongs to you) if you have one on your router.
+
+Make sure you restart your NTP daemon.
+
+**Your Client Machines**
+
+There are two NTP packages to disgus.
+
+1. **ntpdate** is a programme that sets the date on a scheduled occurance via chron, an end user running it manually, or some other means. Ntpdate has been [deprecated](http://support.ntp.org/bin/view/Dev/DeprecatingNtpdate) for several years now. The functionality that ntpdate offered is now provided by the ntp daemon. running `ntp -q` will run ntp, set the time and exit as soon as it has. This functionality mimics how ntpdate is used, the upstream NTP server must be specified either in the `/etc/ntp.conf` file or overridden by placing it immeiatly after the `-q` option if running manually. 
+2. **ntpd** or just ntp, is a daemon that continuously monitors and updates the system time with an upstream NTP server specified in the local systems `/etc/ntp.conf`.
+
+1. This is how it used to be done with ntpdate:
+
+If you have ntpdate installed, `/etc/default/ntpdate` specifies that the list of NTP servers is taken from `/etc/ntp.conf` which does not exist without ntp being installed. It looks like this:
+
+{title="/etc/default/ntpdate", linenos=off, lang=bash}
+    # Set to "yes" to take the server list from /etc/ntp.conf, from package ntp,
+    # so you only have to keep it in one place.
+    NTPDATE_USE_NTP_CONF=yes
+
+You would see that it also has a default `NTPSERVERS` variable set which is overridden if you add your time server to `/etc/ntp.conf`. If you entered the following and ntpdate is installed:
+
+{linenos=off, lang=bash}
+    dpkg-query -W -f='${Status} ${Version}\n' ntpdate
+
+You would receive output like:
+
+{linenos=off, lang=bash}
+    install ok installed 1:4.2.6.p5+dfsg-3
+
+2. This is how it is done now with ntp:
+
+If you enter the following and ntp is installed:
+
+{linenos=off, lang=bash}
+    dpkg-query -W -f='${Status} ${Version}\n' ntp
+
+You will receive output like:
+
+{linenos=off, lang=bash}
+    install ok installed 1:4.2.8p4+dfsg-3
+
+Alternativly run this command for more information on the installed state:
+
+{linenos=off, lang=bash}
+    dpkg-query -l '*ntp*'
+    # Will also tell you about ntpdate if it is installed.
+
+If not installed, install it with:
+
+{linenos=off, lang=bash}
+    sudo apt-get install ntp
+
+You will find that there is no `/etc/default/ntpdate` file installed with ntp.
+
+The public NTP server(s) can be added straight to the bottom of the `/etc/ntp.conf` file, but because we want to use our own NTP server, we add the IP address of our server that is configured with our NTP pools to the bottom of the file.
+
+{title="/etc/ntp.conf", linenos=off, lang=bash}
+    server <IP address of your local NTP server here>
+
+Now if your NTP daemon is running on your router, hopefully you have everything blocked on its interface(s) by default and are using a white-list for egress filtering. In which case you will need to add a firewall rule to each interface of the router that you want NTP served up on. NTP talks over UDP and listens on port 123 by default. After any configuration changes to your `ntpd` make sure you restart it. On most routers this is done via the web UI.
+
+On the client (Linux) machines:
+
+{linenos=off, lang=bash}
+    sudo service ntp restart
+
+Now issuing the date command on your Linux machine will provide the current time with seconds.
+
+**Trouble-shooting**
+
+The main two commands I use are:
+
+{linenos=off, lang=bash}
+    sudo ntpq -c lpeer
+
+Which should produce output like:
+
+{linenos=off, lang=bash}
+                remote                       refid         st t when poll reach delay offset jitter
+    ===============================================================================================
+    *<server name>.<domain name> <upstream ntp ip address> 2  u  54   64   77   0.189 16.714 11.589
+
+and the standard [NTP query](http://doc.ntp.org/4.1.0/ntpq.htm) program followed by the `as` argument:
+
+{linenos=off, lang=bash}
+    ntpq
+
+Which will drop you at the `ntpq` prompt:
+
+{linenos=off, lang=bash}
+    ntpq> as
+
+Which should produce output like:
+
+{linenos=off, lang=bash}
+    ind assid status  conf reach auth condition  last_event cnt
+    ===========================================================
+      1 15720  963a   yes   yes  none  sys.peer    sys_peer  3
+
+In the first output, the `*` in front of the remote [means](http://www.pool.ntp.org/en/use.html) the server is getting its time successfully from the upstream NTP server(s) which needs to be the case in our scenario. Often you may also get a `refid` of `.INIT`. which is one of the “Kiss-o’-Death Codes” which means “The association has not yet synchronized for the first time”. See the [NTP parameters](http://www.iana.org/assignments/ntp-parameters/ntp-parameters.xhtml). I have found that sometimes you just need to be patient here.
+
+In the second output, if you get a condition of `reject`, it is usually because your local ntp can not access the NTP server you set-up. Check your firewall rules etc.
+
+Now check all the times are in sync with the `date` command.
+
+#### Network Intrusion Detection Systems (NIDS) {#network-countermeasures-lack-of-visibility-nids}
 Similar to [HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) but acting as a network spy with its network interface (NIC) in promiscuous mode, capturing all traffic crossing the specific network segment that the NIDS is on.
 
 As HIDS, NIDS also operate with signatures.
@@ -401,15 +564,7 @@ Some NIDS go further to not only detect but prevent. They are known as Network I
 
 It is a good idea to have both Host and Network IDS/IPS in place at a minimum. I personally like to have more than one tool doing the same job but with different areas of strength covering the weaker areas of its sibling. An example of this is with HIDS. Having one HIDS on the system it is protecting and another somewhere else on the network, or even on another network completely, looking into the host and performing its checks. This makes discoverability difficult for an attacker.
 
-#### Insufficient Logging
-
-In relation to network devices (router, layer 3 switches, mail server, data-store server, etc)
-
-_Todo_
-
-%% Example my router logging. Get your logs off site.
-%% https://www.fishnetsecurity.com/6labs/blog/top-10-network-security-mistakes-6-insufficient-logging-monitoring
-%% Chapter 3 of my book: Books/Networking/Security/Logging_Monitoring/ThePracticeOfSecurityMonitoring_2013_++++-.pdf
+%% Maybe setup snort on raouter and detail it.
 
 ### Spoofing {#network-countermeasures-spoofing}
 
@@ -428,6 +583,8 @@ As ARP poisoning is quite noisy. The attacker continually sends [ARP packets](ht
 
 Tools such as free and open source [ArpON (ARP handler inspection)](http://arpon.sourceforge.net/) do the whole job plus a lot more.  
 There is also [ArpWatch](http://linux.die.net/man/8/arpwatch) and others.
+
+If you have a decent gateway device, you should be able to install and configure Arpwatch
 
 Thoughts on [mitigations](http://www.jaringankita.com/blog/defense-arp-spoofing)
 
@@ -732,6 +889,10 @@ As far as I know Firefox and Chrome are both working toward implementing Must-St
 I do not trust commercial proprietary routers. I have seen too many vulnerabilities in them to take them seriously for any network I have control of. Yes open source hardware and software routers can and do have vulnerabilities, but they can be patched. There are a few good choices here. Some of which also come with enterprise support if you want it. This means the software and the hardware, if you choose to obtain the hardware as well is open to inspection. The vendor also supplies regular firmware updates which is crucial for there to be any hope of having a system that in some way resembles a device that places a priority on your networks security.
 
 Most closed routers suffer from the [same problems](https://securityevaluators.com/knowledge/case_studies/routers/soho_service_hacks.php) I illustrate on my blog. They have active unsecured services that have little to nothing to do with routing and in many cases, you can not [Disable](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#disable-services-we-dont-need), [Remove](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#remove-services), or [Harden](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#secure-services) them.
+
+_Todo_
+
+Discuss egrees and other configurations that are often neglected.
 
 ### Component Placement {#network-countermeasures-component-placement}
 

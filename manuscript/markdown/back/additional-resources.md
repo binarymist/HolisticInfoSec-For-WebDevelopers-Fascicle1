@@ -2,11 +2,143 @@
 
 ## [VPS](#vps)
 
-[**Details**](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified) on the Metasploit PSExec module.
+**Logging and Alerting**, where and what are the log files?  
+[http://www.thegeekstuff.com/2011/08/linux-var-log-files/](http://www.thegeekstuff.com/2011/08/linux-var-log-files/)
 
-[**Distributed Computing Environment / Remote Procedure Call**](https://en.wikipedia.org/wiki/DCE/RPC).
+**Nagios Log Monitoring with Swatch**  
+[https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf#_ga=1.228044821.985883814.1472695863](https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf#_ga=1.228044821.985883814.1472695863)
+
+**Simple Log Watcher** examples  
+[http://www.linux-mag.com/id/7807/](http://www.linux-mag.com/id/7807/)
+
+**Simple Log Watcher** man page  
+[http://linux.die.net/man/1/swatch](http://linux.die.net/man/1/swatch)
+
+**Logwatch install, set-up, and using**  
+[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-logwatch-log-analyzer-and-reporter-on-a-vps](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-logwatch-log-analyzer-and-reporter-on-a-vps)
+
+**Fail2ban** source code  
+[https://github.com/fail2ban/fail2ban/](https://github.com/fail2ban/fail2ban/)
+
+**Multitail** example  
+[https://www.howtoforge.com/monitoring-multiple-log-files-at-a-time-with-multitail-on-debian-lenny](https://www.howtoforge.com/monitoring-multiple-log-files-at-a-time-with-multitail-on-debian-lenny)
+
+**Gentoo rsyslog wiki**  
+[https://wiki.gentoo.org/wiki/Rsyslog](https://wiki.gentoo.org/wiki/Rsyslog)
+
+**Make sure you have reviewed who can write and read** your logs and make any modifications necessary to the permissions.  
+[http://www.tldp.org/HOWTO/Security-HOWTO/secure-prep.html#logs](http://www.tldp.org/HOWTO/Security-HOWTO/secure-prep.html#logs)
+
+
+
+
+**Details on the Metasploit PSExec module**  
+[https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified) 
+
+**Distributed Computing Environment / Remote Procedure Call**  
+[https://en.wikipedia.org/wiki/DCE/RPC](https://en.wikipedia.org/wiki/DCE/RPC).
+
+**Tripwire tutorial**  
+[https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps](https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps)
+
+**In most cases you will want to shadow your passwords**  
+[http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2](http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2)
+
+**SHA scheme for crypt**  
+[https://www.akkadia.org/drepper/SHA-crypt.txt](https://www.akkadia.org/drepper/SHA-crypt.txt)
+
+**SHA-2**  
+[https://en.wikipedia.org/wiki/SHA-2](https://en.wikipedia.org/wiki/SHA-2)
+
+**Some details around** `/etc/passwd` and `/etc/shadow`
+
+
+
+**For a plethora of information on hardening and using SSH** in creative ways  
+[https://blog.binarymist.net/?s=ssh](https://blog.binarymist.net/?s=ssh)
+
+**SSH Connection and Encryption Process**  
+[https://www.digitalocean.com/community/tutorials/understanding-the-ssh-encryption-and-connection-process](https://www.digitalocean.com/community/tutorials/understanding-the-ssh-encryption-and-connection-process)
+
+**SSH, The Secure Shell: The Definitive Guide, 2nd Edition**
+
+**SSH Specification**  
+[https://tools.ietf.org/html/rfc4253](https://tools.ietf.org/html/rfc4253)
+
+**Notes on Cryptography Ciphers**  
+[http://rakhesh.com/infrastructure/notes-on-cryptography-ciphers-rsa-dsa-aes-rc4-ecc-ecdsa-sha-and-so-on/](http://rakhesh.com/infrastructure/notes-on-cryptography-ciphers-rsa-dsa-aes-rc4-ecc-ecdsa-sha-and-so-on/)
+
+**An Overview of Cryptography**  
+[http://www.garykessler.net/library/crypto.html](http://www.garykessler.net/library/crypto.html)
+
+{#additional-resources-vps-locking-down-the-mounting-of-partitions}
+
+**Mounting partitions the right way**  
+[http://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s4.10](http://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s4.10)
+
+**mount man page**  
+[http://man.he.net/man8/mount](http://man.he.net/man8/mount)
+
+**Securing the mail service**  
+[http://www.debian.org/doc/manuals/securing-debian-howto/ch-sec-services.en.html#s5.6](http://www.debian.org/doc/manuals/securing-debian-howto/ch-sec-services.en.html#s5.6)
+
+**Disabling daemon services**  
+[http://www.debian.org/doc/manuals/securing-debian-howto/ch3.en.html#s-disableserv](http://www.debian.org/doc/manuals/securing-debian-howto/ch3.en.html#s-disableserv)
+
+**Run levels**  
+[https://www.debian.org/doc/debian-policy/ch-opersys.html#s-sysvinit](https://www.debian.org/doc/debian-policy/ch-opersys.html#s-sysvinit)
+
+**`apt-get --purge remove exim4 exim4-base exim4-config exim4-daemon-light`**  
+[http://stackoverflow.com/questions/12061358/how-to-cleanly-remove-exim4-mail-server-on-ubuntu](http://stackoverflow.com/questions/12061358/how-to-cleanly-remove-exim4-mail-server-on-ubuntu)
+
+**Running the minimum number of services required**  
+[http://www.debian.org/doc/manuals/securing-debian-howto/ch3.en.html#s3.6](http://www.debian.org/doc/manuals/securing-debian-howto/ch3.en.html#s3.6)
+
+**System audit**  
+[http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html#AUDIT](http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html#AUDIT)
+
+
+
+
+
+
+
+**Securing the services that are left**  
+[https://www.debian.org/doc/manuals/securing-debian-howto/ch-sec-services.en.html](https://www.debian.org/doc/manuals/securing-debian-howto/ch-sec-services.en.html)
+
+**Which services do we really need**  
+[http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html](http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html)
+
+
+
+
+**TLDP Security HowTo**  
+[http://www.tldp.org/HOWTO/Security-HOWTO/](http://www.tldp.org/HOWTO/Security-HOWTO/)
+
+**TLDP Security Quickstart**  
+[http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/](http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/)
+
+**Securing Debian Howto**  
+[http://www.debian.org/doc/manuals/securing-debian-howto/index.en.html](http://www.debian.org/doc/manuals/securing-debian-howto/index.en.html) 
+
+**Debian Security**  
+[http://www.debianhelp.co.uk/security.htm](http://www.debianhelp.co.uk/security.htm)
+
+
+
+
 
 ## [Network](#network)
+
+
+
+**Insufficient Logging - Internal Network System Logging** {#additional-resources-network-insufficient-logging-internal-network-system-logging}  
+These resources in order were helpful for establishing a strategy for the unreliable and unconfidental transport UDP  
+[https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/](https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/)  
+[https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/](https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/)  
+[https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog](https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog)
+
+
 
 ## [Cloud](#cloud)
 

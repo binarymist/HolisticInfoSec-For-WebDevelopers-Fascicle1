@@ -22,7 +22,215 @@
 **The PSExec executable** has a Windows Service image inside which it deploys to the Admin$ share on the target machine:  
 [https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified).
 
+**Simple Log Watcher**  
+[https://sourceforge.net/projects/swatch/](https://sourceforge.net/projects/swatch/)
+
+**Use logrotate** to make sure your logs will be around long enough to examine them  
+[http://www.rackspace.com/knowledge_center/article/understanding-logrotate-utility](http://www.rackspace.com/knowledge_center/article/understanding-logrotate-utility)
+
+**Rsyslog documentation**  
+[http://www.rsyslog.com/doc/master/index.html](http://www.rsyslog.com/doc/master/index.html)
+
+**Rainer Gerhards wrote rsyslog and his blog** provides many good insights into all things system logging  
+[http://blog.gerhards.net/2007/08/why-does-world-need-another-syslogd.html](http://blog.gerhards.net/2007/08/why-does-world-need-another-syslogd.html) 
+
+**Simple Event Correlator (SEC)**  
+[http://www.gossamer-threads.com/lists/rsyslog/users/6044](http://www.gossamer-threads.com/lists/rsyslog/users/6044)
+
+**Rainer Gerhards discusses why TCP is not as reliable as many think**  
+[http://blog.gerhards.net/2008/04/on-unreliability-of-plain-tcp-syslog.html](http://blog.gerhards.net/2008/04/on-unreliability-of-plain-tcp-syslog.html)
+
+**Rainer Gerhards said** “_In rsyslog, every action runs on its own queue and each queue can be set to buffer data if the action is not ready. Of course, you must be able to detect that the action is not ready, which means the remote server is off-line. This can be detected with plain TCP syslog and RELP_“  
+[http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsyslog_reliable_forwarding.html](http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsyslog_reliable_forwarding.html) 
+
+**You can aggregate log files with rsyslog** or by using papertrails `remote_syslog` daemon  
+[http://help.papertrailapp.com/kb/configuration/advanced-unix-logging-tips/#rsyslog_aggregate_log_files](http://help.papertrailapp.com/kb/configuration/advanced-unix-logging-tips/#rsyslog_aggregate_log_files) 
+
+**Alerting is available**, including for inactivity of events  
+[http://help.papertrailapp.com/kb/how-it-works/alerts/#inactivity](http://help.papertrailapp.com/kb/how-it-works/alerts/#inactivity)
+
+**If you still want to go down the papertrail path**, to get started, work through  
+[https://papertrailapp.com/systems/setup](https://papertrailapp.com/systems/setup)
+
+**We need TLS**, check papertrails "Enctyptiong with TLS" docs  
+[http://help.papertrailapp.com/kb/configuration/encrypting-remote-syslog-with-tls-ssl/#rsyslog](http://help.papertrailapp.com/kb/configuration/encrypting-remote-syslog-with-tls-ssl/#rsyslog)
+
+
+
+
+
+
+
+
+**Simple Event Correlator (SEC)**  
+[https://simple-evcorr.github.io/](https://simple-evcorr.github.io/)
+
+**For all your graphical event correlation**, you could use LogAnalyzer  
+[http://loganalyzer.adiscon.com/](http://loganalyzer.adiscon.com/) 
+
+**Normalisation** also from Rainer could be useful  
+[http://www.liblognorm.com/](http://www.liblognorm.com/)
+
+
+
+
+**Crypt, crypt 3 or crypt(3)** is the Unix C library function designed for password authentication  
+[https://en.wikipedia.org/wiki/Crypt_(C)](https://en.wikipedia.org/wiki/Crypt_(C))
+
+**There are a handful of files to check and/or modify** in terms of disabling root logins  
+[https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-restrict-console-login](https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-restrict-console-login)
+
+**An alternative to the previous method**  
+[https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-pam-rootaccess](https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-pam-rootaccess)
+
+
+
+**The default number of rounds have not changed** in at least 9 years  
+[https://access.redhat.com/articles/1519843](https://access.redhat.com/articles/1519843)
+
+**The default number of rounds**  
+[https://en.wikipedia.org/wiki/Passwd](https://en.wikipedia.org/wiki/Passwd)
+
+**The crypt 3 man page explains it all**  
+[http://man7.org/linux/man-pages/man3/crypt.3.html#NOTES](http://man7.org/linux/man-pages/man3/crypt.3.html#NOTES)
+
+**How the rest of the substrings in this field are interpreted** is determined by what is found in the `id` field  
+[http://man7.org/linux/man-pages/man3/crypt.3.html#NOTES](http://man7.org/linux/man-pages/man3/crypt.3.html#NOTES)
+
+**The salt can be augmented** by prepending the `rounds=<number of rounds you want, specified in /etc/pam.d/common-password>$` directive.  
+[http://backreference.org/2014/04/19/many-ways-to-encrypt-passwords/](http://backreference.org/2014/04/19/many-ways-to-encrypt-passwords/)
+
+**Consider changing to Bcrypt**  
+[https://lists.debian.org/debian-user/2011/04/msg00550.html](https://lists.debian.org/debian-user/2011/04/msg00550.html)
+
+**Use bcrypt** with slowpoke blowfish  
+[https://serverfault.com/questions/10585/enable-blowfish-based-hash-support-for-crypt/11685](https://serverfault.com/questions/10585/enable-blowfish-based-hash-support-for-crypt/11685) 
+
+**AES** block cipher with either key sizes of 128, 192 or 256 bits  
+SSH, The Secure Shell: The Definitive Guide (book)
+
+**CAST-128/256** described in [Request for Comments (RFC) 2144](http://www.rfc-editor.org/rfc/rfc2144.txt), as a DES-like substitution-permutation crypto algorithm  
+[http://www.garykessler.net/library/crypto.html](http://www.garykessler.net/library/crypto.html)  
+Designed in the early 1990s by Carlisle Adams and Stafford Tavares, available on a worldwide royalty-free basis  
+SSH, The Secure Shell: The Definitive Guide (book)
+
+**Blowfish** Has received a fair amount of cryptanalytic scrutiny and has proved impervious to attack so far  
+SSH, The Secure Shell: The Definitive Guide (book)
+
+**Twofish** block cipher invented by Bruce Schneier, with the help from a few others, submitted in 1998 to the NIST as a candidate for the AES, to replace DES. It was one of the five finalists in the AES selection process out of 15 submissions. Twofish has no patents and is free for all uses. Key lengths can be 128, 192 or 256 bits. Twofish is also designed to be more flexible than Blowfish.  
+SSH, The Secure Shell: The Definitive Guide (book)
+
+**Diffie-Hellman key agreement** was the first public-key system published in open literature  
+SSH, The Secure Shell: The Definitive Guide (book)
+
+**The parties engage in an exchange of messages**, at the end of which they share a secret key. It's not feasible for an eavesdropper to determine the shared secret merely from observing the exchanged messages. SSH-2 uses the DH algorithm as its required (and currently, its only defined) key-exchange method.  
+SSH, The Secure Shell: The Definitive Guide (book)
+
+**The MAC is the result of**  
+[https://tools.ietf.org/html/rfc4253](https://tools.ietf.org/html/rfc4253)
+
+**Consider installing and configuring denyhosts**  
+[https://www.digitalocean.com/community/articles/how-to-install-denyhosts-on-ubuntu-12-04](https://www.digitalocean.com/community/articles/how-to-install-denyhosts-on-ubuntu-12-04)
+
+**While you are at it, set a BIOS password**  
+[http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1004129](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1004129)
+
+**The Linux File System Hierarchy (FSH)**  
+[http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html](http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html)
+
+**Bind some target mounts onto existing directories**  
+[http://www.cyberciti.biz/faq/linux-add-nodev-nosuid-noexec-options-to-temporary-storage-partitions/](http://www.cyberciti.biz/faq/linux-add-nodev-nosuid-noexec-options-to-temporary-storage-partitions/)
+
+**Also consider the pros and cons of increasing your shared memory**  
+[http://www.cyberciti.biz/tips/what-is-devshm-and-its-practical-usage.html](http://www.cyberciti.biz/tips/what-is-devshm-and-its-practical-usage.html)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**DigitalOcean had a tutorial on setting Tripwire up**  
+[https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps](https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps)
+
+**An example of the NodeGoat** image  
+[https://github.com/owasp/nodegoat](https://github.com/owasp/nodegoat)
+
+**There are plenty of tools** available to help  
+[http://www.debianhelp.co.uk/backuptools.htm](http://www.debianhelp.co.uk/backuptools.htm) 
+
+**Snort can help with the Prevention** also  
+[https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/august_8_2012_12_01_pm6?lang=en](https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/august_8_2012_12_01_pm6?lang=en)
+
+**Work through using the likes of**  
+[https://www.debian.org/doc/manuals/securing-debian-howto/ch-automatic-harden.en.html#s6.1](https://www.debian.org/doc/manuals/securing-debian-howto/ch-automatic-harden.en.html#s6.1)  
+harden  
+[https://packages.debian.org/wheezy/harden](https://packages.debian.org/wheezy/harden)  
+Lynis for your server  
+[https://cisofy.com/lynis/](https://cisofy.com/lynis/)  
+harden-surveillance for monitoring your network  
+[https://packages.debian.org/wheezy/harden-surveillance](https://packages.debian.org/wheezy/harden-surveillance)
+
+
+
+
+
+
+
+
 ## [Network](#network)
+
+
+**Create a jail in FreeNAS**, install OpenVPN in the jail  
+https://forums.freenas.org/index.php?threads/how-to-install-openvpn-inside-a-jail-in-freenas-9-2-1-6-with-access-to-remote-hosts-via-nat.22873/
+
+**SyslogAppliance** which is a turn-key VM for any VMware environment  
+[http://www.syslogappliance.de/en/](http://www.syslogappliance.de/en/) 
+
+**SyslogAppliance is a purpose built slim Debian instance** with no sshd installed  
+[http://www.syslogappliance.de/download/syslogappliance-0.0.6/README.txt](http://www.syslogappliance.de/download/syslogappliance-0.0.6/README.txt)
+
+**SyslogAppliance also supports TLS**  
+[http://www.syslog.org/forum/profile/?area=showposts;u=29](http://www.syslog.org/forum/profile/?area=showposts;u=29)
+
+**LogAnalyzer**  
+[http://loganalyzer.adiscon.com/](http://loganalyzer.adiscon.com/)
+
+**Providing log analysis and alerting**  
+[http://www.syslogappliance.de/en/features.php](http://www.syslogappliance.de/en/features.php)
+
+
+
+
+**There are many NTP pools** you can choose from  
+[https://www.google.ie/search?q=ntp+server+pools](https://www.google.ie/search?q=ntp+server+pools)
+
+**Ntpdate has been deprecated for several years now**  
+[http://support.ntp.org/bin/view/Dev/DeprecatingNtpdate](http://support.ntp.org/bin/view/Dev/DeprecatingNtpdate)
+
+**The standard NTP query** program  
+[http://doc.ntp.org/4.1.0/ntpq.htm](http://doc.ntp.org/4.1.0/ntpq.htm)
+
+**The `*` in front of the remote** means the server is getting its time successfully from the upstream NTP  
+[http://www.pool.ntp.org/en/use.html](http://www.pool.ntp.org/en/use.html)
+
+**See the NTP parameters**  
+[http://www.iana.org/assignments/ntp-parameters/ntp-parameters.xhtml](http://www.iana.org/assignments/ntp-parameters/ntp-parameters.xhtml)
+
+
+
+
+
+
+
 
 **If the victim's SMTP server does not perform reverse [lookups on the hostname](http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/)**, an email `from` and `reply-to` fields can be successfully spoofed.
 
@@ -162,6 +370,9 @@ Good resource on what XSS actually is:
 
 **The OWASP Top 10 risks** No. 2 Broken Authentication and Session Management  
 [https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management](https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management)
+
+**Warning against using CBC**  
+[https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers](https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers)
 
 **Exemptions have been granted so that OCB** can be used in software licensed under the GNU General Public License  
 [https://en.wikipedia.org/wiki/OCB_mode](https://en.wikipedia.org/wiki/OCB_mode)

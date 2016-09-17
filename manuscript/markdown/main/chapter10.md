@@ -1,6 +1,6 @@
 # 10. Web Applications {#web-applications}
 
-![10,000' view of Web Application Security](images/10000WebApp.gif)
+![10,000' view of Web Application Security](images/10000WebApp.png)
 
 
 ## 1. SSM Asset Identification
@@ -546,7 +546,7 @@ The following is a list of the best JavaScript crypto libraries we have availabl
   * Source Code: [https://github.com/bitwiseshiftleft/sjcl/](https://github.com/bitwiseshiftleft/sjcl/)
   * NPM package: [https://www.npmjs.com/package/sjcl](https://www.npmjs.com/package/sjcl). Yes the download count is way less than Forge, but SJCL is first in my list for a reason. SJCL provides minimal options of algorithms and cipher modes, etc. Just the best, to help ease the burden of having to research many algorithms and cipher modes to find out which are now broken.  
     
-  What's also really good to see is SJCL pushing consumers down the right path and issuing warnings around primitives that have issues. For example the warning against using CBC [https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers](https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers). I discuss this further in the [risks that solution causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
+  What's also really good to see is SJCL pushing consumers down the right path and issuing warnings around primitives that have issues. For example the [warning](https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers) against using CBC. I discuss this further in the [risks that solution causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
   
   Other than the [countermeasure](#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api), This is probably the best offering we have for crypto in the browser. It has sensible defaults, good warnings, not to many options to understand in order to make good choices. This is one of those libraries that guides the developer down the right path.
   
@@ -997,7 +997,7 @@ As discussed in the VPS chapter, Monit is an excellent tool for the dark cockpit
 
 ##### Statistics Graphing:
 
-Continuing on with the [Statistics Graphing](#vps-countermeasures-lack-of-visibility-monitoring-statistics-graphing) section in the VPS chapter, we look at adding [statsd](https://github.com/etsy/statsd/) as application instrumentation to our existing collectd -> graphite set-up.
+Continuing on with the [Statistics Graphing](#vps-countermeasures-lack-of-visibility-statistics-graphing) section in the VPS chapter, we look at adding [statsd](https://github.com/etsy/statsd/) as application instrumentation to our existing collectd -> graphite set-up.
 
 {linenos=off}
       Server1   
@@ -3168,11 +3168,7 @@ _Todo_
 
 I'm going to walk you through some of the important parts of what a possible authentication and authorisation solution might look like that will address the points raised in the [Identify Risks](#web-applications-identify-risks-lack-of-authentication-authorisation-session-management) section from above.
 
-{title="Relevant Standards"}
-| Authentication (identity)         | Authorisation
-|-----------------------------------|----------
-| OpenID                            | OAuth 2
-| OpenID Connect (built on OAuth 2) |
+![](images/RelevantAuthStandards.png)
 
 The following code is one example of how we can establish authentication and authorisation of individuals desiring to work with a system comprised of any number of front-ends (web, mobile, etc), a service layer API that provides an abstraction to, and communicates with the underlying back-end micro-services. The example uses the Resource Owner Password Credentials (ROPC) flow which is quite a common flow with todays front-end -> service API -> back-end micro-service architectures.
 
@@ -3188,15 +3184,7 @@ We'll also discuss integrating external identity providers (The Facebooks, Twitt
 
 #### Chosen technologies:
 
-|front-end(s)                    |service layer API | back-end micro-services |
-|--------------------------------|------------------|-------------------------|
-|N/A                             |C#.NET            |C#.NET                   |
-|--------------------------------|------------------|-------------------------|
-|`Secure` `HTTPOnly` cookie      |IdentityServer3   |IdentityServer3          |
-|containing reference token      |                  |                         |
-|--------------------------------|------------------|-------------------------|
-|localStorage for refresh token  |reference token   |                         |
-|                                |MembershipReboot  |MembershipReboot         |
+![](images/ChosenAuthTechnologies.png)
 
 Getting to grips with and understanding enough to create a solution like this can be quite a steep learning experience. The folks from IdentityServer which do this for the love of it have created an outstanding Open Source Software (OSS) project and in all my dealings with them have always gone out of their way to help. In all the projects I've worked on, with all the edge cases, there has always been a way to create the solution that satisfied the requirements.
 
@@ -3830,12 +3818,7 @@ In the above example we (were constrained by a business requirement) chose to us
 Using local storage means there is less to be concerned about in terms of protecting the token than using cookies. LocalStorag is only concerned with XSS, where as cookies are susceptible to both CSRF and XSS attacks (although XSS to a lesser degree). If you decided to use local storage, You're anti XSS strategy needs to be water-tight.  
 Even with the `HttpOnly` flag set on your cookie, it is possible to compromise the cookie contents if the values of the `Domain` and/or `Path` cookie attributes are too permissive. For example if you have the `Domain` value set to `.localtest.me`, an attacker can attempt to launch attacks on the cookie token between other hosts with the same domain name. Some of these hosts may contain vulnerabilities, thus increasing the attack surface.
 
-| host          | domain name | top level domain |
-|---------------|-------------|------------------|
-| api           | localtest   | me               |
-| identity      | localtest   | me               |
-| microservice1 | localtest   | me               |
-| microservice2 | localtest   | me               |
+![](images/SecuringSessions.png)
 
 Set the [`Secure` attribute](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Secure_Attribute) on the cookie. This instructs web browsers to only send the cookie over a TLS (HTTPS) connection, thus removing this MItM attack vector.  
 You can and should test this by inspecting the headers with an HTTP intercepting proxy. While you're at it, you may as well add this as a test to your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
@@ -3992,7 +3975,7 @@ A>
 
 #### Keeping Safe
 
-##### wget, curl, etc:
+##### wget, curl, etc
 
 Please do not `wget`, `curl` or fetch in any way and pipe what you think is an installer or any script to your shell without first verifying that what you are about to run is not malicious. Do not download and run in the same command.
 
@@ -4003,7 +3986,7 @@ The better option is to:
 3. Check it again, if all good
 4. Only then should you run it
 
-##### npm install:
+##### npm install
 
 As part of an `npm install`, package creators, maintainers (or even a malicious entity intercepting and modifying your request on the [wire](#network-identify-risks-wire-inspecting)) can define scripts to be run on specific [NPM hooks](https://docs.npmjs.com/misc/scripts). You can check to see if any package has hooks (before installation) that will run scripts by issuing the following command:  
 `npm show [module-you-want-to-install] scripts`
@@ -4016,7 +3999,7 @@ Recommended procedure:
 
 The most important step here is downloading and inspecting before you run.
 
-##### Doppelganger Packages:
+##### Doppelganger Packages {#web-applications-countermeasures-consuming-free-and-open-source-keeping-safe-doppelganger-packages}
 
 Similarly to [Doppelganger Domains](#network-identify-risks-doppelganger-domains), People often miss-type what they want to install. If you were someone that wanted to do something malicious like have consumers of your package destroy or modify their systems, send sensitive information to you, or any number of other malicious activities (ideally identified in the [Identify Risks](#web-applications-identify-risks-consuming-free-and-open-source) section. If not already, add), doppelganger packages are an excellent avenue for raising the likelihood that someone will install your malicious package by miss typing the name of it with the name of another package that has a very similar name. I covered this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation, with demos.
 
@@ -4207,9 +4190,11 @@ OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) 
 
 _Todo_
 
-### Lack of Active Automated Prevention
+### Lack of Active Automated Prevention {#web-applications-countermeasures-lack-of-active-automated-prevention}
 
 #### Web Application Firewall (WAF) {#web-applications-countermeasures-lack-of-active-automated-prevention-waf}
+
+_Todo_
 
 [WAFs](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#wafs) are similar to Intrusion Prevention Systems (IPS) except they operate at the [Application Layer](http://en.wikipedia.org/wiki/Application_layer)(HTTP), Layer 7 of the [OSI model](http://en.wikipedia.org/wiki/OSI_model). So they understand the concerns of your web application at a technical level. WAFs protect your application against a large number of attacks, like XSS, CSRF, SQLi, [Local File Inclusion (LFI)](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion), session hijacking, invalid requests (requests to things that do not exist (think 404)). WAFs sit in-line between a gateway and the web application. They run as a proxy. Either on the physical web server or on another network node, but only the traffic directed to the web application is inspected, where as an IDS/IPS inspects all network traffic passed through its interfaces. WAFs use signatures that look like specific vulnerabilities to compare the network traffic targeting the web application and apply the associated rule(s) when matches are detected. Although not only limited to dealing with known signatures, some WAFs can detect and prevent attacks they have not seen before like responses containing larger than specified payloads. Source code of the web application does not have to be modified.
 
@@ -4404,29 +4389,7 @@ There is no normative guidance in the specification as to which primitives have 
 
 The following table shows the Web Crypto API supported algorithms for Chromium (as of version 46) and Mozilla (as of July 2016).
 
-| Algorithm                  | Chromium | Mozilla | 
-|----------------------------|----------|---------|
-| RSASSA-PKCS1-v1_5          | Yes      | Yes
-| RSA-PSS                    | Yes      | No
-| RSA-OAEP                   | Yes      | Yes
-| ECDSA                      | Yes      | Yes
-| ECDH                       | Yes      | Yes
-| AES-CTR                    | Yes      | Yes
-| AES-CBC                    | Yes      | Yes
-| AES-CMAC                   | No       | No
-| AES-GCM                    | Yes      | Yes
-| AES-CFB                    | No       | No
-| AES-KW                     | Yes      | Yes
-| HMAC                       | Yes      | Yes
-| Diffie-Hellman             | No       | Yes
-| SHA-1                      | Yes      | ?
-| SHA-256                    | Yes      | ?
-| SHA-384                    | Yes      | ?
-| SHA-512                    | Yes      | ?
-| Concat KDF                 | No       | No
-| HKDF                       | Yes      | No
-| PBKDF2                     | Yes      | No
-| RSAES-PKCS1-v1_5           | No       | No
+![](images/WebCryptoAPIBrowserSupport.png)
 
 At least both are offering AES-GCM, but now you have to make the decision, and to much choice can bring confusion. The only way for us web developers to know which choices to make, is spend the time researching what to use where and asking your self the questions, why? Question everything.
 
