@@ -104,7 +104,7 @@ There is a complete cloning example of a website, ARP spoof, DNS spoof and hands
 This comes under the [OWASP Top 10 A7 Missing Function Level Access Control](https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control)
 
 Often websites will allow access to certain resources so long as the request was referred from a specific page defined by the `referer` header.  
-The referrer (spelled `referer`) field in HTTP requests can be intercepted and modified, so it is not a good idea to use it for authentication or authorisation. The Social Engineering Toolkit (SET) also exploits the `referer` header, as discussed in the hands on hack within the Spear Phishing section of Identify Risks in Fascicle 0.
+The referrer (spelled `referer`) field in HTTP requests can be intercepted and modified, so it is not a good idea to use it for authentication or authorisation. The Social Engineering Toolkit (SET) also exploits the `referer` header, as discussed in the hands on hack within the Spear Phishing section of Identify Risks in the People chapter of Fascicle 0.
 
 ![](images/HandsOnHack.png)
 
@@ -402,7 +402,7 @@ _Todo_ Add Security Onion Linux distro as an IDS, Network Security Monitoring (N
 
 #### Insufficient Logging {#network-countermeasures-lack-of-visibility-insufficient-logging}
 
-If you think back to the Web Server Log Management countermeasures section in the VPS chapter, we outlined an [Environmental Considerations](#vps-countermeasures-lack-of-visibility-logging-and-alerting-web-server-log-management-environmental-considerations) section, in which I defered to this section, as it made more sense to discuss alternative device system logging such as routers, layer 3 switches, in some cases layer 2 switches, data-store, and file servers here in the Network chapter rather than under VPS. Let's address that now. 
+If you think back to the Web Server Log Management countermeasures section in the VPS chapter, we outlined an [Environmental Considerations](#vps-countermeasures-lack-of-visibility-web-server-log-management-environmental-considerations) section, in which I defered to this section, as it made more sense to discuss alternative device system logging such as routers, layer 3 switches, in some cases layer 2 switches, data-store, and file servers here in the Network chapter rather than under VPS. Let us address that now. 
 
 **Steps in order of dependencies**
 
@@ -413,23 +413,23 @@ None of these are ideal, as UDP provides no reliable messaging and it is crucial
 **Steps with details**
 
 1. As per the PaperTrail set-up we performed in our test lab
-2. 
+2.   
   * Create persistence of FreeNAS syslogs, as currently they are lost on shutdown because FreeNAS runs entirely in RAM
-    * Create a dataset called "syslog" on your ZFS zpool and reset.
-  * (Option first choice, for pfSense)
-    * Create a jail in FreeNAS, [install OpenVPN in the jail](https://forums.freenas.org/index.php?threads/how-to-install-openvpn-inside-a-jail-in-freenas-9-2-1-6-with-access-to-remote-hosts-via-nat.22873/), install rsyslogd in the jail and configure it to accept syslog events via UDP as TCP is not supported, from the host and the remote hosts, and forward them on via TCP(possibly with RELP)/TLS to the external syslog aggregator.
-  * (Option second choice) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs) and possibly some appliances that can send via TCP.
-    * Download and run [SyslogAppliance](http://www.syslogappliance.de/en/) which is a turn-key VM for any VMware environment. SyslogAppliance is a purpose built slim Debian instance with [no sshd installed](http://www.syslogappliance.de/download/syslogappliance-0.0.6/README.txt), that can receive syslog messages from many types of appliances, including routers, firewalls, switches, and even Windows event logs via UDP and TCP. SyslogAppliance also [supports TLS](http://www.syslog.org/forum/profile/?area=showposts;u=29) and comes preconfigured with rsyslog and [LogAnalyzer](http://loganalyzer.adiscon.com/), thus providing [log analysis and alerting](http://www.syslogappliance.de/en/features.php). This means step 3 is no longer required, as it is being performed by LogAnalyzer. This option could also store its logs on an iSCSI target from FreeNAS.
-  * (Option third choice) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs).
-    * The default syslogd in FreeBSD doesn't support TCP.
-    * Create a jail in FreeNAS, install rsyslogd in the jail and configure it to accept UDP syslog messages and then forward them on via TCP(possibly with RELP)/TLS.
+      * Create a dataset called "syslog" on your ZFS zpool and reset.
+  * (Option **first choice**, for pfSense)
+      * Create a jail in FreeNAS, [install OpenVPN in the jail](https://forums.freenas.org/index.php?threads/how-to-install-openvpn-inside-a-jail-in-freenas-9-2-1-6-with-access-to-remote-hosts-via-nat.22873/), install rsyslogd in the jail and configure it to accept syslog events via UDP as TCP is not supported, from the host and the remote hosts, and forward them on via TCP(possibly with RELP)/TLS to the external syslog aggregator.
+  * (Option **second choice**) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs) and possibly some appliances that can send via TCP.
+      * Download and run [SyslogAppliance](http://www.syslogappliance.de/en/) which is a turn-key VM for any VMware environment. SyslogAppliance is a purpose built slim Debian instance with [no sshd installed](http://www.syslogappliance.de/download/syslogappliance-0.0.6/README.txt), that can receive syslog messages from many types of appliances, including routers, firewalls, switches, and even Windows event logs via UDP and TCP. SyslogAppliance also [supports TLS](http://www.syslog.org/forum/profile/?area=showposts;u=29) and comes preconfigured with rsyslog and [LogAnalyzer](http://loganalyzer.adiscon.com/), thus providing [log analysis and alerting](http://www.syslogappliance.de/en/features.php). This means step 3 is no longer required, as it is being performed by LogAnalyzer. This option could also store its logs on an iSCSI target from FreeNAS.
+  * (Option **third choice**) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs).
+      * The default syslogd in FreeBSD doesn't support TCP.
+      * Create a jail in FreeNAS, install rsyslogd in the jail and configure it to accept UDP syslog messages and then forward them on via TCP(possibly with RELP)/TLS.
 3.
-  * (Option first choice for pfSense) UDP as TCP is not available.
-    * In the pfSense Web UI: Set-up a vpn from site 'a' (syslog sending IP address) to site 'b' (syslog receiving IP address / remote log destination).
-    * Then in Status -> System Logs -> Settings -> Remote Logging Options, add the IP:port of the listening VPN server, which is hosted in the FreeBSD jail of the rsyslogd server (FreeNAS in this example) into one of the "Remote log servers" input boxes. The other option here is to send to option second choice of step two (SyslogAppliance).
-    * Your routing table will take care of the rest.  
+  * (Option first choice for pfSense) UDP, as TCP is not available.
+      * In the pfSense Web UI: Set-up a vpn from site 'a' (syslog sending IP address) to site 'b' (syslog receiving IP address / remote log destination).
+      * Then in Status -> System Logs -> Settings -> Remote Logging Options, add the `IP:port` of the listening VPN server, which is hosted in the FreeBSD jail of the rsyslogd server (FreeNAS in this example) into one of the "Remote log servers" input boxes. The other option here is to send to option second choice of step two (SyslogAppliance).
+      * Your routing table will take care of the rest.  
   * (Option second choice)
-    * Configure syslog UDP only appliances to forward their logs to the rsyslogd in the jail (option third choice of step two), or to option second choice of step two (SyslogAppliance).
+      * Configure syslog UDP only appliances to forward their logs to the rsyslogd in the jail (option third choice of step two), or to option second choice of step two (SyslogAppliance).
                 
 There are also a collection of [Additional Resources](#additional-resources-network-insufficient-logging-internal-network-system-logging) worth looking at.
 
@@ -454,63 +454,64 @@ There are two NTP packages to disgus.
 1. **ntpdate** is a programme that sets the date on a scheduled occurance via chron, an end user running it manually, or some other means. Ntpdate has been [deprecated](http://support.ntp.org/bin/view/Dev/DeprecatingNtpdate) for several years now. The functionality that ntpdate offered is now provided by the ntp daemon. running `ntp -q` will run ntp, set the time and exit as soon as it has. This functionality mimics how ntpdate is used, the upstream NTP server must be specified either in the `/etc/ntp.conf` file or overridden by placing it immeiatly after the `-q` option if running manually. 
 2. **ntpd** or just ntp, is a daemon that continuously monitors and updates the system time with an upstream NTP server specified in the local systems `/etc/ntp.conf`.
 
+
 1. This is how it used to be done with ntpdate:
+  
+  If you have ntpdate installed, `/etc/default/ntpdate` specifies that the list of NTP servers is taken from `/etc/ntp.conf` which does not exist without ntp being installed. It looks like this:
 
-If you have ntpdate installed, `/etc/default/ntpdate` specifies that the list of NTP servers is taken from `/etc/ntp.conf` which does not exist without ntp being installed. It looks like this:
-
-{title="/etc/default/ntpdate", linenos=off, lang=bash}
-    # Set to "yes" to take the server list from /etc/ntp.conf, from package ntp,
-    # so you only have to keep it in one place.
-    NTPDATE_USE_NTP_CONF=yes
-
-You would see that it also has a default `NTPSERVERS` variable set which is overridden if you add your time server to `/etc/ntp.conf`. If you entered the following and ntpdate is installed:
-
-{linenos=off, lang=bash}
-    dpkg-query -W -f='${Status} ${Version}\n' ntpdate
-
-You would receive output like:
-
-{linenos=off, lang=bash}
-    install ok installed 1:4.2.6.p5+dfsg-3
-
+  {title="/etc/default/ntpdate", linenos=off, lang=bash}
+      # Set to "yes" to take the server list from /etc/ntp.conf, from package ntp,
+      # so you only have to keep it in one place.
+      NTPDATE_USE_NTP_CONF=yes
+  
+  You would see that it also has a default `NTPSERVERS` variable set which is overridden if you add your time server to `/etc/ntp.conf`. If you entered the following and ntpdate is installed:
+  
+  {linenos=off, lang=bash}
+      dpkg-query -W -f='${Status} ${Version}\n' ntpdate
+  
+  You would receive output like:
+  
+  {linenos=off, lang=bash}
+      install ok installed 1:4.2.6.p5+dfsg-3
+  
 2. This is how it is done now with ntp:
-
-If you enter the following and ntp is installed:
-
-{linenos=off, lang=bash}
-    dpkg-query -W -f='${Status} ${Version}\n' ntp
-
-You will receive output like:
-
-{linenos=off, lang=bash}
-    install ok installed 1:4.2.8p4+dfsg-3
-
-Alternativly run this command for more information on the installed state:
-
-{linenos=off, lang=bash}
-    dpkg-query -l '*ntp*'
-    # Will also tell you about ntpdate if it is installed.
-
-If not installed, install it with:
-
-{linenos=off, lang=bash}
-    sudo apt-get install ntp
-
-You will find that there is no `/etc/default/ntpdate` file installed with ntp.
-
-The public NTP server(s) can be added straight to the bottom of the `/etc/ntp.conf` file, but because we want to use our own NTP server, we add the IP address of our server that is configured with our NTP pools to the bottom of the file.
-
-{title="/etc/ntp.conf", linenos=off, lang=bash}
-    server <IP address of your local NTP server here>
-
-Now if your NTP daemon is running on your router, hopefully you have everything blocked on its interface(s) by default and are using a white-list for egress filtering. In which case you will need to add a firewall rule to each interface of the router that you want NTP served up on. NTP talks over UDP and listens on port 123 by default. After any configuration changes to your `ntpd` make sure you restart it. On most routers this is done via the web UI.
-
-On the client (Linux) machines:
-
-{linenos=off, lang=bash}
-    sudo service ntp restart
-
-Now issuing the date command on your Linux machine will provide the current time with seconds.
+  
+  If you enter the following and ntp is installed:
+  
+  {linenos=off, lang=bash}
+      dpkg-query -W -f='${Status} ${Version}\n' ntp
+  
+  You will receive output like:
+  
+  {linenos=off, lang=bash}
+      install ok installed 1:4.2.8p4+dfsg-3
+  
+  Alternativly run this command for more information on the installed state:
+  
+  {linenos=off, lang=bash}
+     dpkg-query -l '*ntp*'
+     # Will also tell you about ntpdate if it is installed.
+  
+  If ntp is not installed, install it with:
+  
+  {linenos=off, lang=bash}
+      sudo apt-get install ntp
+  
+  You will find that there is no `/etc/default/ntpdate` file installed with ntp.
+  
+  The public NTP server(s) can be added straight to the bottom of the `/etc/ntp.conf` file, but because we want to use our own NTP server, we add the IP address of our server that is configured with our NTP pools to the bottom of the file.
+  
+  {title="/etc/ntp.conf", linenos=off}
+      server <IP address of your local NTP server here>
+  
+  Now if your NTP daemon is running on your router, hopefully you have everything blocked on its interface(s) by default and are using a white-list for egress filtering. In which case you will need to add a firewall rule to each interface of the router that you want NTP served up on. NTP talks over UDP and listens on port 123 by default. After any configuration changes to your `ntpd` make sure you restart it. On most routers this is done via the web UI.
+  
+  On the client (Linux) machines:
+  
+  {linenos=off, lang=bash}
+      sudo service ntp restart
+  
+  Now issuing the date command on your Linux machine will provide the current time with seconds.
 
 **Trouble-shooting**
 
@@ -522,9 +523,9 @@ The main two commands I use are:
 Which should produce output like:
 
 {linenos=off, lang=bash}
-                remote                       refid         st t when poll reach delay offset jitter
-    ===============================================================================================
-    *<server name>.<domain name> <upstream ntp ip address> 2  u  54   64   77   0.189 16.714 11.589
+    remote                       refid                     st t when poll reach delay offset jitter
+    ========================================================================================
+    *<server name>.<domain name> <upstream ntp ip address> 2 u 54 64 77 0.189 16.714 11.589
 
 and the standard [NTP query](http://doc.ntp.org/4.1.0/ntpq.htm) program followed by the `as` argument:
 
@@ -695,6 +696,8 @@ Names removed to save embarrassment. Sadly most banks do not take their web secu
 
 Of course this is only as good as a clients connection is trusted. If the connection is not over TLS, then there is no real safety that the headers can not be changed. If the connection is over TLS, but the connection is intercepted before the TLS hand-shake, the same lack of trust applies. See the section on [TLS Downgrade](#network-countermeasures-tls-downgrade) for more information.  
 Not to be confused with Cross Origin Resource Sharing (CORS). CORS instructs the browser to over-ride the "same origin policy" thus allowing AJAX requests to be made to header specified alternative domains. For example: web site a allows restricted resources on its web page to be requested from another domain outside the domain from which the resource originated. Thus specifically knowing and allowing specific other domains access to its resources.
+
+You can also evaluate the strength of a CSP policy by using the [google CSP evaluator](https://csp-evaluator.withgoogle.com/).
 
 #### Sub-resource Integrity (SRI) {#network-countermeasures-wrongfully-trusting-the-loading-of-untrusted-web-resources-sri}
 ![](images/ThreatTags/PreventionEASY.png)

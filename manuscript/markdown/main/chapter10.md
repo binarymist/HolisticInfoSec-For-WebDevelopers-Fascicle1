@@ -204,7 +204,8 @@ G>
 G> Back in the BeEF web UI you can explore the modules that you can launch against the victims browser. You can view the types of attacks you can carry out on the [BeEF projects wiki](https://github.com/beefproject/beef/wiki/BeEF-modules).
 G>
 G> If you select the victims node and click on the Commands tab in the BeEF web UI, then in the Module Tree under Social Engineering select the "Pretty Theft" node. There are some options to configure, but even selecting the default of Facebook if you know your target is already an avid FB user should work fine. You would of course know this if you have done due diligence in the reconnaissance stage.
-G>
+
+{icon=bomb}
 G> Click on the Execute button and on the next request -> response from the hook.js, the victims browser should pop a "Facebook Session Timed Out" modal. To get rid of this modal, the victim must enter their credentials and Log-in. There is no cancel or 'x' button. Once the victim has sent their credentials, they will be visible in the Command results of the BeEF web UI.  
 
 #### Cross-Site Request Forgery (CSRF)
@@ -275,7 +276,6 @@ G>
 G> `x' OR user LIKE '%`               # This works  
 
 {icon=bomb}
-G>
 G> I thought the query on the server looked something like this:  
 G> `SELECT ID, first_name, last_name FROM users WHERE ID = ''`
 G>
@@ -304,16 +304,16 @@ G> Lets determine the hash type with hash-identifier. Just run it and throw the 
 G>
 G> So take your pick of the following three commands:  
 G> Create `~/hashtocrack.txt` and put the hash(s) you want cracked in it. Now usually you would create a profiled wordlist taylored to your target like we did in the Password Profiling section of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). For this exercise just add the following four words to `~/wordlist-to-throw-at-dvwa`:  
-G> `dogs`, `cats`, `admins`, `admin`. Now you can compare the hashed words from the list with the hash in the `~/hashtocrack.txt`  
+G> `dogs`, `cats`, `admins`, `admin`. Now you can compare the hashed words from the list with the hash in the `~/hashtocrack.txt`
+
+{icon=bomb}
 G> 1. `hashcat -m 0 ~/hashtocrack.txt ~/wordlist-to-throw-at-dvwa`  
 G>    `-m 0` means MD5 to hashcat.  
 G> 2. `[algorithm]` for next command in this case will be `MD5`  
 G>    `findmyhash [algorithm] -h <hash_value>`  
 G>    `findmyhash` is a cracker that queries online lists.  
 G> 3. `john --format=raw-MD5 ~/hashtocrack.txt ~/wordlist-to-throw-at-dvwa --show`  
-G> This gives us the super secure password of "admin"
-
-{icon=bomb}
+G> This gives us the super secure password of "admin"=bomb}
 G>
 G> In order to get login, we actually need the username. In this case they were the same, but for some other users they were not. So our last query.  
 G> Full server query guess:  
@@ -637,7 +637,7 @@ Also refer to the ["Lack of Visibility"](#vps-countermeasures-lack-of-visibility
 
 As Bruce Schneier said: "_Detection works where prevention fails and detection is of no use without response_". This leads us to application logging.
 
-With good visibility we should be able to see anticipated and unanticipated exploitation of vulnerabilities as they occur and also be able to go back and review/audit the events. Of course you're still going to need someone engaged enough (discussed in the People chapter) to be reviewing logs and alerts.
+With good visibility we should be able to see anticipated and unanticipated exploitation of vulnerabilities as they occur and also be able to go back and review/audit the events. Of course you're still going to need someone engaged enough (discussed in the People chapter of Fascicle 0) to be reviewing logs and alerts.
 
 #### Insufficient Logging {#web-applications-countermeasures-lack-of-visibility-insufficient-logging}
 ![](images/ThreatTags/PreventionAVERAGE.png)
@@ -993,7 +993,7 @@ There are a couple of ways of approaching monitoring. You may want to see and be
 
 ##### Dark Cockpit:
 
-As discussed in the VPS chapter, Monit is an excellent tool for the dark cockpit approach. It's easy to configure. Monit Has excellent easy to read, short [documentation](https://mmonit.com/monit/documentation/monit.html) which is easy to understand, the configuration file has lots of examples commented out ready for you to take as is and modify to suite your environment. Remember I provided examples of monitoring a VPS and NodeJS web application in the VPS chapter. I've personally had excellent success with Monit. Check the VPS chapter Monitoring section for a refresher. Monit doesn't just give you monitoring, it can also perform pre-defined actions based on current states of many VPS resources and their applications.
+As discussed in the VPS chapter, Monit is an excellent tool for the dark cockpit approach. It's easy to configure. Monit Has excellent easy to read, short [documentation](https://mmonit.com/monit/documentation/monit.html) which is easy to understand, the configuration file has lots of examples commented out ready for you to take as is and modify to suite your environment. Remember I provided examples of monitoring a VPS and [NodeJS web application](#vps-countermeasures-lack-of-visibility-proactive-monitoring-keep-nodejs-application-alive) in the VPS chapter. I've personally had excellent success with Monit. Check the VPS chapter [Monitoring section](#vps-countermeasures-lack-of-visibility-proactive-monitoring-monit) for a refresher. Monit doesn't just give you monitoring, it can also perform pre-defined actions based on current states of many VPS resources and their applications.
 
 ##### Statistics Graphing:
 

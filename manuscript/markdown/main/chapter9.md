@@ -97,6 +97,8 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
 
 > Paul Hill, senior consultant, SystemExperts
 
+%% Excellent article: http://www.darkreading.com/cloud/7-ways-cloud-alters-the-security-equation/d/d-id/1326980
+
 ## 3. SSM Countermeasures
 
 Once you have sprung the questions from the ["Questions to Ask Your CSP"](#cloud-identify-risks-questions-to-ask-your-csp) section on your service provider and received their answers, you will be in a good position to feed these into the next stages.

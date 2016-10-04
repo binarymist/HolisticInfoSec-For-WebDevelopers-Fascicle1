@@ -2,32 +2,6 @@
 
 ## [VPS](#vps)
 
-**Logging and Alerting**, where and what are the log files?  
-[http://www.thegeekstuff.com/2011/08/linux-var-log-files/](http://www.thegeekstuff.com/2011/08/linux-var-log-files/)
-
-**Nagios Log Monitoring with Swatch**  
-[https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf#_ga=1.228044821.985883814.1472695863](https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf#_ga=1.228044821.985883814.1472695863)
-
-**Simple Log Watcher** examples  
-[http://www.linux-mag.com/id/7807/](http://www.linux-mag.com/id/7807/)
-
-**Simple Log Watcher** man page  
-[http://linux.die.net/man/1/swatch](http://linux.die.net/man/1/swatch)
-
-**Logwatch install, set-up, and using**  
-[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-logwatch-log-analyzer-and-reporter-on-a-vps](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-logwatch-log-analyzer-and-reporter-on-a-vps)
-
-**Fail2ban** source code  
-[https://github.com/fail2ban/fail2ban/](https://github.com/fail2ban/fail2ban/)
-
-**Multitail** example  
-[https://www.howtoforge.com/monitoring-multiple-log-files-at-a-time-with-multitail-on-debian-lenny](https://www.howtoforge.com/monitoring-multiple-log-files-at-a-time-with-multitail-on-debian-lenny)
-
-**Gentoo rsyslog wiki**  
-[https://wiki.gentoo.org/wiki/Rsyslog](https://wiki.gentoo.org/wiki/Rsyslog)
-
-**Make sure you have reviewed who can write and read** your logs and make any modifications necessary to the permissions.  
-[http://www.tldp.org/HOWTO/Security-HOWTO/secure-prep.html#logs](http://www.tldp.org/HOWTO/Security-HOWTO/secure-prep.html#logs)
 
 
 
@@ -38,8 +12,7 @@
 **Distributed Computing Environment / Remote Procedure Call**  
 [https://en.wikipedia.org/wiki/DCE/RPC](https://en.wikipedia.org/wiki/DCE/RPC).
 
-**Tripwire tutorial**  
-[https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps](https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps)
+
 
 **In most cases you will want to shadow your passwords**  
 [http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2](http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2)
@@ -72,7 +45,6 @@
 [http://www.garykessler.net/library/crypto.html](http://www.garykessler.net/library/crypto.html)
 
 {#additional-resources-vps-locking-down-the-mounting-of-partitions}
-
 **Mounting partitions the right way**  
 [http://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s4.10](http://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s4.10)
 
@@ -112,6 +84,64 @@
 
 
 
+
+
+**Logging and Alerting**, where and what are the log files?  
+[http://www.thegeekstuff.com/2011/08/linux-var-log-files/](http://www.thegeekstuff.com/2011/08/linux-var-log-files/)
+
+{#additional-resources-vps-countermeasures-lack-of-visibility-logging-and-alerting-swatch}
+**Nagios Log Monitoring with Swatch**  
+https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf#_ga=1.228044821.985883814.1472695863
+
+**Simple Log Watcher** examples  
+[http://www.linux-mag.com/id/7807/](http://www.linux-mag.com/id/7807/)
+
+**Simple Log Watcher** man page  
+[http://linux.die.net/man/1/swatch](http://linux.die.net/man/1/swatch)
+
+**Logwatch install, set-up, and using**  
+[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-logwatch-log-analyzer-and-reporter-on-a-vps](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-logwatch-log-analyzer-and-reporter-on-a-vps)
+
+**The Debian Manuals have details on how to use and customise logcheck**  
+[https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-custom-logcheck](https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-custom-logcheck) 
+
+**Fail2ban** source code  
+[https://github.com/fail2ban/fail2ban/](https://github.com/fail2ban/fail2ban/)
+
+**Multitail** example  
+[https://www.howtoforge.com/monitoring-multiple-log-files-at-a-time-with-multitail-on-debian-lenny](https://www.howtoforge.com/monitoring-multiple-log-files-at-a-time-with-multitail-on-debian-lenny)
+
+**Gentoo rsyslog wiki**  
+[https://wiki.gentoo.org/wiki/Rsyslog](https://wiki.gentoo.org/wiki/Rsyslog)
+
+**Make sure you have reviewed who can write and read** your logs and make any modifications necessary to the permissions.  
+[http://www.tldp.org/HOWTO/Security-HOWTO/secure-prep.html#logs](http://www.tldp.org/HOWTO/Security-HOWTO/secure-prep.html#logs)
+
+
+
+
+
+
+
+%% Keep NodeJS Applications Alive
+
+**`kill`ing processes**  
+[http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/](http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/)
+
+**Unix signals**  
+[https://en.wikipedia.org/wiki/Unix_signal](https://en.wikipedia.org/wiki/Unix_signal)
+
+**Terse guide of systemd commands** and some other quick start sort of info  
+[https://wiki.archlinux.org/index.php/systemd](https://wiki.archlinux.org/index.php/systemd)
+
+
+
+
+**Tripwire tutorial**  
+[https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps](https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps)
+
+
+
 **TLDP Security HowTo**  
 [http://www.tldp.org/HOWTO/Security-HOWTO/](http://www.tldp.org/HOWTO/Security-HOWTO/)
 
@@ -124,15 +154,11 @@
 **Debian Security**  
 [http://www.debianhelp.co.uk/security.htm](http://www.debianhelp.co.uk/security.htm)
 
-
-
-
-
 ## [Network](#network)
 
 
-
-**Insufficient Logging - Internal Network System Logging** {#additional-resources-network-insufficient-logging-internal-network-system-logging}  
+{#additional-resources-network-insufficient-logging-internal-network-system-logging}
+**Insufficient Logging - Internal Network System Logging**  
 These resources in order were helpful for establishing a strategy for the unreliable and unconfidental transport UDP  
 [https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/](https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/)  
 [https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/](https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/)  
@@ -156,29 +182,29 @@ https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
 
 **Application logging to syslog server** on another machine:  
 [http://unix.stackexchange.com/questions/67250/where-does-rsyslog-keep-facility-local0](http://unix.stackexchange.com/questions/67250/where-does-rsyslog-keep-facility-local0)  
-[http://wiki.rsyslog.com/index.php/Very_simple_config_--_starting_point_for_modifications](http://wiki.rsyslog.com/index.php/Very_simple_config_--_starting_point_for_modifications)
+http://wiki.rsyslog.com/index.php/Very_simple_config_--_starting_point_for_modifications
 
-**Or the new style configuration**:  
+**Or the new style configuration**  
 [http://www.rsyslog.com/doc/v8-stable/configuration/modules/imudp.html](http://www.rsyslog.com/doc/v8-stable/configuration/modules/imudp.html)
 
-**Syslog compatible protocol severities**:  
+**Syslog compatible protocol severities**  
 [https://wiki.gentoo.org/wiki/Rsyslog#Severity](https://wiki.gentoo.org/wiki/Rsyslog#Severity)
 
-**Monit is an excellent tool** for the dark cockpit approach:  
+**Monit is an excellent tool** for the dark cockpit approach  
 [http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#monit](http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#monit)
 
-**Experience with Monit**:  
+**Experience with Monit**  
 [http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#getting-started-with-monit](http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#getting-started-with-monit)
 
-**statsd source code**:  
+**statsd source code**  
 [https://github.com/etsy/statsd/](https://github.com/etsy/statsd/)
 
 **One of the ways we can generate statistics for our statsd daemon** is by using one of the many language specific statsd clients  
 [https://github.com/etsy/statsd/wiki#client-implementations](https://github.com/etsy/statsd/wiki#client-implementations)
 
-**First statsd spec for metric types**:  
+**First statsd spec for metric types**  
 [https://github.com/b/statsd_spec/blob/master/README.md](https://github.com/b/statsd_spec/blob/master/README.md)  
-**Current, or at least more recent statsd spec** for metric types:  
+**Current, or at least more recent statsd spec** for metric types  
 [https://github.com/etsy/statsd/blob/master/docs/metric_types.md](https://github.com/etsy/statsd/blob/master/docs/metric_types.md)
 
 **I would recommend NSubstitute** instead if you were looking for a mocking framework for .NET.  
