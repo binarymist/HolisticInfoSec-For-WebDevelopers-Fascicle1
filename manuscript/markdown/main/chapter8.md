@@ -415,21 +415,21 @@ None of these are ideal, as UDP provides no reliable messaging and it is crucial
 1. As per the PaperTrail set-up we performed in our test lab
 2.   
   * Create persistence of FreeNAS syslogs, as currently they are lost on shutdown because FreeNAS runs entirely in RAM
-      * Create a dataset called "syslog" on your ZFS zpool and reset.
+    - Create a dataset called "syslog" on your ZFS zpool and reset.
   * (Option **first choice**, for pfSense)
-      * Create a jail in FreeNAS, [install OpenVPN in the jail](https://forums.freenas.org/index.php?threads/how-to-install-openvpn-inside-a-jail-in-freenas-9-2-1-6-with-access-to-remote-hosts-via-nat.22873/), install rsyslogd in the jail and configure it to accept syslog events via UDP as TCP is not supported, from the host and the remote hosts, and forward them on via TCP(possibly with RELP)/TLS to the external syslog aggregator.
+    - Create a jail in FreeNAS, [install OpenVPN in the jail](https://forums.freenas.org/index.php?threads/how-to-install-openvpn-inside-a-jail-in-freenas-9-2-1-6-with-access-to-remote-hosts-via-nat.22873/), install rsyslogd in the jail and configure it to accept syslog events via UDP as TCP is not supported, from the host and the remote hosts, and forward them on via TCP(possibly with RELP)/TLS to the external syslog aggregator.
   * (Option **second choice**) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs) and possibly some appliances that can send via TCP.
-      * Download and run [SyslogAppliance](http://www.syslogappliance.de/en/) which is a turn-key VM for any VMware environment. SyslogAppliance is a purpose built slim Debian instance with [no sshd installed](http://www.syslogappliance.de/download/syslogappliance-0.0.6/README.txt), that can receive syslog messages from many types of appliances, including routers, firewalls, switches, and even Windows event logs via UDP and TCP. SyslogAppliance also [supports TLS](http://www.syslog.org/forum/profile/?area=showposts;u=29) and comes preconfigured with rsyslog and [LogAnalyzer](http://loganalyzer.adiscon.com/), thus providing [log analysis and alerting](http://www.syslogappliance.de/en/features.php). This means step 3 is no longer required, as it is being performed by LogAnalyzer. This option could also store its logs on an iSCSI target from FreeNAS.
+    - Download and run [SyslogAppliance](http://www.syslogappliance.de/en/) which is a turn-key VM for any VMware environment. SyslogAppliance is a purpose built slim Debian instance with [no sshd installed](http://www.syslogappliance.de/download/syslogappliance-0.0.6/README.txt), that can receive syslog messages from many types of appliances, including routers, firewalls, switches, and even Windows event logs via UDP and TCP. SyslogAppliance also [supports TLS](http://www.syslog.org/forum/profile/?area=showposts;u=29) and comes preconfigured with rsyslog and [LogAnalyzer](http://loganalyzer.adiscon.com/), thus providing [log analysis and alerting](http://www.syslogappliance.de/en/features.php). This means step 3 is no longer required, as it is being performed by LogAnalyzer. This option could also store its logs on an iSCSI target from FreeNAS.
   * (Option **third choice**) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs).
-      * The default syslogd in FreeBSD doesn't support TCP.
-      * Create a jail in FreeNAS, install rsyslogd in the jail and configure it to accept UDP syslog messages and then forward them on via TCP(possibly with RELP)/TLS.
-3.
+    - The default syslogd in FreeBSD doesn't support TCP.
+    - Create a jail in FreeNAS, install rsyslogd in the jail and configure it to accept UDP syslog messages and then forward them on via TCP(possibly with RELP)/TLS.
+3.   
   * (Option first choice for pfSense) UDP, as TCP is not available.
-      * In the pfSense Web UI: Set-up a vpn from site 'a' (syslog sending IP address) to site 'b' (syslog receiving IP address / remote log destination).
-      * Then in Status -> System Logs -> Settings -> Remote Logging Options, add the `IP:port` of the listening VPN server, which is hosted in the FreeBSD jail of the rsyslogd server (FreeNAS in this example) into one of the "Remote log servers" input boxes. The other option here is to send to option second choice of step two (SyslogAppliance).
-      * Your routing table will take care of the rest.  
+    - In the pfSense Web UI: Set-up a vpn from site 'a' (syslog sending IP address) to site 'b' (syslog receiving IP address / remote log destination).
+    - Then in Status -> System Logs -> Settings -> Remote Logging Options, add the `IP:port` of the listening VPN server, which is hosted in the FreeBSD jail of the rsyslogd server (FreeNAS in this example) into one of the "Remote log servers" input boxes. The other option here is to send to option second choice of step two (SyslogAppliance).
+    - Your routing table will take care of the rest.  
   * (Option second choice)
-      * Configure syslog UDP only appliances to forward their logs to the rsyslogd in the jail (option third choice of step two), or to option second choice of step two (SyslogAppliance).
+    - Configure syslog UDP only appliances to forward their logs to the rsyslogd in the jail (option third choice of step two), or to option second choice of step two (SyslogAppliance).
                 
 There are also a collection of [Additional Resources](#additional-resources-network-insufficient-logging-internal-network-system-logging) worth looking at.
 
@@ -455,7 +455,8 @@ There are two NTP packages to disgus.
 2. **ntpd** or just ntp, is a daemon that continuously monitors and updates the system time with an upstream NTP server specified in the local systems `/etc/ntp.conf`.
 
 
-1. This is how it used to be done with ntpdate:
+
+1. This is how it used to be done with ntpdate:  
   
   If you have ntpdate installed, `/etc/default/ntpdate` specifies that the list of NTP servers is taken from `/etc/ntp.conf` which does not exist without ntp being installed. It looks like this:
 
@@ -474,7 +475,7 @@ There are two NTP packages to disgus.
   {linenos=off, lang=bash}
       install ok installed 1:4.2.6.p5+dfsg-3
   
-2. This is how it is done now with ntp:
+2. This is how it is done now with ntp:  
   
   If you enter the following and ntp is installed:
   
@@ -523,9 +524,9 @@ The main two commands I use are:
 Which should produce output like:
 
 {linenos=off, lang=bash}
-    remote                       refid                     st t when poll reach delay offset jitter
-    ========================================================================================
-    *<server name>.<domain name> <upstream ntp ip address> 2 u 54 64 77 0.189 16.714 11.589
+    remote                        refid                 st t when poll reach delay offset jitter
+    ============================================================================================
+    *<server name>.<domain name> <upstream ntp ip address> 2 u 54  64  77  0.189  16.714  11.589
 
 and the standard [NTP query](http://doc.ntp.org/4.1.0/ntpq.htm) program followed by the `as` argument:
 

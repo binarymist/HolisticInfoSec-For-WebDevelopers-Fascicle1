@@ -91,7 +91,8 @@
 
 {#additional-resources-vps-countermeasures-lack-of-visibility-logging-and-alerting-swatch}
 **Nagios Log Monitoring with Swatch**  
-https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf#_ga=1.228044821.985883814.1472695863
+https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf#_ga=1
+.228044821.985883814.1472695863
 
 **Simple Log Watcher** examples  
 [http://www.linux-mag.com/id/7807/](http://www.linux-mag.com/id/7807/)
@@ -182,19 +183,12 @@ https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
 
 **Application logging to syslog server** on another machine:  
 [http://unix.stackexchange.com/questions/67250/where-does-rsyslog-keep-facility-local0](http://unix.stackexchange.com/questions/67250/where-does-rsyslog-keep-facility-local0)  
-http://wiki.rsyslog.com/index.php/Very_simple_config_--_starting_point_for_modifications
 
 **Or the new style configuration**  
 [http://www.rsyslog.com/doc/v8-stable/configuration/modules/imudp.html](http://www.rsyslog.com/doc/v8-stable/configuration/modules/imudp.html)
 
 **Syslog compatible protocol severities**  
 [https://wiki.gentoo.org/wiki/Rsyslog#Severity](https://wiki.gentoo.org/wiki/Rsyslog#Severity)
-
-**Monit is an excellent tool** for the dark cockpit approach  
-[http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#monit](http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#monit)
-
-**Experience with Monit**  
-[http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#getting-started-with-monit](http://blog.binarymist.net/2015/06/27/keeping-your-nodejs-web-app-running-on-production-linux/#getting-started-with-monit)
 
 **statsd source code**  
 [https://github.com/etsy/statsd/](https://github.com/etsy/statsd/)

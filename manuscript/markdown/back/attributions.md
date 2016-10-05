@@ -28,7 +28,8 @@
 [https://github.com/m57/dnsteal](https://github.com/m57/dnsteal)
 
 **Docker has many security enhancing capabilities**, but none are on by default  
-[http://resources.infosecinstitute.com/docker-and-enterprise-security-establishing-best-practices/](http://resources.infosecinstitute.com/docker-and-enterprise-security-establishing-best-practices/)
+http://resources.infosecinstitute.com/docker-and-enterprise-security-establishing-best-
+practices/
 
 **These processes have indirect access to most of the Linux Kernel**  
 [https://theinvisiblethings.blogspot.co.nz/2012/09/how-is-qubes-os-different-from.html](https://theinvisiblethings.blogspot.co.nz/2012/09/how-is-qubes-os-different-from.html)
@@ -69,7 +70,8 @@ https://en.wikipedia.org/wiki/Crypt_(C)
 **AES** block cipher with either key sizes of 128, 192 or 256 bits  
 SSH, The Secure Shell: The Definitive Guide (book)
 
-**CAST-128/256** described in Request for Comments (RFC) 2144 (http://www.rfc-editor.org/rfc/rfc2144.txt), as a DES-like substitution-permutation crypto algorithm  
+**CAST-128/256** described in Request for Comments (RFC) 2144  
+(http://www.rfc-editor.org/rfc/rfc2144.txt), as a DES-like substitution-permutation crypto algorithm  
 [http://www.garykessler.net/library/crypto.html](http://www.garykessler.net/library/crypto.html)  
 Designed in the early 1990s by Carlisle Adams and Stafford Tavares, available on a worldwide royalty-free basis  
 SSH, The Secure Shell: The Definitive Guide (book)
@@ -86,7 +88,7 @@ SSH, The Secure Shell: The Definitive Guide (book)
 **Diffie-Hellman key agreement** was the first public-key system published in open literature  
 SSH, The Secure Shell: The Definitive Guide (book)
 
-**The parties engage in an exchange of messages**, at the end of which they share a secret key. It's not feasible for an eavesdropper to determine the shared secret merely from observing the exchanged messages. SSH-2 uses the DH algorithm as its required (and currently, its only defined) key-exchange method.  
+**The parties engage in an exchange of messages**, at the end of which they share a secret key. It is not feasible for an eavesdropper to determine the shared secret merely from observing the exchanged messages. SSH-2 uses the DH algorithm as it is required (and currently, its only defined) key-exchange method.  
 SSH, The Secure Shell: The Definitive Guide (book)
 
 **The MAC is the result of**  
@@ -103,7 +105,8 @@ SSH, The Secure Shell: The Definitive Guide (book)
 [https://leap.se/](https://leap.se/)
 
 **Set a BIOS password**  
-[https://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1004129](https://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1004129)
+https://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC  
+&externalId=1004129
 
 **The Linux File System Hierarchy (FSH)**  
 [http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html](http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html)
@@ -124,10 +127,12 @@ SSH, The Secure Shell: The Definitive Guide (book)
 [https://debian-administration.org/article/212/An_introduction_to_run-levels](https://debian-administration.org/article/212/An_introduction_to_run-levels)
 
 **Portmapper returns port numbers** of the server programs and rpcbind returns universal addresses  
-[https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.halx001/portmap.htm](https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.halx001/portmap.htm)
+https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.halx001/p  
+ortmap.htm
 
 **NFSv4 pseudo-file system**. This pseudo-file system is identified as a single, real file system, identified at export with the `fsid=0` option.  
-[https://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-nfs-server-config-exports.html#id3077674](https://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-nfs-server-config-exports.html#id3077674)
+https://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-nfs-server-config-export  
+s.html#id3077674
 
 **NFSv4 has no interaction with these additional daemons**  
 [https://www.centos.org/docs/5/html/Deployment_Guide-en-US/ch-nfs.html](https://www.centos.org/docs/5/html/Deployment_Guide-en-US/ch-nfs.html) 
@@ -151,7 +156,8 @@ SSH, The Secure Shell: The Definitive Guide (book)
 [http://blog.gerhards.net/2008/04/on-unreliability-of-plain-tcp-syslog.html](http://blog.gerhards.net/2008/04/on-unreliability-of-plain-tcp-syslog.html)
 
 **Rainer Gerhards said** “_In rsyslog, every action runs on its own queue and each queue can be set to buffer data if the action is not ready. Of course, you must be able to detect that the action is not ready, which means the remote server is off-line. This can be detected with plain TCP syslog and RELP_“  
-http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsyslog_reliable_forwarding.html
+http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsyslog_reliab  
+le_forwarding.html
 
 **You can aggregate log files with rsyslog** or by using papertrails `remote_syslog` daemon  
 [http://help.papertrailapp.com/kb/configuration/advanced-unix-logging-tips/#rsyslog_aggregate_log_files](http://help.papertrailapp.com/kb/configuration/advanced-unix-logging-tips/#rsyslog_aggregate_log_files) 
@@ -175,7 +181,8 @@ http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsy
 [http://www.liblognorm.com/](http://www.liblognorm.com/)
 
 **Helpful info on the differences between Sysvinit and systemd**  
-[https://doc.opensuse.org/documentation/html/openSUSE_122/opensuse-reference/cha.systemd.html](https://doc.opensuse.org/documentation/html/openSUSE_122/opensuse-reference/cha.systemd.html)
+https://doc.opensuse.org/documentation/html/openSUSE_122/opensuse-reference/cha.syste  
+md.html
 
 **Comparison with Upstart, systemd, Runit and even Supervisor**  
 [http://www.tuicool.com/articles/qy2EJz3](http://www.tuicool.com/articles/qy2EJz3)
@@ -186,7 +193,7 @@ http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsy
 **PM2 also seems to provide logging**  
 [https://github.com/Unitech/pm2#log-facilities](https://github.com/Unitech/pm2#log-facilities)
 
-**To enable `httpok` the following lines have to be placed in `supervisord.conf`  
+**To enable `httpok`** the following lines have to be placed in `supervisord.conf`  
 [https://blog.risingstack.com/operating-node-in-production/#isitresponding](https://blog.risingstack.com/operating-node-in-production/#isitresponding) 
 
 **Community provided docs are good**  
@@ -221,14 +228,15 @@ http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsy
 **Release Notes**  
 [https://mmonit.com/monit/changes/](https://mmonit.com/monit/changes/)
 
-**There was accepted answer on Stack Overflow** that discussed a pretty good mix and approach to using the right tools for each job  
+**There was an accepted answer on Stack Overflow** that discussed a pretty good mix and approach to using the right tools for each job  
 [http://stackoverflow.com/questions/7259232/how-to-deploy-node-js-in-cloud-for-high-availability-using-multi-core-reverse-p](http://stackoverflow.com/questions/7259232/how-to-deploy-node-js-in-cloud-for-high-availability-using-multi-core-reverse-p)
 
 **Example of the Monit install**  
 [https://mmonit.com/wiki/Monit/Installation](https://mmonit.com/wiki/Monit/Installation)
 
 **Passenger install**  
-[https://www.phusionpassenger.com/documentation/Users%20guide%20Standalone.html#installation](https://www.phusionpassenger.com/documentation/Users%20guide%20Standalone.html#installation)
+https://www.phusionpassenger.com/documentation/Users%20guide%20Standalone.html#inst  
+allation
 
 **Unix Philosophy**  
 [https://en.wikipedia.org/wiki/Unix_philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)
@@ -280,7 +288,8 @@ http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsy
 [https://mmonit.com/monit/documentation/monit.html#MONIT-HTTPD](https://mmonit.com/monit/documentation/monit.html#MONIT-HTTPD)
 
 **If you want to receive alerts via email**, then you will need to configure that  
-[https://mmonit.com/monit/documentation/monit.html#Setting-a-mail-server-for-alert-delivery](https://mmonit.com/monit/documentation/monit.html#Setting-a-mail-server-for-alert-delivery)
+https://mmonit.com/monit/documentation/monit.html#Setting-a-mail-server-  
+for-alert-delivery
 
 **All the arguments you can throw at Monit** in the documentaion under
 Arguments  
@@ -314,7 +323,8 @@ Arguments
 [https://groups.google.com/forum/#!forum/ossec-list](https://groups.google.com/forum/#!forum/ossec-list)
 
 **Commercial Support**  
-[https://ossec.github.io/blog/posts/2014-05-12-OSSEC-Commercial-Support-Contracts.markdown.html](https://ossec.github.io/blog/posts/2014-05-12-OSSEC-Commercial-Support-Contracts.markdown.html)
+https://ossec.github.io/blog/posts/2014-05-12-OSSEC-Commercial-Support-Contracts.m  
+arkdown.html
 
 **FAQ**  
 [https://ossec-docs.readthedocs.io/en/latest/faq/index.html](https://ossec-docs.readthedocs.io/en/latest/faq/index.html)
@@ -348,7 +358,8 @@ Arguments
 https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/august_8_2012_12_01_pm6?lang=en
 
 **Work through using the likes of**  
-https://www.debian.org/doc/manuals/securing-debian-howto/ch-automatic-harden.en.html#s6.1  
+https://www.debian.org/doc/manuals/securing-debian-howto/ch-automatic-harden.en.htm  
+l#s6.1  
 harden  
 [https://packages.debian.org/wheezy/harden](https://packages.debian.org/wheezy/harden)  
 Lynis for your server  
@@ -425,7 +436,7 @@ http://www.syslog.org/forum/profile/?area=showposts;u=29
 
 
 **If the victim's SMTP server does not perform reverse lookups on the hostname**, an email `from` and `reply-to` fields can be successfully spoofed.  
-[](http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/)
+[http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/](http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/)
 
 **Doppelganger Domains** An old trick brought back to light by Peter Kim's research  
 [http://www.wired.com/2011/09/doppelganger-domains/](http://www.wired.com/2011/09/doppelganger-domains/)  
@@ -442,7 +453,7 @@ Peter Kim discusses in "The Hacker PlayBook" about how he set-up SMTP and SSH do
 [https://www.owasp.org/index.php/Content_Security_Policy_Cheat_Sheet](https://www.owasp.org/index.php/Content_Security_Policy_Cheat_Sheet)
 
 **Evaluate the strength of a CSP policy** by using the google CSP evaluator  
-[https://csp-evaluator.withgoogle.com/](https://csp-evaluator.withgoogle.com/).
+[https://csp-evaluator.withgoogle.com/](https://csp-evaluator.withgoogle.com/)
 
 **MDN easily digestible help** on using CSP  
 [https://developer.mozilla.org/en-US/docs/Web/Security/CSP](https://developer.mozilla.org/en-US/docs/Web/Security/CSP)
@@ -474,7 +485,8 @@ Peter Kim discusses in "The Hacker PlayBook" about how he set-up SMTP and SSH do
 **SSLStrip2 - dns2proxy attack demonstrated at BlackHat Asia in 2014 by LeonardoNve**
 
 **Stackoverflow question and answer**  
-http://stackoverflow.com/questions/29320182/hsts-bypass-with-sslstrip-dns2proxy/29357170#29357170
+http://stackoverflow.com/questions/29320182/hsts-bypass-with-sslstrip-dns2proxy/2935717  
+0#29357170
 
 **Questions and definitive answers by Leonardo Nve**  
 [https://github.com/LeonardoNve/sslstrip2/issues/4](https://github.com/LeonardoNve/sslstrip2/issues/4)
@@ -482,7 +494,8 @@ http://stackoverflow.com/questions/29320182/hsts-bypass-with-sslstrip-dns2proxy/
 %% What Kevin used, but was against IE 8 https://cyberarms.wordpress.com/2014/10/16/mana-tutorial-the-intelligent-rogue-wi-fi-router/
 
 **Security stackexchange questions and answers**  
-http://security.stackexchange.com/questions/91092/how-does-bypassing-hsts-with-sslstrip-work-exactly
+http://security.stackexchange.com/questions/91092/how-does-bypassing-hsts-with-sslstrip-wo  
+rk-exactly
 
 **Good write-up on how to compromise HSTS** Including NTP vector.  
 [https://jetcat.nl/blog/bypassing-http-strict-transport-security-hsts](https://jetcat.nl/blog/bypassing-http-strict-transport-security-hsts)
@@ -562,7 +575,8 @@ Good resource on what XSS actually is:
 http://www.stuff.co.nz/national/politics/73704551/homegrown-threats-more-serious-says-spy-boss-rebecca-kitteridge
 
 **Before the breach**, the company boasted about airtight data security but ironically, still proudly displays a graphic with the phrase “trusted security award” on its homepage.  
-[http://www.darkreading.com/operations/what-ashley-madison-can-teach-the-rest-of-us-about-data-security-/a/d-id/1322129](http://www.darkreading.com/operations/what-ashley-madison-can-teach-the-rest-of-us-about-data-security-/a/d-id/1322129)
+http://www.darkreading.com/operations/what-ashley-madison-can-teach-the-rest-of-  
+us-about-data-security-/a/d-id/1322129
 
 **Other notable data-store compromises were LinkedIn** with 6.5 million user accounts compromised and 95% of the users passwords cracked in days. Why so fast? Because they used simple hashing, specifically SHA-1. Details provided [here](http://securitynirvana.blogspot.co.nz/2012/06/final-word-on-linkedin-leak.html) on the findings.
 
@@ -633,7 +647,7 @@ https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_
 [SQL Authentication](https://msdn.microsoft.com/en-us/library/ff648340.aspx)  
 [Windows Authentication](https://msdn.microsoft.com/en-us/library/ff647396.aspx)
 
-"**vSentry protects desktops without requiring patches or updates**_, defeating and automatically discarding all known and unknown malware, and eliminating the need for costly remediation._"  
+"**vSentry protects desktops without requiring patches or updates**_, defeating and automatically discarding all known and unknown malware, and eliminating the need for costly remediation._"   
 https://www.google.co.nz/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CBsQFjAAahUKEwj4h8br2ofIAhULpJQKHdE1Cfg&url=http%3A%2F%2Fwww.bromium.com%2Fsites%2Fdefault%2Ffiles%2FBromium-Datasheet-vSentry.pdf&usg=AFQjCNHj08aV26awuSnIc9rQiHf6ER9ANQ&sig2=ynekdS3BwHgB9_8WBfGzTw&bvm=bv.103073922,d.dGo
 
 **Every user task is isolated** into its own micro-VM  
@@ -703,10 +717,12 @@ and IdentityServer3.MembershipReboot
 [https://github.com/IdentityServer/IdentityServer3.MembershipReboot](https://github.com/IdentityServer/IdentityServer3.MembershipReboot)
 
 **Customise, out of the box**. All you need to do is add the properties you require to the already provided `CustomUser`  
-https://github.com/IdentityServer/IdentityServer3.MembershipReboot/blob/master/source/WebHost/MR/CustomUser.cs
+https://github.com/IdentityServer/IdentityServer3.MembershipReboot/blob/master/source/  
+WebHost/MR/CustomUser.cs
 
 **Security focussed configuration**  
-[https://github.com/brockallen/BrockAllen.MembershipReboot/wiki/Security-Settings-Configuration](https://github.com/brockallen/BrockAllen.MembershipReboot/wiki/Security-Settings-Configuration)
+https://github.com/brockallen/BrockAllen.MembershipReboot/wiki/Security-Settings-Confi  
+guration
 
 **Password storage** is addressed  
 [http://brockallen.com/2014/02/09/how-membershipreboot-stores-passwords-properly/](http://brockallen.com/2014/02/09/how-membershipreboot-stores-passwords-properly/)
@@ -745,10 +761,12 @@ kindly provided by Brock Allen and documentation on their github wiki
 [https://soundcloud.com/owasp-podcast/dibbe-edwards-devops-and-open-source-at-ibm](https://soundcloud.com/owasp-podcast/dibbe-edwards-devops-and-open-source-at-ibm)
 
 **There is an excellent paper by the SANS Institute** on Security Concerns in Using Open Source Software for Enterprise Requirements that is well worth a read. It confirms what the likes of IBM are doing in regards to their consumption of free and open source libraries  
-http://www.sans.org/reading-room/whitepapers/awareness/security-concerns-open-source-software-enterprise-requirements-1305
+http://www.sans.org/reading-room/whitepapers/awareness/security-concerns-open-source-  
+software-enterprise-requirements-1305
 
 **As a developer, you are responsible** for what you install and consume  
-[https://blog.liftsecurity.io/2015/01/27/a-malicious-module-on-npm#you-are-responsible-for-what-you-require-](https://blog.liftsecurity.io/2015/01/27/a-malicious-module-on-npm#you-are-responsible-for-what-you-require-)
+https://blog.liftsecurity.io/2015/01/27/a-malicious-module-on-npm#you-are-responsible-for-  
+what-you-require-
 
 **The official way** to install NodeJS. Do not do this.  
 [https://github.com/nodesource/distributions](https://github.com/nodesource/distributions)
@@ -771,7 +789,7 @@ https://blog.liftsecurity.io/2015/01/27/a-malicious-module-on-npm#make-sure-you-
 **To install RetireJS locally to your project** and run as a git precommit-hook  
 [https://blog.andyet.com/2014/11/19/managing-code-changes](https://blog.andyet.com/2014/11/19/managing-code-changes)
 
-**RequireSafe provides** "_intentful auditing as a stream of intel for bithound_"  
+**RequireSafe provides** "_intentful auditing as a stream of intel for bithound_"   
 https://blog.liftsecurity.io/2015/02/10/introducing-requiresafe-peace-of-mind-third-party-node-modules
 
 **The Web Crypto API supported algorithms** for Chromium (as of version 46) and Mozilla (as of July 2016)  

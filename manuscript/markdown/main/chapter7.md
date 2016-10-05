@@ -245,11 +245,11 @@ _Todo_
 
 #### NFS
 
-`mountd` or `rpc.mount` is the NFS mount daemon, that listens and services NFS client requests to mount a file system
+`mountd` or `rpc.mount` is the NFS mount daemon, that listens and services NFS client requests to mount a file system.
 
-If mounts are listed in the `/etc/fstab` attempts will be made to mount them on system boot.
+If mounts are listed in the `/etc/fstab`, attempts will be made to mount them on system boot.
 
-If the `mountd` daemon is listed in the output of the above `rpcinfo` command, `showmount -e` command will be useful for listing the NFS servers list of exports defined in the servers `/etc/exports` file.
+If the `mountd` daemon is listed in the output of the above `rpcinfo` command, the `showmount -e` command will be useful for listing the NFS servers list of exports defined in the servers `/etc/exports` file.
 
 {title="showmount", linenos=off, lang=bash}
     showmount -e <target host>
@@ -327,7 +327,7 @@ If you have two containers running and the user has not been specified you will 
     <container n Id>: User=
     <container n+1 Id>: User=
 
-These processes have [indirect access](https://theinvisiblethings.blogspot.co.nz/2012/09/how-is-qubes-os-different-from.html) to most of the Linux Kernel (that is approximately 20 million lines of code written by humans) via many APIs such as networking, USB, storage stacks, and others. This attack surface is huge, and all before any security is added on top in the form of LXC, or libcontainer (now [opencontainers/runc](https://github.com/opencontainers/runc)). So what is an attacker going to do? They'll just avoid the security on top and attack the millions of lines of Kernel code that certainly have bugs waiting to be exploited. It's the usual story, professional attackers always go for the lowest hanging fruit, just as encryption is more commonly avoided than attacked, and doors are more commonly opened by under door devices than picking locks (lock picking takes too long) for any other reason than the challenge of it.
+These processes have [indirect access](https://theinvisiblethings.blogspot.co.nz/2012/09/how-is-qubes-os-different-from.html) to most of the Linux Kernel (that is approximately 20 million lines of code written by humans) via many APIs such as networking, USB, storage stacks, and others. This attack surface is huge, and all before any security is added on top in the form of LXC, or libcontainer (now [opencontainers/runc](https://github.com/opencontainers/runc)). So what is an attacker going to do? They'll just avoid the security on top and attack the millions of lines of Kernel code that certainly have bugs waiting to be exploited. It is the usual story, professional attackers always go for the lowest hanging fruit, just as encryption is more commonly avoided than attacked, and doors are more commonly opened by under door devices than picking locks (lock picking takes too long) for any other reason than the challenge of it.
 
 Images derived from other images inherit the same user defined in the parent image explicitly or implicitly, so in most cases this will default to root. 
 
@@ -395,7 +395,7 @@ _Todo_: [Take this further](https://github.com/binarymist/HolisticInfoSec-For-We
 ### Minimise Attack Surface by Installing Only what you Need
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
-I'm hoping this goes without saying, unless you are setting up a Windows server with "all the stuff" that you have little control over, which is why I prefer UNIX based servers. I/You have all the control, if anything goes wrong, it is usually my own fault. The less you have on your severs, the fewer servers you have, the smaller the network you have, the less employees you have, basically the smaller and lesser of everything you have, the less there is to compromise by an attacker and the quicker you can move.
+I am hoping this goes without saying, unless you are setting up a Windows server with "all the stuff" that you have little control over, which is why I prefer UNIX based servers. I/You have all the control, if anything goes wrong, it is usually my own fault. The less you have on your severs, the fewer servers you have, the smaller the network you have, the less employees you have, basically the smaller and lesser of everything you have, the less there is to compromise by an attacker and the quicker you can move.
 
 ### Disable, Remove Services. Harden what is left {#vps-countermeasures-disable-remove-services-harden-what-is-left}
 
@@ -649,7 +649,7 @@ Also known as public-key or key-pair encryption, utilises a pair of keys, one wh
 
 * RSA (or Rivest-Shamir-Adleman is the most widely used asymmetric cipher and my preference at this point in time.). Was claimed to be patented by Public Key Partners, Inc (PKP). The algorithm is now in the public domain, and was added to SSH-2 not long after its patent expired.
 * DH (Diffie-Hellman key agreement was the first public-key system published in open literature.) Invented in 1976 and patented in 1977, now expired and in the public domain. It allows two parties to derive a shared secret key (sounds similar to symmetric encryption, but it is not similar) securely over an open channel. "_The parties engage in an exchange of messages, at the end of which they share a secret key. It's not feasible for an eavesdropper to determine the shared secret merely from observing the exchanged messages. SSH-2 uses the DH algorithm as its required (and currently, its only defined) key-exchange method._"
-* DSA (or Digital Signature Algorithm was developed by the the National Security Agency (NSA), but covered up by NIST first claiming that it had designed DSA.). Was the originally only key-exchange method for SSH-2
+* DSA (or Digital Signature Algorithm was developed by the the National Security Agency (NSA), but covered up by NIST first claiming that it had designed DSA.). Was originally the only key-exchange method for SSH-2
 * ECDSA (or Elliptic Curve Digital Signature Algorithm), was accepted in 1999 as an ANSI standard, NIST and IEEE standards in 2000.
 
 ##### Hashing
@@ -682,24 +682,22 @@ The following are the details for each:
 1. The SSH client is responsible for initiating the TCP handshake with the server. The server responds with the protocol versions it supports, if the client can support one of the protocol versions from the server, the process continues. The server also provides its public (asymmetric) host key. The client verifies that the server is known to it, by checking that the public host key sent from the server is in the clients:  
 `~/.ssh/known_hosts`.  
 This record is added on first connection to the server, as detailed in the section ["Establishing your SSH Servers Key Fingerprint"](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) below.  
-  
-  At this stage, a session key is negotiated between the client and server using Diffie-Hellman (DH) as an ephemeral (asymmetric) key exchange algorithm, each combining their own private data with public data from the other party, which allows both parties to arrive at the identical secret symmetric session key. The public and private key pairs used to create the shared secret key in this stage have nothing to do with the client authenticating to the server.  
-  
-  Now in a little more detail, the Diffie-Hellman key agreement works like this:
+
+At this stage, a session key is negotiated between the client and server using Diffie-Hellman (DH) as an ephemeral (asymmetric) key exchange algorithm, each combining their own private data with public data from the other party, which allows both parties to arrive at the identical secret symmetric session key. The public and private key pairs used to create the shared secret key in this stage have nothing to do with the client authenticating to the server.  
+
+Now in a little more detail, the Diffie-Hellman key agreement works like this:  
 
     1. Both client and server come to agreement on a seed value, that is a large prime number.
     2. Both client and server agree on a symmetric cipher, so that they are both encrypting/decrypting with the same block cipher, usually AES
     3. Each party then creates another prime number of their own to be used as a private key for this ephemeral DH interaction
     4. Each party then create a public key which they exchange with the other party. These public keys are created using the symmetric cipher from step 2, the shared prime number from step 1, and derived from the private key from step 3.
     5. The party receiving the other parties public key, uses this, along with their own private key, and the shared prime number from step 1 to compute their own secret key. Because each party does the same, they both arrive at the same (shared/symmetric/secret) key.
-    6. All communications from here on are encrypted with the same shared secret key, the connection from here on is known as the _binary packet protocol_. Each party can use their own shared secret key to encrypt and decrypt, messages from the other party.
-  
-2. The second stage is to authenticate the client, establishing whether they should be communicating with the server. There are several methods for doing this, the two most common are passwords and key-pair. SSH defaults to passwords, as the lowest common denominator, plus it often helps to have password authentication set-up in order to set-up key-pair authentication, especially if you don't have physical access to the server(s).  
-  
-  SSH key pairs are asymmetric. The server holds the clients public key and is used by the server to encrypt messages that it uses to authenticate the client. The client in turn receives the messages from the server and decrypts them with the private key. If the public key falls into the wrong hands, it's no big deal, because the private key can not be deduced from the public key, and all the authentication public key is used for is verifying that the client holds the private key for it.  
-  
-  The authentication stage continues directly after the encryption has been established from the previous step.  
-    
+    6. All communications from here on are encrypted with the same shared secret key, the connection from here on is known as the *binary packet protocol*. Each party can use their own shared secret key to encrypt and decrypt, messages from the other party.  
+2. The second stage is to authenticate the client, establishing whether they should be communicating with the server. There are several methods for doing this, the two most common are passwords and key-pair. SSH defaults to passwords, as the lowest common denominator, plus it often helps to have password authentication set-up in order to set-up key-pair authentication, especially if you don't have physical access to the server(s).
+
+SSH key pairs are asymmetric. The server holds the clients public key and is used by the server to encrypt messages that it uses to authenticate the client. The client in turn receives the messages from the server and decrypts them with the private key. If the public key falls into the wrong hands, it's no big deal, because the private key can not be deduced from the public key, and all the authentication public key is used for is verifying that the client holds the private key for it.
+
+The authentication stage continues directly after the encryption has been established from the previous step.
     1. The client sends the Id of the key pair they want to authenticate as to the server
     2. The server checks the `~/.ssh/authorized_keys` file for the Id of the public keys account that the client is authenticating as
     3. If there is a matching Id for a public key within `~/.ssh/authorized_keys`, the server creates a random number and encrypts it with the public key that had a matching Id
@@ -775,7 +773,7 @@ so that next time you try and login via SSH, your client will already know your 
 
 ##### Hardening SSH
 
-There are a bunch of things you can do to minimise SSH being used as an attack vector. Let's walk through some now.
+There are a bunch of things you can do to minimise SSH being used as an attack vector. Let us walk through some now.
 
 After any changes, restart SSH daemon as root (using sudo) to apply the changes.
 
@@ -842,7 +840,7 @@ Start with the changes I list here. When you change things like setting up `Allo
 
 As you can see, these changes are very simple, but so many do not do it. Every positive security change you make to the low hanging fruit lifts it that little bit higher for the attacker to reach, making it less economical for them.
 
-You can also consider installing and configuring [denyhosts][https://www.digitalocean.com/community/articles/how-to-install-denyhosts-on-ubuntu-12-04](https://www.digitalocean.com/community/articles/how-to-install-denyhosts-on-ubuntu-12-04)
+You can also consider installing and configuring [denyhosts](https://www.digitalocean.com/community/articles/how-to-install-denyhosts-on-ubuntu-12-04)
 
 Check SSH login attempts. As root or via sudo, type the following to see all failed login attempts:
 
@@ -901,7 +899,6 @@ This will copy the public key straight into the `~/.ssh/authorized_keys` file on
 Also make sure the following permissions and ownership on the server are correct:
 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication-ssh-perms}
-     
 {linenos=off, lang=Bash}
     chmod go-w ~/
     # Everything in the ~/.ssh dir needs to be chmod 600
@@ -915,12 +912,12 @@ You may need to tunnel SSH once the server is placed into the DMZ. Usually this 
 
 {linenos=off, lang=Bash}
     # The -A option is useful for hopping from your network internal server to other servers.
-    ssh your_webserver_account@your_routers_wan_interface -A -p [your router wan non default port] 
+    ssh your_webserver_account@your_routers_wan_interface -A -p [router wan non default port] 
 
 If you are wanting to SSH from your LAN host to your DMZ web server:
 
 {linenos=off, lang=Bash}
-    ssh your_webserver_account@your_routers_lan_interface -p [your router wan non default port] 
+    ssh your_webserver_account@your_routers_lan_interface -p [router wan non default port] 
 
 Before you try that though, you will need to set-up the port forwards and add the WAN and/or LAN rule to your router. How you do this will depend on what you are using for a router.
 
@@ -1043,7 +1040,7 @@ At any point you can check the options that you have your directories mounted as
 
 &nbsp;
 
-As mentioned above, I had some troubles adding these mounts to existing directories, I was not able to get all options applied, so I decided to take another backup of the VM (I would highly advice you to do the same if you are following along) and run the machine from a live CD (Knoppix in my case). I Ran Disk Usage Analyzer to work out which sub directories of `/var` and `/usr` were using how much disk space, to work out how much to reduce the sizes of partitions that `/var` and `/usr` were mounted on, in order to provide that space to sub directories (`/var/tmp`, `/var/log` and `/usr/share`) on new partitions.  
+As mentioned above, I had some troubles adding these mounts to existing directories, I was not able to get all options applied, so I decided to take another backup of the VM (I would highly advise you to do the same if you are following along) and run the machine from a live CD (Knoppix in my case). I Ran Disk Usage Analyzer to work out which sub directories of `/var` and `/usr` were using how much disk space, to work out how much to reduce the sizes of partitions that `/var` and `/usr` were mounted on, in order to provide that space to sub directories (`/var/tmp`, `/var/log` and `/usr/share`) on new partitions.  
 Run gparted and unmount the relevant directory from its partition (`/var` from `/dev/sda5`, and `/usr` from `/dev/sda8` in this case). Reduce the size of the partitions, by the size of the new partitions you want taken from it. Locate the unallocated partition of the size that you just reduced the partition you were working on, and select new from the context menu. Set the File system type to `ext4` and click Add -> Apply All Operations -> Apply. You should now have the new partition.
 
 Now you will need to mount the original partition that you resized and the new partition. Open a terminal with an extra tab. In the left terminal go to where you mounted the original partition (`/media/sda5/tmp/` for example), in the right terminal go to where you mounted the new partition (`/media/sda11/` for example).
@@ -1236,7 +1233,7 @@ Check to see if NIS is installed by running the following command:
 
 Nis is not installed by default on a Debian web server, so in this case, we do not need to disable it.
 
-If the host you were hardening had the role of a file server and was running NFS, then you may need NIS. NFS clients need a way of knowing who owns which files own exported volumes, NIS helps provide this ability. Although there are other ways of doing this without NIS, such as syncing the password files.
+If the host you were hardening had the role of a file server and was running NFS, then you may need NIS. NFS clients need a way of knowing who owns which files on exported volumes, NIS helps provide this ability. Although there are other ways of doing this without NIS, such as syncing the password files.
 
 #### Remove Rpcbind {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind}
 
@@ -1387,7 +1384,7 @@ Some of the more important options are:
 * `root_squash`: This prevents remote root users that are connected from also having root privileges, assigning them the user ID of the `nfsnobody`, thus effectively "squashing" the power of the remote user to the lowest privileges possible on the server. Or even better, use `all_squash`.
 * From 1.1.0 of `nfs-utils` onwards, `no_subtree_check` is a default. `subtree_check` was the previous default, which would cause a routine to verify that files requested by the client were in the appropriate part of the volume. The `subtree_check` caused more issues than it solved.
 * `fsid`: is used to specify the file system that is exported, this could be a UUID, or the device number. NFSv4 clients have the ability to see all of the exports served by the NFSv4 server as a single file system. This is called the NFSv4 pseudo-file system. This pseudo-file system is identified as a [single, real file system](https://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-nfs-server-config-exports.html#id3077674), identified at export with the `fsid=0` option.
-* `anonuid` and `anongid` explicitly set the uid and gid of the anonymous account. This option makes all requests look like they come from a specific user. By default the uid and gid of 65534 is used by exportfs for squashed access. These to options allow us to override the uid and gid values.
+* `anonuid` and `anongid` explicitly set the uid and gid of the anonymous account. This option makes all requests look like they come from a specific user. By default the uid and gid of 65534 is used by exportfs for squashed access. These two options allow us to override the uid and gid values.
 
 The following is one of the configs I have used on several occasions: 
 
@@ -1398,10 +1395,10 @@ The following is one of the configs I have used on several occasions:
 
 Then on top of this sort of configuration, you need to make sure that the local server mounts are as restrictive as we set-up in the ["Lock Down the Mounting of Partitions"](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section, and also the file permissions for other, at the exported level recursively, are as restrictive as practical for you. Now we are starting to achieve a little defence in depth.
 
-Now if you have been following along with the NFS configuration because you are working on a file server rather than a web server, lets just take this a little further with some changes to `/etc/hosts.deny` and `/etc/hosts.allow`.
-The access control language used in these two files is the same as each other, just that `hosts.deny` is consulted for which entities to deny to which services and `hosts.allow` for which to allow for the same.
+Now if you have been following along with the NFS configuration because you are working on a file server rather than a web server, lets just take this a little further with some changes to `/etc/hosts.deny` and `/etc/hosts.allow`.  
+The access control language used in these two files is the same as each other, just that `hosts.deny` is consulted for which entities to deny to which services, and `hosts.allow` for which to allow for the same.
 
-Each line of these two files specifies (in the simplest form) a single service or process and a set of hosts in numeric form (not DNS), in the more complex forms, _daemon@host_ and _user@host_.
+Each line of these two files specifies (in the simplest form) a single service or process and a set of hosts in numeric form (not DNS). In the more complex forms, _daemon@host_ and _user@host_.
 
 You can add `ALL:ALL` to your `hosts.deny`, but if you install a new service that uses these files, then you will be left wondering why it is not working. I prefer to be more explicit, but it is up to you.
 
@@ -1440,22 +1437,23 @@ Prior to NFSv4 to achieve the same results, these two files would need to contai
 Reload your config with a restart of NFS:
 
 {linenos=off, lang=Bash}
-    service nfs-kernel-server start
+    service nfs-kernel-server [restart | stop, start]
 
 ### Lack of Visibility {#vps-countermeasures-lack-of-visibility}
 
 **Some Useful Visibility Commands**
 
-Check who is currently logged in to your server and what they are doing:
+Check who is currently logged in to your server and what they are doing:  
 `who` and `w`  
 
-Check who has recently logged into your server, I mentioned this command previously:
+Check who has recently logged into your server, I mentioned this command previously:  
 `last -ad`
 
-Check which user has failed login attempts, mentioned this command previously:
+Check which user has failed login attempts, mentioned this command previously:  
 `lastb -ad`
 
-Check the most recent login of all users, or of a given user. `lastlog` sources data from the binary file `/var/log/lastlog`
+Check the most recent login of all users, or of a given user. `lastlog` sources data from the binary file:  
+`/var/log/lastlog`
 `lastlog`  
 
 #### Logging and Alerting {#vps-countermeasures-lack-of-visibility-logging-and-alerting}
@@ -1480,30 +1478,30 @@ Being able to rely on the times of events on different network nodes is essentia
 {#vps-countermeasures-lack-of-visibility-logging-and-alerting-initial-evaluation}
 * [Simple Log Watcher](https://sourceforge.net/projects/swatch/)  
 Or as it used to be called before being asked to change its name from Swatch (Simple Watchdog), by the Swiss watch company, is a pearl script that monitors “a” log file for each instance you run (or schedule), matches your defined regular expression patterns based on the configuration file which defaults to `~/.swatchrc` and performs any action you can script. You can define different message types with different font styles and colours. Simple Log Watcher can tail the log file, so your actions will be performed in real-time.  
-
+  
 Each log file you want to monitor, you need a separate `swatchrc` file and a separate instance of Simple Log Watcher, as it only takes one file argument. If you want to monitor a lot of log files without aggregating them, this could get messy.  
-
+  
 See the [Additional Resources](#additional-resources-vps-countermeasures-lack-of-visibility-logging-and-alerting-swatch) chapter.  
-
+  
 * [Logcheck](https://packages.debian.org/stretch/logcheck)  
 Monitors system log files, and emails anomalies to an administrator. Once [installed](https://linuxtechme.wordpress.com/2012/01/31/install-logcheck/) it needs to be set-up to run periodically with cron, so it is not a real-time monitor, which may significantly reduce its usefulness in catching an intruder before they obtain their goal, or get a chance to modify the logs that logcheck would review. The Debian Manuals have [details](https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-custom-logcheck) on how to use and customise logcheck. Most of the configuration is stored in `/etc/logcheck/logcheck.conf`. You can specify which log files to review within the `/etc/logcheck/logcheck.logfiles`. Logcheck is easy to install and configure.  
-
+  
 * [Logwatch](https://packages.debian.org/stretch/logwatch)  
 Similar to Logcheck, monitors system logs, not continuously, so they could be open to modification before Logwatch reviews them, thus rendering Logwatch infective. Logwatch targets a similar space to Simple Log Watcher and Logcheck from above, it can review all logs within a certain directory, all logs from a specified collection of services, and single log files. Logwatch creates a report of what it finds based on your level of paranoia and can email to the sys-admin. It is easy to set-up and get started though. Logwatch is available in the debian repositories and the [source](https://sourceforge.net/p/logwatch/git/ci/master/tree/) is available on SourceForge.  
-
+  
 * [Logrotate](https://packages.debian.org/stretch/logrotate)  
 Use [logrotate](http://www.rackspace.com/knowledge_center/article/understanding-logrotate-utility) to make sure your logs will be around long enough to examine them. There are some usage examples  
 here: [http://www.thegeekstuff.com/2010/07/logrotate-examples/](http://www.thegeekstuff.com/2010/07/logrotate-examples/). Ships with Debian. It is just a matter of reviewing the default configuration and applying any extra config that you require specifically.  
-
+  
 * [Logstash](https://www.elastic.co/products/logstash)  
 Targets a similar problem to logrotate, but goes a lot further in that it routes and has the ability to translate between protocols. Logstash has a rich plugin ecosystem, with integrations provided by both the creators (Elastic) and the open source community. As per the above offerings, Logstash is FOSS. One of the main disadvantages I see is that Java is a dependency.  
-
+  
 * [Fail2ban](http://www.fail2ban.org/wiki/index.php/Main_Page)  
 Ban hosts that cause multiple authentication errors, or just email events. Of course you need to think about false positives here also. An attacker can spoof many IP addresses potentially causing them all to be banned, thus creating a DoS. Fail2ban has been around for at least 12 years, is actively maintained and written in [Python](https://github.com/fail2ban/fail2ban/). There is also a web UI written in NodeJS called [fail2web](https://github.com/Sean-Der/fail2web).  
-
+  
 * [Multitail](https://packages.debian.org/stretch/multitail)  
 Does what its name says. Tails multiple log files at once and shows them in a terminal. Provides real-time multi log file monitoring. Great for seeing strange happenings before an intruder has time to modify logs, if you are watching them that is. Good for a single or small number of systems if you have spare screens to fix to the wall.  
-
+  
 * [PaperTrail](https://papertrailapp.com/)  
 Targets a similar problem to MultiTail, except that it collects logs from as many servers as you want, and streams them off-site to PaperTrails service, then aggregates them into a single easily searchable web interface, allowing you to set-up alerts on any log text. PaperTrail has a free plan providing 100MB per month, which is enough for some purposes. The plans are reasonably cheap for the features it provides, and can scale as you grow. I have used this in production environments (as discussed soon), and have found it to be a tool that does not try to do to much, and does what it does well.
 
@@ -1594,7 +1592,7 @@ Should log “`hi`” to `/var/log/messages` and also to [https://papertrailapp.
 
 **Time to Trouble-shoot**
 
-Let's keep an eye on `/var/log/messages`, where our log messages should be written to for starters. In one terminal run the following:
+Let us keep an eye on `/var/log/messages`, where our log messages should be written to for starters. In one terminal run the following:
 
 {linenos=off, lang=bash}
     # Show a live update of the last 10 lines (by default) of /var/log/messages
@@ -1655,12 +1653,12 @@ By default papertrail accepts TCP over TLS (TLS encryption check-box on, Plain t
 Now without installing anything on the web server or router, or physically touching the server sending packets to papertrail, or the router. Using a switch (ubiquitous) rather than a hub. No wire tap or multi-network interfaced computer. No switch monitoring port available on expensive enterprise grade switches (along with the much needed access). I was basically down to two approaches I could think of, and I like to achieve as much as possible with as little amount of effort as possible, so could not be bothered getting out of my chair and walking to the server rack.
 
 1. MAC flooding with the help of [macof](http://linux.die.net/man/8/macof) which is a utility from the dsniff suite. This essentially causes your switch to go into a “failopen mode” where it acts like a hub and broadcasts its packets to every port.  
-
+  
 ![](images/MItMMACFlod.png)  
-
+  
 2. Man In the Middle (MItM) with some help from [ARP spoofing](#network-identify-risks-spoofing-website) or [poisoning](http://thevega.blogspot.co.nz/2008_06_01_archive.html). I decided to choose the second option, as it is a little more elegant.  
-
-![](images/MItMARPSpoof.png)  
+  
+![](images/MItMARPSpoof.png)
 
 On our MItM box, I set a static `IP`: `address`, `netmask`, `gateway` in `/etc/network/interfaces` and add `domain`, `search` and `nameservers` to the `/etc/resolv.conf`.
 
@@ -1946,7 +1944,7 @@ PM2 has what they call an Advanced [Readme](https://github.com/Unitech/PM2/blob/
 
 For me, the architecture does not seem to be heading in the right direction to be used on a production internet facing web server, where less is better, unless the functionality provided is truly unique and adds more value than the extra attack surface area removes. I would like to see this change, but I do not think it will, the culture is established.
 
-> The following are better suited to monitoring and managing your applications. Other than [Passenger](#vps-countermeasures-lack-of-visibility-proactive-monitoring-passenger), they should all be in your repositories, which means trivial installs and configurations.
+A> The following are better suited to monitoring and managing your applications. Other than [Passenger](#vps-countermeasures-lack-of-visibility-proactive-monitoring-passenger), they should all be in your repositories, which means trivial installs and configurations.
 
 ##### [Supervisor](https://github.com/Supervisor/supervisor) {#vps-countermeasures-lack-of-visibility-proactive-monitoring-supervisor}
 
@@ -1965,11 +1963,11 @@ It is in the Debian [repositories](https://packages.debian.org/stretch/superviso
 1. Application should start automatically on system boot: Yes, that is what Supervisor does well.
 2. Application will be re-started if it dies, or becomes un-responsive. It is often difficult to get accurate up/down status on processes on UNIX. Pid-files often lie. Supervisord starts processes as sub-processes, so it always knows the true up/down status of its children. Your application may become unresponsive or can not connect to its database or any other service/resource it needs to work as expected. To be able to monitor these events and respond accordingly your application can expose a health-check interface, like `GET /healthcheck`. If everything goes well it should return `HTTP 200`, if not then `HTTP 5**` In some cases the restart of the process will solve this issue. [`httpok`](https://superlance.readthedocs.io/en/latest/httpok.html) is a Supervisor event listener which makes `GET` requests to the configured URL. If the check fails or times out, `httpok` will restart the process. To enable `httpok` the [following lines](https://blog.risingstack.com/operating-node-in-production/#isitresponding) have to be placed in `supervisord.conf`:  
   
-{linenos=off, lang=bash}
-    [eventlistener:httpok]
-    command=httpok -p my-api http://localhost:3000/healthcheck  
-    events=TICK_5  
-
+  {linenos=off, lang=bash}
+      [eventlistener:httpok]
+      command=httpok -p my-api http://localhost:3000/healthcheck  
+      events=TICK_5  
+  
 3. The person responsible for the application should know if a troganised version of your application is swapped in, or even if your file time-stamps have changed. This is not one of Supervisor's responsibilities.
 4. Ability to add the following later without having to swap the chosen offering:
     1. Reverse proxy: I do not see a problem
@@ -2101,7 +2099,8 @@ I spent quite a while reading the documentation. I just think it is doing to muc
 
 &nbsp;
 
-> If you are looking for something even more comprehensive, check out [Zabbix](http://en.wikipedia.org/wiki/Zabbix). If you like to pay for your tools, check out Nagios if you have not already.
+A> If you are looking for something even more comprehensive, check out [Zabbix](http://en.wikipedia.org/wiki/Zabbix).  
+A> If you like to pay for your tools, check out Nagios if you have not already.
 
 At this point it was fairly clear as to which components I would like to use to keep my NodeJS application(s) monitored, alive and healthy along with any other scripts and processes.
 
@@ -2496,7 +2495,8 @@ It is a good idea to run a couple of these types of scanners. Hopefully what one
 * Signs of LKM trojans
 * Quick and dirty strings replacement
 
-##### [Unhide](http://www.unhide-forensics.info/){#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-unhide}
+{#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-unhide}
+##### [Unhide](http://www.unhide-forensics.info/)
 
 While not strictly a HIDS, Unhide is quite a useful forensics tool for working with your system if you suspect it may have been compromised.
 
@@ -2648,8 +2648,8 @@ There is no community really. I see it as one of the dirty little secretes that 
     4. Physically secure location
     5. Sensitive information of the clients are stored on the Monitor
     6. Password-less access to the clients for anyone who gains Monitor root access, unless either:
-        1. You are happy to enter a pass-phrase when ever your Monitor is booted so that Stealth can use SSH to access the client(s). The Monitor could stay running for years, so this may not pose a problem. I suggest using some low powered computer like a Raspberry Pie as your monitoring device, hooked up to a UPS. Also keep in mind that if you wan to monitor files on Client(s) with root permissions, you will have to SSH in as root (which is why it is recommended that the Monitor not accept any incoming connections, and be in a physically safe location). An alternative to having the Monitor log in as root is to have something like Monit take care of integrity checking the Client files with root permissions and have Stealth monitor the non root files and Monit.
-        2. [ssh-cron](https://fbb-git.github.io/ssh-cron/) is used
+      1. You are happy to enter a pass-phrase when ever your Monitor is booted so that Stealth can use SSH to access the client(s). The Monitor could stay running for years, so this may not pose a problem. I suggest using some low powered computer like a Raspberry Pie as your monitoring device, hooked up to a UPS. Also keep in mind that if you wan to monitor files on Client(s) with root permissions, you will have to SSH in as root (which is why it is recommended that the Monitor not accept any incoming connections, and be in a physically safe location). An alternative to having the Monitor log in as root is to have something like Monit take care of integrity checking the Client files with root permissions and have Stealth monitor the non root files and Monit.
+      2. [ssh-cron](https://fbb-git.github.io/ssh-cron/) is used
 2. **Client** The computer(s) being monitored. I do not see any reason why a Stealth solution could not be set-up to look after many clients.
 
 **Architecture**
