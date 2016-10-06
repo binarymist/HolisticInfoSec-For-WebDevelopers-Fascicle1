@@ -689,7 +689,7 @@ This record is added on first connection to the server, as detailed in the secti
 At this stage, a session key is negotiated between the client and server using Diffie-Hellman (DH) as an ephemeral (asymmetric) key exchange algorithm, each combining their own private data with public data from the other party, which allows both parties to arrive at the identical secret symmetric session key. The public and private key pairs used to create the shared secret key in this stage have nothing to do with the client authenticating to the server.
 
 Now in a little more detail, the Diffie-Hellman key agreement works like this:
-  
+
 1. Both client and server come to agreement on a seed value, that is a large prime number.
 2. Both client and server agree on a symmetric cipher, so that they are both encrypting/decrypting with the same block cipher, usually AES
 3. Each party then creates another prime number of their own to be used as a private key for this ephemeral DH interaction
@@ -698,13 +698,13 @@ Now in a little more detail, the Diffie-Hellman key agreement works like this:
 6. All communications from here on are encrypted with the same shared secret key, the connection from here on is known as the *binary packet protocol*. Each party can use their own shared secret key to encrypt and decrypt, messages from the other party.
 
 **Authenticate the client to the server**
-    
+
 The second stage is to authenticate the client, establishing whether they should be communicating with the server. There are several methods for doing this, the two most common are passwords and key-pair. SSH defaults to passwords, as the lowest common denominator, plus it often helps to have password authentication set-up in order to set-up key-pair authentication, especially if you don't have physical access to the server(s).
 
 SSH key pairs are asymmetric. The server holds the clients public key and is used by the server to encrypt messages that it uses to authenticate the client. The client in turn receives the messages from the server and decrypts them with the private key. If the public key falls into the wrong hands, it's no big deal, because the private key can not be deduced from the public key, and all the authentication public key is used for is verifying that the client holds the private key for it.
 
 The authentication stage continues directly after the encryption has been established from the previous step.  
-  
+
 1. The client sends the Id of the key pair they want to authenticate as to the server
 2. The server checks the `~/.ssh/authorized_keys` file for the Id of the public keys account that the client is authenticating as
 3. If there is a matching Id for a public key within `~/.ssh/authorized_keys`, the server creates a random number and encrypts it with the public key that had a matching Id
@@ -865,9 +865,8 @@ If you want to see successful logins, enter the following:
 
 If you are sending your logs off-site in real-time, it will not matter to much if the attacker tries to cover their tracks by modifying these types of files. If you are checking the integrity of your system files frequently with one of the Host Intrusion Detection Systems ([HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids)) we discuss a little further on in this chapter, then you will know you are under attack and will be able to take measures quickly, providing you have someone engaged watching out for these attacks, as discussed in the People chapter of Fascicle 0. If your HIDS is on the same machine that is under attack, then it is quite likely that any decent attacker is going to find it before they start modifying files and some-how render it ineffective. That is where [Stealth](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth) shines, as it is so much harder to find where it is operating from, if the attacker even knows it is.
 
-**Key-pair Authentication**
-
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication}
+**Key-pair Authentication**
 
 The details around how the client authenticates to the server are above in part 2 of the [SSH Connection Procedure](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-ssh-connection-procedure) section. This section shows you how to set-up key-pair authentication, as opposed to password authentication.
 
