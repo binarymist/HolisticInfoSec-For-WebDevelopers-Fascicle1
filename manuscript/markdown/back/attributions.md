@@ -649,6 +649,7 @@ https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_
 
 "**vSentry protects desktops without requiring patches or updates**_, defeating and automatically discarding all known and unknown malware, and eliminating the need for costly remediation._"   
 [https://www.bromium.com/sites/default/files/Bromium-Datasheet-vSentry.pdf](https://www.bromium.com/sites/default/files/Bromium-Datasheet-vSentry.pdf)
+
 **Every user task is isolated** into its own micro-VM  
 http://security.stackexchange.com/questions/23674/how-will-microvirtualisation-change-the-security-field-if-at-all
 

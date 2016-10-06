@@ -683,31 +683,31 @@ The following are the details for each:
 `~/.ssh/known_hosts`.  
 This record is added on first connection to the server, as detailed in the section ["Establishing your SSH Servers Key Fingerprint"](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) below.  
   
-At this stage, a session key is negotiated between the client and server using Diffie-Hellman (DH) as an ephemeral (asymmetric) key exchange algorithm, each combining their own private data with public data from the other party, which allows both parties to arrive at the identical secret symmetric session key. The public and private key pairs used to create the shared secret key in this stage have nothing to do with the client authenticating to the server.  
+  At this stage, a session key is negotiated between the client and server using Diffie-Hellman (DH) as an ephemeral (asymmetric) key exchange algorithm, each combining their own private data with public data from the other party, which allows both parties to arrive at the identical secret symmetric session key. The public and private key pairs used to create the shared secret key in this stage have nothing to do with the client authenticating to the server.  
   
-Now in a little more detail, the Diffie-Hellman key agreement works like this:  
+  Now in a little more detail, the Diffie-Hellman key agreement works like this:  
   
-  1. Both client and server come to agreement on a seed value, that is a large prime number.
-  2. Both client and server agree on a symmetric cipher, so that they are both encrypting/decrypting with the same block cipher, usually AES
-  3. Each party then creates another prime number of their own to be used as a private key for this ephemeral DH interaction
-  4. Each party then create a public key which they exchange with the other party. These public keys are created using the symmetric cipher from step 2, the shared prime number from step 1, and derived from the private key from step 3.
-  5. The party receiving the other parties public key, uses this, along with their own private key, and the shared prime number from step 1 to compute their own secret key. Because each party does the same, they both arrive at the same (shared/symmetric/secret) key.
-  6. All communications from here on are encrypted with the same shared secret key, the connection from here on is known as the *binary packet protocol*. Each party can use their own shared secret key to encrypt and decrypt, messages from the other party.  
+    1. Both client and server come to agreement on a seed value, that is a large prime number.
+    2. Both client and server agree on a symmetric cipher, so that they are both encrypting/decrypting with the same block cipher, usually AES
+    3. Each party then creates another prime number of their own to be used as a private key for this ephemeral DH interaction
+    4. Each party then create a public key which they exchange with the other party. These public keys are created using the symmetric cipher from step 2, the shared prime number from step 1, and derived from the private key from step 3.
+    5. The party receiving the other parties public key, uses this, along with their own private key, and the shared prime number from step 1 to compute their own secret key. Because each party does the same, they both arrive at the same (shared/symmetric/secret) key.
+    6. All communications from here on are encrypted with the same shared secret key, the connection from here on is known as the *binary packet protocol*. Each party can use their own shared secret key to encrypt and decrypt, messages from the other party.  
     
 2. The second stage is to authenticate the client, establishing whether they should be communicating with the server. There are several methods for doing this, the two most common are passwords and key-pair. SSH defaults to passwords, as the lowest common denominator, plus it often helps to have password authentication set-up in order to set-up key-pair authentication, especially if you don't have physical access to the server(s).  
   
-SSH key pairs are asymmetric. The server holds the clients public key and is used by the server to encrypt messages that it uses to authenticate the client. The client in turn receives the messages from the server and decrypts them with the private key. If the public key falls into the wrong hands, it's no big deal, because the private key can not be deduced from the public key, and all the authentication public key is used for is verifying that the client holds the private key for it.  
+  SSH key pairs are asymmetric. The server holds the clients public key and is used by the server to encrypt messages that it uses to authenticate the client. The client in turn receives the messages from the server and decrypts them with the private key. If the public key falls into the wrong hands, it's no big deal, because the private key can not be deduced from the public key, and all the authentication public key is used for is verifying that the client holds the private key for it.  
   
-The authentication stage continues directly after the encryption has been established from the previous step.  
+  The authentication stage continues directly after the encryption has been established from the previous step.  
   
-  1. The client sends the Id of the key pair they want to authenticate as to the server
-  2. The server checks the `~/.ssh/authorized_keys` file for the Id of the public keys account that the client is authenticating as
-  3. If there is a matching Id for a public key within `~/.ssh/authorized_keys`, the server creates a random number and encrypts it with the public key that had a matching Id
-  4. The server then sends the client this encrypted number
-  5. Now the client needs to prove that it has the matching private key for the Id it sent the server. It does this by decrypting the message the server just sent with the private key, revealing the random number created on the server.
-  6. The client then combines the number from the server with the shared session key produced in the session encryption stage and obtains the MD5 hash from this value.
-  7. The client then sends the hash back in response to the server.
-  8. The server then does the same as the client did in step 6 with the number that it generated, combining it with the shared session key and obtaining the MD5 hash from it. The server then compares this hash with the hash that the client sent it. If they match, then the server communicates to the client that it is successfully authenticated.
+    1. The client sends the Id of the key pair they want to authenticate as to the server
+    2. The server checks the `~/.ssh/authorized_keys` file for the Id of the public keys account that the client is authenticating as
+    3. If there is a matching Id for a public key within `~/.ssh/authorized_keys`, the server creates a random number and encrypts it with the public key that had a matching Id
+    4. The server then sends the client this encrypted number
+    5. Now the client needs to prove that it has the matching private key for the Id it sent the server. It does this by decrypting the message the server just sent with the private key, revealing the random number created on the server.
+    6. The client then combines the number from the server with the shared session key produced in the session encryption stage and obtains the MD5 hash from this value.
+    7. The client then sends the hash back in response to the server.
+    8. The server then does the same as the client did in step 6 with the number that it generated, combining it with the shared session key and obtaining the MD5 hash from it. The server then compares this hash with the hash that the client sent it. If they match, then the server communicates to the client that it is successfully authenticated.
 
 Below in the [Key-pair Authentication](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication) section, we work through manually (hands on) setting up Key-pair authentication.
 
@@ -1656,11 +1656,11 @@ Now without installing anything on the web server or router, or physically touch
 
 1. MAC flooding with the help of [macof](http://linux.die.net/man/8/macof) which is a utility from the dsniff suite. This essentially causes your switch to go into a “failopen mode” where it acts like a hub and broadcasts its packets to every port.  
   
-![](images/MItMMACFlod.png)  
-
+  ![](images/MItMMACFlod.png)  
+  
 2. Man In the Middle (MItM) with some help from [ARP spoofing](#network-identify-risks-spoofing-website) or [poisoning](http://thevega.blogspot.co.nz/2008_06_01_archive.html). I decided to choose the second option, as it is a little more elegant.  
   
-![](images/MItMARPSpoof.png)
+  ![](images/MItMARPSpoof.png)
 
 On our MItM box, I set a static `IP`: `address`, `netmask`, `gateway` in `/etc/network/interfaces` and add `domain`, `search` and `nameservers` to the `/etc/resolv.conf`.
 
