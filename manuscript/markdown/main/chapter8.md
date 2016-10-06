@@ -413,7 +413,7 @@ None of these are ideal, as UDP provides no reliable messaging and it is crucial
 **Steps with details**
 
 1. As per the PaperTrail set-up we performed in our test lab
-2.
+2.    
   * Create persistence of FreeNAS syslogs, as currently they are lost on shutdown because FreeNAS runs entirely in RAM
     - Create a dataset called "syslog" on your ZFS zpool and reset.
   * (Option **first choice**, for pfSense)
@@ -423,7 +423,7 @@ None of these are ideal, as UDP provides no reliable messaging and it is crucial
   * (Option **third choice**) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs).
     - The default syslogd in FreeBSD doesn't support TCP.
     - Create a jail in FreeNAS, install rsyslogd in the jail and configure it to accept UDP syslog messages and then forward them on via TCP(possibly with RELP)/TLS.
-3.
+3.    
   * (Option first choice for pfSense) UDP, as TCP is not available.
     - In the pfSense Web UI: Set-up a vpn from site 'a' (syslog sending IP address) to site 'b' (syslog receiving IP address / remote log destination).
     - Then in Status -> System Logs -> Settings -> Remote Logging Options, add the `IP:port` of the listening VPN server, which is hosted in the FreeBSD jail of the rsyslogd server (FreeNAS in this example) into one of the "Remote log servers" input boxes. The other option here is to send to option second choice of step two (SyslogAppliance).
