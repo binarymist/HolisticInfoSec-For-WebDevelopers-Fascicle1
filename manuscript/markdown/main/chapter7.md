@@ -682,23 +682,17 @@ The following are the details for each:
 1. The SSH client is responsible for initiating the TCP handshake with the server. The server responds with the protocol versions it supports, if the client can support one of the protocol versions from the server, the process continues. The server also provides its public (asymmetric) host key. The client verifies that the server is known to it, by checking that the public host key sent from the server is in the clients:  
 `~/.ssh/known_hosts`.  
 This record is added on first connection to the server, as detailed in the section ["Establishing your SSH Servers Key Fingerprint"](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) below.  
-  
-  At this stage, a session key is negotiated between the client and server using Diffie-Hellman (DH) as an ephemeral (asymmetric) key exchange algorithm, each combining their own private data with public data from the other party, which allows both parties to arrive at the identical secret symmetric session key. The public and private key pairs used to create the shared secret key in this stage have nothing to do with the client authenticating to the server.  
-  
-  Now in a little more detail, the Diffie-Hellman key agreement works like this:  
+At this stage, a session key is negotiated between the client and server using Diffie-Hellman (DH) as an ephemeral (asymmetric) key exchange algorithm, each combining their own private data with public data from the other party, which allows both parties to arrive at the identical secret symmetric session key. The public and private key pairs used to create the shared secret key in this stage have nothing to do with the client authenticating to the server.  
+Now in a little more detail, the Diffie-Hellman key agreement works like this:
     1. Both client and server come to agreement on a seed value, that is a large prime number.
     2. Both client and server agree on a symmetric cipher, so that they are both encrypting/decrypting with the same block cipher, usually AES
     3. Each party then creates another prime number of their own to be used as a private key for this ephemeral DH interaction
     4. Each party then create a public key which they exchange with the other party. These public keys are created using the symmetric cipher from step 2, the shared prime number from step 1, and derived from the private key from step 3.
     5. The party receiving the other parties public key, uses this, along with their own private key, and the shared prime number from step 1 to compute their own secret key. Because each party does the same, they both arrive at the same (shared/symmetric/secret) key.
-    6. All communications from here on are encrypted with the same shared secret key, the connection from here on is known as the *binary packet protocol*. Each party can use their own shared secret key to encrypt and decrypt, messages from the other party.  
-
+    6. All communications from here on are encrypted with the same shared secret key, the connection from here on is known as the *binary packet protocol*. Each party can use their own shared secret key to encrypt and decrypt, messages from the other party.
 2. The second stage is to authenticate the client, establishing whether they should be communicating with the server. There are several methods for doing this, the two most common are passwords and key-pair. SSH defaults to passwords, as the lowest common denominator, plus it often helps to have password authentication set-up in order to set-up key-pair authentication, especially if you don't have physical access to the server(s).  
-  
-  SSH key pairs are asymmetric. The server holds the clients public key and is used by the server to encrypt messages that it uses to authenticate the client. The client in turn receives the messages from the server and decrypts them with the private key. If the public key falls into the wrong hands, it's no big deal, because the private key can not be deduced from the public key, and all the authentication public key is used for is verifying that the client holds the private key for it.  
-  
-  The authentication stage continues directly after the encryption has been established from the previous step.  
-
+SSH key pairs are asymmetric. The server holds the clients public key and is used by the server to encrypt messages that it uses to authenticate the client. The client in turn receives the messages from the server and decrypts them with the private key. If the public key falls into the wrong hands, it's no big deal, because the private key can not be deduced from the public key, and all the authentication public key is used for is verifying that the client holds the private key for it.  
+The authentication stage continues directly after the encryption has been established from the previous step.  
     1. The client sends the Id of the key pair they want to authenticate as to the server
     2. The server checks the `~/.ssh/authorized_keys` file for the Id of the public keys account that the client is authenticating as
     3. If there is a matching Id for a public key within `~/.ssh/authorized_keys`, the server creates a random number and encrypts it with the public key that had a matching Id
@@ -2650,7 +2644,7 @@ There is no community really. I see it as one of the dirty little secretes that 
     5. Sensitive information of the clients are stored on the Monitor
     6. Password-less access to the clients for anyone who gains Monitor root access, unless either:
         1. You are happy to enter a pass-phrase when ever your Monitor is booted so that Stealth can use SSH to access the client(s). The Monitor could stay running for years, so this may not pose a problem. I suggest using some low powered computer like a Raspberry Pie as your monitoring device, hooked up to a UPS. Also keep in mind that if you wan to monitor files on Client(s) with root permissions, you will have to SSH in as root (which is why it is recommended that the Monitor not accept any incoming connections, and be in a physically safe location). An alternative to having the Monitor log in as root is to have something like Monit take care of integrity checking the Client files with root permissions and have Stealth monitor the non root files and Monit.
-	2. [ssh-cron](https://fbb-git.github.io/ssh-cron/) is used
+        2. [ssh-cron](https://fbb-git.github.io/ssh-cron/) is used
 2. **Client** The computer(s) being monitored. I do not see any reason why a Stealth solution could not be set-up to look after many clients.
 
 **Architecture**
