@@ -413,7 +413,7 @@ None of these are ideal, as UDP provides no reliable messaging and it is crucial
 **Steps with details**
 
 1. As per the PaperTrail set-up we performed in our test lab
-2.   
+2. 
   * Create persistence of FreeNAS syslogs, as currently they are lost on shutdown because FreeNAS runs entirely in RAM
     - Create a dataset called "syslog" on your ZFS zpool and reset.
   * (Option **first choice**, for pfSense)
@@ -423,11 +423,11 @@ None of these are ideal, as UDP provides no reliable messaging and it is crucial
   * (Option **third choice**) Receive syslogs from local FreeNAS and other internal appliances that only send using UDP (pfSense in our example lab, and possibly layer 3 (even 2) switches and APs).
     - The default syslogd in FreeBSD doesn't support TCP.
     - Create a jail in FreeNAS, install rsyslogd in the jail and configure it to accept UDP syslog messages and then forward them on via TCP(possibly with RELP)/TLS.
-3.   
+3. 
   * (Option first choice for pfSense) UDP, as TCP is not available.
     - In the pfSense Web UI: Set-up a vpn from site 'a' (syslog sending IP address) to site 'b' (syslog receiving IP address / remote log destination).
     - Then in Status -> System Logs -> Settings -> Remote Logging Options, add the `IP:port` of the listening VPN server, which is hosted in the FreeBSD jail of the rsyslogd server (FreeNAS in this example) into one of the "Remote log servers" input boxes. The other option here is to send to option second choice of step two (SyslogAppliance).
-    - Your routing table will take care of the rest.  
+    - Your routing table will take care of the rest.
   * (Option second choice)
     - Configure syslog UDP only appliances to forward their logs to the rsyslogd in the jail (option third choice of step two), or to option second choice of step two (SyslogAppliance).
                 
@@ -452,9 +452,7 @@ Make sure you restart your NTP daemon.
 There are two NTP packages to disgus.
 
 1. **ntpdate** is a programme that sets the date on a scheduled occurance via chron, an end user running it manually, or some other means. Ntpdate has been [deprecated](http://support.ntp.org/bin/view/Dev/DeprecatingNtpdate) for several years now. The functionality that ntpdate offered is now provided by the ntp daemon. running `ntp -q` will run ntp, set the time and exit as soon as it has. This functionality mimics how ntpdate is used, the upstream NTP server must be specified either in the `/etc/ntp.conf` file or overridden by placing it immeiatly after the `-q` option if running manually. 
-2. **ntpd** or just ntp, is a daemon that continuously monitors and updates the system time with an upstream NTP server specified in the local systems `/etc/ntp.conf`.
-
-
+2. **ntpd** or just ntp, is a daemon that continuously monitors and updates the system time with an upstream NTP server specified in the local systems `/etc/ntp.conf`
 
 1. This is how it used to be done with ntpdate:  
   

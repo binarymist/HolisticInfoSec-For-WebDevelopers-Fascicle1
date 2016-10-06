@@ -312,8 +312,9 @@ G>    `-m 0` means MD5 to hashcat.
 G> 2. `[algorithm]` for next command in this case will be `MD5`  
 G>    `findmyhash [algorithm] -h <hash_value>`  
 G>    `findmyhash` is a cracker that queries online lists.  
-G> 3. `john --format=raw-MD5 ~/hashtocrack.txt ~/wordlist-to-throw-at-dvwa --show`  
-G> This gives us the super secure password of "admin"
+G> 3. `john --format=raw-MD5 ~/hashtocrack.txt ~/wordlist-to-throw-at-dvwa --show`
+G>
+G> This gives us the super secure password of "admin"  
 G>
 G> In order to get login, we actually need the username. In this case they were the same, but for some other users they were not. So our last query.  
 G> Full server query guess:  

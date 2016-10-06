@@ -28,7 +28,7 @@
 [https://github.com/m57/dnsteal](https://github.com/m57/dnsteal)
 
 **Docker has many security enhancing capabilities**, but none are on by default  
-http://resources.infosecinstitute.com/docker-and-enterprise-security-establishing-best-
+http://resources.infosecinstitute.com/docker-and-enterprise-security-establishing-best-  
 practices/
 
 **These processes have indirect access to most of the Linux Kernel**  
@@ -435,7 +435,7 @@ http://www.syslog.org/forum/profile/?area=showposts;u=29
 
 
 
-**If the victim's SMTP server does not perform reverse lookups on the hostname**, an email `from` and `reply-to` fields can be successfully spoofed.  
+**If the victims SMTP server does not perform reverse lookups on the hostname**, an email `from` and `reply-to` fields can be successfully spoofed.  
 [http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/](http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/)
 
 **Doppelganger Domains** An old trick brought back to light by Peter Kim's research  
@@ -648,8 +648,7 @@ https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_
 [Windows Authentication](https://msdn.microsoft.com/en-us/library/ff647396.aspx)
 
 "**vSentry protects desktops without requiring patches or updates**_, defeating and automatically discarding all known and unknown malware, and eliminating the need for costly remediation._"   
-https://www.google.co.nz/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CBsQFjAAahUKEwj4h8br2ofIAhULpJQKHdE1Cfg&url=http%3A%2F%2Fwww.bromium.com%2Fsites%2Fdefault%2Ffiles%2FBromium-Datasheet-vSentry.pdf&usg=AFQjCNHj08aV26awuSnIc9rQiHf6ER9ANQ&sig2=ynekdS3BwHgB9_8WBfGzTw&bvm=bv.103073922,d.dGo
-
+[https://www.bromium.com/sites/default/files/Bromium-Datasheet-vSentry.pdf](https://www.bromium.com/sites/default/files/Bromium-Datasheet-vSentry.pdf)
 **Every user task is isolated** into its own micro-VM  
 http://security.stackexchange.com/questions/23674/how-will-microvirtualisation-change-the-security-field-if-at-all
 
