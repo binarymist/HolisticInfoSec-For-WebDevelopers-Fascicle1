@@ -369,8 +369,7 @@ _Todo_
 
 ### Lack of Firewall
 
-Personally I prefer not to rely on firewalls, once you have removed any surplus services and hardened what is left, firewalls don't provide a lot of benefit. I recommend not relying on them, but instead making your system(s) hard enough so that you do not require a firewall. Then if you decide to add one, they will be just another layer of defence. Dependence on firewalls often produce a single point of failure, as to much trust is placed in them to protect weak and vulnerable services and communications that should instead be hardened themselves.
-
+Now this is addressed, because so many rely on firewalls to hide many weak areas of defence. The lack of a firewall if your services and communications between them are hardened does not have to be an issue, in-fact I see it as a goal many of us should have, as it forces us to build better layers of defence.
 
 ## 3. SSM Countermeasures {#vps-countermeasures}
 * [MS Host Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007)
@@ -3119,7 +3118,7 @@ _Todo_
 
 ### Host Firewall
 
-_Todo_
+Personally I prefer not to rely on firewalls, once you have removed any surplus services and hardened what is left, firewalls do not provide a lot of benefit. I recommend not relying on them, but instead making your system(s) hard enough so that you do not require a firewall. Then if you decide to add one, they will be just another layer of defence. Dependence on firewalls often produce a single point of failure and a false sense of security, as to much trust is placed in them to protect weak and vulnerable services and communications that should instead be hardened themselves.
 
 ## 5. SSM Costs and Trade-offs
 
@@ -3233,4 +3232,4 @@ _Todo_
 
 ### Host Firewall
 
-_Todo_
+A host firewall can be a good temporary patch, and that is the problem. Nothing is as permanent as a temporary patch. A firewall is a single layer of defence and one that is often used to hide the inadequacies of the rest of the layers of defence.
