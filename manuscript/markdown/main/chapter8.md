@@ -30,7 +30,7 @@ similar to Physical chapter
 
 ### Lack of Segmentation
 
-Similar to the [same section](#vps-identify-risks-unnecessary-and--vulnerable-services-lack-of-segmentation) in the VPS chapter.
+Similar to the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section in the VPS chapter.
 
 %% https://www.optiv.com/blog/top-10-network-security-mistakes-5-lack-of-segmentation
 

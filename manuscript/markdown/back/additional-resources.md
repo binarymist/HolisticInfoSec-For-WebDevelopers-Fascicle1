@@ -9,6 +9,9 @@
 **Details on the Metasploit PSExec module**  
 [https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified) 
 
+**Local Linux Enumeration & Privilege Escalation Cheatsheet**  
+[https://www.rebootuser.com/?p=1623](https://www.rebootuser.com/?p=1623)
+
 **Distributed Computing Environment / Remote Procedure Call**  
 [https://en.wikipedia.org/wiki/DCE/RPC](https://en.wikipedia.org/wiki/DCE/RPC).
 

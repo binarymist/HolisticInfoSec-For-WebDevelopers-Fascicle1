@@ -18,6 +18,20 @@
 **The PSExec executable** has a Windows Service image inside which it deploys to the Admin$ share on the target machine  
 [https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified).
 
+**unix-privesc-check**  
+[http://pentestmonkey.net/tools/audit/unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check)
+
+**Its source code on github**  
+[https://github.com/pentestmonkey/unix-privesc-check](https://github.com/pentestmonkey/unix-privesc-check)
+
+**LinEnum is also very good at host reconnaissance**  
+[https://github.com/rebootuser/LinEnum](https://github.com/rebootuser/LinEnum) 
+
+
+
+
+
+
 **Any attacker worth their weight** will try to cover their tracks as they progress  
 [http://www.win.tue.nl/~aeb/linux/hh/hh-13.html](http://www.win.tue.nl/~aeb/linux/hh/hh-13.html)
 
