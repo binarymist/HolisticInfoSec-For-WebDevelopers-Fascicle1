@@ -153,49 +153,47 @@ _Todo_: [Take this further](https://github.com/binarymist/HolisticInfoSec-For-We
 
 #### Overly Permissive File Permissions, Ownership and Lack of Segmentation {#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation}
 
-A lack of segmenting of a file system, according to what is the least amount of privilege any authorised parties require is often the precursor to privilege escalation.
+A lack of segmenting of a file system, according to what is the least amount of privilege any authorised parties require is often the precursor to **privilege escalation**.
 
 Privileged services that are started on system boot by your init system (as discussed under the [Proactive Monitoring](#vps-countermeasures-lack-of-visibility-proactive-monitoring-sysvinit-upstart-systemd-runit) section) often run other executable files whether they be binaries or scripts.
 
-When an executable (usually run as a daemon) is called by one of these privileged services and is itself writeable by a low privileged user, then a malicious actor can swap the intended executable with a trojanised replica, or even just a malicious executable if they think it will go unnoticed.
+When an executable (usually run as a daemon) is called by one of these privileged services and is itself writeable by a low privileged user, then a malicious actor can swap the legitimate executable for a trojanised replica, or even just a malicious executable if they think it will go unnoticed.
 
 If we take the path of least resistance when setting up our partitions on installation by combining file system resources that have lesser requirements for higher privileges, together with those that have greater requirements, then we are not applying the principle of least privilege. What this means is that some resources that do not need the extra privileges in order to do their job, get given them anyway. This allows attackers to take advantage of this, by swapping in (writing) and executing malicious files, directly or indirectly.
 
-If the target file that an attack wants to swap for a trojanised version is world writeable, user writeable or even group writeable, and they are that user or in the specified group, then they will be able to swap the file... Unless the mounted file system is restrictive enough to mitigate the action.
+If the target file that an attacker wants to swap for a trojanised version is world writeable, user writeable or even group writeable, and they are that user or in the specified group, then they will be able to swap the file... Unless the mounted file system is restrictive enough to mitigate the action.
 
 {#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation-mitigations}
 1. The first risk is at the file permission and ownership level
-  1. The first tool we can pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which has its source code on [github](https://github.com/pentestmonkey/unix-privesc-check) and is also shipped with Kali Linux, but only the 1.x version, which is fine, but the later version which sits on the master branch does a lot more, so it can be good to use both. You just need to get the shell files from either the `1_x` or `master` branch onto your target machine and run. Running as root allows the testing to be a lot more thorough for obvious reasons.
-  2. [LinEnum](https://github.com/rebootuser/LinEnum) is also very good at host reconnaissance, providing a lot of potentially good information on files that can be trojanised.
-2. The second risk is at the mount point of the file system. This is quite easy to test and it also takes precedence over file permissions, as the mount options apply to the entire mounted file system. That is why granular file system partitioning is so effective.
-  1. First and easiest command to run is:  
-  `mount`  
-  This will show you the options that all of your file systems were mounted with. In the Countermeasures we address how to improve the permissiveness of these mounted file systems.
-  2. From here I usually like to test that the options that our file systems appear to be mounted with actually are. You can make sure by trying to write an executable file to the file systems that have `noexec` as specified in `/etc/fstab` and attempt to run it, it should fail.
-  3. You can try writing any file to the file systems that have the `ro` (read-only) option specified against them in the `/etc/fstab`, that should also fail.
-  4. The `nosuid` option prevents the `suid` (**S**et owner **U**ser **ID**) bit on executables from being respected. If for example we have an executable that has its `suid` bit set, any other logged in user temporarily inherits the file owners permissions as well as the UID and GID to run that file, rather than their own permissions.  
+    1. The first tool we can pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which has its source code on [github](https://github.com/pentestmonkey/unix-privesc-check) and is also shipped with Kali Linux, but only the 1.x version, which is fine, but the later version which sits on the master branch does a lot more, so it can be good to use both. You just need to get the shell files from either the `1_x` or `master` branch onto your target machine and run. Running as root allows the testing to be a lot more thorough for obvious reasons.
+    2. [LinEnum](https://github.com/rebootuser/LinEnum) is also very good at host reconnaissance, providing a lot of potentially good information on files that can be trojanised.
+2. The second risk is at the mount point of the file system. This is quite easy to test and it also takes precedence over file permissions, as the mount options apply to the entire mounted file system. This is why applying as restrictive as possible permissions to granular file system partitioning is so effective.
+    1. First and easiest command to run is:  
+    `mount`  
+    This will show you the options that all of your file systems were mounted with. In the Countermeasures we address how to improve the permissiveness of these mounted file systems.
+    2. For peace of mind, I usually like to test that the options that our file systems appear to be mounted with actually are. You can make sure by trying to write an executable file to the file systems that have `noexec` as specified in `/etc/fstab` and attempt to run it, it should fail.
+    3. You can try writing any file to the file systems that have the `ro` (read-only) option specified against them in the `/etc/fstab`, that should also fail.
+    4. Applying the `nosuid` option to your mounts prevents the `suid` (**S**et owner **U**ser **ID**) bit on executables from being respected. If for example we have an executable that has its `suid` bit set, any other logged in user temporarily inherits the file owners permissions as well as the UID and GID to run that file, rather than their own permissions.
 
-  Running a directory listing that has a file with its `suid` bit set will produce a permission string similar to `-rwsr--r--`  
-  The `s` is in the place of the owners executable bit. If instead a capitol `S` is used, it means that the file is not executable  
+Running a directory listing that has a file with its `suid` bit set will produce a permission string similar to `-rwsr--r--`  
+The `s` is in the place of the owners executable bit. If instead a capitol `S` is used, it means that the file is not executable
 
-  All `suid` files can be found with the following command:  
-  `find / -perm -4000 -type f 2>/dev/null`  
-  All `suid` files owned by root can be found with the following command:  
-  `find / -uid 0 -perm -4000 -type f 2>/dev/null`  
+All `suid` files can be found with the following command:  
+`find / -perm -4000 -type f 2>/dev/null`  
+All `suid` files owned by root can be found with the following command:  
+`find / -uid 0 -perm -4000 -type f 2>/dev/null`
 
-  To add the `suid` bit, you can do so the symbolic way or numeric.  
-  symbolic:  
-  `chmod u+s <yourfile>`  
-  numeric:  
-  `chmod 4750 <yourfile>`  
-  This adds the `suid` bit, read, write and execute for owner, read and execute for group and no permissions for other. This is just to give you an idea of the relevance of the `4` in the above `-4000`, do not go setting the `suid` bits on random files, this could introduce a security flaw, and if the file is owned by root, you may have just added a perfect vulnerability for an attacker to elevate their privileges to root and thus own your host.  
+To add the `suid` bit, you can do so the symbolic way or numeric.
 
-  So for example if root owns a file and the file has its `suid` bit set, anyone can run that file as root.
+symbolic:  
+`chmod u+s <yourfile>`
 
+numeric:  
+`chmod 4750 <yourfile>`
 
+This adds the `suid` bit, read, write and execute for `owner`, read and execute for `group` and no permissions for `other`. This is just to give you an idea of the relevance of the `4` in the above `-4000`, do not go setting the `suid` bits on files unless you fully understand what you are doing, and have good reason to. This could introduce a security flaw, and if the file is owned by root, you may have just added a perfect vulnerability for an attacker to elevate their privileges to root due to a defect in your executable or the fact that the file can be modified/replaced.
 
-
-
+So for example if root owns a file and the file has its `suid` bit set, anyone can run that file as root.
 
 
 
@@ -205,11 +203,6 @@ The Countermeasures sections that address are:
 
 1. [Partitioning on OS Installation](#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation)
 2. [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions), which also briefly touches on the improving file permissions and ownership
-
-
-
-
-
 
 
 
@@ -1017,7 +1010,7 @@ While you are at it, [set](http://kb.vmware.com/selfservice/microsites/search.do
 
 Addressing the [first risk](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation-mitigations) as discussed in the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section of the Identify Risks section:
 
-The first thing to do is locate the files with overly permissive permissions and ownership. Running the suggested tools is a good place to start. From there, following your nose to find any others is a good idea. Then tighten them up so that they conform to the least amount of privilege and ownership necessary in order for the legitimate services/activities to run. Also consider removing any `suid` bits on executables `chmod u-s <yourfile>`. We also address applying `nosuid` to our mounted file systems below which providea a nice safety net.
+The first thing to do is locate the files with overly permissive permissions and ownership. Running the suggested tools is a good place to start. From there, following your nose to find any others is a good idea. Then tighten them up so that they conform to the least amount of privilege and ownership necessary in order for the legitimate services/activities to run. Also consider removing any `suid` bits on executables `chmod u-s <yourfile>`. We also address applying `nosuid` to our mounted file systems below which provide a nice safety net.
 
 **Mount Point of the File Systems**
 
