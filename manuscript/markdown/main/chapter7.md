@@ -165,7 +165,13 @@ If the target file that an attacker wants to swap for a trojanised version is wo
 
 {#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation-mitigations}
 1. The first risk is at the file permission and ownership level
-    1. The first tool we can pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which has its source code on [github](https://github.com/pentestmonkey/unix-privesc-check) and is also shipped with Kali Linux, but only the 1.x version, which is fine, but the later version which sits on the master branch does a lot more, so it can be good to use both. You just need to get the shell files from either the `1_x` or `master` branch onto your target machine and run. Running as root allows the testing to be a lot more thorough for obvious reasons.
+    1. The first tool we can pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which has its source code on [github](https://github.com/pentestmonkey/unix-privesc-check) and is also shipped with Kali Linux, but only the 1.x version (`unix-privesc-check` single file), which is fine, but the later version which sits on the master branch (`upc.sh` main file plus many sub files) does a lot more, so it can be good to use both. You just need to get the shell file(s) from either the `1_x` or `master` branch onto your target machine and run. Running as root allows the testing to be a lot more thorough for obvious reasons. If I'm testing my own host, I will start with the `upc.sh`, I like to test as a non root user first, as that is the most realistic in terms of how an attacker would use it. Simply looking at the main file will give you a good idea of the options, or you can just run:  
+    `upc.sh -h`  
+
+    To run:  
+    `# Produces a reasonably nice output`  
+    `upc.sh > upc.output`  
+    
     2. [LinEnum](https://github.com/rebootuser/LinEnum) is also very good at host reconnaissance, providing a lot of potentially good information on files that can be trojanised.
 2. The second risk is at the mount point of the file system. This is quite easy to test and it also takes precedence over file permissions, as the mount options apply to the entire mounted file system. This is why applying as restrictive as possible permissions to granular file system partitioning is so effective.
     1. First and easiest command to run is:  
@@ -179,7 +185,8 @@ Running a directory listing that has a file with its `suid` bit set will produce
 The `s` is in the place of the owners executable bit. If instead a capitol `S` is used, it means that the file is not executable
 
 All `suid` files can be found with the following command:  
-`find / -perm -4000 -type f 2>/dev/null`  
+`find / -perm -4000 -type f 2>/dev/null`
+
 All `suid` files owned by root can be found with the following command:  
 `find / -uid 0 -perm -4000 -type f 2>/dev/null`
 
@@ -194,6 +201,8 @@ numeric:
 This adds the `suid` bit, read, write and execute for `owner`, read and execute for `group` and no permissions for `other`. This is just to give you an idea of the relevance of the `4` in the above `-4000`, do not go setting the `suid` bits on files unless you fully understand what you are doing, and have good reason to. This could introduce a security flaw, and if the file is owned by root, you may have just added a perfect vulnerability for an attacker to elevate their privileges to root due to a defect in your executable or the fact that the file can be modified/replaced.
 
 So for example if root owns a file and the file has its `suid` bit set, anyone can run that file as root.
+
+Just as I showed you in the Penetration Testing section of the Process and Practises chapter in Fascicle 0, after we have performed our above reconnaissance, it is time to move to the Vulnerability Scanning / Discovery stage. We should have plenty of information on potentially vulnerable files that we can now workout how to exploit.
 
 
 
@@ -791,11 +800,26 @@ For example if SSH is using dsa:
 
 If you try the command on either the private or publick key you will be given the public keys fingerprint, which is exactly what you need for verifying the authenticity from the client side.
 
-Sometimes you may need to force the output of the fingerprint_hash algorithm, as ssh-keygen may be displaying it in a different form than it is shown when you try to SSH for the first time. The default when using ssh-keygen to show the key fingerprint is sha256, but in order to compare apples with apples you may need to specify md5 if that is what is being shown when you attempt to login. You would do that by issuing the following command:
+Sometimes you may need to force the output of the fingerprint_hash algorithm, as ssh-keygen may be displaying it in a different form than it is shown when you try to SSH for the first time. The default when using ssh-keygen to show the key fingerprint is sha256, unless it is an old version, but in order to compare apples with apples you may need to specify md5 if that is what is being shown when you attempt to login. You would do that by issuing the following command:
 
 `ssh-keygen -lE md5 -f ssh_host_dsa_key.pub`
 
-You can find additional details on the man page for the options.
+If that does not work, you can specify md5 from the client side with:
+
+`ssh -o FingerprintHash=md5 <your_server>`
+
+Alternatively this can be specified in the clients `~/.ssh/config` file as per the following, but I would not recommend this, as using md5 is [less secure](https://en.wikipedia.org/wiki/MD5#Security).
+
+{linenos=off, lang=Bash}
+    Host <your_server>
+        FingerprintHash md5
+
+Prior to [OpenSSH 6.8](http://www.openssh.com/txt/release-6.8) The fingerprint was provided as a hexadecimal md5 hash. Now it is displayed as base64 sha256 by default. You can check which version of SSH you are using with:
+
+{linenos=off, lang=Bash}
+    sshd -v
+
+You can find additional details on the man pages for the options, both ssh-keygen and ssh.
 
 Do not connect remotely and then run the above command, as the machine you are connected to is still untrusted. The command could be dishing you up any string replacement if it is an attackers machine. You need to run the command on the physical box or get someone you trust (your network admin) to do this and hand you the fingerprint.
 

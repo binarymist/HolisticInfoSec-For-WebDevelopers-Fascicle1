@@ -135,6 +135,8 @@ _Todo_
 
 %% https://github.com/trustedsec/unicorn
 
+%% demod at NodeConfEU by snyk https://snyk.io/blog/exploiting-buffer/
+
 #### Cross-Site Scripting (XSS) {#web-applications-identify-risks-cross-site-scripting}
 ![](images/ThreatTags/average-verywidespread-easy-moderate.png)
 
@@ -329,6 +331,8 @@ There are two main problems here.
 
 1. SQL Injection
 2. Poor decisions around sensitive data protection. We discuss this in depth further on in this chapter in the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) section and even more so the [Countermeasures](#web-applications-countermeasures-data-store-compromise) of. Do not follow this example of a lack of well salted and quality strong key derivation functions (KDFs) used on all of the sensitive data in your own projects.
+
+%% Example from NodeConfEU snyk https://snyk.io/blog/sql-injection-orm-vulnerabilities/
 
 #### NoSQLi {#web-applications-identify-risks-nosqli}
 
@@ -1096,7 +1100,21 @@ Create enough "Evil Test Conditions" as discussed in the Process and Practises c
 * **Validation**
   * Only white listed characters can be received (both client and server side)
   * Maximum and minimum field lengths are enforced
-  * Constrain fields to well structured data, like: dates, social security numbers, area codes, e-mail addresses, etc. The more you can define the types of data that is permitted in any given field, the easier it is to apply a white list and validate effectively
+  * Constrain fields to well structured data, like: credit card numbers, dates, social security numbers, area codes, e-mail addresses, etc. The more you can define and constrain the types of data that is permitted in any given field, the easier it is to apply a white list and validate effectively.  
+  WebComponents have come a long way and I think thy are perfect for this task.  
+  With WebComponents, you get to create your own custom elements, an HTML tag. The browser will understand these natively, so they will work with any framework or library you are using. In order to define your own custom element, the tag name you define must be all lower case and must contain at least one hyphen used for separating name-spaces. No elements will be added to HTML, SVG or MathML that contain hyphens.  
+
+  Each [Custom Element](https://w3c.github.io/webcomponents/spec/custom/) (`my-password` for example) has a corresponding [HTML Import](https://w3c.github.io/webcomponents/spec/imports/) (`my-password.html` for example) that provides the [definition of the Custom Element](https://www.polymer-project.org/1.0/docs/devguide/quick-tour), behaviour (JavaScript), DOM structure and styling. Nothing in the Custom Elements HTML Import can leak out, it is a component, encapsulated. Styles can also not leak in. So as our applications continue to grow, Custom Elements are a great tool for modularising concerns.  
+  Custom Elements are currently only natively supported in Chrome and Opera, but we have the [webcomponents.js set of polyfills](http://webcomponents.org/polyfills/) which means we can all use WebComponents.  
+
+  Polymer is a library that helps you write WebComponents and mediates with the browser on your behalf, it also polyfills.  
+
+  Custom Element authors can also expose [Custom CSS properties](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-properties) that they think consumers may want to apply values to, these styles are prefixed with `--` and are essentially an interface to a backing (CSS property) field, which would otherwise be inaccessible.  
+
+  The Custom Element author can also decide to define a set of CSS properties as a single Custom CSS property, called a [Custom CSS mixin](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-mixins), and then allow all of the properties within the set to be applied to a specific CSS rule in an elements local DOM. This is done using the [CSS @apply rule](https://tabatkins.github.io/specs/css-apply-rule/). This allows consumers to mix in any styles within the single Custom CSS property, but only intentionally by using the `--` prefix.  
+
+  Polymer also has a large [collection of Custom Elements](https://elements.polymer-project.org/) already created for you out of the box. Some of these Custom Elements are perfect for constraining and providing validation and filtering of input types, [credit card details](https://elements.polymer-project.org/browse?package=gold-elements) for example. 
+
   * You have read, understood and implemented [Validation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) as per Identify Risks section
 * **Filtering**
   * Your filtering routines are doing as expected with valid and non valid input (both client and server side)
@@ -3105,18 +3123,37 @@ Do not use MD5, SHA-1 or the SHA-2 family of cryptographic one-way hashing funct
 
 In saying that, PBKDF2 can use MD5, SHA-1 and the SHA-2 family of hashing functions. Bcrypt uses the Blowfish (more specifically the Eksblowfish) cipher. Scrypt does not have user replaceable parts like PBKDF2. The PRF can not be changed from SHA-256 to something else.
 
-**Which KDF to use?**
+##### Which KDF to use? {#web-applications-countermeasures-data-store-compromise-which-kdf-to-use}
 
-This depends on many considerations. I am not going to tell you which is best, because there is no best. Which to use depends on many things. You are going to have to gain understanding into at least all three KDFs. PBKDF2 is the oldest so it is the most battle tested, but there has also been lessons learnt from it that have been taken to the latter two. The next oldest is bcrypt which uses the Eksblowfish cipher which was designed specifically for bcrypt from the blowfish cipher, to be very slow to initiate thus boosting protection against dictionary attacks which were often run on custom Application-specific Integrated Circuits (ASICs) with low gate counts, often found in GPUs of the day (1999).  
-The hashing functions that PBKDF2 uses were a lot easier to get speed increases due to ease of parallelisation as opposed to the Eksblowfish cipher attributes such as: far greater memory required for each hash, small and frequent pseudo-random memory accesses, making it harder to cache the data into faster memory. Now with hardware utilising large Field-programmable Gate Arrays (FPGAs), bcrypt brute-forcing is becoming more accessible due to easily obtainable cheap hardware such as:
+This depends on many considerations. I am not going to tell you which is best, because there is no best. Which to use depends on many things. You are going to have to gain understanding into at least all three KDFs.
 
-* [Parallella board](https://www.parallella.org/board/) with Epiphany chip
+**PBKDF2** is the oldest so it is the most battle tested, but there has also been lessons learnt from it that have been taken to the latter two, like the fact that its utilised hashing functions (MD5, SHA) are CPU intensive only and easily parallelised on GPUs, we see this in crypto-currency mining.
+
+The next oldest is **bcrypt** which uses the Eksblowfish cipher which was designed specifically for bcrypt from the blowfish cipher, to be very slow to initiate thus boosting protection against dictionary attacks which were often run on custom Application-specific Integrated Circuits (ASICs) with low gate counts, often found in GPUs of the day (1999).  
+The hashing functions that PBKDF2 uses were a lot easier to get speed increases on GPUs due to ease of parallelisation as opposed to the Eksblowfish cipher attributes such as:
+
+1. Far greater memory required for each hash
+2. Small and frequent pseudo-random memory accesses and modifications, making it harder to cache the data into faster memory and breaking parallelisation on GPUs.
+
+GPUs are good at carrying out the exact same instruction set concurrently, but when a branch in the logic occurs (which is how the blowfish algorithm works) on one of the sets, all others stop thus destroying parallelisation on GPUs.
+
+The Arithmetic Logic Units (ALUs), or shaders of a GPU are partitioned into groups, and each group of ALUs shares management, so members of the group cannot be made to work on separate tasks. They can either all work on nearly identical variations of one single task, in perfect sync with one another, or nothing at all.
+
+Bcrypt was specifically designed to be non GPU friendly, this is why it used the existing blowfish cipher.
+
+Now with hardware utilising large Field-programmable Gate Arrays (FPGAs), bcrypt brute-forcing is becoming more accessible due to easily obtainable cheap hardware such as the [Xeon+FPGA](http://www.extremetech.com/extreme/184828-intel-unveils-new-xeon-chip-with-integrated-fpga-touts-20x-performance-boost). We also have the likes of the [Xeon Phi](http://www.extremetech.com/extreme/133541-intels-64-core-champion-in-depth-on-xeon-phi) which has 60 1GHz cores (- several used by the system), each with 4 hardware threads. The Phi is pretty close to being a general purpose, many core CPU. The following board and chip are also worth considering, although you won't get the brute-forcing throughput of the Xeon+FPGA or Phi:
+
 * [ZedBoard / Zynq 7020](http://picozed.org/product/zedboard)
-* [Xeon+FPGA](http://www.extremetech.com/extreme/184828-intel-unveils-new-xeon-chip-with-integrated-fpga-touts-20x-performance-boost)
-* [Xeon Phi](http://www.extremetech.com/extreme/133541-intels-64-core-champion-in-depth-on-xeon-phi)
 * [Haswell](http://www.theplatform.net/2015/06/02/intel-finishes-haswell-xeon-e5-rollout-launches-broadwell-e3/)
 
-The sensitive data stored within a data-store should be the output of using one of the three key derivation functions we have just discussed. Feed with the data you want protected and a salt. All good frameworks will have at least PBKDF2 and bcrypt APIs
+**Scrypt** uses PBKDF2-HMAC-SHA-256 (PBKDF2 of HMAC-SHA256) as its PRF and 
+the [Salsa20/8](https://tools.ietf.org/html/rfc7914) core function, which is not a cryptographic hash function as it is not collision resistant, to help make pseudo-random writes to RAM, then repeatedly read them in a pseudo-random sequence, FPGAs do not generally have a lot of RAM, so this makes leveraging both FPGAs and GPUs a lot less feasible, thus narrowing down the field of potential hardware cracking options to many core multi-purpose CPUs, such as the Xeon Phi, ZedBoard, Haswell and others. 
+
+&nbsp;
+
+The sensitive data stored within a data-store should be the output of using one of the three key derivation functions we have just discussed. Feed with the data you want protected and a salt. All good frameworks will have at least PBKDF2 and bcrypt APIs.
+
+Possibly also worth considering if you like the bleeding edge, is the new Argon2.
 
 #### Caching of Sensitive Data {#web-applications-countermeasures-management-of-application-secrets-caching-of-sensitive-data}
 ![](images/ThreatTags/PreventionVERYEASY.png)
@@ -4177,6 +4214,8 @@ Has a fairly similar feature set to NSP, plus more, like:
 * Automatically create Github pull requests to fix the vulnerability 
 
 The pricing model seems a little dearer for non open source projects than NSP.
+
+%% https://snyk.io/blog/github-integration/
 
 &nbsp;
 

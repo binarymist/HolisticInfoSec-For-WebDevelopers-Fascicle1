@@ -108,6 +108,12 @@ SSH, The Secure Shell: The Definitive Guide (book)
 **The MAC is the result of**  
 [https://tools.ietf.org/html/rfc4253](https://tools.ietf.org/html/rfc4253)
 
+**Using md5 is less secure**  
+[https://en.wikipedia.org/wiki/MD5#Security](https://en.wikipedia.org/wiki/MD5#Security)
+
+**Prior to OpenSSH 6.8** The fingerprint was provided as a hexadecimal md5 hash. Now it is displayed as base64 sha256  
+[http://www.openssh.com/txt/release-6.8](http://www.openssh.com/txt/release-6.8) 
+
 **Consider installing and configuring denyhosts**  
 [https://www.digitalocean.com/community/articles/how-to-install-denyhosts-on-ubuntu-12-04](https://www.digitalocean.com/community/articles/how-to-install-denyhosts-on-ubuntu-12-04)
 
@@ -619,6 +625,38 @@ http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-emp
 **Monit Has excellent short documentation**  
 [https://mmonit.com/monit/documentation/monit.html](https://mmonit.com/monit/documentation/monit.html)
 
+**Each Custom Element**  
+[https://w3c.github.io/webcomponents/spec/custom/](https://w3c.github.io/webcomponents/spec/custom/)
+
+**Has a corresponding HTML Import**  
+[https://w3c.github.io/webcomponents/spec/imports/](https://w3c.github.io/webcomponents/spec/imports/)
+
+**That provides the definition of the Custom Element**  
+[https://www.polymer-project.org/1.0/docs/devguide/quick-tour](https://www.polymer-project.org/1.0/docs/devguide/quick-tour)
+
+**We have the webcomponents.js set of polyfills** which means we can all use WebComponents  
+[http://webcomponents.org/polyfills/](http://webcomponents.org/polyfills/)
+
+**Custom Element authors can also expose Custom CSS properties** that they think consumers may want to apply values to  
+[https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-properties](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-properties)
+
+**Custom CSS mixin**  
+[https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-mixins](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-mixins)
+
+**This is done using the CSS @apply rule**  
+[https://tabatkins.github.io/specs/css-apply-rule/](https://tabatkins.github.io/specs/css-apply-rule/)
+
+**Polymer also has a large collection of Custom Elements** already created for you out of the box  
+[https://elements.polymer-project.org/](https://elements.polymer-project.org/)
+
+**Some of these Custom Elements are perfect for constraining** and providing validation and filtering of input types, credit card details for example  
+[https://elements.polymer-project.org/browse?package=gold-elements](https://elements.polymer-project.org/browse?package=gold-elements)
+
+
+
+
+
+
 **Excellent resource for dealing with user input** based on the execution contexts that it passes through  
 https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet
 
@@ -682,6 +720,10 @@ http://security.stackexchange.com/questions/23674/how-will-microvirtualisation-c
 **Remind your customers** to **always use unique passwords** that are made up of alphanumeric, upper-case, lower-case and special characters  
 [https://speakerdeck.com/binarymist/passwords-lol](https://speakerdeck.com/binarymist/passwords-lol) 
 
+"**Using four AMD Radeon HD6990 graphics cards**, I am able to make about 15.5 billion guesses per second using the SHA-1 algorithm._"  
+_Per Thorsheim_  
+[http://securitynirvana.blogspot.co.nz/2012/06/final-word-on-linkedin-leak.html](http://securitynirvana.blogspot.co.nz/2012/06/final-word-on-linkedin-leak.html)
+
 **scrypt**  
 [http://www.tarsnap.com/scrypt.html](http://www.tarsnap.com/scrypt.html)
 
@@ -692,14 +734,21 @@ http://security.stackexchange.com/questions/23674/how-will-microvirtualisation-c
 [http://openwall.info/wiki/john/GPU/bcrypt](http://openwall.info/wiki/john/GPU/bcrypt)
 
 **bcrypt brute-forcing** is becoming more accessible due to easily obtainable cheap hardware.  
+[http://www.extremetech.com/extreme/184828-intel-unveils-new-xeon-chip-with-integrated-fpga-touts-20x-performance-boost](http://www.extremetech.com/extreme/184828-intel-unveils-new-xeon-chip-with-integrated-fpga-touts-20x-performance-boost)  
 [http://www.openwall.com/lists/announce/2013/12/03/1](http://www.openwall.com/lists/announce/2013/12/03/1)  
 [http://www.openwall.com/presentations/Passwords13-Energy-Efficient-Cracking/](http://www.openwall.com/presentations/Passwords13-Energy-Efficient-Cracking/)
 
-"**Using four AMD Radeon HD6990 graphics cards**, I am able to make about 15.5 billion guesses per second using the SHA-1 algorithm._"  
-_Per Thorsheim_  
-[http://securitynirvana.blogspot.co.nz/2012/06/final-word-on-linkedin-leak.html](http://securitynirvana.blogspot.co.nz/2012/06/final-word-on-linkedin-leak.html)
+**Xeon Phi**  
+[http://www.extremetech.com/extreme/133541-intels-64-core-champion-in-depth-on-xeon-phi](http://www.extremetech.com/extreme/133541-intels-64-core-champion-in-depth-on-xeon-phi)
 
+**ZedBoard / Zynq 7020**  
+[http://picozed.org/product/zedboard](http://picozed.org/product/zedboard)
 
+**Haswell**  
+[http://www.theplatform.net/2015/06/02/intel-finishes-haswell-xeon-e5-rollout-launches-broadwell-e3/](http://www.theplatform.net/2015/06/02/intel-finishes-haswell-xeon-e5-rollout-launches-broadwell-e3/)
+
+**Salsa20/8**  
+[https://tools.ietf.org/html/rfc7914](https://tools.ietf.org/html/rfc7914)
 
 
 

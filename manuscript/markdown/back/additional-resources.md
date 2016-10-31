@@ -204,6 +204,9 @@ https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
 **Current, or at least more recent statsd spec** for metric types  
 [https://github.com/etsy/statsd/blob/master/docs/metric_types.md](https://github.com/etsy/statsd/blob/master/docs/metric_types.md)
 
+**Podcast on WebComponents**  
+[http://webcomponents.org/](http://webcomponents.org/)
+
 **I would recommend NSubstitute** instead if you were looking for a mocking framework for .NET.  
 [http://blog.binarymist.net/2013/12/14/evaluation-of-net-mocking-libraries/](http://blog.binarymist.net/2013/12/14/evaluation-of-net-mocking-libraries/)
 
@@ -249,9 +252,20 @@ https://en.wikipedia.org/wiki/Blowfish_%28cipher%29
 **scrypt**  
 [https://en.wikipedia.org/wiki/Scrypt](https://en.wikipedia.org/wiki/Scrypt)
 
-**bcrypt brute-forcing** becoming feasible with well ordered rainbow tables  
+**Good Password Hashing Functions**  
+[http://defencely.com/blog/do-you-rely-on-hashing-know-websec-cryptography-indepth/](http://defencely.com/blog/do-you-rely-on-hashing-know-websec-cryptography-indepth/)
+
+**bcrypt brute-forcing** feasible on certain hardware  
+[http://www.openwall.com/presentations/Passwords14-Energy-Efficient-Cracking/](http://www.openwall.com/presentations/Passwords14-Energy-Efficient-Cracking/)  
 [http://www.openwall.com/presentations/Passwords13-Energy-Efficient-Cracking/Passwords13-Energy-Efficient-Cracking.pdf](http://www.openwall.com/presentations/Passwords13-Energy-Efficient-Cracking/Passwords13-Energy-Efficient-Cracking.pdf)  
 [https://www.usenix.org/system/files/conference/woot14/woot14-malvoni.pdf](https://www.usenix.org/system/files/conference/woot14/woot14-malvoni.pdf)
+
+**Cooling the Xeon Phi**  
+[https://ssrb.github.io/hpc/2015/04/17/cooling-down-the-xeon-phi-sku31S1P/](https://ssrb.github.io/hpc/2015/04/17/cooling-down-the-xeon-phi-sku31S1P/)
+
+**Xeon Phi misconceptions**  
+[https://www.pugetsystems.com/labs/hpc/Top-5-Xeon-Phi-Misconceptions-508/](https://www.pugetsystems.com/labs/hpc/Top-5-Xeon-Phi-Misconceptions-508/)
+
 
 
 **Password Cracking Strategy**  
