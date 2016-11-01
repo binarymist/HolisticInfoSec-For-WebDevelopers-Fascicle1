@@ -168,9 +168,9 @@ If the target file that an attacker wants to swap for a trojanised version is wo
     1. The first tool we can pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which has its source code on [github](https://github.com/pentestmonkey/unix-privesc-check) and is also shipped with Kali Linux, but only the 1.x version (`unix-privesc-check` single file), which is fine, but the later version which sits on the master branch (`upc.sh` main file plus many sub files) does a lot more, so it can be good to use both. You just need to get the shell file(s) from either the `1_x` or `master` branch onto your target machine and run. Running as root allows the testing to be a lot more thorough for obvious reasons. If I'm testing my own host, I will start with the `upc.sh`, I like to test as a non root user first, as that is the most realistic in terms of how an attacker would use it. Simply looking at the main file will give you a good idea of the options, or you can just run:  
     `upc.sh -h`  
     
-    To run:  
-    `# Produces a reasonably nice output`  
-    `upc.sh > upc.output`  
+        To run:  
+        `# Produces a reasonably nice output`  
+        `upc.sh > upc.output`  
 
     
     2. [LinEnum](https://github.com/rebootuser/LinEnum) is also very good at host reconnaissance, providing a lot of potentially good information on files that can be trojanised.
