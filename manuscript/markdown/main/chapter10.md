@@ -1102,21 +1102,31 @@ Create enough "Evil Test Conditions" as discussed in the Process and Practises c
   * Maximum and minimum field lengths are enforced
   * Constrain fields to well structured data, like: credit card numbers, dates, social security numbers, area codes, e-mail addresses, etc. The more you can define and constrain the types of data that is permitted in any given field, the easier it is to apply a white list and validate effectively.  
 
+    
     WebComponents have come a long way and I think thy are perfect for this task.  
 
+    
     With WebComponents, you get to create your own custom elements, an HTML tag. The browser will understand these natively, so they will work with any framework or library you are using. In order to define your own custom element, the tag name you define must be all lower case and must contain at least one hyphen used for separating name-spaces. No elements will be added to HTML, SVG or MathML that contain hyphens.  
 
+    
     Each [Custom Element](https://w3c.github.io/webcomponents/spec/custom/) (`my-password` for example) has a corresponding [HTML Import](https://w3c.github.io/webcomponents/spec/imports/) (`my-password.html` for example) that provides the [definition of the Custom Element](https://www.polymer-project.org/1.0/docs/devguide/quick-tour), behaviour (JavaScript), DOM structure and styling. Nothing in the Custom Elements HTML Import can leak out, it is a component, encapsulated. Styles can also not leak in. So as our applications continue to grow, Custom Elements are a great tool for modularising concerns.  
 
+    
     Custom Elements are currently only natively supported in Chrome and Opera, but we have the [webcomponents.js set of polyfills](http://webcomponents.org/polyfills/) which means we can all use WebComponents.  
+
+    
 
     Polymer is a library that helps you write WebComponents and mediates with the browser on your behalf, it also polyfills.  
 
+    
     Custom Element authors can also expose [Custom CSS properties](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-properties) that they think consumers may want to apply values to, these styles are prefixed with `--` and are essentially an interface to a backing (CSS property) field, which would otherwise be inaccessible.  
 
+    
     The Custom Element author can also decide to define a set of CSS properties as a single Custom CSS property, called a [Custom CSS mixin](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-mixins), and then allow all of the properties within the set to be applied to a specific CSS rule in an elements local DOM. This is done using the [CSS @apply rule](https://tabatkins.github.io/specs/css-apply-rule/). This allows consumers to mix in any styles within the single Custom CSS property, but only intentionally by using the `--` prefix.  
 
+    
     Polymer also has a large [collection of Custom Elements](https://elements.polymer-project.org/) already created for you out of the box. Some of these Custom Elements are perfect for constraining and providing validation and filtering of input types, [credit card details](https://elements.polymer-project.org/browse?package=gold-elements) for example.  
+    
 
   * You have read, understood and implemented [Validation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) as per Identify Risks section
 * **Filtering**
