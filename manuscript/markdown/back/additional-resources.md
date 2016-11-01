@@ -269,7 +269,7 @@ https://en.wikipedia.org/wiki/Blowfish_%28cipher%29
 
 
 **Password Cracking Strategy**  
-[http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cracking-strategy-0156491/](http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cracking-strategy-0156491/)
+http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cracking-strategy-0156491/
 
 **Securing Sessions** via cookie attributes  
 [https://www.owasp.org/index.php/HttpOnly](https://www.owasp.org/index.php/HttpOnly)
