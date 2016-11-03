@@ -6,8 +6,7 @@ The contents of fascicle 1 that's a WIP is listed below. The actual fascicle can
 
 If there is something you would like to see included in this fascicle, please [submit an issue](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/issues) for consideration.
 
-[![Stories in Ready](https://badge.waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1.png?label=ready&title=Ready)](https://waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1)
-[![Stories in Progress](https://badge.waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1.png?label=in%20progress&title=In%20Progress)](https://waffle.io/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1)
+Don't forget to check the [release notes](ReleaseNotes.md) for progress.
 
 [![](manuscript/images/title_page.png)](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications)
 
