@@ -1,6 +1,6 @@
 ## 2016-11-04
 
-Updated links to hands on hack demos.
+Updated links to hands on hack demos on [YouTube](https://www.youtube.com/playlist?list=PLfv6teOacMIuh3VheioAXXe70IwwQySIp).
 
 ### VPS
 
