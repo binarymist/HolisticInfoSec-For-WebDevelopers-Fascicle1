@@ -139,7 +139,7 @@ The victim may visit the attackers cloned website due to ARP and/or DNS spoofing
 
 The following attack was one of five that I demonstrated at WDCNZ in 2015. The two leading up to this one provide some context and it is probably best to look at them first if you have not already.
 
-You can find the video of how it is played out [here](https://www.youtube.com/watch?v=ymnqTrnF85M).
+You can find the video of how it is played out at [http://youtu.be/ymnqTrnF85M](http://youtu.be/ymnqTrnF85M).
 
 I> ## Synopsis
 I>
@@ -208,7 +208,7 @@ T> Within the same config.yaml file `host` seems to serve two purposes. The addr
 
 The following attack was the fourth of five that I demonstrated at WDCNZ in 2015. The [previous demo](#wdcnz-demo-3) will provide some additional context and it is probably best to look at it first if you have not already.
 
-You can find the video of how it is played out [here](https://www.youtube.com/watch?v=WSwqNb_94No).
+You can find the video of how it is played out at [http://youtu.be/WSwqNb_94No](http://youtu.be/WSwqNb_94No).
 
 I> ## Synopsis
 I>

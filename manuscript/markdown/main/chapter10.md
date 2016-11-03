@@ -167,7 +167,7 @@ If you are working within a development team you may have found out some other w
 How ever you got to this point, you are going to want to exhibit the fault. One of the most effective ways to do this is by using BeEF. BeEF clearly shows what is possible when you have an XSS vulnerability in scope and is an excellent tool for effortlessly demonstrating the severity of the fault to all team members and stakeholders.  
 One of BeEFs primary reasons to exist is to exploit the fact that many security philosophies seem to forget how easy it is to go straight through hardened network perimeters and attack the soft mushy insides of a sub network as discussed in the Fortress Mentality section of the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Exposing XSS faults is one of BeEFs attributes. 
 
-You can find the video of how this attack is played out [here](https://www.youtube.com/watch?v=92AWyUfJDUw).
+You can find the video of how this attack is played out at [http://youtu.be/92AWyUfJDUw](http://youtu.be/92AWyUfJDUw).
 
 I> ## Synopsis
 I>

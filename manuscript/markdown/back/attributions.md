@@ -27,6 +27,9 @@
 **LinEnum is also very good at host reconnaissance**  
 [https://github.com/rebootuser/LinEnum](https://github.com/rebootuser/LinEnum) 
 
+**There are also many other options to use for providing a reverse shell**  
+[http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
+
 
 
 
