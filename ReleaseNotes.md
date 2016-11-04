@@ -1,4 +1,4 @@
-# Holistic InfoSec For Web Developers - F1
+# Holistic InfoSec For Web Developers - F1 - Release Notes
 
 ## 2016-11-04
 
