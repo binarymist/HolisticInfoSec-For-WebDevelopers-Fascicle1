@@ -25,7 +25,7 @@ Updated links to hands on hack demos on [YouTube](https://www.youtube.com/playli
 * Podcast on WebComponents
 * Various links to hashing functions and KDFs
 * Bcrypt brute-forcing and feasibility
-* Hardware that suites brute-forcing passwords: Xeon Phi and others.
+* Hardware that suits brute-forcing passwords: Xeon Phi and others.
 
 ## 2016-10-07
 
