@@ -1603,7 +1603,8 @@ You can add `ALL:ALL` to your `hosts.deny`, but if you install a new service tha
 {title="/etc/hosts.allow", linenos=off, lang=Bash}
     rpcbind : 10.10.0.10 10.10.0.11 10.10.0.n
 
-    # Or if confident you have enough defence in depth and need open to your network segment:
+    # Or if you are confident you have enough defence in depth
+    # and need to open to your network segment:
     rpcbind : 10.10.0.0/24
 
 Prior to NFSv4 to achieve the same results, these two files would need to contain something similar to the following. [NFSv4 has no interaction](https://www.centos.org/docs/5/html/Deployment_Guide-en-US/ch-nfs.html) with these additional daemons, as their functionality has been incorporated into the version 4 protocol and NFS (v4) listens on the well known TCP port 2049:
