@@ -4047,6 +4047,13 @@ Similarly to [Doppelganger Domains](#network-identify-risks-doppelganger-domains
 
 Make sure you are typing the correct package name. Copy -> Pasting works.
 
+##### [Whitelisting Packages](https://npme.npmjs.com/docs/workflow/whitelisting.html) via npm Enterprise
+
+Reviewing and deciding as an organisation which packages you allow your developers to consume is another good safety measure. Yes it means someone has to do the reviewing, but partly relying on the vetting that the tooling and other options discussed in this section can make this process quicker. Then via the Enterprise admin console, set `Read through cache` to `Off` so that only whitelisted packages can be fetched.
+
+Whitelisted packages are those that are added to the Enterprise instance with:
+`npme add-package <packagename>`
+
 #### Tooling {#web-applications-countermeasures-consuming-free-and-open-source-tooling}
 
 For **NodeJS developers**: Keep your eye on the [nodesecurity advisories](https://nodesecurity.io/advisories). Identified security issues can be posted to [NodeSecurity report](https://nodesecurity.io/report).
