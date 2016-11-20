@@ -68,15 +68,15 @@ Many load testing tools also use this technique to stress a server or applicatio
 #### ARP (Address Resolution Protocol) {#network-identify-risks-spoofing-arp}
 ![](images/ThreatTags/easy-common-average-severe.png)
 
-Telling your target that the MAC address it associates with a particular legitimate node (by way of IP address) is now your (the attackers/MitM) MAC address.
+Telling your target that the MAC address it associates with a particular legitimate node (by way of IP address) is now your (the attackers/MItM) MAC address.
 
-Taking the IP spoofing attack further. The MitM sends out ARP replies across the LAN to the target, telling it that the legitimate MAC address that the target associates with the MitM box has now changed to say the routers IP address. This way when the target wants to send a message to say the router, it looks up its ARP table for the routers IP address in order to find its MAC address and now gets the MitM MAC address for the routers IP address, thus the targets ARP cache is said to be poisoned with the MitM MAC address. The target goes ahead and sends its messages to the MitM box which can do what ever it likes with the data. Choose to drop the message or to forward it on to the router in its original or altered state.  
+Taking the IP spoofing attack further. The MItM sends out ARP replies across the LAN to the target, telling it that the legitimate MAC address that the target associates with the MItM box has now changed to say the routers IP address. This way when the target wants to send a message to say the router, it looks up its ARP table for the routers IP address in order to find its MAC address and now gets the MItM MAC address for the routers IP address, thus the targets ARP cache is said to be poisoned with the MItM MAC address. The target goes ahead and sends its messages to the MItM box which can do what ever it likes with the data. Choose to drop the message or to forward it on to the router in its original or altered state.  
 This attack only works on a LAN.  
 The attack is often used as a component of larger attacks, harvesting credentials, cookies, CSRF tokens, hijacking. Even using TLS (in many cases TLS can be [downgraded](#network-identify-risks-tls-downgrade)). 
 
 There is a complete cloning example of a website, ARP spoof, DNS spoof and hands on hack, in the [website section below](#network-identify-risks-spoofing-website).
 
-* [MitM with ARP spoofing](http://blog.binarymist.net/2015/04/25/web-server-log-management/#mitm)
+* [MItM with ARP spoofing](http://blog.binarymist.net/2015/04/25/web-server-log-management/#mitm)
 * [With TLS](http://frishit.com/tag/ettercap/)
 
 #### DNS {#network-identify-risks-spoofing-dns}
@@ -89,7 +89,7 @@ DNS spoofing refers to an end goal rather than a specific type of attack. There 
 * Compromise the name server itself potentially through it is own vulnerabilities ([Kaminsky bug](http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-1447) for example)
 * Poison the cache of the name server
 * Poison the cache of an upstream name server and wait for the downstream propagation
-* MitM attack. A good example of this is:
+* MItM attack. A good example of this is:
   * cloning a website you hope your victim will visit
   * offering a free Wi-Fi hot-spot attached to your gateway with DNS server provided.
  Your DNS server provides your cloned website IP address. You may still have to deal with X.509 certificates though, unless the website enforces TLS across the entire site, which is definitely my recommendation. If not, and the potential victim already has the websites certificate they are wanting to visit in their browser, then you will have to hope your victim will click through the warning or work out a TLS downgrade which is going to be harder.
@@ -176,7 +176,7 @@ G> From the directory that you have BeEF installed, run the BeEF ruby script: `.
 G>
 G> Add an 'A' record of the website you ave just cloned and want to spoof into ettercaps dns file: `echo "<domainname-you-want-to-clone.com> A <IP address that is hosting the clone>" >> /etc/ettercap/etter.dns`
 G>
-G> Now run ettercap which is going to both ARP and DNS spoof your victim and the victims gateway with the MITM option, using dns_spoof plugin: `ettercap -M arp:remote -P dns_spoof -q -T /<gateway IP address>/ /<victim IP address>/`.
+G> Now run ettercap which is going to both ARP and DNS spoof your victim and the victims gateway with the MItM option, using dns_spoof plugin: `ettercap -M arp:remote -P dns_spoof -q -T /<gateway IP address>/ /<victim IP address>/`.
 G>
 G> You can now log into the BeEF web UI.
 G>
@@ -305,7 +305,7 @@ Useful for social engineering users to a spoofed web-site. The attacker may not 
     1. record
     2. modify the to address to the legitimate address
     3. modify the from address to the doppelganger domain that the attacker owns (thus also intercepting the mail replies)
-    4. forward (essentially MITM).
+    4. forward (essentially MItM).
 
 The attacker gleans a lot of potentially sensitive information.
 
@@ -737,7 +737,7 @@ Then trust the browser to do something to stop these **downgrades**.
     Strict-Transport-Security: max-age=31536000 # That's one year.
 
 By using the HSTS header, you are telling the browser that your website should never be reached over plain HTTP.  
-There is however still a small problem with this. The very first request for the websites page. At this point the browser has no idea about HSTS because it still has not fetched that first page that will come with the header. Once the browser does receive the header, if it does, it records this information against the domain. From then on, it will only request via TLS until the `max-age` is reached. So there are two windows of opportunity there to MiTM and downgrade `HTTPS` to `HTTP`. 
+There is however still a small problem with this. The very first request for the websites page. At this point the browser has no idea about HSTS because it still has not fetched that first page that will come with the header. Once the browser does receive the header, if it does, it records this information against the domain. From then on, it will only request via TLS until the `max-age` is reached. So there are two windows of opportunity there to MItM and downgrade `HTTPS` to `HTTP`. 
 
 There is however an NTP attack that can leverage the second opportunity. For example by changing the targets computer date to say 2 years in the future. They are less likely to notice it if the day, month and time remain the same. When the request to the domain that the browser knew could only be reached over TLS has its HSTS `max-age` expired, then the request could go out as `HTTP`, but providing that the user explicitly sends it as `HTTP` without the `S`, or clicks a link without the `HTTPS`.
 
@@ -884,7 +884,7 @@ So how this now plays out: The browser on its first request to the web server, t
 There are two ways that the "must staple" are being looked at for solution. The [OCSP Must-Staple](https://casecurity.org/2014/06/18/ocsp-must-staple/) section of the article with the same name on the casecurity.org blog provides details.
 
 1. [In the certificate](http://tools.ietf.org/html/draft-hallambaker-tlssecuritypolicy-03) as discussed above
-2. An [interim solution](https://wiki.mozilla.org/CA:ImprovingRevocation#OCSP_Must-Staple) that TBH, doesn't look like much of a solution to me. It is to add a `Must-Staple` header to the response, which of course can easily be stripped out by a MitM on the very first response. This solution is very similar to HSTS that I discussed [above](#network-countermeasures-tls-downgrade-hsts). Of course if you want similar behaviour to the [HSTS Preload](#network-countermeasures-tls-downgrade-hsts-preload) also discussed above, then the "must staple" must be part of the certificate.
+2. An [interim solution](https://wiki.mozilla.org/CA:ImprovingRevocation#OCSP_Must-Staple) that TBH, doesn't look like much of a solution to me. It is to add a `Must-Staple` header to the response, which of course can easily be stripped out by a MItM on the very first response. This solution is very similar to HSTS that I discussed [above](#network-countermeasures-tls-downgrade-hsts). Of course if you want similar behaviour to the [HSTS Preload](#network-countermeasures-tls-downgrade-hsts-preload) also discussed above, then the "must staple" must be part of the certificate.
 
 As far as I know Firefox and Chrome are both working toward implementing Must-Staple in certificates, but I haven't seen or heard anything yet for Internet Explorer.
 

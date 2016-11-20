@@ -3131,7 +3131,7 @@ In saying that, PBKDF2 can use MD5, SHA-1 and the SHA-2 family of hashing functi
 
 This depends on many considerations. I am not going to tell you which is best, because there is no best. Which to use depends on many things. You should gain understanding into at least all three of the following best of breed KDFs often used for password hashing.
 
-**PBKDF2** is the oldest so it is the most battle tested, but there has also been lessons learnt from it that have been taken to the latter two, like the fact that its utilised hashing functions (MD5, SHA) are CPU intensive only and easily parallelised on GPUs, we see this in crypto-currency mining.
+**PBKDF2** is the oldest so it is the most battle tested, but there has also been lessons learnt from it that have been taken to the latter two, like the fact that its utilised hashing functions (MD5, SHA) are CPU intensive only and easily parallelised on GPUs and Application Specific Integrated Circuts, using very little RAM, we see this in crypto-currency mining.
 
 The next oldest is **bcrypt** which uses the Eksblowfish cipher, which was designed specifically for bcrypt from the blowfish cipher, to be very slow to initiate thus boosting protection against dictionary attacks which were often run on custom Application-specific Integrated Circuits (ASICs) with low gate counts, often found in GPUs of the day (1999).  
 The hashing functions that PBKDF2 uses were a lot easier to get speed increases on GPUs due to ease of parallelisation as opposed to the Eksblowfish cipher attributes such as:

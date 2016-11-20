@@ -19,6 +19,8 @@ If you deal with sensitive customer data, then you have an ethical and legal res
 If you are a start up, just be aware that the speed you have initially with a PaaS will not continue as your product moves from Proof of Concept to something that customers start to use if you decide to be more careful about customers and your own IP by bringing it in-house or entrusting it to a provider that takes security seriously rather than just saying they do.
 
 %% Work through my "Does Your Cloud Solution Look Like a Mushroom?"
+%% Kiwicon 10 talk "Hacking AWS end to end". Slide-deck here: https://github.com/dagrz/aws_pwn/blob/master/miscellanea/Kiwicon%202016%20-%20Hacking%20AWS%20End%20to%20End.pdf, along with readme and code.
+%% It probably makes the most sense to focus on the largest providers.
 
 ## 1. SSM Asset Identification
 Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered.
