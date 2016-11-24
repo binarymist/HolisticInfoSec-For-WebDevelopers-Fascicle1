@@ -139,16 +139,6 @@ G> `sessions -i 1`
 G>
 G> From here on in, the [video](https://www.youtube.com/watch?v=1EvwwYiMrV4) demonstrates creating a new file beside the targets hosts file, thus demonstrating full system privileges.
 
-_Todo_: [Take this further](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers/issues/1)
-
-
-
-
-
-
-
-
-
 ### Unnecessary and Vulnerable Services 
 
 #### Overly Permissive File Permissions, Ownership and Lack of Segmentation {#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation}
@@ -321,20 +311,13 @@ The Countermeasures sections that address are:
 1. [Partitioning on OS Installation](#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation)
 2. [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions), which also briefly touches on the improving file permissions and ownership
 
-
-
-
 #### Weak Password Strategies
 
-_Todo_
-
-This same concept we covered in the People chapter of Fascicle0, also applies to VPS.
-
-_Todo_
+This same concept was covered in the People chapter of Fascicle 0, which also applies to VPS. In addition to that, the risks are addressed within the [countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section.
 
 #### Root Logins
 
-_Todo_
+Allowing root logins is a lost opportunity for another layer of defence in depth, where the user must elevate privilages before performaning any task that could possibly negativly impact the system. Once an attacker is root on a system, the system is owned by them. Root is a user and no guess work is required for that username, other low privilaged users require some guess work on the part of the user name as well as the password, and even once both parts of a credential have been aquired, there is another step to total system ownership.
 
 #### SSH
 ![](images/ThreatTags/difficult-uncommon-average-moderate.png)
@@ -343,7 +326,7 @@ You may remember we did some fingerprinting of the SSH daemon in the Reconnaissa
 
 #### To Many Boot Options
 
-_Todo_
+Being able to boot from alternative media to that of your standard OS, provides additional opportunity for an attacker to install a root-kit on your machine, whether it be virtual or real media.
 
 #### RPC Portmapper
 
@@ -481,7 +464,7 @@ Beware of doppelganger images that will be available for all to consume, similar
 
 #### The Default User is Root
 
-What is worse, dockers default is to run all commands / processes within a container as root. This can be seen by running the following command:
+What is worse, dockers default is to run containers, and all commands / processes within a container as root. This can be seen by running the following command:
 
 {title="User running containers", linenos=off, lang=Bash}
     docker ps --quiet | xargs docker inspect --format '{{ .Id }}: User={{.Config.User}}'
@@ -544,7 +527,7 @@ Now this is addressed, because so many rely on firewalls to hide many weak areas
 ### Forfeit Control thus Security {#vps-countermeasures-forfeit-control-thus-security}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Bringing your VPS(s) in-house provides all the flexibility/power required to mitigate just about all the risks due to outsourcing to a cloud or hosting provider. How easy this will be is determined by how much you already have invested. Cloud offerings are often more expensive in monetary terms for medium to large environments, so as you grow, the cost benefits you may have gained due to quick development up-front will often become an anchor holding you back. Because you may have bought into their proprietary way of doing things, it now becomes costly to migrate, and your younger competitors which can turn quicker, out manoeuvre you. Platform as a Service often appears even more attractive, but everything comes at a cost, cloud platforms may look good to start with, but often they are to good, and the costs will catch up with you.
+Bringing your VPS(s) in-house provides all the flexibility/power required to mitigate just about all the risks due to outsourcing to a cloud or hosting provider. How easy this will be is determined by how much you already have invested. Cloud offerings are often more expensive in monetary terms for medium to large environments, so as you grow, the cost benefits you may have gained due to quick development up-front will often become an anchor holding you back. Because you may have bought into their proprietary way of doing things, it now becomes costly to migrate, and your younger competitors which can turn quicker, out manoeuvre you. Platform as a Service often appears even more attractive, but everything comes at a cost, cloud platforms may look good to start with, but often they are to good, and the costs will catch up with you. All that glitters is not gold.
 
 ### Windows
 
@@ -559,7 +542,7 @@ _Todo_: [Take this further](https://github.com/binarymist/HolisticInfoSec-For-We
 ### Minimise Attack Surface by Installing Only what you Need
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
-I am hoping this goes without saying, unless you are setting up a Windows server with "all the stuff" that you have little control over, which is why I prefer UNIX based servers. I/You have all the control, if anything goes wrong, it is usually my own fault. The less you have on your severs, the fewer servers you have, the smaller the network you have, the less employees you have, basically the smaller and lesser of everything you have, the less there is to compromise by an attacker and the quicker you can move.
+I am hoping this goes without saying, unless you are setting up a Windows server with "all the stuff" that you have little control over its hardening process, which is why I favour UNIX based servers. I/You have all the control, if anything goes wrong, it will usually be our own fault for missing or neglecting something. The less you have on your servers, the fewer servers you have, the smaller the network you have, the less employees you have, basically the smaller and lesser of everything you have, the less there is to compromise by an attacker and the quicker you can move.
 
 ### Disable, Remove Services. Harden what is left {#vps-countermeasures-disable-remove-services-harden-what-is-left}
 
@@ -628,12 +611,12 @@ Now if you're working through an installation, you'll be asked for a mirror to p
 
 A> The steps you take to harden your server(s) that will have many user accounts will be considerably different to this. Many of the steps I have gone through here will be insufficient for a server with many users. The hardening process is not a one time procedure. It ends when you decommission the server. Be prepared to stay on top of your defences. It is much harder to defend against attacks than it is to exploit a vulnerability.
 
-#### Review Password Strategies
+#### Review Password Strategies {#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies}
 ![](images/ThreatTags/PreventionEASY.png)
 
 A lot of the following you will have to follow along with on your VPS in order to understand what I am saying.
 
-Make sure passwords are encrypted with an algorithm that will stand up to the types of attacks you anticipate. 
+Make sure passwords are encrypted with an algorithm that will stand up to the types of attacks and hardware you anticipate that your attackers will use. I have provided additional details around which Key Derivation Functions are best suited to which types of hardware in the "[Which KDF to use](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)" section within the Web Applications chapter.
 
 In most cases you will [want to](http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2) shadow your passwords. This should be the default in most, or all recent Linux distributions.
 
@@ -3136,7 +3119,7 @@ This is one of the last things you should look at. In fact, it is not really nee
 
 ### Preparation for DMZ
 
-The following is a final type of check-list that I like to use before opening a hardened web server to the world.
+The following is a final type of check-list that I like to use before opening a hardened web server to the world. You will probably have additional items you can add.
 
 #### Confirm DMZ has
 
