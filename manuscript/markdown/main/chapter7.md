@@ -376,10 +376,7 @@ Besides providing the details of RPC services, `portmap` and `rpcbind` are inher
 These types of attacks have become very popular amongst distributed attackers due to their significant impact, lack of sophistication and ease of execution. Level 3 Threat Research Labs published a [blog post](http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry/) on this port mapper DoS attack and how it has become very popular since the beginning of August 2015.  
 US-CERT also published an [alert](https://www.us-cert.gov/ncas/alerts/TA14-017A) on UDP-Based Amplification Attacks outlining the Protocols, Bandwidth Amplification Factor, etc.
 
-
-
-{#vps-identify-risks-unnecessary-and-vulnerable-services-portmap-rpcinfo-t}
-{title="rpcinfo", linenos=off, lang=bash}
+{title="rpcinfo", linenos=off, lang=bash, id=vps-identify-risks-unnecessary-and-vulnerable-services-portmap-rpcinfo-t}
     rpcinfo -T udp <target host> 
 
 {title="rpcinfo results for Metasploitable2", linenos=off, lang=bash}
@@ -415,16 +412,6 @@ You will notice in the response as recorded by Wireshark, that the length is man
     <dest IP>   <source IP> Portmap  726    V3 DUMP Reply (Call In 75)
 
 The packet capture in Wireshark which is not showen here also confirms that it is UDP.
-
-
-
-
-
-
-
-
-
-
 
 #### EXIM
 
@@ -1561,7 +1548,7 @@ You can also stop `rpcbind` responses by modifying the two below hosts files lik
 
 The above changes to the two hosts files would be effective immediately. A restart of the port mapper would not be required in this case.
 
-There are further details around the `/etc/hosts.[deny & allow]` files in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs) that will help you fine tune which hosts and networks should be permitted to query and receive response from the port mapper. Be sure to check them out if you are going to retain the port mapper, so you do not become a victim of a reflected amplified DoS attack and that you keep any RPC servers that you may need exposed to your internal clients. You can test this by running the same command that we did in the [Identify Risks](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap-rpcinfo-t) section.
+There are further details around the `/etc/hosts.[deny & allow]` files in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs) that will help you fine tune which hosts and networks should be permitted to query and receive response from the port mapper. Be sure to check them out if you are going to retain the port mapper, so you do not become a victim of a reflected amplified DoS attack, and that you keep any RPC servers that you may need exposed to your internal clients. You can test this by running the same command that we did in the [Identify Risks](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap-rpcinfo-t) section.
 
 {title="rpcinfo", linenos=off, lang=bash}
     rpcinfo -T udp <target host> 
@@ -1571,7 +1558,7 @@ This time, with the two hosts files set-up as above, the results should look lik
 {title="rpcinfo results", linenos=off, lang=bash}
     No remote programs registered.
 
-You'll notice in the response as recorded by Wireshark, that the length is now smaller than the request:
+You will notice in the response as recorded by Wireshark, that the length is now smaller than the request:
 
 {title="wireshark results", linenos=off, lang=bash}
     Source      Destination Protocol Length Info
