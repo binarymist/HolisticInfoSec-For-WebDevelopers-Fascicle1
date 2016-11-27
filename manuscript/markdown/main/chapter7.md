@@ -317,7 +317,7 @@ This same concept was covered in the People chapter of Fascicle 0, which also ap
 
 #### Root Logins
 
-Allowing root logins is a lost opportunity for another layer of defence in depth, where the user must elevate privilages before performaning any task that could possibly negativly impact the system. Once an attacker is root on a system, the system is owned by them. Root is a user and no guess work is required for that username, other low privilaged users require some guess work on the part of the user name as well as the password, and even once both parts of a credential have been aquired, there is another step to total system ownership.
+Allowing root logins is a lost opportunity for another layer of defence in depth, where the user must elevate privilages before performaning any task that could possibly negativly impact the system. Once an attacker is root on a system, the system is owned by them. Root is a user and no guess work is required for that username. Other low privilaged users require some guess work on the part of the user name as well as the password, and even once both parts of a low privaleged credential have been aquired, there is another step to total system ownership.
 
 #### SSH
 ![](images/ThreatTags/difficult-uncommon-average-moderate.png)
@@ -328,18 +328,16 @@ You may remember we did some fingerprinting of the SSH daemon in the Reconnaissa
 
 Being able to boot from alternative media to that of your standard OS, provides additional opportunity for an attacker to install a root-kit on your machine, whether it be virtual or real media.
 
-#### RPC Portmapper
+#### Portmap {#vps-identify-risks-unnecessary-and-vulnerable-services-portmap}
 
-Probe the portmapper on target host where target host is an IP address or a host name:
+An attacker can probe the Open Network Computing Remote Procedure Call (ONC RPC) port mapper service on the target host where the target host is an IP address or a host name.
 
-_Todo_ Review and add to: http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#rpc-portmapper
-
-The rpcinfo command with `-p` will list all registered RPC programs. Many RPC programs are vulnerable to a collection of attacks. 
+If installed, the rpcinfo command with `-p` will list all RPC programs (such as quotad, nfs, nlockmgr, mountd, status, etc) registered with the port mapper (whether the depricated `portmap` or the newer `rpcbind`). Many RPC programs are vulnerable to a collection of attacks. 
 
 {title="rpcinfo", linenos=off, lang=bash}
     rpcinfo -p <target host> 
 
-{title="rpcinfo results", linenos=off, lang=bash}
+{title="rpcinfo results for Metasploitable2", linenos=off, lang=bash}
     program vers proto   port  service
     100000    4   tcp    111  portmapper
     100000    3   tcp    111  portmapper
@@ -369,7 +367,64 @@ The rpcinfo command with `-p` will list all registered RPC programs. Many RPC pr
     100021    4   udp    679  nlockmgr
     100021    4   tcp    875  nlockmgr
 
-This provides lots of jucy information for an attacker to take into the Vulnerability Searching stage discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+This provides a list of RPC services running that have registered with the port mapper, thus providing an attacker with lots of juicy information to take into the Vulnerability Searching stage discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+
+The deprecated `portmap` service as well as the newer `rpcbind`, listen on port 111 for requesting clients, some Unix and Solaris versions will also listen on ports above 32770.
+
+Besides providing the details of RPC services, `portmap` and `rpcbind` are inherently vulnerable to DoS attacks, specifically reflection and amplification attacks, in fact that is why. Clients make a request and the port mapper will respond with all the RPC servers that have registered with it, thus the response is many times larger than the request. This serves as an excellent vector for DoS, saturating the network with amplified responses.
+
+These types of attacks have become very popular amongst distributed attackers due to their significant impact, lack of sophistication and ease of execution. Level 3 Threat Research Labs made a [blog post](http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry/) on this port mapper DoS attack and how it has become very popular since the beginning of August 2015.  
+US-CERT also published an [alert](https://www.us-cert.gov/ncas/alerts/TA14-017A) on UDP-Based Amplification Attacks outlining the Protocols, Bandwidth Amplification Factor, etc.
+
+
+
+
+{title="rpcinfo", linenos=off, lang=bash}
+    rpcinfo -T udp <target host> 
+
+{title="rpcinfo results for Metasploitable2", linenos=off, lang=bash}
+    program version netid     address                service    owner
+    100000    2    tcp       0.0.0.0.0.111          portmapper unknown
+    100024    1    udp       0.0.0.0.130.255        status     unknown
+    100024    1    tcp       0.0.0.0.138.110        status     unknown
+    100003    2    udp       0.0.0.0.8.1            nfs        unknown
+    100003    3    udp       0.0.0.0.8.1            nfs        unknown
+    100003    4    udp       0.0.0.0.8.1            nfs        unknown
+    100021    1    udp       0.0.0.0.167.198        nlockmgr   unknown
+    100021    3    udp       0.0.0.0.167.198        nlockmgr   unknown
+    100021    4    udp       0.0.0.0.167.198        nlockmgr   unknown
+    100003    2    tcp       0.0.0.0.8.1            nfs        unknown
+    100003    3    tcp       0.0.0.0.8.1            nfs        unknown
+    100003    4    tcp       0.0.0.0.8.1            nfs        unknown
+    100021    1    tcp       0.0.0.0.151.235        nlockmgr   unknown
+    100021    3    tcp       0.0.0.0.151.235        nlockmgr   unknown
+    100021    4    tcp       0.0.0.0.151.235        nlockmgr   unknown
+    100005    1    udp       0.0.0.0.235.25         mountd     unknown
+    100005    1    tcp       0.0.0.0.182.4          mountd     unknown
+    100005    2    udp       0.0.0.0.235.25         mountd     unknown
+    100005    2    tcp       0.0.0.0.182.4          mountd     unknown
+    100005    3    udp       0.0.0.0.235.25         mountd     unknown
+    100005    3    tcp       0.0.0.0.182.4          mountd     unknown
+    100000    2    udp       0.0.0.0.0.111          portmapper unknown
+
+You'll notice in the response as recorded by Wireshark, that the length is many times larger than the request, 726 bytes in this case, hence the reflected amplification:
+
+{title="wireshark results", linenos=off, lang=bash}
+    Source      Destination Protocol Length Info
+    <source IP> <dest IP>   Portmap  82     V3 DUMP Call (Reply In 76)
+    <dest IP>   <source IP> Portmap  726    V3 DUMP Reply (Call In 75)
+
+The packet capture in Wireshark which is not showen here also confirms that it is UDP.
+
+
+
+
+
+
+
+
+
+
 
 #### EXIM
 
@@ -381,7 +436,7 @@ _Todo_
 
 #### Rpcbind
 
-_Todo_
+`rpcbind` listens on the same port(s) as the depricated [`portmap`](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap) and suffers the same types of DoS attacks.
 
 #### Telnet
 
@@ -500,20 +555,13 @@ _Todo_
 
 
 ### Using Components with Known Vulnerabilities
+![](images/ThreatTags/average-widespread-difficult-moderate.png)
 
-_Todo_
-
-Similar section in network chapter
-https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities
-
-
-### Out of date Software
-
-_Todo_
+This is exactly what your attackers rely on you doing. Not upgrading out of date software. This is the same concept as discussed in the Web Applications chapter under "[Consuming Free and Open Source](#web-applications-identify-risks-consuming-free-and-open-source)". Just do not do it. Stay patched.
 
 ### Lack of Backup
 
-_Todo_
+There is not a lot to say here, other than make sure you do this. I have personally seen so many disasters that could have been avoided if timely / regular backups had of been implmented and tested routinly. I have seen many situations where backup schedules were in place, but they had not been tested for a period of time, and when it came time to use them, they were not available for varius reasons. When your infrastructure gets owned, don't be the one that can not roll back to a good known state.
 
 ### Lack of Firewall
 
@@ -1348,17 +1396,29 @@ Also consider the pros and cons of [increasing](http://www.cyberciti.biz/tips/wh
 
 Check out the [Additional Resources](#additional-resources-vps-locking-down-the-mounting-of-partitions) chapter for extra resources in working with your mounts.
 
-#### Remove RPC Portmapper {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpc-portmapper}
+#### Portmap {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpc-portmapper}
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*portmap*'
     dpkg-query: no packages found matching *portmap*
 
-If portmap is not installed (default on debian web server), we do not need to remove it. Recent versions of Debian will use the portmapper replacement of rpcbind instead. If you find portmap is installed, you do not need it on a web server, and if you are hardening a file server, you may require rpcbind. For example there are two packages required if you want to support NFS on your server: nfs-kernel-server and nfs-common, the latter has a [dependency on rpcbind](https://packages.debian.org/stretch/nfs-common).
+If port mapper is not installed (default on debian web server), we do not need to remove it. Recent versions of Debian will use the `portmap` replacement of `rpcbind` instead. If you find port mapper is installed, you do not need it on a web server, and if you are hardening a file server, you may require `rpcbind`. For example there are two packages required if you want to support NFS on your server: nfs-kernel-server and nfs-common, the latter has a [dependency on `rpcbind`](https://packages.debian.org/stretch/nfs-common).
 
-The deprecated portmap service as well as the newer rpcbind, listens on port 111.
+The `portmap` service (version 2 of the port mapper protocol) would [convert](http://www.linux-nis.org/nis-howto/HOWTO/portmapper.html) RPC program numbers into TCP/IP (or UDP/IP) protocol port numbers. When an RPC server (such as NFS prior to v4) was started, it would instruct the port mapper which port number it was listening on, and which RPC program numbers it is prepared to serve. When clients wanted to make an RPC call to a given program number, the client would first contact the `portmap` service on the server to enquire of which port number its RPC packets should be sent. [`Rpcbind`](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) which uses version 3 and 4 of the port mapper protocol (called the rpcbind protocol) does things a little differently.
 
-The portmap service would [convert](http://www.linux-nis.org/nis-howto/HOWTO/portmapper.html) RPC program numbers into TCP/IP (or UDP/IP) protocol port numbers. When an RPC server (such as NFS prior to v4) was started, it would instruct the portmapper service which port number it was listening on, and which RPC program numbers it is prepared to serve. When clients wanted to make an RPC call to a given program number, the client would first contact the portmap service on the server to enquire of which port number its RPC packets should be sent. [Rpcbind](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) does things a little differently.
+You can also stop `portmap` responses by modifying the two below hosts files like so: 
+
+{title="/etc/hosts.allow", linenos=off, lang=Bash}
+    # All : ALL
+
+{title="/etc/hosts.deny", linenos=off, lang=Bash}
+    portmap : ALL
+
+but ideally, if you do need the port mapper running, consider upgrading to `rpcbind` for starters, then check the [`rpcbind` section](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) below for countermeasures, 
+
+The above changes to the two hosts files would be effective immediately. A restart of the port mapper would not be required in this case.
+
+There are further details around the `/etc/hosts.[deny & allow]` in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs)
 
 #### Disable Exim {#vps-countermeasures-disable-remove-services-harden-what-is-left-disable-exim}
 
@@ -1413,9 +1473,9 @@ Nis is not installed by default on a Debian web server, so in this case, we do n
 
 If the host you were hardening had the role of a file server and was running NFS, then you may need NIS. NFS clients need a way of knowing who owns which files on exported volumes, NIS helps provide this ability. Although there are other ways of doing this without NIS, such as syncing the password files.
 
-#### Remove Rpcbind {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind}
+#### Rpcbind {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind}
 
-One of the [differences](https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.halx001/portmap.htm) between the now deprecated [portmapper](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpc-portmapper) service and rpcbind is that portmapper returns port numbers of the server programs and rpcbind returns universal addresses. This contact detail is then used by the RPC client to know where to send its packets. In the case of a web server we have no need for this.
+One of the [differences](https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.halx001/portmap.htm) between the now deprecated [`portmap`](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpc-portmapper) service and `rpcbind` is that `portmap` returns port numbers of the server programs and rpcbind returns universal addresses. This contact detail is then used by the RPC client to know where to send its packets. In the case of a web server we have no need for this.
 
 Spin up Nmap:
 
@@ -1436,7 +1496,7 @@ or
 {linenos=off, lang=Bash}
     sudo netstat -tlpn
 
-As per the previous netstat outputs, we see that `sunrpc` is listening on a port and was started by `rpcbind` with the PID of `1498`. Now Sun Remote Procedure Call is running on port `111` (The same port that portmapper used to listen on). Netstat can tell you the port, but we have confirmed it with the nmap scan above. Rpcbind is used by NFS (as mentioned above, rpcbind is a dependency of nfs-common) and as we do not need or want our web server to be a NFS file server, we can get rid of the `rpcbind` package.
+As per the previous netstat outputs, we see that `sunrpc` is listening on a port and was started by `rpcbind` with the PID of `1498`. Now Sun Remote Procedure Call is running on port `111` (The same port that `portmap` used to listen on). Netstat can tell you the port, but we have confirmed it with the nmap scan above. Rpcbind is used by NFS (as mentioned above, `rpcbind` is a dependency of nfs-common) and as we do not need or want our web server to be a NFS file server, we can get rid of the `rpcbind` package. If for what ever reason you do actually need the port mapper, then make sure you lock down which hosts/networks it will respond to by modifying the `/etc/hosts.deny` and `/etc/hosts.allow` as seen in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs).
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*rpc*'
@@ -1489,6 +1549,33 @@ Because I want to simulate what is going to be removed because I am paranoid and
 
 Then follow up with the real thing… Just remove the `-s` and run it again. Just remember, the less packages your system has the less code there is for an attacker to exploit.
 
+The port mapper should never be visible from a hostile network, especially the internet. The same goes for all RPC services due to reflected and often amplified DoS attacks.
+
+You can also stop `rpcbind` responses by modifying the two below hosts files like so: 
+
+{title="/etc/hosts.allow", linenos=off, lang=Bash}
+    # All : ALL
+
+{title="/etc/hosts.deny", linenos=off, lang=Bash}
+    rpcbind : ALL
+
+The above changes to the two hosts files would be effective immediately. A restart of the port mapper would not be required in this case.
+
+There are further details around the `/etc/hosts.[deny & allow]` files in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs), be sure to check them out if you are going to retain the port mapper, so you do not become a victim of a reflected amplified DoS attack and that you keep any RPC services that you may need exposed to your internal clients. You can test this by running the same command that we did in the [Identify Risks](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap) section. This time the results should look like the following:
+
+{title="rpcinfo", linenos=off, lang=bash}
+    rpcinfo -T udp <target host> 
+
+{title="rpcinfo results", linenos=off, lang=bash}
+    No remote programs registered.
+
+You'll notice in the response as recorded by Wireshark, that the length is now smaller than the request:
+
+{title="wireshark results", linenos=off, lang=bash}
+    Source      Destination Protocol Length Info
+    <source IP> <dest IP>   Portmap  82     V3 DUMP Call (Reply In 76)
+    <dest IP>   <source IP> Portmap  70     V3 DUMP Reply (Call In 75)
+
 #### Remove Telnet {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-telnet}
 
 Do not use Telnet for your own systems, SSH was designed to replace Telnet.
@@ -1523,7 +1610,7 @@ Ftp gone?
 {linenos=off, lang=Bash}
     dpkg-query -l '*ftp*'
 
-#### NFS
+#### NFS {#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs}
 
 You should not need NFS running on a web server. The packages required for the NFS server to be running are nfs-kernel-server, which has a dependency on nfs-common (common to server and clients), which also has a dependency of rpcbind.
 
@@ -3098,19 +3185,12 @@ _Todo_
 
 ### Using Components with Known Vulnerabilities
 
-_Todo_ Patching.
-
-Similar section in network chapter.  
-https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities
-
-### Keep up to date
-
-Consider whether it would make sense for you or your admin(s) to set-up automatic updates and possibly upgrades. Start out the way you intend to go. Work out your strategy for keeping your system up to date and patched. There are many options here.
+Just do not do this. Either stay disciplined and upgrade your servers manually or automate it. Start out the way you intend to go. Work out your strategy for keeping your system(s) up to date and patched. There are many options here. If you go auto, make sure you test on a staging environment before upgrading live.
 
 ### Schedule Backups {#vps-countermeasures-schedule-backups}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Make sure all your data and VM images are backed up routinely. Make sure you test that restoring your backups work. Backup system files and what ever else is important to you. There are plenty of [tools](http://www.debianhelp.co.uk/backuptools.htm) available to help. Also make sure you are backing up the entire VM if your machine is a virtual guest by export/import OVF files. I also like to backup all the VM files. Disk space is cheap. Is there such a thing as being too prepared for a disaster? It is just a matter of time before you will be calling on your backups. Also consider setting up automatic updates.
+Make sure all your data and VM images are backed up routinely. Make sure you test that restoring your backups work. Backup or source control system files, deployment scripts and what ever else is important to you. Make sure you have backups of your backups and source control. There are plenty of [tools](http://www.debianhelp.co.uk/backuptools.htm) available to help. Also make sure you are backing up the entire VM if your machine is a virtual guest by export/import OVF files. I also like to backup all the VM files. Disk space is cheap. Is there such a thing as being too prepared for a disaster? I don't think I have seen it yet. It is just a matter of time before you will be calling on your backups.
 
 ### Host Firewall
 ![](images/ThreatTags/PreventionEASY.png)
@@ -3211,7 +3291,7 @@ _Todo_
 
 _Todo_
 
-#### RPC Portmapper
+#### Portmap
 
 _Todo_
 
@@ -3283,10 +3363,6 @@ _Todo_
 
 _Todo_
 
-### Keep up to date
-
-_Todo_
-
 ### Schedule Backups
 
 _Todo_
@@ -3345,7 +3421,7 @@ _Todo_
 
 _Todo_
 
-#### RPC Portmapper
+#### Portmap
 
 _Todo_
 
@@ -3394,10 +3470,6 @@ _Todo_
 _Todo_
 
 ### Using Components with Known Vulnerabilities
-
-_Todo_
-
-### Keep up to date
 
 _Todo_
 
