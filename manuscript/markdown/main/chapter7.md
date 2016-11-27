@@ -317,7 +317,7 @@ This same concept was covered in the People chapter of Fascicle 0, which also ap
 
 #### Root Logins
 
-Allowing root logins is a lost opportunity for another layer of defence in depth, where the user must elevate privilages before performaning any task that could possibly negativly impact the system. Once an attacker is root on a system, the system is owned by them. Root is a user and no guess work is required for that username. Other low privilaged users require some guess work on the part of the user name as well as the password, and even once both parts of a low privaleged credential have been aquired, there is another step to total system ownership.
+Allowing root logins is a lost opportunity for another layer of defence in depth, where the user must elevate privilages before performaning any task that could possibly negativly impact the system. Once an attacker is root on a system, the system is owned by them. Root is a user and no guess work is required for that username. Other low privilaged users require some guess work on the part of the username as well as the password, and even once both parts of a low privaleged credential have been aquired, there is another step to total system ownership.
 
 #### SSH
 ![](images/ThreatTags/difficult-uncommon-average-moderate.png)
@@ -330,9 +330,9 @@ Being able to boot from alternative media to that of your standard OS, provides 
 
 #### Portmap {#vps-identify-risks-unnecessary-and-vulnerable-services-portmap}
 
-An attacker can probe the Open Network Computing Remote Procedure Call (ONC RPC) port mapper service on the target host where the target host is an IP address or a host name.
+An attacker can probe the Open Network Computing Remote Procedure Call (ONC RPC) port mapper service on the target host, where the target host is an IP address or a host name.
 
-If installed, the rpcinfo command with `-p` will list all RPC programs (such as quotad, nfs, nlockmgr, mountd, status, etc) registered with the port mapper (whether the depricated `portmap` or the newer `rpcbind`). Many RPC programs are vulnerable to a collection of attacks. 
+If installed, the `rpcinfo` command with `-p` will list all RPC programs (such as `quotad`, `nfs`, `nlockmgr`, `mountd`, `status`, etc) registered with the port mapper (whether the depricated `portmap` or the newer `rpcbind`). Many RPC programs are vulnerable to a collection of attacks. 
 
 {title="rpcinfo", linenos=off, lang=bash}
     rpcinfo -p <target host> 
@@ -367,18 +367,18 @@ If installed, the rpcinfo command with `-p` will list all RPC programs (such as 
     100021    4   udp    679  nlockmgr
     100021    4   tcp    875  nlockmgr
 
-This provides a list of RPC services running that have registered with the port mapper, thus providing an attacker with lots of juicy information to take into the Vulnerability Searching stage discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+This provides a list of RPC services running that have registered with the port mapper, thus providing an attacker with a lot of useful information to take into the Vulnerability Searching stage discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
 The deprecated `portmap` service as well as the newer `rpcbind`, listen on port 111 for requesting clients, some Unix and Solaris versions will also listen on ports above 32770.
 
 Besides providing the details of RPC services, `portmap` and `rpcbind` are inherently vulnerable to DoS attacks, specifically reflection and amplification attacks, in fact that is why. Clients make a request and the port mapper will respond with all the RPC servers that have registered with it, thus the response is many times larger than the request. This serves as an excellent vector for DoS, saturating the network with amplified responses.
 
-These types of attacks have become very popular amongst distributed attackers due to their significant impact, lack of sophistication and ease of execution. Level 3 Threat Research Labs made a [blog post](http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry/) on this port mapper DoS attack and how it has become very popular since the beginning of August 2015.  
+These types of attacks have become very popular amongst distributed attackers due to their significant impact, lack of sophistication and ease of execution. Level 3 Threat Research Labs published a [blog post](http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry/) on this port mapper DoS attack and how it has become very popular since the beginning of August 2015.  
 US-CERT also published an [alert](https://www.us-cert.gov/ncas/alerts/TA14-017A) on UDP-Based Amplification Attacks outlining the Protocols, Bandwidth Amplification Factor, etc.
 
 
 
-
+{#vps-identify-risks-unnecessary-and-vulnerable-services-portmap-rpcinfo-t}
 {title="rpcinfo", linenos=off, lang=bash}
     rpcinfo -T udp <target host> 
 
@@ -407,7 +407,7 @@ US-CERT also published an [alert](https://www.us-cert.gov/ncas/alerts/TA14-017A)
     100005    3    tcp       0.0.0.0.182.4          mountd     unknown
     100000    2    udp       0.0.0.0.0.111          portmapper unknown
 
-You'll notice in the response as recorded by Wireshark, that the length is many times larger than the request, 726 bytes in this case, hence the reflected amplification:
+You will notice in the response as recorded by Wireshark, that the length is many times larger than the request, 726 bytes in this case, hence the reflected amplification:
 
 {title="wireshark results", linenos=off, lang=bash}
     Source      Destination Protocol Length Info
@@ -561,7 +561,7 @@ This is exactly what your attackers rely on you doing. Not upgrading out of date
 
 ### Lack of Backup
 
-There is not a lot to say here, other than make sure you do this. I have personally seen so many disasters that could have been avoided if timely / regular backups had of been implmented and tested routinly. I have seen many situations where backup schedules were in place, but they had not been tested for a period of time, and when it came time to use them, they were not available for varius reasons. When your infrastructure gets owned, don't be the one that can not roll back to a good known state.
+There is not a lot to say here, other than make sure you do this. I have personally seen so many disasters that could have been avoided if timely / regular backups had of been implemented and tested routinely. I have seen many situations where backup schedules were in place, but they had not been tested for a period of time, and when it came time to use them, they were not available for various reasons. When your infrastructure gets owned, don't be the one that can not roll back to a good known state.
 
 ### Lack of Firewall
 
@@ -1416,7 +1416,7 @@ You can also stop `portmap` responses by modifying the two below hosts files lik
 
 but ideally, if you do need the port mapper running, consider upgrading to `rpcbind` for starters, then check the [`rpcbind` section](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) below for countermeasures, 
 
-The above changes to the two hosts files would be effective immediately. A restart of the port mapper would not be required in this case.
+The above changes to the two hosts files would be effective immediately. A restart of the port mapper is not required in this case.
 
 There are further details around the `/etc/hosts.[deny & allow]` in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs)
 
@@ -1549,7 +1549,7 @@ Because I want to simulate what is going to be removed because I am paranoid and
 
 Then follow up with the real thing… Just remove the `-s` and run it again. Just remember, the less packages your system has the less code there is for an attacker to exploit.
 
-The port mapper should never be visible from a hostile network, especially the internet. The same goes for all RPC services due to reflected and often amplified DoS attacks.
+The port mapper should never be visible from a hostile network, especially the internet. The same goes for all RPC servers due to reflected and often amplified DoS attacks.
 
 You can also stop `rpcbind` responses by modifying the two below hosts files like so: 
 
@@ -1561,10 +1561,12 @@ You can also stop `rpcbind` responses by modifying the two below hosts files lik
 
 The above changes to the two hosts files would be effective immediately. A restart of the port mapper would not be required in this case.
 
-There are further details around the `/etc/hosts.[deny & allow]` files in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs), be sure to check them out if you are going to retain the port mapper, so you do not become a victim of a reflected amplified DoS attack and that you keep any RPC services that you may need exposed to your internal clients. You can test this by running the same command that we did in the [Identify Risks](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap) section. This time the results should look like the following:
+There are further details around the `/etc/hosts.[deny & allow]` files in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs) that will help you fine tune which hosts and networks should be permitted to query and receive response from the port mapper. Be sure to check them out if you are going to retain the port mapper, so you do not become a victim of a reflected amplified DoS attack and that you keep any RPC servers that you may need exposed to your internal clients. You can test this by running the same command that we did in the [Identify Risks](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap-rpcinfo-t) section.
 
 {title="rpcinfo", linenos=off, lang=bash}
     rpcinfo -T udp <target host> 
+
+This time, with the two hosts files set-up as above, the results should look like the following:
 
 {title="rpcinfo results", linenos=off, lang=bash}
     No remote programs registered.

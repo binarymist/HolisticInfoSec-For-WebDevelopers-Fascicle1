@@ -30,21 +30,11 @@
 **There are also many other options to use for providing a reverse shell**  
 [http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
 
-
-
-
-
-
-**Level 3 Threat Research Labs** made a blog post on this port mapper DoS attack and how it has become very popular since the beginning of August 2015  
+**Level 3 Threat Research Labs** published a blog post on this port mapper DoS attack and how it has become very popular since the beginning of August 2015  
 [http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry/](http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry/)
 
 **US-CERT also published an alert on UDP-Based Amplification Attacks** outlining the Protocols, Bandwidth Amplification Factor, etc.  
 [https://www.us-cert.gov/ncas/alerts/TA14-017A](https://www.us-cert.gov/ncas/alerts/TA14-017A)
-
-
-
-
-
 
 **Any attacker worth their weight** will try to cover their tracks as they progress  
 [http://www.win.tue.nl/~aeb/linux/hh/hh-13.html](http://www.win.tue.nl/~aeb/linux/hh/hh-13.html)
