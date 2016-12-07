@@ -244,8 +244,7 @@ G> `mount`
 G> Shows us that we have very little in the way of granular partitioning and we have `/` mounted as `rw`, so as a low privileged user, we can both write and execute files in `/tmp` for example.  
 G>
 G> We could also just search for "Privilege Escalation" exploits targeting our targets kernel.  
-G> Let us get the targets Kernel version:  
-G> `uname -a`  
+G> Let us get the targets Kernel version: `uname -a` produces:  
 G> `2.6.24`
 G>
 G> This ([https://www.exploit-db.com/exploits/8572/](https://www.exploit-db.com/exploits/8572/)) looks like an interesting one. Can we compile this on the target though? Let us see if we have `gcc` handy:  
@@ -415,9 +414,9 @@ The packet capture in Wireshark which is not showen here also confirms that it i
 
 #### EXIM
 
-Exim along with offerings such as Postfix, Sendmail, Qmail are Mail Transfer Agents (MTAs), which on a web server are probably not required.
+Exim, along with offerings such as Postfix, Sendmail, Qmail, etc, are Mail Transfer Agents (MTAs), which on a web server are probably not required.
 
-There have been plenty of exploits created for Exim security defects. Most of the defects I've seen have patches for, so if Exim was a necessity, stay up to date with your patching. If you're still on a stable (jessie at the time of writing) and can not update to a testing release, make sure to use backports
+There have been plenty of exploits created for Exim security defects. Most of the defects I have seen have patches for, so if Exim is a necessity, stay up to date with your patching. If you are still on a stable (jessie at the time of writing) and can not update to a testing release, make sure to use backports.
 
 At the time of writing this, the very front page of the [Exim website](www.exim.org) states "All versions of Exim previous to version 4.87 are now obsolete and everyone is very strongly recommended to upgrade to a current release.".
 
