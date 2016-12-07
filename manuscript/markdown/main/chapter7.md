@@ -248,7 +248,7 @@ G> Let us get the targets Kernel version:
 G> `uname -a`  
 G> `2.6.24`
 G>
-G> This (https://www.exploit-db.com/exploits/8572/) looks like an interesting one. Can we compile this on the target though? Let us see if we have `gcc` handy:  
+G> This ([https://www.exploit-db.com/exploits/8572/](https://www.exploit-db.com/exploits/8572/)) looks like an interesting one. Can we compile this on the target though? Let us see if we have `gcc` handy:  
 G> `dpkg -l gcc`  
 G> We do.
 
@@ -415,7 +415,14 @@ The packet capture in Wireshark which is not showen here also confirms that it i
 
 #### EXIM
 
-_Todo_
+Exim along with offerings such as Postfix, Sendmail, Qmail are Mail Transfer Agents (MTAs), which on a web server are probably not required.
+
+There have been plenty of exploits created for Exim security defects. Most of the defects I've seen have patches for, so if Exim was a necessity, stay up to date with your patching. If you're still on a stable (jessie at the time of writing) and can not update to a testing release, make sure to use backports
+
+At the time of writing this, the very front page of the [Exim website](www.exim.org) states "All versions of Exim previous to version 4.87 are now obsolete and everyone is very strongly recommended to upgrade to a current release.".
+
+Jessie (stable) uses Exim 4.84.2 where as jessie-backports uses Exim 4.87,
+which 4.86.2 was patched for the likes of [CVE-2016-1531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-1531)
 
 #### NIS
 
@@ -423,7 +430,7 @@ _Todo_
 
 #### Rpcbind
 
-`rpcbind` listens on the same port(s) as the depricated [`portmap`](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap) and suffers the same types of DoS attacks.
+`rpcbind` listens on the same port(s) as the deprecated [`portmap`](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap) and suffers the same types of DoS attacks.
 
 #### Telnet
 
@@ -1407,7 +1414,7 @@ The above changes to the two hosts files would be effective immediately. A resta
 
 There are further details around the `/etc/hosts.[deny & allow]` in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs)
 
-#### Disable Exim {#vps-countermeasures-disable-remove-services-harden-what-is-left-disable-exim}
+#### Disable, Remove Exim {#vps-countermeasures-disable-remove-services-harden-what-is-left-disable-exim}
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*exim*'

@@ -36,6 +36,10 @@
 **US-CERT also published an alert on UDP-Based Amplification Attacks** outlining the Protocols, Bandwidth Amplification Factor, etc.  
 [https://www.us-cert.gov/ncas/alerts/TA14-017A](https://www.us-cert.gov/ncas/alerts/TA14-017A)
 
+**The very front page of the Exim website** states "All versions of Exim previous to version 4.87 are now obsolete and everyone is very strongly recommended to upgrade to a current release.".
+
+
+
 **Any attacker worth their weight** will try to cover their tracks as they progress  
 [http://www.win.tue.nl/~aeb/linux/hh/hh-13.html](http://www.win.tue.nl/~aeb/linux/hh/hh-13.html)
 
