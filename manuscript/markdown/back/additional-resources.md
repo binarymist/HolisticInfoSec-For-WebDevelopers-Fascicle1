@@ -12,6 +12,19 @@
 **Local Linux Enumeration & Privilege Escalation Cheatsheet**  
 [https://www.rebootuser.com/?p=1623](https://www.rebootuser.com/?p=1623)
 
+**Network Information Service** wiki  
+[https://en.wikipedia.org/wiki/Network_Information_Service](https://en.wikipedia.org/wiki/Network_Information_Service)
+
+**Linux NIS(YP)/NIS+ HowTo**  
+[http://www.linux-nis.org/nis-howto/HOWTO/NIS-HOWTO.html](http://www.linux-nis.org/nis-howto/HOWTO/NIS-HOWTO.html) 
+
+**FreeBSD NIS**  
+[https://www.freebsd.org/doc/handbook/network-nis.html](https://www.freebsd.org/doc/handbook/network-nis.html)
+
+
+
+
+
 **Distributed Computing Environment / Remote Procedure Call**  
 [https://en.wikipedia.org/wiki/DCE/RPC](https://en.wikipedia.org/wiki/DCE/RPC).
 

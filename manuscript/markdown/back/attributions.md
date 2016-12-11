@@ -38,6 +38,10 @@
 
 **The very front page of the Exim website** states "All versions of Exim previous to version 4.87 are now obsolete and everyone is very strongly recommended to upgrade to a current release.".
 
+**Lax authentication while querying of NIS maps** (easy for a compromised client to take advantage of), as well as the various daemons each having their own individual issues. Not to mention that misconfiguration of NIS or netgroups can also provide easy holes that can be exploited. NIS databases can also be easily accessed by someone who doesn't belong on your network. How? They simply can guess the name of your NIS domain, bind their client to that domain, and run a ypcat command to get the information they are after.  
+[https://www.symantec.com/connect/articles/nfs-and-nis-security](https://www.symantec.com/connect/articles/nfs-and-nis-security)
+
+
 
 
 **Any attacker worth their weight** will try to cover their tracks as they progress  

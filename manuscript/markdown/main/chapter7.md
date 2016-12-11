@@ -421,11 +421,45 @@ There have been plenty of exploits created for Exim security defects. Most of th
 At the time of writing this, the very front page of the [Exim website](www.exim.org) states "All versions of Exim previous to version 4.87 are now obsolete and everyone is very strongly recommended to upgrade to a current release.".
 
 Jessie (stable) uses Exim 4.84.2 where as jessie-backports uses Exim 4.87,
-which 4.86.2 was patched for the likes of [CVE-2016-1531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-1531)
+which 4.86.2 was patched for the likes of [CVE-2016-1531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-1531). Now if we have a look at the first exploit for this vulnerability [https://www.exploit-db.com/exploits/39535/](https://www.exploit-db.com/exploits/39535/) and dissect it a little:
+
+The Perl shell environment variable `$PERL5OPT` can be assigned  options, these options will be interpreted as if they were on the `#!` line at the beginning of the script. These options will be treated as part of the command run, after any optional switches included on the command line are accepted. 
+
+`-M`, which is one of the allowed switches (`-`[`DIMUdmw`]) to be used with `$PERL5OPT` allows us to attempt to use a module from the command line, so with `-Mroot` we are trying to use the `root` module, then `PERL5OPT=-Mroot` effectively puts `-Mroot` on the first line like the following, which runs the script as root:
+
+`#!perl -Mroot` 
+
+The Perl shell environment variable `$PERL5LIB` is used to specify a colon (or semicolon on Windows) separated list of directories in which to look for Perl library files before looking in the standard library and the current directory.
+
+Assigning `/tmp` to `$PERL5LIB` immediately before the exploit is run, means the first place execution will look for the root module is in the `/tmp` directory.
 
 #### NIS
 
-_Todo_
+Some History
+
+NIS+ was introduced as part of Solaris 2 in 1992 with the intention that it would eventually replace NIS, originally known as Yellow Pages (YP). NIS+ featured stronger security, authentication, greater scalability and flexibility, but it was more difficult to set up, administer and migrate to, so many users stuck with NIS. NIS+ was removed from Solaris 11 at the end of 2012. Other more secure distributed directory systems such as Lightweight Directory Access Protocol (LDAP) have come to replace NIS(+).
+
+What NIS is
+
+NIS is a Remote Procedure CAll (RPC) client/server system and a protocol providing a directory service, letting many machines in a network share a common set of configuration files with the same account information, such as the commonly local stored UNIX:  
+* users
+* their groups
+* hostnames
+* e-mail aliases
+* etc
+* and contents of the `/etc/passwd` and referenced `/etc/shadow` which contains the hashed passwords, discussed in detail under the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section
+
+The NIS master server maintains canonical database files called maps. We also have slave servers which have copies of these maps. Slave servers are notified by the master via the `yppush` program when any changes to the maps occur. The slaves then retrieve the changes from the master in order to synchronise their own maps. The NIS clients always communicate directly with the master, or a slave if the master is down or slow. Both master and slave(s) service all client requests through `ypserv`.
+
+Vulns and exploits
+
+NIS has had its day, it is vulnerable to many exploits, such as DoS attacks using the finger service against multiple clients, buffer overflows in libnasl, 
+
+"_lax authentication while querying of NIS maps (easy for a compromised client to take advantage of), as well as the various daemons each having their own individual issues. Not to mention that misconfiguration of NIS or netgroups can also provide easy holes that can be exploited. NIS databases can also be easily accessed by someone who doesn't belong on your network. How? They simply can guess the name of your NIS domain, bind their client to that domain, and run a ypcat command to get the information they are after._"
+
+> [Symantec - nfs and nis security](https://www.symantec.com/connect/articles/nfs-and-nis-security)
+
+NIS can run on unprivileged ports, which means that any user on the systems can run them. If a replacement version of these daemons was put in place of the original, then the attacker would have access to the resources that the daemons control.
 
 #### Rpcbind
 
@@ -457,7 +491,7 @@ If the `mountd` daemon is listed in the output of the above `rpcinfo` command, t
     # Probably because the hosts.allow has ALL:ALL and hosts.deny is blank.
     # Which means all hosts from all domains are permitted access.
 
-NFS is one of those protocols that you need to have some understanding on in order to achieve a level of security sufficient for your target environment. NFS provides no user authentication, only host based authentication.
+NFS is one of those protocols that you need to have some understanding on in order to achieve a level of security sufficient for your target environment. NFS provides no user authentication, only host based authentication. NFS relies on the AUTH_UNIX method of authentication, the user ID (UID) and group ID (GIDs) that the NFS client passes to the server are implicitly trusted.
 
 {title="mount nfs export", linenos=off, lang=bash}
     # Make sure local rpcbind service is running:
@@ -468,6 +502,17 @@ NFS is one of those protocols that you need to have some understanding on in ord
     mount -t nfs <target host>:/ /mnt
 
 All going well for the attacker, they will now have your VPS's `/` directory mounted to their `/mnt` directory. If you have not setup NFS properly, they will have full access to your entire file system.
+
+To establish some persistence, an attacker may be able to add their SSH public key:
+
+{linenos=off, lang=bash}
+    cat ~/.ssh/id_rsa.pub >> /mnt/root/.ssh/authorized_keys
+
+The NFS daemon always listens on the unprivileged port 2049. An attacker without root privileges on a system can start a trojanised nfsd which will be bound to port 2049, on a system that does not usually offer NFS, or if they can find a way to stop an existing nfsd and run their own, clients may communicate with the trojanised nfsd and possibly consume exports containing malicious mock file systems without being aware of it. By replacing a NFS daemon with a trojanised replica, the attacker would also have access to the resources that the legitimate daemon controls.
+
+The ports that a Linux server will bind its daemons to are listed in `/etc/services`.
+
+As well as various privilege escalation vulnerabilities, NFS has also suffered from various buffer overflow vulnerabilities.
 
 ### Lack of Visibility {#vps-identify-risks-lack-of-visibility}
 
@@ -1453,18 +1498,18 @@ Removing the following packages will solve that:
     # Get rid of the logs if you like.
     rm -r /var/log/exim4/
 
-#### Disable NIS
+#### Remove NIS
 
-Disable Network Information Service (NIS). NIS lets several machines in a network share the same account information, such as the `/etc/hosts` and `/etc/passwd` files, (Allowing password sharing between machines). Originally known as Yellow Pages (YP). If you needed centralised authentication for multiple machines, you could set-up an LDAP server and configure PAM on your machines in order to contact the LDAP server for user authentication. We may have no need for distributed authentication on our web server at this stage.
+If Network Information Service (NIS) or the replacement NIS+ is installed, ideally you will want to remove it. If you needed centralised authentication for multiple machines, you could set-up an LDAP server and configure PAM on your machines in order to contact the LDAP server for user authentication. We may have no need for distributed authentication on our web server at this stage.
 
 Check to see if NIS is installed by running the following command:
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*nis*'
 
-Nis is not installed by default on a Debian web server, so in this case, we do not need to disable it.
+Nis is not installed by default on a Debian web server, so in this case, we do not need to remove it.
 
-If the host you were hardening had the role of a file server and was running NFS, then you may need NIS. NFS clients need a way of knowing who owns which files on exported volumes, NIS helps provide this ability. Although there are other ways of doing this without NIS, such as syncing the password files.
+If the host you were hardening had the role of a file server and was running NFS, and you need directory services, then you may need something like Kerberos and/or LDAP. There is plenty of documentation and tutorials on Kerberos and LDAP and replacing NIS with them.
 
 #### Rpcbind {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind}
 
@@ -1627,6 +1672,8 @@ If you do need NFS running for a file server, the usual files that will need som
 * `/etc/hosts.allow`
 * `/etc/hosts.deny`
 
+Check that these files permissions are 644, owned by root, with group of `root` or `sys`.
+
 The above `hosts.[allow | deny]` provide the accessibility options. You really need to lock these down if you intend to use NFS in a somewhat secure fashion.
 
 The [exports](https://linux.die.net/man/5/exports) man page has all the details (and some examples) you need, but I will cover some options here.
@@ -1636,7 +1683,7 @@ In the below example `/dir/you/want/to/export` is the directory (and sub directo
 {title="/etc/exports", linenos=off, lang=Bash}
     </dir/you/want/to/export>   machine1(option1,optionn) machine2(option1,optionn) machinen(option1,optionn)
 
-`machine1`, `machine2`, `machinen` are the machines that you want to have access to the spescified exported share. These can be specified as their DNS names or IP addresses, using IP addresses can be a little more secure and reliable than using DNS addresses.
+`machine1`, `machine2`, `machinen` are the machines that you want to have access to the spescified exported share. These can be specified as their DNS names or IP addresses, using IP addresses can be a little more secure and reliable than using DNS addresses. If using DNS, make sure the names are fully qualified domain names.
 
 Some of the more important options are:
 
@@ -1696,10 +1743,54 @@ Prior to NFSv4 to achieve the same results, these two files would need to contai
     rquotad : 10.10.0.0/24
     statd   : 10.10.0.0/24
 
-Reload your config with a restart of NFS:
+You can reload your config, that is re-export your exports `/etc/exports` with a restart of NFS:
 
 {linenos=off, lang=Bash}
     service nfs-kernel-server [restart | stop, start]
+
+Although that is not really necessary, a simple
+
+{linenos=off, lang=Bash}
+    exportfs -ra
+
+is sufficient. Both exports and exportfs man pages are good for additional insight.
+
+Then run another `showmount` to audit your exports:
+
+{linenos=off, lang=bash}
+    showmount -e <target host>
+
+A client communicates with the servers mount daemon. If the client is authorised, the mount daemon then provides the root file handle of the exported filesystem to the client, at which point the client can send packets referencing the file handle. Guessing valid file handles can often be easy. The file handles consist of:  
+1. A filesystem Id (visible in `/etc/fstab` usually world readable, or by running `blkid`).
+2. An inode number. For example, the `/` directory on the standard Unix filesystem has the inode number of 2, `/proc` is 1. You can see these with `ls -id <target dir>`
+3. A generation count, this value can be a little more fluid, although many inodes such as the `/` are not deleted very often, so the count remains small and reasonably guessable. Using a tool `istat` can provide these details if you want to have a play.
+
+1. Prior to NFS version 4, UDP could be used, making spoofed requests easier, which allowed an attacker to perform Create, Read, Update, Delete (CRUD) operations 
+2. By default `exportfs` is run with the `secure` option, requiring that requests originate from a privileged port (<1024). We can see with the following commands that this is the case, so whoever attempts to mount an export must be root.
+
+{linenos=off, lang=bash}
+    netstat -nat | grep <nfs host>
+    # Produces:
+    tcp 0 0 <nfs client host>:702 <nfs host>:2049 ESTABLISHED
+
+Or with the newer Socket Statistics:
+
+{linenos=off, lang=bash}
+    ss -pn | grep <nfs host>
+    # Produces:
+    tcp ESTAB 0 0 <nfs client host>:702 <nfs host>:2049
+
+Prior to this spoofing type vulnerability largely being mitigated, one option that was used was to randomise the generation number of every inode on the filesystem using a tool `fsirand`, which was available for some versions of Unix, although not Linux. This made guessing the generation number harder, thus mitigating the spoofing types of attacks. This would usually be scheduled to run say once a month.
+
+`fsirand` would be run on the `/` directory while in single-user mode  
+or  
+on um-mounted filesystems, run `fsck`, and if no errors were produced, run `fsirand`
+
+{linenos=off, lang=bash}
+    umount <filesystem> # /dev/sda1 for example
+    fsck <filesystem> # /dev/sda1 for example
+    # Exit code of 0 means no errors.
+    fsirand <filesystem> # /dev/sda1 for example
 
 ### Lack of Visibility {#vps-countermeasures-lack-of-visibility}
 
@@ -3294,7 +3385,7 @@ _Todo_
 
 _Todo_
 
-#### Disable NIS
+#### Remove NIS
 
 _Todo_
 
@@ -3424,7 +3515,7 @@ _Todo_
 
 _Todo_
 
-#### Disable NIS
+#### Remove NIS
 
 _Todo_
 
