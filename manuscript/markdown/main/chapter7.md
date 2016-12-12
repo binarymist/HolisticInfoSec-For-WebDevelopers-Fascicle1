@@ -1763,14 +1763,14 @@ Then run another `showmount` to audit your exports:
 
 &nbsp;
 
-A client communicates with the servers mount daemon. If the client is authorised, the mount daemon then provides the root file handle of the exported filesystem to the client, at which point the client can send packets referencing the file handle. Guessing valid file handles can often be easy. The file handles consist of:
+A client communicates with the servers mount daemon. If the client is authorised, the mount daemon then provides the root file handle of the exported filesystem to the client, at which point the client can send packets referencing the file handle. Making correct guesses of valid file handles can often be easy. The file handles consist of:
 
 1. A filesystem Id (visible in `/etc/fstab` usually world readable, or by running `blkid`).
 2. An inode number. For example, the `/` directory on the standard Unix filesystem has the inode number of 2, `/proc` is 1. You can see these with `ls -id <target dir>`
 3. A generation count, this value can be a little more fluid, although many inodes such as the `/` are not deleted very often, so the count remains small and reasonably guessable. Using a tool `istat` can provide these details if you want to have a play.
 
 
-1. Prior to NFS version 4, UDP could be used, making spoofed requests easier, which allowed an attacker to perform Create, Read, Update, Delete (CRUD) operations 
+1. Prior to NFS version 4, UDP could be used, making spoofed requests easier, which allowed an attacker to perform Create, Read, Update, Delete (CRUD) operations on the exported file system(s)
 2. By default `exportfs` is run with the `secure` option, requiring that requests originate from a privileged port (<1024). We can see with the following commands that this is the case, so whoever attempts to mount an export must be root.
 
 {linenos=off, lang=bash}
