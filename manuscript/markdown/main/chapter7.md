@@ -420,8 +420,8 @@ There have been plenty of exploits created for Exim security defects. Most of th
 
 At the time of writing this, the very front page of the [Exim website](www.exim.org) states "All versions of Exim previous to version 4.87 are now obsolete and everyone is very strongly recommended to upgrade to a current release.".
 
-Jessie (stable) uses Exim 4.84.2 where as jessie-backports uses Exim 4.87,
-which 4.86.2 was patched for the likes of [CVE-2016-1531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-1531). Now if we have a look at the first exploit for this vulnerability [https://www.exploit-db.com/exploits/39535/](https://www.exploit-db.com/exploits/39535/) and dissect it a little:
+Jessie (stable) uses Exim 4.84.2 where as jessie-backports uses Exim 4.87,  
+which 4.86.2 was patched for the likes of [CVE-2016-1531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-1531). Now if we have a look at the first exploit for this vulnerability ([https://www.exploit-db.com/exploits/39535/](https://www.exploit-db.com/exploits/39535/)) and dissect it a little:
 
 The Perl shell environment variable `$PERL5OPT` can be assigned  options, these options will be interpreted as if they were on the `#!` line at the beginning of the script. These options will be treated as part of the command run, after any optional switches included on the command line are accepted. 
 
@@ -435,13 +435,14 @@ Assigning `/tmp` to `$PERL5LIB` immediately before the exploit is run, means the
 
 #### NIS
 
-Some History
+**Some History**:
 
 NIS+ was introduced as part of Solaris 2 in 1992 with the intention that it would eventually replace NIS, originally known as Yellow Pages (YP). NIS+ featured stronger security, authentication, greater scalability and flexibility, but it was more difficult to set up, administer and migrate to, so many users stuck with NIS. NIS+ was removed from Solaris 11 at the end of 2012. Other more secure distributed directory systems such as Lightweight Directory Access Protocol (LDAP) have come to replace NIS(+).
 
-What NIS is
+**What NIS is**:
 
-NIS is a Remote Procedure CAll (RPC) client/server system and a protocol providing a directory service, letting many machines in a network share a common set of configuration files with the same account information, such as the commonly local stored UNIX:  
+NIS is a Remote Procedure CAll (RPC) client/server system and a protocol providing a directory service, letting many machines in a network share a common set of configuration files with the same account information, such as the commonly local stored UNIX:
+
 * users
 * their groups
 * hostnames
@@ -451,7 +452,7 @@ NIS is a Remote Procedure CAll (RPC) client/server system and a protocol providi
 
 The NIS master server maintains canonical database files called maps. We also have slave servers which have copies of these maps. Slave servers are notified by the master via the `yppush` program when any changes to the maps occur. The slaves then retrieve the changes from the master in order to synchronise their own maps. The NIS clients always communicate directly with the master, or a slave if the master is down or slow. Both master and slave(s) service all client requests through `ypserv`.
 
-Vulns and exploits
+**Vulnerabilities and exploits**:
 
 NIS has had its day, it is vulnerable to many exploits, such as DoS attacks using the finger service against multiple clients, buffer overflows in libnasl, 
 
@@ -459,7 +460,7 @@ NIS has had its day, it is vulnerable to many exploits, such as DoS attacks usin
 
 > [Symantec - nfs and nis security](https://www.symantec.com/connect/articles/nfs-and-nis-security)
 
-NIS can run on unprivileged ports, which means that any user on the systems can run them. If a replacement version of these daemons was put in place of the original, then the attacker would have access to the resources that the daemons control.
+NIS can run on unprivileged ports, which means that any user on the system(s) can run them. If a replacement version of these daemons was put in place of the original, then the attacker would have access to the resources that the daemons control.
 
 #### Rpcbind
 
@@ -508,7 +509,7 @@ To establish some persistence, an attacker may be able to add their SSH public k
 {linenos=off, lang=bash}
     cat ~/.ssh/id_rsa.pub >> /mnt/root/.ssh/authorized_keys
 
-The NFS daemon always listens on the unprivileged port 2049. An attacker without root privileges on a system can start a trojanised nfsd which will be bound to port 2049, on a system that does not usually offer NFS, or if they can find a way to stop an existing nfsd and run their own, clients may communicate with the trojanised nfsd and possibly consume exports containing malicious mock file systems without being aware of it. By replacing a NFS daemon with a trojanised replica, the attacker would also have access to the resources that the legitimate daemon controls.
+The NFS daemon always listens on the unprivileged port 2049. An attacker without root privileges on a system can start a trojanised `nfsd` which will be bound to port 2049, on a system that does not usually offer NFS, or if they can find a way to stop an existing `nfsd` and run their own, clients may communicate with the trojanised `nfsd` and possibly consume exports containing malicious mocked ([pickled](https://github.com/micheloosterhof/cowrie/blob/master/data/fs.pickle)) file systems without being aware of it. By replacing a NFS daemon with a trojanised replica, the attacker would also have access to the resources that the legitimate daemon controls.
 
 The ports that a Linux server will bind its daemons to are listed in `/etc/services`.
 
@@ -1672,7 +1673,7 @@ If you do need NFS running for a file server, the usual files that will need som
 * `/etc/hosts.allow`
 * `/etc/hosts.deny`
 
-Check that these files permissions are 644, owned by root, with group of `root` or `sys`.
+Check that these files permissions are `644`, owned by `root`, with group of `root` or `sys`.
 
 The above `hosts.[allow | deny]` provide the accessibility options. You really need to lock these down if you intend to use NFS in a somewhat secure fashion.
 
@@ -1760,7 +1761,10 @@ Then run another `showmount` to audit your exports:
 {linenos=off, lang=bash}
     showmount -e <target host>
 
-A client communicates with the servers mount daemon. If the client is authorised, the mount daemon then provides the root file handle of the exported filesystem to the client, at which point the client can send packets referencing the file handle. Guessing valid file handles can often be easy. The file handles consist of:  
+&nbsp;
+
+A client communicates with the servers mount daemon. If the client is authorised, the mount daemon then provides the root file handle of the exported filesystem to the client, at which point the client can send packets referencing the file handle. Guessing valid file handles can often be easy. The file handles consist of:
+
 1. A filesystem Id (visible in `/etc/fstab` usually world readable, or by running `blkid`).
 2. An inode number. For example, the `/` directory on the standard Unix filesystem has the inode number of 2, `/proc` is 1. You can see these with `ls -id <target dir>`
 3. A generation count, this value can be a little more fluid, although many inodes such as the `/` are not deleted very often, so the count remains small and reasonably guessable. Using a tool `istat` can provide these details if you want to have a play.
@@ -1769,6 +1773,7 @@ A client communicates with the servers mount daemon. If the client is authorised
 2. By default `exportfs` is run with the `secure` option, requiring that requests originate from a privileged port (<1024). We can see with the following commands that this is the case, so whoever attempts to mount an export must be root.
 
 {linenos=off, lang=bash}
+    # From a client:
     netstat -nat | grep <nfs host>
     # Produces:
     tcp 0 0 <nfs client host>:702 <nfs host>:2049 ESTABLISHED
@@ -1776,15 +1781,16 @@ A client communicates with the servers mount daemon. If the client is authorised
 Or with the newer Socket Statistics:
 
 {linenos=off, lang=bash}
+    # From a client:
     ss -pn | grep <nfs host>
     # Produces:
     tcp ESTAB 0 0 <nfs client host>:702 <nfs host>:2049
 
-Prior to this spoofing type vulnerability largely being mitigated, one option that was used was to randomise the generation number of every inode on the filesystem using a tool `fsirand`, which was available for some versions of Unix, although not Linux. This made guessing the generation number harder, thus mitigating the spoofing types of attacks. This would usually be scheduled to run say once a month.
+Prior to this spoofing type vulnerability largely being mitigated, one option that was used was to randomise the generation number of every inode on the filesystem using a tool `fsirand`, which was available for some versions of Unix, although not Linux. This made guessing the generation number harder, thus mitigating these spoofing type of attacks. This would usually be scheduled to run say once a month.
 
 `fsirand` would be run on the `/` directory while in single-user mode  
 or  
-on um-mounted filesystems, run `fsck`, and if no errors were produced, run `fsirand`
+on un-mounted filesystems, run `fsck`, and if no errors were produced, run `fsirand`
 
 {linenos=off, lang=bash}
     umount <filesystem> # /dev/sda1 for example
