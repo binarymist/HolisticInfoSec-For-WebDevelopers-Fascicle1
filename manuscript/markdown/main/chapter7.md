@@ -468,7 +468,15 @@ NIS can run on unprivileged ports, which means that any user on the system(s) ca
 
 #### Telnet
 
-_Todo_
+
+
+
+
+
+
+
+
+
 
 #### FTP
 
@@ -1767,8 +1775,9 @@ A client communicates with the servers mount daemon. If the client is authorised
 
 1. A filesystem Id (visible in `/etc/fstab` usually world readable, or by running `blkid`).
 2. An inode number. For example, the `/` directory on the standard Unix filesystem has the inode number of 2, `/proc` is 1. You can see these with `ls -id <target dir>`
-3. A generation count, this value can be a little more fluid, although many inodes such as the `/` are not deleted very often, so the count remains small and reasonably guessable. Using a tool `istat` can provide these details if you want to have a play.  
+3. A generation count, this value can be a little more fluid, although many inodes such as the `/` are not deleted very often, so the count remains small and reasonably guessable. Using a tool `istat` can provide these details if you want to have a play.
 
+``
 
 1. Prior to NFS version 4, UDP could be used, making spoofed requests easier, which allowed an attacker to perform Create, Read, Update, Delete (CRUD) operations on the exported file system(s)
 2. By default `exportfs` is run with the `secure` option, requiring that requests originate from a privileged port (<1024). We can see with the following commands that this is the case, so whoever attempts to mount an export must be root.
