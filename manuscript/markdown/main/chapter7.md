@@ -468,15 +468,9 @@ NIS can run on unprivileged ports, which means that any user on the system(s) ca
 
 #### Telnet
 
+Provides a command line interface on a remote server via its application layer client-server protocol traditionally to port 23. Telnet was created and launched in 1969, provides no encryption, credentials are sent in plain text. There have been extensions to the Telnet protocol which provide Transport Layer Security (TLS) and Simple Authentication and Security Layer (SASL), many Telnet implementations do not support these though.
 
-
-Created and launched in 1969.
-
-
-
-
-
-
+Telnet is still provided turned on, on many cheap hardware appliances, which continue to provide an excellent source of ownable resources for those looking to acquire computing devices illegally to launch attacks from. Many of these devices also never have their default credentials changed.
 
 #### FTP
 
@@ -1035,7 +1029,7 @@ Now when you type `yes`, the fingerprint is added to your clients:
 `/home/you/.ssh/known_hosts` file,  
 so that next time you try and login via SSH, your client will already know your server.
 
-##### Hardening SSH
+##### Hardening SSH {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-hardening-ssh}
 
 There are a bunch of things you can do to minimise SSH being used as an attack vector. Let us walk through some now.
 
@@ -1627,7 +1621,7 @@ You will notice in the response as recorded by Wireshark, that the length is now
 
 #### Remove Telnet {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-telnet}
 
-Do not use Telnet for your own systems, SSH was designed to replace Telnet.
+Do not use Telnet for your own systems, SSH provides encrypted shell access and was designed to replace Telnet. Use it instead, there are also many ways you can [harden SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-hardening-ssh).
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*telnet*'
