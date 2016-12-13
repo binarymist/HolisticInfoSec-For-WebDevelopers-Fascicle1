@@ -41,6 +41,43 @@
 **Lax authentication while querying of NIS maps** (easy for a compromised client to take advantage of), as well as the various daemons each having their own individual issues. Not to mention that misconfiguration of NIS or netgroups can also provide easy holes that can be exploited. NIS databases can also be easily accessed by someone who doesn't belong on your network. How? They simply can guess the name of your NIS domain, bind their client to that domain, and run a ypcat command to get the information they are after.  
 [https://www.symantec.com/connect/articles/nfs-and-nis-security](https://www.symantec.com/connect/articles/nfs-and-nis-security)
 
+**FTP protocol was not designed with security in mind**  
+[https://archive.fo/KyJUa](https://archive.fo/KyJUa)
+
+**By default, when a user enters their password** on the authentication window, it is stored in memory and reused for all subsequent authentications during the same session.  
+[https://winscp.net/eng/docs/security_credentials](https://winscp.net/eng/docs/security_credentials)
+
+**These passwords are stored obfuscated**, as the documentation puts it "_stored in a manner that they can easily be recovered_  
+[https://winscp.net/eng/docs/security_credentials](https://winscp.net/eng/docs/security_credentials)".
+
+**Check the `EncryptPassword` function on github**  
+[https://github.com/mirror/winscp/blob/master/source/core/Security.cpp#L34](https://github.com/mirror/winscp/blob/master/source/core/Security.cpp#L34)
+
+**Although this option exists, it is recommended against**  
+[https://winscp.net/eng/docs/faq_password](https://winscp.net/eng/docs/faq_password).
+
+**The exploit `decrypt_password` consumed by the `winscp` metasploit module**  
+[https://github.com/rapid7/metasploit-framework/blob/master/lib/rex/parser/winscp.rb#L81](https://github.com/rapid7/metasploit-framework/blob/master/lib/rex/parser/winscp.rb#L81)  
+[https://github.com/rapid7/metasploit-framework/blob/master/modules/post/windows/gather/credentials/winscp.rb#L82](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/windows/gather/credentials/winscp.rb#L82)  
+[https://www.rapid7.com/db/modules/post/windows/gather/credentials/winscp](https://www.rapid7.com/db/modules/post/windows/gather/credentials/winscp)  
+
+**Additional details on the cosine-security blog**  
+[https://cosine-security.blogspot.co.nz/2011/04/stealing-winscp-saved-passwords.html](https://cosine-security.blogspot.co.nz/2011/04/stealing-winscp-saved-passwords.html)
+
+**This appears to use a custom implementation** of the AES256 block cipher, with a hard-coded 1000 rounds of SHA1  
+[https://github.com/mirror/winscp/blob/master/source/core/Cryptography.cpp](https://github.com/mirror/winscp/blob/master/source/core/Cryptography.cpp) 
+
+
+
+
+](https://github.com/rapid7/metasploit-framework/blob/master/lib/rex/parser/winscp.rb#L81) `decrypt_password` consumed by the `[winscp.rb](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/windows/gather/credentials/winscp.rb#L82)` [metasploit module](https://www.rapid7.com/db/modules/post/windows/gather/credentials/winscp).
+
+
+
+
+
+
+
 
 
 
@@ -161,6 +198,26 @@ https://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displa
 **Portmapper returns port numbers** of the server programs and rpcbind returns universal addresses  
 https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.halx001/p  
 ortmap.htm
+
+**Less secure IPSec**  
+[http://louwrentius.com/why-you-should-not-use-ipsec-for-vpn-connectivity.html](http://louwrentius.com/why-you-should-not-use-ipsec-for-vpn-connectivity.html)
+
+**SCP**  
+[https://blog.binarymist.net/2012/03/25/copying-with-scp/](https://blog.binarymist.net/2012/03/25/copying-with-scp/)
+
+**Although Windows support is available**, and easy enough to set-up, as I have done many times  
+[https://blog.binarymist.net/2011/12/27/openssh-from-linux-to-windows-7-via-tunneled-rdp/](https://blog.binarymist.net/2011/12/27/openssh-from-linux-to-windows-7-via-tunneled-rdp/)
+
+**Another example is using Rsync over SSH**  
+[https://blog.binarymist.net/2011/03/06/rsync-over-ssh-from-linux-workstation-to-freenas/](https://blog.binarymist.net/2011/03/06/rsync-over-ssh-from-linux-workstation-to-freenas/)
+
+
+
+
+
+
+
+
 
 **NFSv4 pseudo-file system**. This pseudo-file system is identified as a single, real file system, identified at export with the `fsid=0` option.  
 https://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-nfs-server-config-export  

@@ -756,7 +756,7 @@ Domains added to the preload list are not susceptible to the newer SSLStrip2 - d
 
 [OCSP Must-Staple](#network-countermeasures-tls-downgrade-certificate-revocation-evolution-fix-to-ocsp) is very similar to HSTS Preload, but at the X.509 certificate level.
 
-#### X.509 Certificate Revocation Evolution
+#### X.509 Certificate Revocation Evolution {#network-countermeasures-tls-downgrade-x509-cert-revocation-evolution}
 
 This is a condensed version of the evolution.
 

@@ -474,7 +474,25 @@ Telnet is still provided turned on, on many cheap hardware appliances, which con
 
 #### FTP
 
-_Todo_
+The FTP protocol was [not designed with security in mind](https://archive.fo/KyJUa), it does not use any form of encryption. The credentials you use to authenticate, all of your traffic including any sensitive information you have in the files that you send or receive, to or from the FTP server, will all be on the wire in plain text. Even if you think your files do not contain any sensitive information, often there will be details hiding, for example, if you are `[m]put`ting / `[m]get`ing source files there could be database credentials or other useful bits of information in config files.
+
+Many people have been using FTP for years, in many cases never even considering the fact that FTP adds no privacy to anything it touches.
+
+Most FTP clients also store the users credentials in plain text, completely neglecting to consider defence in depth. It should be considered that your client machine is already compromised. If credentials are stored encrypted, then it is one more challenge that an attacker must conquer. All software created with security in mind realises this, and if they must store credentials, they will be hashed via a best of bread KDF (as discussed in the [Data-store Compromise](#web-applications-countermeasures-data-store-compromise) section of the Web Applications chapter) with the recommended number of iterations (as discussed in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section a little later in this chapter). In regards to FTP, the clients are designed to store multiple credentials, one set for each site, the idea being that you don't have to remember them, so they need to be encrypted, rather than hashed (one way, not reversible), so they can be decrypted.
+
+A couple of the most popular clients:
+
+**FileZilla** (cross platform) FTP client stores your credentials in plain text. Yes, the UI conceals your password from shoulder surfers, but that is the extent of its security, basically none.
+
+**WinSCP** (Windows) is a FTP, SFTP and SCP client for Windows. WinSCP has a number of ways in which you can have it deal with passwords. [By default](https://winscp.net/eng/docs/security_credentials), when a user enters their password on the authentication window, it is stored in memory and reused for all subsequent authentications during the same session. This is of course open to exploitation as is, also in-memory data can be swapped to disk, written to crash dump files and accessed by malware.
+
+Another option is to store passwords along with other site specific configurations to the registry for installed WinSCP, or to an INI file (overridable) for the portable version. These passwords are stored obfuscated, as the documentation puts it "[_stored in a manner that they can easily be recovered_](https://winscp.net/eng/docs/security_credentials)". If you are interested, you can check the `EncryptPassword` function on [github](https://github.com/mirror/winscp/blob/master/source/core/Security.cpp#L34) in which a short and simple set of bitwise operations are performed on each character of the password and the user and host are concatenated as what looks to be some sort of pseudo-salt. Although this option exists, it is [recommended against](https://winscp.net/eng/docs/faq_password).
+
+And here is why. The [exploit](https://github.com/rapid7/metasploit-framework/blob/master/lib/rex/parser/winscp.rb#L81) `decrypt_password` consumed by the `[winscp](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/windows/gather/credentials/winscp.rb#L82)` [metasploit module](https://www.rapid7.com/db/modules/post/windows/gather/credentials/winscp). Additional details on the [cosine-security blog](https://cosine-security.blogspot.co.nz/2011/04/stealing-winscp-saved-passwords.html).
+
+The recommended way to store the site specific passwords is to use a Master Password. This appears to use a [custom implementation](https://github.com/mirror/winscp/blob/master/source/core/Cryptography.cpp) of the AES256 block cipher, with a hard-coded 1000 rounds of SHA1.
+
+WinSCP provides a lot of options, which may or may not be a good thing.
 
 #### NFS
 
@@ -511,7 +529,10 @@ To establish some persistence, an attacker may be able to add their SSH public k
 {linenos=off, lang=bash}
     cat ~/.ssh/id_rsa.pub >> /mnt/root/.ssh/authorized_keys
 
-The NFS daemon always listens on the unprivileged port 2049. An attacker without root privileges on a system can start a trojanised `nfsd` which will be bound to port 2049, on a system that does not usually offer NFS, or if they can find a way to stop an existing `nfsd` and run their own, clients may communicate with the trojanised `nfsd` and possibly consume exports containing malicious mocked ([pickled](https://github.com/micheloosterhof/cowrie/blob/master/data/fs.pickle)) file systems without being aware of it. By replacing a NFS daemon with a trojanised replica, the attacker would also have access to the resources that the legitimate daemon controls.
+The NFS daemon always listens on the unprivileged port 2049. An attacker without root privileges on a system can start a trojanised `nfsd` which will be bound to port 2049.
+
+* On a system that does not usually offer NFS, the attacker could then proceed to create a spear phishing attack, in which they lure the target to open a pdf or similar from the exported filesystem, or even using a fake ([pickled](https://github.com/micheloosterhof/cowrie/blob/master/data/fs.pickle)) filesystem. As the export(s) would probably be on an internal network, target trust levels would be very high, or...
+* If they can find a way to stop an existing `nfsd` and run their own, clients may communicate with the trojanised `nfsd` and possibly consume similar exports. By replacing a NFS daemon with a trojanised replica, the attacker would also have access to the resources that the legitimate daemon controls.
 
 The ports that a Linux server will bind its daemons to are listed in `/etc/services`.
 
@@ -1638,7 +1659,7 @@ Telnet gone?
 
 #### Remove FTP
 
-We have got sftp and scp, why would we want ftp?
+I do not believe there is any place to use FTP, even on a network that you think is safe. The first problem here, if you are still thinking like this, is that the network you think may be safe is a perfect place for someone to exploit, this stems from the Fortress Mentality, as discussed in the Physical and Network chapters.
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*ftp*'
@@ -1652,6 +1673,69 @@ Ftp gone?
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*ftp*'
+
+Let us take a look at FTPS, SFTP and SCP
+
+**FTPS is FTP over TLS with some issues**
+
+There were two separate methods to invoke client security, defined by which port they initiate communications with:
+
+1. Implicit   
+  The client is expected to immediately challenge the FTPS server with a TLS `ClientHello` message before any other FTP commands are sent by the client. If the FTPS server does not receive the initial TLS `ClientHello` message first, the server should drop the connection.  
+  
+  Implicit also requires that all communications of the FTP session must be encrypted.  
+  
+  In order to maintain compatibility with existing FTP clients, implicit FTPS was expected to also listen on the command / control channel using port 990/TCP, and the data channel using port 989/TCP. This left port 21/TCP for legacy no encryption communication. Using port 990 implicitly implied encryption was mandatory.  
+  
+  This is the earlier and mostly considered deprecated method.
+2. Explicit  
+  The client starts a conversation with the FTPS server on port 21/TCP and can then request to upgrade to using a mutually agreed encryption method. The FTPS server can also decide to allow the client to continue an unencrypted conversation or not. The client has to actually ask for the security upgrade.  
+  
+  This method also allows the FTPS client to decide whether they want to encrypt nothing, encrypt just the command channel (which the credentials are sent over), or encrypt everything.  
+
+So as you can see, it is quite conceivable that a user may become confused as to whether encryption is on, is not on, which channel it is applied to and not applied to. The user has to understand the differences between the two methods of invoking security, not invoking it at all, or only on one of the channels.
+
+One thing that you really do not want when it comes to privacy, is confusion. When it comes to SFTP or any protocol over SSH, everything is encrypted, simple as that.
+
+Similar to a web server serving HTTPS with a public key certificate, an FTPS server will also respond with its public key certificate (keeping its private key private). The public key certificate it responds with needs to be generated from a Certificate Authority (CA), whether it is one the server administrator has created (self signed) or a public "trusted" CA (often paid for), the CA (root) certificate must be copied and/or reside locally to the FTPS client. The checksum of the CA (root) certificate will need to be verified also.
+
+If the FTPS client does not already have the CA (root) certificate when the user initiates a connection, the FTPS client should generate a warning due to the fact that the CA (root) certificate is not yet trusted.
+
+This process is quite complicated and convoluted as opposed to how FTP over SSH works.
+
+**SFTP is FTP over SSH**
+
+As I have already detailed in the section [SSH Connection Procedure](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-ssh-connection-procedure), the SSH channel is first set-up, thus the client is already authenticated, and their identity is available to the FTP protocol or any protocol wishing to use the encrypted channel. The public key is securely copied from the client to the server out-of-band. If the configuration of SSH is carried out correctly and hardened as I detailed throughout the [SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) countermeasures section, the SFTP and any protocol for that matter over SSH has the potential for greater security than those using the Trusted Third Party (TTP) model, which X.509 certificates (utilised in FTPS, HTTPS, OpenVPN, not the [less secure IPSec](http://louwrentius.com/why-you-should-not-use-ipsec-for-vpn-connectivity.html)) rely on.
+
+Why is SSH capable of a higher level of security?
+
+With SSH, you copy the public key that you created on your client using `ssh-copy-id` to the server. There are no other parties involved. Even if the public key gets compromised, unless the attacker has the private key, which never leaves the client, they can not be authenticated to the server and they can not MItM your SSH session, as that would issue a warning due to the key fingerprint of the MItM no longer matching that in your known_hosts.
+
+with X.509 certificates, you rely (trust) on the third party (the CA). When the third party is compromised (as this happens frequently), many things can go wrong, some of which are discussed in the [X.509 Certificate Revocation Evolution](#network-countermeasures-tls-downgrade-x509-cert-revocation-evolution) section of the Network chapter. The compromised CA can start issuing certificates to malicious entities. All that may be necessary at this point is for your attacker to [poison your ARP cache](#network-identify-risks-spoofing-arp) if you are relying on IP addresses, or do the same plus poison your DNS. This attack is detailed under the [Spoofing Website](#network-identify-risks-spoofing-website) section in the Network chapter, was demoed at WDCNZ 2015 and also links to a video.
+
+The CA root certificate must be removed from all clients and you will need to go through the process of creating / obtaining a new certificate with a (hopefully) non compromised CA. With SSH, you only have to trust yourself, and I have detailed what you need to know to make good decisions in the SSH section.
+
+SSH not only offers excellent security, but is also extremely versatile.
+
+[**SCP**](https://blog.binarymist.net/2012/03/25/copying-with-scp/) or Secure Copy leverage's the security of SSH, and provides simple copy to and from, so once you have SSH set-up and hardened, you are in good stead to be pulling and pushing files around your networks securely with SSH. The SFTP protocol provides remote file system like capabilities, such as remote file deletion, directory listings, resuming of interrupted transfers. If you do not require the additional features of (S)FTP, SCP may be a good option for you. Like SSH, SCP does not have native platform support on Windows, although Windows support is available, and easy enough to set-up, as I [have done many times](https://blog.binarymist.net/2011/12/27/openssh-from-linux-to-windows-7-via-tunneled-rdp/).
+
+Any features that you may think missing by using SCP rather than SFTP are more than made up for simply by using SSH which in itself provides a complete remote Secure SHell and is very flexible as to how you can use it.
+
+Another example is using [**Rsync over SSH**](https://blog.binarymist.net/2011/03/06/rsync-over-ssh-from-linux-workstation-to-freenas/) which is an excellent way to sync files between machines. Rsync will only copy the files that have been changed since the last sync, so this can be extremely quick
+
+{linenos=off, lang=Bash}
+    # -a, --archive  is archive mode which actually includes -rlptgoD (no -H,-A,-X)
+    rsync -vva --delete --force -e 'ssh -p <non default port>' <source dir> <myuser>@<myserver>:<dest dir>
+
+For Windows machines, I also run all of my **RDP sessions over SSH**, see my blog post for further details: [https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/](https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/)
+
+{linenos=off, lang=Bash}
+    # 3391 is any spare port on localhost.
+    # 3389 is the port that RDP listens on at MyWindowsBox
+    ssh -v -f -L 3391:localhost:3389 -N MyUserName@MyWindowsBox
+    # Once the SSH channel is up, Your local RDP client just needs to talk to localhost:3391    
+
+so there is no reason to not have all of your inter-machine communications encrypted, whether they be on the internet, or on what you think is a trusted LAN. Use your imagination
 
 #### NFS {#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs}
 
