@@ -1687,7 +1687,8 @@ There were two separate methods to invoke FTPS client security, defined by which
    
    In order to maintain compatibility with existing FTP clients, implicit FTPS was expected to also listen on the command / control channel using port 990/TCP, and the data channel using port 989/TCP. This left port 21/TCP for legacy no encryption communication. Using port 990 implicitly implied encryption was mandatory.  
    
-   This is the earlier and mostly considered deprecated method.
+   This is the earlier and mostly considered deprecated method.  
+   
 2. Explicit  
    The client starts a conversation with the FTPS server on port 21/TCP and can then request to upgrade to using a mutually agreed encryption method. The FTPS server can also decide to allow the client to continue an unencrypted conversation or not. The client has to actually ask for the security upgrade.  
    
@@ -1710,7 +1711,7 @@ As I have already detailed in the section [SSH Connection Procedure](#vps-counte
 
 Why is SSH capable of a higher level of security?
 
-With SSH, you copy the public key that you created on your client using `ssh-copy-id` to the server. There are no other parties involved. Even if the public key gets compromised, unless the attacker has the private key, which never leaves the client, they can not be authenticated to the server and they can not MItM your SSH session, as that would issue a warning due to the key fingerprint of the MItM no longer matching that in your `known_hosts` file. Even if an attacker managed to get near your private key, SSH will not run if the permissions of `~/.ssh/` and files within are to permissive, so the user knows immediately anyway. Even then, if somehow the private key was compromised, the attacker still needs the pass-phrase. SSH is a perfect example of defence in depth.
+With SSH, you copy the public key that you created on your client using `ssh-copy-id` to the server. There are no other parties involved. Even if the public key gets compromised, unless the attacker has the private key, which never leaves the client, they can not be authenticated to the server and they can not MItM your SSH session, as that would issue a warning due to the key fingerprint of the MItM no longer matching that in your `known_hosts` file. Even if an attacker managed to get near your private key, SSH will not run if the permissions of the `~/.ssh/` directory and files within are to permissive, so the user knows immediately anyway. Even then, if somehow the private key was compromised, the attacker still needs the pass-phrase. SSH is a perfect example of defence in depth.
 
 with X.509 certificates, you rely (trust) on the third party (the CA). When the third party is compromised (as this happens frequently), many things can go wrong, some of which are discussed in the [X.509 Certificate Revocation Evolution](#network-countermeasures-tls-downgrade-x509-cert-revocation-evolution) section of the Network chapter. The compromised CA can start issuing certificates to malicious entities. All that may be necessary at this point is for your attacker to [poison your ARP cache](#network-identify-risks-spoofing-arp) if you are relying on IP addresses, or do the same plus poison your DNS. This attack is detailed under the [Spoofing Website](#network-identify-risks-spoofing-website) section in the Network chapter, was demoed at WDCNZ 2015, and also links to a video.
 
@@ -1737,7 +1738,7 @@ For Windows machines, I also run all of my **RDP sessions over SSH**, see my blo
     ssh -v -f -L 3391:localhost:3389 -N MyUserName@MyWindowsBox
     # Once the SSH channel is up, Your local RDP client just needs to talk to localhost:3391    
 
-so there is no reason to not have all of your inter-machine communications encrypted, whether they be on the internet, or on what you think is a trusted LAN. This is why firewalls are just another layer of defence and [nothing more](#vps-identify-risks-lack-of-firewall).
+So there is no reason to not have all of your inter-machine communications encrypted, whether they be on the internet, or on what you think is a trusted LAN. This is why firewalls are just another layer of defence and [nothing more](#vps-identify-risks-lack-of-firewall).
 
 #### NFS {#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs}
 
