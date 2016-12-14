@@ -67,20 +67,6 @@
 **This appears to use a custom implementation** of the AES256 block cipher, with a hard-coded 1000 rounds of SHA1  
 [https://github.com/mirror/winscp/blob/master/source/core/Cryptography.cpp](https://github.com/mirror/winscp/blob/master/source/core/Cryptography.cpp) 
 
-
-
-
-](https://github.com/rapid7/metasploit-framework/blob/master/lib/rex/parser/winscp.rb#L81) `decrypt_password` consumed by the `[winscp.rb](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/windows/gather/credentials/winscp.rb#L82)` [metasploit module](https://www.rapid7.com/db/modules/post/windows/gather/credentials/winscp).
-
-
-
-
-
-
-
-
-
-
 **Any attacker worth their weight** will try to cover their tracks as they progress  
 [http://www.win.tue.nl/~aeb/linux/hh/hh-13.html](http://www.win.tue.nl/~aeb/linux/hh/hh-13.html)
 
