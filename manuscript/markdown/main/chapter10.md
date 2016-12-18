@@ -2889,7 +2889,7 @@ Secure password management within applications is a case of doing what you can, 
 
 ![](images/DefenceInDepth.png)
 
-You may read in many places that having data-store passwords and other types of secrets in configuration files in clear text is an insecurity that must be addressed. Then when it comes to mitigation, there seems to be a few techniques for helping, but most of them are based around obscuring the secret rather than securing it. Essentially just making discovery a little more inconvenient like using an alternative port to SSH to other than the default of 22. Maybe surprisingly though, obscurity does significantly reduce the number of opportunistic type attacks from bots and script kiddies.
+You may read in many places that having data-store passwords and other types of secrets in configuration files in clear text is an insecurity that [must be addressed](https://www.owasp.org/index.php/Password_Plaintext_Storage). Then when it comes to mitigation, there seems to be a few techniques for helping, but most of them are based around obscuring the secret rather than securing it. Essentially just making discovery a little more inconvenient like using an alternative port to SSH to other than the default of 22. Maybe surprisingly though, obscurity does significantly reduce the number of opportunistic type attacks from bots and script kiddies.
 
 #### Store Configuration in Configuration files {#web-applications-countermeasures-management-of-application-secrets-store-configuration}
 ![](images/ThreatTags/PreventionAVERAGE.png)
@@ -3038,11 +3038,15 @@ node-config also:
 Encrypting/decrypting credentials in code may provide some obscurity, but not much more than that.  
 There are different answers for different platforms. None of which provide complete security, if there is such a thing, but instead focusing on different levels of obscurity.
 
-##### Windows 
+##### Windows  {#web-applications-countermeasures-management-of-application-secrets-store-configuration-windows}
 
 **Store database credentials as a Local Security Authority (LSA) secret** and create a DSN with the stored credential. Use a SqlServer [connection string](https://www.owasp.org/index.php/Configuration#Secure_connection_strings) with `Trusted_Connection=yes`
 
-The hashed credentials are stored in the SAM file and the registry. If an attacker has physical access to the storage, they can easily copy the hashes if the machine is not running or can be shut-down. The hashes can be sniffed [from the wire](#network-identify-risks-wire-inspecting) in transit. The hashes can be pulled from the running machines memory (specifically the Local Security Authority Subsystem Service (`LSASS.exe`)) using tools such as Mimikatz, WCE, hashdump or fgdump. An attacker generally only needs the hash. Trusted tools like psexec take care of this for us. All discussed in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation. 
+The hashed credentials are stored in the SAM file and the registry. If an attacker has physical access to the storage, they can easily copy the hashes if the machine is not running or can be shut-down. The hashes can be sniffed [from the wire](#network-identify-risks-wire-inspecting) in transit. The hashes can be pulled from the running machines memory (specifically the Local Security Authority Subsystem Service (`LSASS.exe`)) using tools such as Mimikatz, WCE, Metasploits [hashdump](https://www.rapid7.com/db/modules/post/windows/gather/hashdump) or fgdump.
+
+The `NTDS.dit` database file, along with the DBLayer that is running inside the NTDSAI.DLL (DSA), is directly managed by the Extensible Storage Engine (ESE), which tries to read as much as possible into the `LSASS.exe` memory. 
+
+An attacker generally only needs the hash. Trusted tools like psexec (as we [discussed in the VPS chapter](#vps-identify-risks-windows-pth-suite-of-metasploit-modules)) take care of this for us. Also discussed in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation. 
 
 &nbsp;
 

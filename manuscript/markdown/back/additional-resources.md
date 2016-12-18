@@ -181,6 +181,8 @@ These resources in order were helpful for establishing a strategy for the unreli
 [https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/](https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/)  
 [https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog](https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog)
 
+**FakeDNS**  
+[https://github.com/Crypt0s/FakeDns](https://github.com/Crypt0s/FakeDns)
 
 
 ## [Cloud](#cloud)

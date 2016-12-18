@@ -9,14 +9,52 @@
 
 ## [VPS](#vps)
 
-**PSExec is a telnet replacement** also providing full interactivity for console applications. Check out the home page  
+**Also being a Telnet replacement**  
 [https://technet.microsoft.com/en-us/sysinternals/bb897553.aspx](https://technet.microsoft.com/en-us/sysinternals/bb897553.aspx)
 
-**The PSExec utility requires** a few things on the remote system. Details on rapid7  
+**The PSExec utility requires** a few things on the target system. Details on rapid7  
 [https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified)
 
-**The PSExec executable** has a Windows Service image inside which it deploys to the Admin$ share on the target machine  
-[https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified).
+
+
+**With this attack you will have had to have obtained the targets** username and password or password hash  
+[https://www.offensive-security.com/metasploit-unleashed/psexec-pass-hash/](https://www.offensive-security.com/metasploit-unleashed/psexec-pass-hash/)
+
+**Kali Linux also has the "Pass the Hash toolkit"**  
+[https://www.kali.org/tutorials/pass-the-hash-toolkit-winexe-updates/](https://www.kali.org/tutorials/pass-the-hash-toolkit-winexe-updates/)"
+
+**`current_user_psexec`**  
+[https://www.rapid7.com/db/modules/exploit/windows/local/current_user_psexec](https://www.rapid7.com/db/modules/exploit/windows/local/current_user_psexec)
+
+**`psexec_command`**  
+[https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_command](https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_command)
+
+**`psexec_loggedin_users`**  
+[https://www.rapid7.com/db/modules/auxiliary/scanner/smb/psexec_loggedin_users](https://www.rapid7.com/db/modules/auxiliary/scanner/smb/psexec_loggedin_users)
+
+**`psexec_psh`**  
+[https://www.rapid7.com/db/modules/exploit/windows/smb/psexec_psh](https://www.rapid7.com/db/modules/exploit/windows/smb/psexec_psh)
+
+**`psexec_ntdsgrab`**  
+[https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_ntdsgrab](https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_ntdsgrab)
+
+**native Windows tool "vssadmin"** visible in the source  
+[https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/psexec_ntdsgrab.rb#L55](https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/psexec_ntdsgrab.rb#L55)
+
+**`wmi`**  
+[https://www.rapid7.com/db/modules/exploit/windows/local/wmi](https://www.rapid7.com/db/modules/exploit/windows/local/wmi) 
+
+**WMI Providers** provide interfaces for configuring and monitoring Windows services, along with programming interfaces for consumption via custom built tools  
+[https://msdn.microsoft.com/en-us/library/aa394570(v=vs.85).aspx](https://msdn.microsoft.com/en-us/library/aa394570(v=vs.85).aspx) 
+
+**We use the WMI Command-line (WMIC) command** to start a Remote Procedure Call  
+[https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48)
+
+**Then create a ReverseListenerComm** to tunnel traffic through that session  
+[https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61)
+
+
+
 
 **unix-privesc-check**  
 [http://pentestmonkey.net/tools/audit/unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check)
@@ -748,11 +786,34 @@ https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_
 **The function used to protect stored credentials** should balance attacker and defender verification. The defender needs an acceptable response time for verification of users’ credentials during peak use. However, the time required to map `<credential> -> <protected form>` must remain beyond threats’ hardware (GPU, FPGA) and technique (dictionary-based, brute force, etc) capabilities:  
 [https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet#Impose_infeasible_verification_on_attacker](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet#Impose_infeasible_verification_on_attacker)
 
-**You may read in many places** that having data-store passwords and other types of secrets in configuration files in clear text is an insecurity that [must be addressed](https://www.owasp.org/index.php/Password_Plaintext_Storage).
+**You may read in many places** that having data-store passwords and other types of secrets in configuration files in clear text is an insecurity that must be addressed  
+[https://www.owasp.org/index.php/Password_Plaintext_Storage](https://www.owasp.org/index.php/Password_Plaintext_Storage).
+
+**There is a specific file loading order**  
+[https://github.com/lorenwest/node-config/wiki/Configuration-Files](https://github.com/lorenwest/node-config/wiki/Configuration-Files)
+
+**custom environment variables**  
+[https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables](https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables)
+
+**Use a SqlServer connection string** with `Trusted_Connection=yes`  
+[https://www.owasp.org/index.php/Configuration#Secure_connection_strings](https://www.owasp.org/index.php/Configuration#Secure_connection_strings) 
+
+**Metasploits hashdump**  
+[https://www.rapid7.com/db/modules/post/windows/gather/hashdump](https://www.rapid7.com/db/modules/post/windows/gather/hashdump)
+
+**Also discussed in my "0wn1ng The Web" presentation**  
+[https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com)
 
 **Encrypt sections** of a web, executable, machine-level, application-level or configuration files with Aspnet_regiis.exe:  
 [SQL Authentication](https://msdn.microsoft.com/en-us/library/ff648340.aspx)  
 [Windows Authentication](https://msdn.microsoft.com/en-us/library/ff647396.aspx)
+
+**Mimikatz will force an export from the key container** to a `.pvk` file.  
+Which can then be read using OpenSSL or tools from the `Mono.Security` assembly.  
+[http://stackoverflow.com/questions/7332722/export-snk-from-non-exportable-key-container](http://stackoverflow.com/questions/7332722/export-snk-from-non-exportable-key-container)
+
+**Credential Guard**  
+[https://technet.microsoft.com/en-us/library/mt483740](https://technet.microsoft.com/en-us/library/mt483740) 
 
 "**vSentry protects desktops without requiring patches or updates**_, defeating and automatically discarding all known and unknown malware, and eliminating the need for costly remediation._"   
 [https://www.bromium.com/sites/default/files/Bromium-Datasheet-vSentry.pdf](https://www.bromium.com/sites/default/files/Bromium-Datasheet-vSentry.pdf)
