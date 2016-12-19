@@ -566,6 +566,7 @@ Some NIDS go further to not only detect but prevent. They are known as Network I
 It is a good idea to have both Host and Network IDS/IPS in place at a minimum. I personally like to have more than one tool doing the same job but with different areas of strength covering the weaker areas of its sibling. An example of this is with HIDS. Having one HIDS on the system it is protecting and another somewhere else on the network, or even on another network completely, looking into the host and performing its checks. This makes discoverability difficult for an attacker.
 
 %% Maybe setup snort on raouter and detail it.
+%% BSidesLV IDS talk https://www.youtube.com/watch?v=iHRwAg8LQtI&feature=youtu.be
 
 ### Spoofing {#network-countermeasures-spoofing}
 

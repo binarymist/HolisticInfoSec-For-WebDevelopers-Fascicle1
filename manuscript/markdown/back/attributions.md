@@ -38,7 +38,7 @@
 **`psexec_ntdsgrab`**  
 [https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_ntdsgrab](https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_ntdsgrab)
 
-**native Windows tool "vssadmin"** visible in the source  
+**Native Windows tool "vssadmin"** visible in the source  
 [https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/psexec_ntdsgrab.rb#L55](https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/psexec_ntdsgrab.rb#L55)
 
 **`wmi`**  
@@ -48,7 +48,7 @@
 [https://msdn.microsoft.com/en-us/library/aa394570(v=vs.85).aspx](https://msdn.microsoft.com/en-us/library/aa394570(v=vs.85).aspx) 
 
 **We use the WMI Command-line (WMIC) command** to start a Remote Procedure Call  
-[https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48)
+https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48
 
 **Then create a ReverseListenerComm** to tunnel traffic through that session  
 [https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61)
