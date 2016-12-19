@@ -189,7 +189,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
    
    There are additional details around where `NTDS.dit` fits into the picture in the [Windows section](#web-applications-countermeasures-management-of-application-secrets-store-configuration-windows) of the Web Applications chapter.  
    
-   Unlike SmbExec, we have to parse the files that `psexec_ntdsgrab` downloads for us with a separate tool.  
+   Unlike SmbExec, we have to parse the files that `psexec_ntdsgrab` downloads for us with a separate tool, also discussed briefly in the [Windows section](#web-applications-countermeasures-management-of-application-secrets-store-configuration-windows) of the Web Applications chapter.  
    
 6. [`wmi`](https://www.rapid7.com/db/modules/exploit/windows/local/wmi)  
 (2013-09-21) `exploit/windows/local/wmi`  
@@ -199,7 +199,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
    
    Windows NT 4.0 (1996-07-29): During this time period, Microsoft released an out-of-band WMI implementation that could be downloaded and installed. Since then Microsoft has consistently added WMI providers.  
    
-   WMI core components are present by default in Windows 2000 and after. Previous Windows releases can run WMI, but the components have to be installed. All Windows OS versions after 2000 include WMI.  
+   WMI core components are present by default in all Windows OS versions from Windows 2000 and after. Previous Windows releases can run WMI, but the components have to be installed.  
    
    Windows Server 2008 included the minimalistic Server Core, smaller codebase, no GUI (less attack surface).  
    
@@ -211,7 +211,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
    
    WMI needs to be accessible for remote access, of which there are step(s) to make sure this is the case. These step(s), vary depending according to the specific Windows release and other configurations.  
    
-   Rather than relying on SMB via the psexec technique, starting a service on the target, the `wmi` module executes PowerShell on the target using the current user credentials or those that you supply. We use the WMI Command-line (WMIC) command to [start a Remote Procedure Call](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48) on TCP port 135 and an ephemeral port. Then create a [ReverseListenerComm](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61) to tunnel traffic through that session.
+   Rather than relying on SMB via the psexec technique, starting a service on the target, the `wmi` module executes PowerShell on the target using the current user credentials or those that you supply, so this is still a PTH technique. We use the WMI Command-line (WMIC) to [start a Remote Procedure Call](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48) on TCP port 135 and an ephemeral port. Then create a [ReverseListenerComm](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61) to tunnel traffic through that session.
 
 ### Unnecessary and Vulnerable Services 
 
