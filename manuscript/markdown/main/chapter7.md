@@ -370,7 +370,7 @@ G> With this, neither the payload or the virus should trigger Anti-Virus.
 G>
 G> Now you will need a c compiler on a system of the same architecture as your target. I set-up MinGW in the Tooling Setup chapter under Windows, so you should be good to compile the virus.
 G>
-G> G> `gcc download-payload-execute.c -o download-payload-execute.exe`
+G> `gcc download-payload-execute.c -o download-payload-execute.exe`
 
 {icon=bomb}
 G> This should provide you with an executable that AV will be happy about. You just need to convince your target to run it. When they do, your listener will catch the reverse_tcp shell.
