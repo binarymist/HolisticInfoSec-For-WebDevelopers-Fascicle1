@@ -54,6 +54,31 @@ wmic.rb#L48
 **Then create a ReverseListenerComm** to tunnel traffic through that session  
 [https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61)
 
+**By default PowerShell is installed** on Windows Server 2008 R2 and Windows 7 onwards  
+[https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/](https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

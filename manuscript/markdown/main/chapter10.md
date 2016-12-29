@@ -137,6 +137,11 @@ _Todo_
 
 %% demod at NodeConfEU by snyk https://snyk.io/blog/exploiting-buffer/
 
+%% Possibly work through a remote code execution.
+
+%% Videos to watch in my book dir:
+%% bg_injection_on_steroids_code_less_code_injections_and_0_day_techniques_paul_shofield_udi_yav.mp4
+
 #### Cross-Site Scripting (XSS) {#web-applications-identify-risks-cross-site-scripting}
 ![](images/ThreatTags/average-verywidespread-easy-moderate.png)
 

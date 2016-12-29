@@ -12,6 +12,13 @@
 **Local Linux Enumeration & Privilege Escalation Cheatsheet**  
 [https://www.rebootuser.com/?p=1623](https://www.rebootuser.com/?p=1623)
 
+{#additional-resources-vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation}
+**Linux\_Exploit\_Suggester** uses the OS release version, or fine tune by manually providing the Kernel version  
+[https://github.com/PenturaLabs/Linux_Exploit_Suggester](https://github.com/PenturaLabs/Linux_Exploit_Suggester)
+
+**Windows-Exploit-Suggester** compares a targets patch levels against the Microsoft vulnerability database in order to detect potential missing patches on the target. It also notifies the user if there are public exploits and Metasploit modules available for the missing bulletins.  
+[https://github.com/GDSSecurity/Windows-Exploit-Suggester](https://github.com/GDSSecurity/Windows-Exploit-Suggester)
+
 **Network Information Service** wiki  
 [https://en.wikipedia.org/wiki/Network_Information_Service](https://en.wikipedia.org/wiki/Network_Information_Service)
 
@@ -100,7 +107,8 @@
 
 
 
-
+**Centralized logging makes everything better**  
+[https://medium.com/starting-up-security/learning-from-a-year-of-security-breaches-ed036ea05d9b#41e1](https://medium.com/starting-up-security/learning-from-a-year-of-security-breaches-ed036ea05d9b#41e1)
 
 **Logging and Alerting**, where and what are the log files?  
 [http://www.thegeekstuff.com/2011/08/linux-var-log-files/](http://www.thegeekstuff.com/2011/08/linux-var-log-files/)
