@@ -56,10 +56,12 @@ wmic.rb#L48
 [https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/](https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/)
 
 **Trustedsec `unicorn.py`**  
-[https://github.com/trustedsec/unicorn/blob/6f245ebe0c4ab465f15edea12767604120dd0276/unicorn.py#L362-L363](https://github.com/trustedsec/unicorn/blob/6f245ebe0c4ab465f15edea12767604120dd0276/unicorn.py#L362-L363)
+https://github.com/trustedsec/unicorn/blob/6f245ebe0c4ab465f15edea12767604120dd0276/uni  
+corn.py#L362-L363
 
 **Upstream of unicorn is `Invoke-Shellcode.ps1`** of the PowerShellMafia PowerSploit project  
-[https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-Shellcode.ps1](https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-Shellcode.ps1)
+https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-Shell  
+code.ps1
 
 **Matt blog posted on this technique in 2011**  
 [http://www.exploit-monday.com/2011/10/exploiting-powershells-features-not.html](http://www.exploit-monday.com/2011/10/exploiting-powershells-features-not.html)
@@ -71,16 +73,19 @@ wmic.rb#L48
 [https://www.veil-framework.com/powershell-payloads/](https://www.veil-framework.com/powershell-payloads/)
 
 **Kevin Dick also wrote a decent blog post**  
-[http://threat.tevora.com/dissecting-veil-evasion-powershell-payloads-and-converting-to-a-bind-shell/](http://threat.tevora.com/dissecting-veil-evasion-powershell-payloads-and-converting-to-a-bind-shell/)
+http://threat.tevora.com/dissecting-veil-evasion-powershell-payloads-and-converting-to-a-b  
+ind-shell/
 
-**Nishang is a collection of scripts** which can create office documents such as Word, Excel, CHM and a handful of others  
-[https://github.com/samratashok/nishang/tree/1b5aca1a1eb170befccf1d111e8902285d553289/Client](https://github.com/samratashok/nishang/tree/1b5aca1a1eb170befccf1d111e8902285d553289/Client)
+**Nishang has a collection of scripts** which can create office documents such as Word, Excel, CHM and a handful of others  
+https://github.com/samratashok/nishang/tree/1b5aca1a1eb170befccf1d111e8902285d553289/  
+Client
 
 **PowerSploit has a module called Persistence**  
 [https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1)
 
-**`nishang` `Add-Persistence.ps1` script**  
-[https://github.com/samratashok/nishang/blob/1b5aca1a1eb170befccf1d111e8902285d553289/Utility/Add-Persistence.ps1](https://github.com/samratashok/nishang/blob/1b5aca1a1eb170befccf1d111e8902285d553289/Utility/Add-Persistence.ps1)
+**Nishang `Add-Persistence.ps1` script**  
+https://github.com/samratashok/nishang/blob/1b5aca1a1eb170befccf1d111e8902285d553289/  
+Utility/Add-Persistence.ps1
 
 **The Windows computer is considered to be idle if**  
 https://social.technet.microsoft.com/Forums/windows/en-US/692783e7-bb73-45d1-95d6-8f2d  
