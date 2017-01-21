@@ -15,8 +15,6 @@
 **The PSExec utility requires** a few things on the target system. Details on rapid7  
 [https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified)
 
-
-
 **With this attack you will have had to have obtained the targets** username and password or password hash  
 [https://www.offensive-security.com/metasploit-unleashed/psexec-pass-hash/](https://www.offensive-security.com/metasploit-unleashed/psexec-pass-hash/)
 
@@ -57,30 +55,36 @@ wmic.rb#L48
 **By default PowerShell is installed** on Windows Server 2008 R2 and Windows 7 onwards  
 [https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/](https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/)
 
+**Trustedsec `unicorn.py`**  
+[https://github.com/trustedsec/unicorn/blob/6f245ebe0c4ab465f15edea12767604120dd0276/unicorn.py#L362-L363](https://github.com/trustedsec/unicorn/blob/6f245ebe0c4ab465f15edea12767604120dd0276/unicorn.py#L362-L363)
 
+**Upstream of unicorn is `Invoke-Shellcode.ps1`** of the PowerShellMafia PowerSploit project  
+[https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-Shellcode.ps1](https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-Shellcode.ps1)
 
+**Matt blog posted on this technique in 2011**  
+[http://www.exploit-monday.com/2011/10/exploiting-powershells-features-not.html](http://www.exploit-monday.com/2011/10/exploiting-powershells-features-not.html)
 
+**Veil-Framework’s Veil-Evasion has a similar set of payloads**  
+[https://github.com/Veil-Framework/Veil-Evasion/tree/master/modules/payloads/powershell](https://github.com/Veil-Framework/Veil-Evasion/tree/master/modules/payloads/powershell)
 
+**@harmj0y blog posted on**  
+[https://www.veil-framework.com/powershell-payloads/](https://www.veil-framework.com/powershell-payloads/)
 
+**Kevin Dick also wrote a decent blog post**  
+[http://threat.tevora.com/dissecting-veil-evasion-powershell-payloads-and-converting-to-a-bind-shell/](http://threat.tevora.com/dissecting-veil-evasion-powershell-payloads-and-converting-to-a-bind-shell/)
 
-_Todo_ add
+**Nishang is a collection of scripts** which can create office documents such as Word, Excel, CHM and a handful of others  
+[https://github.com/samratashok/nishang/tree/1b5aca1a1eb170befccf1d111e8902285d553289/Client](https://github.com/samratashok/nishang/tree/1b5aca1a1eb170befccf1d111e8902285d553289/Client)
 
+**PowerSploit has a module called Persistence**  
+[https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1)
 
-
-
-
-
-
-
-
-
+**`nishang` `Add-Persistence.ps1` script**  
+[https://github.com/samratashok/nishang/blob/1b5aca1a1eb170befccf1d111e8902285d553289/Utility/Add-Persistence.ps1](https://github.com/samratashok/nishang/blob/1b5aca1a1eb170befccf1d111e8902285d553289/Utility/Add-Persistence.ps1)
 
 **The Windows computer is considered to be idle if**  
 https://social.technet.microsoft.com/Forums/windows/en-US/692783e7-bb73-45d1-95d6-8f2d  
 1363d6c7/cant-get-task-schedular-to-run-a-batch-on-idle?forum=w7itprogeneral
-
-
-
 
 **unix-privesc-check**  
 [http://pentestmonkey.net/tools/audit/unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check)

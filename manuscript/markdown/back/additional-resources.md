@@ -14,6 +14,15 @@
 
 
 
+**15 Ways to bypass PowerShell Execution Policy**  
+[https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/](https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/)
+
+**`Out-CHM` blog post** from `nishang` author "Nikhil SamratAshok Mittal"  
+[http://www.labofapenetrationtester.com/2014_11_01_archive.html](http://www.labofapenetrationtester.com/2014_11_01_archive.html)
+
+
+
+
 
 **Useful details around the Windows scheduled tasks** used in [`Persistence.ps1`](#Persistence-ps1)  
 [https://msdn.microsoft.com/en-us/library/windows/desktop/bb736357(v=vs.85).aspx](https://msdn.microsoft.com/en-us/library/windows/desktop/bb736357(v=vs.85).aspx)
