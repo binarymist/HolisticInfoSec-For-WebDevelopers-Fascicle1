@@ -9,6 +9,22 @@
 **Details on the Metasploit PSExec module**  
 [https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified) 
 
+
+
+
+
+
+
+**Useful details around the Windows scheduled tasks** used in [`Persistence.ps1`](Persistence-ps1)  
+[https://msdn.microsoft.com/en-us/library/windows/desktop/bb736357(v=vs.85).aspx](https://msdn.microsoft.com/en-us/library/windows/desktop/bb736357(v=vs.85).aspx)
+
+
+
+
+
+
+
+
 **Local Linux Enumeration & Privilege Escalation Cheatsheet**  
 [https://www.rebootuser.com/?p=1623](https://www.rebootuser.com/?p=1623)
 

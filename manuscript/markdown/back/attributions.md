@@ -63,6 +63,7 @@ wmic.rb#L48
 
 
 
+_Todo_ add
 
 
 
@@ -74,9 +75,8 @@ wmic.rb#L48
 
 
 
-
-
-
+**The computer is considered to be idle if**  
+[https://social.technet.microsoft.com/Forums/windows/en-US/692783e7-bb73-45d1-95d6-8f2d1363d6c7/cant-get-task-schedular-to-run-a-batch-on-idle?forum=w7itprogeneral](https://social.technet.microsoft.com/Forums/windows/en-US/692783e7-bb73-45d1-95d6-8f2d1363d6c7/cant-get-task-schedular-to-run-a-batch-on-idle?forum=w7itprogeneral)
 
 
 
