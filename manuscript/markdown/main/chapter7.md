@@ -1236,7 +1236,7 @@ Bringing your VPS(s) in-house provides all the flexibility/power required to mit
 ### Windows
 
 #### PsExec and Pass The Hash (PTH) {#vps-countermeasures-psexec-pth}
-![](images/ThreatTags/Prevention.png)
+![](images/ThreatTags/PreventionDIFFICULT.png)
 
 %% https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers/issues/1
 
@@ -1262,6 +1262,11 @@ How exposed are administrators machines? Can they be put on a less exposed netwo
 In a Windows network, those that are the most likely to be exploited are administrators. Pay special attention to them and their machines. For example, if an attacker uses the `current_user_psexec` module, then once they have access to an administrators machine, traversal to other machines like Domain Controllers is trivial if the administrators current login context allows them to access the Domain Controller. Make sure the administrators are aware of this and that they only elevate privileges when it is required and not on their own machines.
 
 Network Intrusion Detection Systems ([NIDS](#network-countermeasures-lack-of-visibility-nids)) will more than likely not be able to detect the actual passing of the administrators credentials to the target system, because that is how the legitimate SysInternals PsExec behaves, but what a NIDS can be configured to watch for is what happens when the attackers payload executes, for example, it is not normally legitimate behaviour for reverse shells to be sent over the network. Host Intrusion Detection Systems ([HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids)) can of course detect the presence of additional and modified files, although these are less commonly run on desktop computers.
+
+#### PowerShell Exploitation with Persistence {#vps-countermeasures-powershell-exploitation-with-persistence}
+![](images/ThreatTags/PreventionDIFFICULT.png)
+
+As above, NIDS can help here, Often these attacks do not leave any files on the disk. Next Gen AV products are slowly coming to the market, such as those that use machine learning. Most of the products I have seen so far are very expensive though, this should change in time.
 
 ### Minimise Attack Surface by Installing Only what you Need
 ![](images/ThreatTags/PreventionVERYEASY.png)
