@@ -80,6 +80,17 @@ ind-shell/
 https://github.com/samratashok/nishang/tree/1b5aca1a1eb170befccf1d111e8902285d553289/  
 Client
 
+**Metasploit had a Meterpreter script** called `persistence.rb`  
+[https://www.offensive-security.com/metasploit-unleashed/meterpreter-service/](https://www.offensive-security.com/metasploit-unleashed/meterpreter-service/)
+
+**Now the `exploit/windows/local/persistence` module** is recommended for persistence. AV picks this up on reboot though  
+[https://github.com/rapid7/metasploit-framework/issues/6904](https://github.com/rapid7/metasploit-framework/issues/6904)
+
+
+
+
+
+
 **PowerSploit has a module called Persistence**  
 [https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1)
 

