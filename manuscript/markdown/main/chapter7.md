@@ -616,6 +616,8 @@ We can do better than `meterpreter`. PowerSploit has a module called [Persistenc
 
 I had a play with the `nishang` [`Add-Persistence.ps1`](https://github.com/samratashok/nishang/blob/1b5aca1a1eb170befccf1d111e8902285d553289/Utility/Add-Persistence.ps1) script, which may be useful for creating post-exploitation persistence, but I was looking for a solution to create an atomic persistent exploit, which is what PowerSploit provides.
 
+![](images/HandsOnHack.png)
+
 I> ## Synopsis
 I>
 I> In this play we extend the [PowerShell Exploitation via Office Documents](#powershell-exploitation-via-office-documents) play with the help from PowerSploit. The play below should explain everything.
