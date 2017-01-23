@@ -622,6 +622,8 @@ I> In this play we extend the [PowerShell Exploitation via Office Documents](#po
 
 ![](images/PersistentPowerShell.png)
 
+&nbsp;
+
 You can find the video of how this attack is played out at [https://youtu.be/al9RX40QuXU](https://youtu.be/al9RX40QuXU).
 
 If you do not already have `PowerSploit` on your Windows attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
