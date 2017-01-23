@@ -620,6 +620,8 @@ I> ## Synopsis
 I>
 I> In this play we extend the [PowerShell Exploitation via Office Documents](#powershell-exploitation-via-office-documents) play with the help from PowerSploit. The play below should explain everything.
 
+![](images/PersistentPowerShell.png)
+
 You can find the video of how this attack is played out at [https://youtu.be/al9RX40QuXU](https://youtu.be/al9RX40QuXU).
 
 If you do not already have `PowerSploit` on your Windows attack machine, go ahead and clone it as discussed in the Tooling Setup chapter of Fascicle 0.
@@ -705,7 +707,7 @@ G> Start your listener using the `powershell_msf.rc` resource rile:
 G> `msfconsole -r powershell_msf.rc`
 
 {icon=bomb}
-G> Now you need to get the `doc.chm` onto your targets machine or a network share that your target can access/copy from, and persuade your target to run the `doc.chm`. When they do, as discussed above, the contents of `persistentFetchRunPayload.ps1` encoded, will be written to the PowerShell profile and a scheduled task setup. When the task fires, as in the previous attacks, the `payload.txt` will be downloaded and its expression invoked, which will cause the reverse shell to be executed. The listening Metasploit will catch the shell. If you have the scheduled task configured to run every hour, then you will get a reverse shell every hour. This survives reboots and most other actions any user will take, other than removing the PowerShell profile contents we created or removing the scheduled task.
+G> Now you need to get the `doc.chm` onto your targets machine or a network share that your target can access/copy from, and persuade your target to run the `doc.chm`. When they do, as discussed above, `EncodedPersistentScript.ps1` will be downloaded and invoked, which will write the embedded encoded contents of `persistentFetchRunPayload.ps1` to the PowerShell profile, and setup a scheduled task. When the task fires, as in the previous attacks, the `payload.txt` will be downloaded and its expression invoked, which will cause the reverse shell to be executed. The listening Metasploit will catch the shell. If you have the scheduled task configured to run every hour, then you will get a reverse shell every hour. This survives reboots and most other actions any user will take, other than removing the PowerShell profile contents we created or removing the scheduled task.
 
 The PowerSploit Persistence module offers the following persistence techniques:
 
