@@ -55,6 +55,9 @@ wmic.rb#L48
 **By default PowerShell is installed** on Windows Server 2008 R2 and Windows 7 onwards  
 [https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/](https://blogs.msdn.microsoft.com/powershell/2008/10/28/powershell-will-be-installed-by-default-on-windows-server-08-r2-ws08r2-and-windows-7-w7/)
 
+**psmsf is licensed with BSD License**  
+[https://github.com/nixawk/psmsf/blob/master/License.txt](https://github.com/nixawk/psmsf/blob/master/License.txt)
+
 **Trustedsec `unicorn.py`**  
 https://github.com/trustedsec/unicorn/blob/6f245ebe0c4ab465f15edea12767604120dd0276/uni  
 corn.py#L362-L363
@@ -85,11 +88,6 @@ Client
 
 **Now the `exploit/windows/local/persistence` module** is recommended for persistence. AV picks this up on reboot though  
 [https://github.com/rapid7/metasploit-framework/issues/6904](https://github.com/rapid7/metasploit-framework/issues/6904)
-
-
-
-
-
 
 **PowerSploit has a module called Persistence**  
 [https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Persistence/Persistence.psm1)
@@ -160,12 +158,23 @@ https://social.technet.microsoft.com/Forums/windows/en-US/692783e7-bb73-45d1-95d
 **Without visibility**, an attacker can access your system(s) and, alter, copy  
 [https://github.com/m57/dnsteal](https://github.com/m57/dnsteal)
 
-**Docker has many security enhancing capabilities**, but none are on by default  
-http://resources.infosecinstitute.com/docker-and-enterprise-security-establishing-best-  
-practices/
+
+
+
+
+
+
+
+
+
+
+
 
 **These processes have indirect access to most of the Linux Kernel**  
 [https://theinvisiblethings.blogspot.co.nz/2012/09/how-is-qubes-os-different-from.html](https://theinvisiblethings.blogspot.co.nz/2012/09/how-is-qubes-os-different-from.html)
+
+**Script Block Logging** records and logs the original obfuscated (XOR, Base64, encryption, etc) script, transcripts, and de-obfuscated code  
+[https://www.fireeye.com/blog/threat-research/2016/02/greater_visibilityt.html](https://www.fireeye.com/blog/threat-research/2016/02/greater_visibilityt.html)
 
 **In most cases you will want to shadow your passwords**  
 [http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2](http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2)
@@ -280,14 +289,6 @@ ortmap.htm
 
 **Another example is using Rsync over SSH**  
 [https://blog.binarymist.net/2011/03/06/rsync-over-ssh-from-linux-workstation-to-freenas/](https://blog.binarymist.net/2011/03/06/rsync-over-ssh-from-linux-workstation-to-freenas/)
-
-
-
-
-
-
-
-
 
 **NFSv4 pseudo-file system**. This pseudo-file system is identified as a single, real file system, identified at export with the `fsid=0` option.  
 https://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-nfs-server-config-export  
@@ -503,12 +504,45 @@ arkdown.html
 **Source on github**  
 [https://github.com/fbb-git/stealth](https://github.com/fbb-git/stealth)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 **Cisecurity has an excellent resource** for hardening docker images  
-[https://benchmarks.cisecurity.org/downloads/show-single/?file=docker12.100](https://benchmarks.cisecurity.org/downloads/show-single/?file=docker12.100) 
+[https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) 
 
 
 **An example of the NodeGoat** image  
 [https://github.com/owasp/nodegoat](https://github.com/owasp/nodegoat)
+
+
+
+
+
 
 **There are plenty of tools** available to help  
 [http://www.debianhelp.co.uk/backuptools.htm](http://www.debianhelp.co.uk/backuptools.htm) 
@@ -534,19 +568,6 @@ harden-surveillance for monitoring your network
 
 **Read up on the “Attacks and Threats”**  
 [http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/appendix.html#THREATS](http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/appendix.html#THREATS)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## [Network](#network)
 
@@ -753,6 +774,9 @@ http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-emp
 
 **Background on OCB** from the creator  
 [http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm](http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm)
+
+**There are some very sobering statistics**, also detailed in "the morning paper" by Adrian Colyer, on how many defective libraries we are depending on  
+[https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/](https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/)
 
 **the winston-syslog-posix package** was inspired by blargh  
 [https://www.npmjs.com/package/winston-syslog-posix](https://www.npmjs.com/package/winston-syslog-posix)  

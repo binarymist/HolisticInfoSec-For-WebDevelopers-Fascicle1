@@ -21,6 +21,17 @@ If you are a start up, just be aware that the speed you have initially with a Pa
 %% Work through my "Does Your Cloud Solution Look Like a Mushroom?"
 %% Kiwicon 10 talk "Hacking AWS end to end". Slide-deck here: https://github.com/dagrz/aws_pwn/blob/master/miscellanea/Kiwicon%202016%20-%20Hacking%20AWS%20End%20to%20End.pdf, along with readme and code.
 %% It probably makes the most sense to focus on the largest providers.
+%% https://docs.microsoft.com/en-us/azure/security/azure-security-iaas
+
+%% Serverless https://serverless.com/
+%%    AWS Lambda https://aws.amazon.com/lambda/
+%%    Google CloudFunctions https://cloud.google.com/functions/
+%%    Azure Functions https://azure.microsoft.com/en-us/services/functions/
+%% What is to stop DoS attacks and costing the renter megabucks?
+
+%% https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
+
+
 
 ## 1. SSM Asset Identification
 Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered.

@@ -47,6 +47,10 @@ _Todo_
 
 %% #### Network Intrusion Detection Systems (NIDS)
 
+%% ### DNS Exfiltration, Infiltration
+
+%% This may also work for exfiltration TCP over HTTP https://github.com/derhuerst/tcp-over-websockets
+
 ### Spoofing {#network-identify-risks-spoofing}
 
 Spoofing on a network is the act of an entity (often malicious(Mallory), [but not necessarily](http://blog.binarymist.net/2015/04/25/web-server-log-management/#mitm)) successfully masquerading/impersonating another (Bob) in order to receive information from Alice (sometimes via Eve) that should then reach Bob.
