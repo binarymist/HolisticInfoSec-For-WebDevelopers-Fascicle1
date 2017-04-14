@@ -597,7 +597,7 @@ We are consuming far more free and open source libraries than we have ever befor
 * Is created by amateurs that could and do include vulnerabilities. Anyone can write code and publish to an open source repository. Much of this code ends up in our package management repositories which we consume.
 * Does not undergo the same requirement analysis, defining the scope, acceptance criteria, test conditions and sign off by a development team and product owner that our commercial software does.
 
-There are some very sobering statistics, also detailed in "[the morning paper](https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/)" by Adrian Colyer, on how many defective libraries we are depending on. We are all trying to get things done faster and that in many cases means consuming someone else's work rather than writing our own code.
+There are some very sobering statistics, also detailed in "[the morning paper](https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/)" by Adrian Colyer, on how many defective libraries we are depending on. We are all trying to get things done faster, and that in many cases means consuming someone else's work rather than writing our own code.
 
 Many vulnerabilities can hide in these external dependencies. It is not just one attack vector any more, it provides the opportunity for many vulnerabilities to be sitting waiting to be exploited. If you do not find and deal with them, I can assure you, someone else will.
 

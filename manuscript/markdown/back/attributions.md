@@ -537,12 +537,7 @@ arkdown.html
 
 
 **An example of the NodeGoat** image  
-[https://github.com/owasp/nodegoat](https://github.com/owasp/nodegoat)
-
-
-
-
-
+[https://github.com/owasp/nodegoat#option-3---run-nodegoat-on-docker](https://github.com/owasp/nodegoat#option-3---run-nodegoat-on-docker)
 
 **There are plenty of tools** available to help  
 [http://www.debianhelp.co.uk/backuptools.htm](http://www.debianhelp.co.uk/backuptools.htm) 
@@ -551,9 +546,9 @@ arkdown.html
 https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/august_8_2012_12_01_pm6?lang=en
 
 **Work through using the likes of**  
+harden  
 https://www.debian.org/doc/manuals/securing-debian-howto/ch-automatic-harden.en.htm  
 l#s6.1  
-harden  
 [https://packages.debian.org/wheezy/harden](https://packages.debian.org/wheezy/harden)  
 Lynis for your server  
 [https://cisofy.com/lynis/](https://cisofy.com/lynis/)  

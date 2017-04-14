@@ -206,10 +206,11 @@ https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf
 [http://www.debianhelp.co.uk/security.htm](http://www.debianhelp.co.uk/security.htm)
 
 {#additional-resources-vps-countermeasures-docker}
+**Cisecurity**  
+has an [excellent resource](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) for hardening docker images which the Docker Security team helped with. This should be consulted in parallel to reading the [Docker Countermeasures](#vps-countermeasures-docker) section
 
-Cisecurity has an [excellent resource](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) for hardening docker images which the Docker Security team helped within. This should be consulted in parallel to reading the [Docker Countermeasures]() section
-
-I also conducted an interview called "Docker Security" for Software Engineering Radio in which Docker Security Team Lead Diogo Mónica appeared as guest and provided some excellent advice, oppinions, and food for thought, be sure to listen to it.
+**I also conducted an interview called "Docker Security"**  
+for Software Engineering Radio in which Docker Security Team Lead Diogo Mónica appeared as guest and provided some excellent advice, opinions, and food for thought, be sure to listen to it
 
 {#additional-resources-vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces}
 
@@ -246,7 +247,8 @@ I also conducted an interview called "Docker Security" for Software Engineering 
 **Diogo Mónica on Mutual TLS**  
 [https://www.youtube.com/watch?v=apma_C24W58](https://www.youtube.com/watch?v=apma_C24W58)
 
-**Diogo Mónica on Orchestrating Least Privilege**  
+**Diogo Mónica on Orchestrating Least Privilege**
+
 * [https://www.youtube.com/watch?v=xpGNAiA3XW8](https://www.youtube.com/watch?v=xpGNAiA3XW8)
 * [https://www.slideshare.net/Docker/orchestrating-least-privilege-by-diogo-monica-67186063](https://www.slideshare.net/Docker/orchestrating-least-privilege-by-diogo-monica-67186063)
 
@@ -256,7 +258,7 @@ I also conducted an interview called "Docker Security" for Software Engineering 
 **Description of how PKI automatically gets setup in swarm**  
 [https://docs.docker.com/engine/swarm/how-swarm-mode-works/pki/](https://docs.docker.com/engine/swarm/how-swarm-mode-works/pki/)
 
-**Image signing**, and why it is important**  
+**Image signing**, and why it is important  
 [https://blog.docker.com/2015/08/content-trust-docker-1-8/](https://blog.docker.com/2015/08/content-trust-docker-1-8/)
 
 **Docker security scanning (content integrity)**  

@@ -1171,13 +1171,13 @@ Without visibility, an attacker can access your system(s) and, alter, [copy](htt
 
 With the continual push for shorter development cycles, combined with continuous delivery, cloud and virtual based infrastructure, containers have become an important part of the continuous delivery pipeline. Docker has established itself as a top contender in this space.
 
-Many of Dockers defaults favour ease of use over security, in saying that, Docker's security considerations follow closely. After working with Docker, the research I have performed in writing these sections on Docker security, and in having the chance to discuss many of my concerns and preconceived ideas with the Docker Security team lead Diogo Mónica over this period, it is my belief that by default Docker containers, infrastructure and orchestration provide better security than running your applications in Virtual Machines (VMs).
+Many of Dockers defaults favour ease of use over security, in saying that, Docker's security considerations follow closely. After working with Docker, the research I have performed in writing these sections on Docker security, and in having the chance to discuss many of my concerns and preconceived ideas with the Docker Security team lead Diogo Mónica over this period, it is my belief that by default Docker containers, infrastructure and orchestration provide better security than running your applications in Virtual Machines (VMs). Just be careful when comparing containers with VMs, as this is analogous with comparing apples with oranges.
 
 The beauty in terms of security that Docker provides is immense configurability to improve the security many times more than the defaults. In order to do this, you will have to invest some time and effort into learning about the possible issues, features and how to configure them. It is this visibility that I have attempted to create in these sections on Docker security.
 
 Docker security is similar to VPS security, except there is a much larger attack surface, due to running many containers with many different packages, many of which do not receive timely security updates, as noted by [banyan](https://www.banyanops.com/blog/analyzing-docker-hub/) and [the morning paper](https://blog.acolyer.org/2017/04/03/a-study-of-security-vulnerabilities-on-docker-hub/).
 
-A monolithic kernel such as the Linux kernel, containing tens of millions of lines of code, which are reachable from untrusted applications via all sorts of networking, USB, driver APIs Has a huge attack surface. Adding Docker into the mix has the potential to expose all these vulnerabilities to each and every running container, and it's applications within, thus making the attack surface of the kernel grow exponentially.
+A monolithic kernel such as the Linux kernel, containing tens of millions of lines of code, which are reachable from untrusted applications via all sorts of networking, USB, driver APIs Has a huge attack surface. Adding Docker into the mix has the potential to expose all these vulnerabilities to each and every running container, and its applications within, thus making the attack surface of the kernel grow exponentially.
 
 Docker leverage's many features that have been in the Linux kernel for years, which provide a lot of security enhancements out of the box. The Docker Security Team are working hard to add additional tooling and techniques to further harden their components, this has become obvious as I have investigated many of them. You still need to know what all the features, tooling and techniques are, and how to use them, in order to determine whether your container security is adequate for your needs.
 
@@ -1186,6 +1186,7 @@ From the [Docker overview](https://docs.docker.com/engine/understanding-docker/)
 To start with, I am going to discuss many areas where we can improve container security, then at the end of this Docker section I will discuss why application security is far more of a concern than container security.
 
 #### Consumption from [Registries](https://docs.docker.com/registry/)
+![](images/ThreatTags/average-verywidespread-easy-moderate.png)
 
 Similar to [Consuming Free and Open Source](#web-applications-identify-risks-consuming-free-and-open-source) from the Web Applications chapter, many of us trust the images on docker hub without much consideration to the possible defective packages within. There have been quite a few reports with varying numbers of vulnerable images as noted by Banyan and "the morning paper" mentioned above.
 
@@ -1197,19 +1198,21 @@ The Docker Registry [project](https://github.com/docker/distribution) is an open
 * CoreOS quay.io
 
 #### Doppelganger images
+![](images/ThreatTags/average-common-average-severe.png)
 
 Beware of doppelganger images that will be available for all to consume, similar to [doppelganger packages](#web-applications-countermeasures-consuming-free-and-open-source-keeping-safe-doppelganger-packages) that we discuss in the Web Applications chapter. These can contain a huge number of packages and code to hide malware in a Docker image.
 
 #### The Default User is Root
+![](images/ThreatTags/easy-common-veryeasy-moderate.png)
 
-What is worse, dockers default is to run containers, and all commands / processes within a container as root. This can be seen by running the following command:
+What is worse, dockers default is to run containers, and all commands / processes within a container as root. This can be seen by running the following command from the [CIS_Docker_1.13.0_Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf):
 
-{title="User running containers", linenos=off, lang=Bash}
+{title="Query User running containers", linenos=off, lang=Bash}
     docker ps --quiet | xargs docker inspect --format '{{ .Id }}: User={{ .Config.User }}'
 
 If you have two containers running and the user has not been specified you will see something like the below, which means your two containers are running as root.
 
-{title="User running containers output", linenos=off, lang=Bash}
+{title="Result of user running containers output", linenos=off, lang=Bash}
     <container n Id>: User=
     <container n+1 Id>: User=
 
@@ -1235,156 +1238,175 @@ The first place to read for solid background on Linux kernel namespaces is the [
 
 Linux kernel namespaces started to be added between 2.6.15 (January 2006) and 2.6.26 (July 2008)
 
-According to the namespaces man page, IPC, network and UTS namespace support was available from kernel version 3.0, mount, PID and user namespace support was available from kernel version 3.8 (February 2013), cgroup namespace support was available from kernel version 4.6 (May 2016)
+According to the namespaces man page, IPC, network and UTS namespace support was available from kernel version 3.0, mount, PID and user namespace support was available from kernel version 3.8 (February 2013), cgroup namespace support was available from kernel version 4.6 (May 2016).
 
 Each aspect of a container runs in a separate namespace and its access is limited to that namespace.
 
 Docker leverage's the Linux (kernel) namespaces which provide an isolated workspace which wraps a global system resource abstraction that makes it appear to the processes within the namespace that they have their own isolated instance of the global resource. When a container is run, Docker creates a set of namespaces for that container, providing a layer of isolation between containers:
 
-1. `mnt`: (Mount) Provides filesystem isolation by managing filesystems & mount points. The `mnt` namespace allows a container to have its own isolated set of mounted filesystems, the propagation modes can be one of the following: [`r`]`shared`, [`r`]`slave` or [`r`]`private`. The `r` means recursive.  
+1. `mnt`: (Mount) Provides filesystem isolation by managing filesystems and mount points. The `mnt` namespace allows a container to have its own isolated set of mounted filesystems, the propagation modes can be one of the following: [`r`]`shared`, [`r`]`slave` or [`r`]`private`. The `r` means recursive.
   
-  If you run the following command, then the hosts mounted `host-path` is [shared](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) with all others that mount `host-path`. Any changes made to the mounted data will be propagated to those that use the `shared` mode propagation. Using `slave` means only the master (`host-path`) is able to propagate changes, not vice-versa. Using `private` which is the default, will ensure no changes can be propagated.  
+  If you run the following command, then the hosts mounted `host-path` is [shared](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) with all others that mount `host-path`. Any changes made to the mounted data will be propagated to those that use the `shared` mode propagation. Using `slave` means only the master (`host-path`) is able to propagate changes, not vice-versa. Using `private` which is the default, will ensure no changes can be propagated.
   
   {title="mounting volumes in shared mode propagation", linenos=off, lang=bash}
       docker run <run arguments> --volume=[host-path:]<container-path>:[z][r]shared <container image name or id> <command> <args...>
   
-  If you omit the `host-path` you can [see the host path](https://docs.docker.com/engine/tutorials/dockervolumes/#/locating-a-volume) that was mounted by running the following command:  
+  If you omit the `host-path` you can [see the host path](https://docs.docker.com/engine/tutorials/dockervolumes/#locating-a-volume) that was mounted by running the following command:
   
-  {linenos=off, lang=bash}
+  {title="Query", linenos=off, lang=bash}
       docker inspect <name or id of container>
   
   Find the "Mounts" property in the JSON produced. It will have a "Source" and "Destination" similar to:
-      
-  {linenos=off, lang=json}
+  
+  {title="Result", linenos=off, lang=json}
       ...
       "Mounts": [
-          {
-              "Name": "<container id>",
-              "Source": "/var/lib/docker/volumes/<container id>/_data",
-              "Destination": "<container-path>",
-              "Mode": "",
-              "RW": true,
-              "Propagation": "shared"
-          }
+        {
+          "Name": "<container id>",
+          "Source": "/var/lib/docker/volumes/<container id>/_data",
+          "Destination": "<container-path>",
+          "Mode": "",
+          "RW": true,
+          "Propagation": "shared"
+        }
       ]
       ...
   
-  An empty string for Mode means it is set to its default of read-write. This means for example that a container can mount sensitive host system directories such as `/`, `/boot`, `/etc` (as seen in [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies)), `/lib`, `/proc`, `/sys`, along with the rest discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section if that advice was not followed, if it was you have some defence in depth working for you, and although Docker may have mounted a directory as read-write, the underlying mount may be read-only, thus stopping the container from being able to modify files in these locations on the host system. If the host does not have the above directories mounted with constrained permissions, then we are relying on the user that runs any given Docker container mounting a sensitive host volume to mount it as read-only. For example, after the following command has been run, users within the container can modify files in the hosts `/etc` directory:  
+  An empty string for Mode means it is set to its default of read-write. This means for example that a container can mount sensitive host system directories such as `/`, `/boot`, `/etc` (as seen in [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies)), `/lib`, `/proc`, `/sys`, along with the rest discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section, if that advice was not followed, if it was you have some defence in depth working for you, and although Docker may have mounted a directory as read-write, the underlying mount may be read-only, thus stopping the container from being able to modify files in these locations on the host system. If the host does not have the above directories mounted with constrained permissions, then we are relying on the user that runs any given Docker container mounting a sensitive host volume to mount it as read-only. For example, after the following command has been run, users within the container can modify files in the hosts `/etc` directory:
   
   {linenos=off, lang=bash}
       docker run -it --rm -v /etc:/hosts-etc --name=lets-mount-etc ubuntu
   
-  {linenos=off, lang=bash}
+  {title="Query", linenos=off, lang=bash}
       docker inspect -f "{{ json .Mounts }}" lets-mount-etc
-      [{"Type":"bind","Source":"/etc","Destination":"/hosts-etc","Mode":"","RW":true,"Propagation":""}]
+    
+  {title="Result", linenos=off, lang=bash}
+      [
+        {
+          "Type":"bind",
+          "Source":"/etc",
+          "Destination":"/hosts-etc",
+          "Mode":"",
+          "RW":true,
+          "Propagation":""
+        }
+      ]
   
   Also keep in mind that by default the user in the container unless otherwise specified is root, and that is the same root user that is on the host system.
   
   {#vps-identify-risks-docker-docker-host-engine-and-containers-namespaces-mnt-labelling}
-  Labelling systems such as [Linux Security Modules (LSM)](#vps-identify-risks-docker-docker-host-engine-and-containers-linux-security-modules) require that the contents of a volume mounted into a container be [labelled](https://docs.docker.com/engine/tutorials/dockervolumes/#/volume-labels). This can be done by adding the `z` (as seen in above example) or `Z` suffix to the volume mount. The `z` suffix instructs Docker that you intend to share the mounted volume with other containers, and in doing so, Docker applies a shared content label. Alternatively if you provide the `Z` suffix, Docker applies a private unshared label, which means only the current container can use the mounted volume. Further details can be found at the [dockervolumes documentation](https://docs.docker.com/engine/tutorials/dockervolumes/#/volume-labels). This is something to keep in mind if you are using LSM and have a process inside your container that is unable to use the mounted data.  
+  Labelling systems such as [Linux Security Modules (LSM)](#vps-identify-risks-docker-docker-host-engine-and-containers-linux-security-modules) require that the contents of a volume mounted into a container be [labelled](https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels). This can be done by adding the `z` (as seen in above example) or `Z` suffix to the volume mount. The `z` suffix instructs Docker that you intend to share the mounted volume with other containers, and in doing so, Docker applies a shared content label. Alternatively if you provide the `Z` suffix, Docker applies a private unshared label, which means only the current container can use the mounted volume. Further details can be found at the [dockervolumes documentation](https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels). This is something to keep in mind if you are using LSM and have a process inside your container that is unable to use the mounted data.  
   `--volumes-from` allows you to specify a data volume from another container.
   
-  You can also [mount](https://linux.die.net/man/8/mount) your Docker container mounts on the host by doing the following:  
+  You can also [mount](https://linux.die.net/man/8/mount) your Docker container mounts on the host by doing the following:
   
   {linenos=off, lang=bash}
       mount --bind /var/lib/docker/<volumes>/<container id>/_data </path/on/host>
   
-2. `PID`: (Process ID) Provides process isolation, separates container processes from host and other container processes.  
+2. `PID`: (Process ID) Provides process isolation, separates container processes from host and other container processes.
   
-  The first process that is created in a new `PID` namespace is the "init" process with `PID` 1, which assumes parenthood of the other processes within the same `PID` namespace. When `PID` 1 is terminated, so are the rest of the processes within the same `PID` namespace.  
+  The first process that is created in a new `PID` namespace is the "init" process with `PID` 1, which assumes parenthood of the other processes within the same `PID` namespace. When `PID` 1 is terminated, so are the rest of the processes within the same `PID` namespace.
   
-  `PID` namespaces are [hierarchically nested](https://lwn.net/Articles/531419/) in ancestor-decendant relationships to a depth of up to 32 levels. All `PID` namespaces have a parent namespace, other than the initial root `PID` namespace of the host system. That parent namespace is the `PID` namespace of the process that created the child namespace.  
+  `PID` namespaces are [hierarchically nested](https://lwn.net/Articles/531419/) in ancestor-descendant relationships to a depth of up to 32 levels. All `PID` namespaces have a parent namespace, other than the initial root `PID` namespace of the host system. That parent namespace is the `PID` namespace of the process that created the child namespace.
   
-  Within a `PID` namespace, it is possible to access (make system calls to specific PIDs) all other processes in the same namespace, as well as all processes of descendant namespaces, however processes in a child PID namespace cannot see processes that exist in the parent PID namespace or further removed ancestor namespaces. The direction any process can access another process in an ancestor/descendant `PID` namespace is one way.  
+  Within a `PID` namespace, it is possible to access (make system calls to specific `PID`s) all other processes in the same namespace, as well as all processes of descendant namespaces, however processes in a child `PID` namespace cannot see processes that exist in the parent `PID` namespace or further removed ancestor namespaces. The direction any process can access another process in an ancestor/descendant `PID` namespace is one way.
   
-  Processes in different `PID` namespaces can have the same `PID`, because the `PID` namespaces isolates the `PID` number space from other `PID` namespaces.  
+  Processes in different `PID` namespaces can have the same `PID`, because the `PID` namespace isolates the `PID` number space from other `PID` namespaces.
   
-  Docker takes advantage of `PID` namespaces. Just as you would expect, a Docker container can not access the host system processes, and process ids that are used in the host system can be reused in the container, including `PID` 1, by being reassigned to a process started within the container. The host system can however access all processes within its containers, because as stated above, `PID` namespaces are hierarchically nested in parent-child relationships, so processes in the hosts `PID` namespace can access all processes in their own namespace down to the `PID` namespace that was responsible for starting the process, that is the process within the container in our case.  
+  Docker takes advantage of `PID` namespaces. Just as you would expect, a Docker container can not access the host system processes, and process ids that are used in the host system can be reused in the container, including `PID` 1, by being reassigned to a process started within the container. The host system can however access all processes within its containers, because as stated above, `PID` namespaces are hierarchically nested in parent-child relationships, so processes in the hosts `PID` namespace can access all processes in their own namespace down to the `PID` namespace that was responsible for starting the process, that is the process within the container in our case.
   
-  The default behaviour can however be overridden to allow a container to be able to access processes within a sibling container, or the hosts `PID` namespace. [Example](https://docs.docker.com/engine/reference/run/#pid-settings---pid):  
+  The default behaviour can however be overridden to allow a container to be able to access processes within a sibling container, or the hosts `PID` namespace. [Example](https://docs.docker.com/engine/reference/run/#pid-settings---pid):
   
   {title="syntax", linenos=off, lang=bash}
       --pid=[container:<name|id>],[host]
   
   {title="example", linenos=off, lang=bash}
-      # Provides access to the PID namespace of container called myContainer for container created from myImage
+      # Provides access to the `PID` namespace of container called myContainer
+      # for container created from myImage.
       docker run --pid=container:myContainer myImage
   
   {title="example", linenos=off, lang=bash}
-      # Provides access to the host PID namespace for container created from myImage
+      # Provides access to the host `PID` namespace for container created from myImage
       docker run --pid=host myImage
   
-  As an aside, `PID` namespaces give us the [functionality of](http://man7.org/linux/man-pages/man7/pid_namespaces.7.html): "_suspending/resuming the set of processes in the container and migrating the container to a new host while the processes inside the container maintain the same PIDs._" with a [handful of commands](https://www.fir3net.com/Containers/Docker/the-essential-guide-in-transporting-your-docker-containers.html):  
+  As an aside, `PID` namespaces give us the [functionality of](http://man7.org/linux/man-pages/man7/pid_namespaces.7.html): "_suspending/resuming the set of processes in the container and migrating the container to a new host while the processes inside the container maintain the same PIDs._" with a [handful of commands](https://www.fir3net.com/Containers/Docker/the-essential-guide-in-transporting-your-docker-containers.html):
   
   {title="example", linenos=off, lang=bash}
       docker container pause myContainer [mySecondContainer...]
       docker export [options] myContainer
-      # Move your container to another host
+      # Move your container to another host.
       docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]
       docker container unpause myContainer [mySecondContainer...]
   
 3. `net`: (Networking) Provides network isolation by managing the network stack and interfaces. Also essential to allow containers to communicate with the host system and other containers. Network namespaces were introduced into the kernel in 2.6.24, January 2008, with an additional year of development they were considered largely done. The only real concern here is understanding the Docker network modes and communication between containers. This is discussed in the Countermeasures.
-4. `UTS`: (Unix Timesharing System) Provides isolation of kernel and version identifiers.  
+4. `UTS`: (Unix Timesharing System) Provides isolation of kernel and version identifiers.
   
-UTS: Unix Timesharing System, is the sharing of a computing resource with many users, a concept introduced in the 1960s/1970s.  
+  UTS is the sharing of a computing resource with many users, a concept introduced in the 1960s/1970s.
   
-A [UTS namespace](http://man7.org/linux/man-pages/man2/clone.2.html) is the set of identifiers [returned by `uname`](http://man7.org/linux/man-pages/man2/clone.2.html), which include the hostname and the [NIS](#vps-identify-risks-unnecessary-and-vulnerable-services-nis) domainname. Any processes which are not children of the process that requested the clone will not be able to see any changes made to the identifiers of the UTS namespace.  
+  A UTS namespace is the set of identifiers [returned by `uname`](http://man7.org/linux/man-pages/man2/clone.2.html), which include the hostname and the [NIS](#vps-identify-risks-unnecessary-and-vulnerable-services-nis) domainname. Any processes which are not children of the process that requested the clone will not be able to see any changes made to the identifiers of the UTS namespace.
   
-If the CLONE_NEWUTS constant is set, then the process being created will be created in a new UTS namespace with the hostname and NIS domain name copied and able to be modified independently from the UTS namespace of the calling process.  
+  If the `CLONE_NEWUTS` constant is set, then the process being created will be created in a new UTS namespace with the hostname and NIS domain name copied and able to be modified independently from the UTS namespace of the calling process.
   
-If the CLONE_NEWUTS constant is not set, then the process being created will be created in the same UTS namespace of the calling process, thus able to change the identifiers returned by `uname`.  
+  If the `CLONE_NEWUTS` constant is not set, then the process being created will be created in the same UTS namespace of the calling process, thus able to change the identifiers returned by `uname`.
   
-When a container is created, a UTS namespace is copied ([CLONE_NEWUTS is set](https://github.com/docker/libcontainer/blob/83a102cc68a09d890cce3b6c2e5c14c49e6373a0/SPEC.md))(`--uts=""`) by default, providing a UTS namespace that can be modified independently from the target UTS namespece it was copied from.  
+  When a container is created, a UTS namespace is copied ([`CLONE_NEWUTS` is set](https://github.com/docker/libcontainer/blob/83a102cc68a09d890cce3b6c2e5c14c49e6373a0/SPEC.md))(`--uts=""`) by default, providing a UTS namespace that can be modified independently from the target UTS namespece it was copied from.
   
-When a container is created with [`--uts="host"`](https://docs.docker.com/engine/reference/run/#uts-settings---uts), a UTS namespace is inherited from the host, the `--hostname` flag is invalid.
-5. `IPC`: (InterProcess Communication) manages access to InterProcess Communications). `IPC` namespaces isolate your container's System V IPC and POSIX message queues, semaphores, and named shared memory from those of the host and other containers, unless another container specifies on run that it wants to share your namespace. It would be a lot safer if the producer could specify which consuming containers could use its [namespace](http://man7.org/linux/man-pages/man7/namespaces.7.html). IPC namespaces do not include IPC mechanisms that use filesystem resources such as named pipes.  
+  When a container is created with [`--uts="host"`](https://docs.docker.com/engine/reference/run/#uts-settings---uts), a UTS namespace is inherited from the host, the `--hostname` flag is invalid.
+5. `IPC`: (InterProcess Communication) manages access to InterProcess Communications). `IPC` namespaces isolate your container's System V IPC and POSIX message queues, semaphores, and named shared memory from those of the host and other containers, unless another container specifies on run that it wants to share your namespace. It would be a lot safer if the producer could specify which consuming containers could use its [namespace](http://man7.org/linux/man-pages/man7/namespaces.7.html). IPC namespaces do not include IPC mechanisms that use filesystem resources such as named pipes.
   
-According to the [namespaces man page](http://man7.org/linux/man-pages/man7/namespaces.7.html): "_Objects created in an IPC namespace are visible to all other processes that are members of that namespace, but are not visible to processes in other IPC namespaces._"  
+  According to the [namespaces man page](http://man7.org/linux/man-pages/man7/namespaces.7.html): "_Objects created in an IPC namespace are visible to all other processes that are members of that namespace, but are not visible to processes in other IPC namespaces._"
   
-Although sharing memory segments between processes provide Inter-Process Communications at memory speed, rather than through pipes or worse, the network stack, this produces a significant security concern.  
+  Although sharing memory segments between processes provide Inter-Process Communications at memory speed, rather than through pipes or worse, the network stack, this produces a significant security concern.
   
-By default a container does not share the hosts or any other containers IPC namespace. This behaviour can be overridden to allow a (any) container to reuse another containers or the hosts message queues, semaphores, and shared memory via their IPC namespace. [Example](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc):  
+  By default a container does not share the hosts or any other containers IPC namespace. This behaviour can be overridden to allow a (any) container to reuse another containers or the hosts message queues, semaphores, and shared memory via their IPC namespace. [Example](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc):
   
-{title="syntax", linenos=off, lang=bash}
-    # Allows a container to reuse another container's IPC namespace.
-    --ipc=[container:<name|id>],[host]
+  {title="syntax", linenos=off, lang=bash}
+      # Allows a container to reuse another container's IPC namespace.
+      --ipc=[container:<name|id>],[host]
   
-{title="example", linenos=off, lang=bash}
-    docker run -it --rm --name=container-producer ubuntu
-    root@609d19340303:/#
-
-    # Allows the container named container-consumer to share the IPC namespace of container called container-producer.
-    docker run -it --rm --name=container-consumer --ipc=container:container-producer ubuntu
-    root@d68ecd6ce69b:/#
+  {title="example", linenos=off, lang=bash}
+      docker run -it --rm --name=container-producer ubuntu
+      root@609d19340303:/#
+      
+      # Allows the container named container-consumer to share the IPC namespace
+      # of container called container-producer.
+      docker run -it --rm --name=container-consumer --ipc=container:container-producer ubuntu
+      root@d68ecd6ce69b:/#
   
-Now find the Ids of the two running containers:  
+  Now find the Ids of the two running containers:  
   
-{linenos=off, lang=bash}
-    docker inspect --format="{{ .Id }}" container-producer container-consumer
-    609d193403032a49481099b1fc53037fb5352ae148c58c362ab0a020f473c040
-    d68ecd6ce69b89253f7ab14de23c9335acaca64d210280590731ce1fcf7a7556
+  {title="Query", linenos=off, lang=bash}
+      docker inspect --format="{{ .Id }}" container-producer container-consumer
   
-Now you can see using the command supplied from the [CIS_Docker_1.13.0_Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) that `container-consumer` is using the IPC namespace of `container-producer`:  
+  {title="Result", linenos=off, lang=bash}
+      609d193403032a49481099b1fc53037fb5352ae148c58c362ab0a020f473c040
+      d68ecd6ce69b89253f7ab14de23c9335acaca64d210280590731ce1fcf7a7556
   
-{linenos=off, lang=bash}
-    docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: IpcMode={{ .HostConfig.IpcMode }}'
-    d68ecd6ce69b89253f7ab14de23c9335acaca64d210280590731ce1fcf7a7556: IpcMode=container:container-producer
-    609d193403032a49481099b1fc53037fb5352ae148c58c362ab0a020f473c040: IpcMode=
+  Now you can see using the command supplied from the [CIS_Docker_1.13.0_Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) that `container-consumer` is using the IPC namespace of `container-producer`:
   
-When the last process in an IPC namespace terminates, the namespace will be destroyed along with all IPC objects in the namespace.
+  {title="Query", linenos=off, lang=bash}
+      docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: IpcMode={{ .HostConfig.IpcMode }}'
+  
+  {title="Result", linenos=off, lang=bash}
+      d68ecd6ce69b89253f7ab14de23c9335acaca64d210280590731ce1fcf7a7556: IpcMode=container:container-producer
+      609d193403032a49481099b1fc53037fb5352ae148c58c362ab0a020f473c040: IpcMode=
+  
+  When the last process in an IPC namespace terminates, the namespace will be destroyed along with all IPC objects in the namespace.
 6. `user`: Not enabled by default. Allows a process within a container to have a unique range of user and group Ids within the container, known as the subordinate user and group Id feature in the Linux kernel, that do not map to the same user and group Ids of the host, container users to host users are remapped. So for example, if a user within a container is root, which it is by default unless a specific user is defined in the image hierarchy, it will be mapped to a non-privileged user on the host system.  
 Docker considers user namespaces to be an advanced feature. There are currently some Docker features that are [incompatible](https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions) with using user namespaces, and according to the [CIS Docker 1.13.0 Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf), functionalities that are broken if user namespaces are used. the [Docker engine reference](https://docs.docker.com/engine/reference/commandline/dockerd/#/user-namespace-known-restrictions) provides additional details around known restrictions of user namespaces.  
-If your containers have a predefined non root user, then currently user namespaces should not be enabled, due to possible unpredictable issues and complexities according to "2.8 Enable user namespace support" of the "CIS Docker Benchmark".  
-The main problem, is that these mappings are performed on the Docker daemon rather than at a per-container level, so it is all or nothing, this may change in the future though.  
-User namespace support is available, but not enabled by default in the Docker daemon.
+If your containers have a predefined non root user, then currently user namespaces should not be enabled, due to possible unpredictable issues and complexities according to "2.8 Enable user namespace support" of the [CIS Docker Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf).  
+The main problem, is that these mappings are performed on the Docker daemon rather than at a per-container level, so it is an all or nothing approach, this may change in the future though.  
+As mentioned, User namespace support is available, but not enabled by default in the Docker daemon.
 
 ##### Control Groups
 
-When a container is started with `docker run` without specifying a cgroup parent, as well as creating the namespaces discussed above, Docker also creates a Control Group (or cgroup) with a set of system resource hierarchies, nested under the default parent `docker` cgroup, also created at container runtime if not already present. You can see how this hierarchy looks in the `/sys/fs/cgroup` pseudo-filesystem in the [Countermeasures](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups-sys-fs-cgroup) section. Cgroups have been available in the Linux kernel since [January 2008 (2.6.24)](https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3), and have continued to be improved. Cgroups track, provide the ability to monitor, and configure fine-grained limitations on how much of any resource a set of processes, or in the case of Docker or pure LXC, any given container can use, such as CPU, memory, disk I/O, network. Many aspects of these resources can be controlled, but by default, any given container can use all of the systems resources, allowing potential DoS.
+When a container is started with `docker run` without specifying a cgroup parent, as well as creating the namespaces discussed above, Docker also creates a Control Group (or cgroup) with a set of system resource hierarchies, nested under the default parent `docker` cgroup, also created at container runtime if not already present. You can see how this hierarchy looks in the `/sys/fs/cgroup` pseudo-filesystem in the [Countermeasures](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups-sys-fs-cgroup) section. Cgroups have been available in the Linux kernel since [January 2008 (2.6.24)](https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3), and have continued to be improved. Cgroups track, provide the ability to monitor, and configure fine-grained limitations on how much of any resource a set of processes, or in the case of Docker or pure LXC, any given container can use, such as CPU, memory, disk I/O, and network. Many aspects of these resources can be controlled, but by default, any given container can use all of the systems resources, allowing potential DoS.
 
 **Fork Bomb from Container**
 
-If an attacker gains access to a container or in a multi-tenanted scenario where being able to run a container by an arbitrary entity is expected, by default, there is nothing stopping a fork bomb (`:(){:|:&};:`) launched in a container from bringing the host system down. This is because by default there is no limit to the number of processes a container can run.
+If an attacker gains access to a container or in a multi-tenanted scenario where being able to run a container by an arbitrary entity is expected, by default, there is nothing stopping a fork bomb  
+`:(){:|:&};:`  
+launched in a container from bringing the host system down. This is because by default there is no limit to the number of processes a container can run.
 
 ##### Capabilities
 
@@ -1402,7 +1424,7 @@ Capabilities may or not be to course grained, get an understanding of both capab
 
 ##### SecComp {#vps-identify-risks-docker-docker-engine-and-containers-seccomp}
 
-Secure Computing Mode (SecComp) is a security facility that reduces the attack surface of the Linux kernel by reducing the number of System calls that can be made by a process. Any System calls made by the process outside of the defined set will will cause the kernel to terminate the process with `SIGKILL`. By doing this, the SecComp facility stops a process from accessing the kernel APIs via System calls.
+Secure Computing Mode (SecComp) is a security facility that reduces the attack surface of the Linux kernel by reducing the number of System calls that can be made by a process. Any System calls made by the process outside of the defined set will cause the kernel to terminate the process with `SIGKILL`. By doing this, the SecComp facility stops a process from accessing the kernel APIs via System calls.
 
 The first version of SecComp was merged into the Linux kernel mainline in [version 2.6.12 (March 8 2005)](https://git.kernel.org/cgit/linux/kernel/git/tglx/history.git/commit/?id=d949d0ec9c601f2b148bed3cdb5f87c052968554). If enabled for a given process, only four System calls could be made: `read()`, `write()`, `exit()`, and `sigreturn()`, thus significantly reducing the kernels attack surface.
 
@@ -1410,7 +1432,7 @@ In order to enable SecComp for a given process, [you would write](https://lwn.ne
 
 There has been a few revisions, since 2005, like with the "seccomp filter mode" being added, which allowed processes to specify which System calls were allowed. Then the addition of the `seccomp()` System call in 2014 to the kernel version 3.17. [Along with popular applications](https://en.wikipedia.org/wiki/Seccomp) such as Chrome/Chromium, OpenSSH, Docker uses SecComp to reduce the attack surface on the kernel APIs.
 
-Docker has [disabled about 44 system calls](https://docs.docker.com/engine/security/seccomp/) in its default (seccomp) container profile ([default.json](https://github.com/docker/docker/blob/master/profiles/seccomp/default.json)) out of well over 300 available in the Linux kernel. Docker calls this "_moderately protective while providing wide application compatibility_". So Docker showing that ease of use is the priority over security. Again, plenty of opportunity here for reducing the attack surface on the kernel APIs, for example the `keyctl` System call was removed from the default Docker container profile after vulnerability [CVE-2016-0728](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2016-0728) was discovered, which allows privilege escalation or denial of service. [CVE-2014-3153](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-3153) is another vulnerability accessible from the `futex` System call which is white listed in the default Docker profile.
+Docker has [disabled about 44 system calls](https://docs.docker.com/engine/security/seccomp/) in its default (seccomp) container profile ([default.json](https://github.com/docker/docker/blob/master/profiles/seccomp/default.json)) out of well over 300 available in the Linux kernel. Docker calls this "_moderately protective while providing wide application compatibility_". It appears that ease of use is the first priority. Again, plenty of opportunity here for reducing the attack surface on the kernel APIs, for example the `keyctl` System call was removed from the default Docker container profile after vulnerability [CVE-2016-0728](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2016-0728) was discovered, which allows privilege escalation or denial of service. [CVE-2014-3153](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-3153) is another vulnerability accessible from the `futex` System call which is white listed in the default Docker profile.
 
 If you are looking to attack the Linux kernel via its APIs from a Docker container, you have still got plenty of surface area here to play with.
 
@@ -1419,6 +1441,7 @@ If you are looking to attack the Linux kernel via its APIs from a Docker contain
 In order to set-up read-only hosts, physical or VM, there is a lot of work to be done, and in some cases, it becomes challenging to stop an Operating System writing to some files. Remember back to how much work was involved in [Partitioning on OS Installation](#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation) and [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions). In contrast, running Docker containers as read-only is trivial. Check the [Countermeasures](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-read-only-containers) section.
 
 #### Application Security
+![](images/ThreatTags/easy-common-easy-moderate.png)
 
 Application security is still our biggest weakness. I cover this in many other places, and especially in the [Web Applications](#web-applications) chapter.
 
@@ -1480,7 +1503,7 @@ Network Intrusion Detection Systems ([NIDS](#network-countermeasures-lack-of-vis
 
 Upgrade PowerShell to the latest version.
 
-As above, **NIDS can help** here, Often these attacks do not leave any files on the disk. Next Gen AV products are slowly coming to the market, such as those that use machine learning. Most of the products I have seen so far are very expensive though, this should change in time.
+As above, **NIDS can help** here, Often these attacks do not leave any files on the disk. Next Generation AV products are slowly coming to the market, such as those that use machine learning. Most of the products I have seen so far are very expensive though, this should change in time.
 
 **Deep Script Block Logging** can be enabled from PowerShell v5 onwards. This option tells PowerShell to record the content of all script blocks that it processes, we rely heavily on script blocks with PowerShell attacks. Script Block Logging includes recording of dynamic code generation and provides insight into all the script-based activity on the system, including scripts that are encoded to evade anti-virus, and understanding of observation from human eyes. Applies to any application that hosts PowerShell engine, CLI, ISE.
 
@@ -3987,13 +4010,19 @@ The simplicity of Stealth, flatter learning curve and its over-all philosophy is
 
 I installed stealth and stealth-doc via synaptic package manager. Then just did a `locate` for stealth to find the docs and other example files. The following are the files I used for documentation, how I used them and the tab order that made sense to me:
 
-1. The main documentation index: [file:///usr/share/doc/stealth-doc/manual/html/stealth.html](file:///usr/share/doc/stealth-doc/manual/html/stealth.html)
+1. The main documentation index:  
+[file:///usr/share/doc/stealth-doc/manual/html/stealth.html](file:///usr/share/doc/stealth-doc/manual/html/stealth.html)
 2. Chapter one introduction: [file:///usr/share/doc/stealth-doc/manual/html/stealth01.html](file:///usr/share/doc/stealth-doc/manual/html/stealth01.html)
-3. Chapter four to help build up a policy file: [file:///usr/share/doc/stealth-doc/manual/html/stealth04.html](file:///usr/share/doc/stealth-doc/manual/html/stealth04.html)
-4. Chapter five for running Stealth and building up the policy file: [file:///usr/share/doc/stealth-doc/manual/html/stealth05.html](file:///usr/share/doc/stealth-doc/manual/html/stealth05.html)
-5. Chapter six for running Stealth: [file:///usr/share/doc/stealth-doc/manual/html/stealth06.html](file:///usr/share/doc/stealth-doc/manual/html/stealth06.html)
-6. Chapter seven for arguments to pass to Stealth: [file:///usr/share/doc/stealth-doc/manual/html/stealth07.html](file:///usr/share/doc/stealth-doc/manual/html/stealth07.html)
-7. Chapter eight for error messages: [file:///usr/share/doc/stealth-doc/manual/html/stealth08.html](file:///usr/share/doc/stealth-doc/manual/html/stealth08.html)
+3. Chapter four to help build up a policy file:  
+[file:///usr/share/doc/stealth-doc/manual/html/stealth04.html](file:///usr/share/doc/stealth-doc/manual/html/stealth04.html)
+4. Chapter five for running Stealth and building up the policy file: 
+[file:///usr/share/doc/stealth-doc/manual/html/stealth05.html](file:///usr/share/doc/stealth-doc/manual/html/stealth05.html)
+5. Chapter six for running Stealth:  
+[file:///usr/share/doc/stealth-doc/manual/html/stealth06.html](file:///usr/share/doc/stealth-doc/manual/html/stealth06.html)
+6. Chapter seven for arguments to pass to Stealth:  
+[file:///usr/share/doc/stealth-doc/manual/html/stealth07.html](file:///usr/share/doc/stealth-doc/manual/html/stealth07.html)
+7. Chapter eight for error messages:  
+[file:///usr/share/doc/stealth-doc/manual/html/stealth08.html](file:///usr/share/doc/stealth-doc/manual/html/stealth08.html)
 8. The Man page: [file:///usr/share/doc/stealth/stealthman.html](file:///usr/share/doc/stealth/stealthman.html)
 9. Policy file examples: [file:///usr/share/doc/stealth/examples/](file:///usr/share/doc/stealth/examples/)
 10. Useful scripts to use with Stealth: [file:///usr/share/doc/stealth/scripts/usr/bin/](file:///usr/share/doc/stealth/scripts/usr/bin/)
@@ -4019,9 +4048,10 @@ It is my intention to provide a high level over view of the concepts you will ne
 
 Do not forget to check the [Additional Resources](#additional-resources-vps-countermeasures-docker) section for material to be consumed in parallel with the Docker Countermeasures, such as the excellent CIS Docker Benchmark and an interview of the Docker Security Team Lead I carried out with Diogo Mónica.
 
-Cisecurity has an [excellent resource](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) for hardening docker images which the Docker Security team helped within.
+Cisecurity has an [excellent resource](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) for hardening docker images which the Docker Security team helped with.
 
 #### Consumption from Registries
+![](images/ThreatTags/PreventionAVERAGE.png)
 
 "_Docker Security Scanning is available as an add-on to Docker hosted private repositories on both Docker Cloud and Docker Hub._", you also have to [opt in](https://docs.docker.com/docker-cloud/builds/image-scan/#/opt-in-to-docker-security-scanning) and pay for it. Docker Security Scanning is also now available on the new [Enterprise Edition](https://blog.docker.com/2017/03/docker-enterprise-edition/). The scan compares the SHA of each component in the image with those in an up to date CVE database for known vulnerabilities. This is a good start, but not free and does not do enough. Images are scanned on push and the results indexed so that when new CVE databases are available, comparisons can continue to be made.
 
@@ -4031,30 +4061,32 @@ Your priority before you start testing images for vulnerable contents, is to und
 
 1. Where your image originated from
 2. Who created it
-3. Imaage provenance: Is Docker fetching the [image](https://docs.docker.com/engine/understanding-docker/#/how-does-a-docker-image-work) we think it is?
-  1. Identification: How Docker uses secure hashes, or digests.  
+3. Image provenance: Is Docker fetching the [image](https://docs.docker.com/engine/docker-overview/#docker-objects) we think it is?
+    1. Identification: How Docker uses secure hashes, or digests.  
     Image layers (deltas) are created during the image build process, and also when commands within the container are run which produce new or modified files and/or directories.  
     Layers are now identified by a digest which looks like:
     `sha256:<the-hash>`  
     The above hash element is created by applying the SHA256 hashing algorithm to the layers content.  
     The image ID is also the hash of the configuration object which contains the hashes of all the layers that make up the images copy-on-write filesystem definition, also discussed in my Software Engineering Radio show with Diogo Mónica.
-  2. Integrity: How do you know that your image has not been tampered with?  
-    This is where secure signing comes in with the [Docker Content Trust](https://blog.docker.com/2015/08/content-trust-docker-1-8/) feature. Docker Content Trust is enabled through an integration of [Notary](https://github.com/docker/notary) into the Docker Engine. Both the Docker image producing party and image consuming party need to opt-in to use Docker Content Trust. By default, it is disabled. In order to do that, Notary must be downloaded and setup by both parties, and the `DOCKER_CONTENT_TRUST` environment variable [must be set](https://docs.docker.com/engine/security/trust/content_trust/#/enable-and-disable-content-trust-per-shell-or-per-invocation) to `1`, and the `DOCKER_CONTENT_TRUST_SERVER` must be [set to the URL](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) of the Notary server you setup.  
+    2. Integrity: How do you know that your image has not been tampered with?  
+    This is where secure signing comes in with the [Docker Content Trust](https://blog.docker.com/2015/08/content-trust-docker-1-8/) feature. Docker Content Trust is enabled through an integration of [Notary](https://github.com/docker/notary) into the Docker Engine. Both the Docker image producing party and image consuming party need to opt-in to use Docker Content Trust. By default, it is disabled. In order to do that, Notary must be downloaded and setup by both parties, and the `DOCKER_CONTENT_TRUST` environment variable [must be set](https://docs.docker.com/engine/security/trust/content_trust/#/enable-and-disable-content-trust-per-shell-or-per-invocation) to `1`, and the `DOCKER_CONTENT_TRUST_SERVER` must be [set to the URL](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) of the Notary server you setup.
     
-    Now the producer can sign their image, but first, they need to [generate a key pair](https://docs.docker.com/engine/security/trust/trust_delegation/). Once they have done that, when the image is pushed to the registry, it is signed with their private (tagging) key.  
+    Now the producer can sign their image, but first, they need to [generate a key pair](https://docs.docker.com/engine/security/trust/trust_delegation/). Once they have done that, when the image is pushed to the registry, it is signed with their private (tagging) key.
     
-    When the image consumer pulls the signed image, Docker Engine uses the publisher's public (tagging) key to verify that the image you are about to run is cryptographically identical to the image the publisher pushed.  
+    When the image consumer pulls the signed image, Docker Engine uses the publishers public (tagging) key to verify that the image you are about to run is cryptographically identical to the image the publisher pushed.
     
-    Docker Content Trust also uses the Timestamp key when publishing the image, this makes sure that the consumer is getting the most recent image on pull.  
-
+    Docker Content Trust also uses the Timestamp key when publishing the image, this makes sure that the consumer is getting the most recent image on pull.
+    
     Notary is based on a Go implementation of [The Update Framework (TUF)](https://theupdateframework.github.io/)
-  3. By specifying a digest tag in a `FROM` instruction in your `Dockerfile`, when you `pull` the same image will be fetched.
+    3. By specifying a digest tag in a `FROM` instruction in your `Dockerfile`, when you `pull` the same image will be fetched.
 
 #### Doppelganger images
+![](images/ThreatTags/PreventionAVERAGE.png)
 
 If you are already doing the last step from above, then fetching an image with a very similar name becomes highly unlikely.
 
 #### The Default User is Root
+![](images/ThreatTags/PreventionVERYEASY.png)
 
 In order to run containers as a non-root user, the user needs to be added in the (preferably base) image (`Dockerfile`) if it is under your control, and set before any commands you want run as a non-root user. Here is an example of the [NodeGoat](https://github.com/owasp/nodegoat) image:
 
@@ -4183,7 +4215,9 @@ An alternative to setting the non-root user in the `Dockerfile`, is to set it in
         expose:
           - "27017"
 
-Alternatively, a container may be run as a non-root user by `docker run -it --user lowprivuser myimage`, but this is not ideal, the specific user should usually be part of the build.
+Alternatively, a container may be run as a non-root user by  
+`docker run -it --user lowprivuser myimage`  
+but this is not ideal, the specific user should usually be part of the build.
 
 #### Hardening Docker Host, Engine and Containers {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers}
 
@@ -4195,7 +4229,7 @@ These tools should form a part of your secure and trusted build pipeline / [soft
 
 ##### [Haskell Dockerfile Linter](https://github.com/lukasmartinelli/hadolint)
 
-"_A smarter Dockerfile linter that helps you build_ [_best practice Docker images_](https://docs.docker.com/engine/articles/dockerfile_best-practices/)._"
+"_A smarter Dockerfile linter that helps you build_ [_best practice Docker images_](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/)."
 
 ##### [Lynis](https://cisofy.com/downloads/)
 
@@ -4211,14 +4245,14 @@ is an open source project that appears to do a similar job to Docker Security Sc
 
 ##### Banyanops [collector](https://github.com/banyanops/collector)
 
-is a free and open source framework for static analysis of Docker images. It does more than Clair, it can optionally communicate with Docker registries, private or Docker Hub, to obtain image hashes, it can then tell Docker Daemon to pull the images locally. Collector then `docker run`'s each container in turn to be inspected. Each container runs a banyan or user-specified script which outputs the results to stdout. Collector collates the containers output, and can send this to Banyan Analyzer for further analysis. Collector has a [pluggable, extensible architecture](https://github.com/banyanops/collector/blob/master/docs/CollectorDetails.md). Collector can also: Enforce policies, such as no unauthorised user accounts, etc. Make sure components are in their correct location. Banyanops was the organisation that [blogged](https://www.banyanops.com/blog/analyzing-docker-hub/) about the high number of vulnerable packages on Docker Hub. They have really put their money where their mouth was now.
+is a free and open source framework for static analysis of Docker images. It does more than Clair, it can optionally communicate with Docker registries, private or Docker Hub, to obtain image hashes, it can then tell Docker Daemon to pull the images locally. Collector then `docker run`'s each container in turn to be inspected. Each container runs a banyan or user-specified script which outputs the results to stdout. Collector collates the containers output, and can send this to Banyan Analyser for further analysis. Collector has a [pluggable, extensible architecture](https://github.com/banyanops/collector/blob/master/docs/CollectorDetails.md). Collector can also: Enforce policies, such as no unauthorised user accounts, etc. Make sure components are in their correct location. Banyanops was the organisation that [blogged](https://www.banyanops.com/blog/analyzing-docker-hub/) about the high number of vulnerable packages on Docker Hub. They have really put their money where their mouth was now.
 
 ##### [Anchore](https://anchore.com/solutions/)
 
 is a set of non-free tools providing visibility, control, analytics, compliance and governance for containers in the cloud or on-prem.  
 There are two main parts, a hosted web service, and a set of open source CLI query tools.  
-The hosted service selects and analyses popular container images from Docker Hub and other registries. The metadata it creates is provided as a service to the on-premise CLI tools  
-Performs a similar job to that of Clair, but does not look as simple. Also looks for source code secrets, API keys, passwords, etc in images.
+The hosted service selects and analyses popular container images from Docker Hub and other registries. The metadata it creates is provided as a service to the on-premise CLI tools.  
+It Performs a similar job to that of Clair, but does not look as simple. Also looks for source code secrets, API keys, passwords, etc in images.
 
 Designed to integrate into your CI/CD pipeline. Integrates with Kubernetes, Docker, Jenkins, CoreOS, Mesos
 
@@ -4230,7 +4264,7 @@ Features of Trust:
 
 * Discover and manage vulnerabilities in images
 * Uses CVE data sources similar to CoreOS Clair
-* Can scan registries: Docker Hub, Google Container Registry, EC2 Container Registry, Artifactory, Nexus registry, and images for vulnerabilities in code and configuration
+* Can scan registries: Docker Hub, Google Container Registry, EC2 Container Registry, Artifactory, Nexus Registry, and images for vulnerabilities in code and configuration
 * Enforce and verify standard configurations
 * Hardening checks on images based on CIS Docker benchmark
 * Real-time vulnerability and threat intelligence
@@ -4246,206 +4280,229 @@ Features of Runtime:
 
 ##### Possible contenders to watch
 
-* [drydock](https://github.com/zuBux/drydock) is a similar offering to Docker Bench, but not as mature at this stage
-* [Actuary](https://github.com/diogomonica/actuary) is a similar offering to Docker Bench, but not as mature at this stage. I discussed this project briefly with its creator (Diogo Mónica "Security Lead at Docker"), and it sounds like the focus is on creating a better way of running privileged services on swarm, instead of investing time into this.
+* [Drydock](https://github.com/zuBux/drydock) is a similar offering to Docker Bench, but not as mature at this stage
+* [Actuary](https://github.com/diogomonica/actuary) is a similar offering to Docker Bench, but not as mature at this stage. I discussed this project briefly with its creator (Diogo Mónica, and it sounds like the focus is on creating a better way of running privileged services on swarm, instead of investing time into this.
 
 ##### Namespaces {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces}
 
-1. `mnt`: Keep with the default propagation mode of `private` unless you have a very good reason to change it. If you do need to change it, think about defence in depth and employ other defence strategies.  
+1. `mnt`: Keep with the default propagation mode of `private` unless you have a very good reason to change it. If you do need to change it, think about defence in depth and employ other defence strategies.
   
-If you have control over the Docker host, lock down the mounting of the host systems partitions as discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section.  
+  If you have control over the Docker host, lock down the mounting of the host systems partitions as discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section.
   
-If you have to mount a sensitive host system directory, mount it as read-only:  
-{linenos=off, lang=bash}
-    docker run -it --rm -v /etc:/hosts-etc:ro --name=lets-mount-etc ubuntu
+  If you have to mount a sensitive host system directory, mount it as read-only:
   
-If any file modifications are now attempted on `/etc` they will be unsuccessful.  
+  {linenos=off, lang=bash}
+      docker run -it --rm -v /etc:/hosts-etc:ro --name=lets-mount-etc ubuntu
   
-{linenos=off, lang=bash}
-    docker inspect -f "{{ json .Mounts }}" lets-mount-etc
-    [{"Type":"bind","Source":"/etc","Destination":"/hosts-etc","Mode":"ro","RW":false,"Propagation":""}]
+  If any file modifications are now attempted on `/etc` they will be unsuccessful.
   
-Also, as discussed previously, lock down the user to non-root.  
+  {title="Query", linenos=off, lang=bash}
+      docker inspect -f "{{ json .Mounts }}" lets-mount-etc
   
-If you are using LSM, you will probably want to use the `Z` option as discussed in the risks section.
+  {title="Result", linenos=off, lang=bash}
+      [
+        {
+          "Type":"bind",
+          "Source":"/etc",
+          "Destination":"/hosts-etc",
+          "Mode":"ro",
+          "RW":false,
+          "Propagation":""
+        }
+      ]
+  
+  Also, as discussed previously, lock down the user to non-root.
+  
+  If you are using LSM, you will probably want to use the `Z` option as discussed in the risks section.
 2. `PID`: By default enforces isolation from the containers `PID` namespace, but not from the host to the container. If you are concerned about host systems being able to access your containers, as you should be, consider putting your containers within a VM
 3. `net`: A network namespace is a virtualisation of the network stack, with its own network devices, IP routing tables, firewall rules and ports.  
 When a network namespace is created the only network interface that is created is the loopback interface, which is down until brought up.  
-Each network interface whether physical or virtual, can only reside in one namespace, but can be moved between namespaces.  
+Each network interface whether physical or virtual, can only reside in one namespace, but can be moved between namespaces.
   
-When the last process in a network namespace terminates, the namespace will be destroyed and destroy any virtual interfaces within it and move any physical network devices back to the initial network namespace, not the process parent.    
-**Docker and Network Namespaces**  
+  When the last process in a network namespace terminates, the namespace will be destroyed and destroy any virtual interfaces within it and move any physical network devices back to the initial network namespace, not the process parent.
   
-A Docker network is analogous to a Linux kernel network namespace.  
+  **Docker and Network Namespaces**
   
-When Docker is installed, three networks are created `bridge`, `host` and `null`, which you can think of as network namespaces. These can be seen by running: [`docker network ls`](https://docs.docker.com/engine/reference/commandline/network_ls/)  
+  A Docker network is analogous to a Linux kernel network namespace.
   
-{linenos=off, lang=bash}
-    NETWORK ID    NAME              DRIVER   SCOPE
-    9897a3063354  bridge            bridge   local
-    fe179428ccd4  host              host     local
-    a81e8669bda7  none              null     local
+  When Docker is installed, three networks are created `bridge`, `host` and `null`, which you can think of as network namespaces. These can be seen by running: [`docker network ls`](https://docs.docker.com/engine/reference/commandline/network_ls/)
   
-When you run a container, if you want to override the default network of `bridge`, you can specify which network you want to run the container in with the `--network` flag as the following: `docker run --network=<network>`.  
+  {linenos=off, lang=bash}
+      NETWORK ID    NAME              DRIVER   SCOPE
+      9897a3063354  bridge            bridge   local
+      fe179428ccd4  host              host     local
+      a81e8669bda7  none              null     local
   
-The bridge can be seen by running `ifconfig` on the host:  
+  When you run a container, if you want to override the default network of `bridge`, you can specify which network you want to run the container in with the `--network` flag as the following:  
+  `docker run --network=<network>`.
   
-{linenos=off, lang=bash}
-    docker0   Link encap:Ethernet  HWaddr 05:22:bb:08:41:b7  
-              inet addr:172.17.0.1  Bcast:0.0.0.0  Mask:255.255.0.0
-              inet6 addr: fe80::42:fbff:fe80:57a5/64 Scope:Link
+  The bridge can be seen by running `ifconfig` on the host:
   
-When the Docker engine (CLI) client or API tells the Docker daemon to run a container, part of the process allocates a bridged interface, unless specified otherwise, that allows processes within the container to communicate to the system host via the virtual Ethernet bridge.  
+  {linenos=off, lang=bash}
+      docker0   Link encap:Ethernet  HWaddr 05:22:bb:08:41:b7  
+                inet addr:172.17.0.1  Bcast:0.0.0.0  Mask:255.255.0.0
+                inet6 addr: fe80::42:fbff:fe80:57a5/64 Scope:Link
   
-Virtual Ethernet interfaces when created are always created as a pair. You can think of them as one interface on each side of a namespace wall with a tube through the wall connecting them. Packets come in one interface and pop out the other, and visa versa.  
+  When the Docker engine (CLI) client or API tells the Docker daemon to run a container, part of the process allocates a bridged interface, unless specified otherwise, that allows processes within the container to communicate to the system host via the virtual Ethernet bridge.
   
-**Creating and Listing Network NameSpaces**  
+  Virtual Ethernet interfaces when created are always created as a pair. You can think of them as one interface on each side of a namespace wall with a tube through the wall connecting them. Packets come in one interface and pop out the other, and visa versa.
   
-Some of these commands you will need to run as root.  
+  **Creating and Listing Network NameSpaces**
   
-Create:  
+  Some of these commands you will need to run as root.
   
-{title="syntax", linenos=off, lang=bash}
-    ip netns add <yournamespacename>
+  Create:
   
-{title="example", linenos=off, lang=bash}
-    ip netns add testnamespace
+  {title="syntax", linenos=off, lang=bash}
+      ip netns add <yournamespacename>
   
-This ip command adds a bind mount point for the mynewnetnamespace namespace to `/var/run/netns/`. When the mynewnetnamespace namespace is created, the resulting file descriptor keeps the network namespace alive/persisted. This allows system administrators to apply configuration to the network namespace without fear that it will dissapear when no processes are within it.  
+  {title="example", linenos=off, lang=bash}
+      ip netns add testnamespace
   
-{title="Verify it was added", linenos=off, lang=bash}
-    ip netns list
-    # Result:
-    testnamespace
+  This ip command adds a bind mount point for the `testnamespace` namespace to `/var/run/netns/`. When the `testnamespace` namespace is created, the resulting file descriptor keeps the network namespace alive/persisted. This allows system administrators to apply configuration to the network namespace without fear that it will disappear when no processes are within it.
   
-A network namespace added in this way however can not be used for a docker container. In order to create a [Docker network](https://docs.docker.com/engine/userguide/networking/) called kimsdockernet run the following command:  
+  {title="Verify it was added", linenos=off, lang=bash}
+      ip netns list
   
-{linenos=off, lang=bash}
-    # bridge is the default driver, so not required to be specified
-    docker network create --driver bridge kimsdockernet
+  {title="Result", linenos=off, lang=bash}
+      testnamespace
   
-You can then follow this with a `docker network ls` to confirm that the network was added. You can base your network on one of the existing [network drivers](https://docs.docker.com/engine/reference/run/#network-settings) created by docker, the bridge driver is used by default.  
+  A network namespace added in this way however can not be used for a docker container. In order to create a [Docker network](https://docs.docker.com/engine/userguide/networking/) called `kimsdockernet` run the following command:
   
-[`bridge`](https://docs.docker.com/engine/reference/run/#network-bridge): As seen above with the `ifconfig` listing on the host system, an interface is created called docker0 when Docker is installed. A pair of veth (Virtual Ethernet) interfaces are created when the container is run with this `--network` option. The `veth` on the outside of the container will be attached to the bridge, the other `veth` is put inside the container's namespace, along with the existing loopback interface.  
-[`none`](https://docs.docker.com/engine/reference/run/#network-none): There will be no networking in the container other than the loopback interface which was created when the network namespace was created, and has no routes to external traffic.  
-[`host`](https://docs.docker.com/engine/reference/run/#network-host): Use the network stack that the host system uses inside the container. The `host` mode is more performant than the `bridge` mode due to using the hosts native network stack, but also less secure.  
-[`container`](https://docs.docker.com/engine/reference/run/#network-container): Allows you to specify another container to use its network stack.  
+  {linenos=off, lang=bash}
+      # bridge is the default driver, so not required to be specified
+      docker network create --driver bridge kimsdockernet
   
-By running `docker network inspect kimsdockernet` before starting the container and then again after, you will see the new container added to the kimsdockernet network.  
+  You can then follow this with a  
+  `docker network ls`  
+  to confirm that the network was added. You can base your network on one of the existing [network drivers](https://docs.docker.com/engine/reference/run/#network-settings) created by docker, the bridge driver is used by default.
   
-Now you can run your container using your new network:  
+  [`bridge`](https://docs.docker.com/engine/reference/run/#network-bridge): As seen above with the `ifconfig` listing on the host system, an interface is created called docker0 when Docker is installed. A pair of veth (Virtual Ethernet) interfaces are created when the container is run with this `--network` option. The `veth` on the outside of the container will be attached to the bridge, the other `veth` is put inside the container's namespace, along with the existing loopback interface.  
+  [`none`](https://docs.docker.com/engine/reference/run/#network-none): There will be no networking in the container other than the loopback interface which was created when the network namespace was created, and has no routes to external traffic.  
+  [`host`](https://docs.docker.com/engine/reference/run/#network-host): Use the network stack that the host system uses inside the container. The `host` mode is more performant than the `bridge` mode due to using the hosts native network stack, but also less secure.  
+  [`container`](https://docs.docker.com/engine/reference/run/#network-container): Allows you to specify another container to use its network stack.
   
-{linenos=off, lang=bash}
-    docker run -it --network kimsdockernet --rm --name=container0 ubuntu
+  By running  
+  `docker network inspect kimsdockernet`  
+  before starting the container and then again after, you will see the new container added to the `kimsdockernet` network.
   
-When one or more processes (Docker containers in this case) use the `kimsdockernet` network, it can also be seen opened by the presense of its file descriptor at:  
+  Now you can run your container using your new network:
   
-`/var/run/docker/netns/<filedescriptor>`  
+  {linenos=off, lang=bash}
+      docker run -it --network kimsdockernet --rm --name=container0 ubuntu
   
-You can also see that the container named container0 has a network namespace by running the following command, which shows the file handles for the namespaces, and not just the network namespace:  
+  When one or more processes (Docker containers in this case) use the `kimsdockernet` network, it can also be seen opened by the presence of its file descriptor at:
   
-{linenos=off, lang=bash}
-    sudo ls /proc/`docker inspect -f '{{ .State.Pid }}' container0`/ns -liah
-    # Result:
-    total 0
-    1589018 dr-x--x--x 2 root root 0 Mar 14 16:35 .
-    1587630 dr-xr-xr-x 9 root root 0 Mar 14 16:35 ..
-    1722671 lrwxrwxrwx 1 root root 0 Mar 14 17:33 cgroup -> cgroup:[4026531835]
-    1722667 lrwxrwxrwx 1 root root 0 Mar 14 17:33 ipc -> ipc:[4026532634]
-    1722670 lrwxrwxrwx 1 root root 0 Mar 14 17:33 mnt -> mnt:[4026532632]
-    1589019 lrwxrwxrwx 1 root root 0 Mar 14 16:35 net -> net:[4026532637]
-    1722668 lrwxrwxrwx 1 root root 0 Mar 14 17:33 pid -> pid:[4026532635]
-    1722669 lrwxrwxrwx 1 root root 0 Mar 14 17:33 user -> user:[4026531837]
-    1722666 lrwxrwxrwx 1 root root 0 Mar 14 17:33 uts -> uts:[4026532633]
+  `/var/run/docker/netns/<filedescriptor>`
   
-If you run `ip netns list` again, you may think that you should be able to see the Docker network, but you won't, unless you create the following symlink:  
+  You can also see that the container named `container0` has a network namespace by running the following command, which shows the file handles for the namespaces, and not just the network namespace:
   
-{linenos=off, lang=bash}
-    ln -s /proc/`docker inspect -f '{{ .State.Pid }}' container0`/ns/net /var/run/netns/container0
-    # Don't forget to remove the symlink once the container terminates, else it will be dangling.
+  {title="Query Namespaces", linenos=off, lang=bash}
+      sudo ls /proc/`docker inspect -f '{{ .State.Pid }}' container0`/ns -liah
   
-If you want to run a command inside of the Docker network of a container, you can use the [`nsenter`](http://man7.org/linux/man-pages/man1/nsenter.1.html) command of the `util-linux` package:  
+  {title="Result", linenos=off, lang=bash}
+      total 0
+      1589018 dr-x--x--x 2 root root 0 Mar 14 16:35 .
+      1587630 dr-xr-xr-x 9 root root 0 Mar 14 16:35 ..
+      1722671 lrwxrwxrwx 1 root root 0 Mar 14 17:33 cgroup -> cgroup:[4026531835]
+      1722667 lrwxrwxrwx 1 root root 0 Mar 14 17:33 ipc -> ipc:[4026532634]
+      1722670 lrwxrwxrwx 1 root root 0 Mar 14 17:33 mnt -> mnt:[4026532632]
+      1589019 lrwxrwxrwx 1 root root 0 Mar 14 16:35 net -> net:[4026532637]
+      1722668 lrwxrwxrwx 1 root root 0 Mar 14 17:33 pid -> pid:[4026532635]
+      1722669 lrwxrwxrwx 1 root root 0 Mar 14 17:33 user -> user:[4026531837]
+      1722666 lrwxrwxrwx 1 root root 0 Mar 14 17:33 uts -> uts:[4026532633]
   
-{linenos=off, lang=bash}
-    # Show the ethernet state:
-    nsenter -t `docker inspect -f '{{ .State.Pid }}' container0` -n ifconfig
-    # Or
-    nsenter -t `docker inspect -f '{{ .State.Pid }}' container0` -n ip addr show
-    # Or
-    nsenter --net=/var/run/docker/netns/<filedescriptor> ifconfig
-    # Or
-    nsenter --net=/var/run/docker/netns/<filedescriptor> ip addr show
+  If you run  
+  `ip netns list`  
+  again, you may think that you should be able to see the Docker network, but you will not, unless you create the following symlink:
   
-**Deleting Network NameSpaces**  
+  {linenos=off, lang=bash}
+      ln -s /proc/`docker inspect -f '{{ .State.Pid }}' container0`/ns/net /var/run/netns/container0
+      # Don't forget to remove the symlink once the container terminates, else it will be dangling.
   
-The following command will remove the bind mount for the specified namespace. The namespace will continue to persist until all processes within it are terminated, at which point any virtual interfaces within it will be destroyed and any physical network devices if they were assigned, would be moved back to the initial network namespace, not the process parent.  
+  If you want to run a command inside of the Docker network of a container, you can use the [`nsenter`](http://man7.org/linux/man-pages/man1/nsenter.1.html) command of the `util-linux` package:
   
-{title="syntax", linenos=off, lang=bash}
-    ip netns delete <yournamespacename>
+  {linenos=off, lang=bash}
+      # Show the ethernet state:
+      nsenter -t `docker inspect -f '{{ .State.Pid }}' container0` -n ifconfig
+      # Or
+      nsenter -t `docker inspect -f '{{ .State.Pid }}' container0` -n ip addr show
+      # Or
+      nsenter --net=/var/run/docker/netns/<filedescriptor> ifconfig
+      # Or
+      nsenter --net=/var/run/docker/netns/<filedescriptor> ip addr show
   
-{title="example", linenos=off, lang=bash}
-    ip netns delete testnamespace
+  **Deleting Network NameSpaces**
   
-To remove a docker network:  
+  The following command will remove the bind mount for the specified namespace. The namespace will continue to persist until all processes within it are terminated, at which point any virtual interfaces within it will be destroyed and any physical network devices if they were assigned, would be moved back to the initial network namespace, not the process parent.
   
-{linenos=off, lang=bash}
-    docker network rm kimsdockernet
+  {title="syntax", linenos=off, lang=bash}
+      ip netns delete <yournamespacename>
   
-If you still have a container running, you will receive an error: `Error response from daemon: network kimsdockernet has active endpoints`
-Stop your container and try again.  
+  {title="example", linenos=off, lang=bash}
+      ip netns delete testnamespace
   
-It would pay to also [understand container communication](https://docs.docker.com/engine/userguide/networking/default_network/container-communication/) with each other.  
+  To remove a docker network:
   
-Also checkout the [Additional Resources](#additional-resources-vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces).
+  {linenos=off, lang=bash}
+      docker network rm kimsdockernet
+  
+  If you still have a container running, you will receive an error:  
+  `Error response from daemon: network kimsdockernet has active endpoints`  
+  Stop your container and try again.
+  
+  It would pay to also [understand container communication](https://docs.docker.com/engine/userguide/networking/default_network/container-communication/) with each other.
+  
+  Also checkout the [Additional Resources](#additional-resources-vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces).
 4. `UTS` Do not start your containers with the `--uts` flag set to `host`  
-As mentioned in the CIS\_Docker\_1.13.0\_Benchmark "_Sharing the UTS namespace with the host provides full permission to the container to change the hostname of the host. This is insecure and should not be allowed._". You can test that the container is not sharing the host's UTS namespace by making sure that the following command returns nothing, instead of `host`:  
+As mentioned in the CIS\_Docker\_1.13.0\_Benchmark "_Sharing the UTS namespace with the host provides full permission to the container to change the hostname of the host. This is insecure and should not be allowed._". You can test that the container is not sharing the host's UTS namespace by making sure that the following command returns nothing, instead of `host`:
   
-{linenos=off, lang=bash}
-    docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: UTSMode={{ .HostConfig.UTSMode }}'
+  {linenos=off, lang=bash}
+      docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: UTSMode={{ .HostConfig.UTSMode }}'
   
 5. `IPC`: In order to stop another untrusted container sharing your containers IPC namespace, you could isolate all of your trusted containers in a VM, or if you are using some type of orchestration, that will usually have functionality to isolate groups of containers. If you can isolate your trusted containers sufficiently, then you may still be able to share the IPC namespace of other near by containers.
 6. `user`: If you have read the [risks section](#vps-identify-risks-docker-docker-host-engine-and-containers-namespaces) and still want to enable support for user namespaces, you first need to confirm that the host user of the associated containers `PID` is not root by running the following CIS Docker Benchmark recommended commands:
-
-{linenos=off, lang=Bash}
-    ps -p $(docker inspect --format='{{ .State.Pid }}' <CONTAINER ID>) -o pid,user
-
-Or, you can run the following command and make sure that the `userns` is listed under the `SecurityOptions`
-
-{linenos=off, lang=Bash}
-    docker info --format '{{ .SecurityOptions }}'
-
-Once you have confirmed that your containers are not being run as root, you can look at enabling user namespace support on the Docker daemon.
-
-The `/etc/subuid` and `/etc/subgid` host files will be read for the user and optional group supplied to the `--userns-remap` option of `dockerd`.
-
-The `--userns-remap` option accepts the following value types:
-
-* `uid`
-* `uid:gid`
-* `username`
-* `username:groupname`
-
-The username must exist in the `/etc/passwd` file, the `sbin/nologin` users are [valid also](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine). Subordinate user Id and group Id ranges need to be specified in `/etc/subuid` and `/etc/subuid` respectively.
-
-"_The UID/GID we want to remap to [does not need to match](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine) the UID/GID of the username in `/etc/passwd`_". It's the entity in the `/etc/subuid` that will be the owner of the Docker daemon and the containers it runs. The value you supply to `--userns-remap` if numeric Ids, will be translated back to the valid user or group names of `/etc/passwd` and `/etc/group` which must exist, if username, groupname, they must match the entities in `/etc/passwd`, `/etc/subuid`, `/etc/subgid`.
-
-Alternatively if you do not want to specify your own user and/or user:group, you can provide the `default` value to `--userns-remap` and a default user of `dockremap` along with subordinate uid and gid ranges will be created in `/etc/passwd` and `/etc/group` if it does not already exist. Then the `/etc/subuid` and `/etc/subgid` files will be [populated](https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled) with a contiguous 65536 length range of subordinate user and group Ids respectively, starting at the offset of the existing entries in those files.
-
-{linenos=off, lang=Bash}
-    # As root, run:
-    dockerd --userns-remap=default
-
-If `dockremap` does not already exist, it will be created:
-
-{title="/etc/subuid and /etc/subgid", linenos=off, lang=Bash}
-    <existinguser>:100000:65536
-    dockremap:165536:65536
-
-There are rules around providing multiple range segments in the `/etc/subuid`, `/etc/subgid` files, but that is beyond the scope of what I am providing here. For those advanced scenario details, check out the [Docker engine reference](https://docs.docker.com/engine/reference/commandline/dockerd/#/detailed-information-on-subuidsubgid-ranges). The simple scenario is that we use a single contiguous range like you see in the above example, this will cause Docker to map the hosts user and group ids to the container process using as much of the `165536:65536` range as necessary. So for example the hosts root user would be mapped to `165536`, the next host user would be mapped to container user `165537`, and so on until the 65536 possible ids are all mapped. Processes run as root inside the container are owned by the subordinate uid outside of the container.
-
-**Disabling user namespace for specific containers**
-
-In order to disable user namespace mapping on a per container basis once enabled for the Docker daemon, you could supply the `--userns=host` value to either of the `run`, `exec` or `create` Docker commands. This would mean the default user within the container was mapped to the hosts root.
+  
+  {linenos=off, lang=Bash}
+      ps -p $(docker inspect --format='{{ .State.Pid }}' <CONTAINER ID>) -o pid,user
+  
+  Or, you can run the following command and make sure that the `userns` is listed under the `SecurityOptions`
+  
+  {linenos=off, lang=Bash}
+      docker info --format '{{ .SecurityOptions }}'
+  
+  Once you have confirmed that your containers are not being run as root, you can look at enabling user namespace support on the Docker daemon.
+  
+  The `/etc/subuid` and `/etc/subgid` host files will be read for the user and optional group supplied to the `--userns-remap` option of `dockerd`.
+  
+  The `--userns-remap` option accepts the following value types:
+  
+  * `uid`
+  * `uid:gid`
+  * `username`
+  * `username:groupname`  
+    
+  The username must exist in the `/etc/passwd` file, the `sbin/nologin` users are [valid also](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine). Subordinate user Id and group Id ranges need to be specified in `/etc/subuid` and `/etc/subuid` respectively.
+  
+  "_The UID/GID we want to remap to [does not need to match](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine) the UID/GID of the username in `/etc/passwd`_". It's the entity in the `/etc/subuid` that will be the owner of the Docker daemon and the containers it runs. The value you supply to `--userns-remap` if numeric Ids, will be translated back to the valid user or group names of `/etc/passwd` and `/etc/group` which must exist, if username, groupname, they must match the entities in `/etc/passwd`, `/etc/subuid`, and `/etc/subgid`.
+  
+  Alternatively if you do not want to specify your own user and/or user:group, you can provide the `default` value to `--userns-remap`, and a default user of `dockremap` along with subordinate uid and gid ranges will be created in `/etc/passwd` and `/etc/group` if it does not already exist. Then the `/etc/subuid` and `/etc/subgid` files will be [populated](https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled) with a contiguous 65536 length range of subordinate user and group Ids respectively, starting at the offset of the existing entries in those files.
+  
+  {linenos=off, lang=Bash}
+      # As root, run:
+      dockerd --userns-remap=default
+  
+  If `dockremap` does not already exist, it will be created:
+  
+  {title="/etc/subuid and /etc/subgid", linenos=off, lang=Bash}
+      <existinguser>:100000:65536
+      dockremap:165536:65536
+  
+  There are rules around providing multiple range segments in the `/etc/subuid`, `/etc/subgid` files, but that is beyond the scope of what I am providing here. For those advanced scenario details, check out the [Docker engine reference](https://docs.docker.com/engine/reference/commandline/dockerd/#/detailed-information-on-subuidsubgid-ranges). The simple scenario is that we use a single contiguous range like you see in the above example, this will cause Docker to map the hosts user and group ids to the container process using as much of the `165536:65536` range as necessary. So for example the hosts root user would be mapped to `165536`, the next host user would be mapped to container user `165537`, and so on until the 65536 possible ids are all mapped. Processes run as root inside the container are owned by the subordinate uid outside of the container.
+  
+  **Disabling user namespace for specific containers**
+  
+  In order to disable user namespace mapping on a per container basis once enabled for the Docker daemon, you could supply the `--userns=host` value to either of the `run`, `exec` or `create` Docker commands. This would mean the default user within the container was mapped to the hosts root.
 
 ##### [Control Groups](http://man7.org/linux/man-pages/man7/cgroups.7.html) {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups}
 
@@ -4481,10 +4538,10 @@ By [default](https://docs.docker.com/engine/reference/commandline/dockerd/#optio
 
 The fields represent the following:
 
-* subsys_name: The name of the controller
-* hierarchy: Unique Id of the cgroup hierarchy
-* num_cgroups: The number of cgroups in the specific hierarchy using this controller
-* enabled: 1 == enabled, 0 == disabled 
+* `subsys_name`: The name of the controller
+* `hierarchy`: Unique Id of the cgroup hierarchy
+* `num_cgroups`: The number of cgroups in the specific hierarchy using this controller
+* `enabled`: 1 == enabled, 0 == disabled 
 
 If you run a container like the following:
 
@@ -4494,7 +4551,7 @@ If you run a container like the following:
 
 Cgroups for your containers and the system resources controlled by them will be stored as follows:
 
-{id="vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups-sys-fs-cgroup", title="/sys/fs/cgroup pseudo-filesystem" linenos=off, lang=bash}
+{id="vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups-sys-fs-cgroup", title="/sys/fs/cgroup pseudo-filesystem", linenos=off, lang=bash}
     /sys/fs/cgroup   find -name "4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24"
     ./blkio/docker/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24
     ./pids/docker/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24
@@ -4508,9 +4565,13 @@ Cgroups for your containers and the system resources controlled by them will be 
     ./perf_event/docker/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24
     ./systemd/docker/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24/sys/fs/cgroup` pseudo-filesystem
 
-Docker also keeps track of the cgroups in `/sys/fs/cgroup/[resource]/docker/[containerId]`. You will notice that Docker creates cgroups using the container Id.
+Docker also keeps track of the cgroups in  
+`/sys/fs/cgroup/[resource]/docker/[containerId]`  
+You will notice that Docker creates cgroups using the container Id.
 
-If you want to manually create a cgroup and have your containers hierarchically nested within it, you just need to `mkdir` within `/sys/fs/cgroup/`, you will probably need to be root for this.
+If you want to manually create a cgroup and have your containers hierarchically nested within it, you just need to `mkdir` within:  
+`/sys/fs/cgroup/`  
+you will probably need to be root for this.
 
 {linenos=off, lang=bash}
     /sys/fs/cgroup mkdir cg1
@@ -4532,7 +4593,7 @@ Which makes and populates the directory and also sets up the cgroup like the fol
     ./perf_event/cg1
     ./systemd/system.slice/docker.service/cg1
 
-Now you can run a container with cg1 as your cgroup parent:
+Now you can run a container with `cg1` as your cgroup parent:
 
 {linenos=off, lang=bash}
     docker run -it --rm --cgroup-parent=cg1 --name=cgroup-test1 ubuntu
@@ -4563,7 +4624,9 @@ You can also run containers nested below already running containers cgroups, let
     docker run -it --rm --cgroup-parent=4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24 --name=cgroup-test2 ubuntu
     root@93cb84d30291:/#
 
-Now your new container named `cgroup-test2` will have a set of nested cgroups within each of the `93cb84d30291201a84d5676545015220696dbcc72a65a12a0c96cda01dd1d270` directories shown here:
+Now your new container named `cgroup-test2` will have a set of nested cgroups within each of the  
+`93cb84d30291201a84d5676545015220696dbcc72a65a12a0c96cda01dd1d270`  
+directories shown here:
 
 {linenos=off, lang=bash}
     /sys/fs/cgroup   find -name "93cb84d30291*"
@@ -4579,12 +4642,15 @@ Now your new container named `cgroup-test2` will have a set of nested cgroups wi
     ./perf_event/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24/93cb84d30291201a84d5676545015220696dbcc72a65a12a0c96cda01dd1d270
     ./systemd/system.slice/docker.service/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24/93cb84d30291201a84d5676545015220696dbcc72a65a12a0c96cda01dd1d270
 
-You should see the same result if you have a look in the running container's `/proc/self/cgroup` file.
+You should see the same result if you have a look in the running container's  
+`/proc/self/cgroup` file.
 
-Within each cgroup resides a collection of files specific to the controlled resource, some of which are used to limit aspects of the resource, some of which are used for monitoring aspects of the resource. They should be fairly obvious what they are, based on their names. You can not exceed the resource limits of the cgroup that your cgroup is nested within. There are ways in which you can get visibility into any containers resource usage. One quick and simple way is with the [`docker stats`](https://docs.docker.com/engine/reference/commandline/stats/)` [containerId]` command, which will give you a line with your containers CPU usage, Memory usage and Limit, Net I/O, Block I/O, Number of PIDs. There are so many other sources of container resource usage. Check the [Docker engine runtime metrics](https://docs.docker.com/engine/admin/runmetrics/) documentation for additional details.
+Within each cgroup resides a collection of files specific to the controlled resource, some of which are used to limit aspects of the resource, some of which are used for monitoring aspects of the resource. They should be fairly obvious what they are, based on their names. You can not exceed the resource limits of the cgroup that your cgroup is nested within. There are ways in which you can get visibility into any containers resource usage. One quick and simple way is with the  
+[`docker stats`](https://docs.docker.com/engine/reference/commandline/stats/)` [containerId]`  
+command, which will give you a line with your containers CPU usage, Memory usage and Limit, Net I/O, Block I/O, Number of PIDs. There are so many other sources of container resource usage. Check the [Docker engine runtime metrics](https://docs.docker.com/engine/admin/runmetrics/) documentation for additional details.
 
 The most granular information can be found in the statistical files within the cgroup directories listed above.  
-The `/proc/[pid]/cgroup` file provides a description of the cgroups that the process with the specified PID belongs to. You can see this in the following `cat` output. The information provided is different for cgroups version 1 and version 2 hierarchies, for this example, we're focussing on version 1. Docker abstracts all of this anyway, so it is just to show you how things hang together:
+The `/proc/[pid]/cgroup` file provides a description of the cgroups that the process with the specified PID belongs to. You can see this in the following `cat` output. The information provided is different for cgroups version 1 and version 2 hierarchies, for this example, we are focussing on version 1. Docker abstracts all of this anyway, so it is just to show you how things hang together:
 
 {linenos=off, lang=bash}
     cat /proc/`docker inspect -f '{{ .State.Pid }}' cgroup-test2`/cgroup
@@ -4600,12 +4666,15 @@ The `/proc/[pid]/cgroup` file provides a description of the cgroups that the pro
     2:perf_event:/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24/93cb84d30291201a84d5676545015220696dbcc72a65a12a0c96cda01dd1d270
     1:name=systemd:/system.slice/docker.service/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24/93cb84d30291201a84d5676545015220696dbcc72a65a12a0c96cda01dd1d270
 
-Each row of the above file depicts one of the cgroup hierarchies that the process, or Docker container in our case is a member of. The row consists of three fields separated by colon, in the form: `hierarchy-Id:list-of-controllers-bound-to-hierarchy:cgroup-path`.  
+Each row of the above file depicts one of the cgroup hierarchies that the process, or Docker container in our case is a member of. The row consists of three fields separated by colon, in the form:  
+`hierarchy-Id:list-of-controllers-bound-to-hierarchy:cgroup-path`  
 If you remember back to where we looked at the `/proc/cgroups` file above, you will notice that the:
 
-1. hierarchy unique Id is represented here as the hierarchy-Id.
+1. hierarchy unique Id is represented here as the `hierarchy-Id`
 2. subsys_name is represented here in the comma separated list-of-controllers-bound-to-hierarchy
-3. Unrelated to `/proc/cgroups`, the third field contains relative to the mount point of the hierarchy the pathname of the cgroup in the hierarchy to which the process belongs. You can see this reflected with the `/sys/fs/cgroup   find -name "93cb84d30291*"` from above.
+3. Unrelated to `/proc/cgroups`, the third field contains relative to the mount point of the hierarchy the pathname of the cgroup in the hierarchy to which the process belongs. You can see this reflected with the  
+`/sys/fs/cgroup   find -name "93cb84d30291*"`  
+from above
 
 **Fork Bomb from Container**  
 
@@ -4613,21 +4682,25 @@ With a little help from the [CIS Docker Benchmark](https://benchmarks.cisecurity
 
 Run the containers with `--pids-limit` (kernel version 4.3+) and set a sensible value for maximum number of processes that the container can run, based on what the container is expected to be doing. By default the PidsLimit value displayed with the following command will be 0. 0 or -1 means that any number of processes can be forked within the container:
 
-{linenos=off, lang=bash}
+{title="Query", linenos=off, lang=bash}
     docker inspect -f '{{ .Id }}: PidsLimit={{ .HostConfig.PidsLimit }}' cgroup-test2
+
+{title="Result", linenos=off, lang=bash}
     93cb84d30291201a84d5676545015220696dbcc72a65a12a0c96cda01dd1d270: PidsLimit=0
 
 {linenos=off, lang=bash}
     docker run -it --pids-limit=50 --rm --cgroup-parent=4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24 --name=cgroup-test2 ubuntu
     root@a26c39377af9:/# 
 
-{linenos=off, lang=bash}
-    docker inspect -f '{{ .Id }}: PidsLimit={{ .HostConfig.PidsLimit }}' cgroup-test2
-    a26c39377af9ce6554a1b6a8bffb2043c2c5326455d64c2c8a8cfe53b30b7234: PidsLimit=50
+{title="Query", linenos=off, lang=bash}
+    docker inspect -f '{{ .Id }}: PidsLimit={{ .HostConfig.PidsLimit }}' 
+
+{title="Result", linenos=off, lang=bash}
+    cgroup-test2 a26c39377af9ce6554a1b6a8bffb2043c2c5326455d64c2c8a8cfe53b30b7234: PidsLimit=50
 
 ##### Capabilities {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-capabilities}
 
-You can [minimise your set of capabilities](http://rhelblog.redhat.com/2016/10/17/secure-your-containers-with-this-one-weird-trick/) that the root user of the container will run with several ways. `pscap` is a useful command in the `libcap-ng-utils` package in Debian and some other distributions. Once installed you can check which capabilities your container built from the `<amazing>` image runs with, by:
+There are several ways you can [minimise your set of capabilities](http://rhelblog.redhat.com/2016/10/17/secure-your-containers-with-this-one-weird-trick/) that the root user of the container will run. `pscap` is a useful command from the `libcap-ng-utils` package in Debian and some other distributions. Once installed you can check which capabilities your container built from the `<amazing>` image runs with, by:
 
 {linenos=off, lang=Bash}
     docker run -d <amazing> sleep 5 >/dev/null; pscap | grep sleep
@@ -4641,23 +4714,23 @@ In order to drop capabilities `setfcap`, `audit_write`, and `mknod`, you could r
     # This will show that sleep within the container no longer has enabled:
     # setfcap, audit_write, or mknod
 
-Or just drop all capabilities and only add what you need
+Or just drop all capabilities and only add what you need:
 
 {linenos=off, lang=Bash}
     docker run -d --cap-drop=all --cap-add=audit_write --cap-add=kill --cap-add=setgid --cap-add=setuid <amazing> sleep 5 > /dev/null; pscap | grep sleep
-    # This will show that sleep within the container is only running with audit_write, kill, setgid and setuid.
+    # This will show that sleep within the container is only running with
+    # audit_write, kill, setgid and setuid.
 
 Another way of auditing the capabilities of your container is with the following command from [CIS Docker Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf):
 
 {linenos=off, lang=Bash}
-    docker ps --quiet | xargs docker inspect --format '{{ .Id }}: CapAdd={{
-.HostConfig.CapAdd }} CapDrop={{ .HostConfig.CapDrop }}'
+    docker ps --quiet | xargs docker inspect --format '{{ .Id }}: CapAdd={{ .HostConfig.CapAdd }} CapDrop={{ .HostConfig.CapDrop }}'
 
 Alternatively you can modify the container manifest directly. See the [runC section](#vps-countermeasures-docker-runc-and-where-it-fits-in) for this.
 
 ##### Linux Security Modules (LSM)
 
-Linux Security Modules (LSM) is a framework that’s been part of the Linux kernel since 2.6, that supports security models implementing Mandatory Access Control (MAC). The currently accepted modules are AppArmor, SELinux, Smack and TOMOYO Linux.
+Linux Security Modules (LSM) is a framework that has been part of the Linux kernel since 2.6, that supports security models implementing Mandatory Access Control (MAC). The currently accepted modules are AppArmor, SELinux, Smack and TOMOYO Linux.
 
 At the [first Linux kernel summit](https://lwn.net/2001/features/KernelSummit/) in 2001, "_Peter Loscocco from the National Security Agency (NSA) presented the design of the mandatory access control system in its SE Linux distribution._" SE Linux had implemented: Many check points where authorization to perform a particular task was controlled, and a security manager process which implements the actual authorization policy. "_The separation of the checks and the policy mechanism is an important aspect of the system - different sites can implement very different access policies using the same system._" The aim of this separation is to make it harder for the user to not adjust or override policies.
 
@@ -4672,11 +4745,13 @@ If no specific LSMs are built into the kernel, the default LSM will be the [Linu
 **AppArmor LSM in Docker**
 
 If you intend to use [AppArmor](http://wiki.apparmor.net/index.php/QuickProfileLanguage), make sure it is installed, and you have a policy loaded (`apparmor_parser -r [/path/to/your_policy]`) and enforced (`aa-enforce`).
-AppArmor policy's are created using the [profile language](http://wiki.apparmor.net/index.php/ProfileLanguage). Docker will automatically generate and load a default AppArmor policy `docker-default` when you run a container. If you want to override the policy, you do this with the `--security-opt` flag like: `docker run --security-opt apparmor=your_policy [container-name]` providing your policy is loaded as mentioned above. Further details available on the [apparmor page](https://docs.docker.com/engine/security/apparmor/) of Dockers Secure Engine.
+AppArmor policy's are created using the [profile language](http://wiki.apparmor.net/index.php/ProfileLanguage). Docker will automatically generate and load a default AppArmor policy `docker-default` when you run a container. If you want to override the policy, you do this with the `--security-opt` flag, like:  
+`docker run --security-opt apparmor=your_policy [container-name]`  
+providing your policy is loaded as mentioned above. There are further details available on the [apparmor page](https://docs.docker.com/engine/security/apparmor/) of Dockers Secure Engine.
 
 **SELinux LSM in Docker**
 
-The Red Hat, Fedora, others distributions ship with SELinux policies for Docker. Many other distros such as Debian require an install. SELinux needs to be [installed and configured](https://wiki.debian.org/SELinux/Setup) on Debian.
+Red Hat, Fedora, and some other distributions ship with SELinux policies for Docker. Many other distros such as Debian require an install. SELinux needs to be [installed and configured](https://wiki.debian.org/SELinux/Setup) on Debian.
 
 SELinux support for the Docker daemon is [disabled by default](https://github.com/GDSSecurity/Docker-Secure-Deployment-Guidelines) and needs to be [enabled](https://docs.docker.com/engine/reference/commandline/dockerd/) with the following command:
 
@@ -4684,13 +4759,15 @@ SELinux support for the Docker daemon is [disabled by default](https://github.co
     #Start the Docker daemon with:
     dockerd --selinux-enabled
 
-Docker daemon options can also be set within the daemon [configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file) `/etc/docker/daemon.json` by default or by specifying an alternative location with the `--config-file` flag.
+Docker daemon options can also be set within the daemon [configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)  
+`/etc/docker/daemon.json`  
+by default or by specifying an alternative location with the `--config-file` flag.
 
 label confinement for the container can be configured using [`--security-opt`](https://github.com/GDSSecurity/Docker-Secure-Deployment-Guidelines) to load SELinux or AppArmor policies as shown in the Docker `run` example below:
 
 [SELinux Labels for Docker](https://www.projectatomic.io/docs/docker-and-selinux/) consist of four parts:
 
-{title="syntax" linenos=off, lang=bash}
+{title="syntax", linenos=off, lang=bash}
     # Set the label user for the container.
     --security-opt="label:user:USER"
     # Set the label role for the container.
@@ -4700,18 +4777,22 @@ label confinement for the container can be configured using [`--security-opt`](h
     # Set the label level for the container.
     --security-opt="label:level:LEVEL"
 
-{title="example" linenos=off, lang=bash}
+{title="example", linenos=off, lang=bash}
     docker run -it --security-opt label=level:s0:c100,c200 ubuntu
 
 SELinux can be enabled in the container using [`setenforce 1`](http://www.unix.com/man-page/debian/8/setenforce/).
 
 SELinux can operate in [one of three modes](https://www.centos.org/docs/5/html/5.2/Deployment_Guide/sec-sel-enable-disable-enforcement.html):
+
 1. `disabled`: not enabled in the kernel
 2. `permissive` or `0`: SELinux is running and logging, but not controlling/enforcing permissions
 3. `enforcing` or `1`: SELinux is running and enforcing policy
 
-To change at run-time: Use the `setenforce [0|1]` command to change between `permissive` and `enforcing`. Test this set to `enforcing` before persisting it at boot.  
-To persist on boot: [In Debian](https://debian-handbook.info/browse/stable/sect.selinux.html#sect.selinux-setup), set `enforcing=1` in the kernel command line `GRUB_CMDLINE_LINUX` in `/etc/default/grub` and run `update-grub`. SELinux will be enforcing after a reboot.
+To change at run-time: Use the `setenforce [0|1]` command to change between `permissive` and `enforcing`. Test this, set to `enforcing` before persisting it at boot.  
+To persist on boot: [In Debian](https://debian-handbook.info/browse/stable/sect.selinux.html#sect.selinux-setup), set `enforcing=1` in the kernel command line  
+`GRUB_CMDLINE_LINUX` in `/etc/default/grub`  
+and run `update-grub`  
+SELinux will be enforcing after a reboot.
 
 To audit what LSM options you currently have applied to your containers, run the following command from the [CIS Docker Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf):
 
@@ -4720,12 +4801,13 @@ To audit what LSM options you currently have applied to your containers, run the
 
 ##### Seccomp {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-seccomp}
 
-First you need to make sure your Docker instance was built with SecComp. Using the recommended command from the CIS Docker Benchmark:
+First you need to make sure your Docker instance was built with Seccomp. Using the recommended command from the CIS Docker Benchmark:
 
 {linenos=off, lang=Bash}
     docker ps --quiet | xargs docker inspect --format '{{ .Id }}: SecurityOpt={{ .HostConfig.SecurityOpt }}'
     # Should return without a value, or your modified seccomp profile, discussed soon.
-    # If [seccomp:unconfined] is returned, it means the container is running with no restrictions on System calls.
+    # If [seccomp:unconfined] is returned, it means the container is running with
+    # no restrictions on System calls.
     # Which means the container is running without any seccomp profile.
 
 and your kernel is [configured with `CONFIG_SECCOMP`](https://docs.docker.com/engine/security/seccomp/):
@@ -4755,7 +4837,8 @@ The following is an example of running a container as read-only with a writeable
 {linenos=off, lang=Bash}
     docker run -it --rm --read-only --tmpfs /tmp --name=my-read-only-container ubuntu
 
-The default mount flags with `--tmpfs` are the same as the Linux default `mount` flags, if you do not specify any `mount` flags the following will be used: `rw,noexec,nosuid,nodev,size=65536k`.
+The default mount flags with `--tmpfs` are the same as the Linux default `mount` flags, if you do not specify any `mount` flags the following will be used:  
+`rw,noexec,nosuid,nodev,size=65536k`
 
 #### runC and where it fits in {#vps-countermeasures-docker-runc-and-where-it-fits-in}
 
@@ -4769,11 +4852,13 @@ is based on the Docker engine's core container runtime. It manages the complete 
 * Management of network interfaces
 * Local storage
 * Native plumbing level API
-* Full OCI support: image and runtime (runC) specification  
+* Full Open Container Initiative (OCI) support: image and runtime (runC) specification  
 
-[`containerd`](https://github.com/containerd/containerd) calls `containerd-shim` which uses runC to run the container. `containerd-shim` allows the runtime, which is `docker-runc` in Dockers case to exit once it has started the container, thus allowing the container to run without a daemon. You can see this if you run `ps aux | grep docker`. In fact, if you run this command you will see how all the components hang together. Viewing this output along with the diagram below, will help solidify your understanding of the relationships between the components.
+[`containerd`](https://github.com/containerd/containerd) calls `containerd-shim` which uses runC to run the container. `containerd-shim` allows the runtime, which is `docker-runc` in Dockers case to exit once it has started the container, thus allowing the container to run without a daemon. You can see this if you run  
+`ps aux | grep docker`  
+In fact, if you run this command you will see how all the components hang together. Viewing this output along with the diagram below, will help solidify your understanding of the relationships between the components.
 
-[**runC**](https://runc.io/): is the container runtime that runs containers (think, run container) according to the Open Container Initiative (OCI) specification, runC is a small standalone command line tool (CLI) built on and providing interface to libcontainer, which does most of the work. runC provides interface with:
+[**runC**](https://runc.io/): is the container runtime that runs containers (think, run Container) according to the OCI specification, runC is a small standalone command line tool (CLI) built on and providing interface to libcontainer, which does most of the work. runC provides interface with:
 
 * Linux Kernel Namespaces
 * Cgroups
@@ -4789,13 +4874,16 @@ These features have been integrated into the low level, light weight, portable, 
 
 ##### [Using runC Standalone](https://opensource.com/life/16/8/runc-little-container-engine-could)
 
-runC can be [installed](https://docker-saigon.github.io/post/Docker-Internals/#runc:cb6baf67dddd3a71c07abfd705dc7d4b) separately, but it does come with Docker (`docker-runc`) as well. just run it to see the available commands and options.
+runC can be [installed](https://docker-saigon.github.io/post/Docker-Internals/#runc:cb6baf67dddd3a71c07abfd705dc7d4b) separately, but it does come with Docker (in the form of `docker-runc`) as well. just run it to see the available commands and options.
 
 runC allows us to configure and debug many of the above mentioned points we have discussed. If you want, or need to get to a lower level with your containers, using `runC` (or if you have Docker installed, `docker-runc`), directly can be a useful technique to interact with your containers. It does require additional work that `docker run` commands already do for us. First you will need to create an OCI bundle, which includes providing configuration in the host independent `config.json` and host specific `runtime.json` [files](https://github.com/containerd/containerd/blob/0.0.5/docs/bundle.md#configs). You must also construct or [export a root filesystem](https://github.com/opencontainers/runc#creating-an-oci-bundle), which if you have Docker installed you can export an existing containers root filesystem with `docker export`. 
 
-A container manifest (`config.json`) can be created by running `runc spec`, which creates a manifest according to the Open Container Initiative (OCI)/runc specification. Engineers can then add any additional attributes such as capabilities on top of the three specified within a container manifest created by the `runc spec` command.
+A container manifest (`config.json`) can be created by running:  
+`runc spec`  
+which creates a manifest according to the Open Container Initiative (OCI)/runc specification. Engineers can then add any additional attributes such as capabilities on top of the three specified within a container manifest created by the `runc spec` command.
 
 #### Application Security
+![](images/ThreatTags/PreventionAVERAGE.png)
 
 Yes container security is important, but in most cases, it is not the lowest hanging fruit for an attacker.
 
