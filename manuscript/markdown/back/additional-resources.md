@@ -177,7 +177,8 @@ https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf
 %% Keep NodeJS Applications Alive
 
 **`kill`ing processes**  
-http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/
+http://www.cyberciti.biz/faq/  
+kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/
 
 **Unix signals**  
 [https://en.wikipedia.org/wiki/Unix_signal](https://en.wikipedia.org/wiki/Unix_signal)
@@ -238,21 +239,24 @@ for Software Engineering Radio in which Docker Security Team Lead Diogo Monica a
 [https://www.mankier.com/8/docker_selinux](https://www.mankier.com/8/docker_selinux)
 
 **Understanding and Hardening Linux Containers**  
-https://www.nccgroup.trust/globalassets/our-research/us/whitepapers/2016/april/ncc_group_understanding_hardening_linux_containers-10pdf/
+https://www.nccgroup.trust/globalassets/our-research/us/whitepapers/2016/april/ncc_group_  
+understanding_hardening_linux_containers-10pdf/
 
 **Increasing Attacker Cost using Immutable Infrastructure**  
 https://diogomonica.com/2016/11/19/increasing-attacker-cost-using-immutable-infrastructure/
 
-**Diogo Mónica on Mutual TLS**  
+**Diogo Monica on Mutual TLS**  
 [https://www.youtube.com/watch?v=apma_C24W58](https://www.youtube.com/watch?v=apma_C24W58)
 
 **Diogo Monica on Orchestrating Least Privilege**
 
 * [https://www.youtube.com/watch?v=xpGNAiA3XW8](https://www.youtube.com/watch?v=xpGNAiA3XW8)
-* https://www.slideshare.net/Docker/orchestrating-least-privilege-by-diogo-monica-67186063
+* https://www.slideshare.net/Docker/orchestrating-least-privilege-by-diogo-monica-6718  
+6063
 
 **Comparison of secrets across orchestrators**  
-https://medium.com/on-docker/secrets-and-lie-abilities-the-state-of-modern-secret-management-2017-c82ec9136a3d#.f6yba66ti
+https://medium.com/on-docker/secrets-and-lie-abilities-the-state-of-modern-secret-managem  
+ent-2017-c82ec9136a3d#.f6yba66ti
 
 **Description of how PKI automatically gets setup in swarm**  
 [https://docs.docker.com/engine/swarm/how-swarm-mode-works/pki/](https://docs.docker.com/engine/swarm/how-swarm-mode-works/pki/)
