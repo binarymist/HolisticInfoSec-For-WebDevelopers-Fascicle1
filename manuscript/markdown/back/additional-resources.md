@@ -368,7 +368,8 @@ https://en.wikipedia.org/wiki/Blowfish_%28cipher%29
 
 **bcrypt brute-forcing** feasible on certain hardware  
 [http://www.openwall.com/presentations/Passwords14-Energy-Efficient-Cracking/](http://www.openwall.com/presentations/Passwords14-Energy-Efficient-Cracking/)  
-[http://www.openwall.com/presentations/Passwords13-Energy-Efficient-Cracking/Passwords13-Energy-Efficient-Cracking.pdf](http://www.openwall.com/presentations/Passwords13-Energy-Efficient-Cracking/Passwords13-Energy-Efficient-Cracking.pdf)  
+http://www.openwall.com/presentations/Password  
+s13-Energy-Efficient-Cracking/Passwords13-Energy-Efficient-Cracking.pdf  
 [https://www.usenix.org/system/files/conference/woot14/woot14-malvoni.pdf](https://www.usenix.org/system/files/conference/woot14/woot14-malvoni.pdf)
 
 **Cooling the Xeon Phi**  
@@ -380,7 +381,8 @@ https://en.wikipedia.org/wiki/Blowfish_%28cipher%29
 
 
 **Password Cracking Strategy**  
-http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cracking-strategy-0156491/
+http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cracking  
+-strategy-0156491/
 
 **Securing Sessions** via cookie attributes  
 [https://www.owasp.org/index.php/HttpOnly](https://www.owasp.org/index.php/HttpOnly)
