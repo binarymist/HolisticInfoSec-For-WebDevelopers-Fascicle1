@@ -177,7 +177,7 @@ https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf
 %% Keep NodeJS Applications Alive
 
 **`kill`ing processes**  
-[http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/](http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/)
+http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/
 
 **Unix signals**  
 [https://en.wikipedia.org/wiki/Unix_signal](https://en.wikipedia.org/wiki/Unix_signal)
@@ -210,10 +210,9 @@ https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf
 has an [excellent resource](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) for hardening docker images which the Docker Security team helped with. This should be consulted in parallel to reading the [Docker Countermeasures](#vps-countermeasures-docker) section
 
 **I also conducted an interview called "Docker Security"**  
-for Software Engineering Radio in which Docker Security Team Lead Diogo Mónica appeared as guest and provided some excellent advice, opinions, and food for thought, be sure to listen to it
+for Software Engineering Radio in which Docker Security Team Lead Diogo Monica appeared as guest and provided some excellent advice, opinions, and food for thought, be sure to listen to it
 
 {#additional-resources-vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces}
-
 **Network Namespace** source code  
 [https://github.com/torvalds/linux/blob/master/net/core/net_namespace.c](https://github.com/torvalds/linux/blob/master/net/core/net_namespace.c)
 
@@ -239,21 +238,21 @@ for Software Engineering Radio in which Docker Security Team Lead Diogo Mónica 
 [https://www.mankier.com/8/docker_selinux](https://www.mankier.com/8/docker_selinux)
 
 **Understanding and Hardening Linux Containers**  
-[https://www.nccgroup.trust/globalassets/our-research/us/whitepapers/2016/april/ncc_group_understanding_hardening_linux_containers-10pdf/](https://www.nccgroup.trust/globalassets/our-research/us/whitepapers/2016/april/ncc_group_understanding_hardening_linux_containers-10pdf/)
+https://www.nccgroup.trust/globalassets/our-research/us/whitepapers/2016/april/ncc_group_understanding_hardening_linux_containers-10pdf/
 
 **Increasing Attacker Cost using Immutable Infrastructure**  
-[https://diogomonica.com/2016/11/19/increasing-attacker-cost-using-immutable-infrastructure/](https://diogomonica.com/2016/11/19/increasing-attacker-cost-using-immutable-infrastructure/)
+https://diogomonica.com/2016/11/19/increasing-attacker-cost-using-immutable-infrastructure/
 
 **Diogo Mónica on Mutual TLS**  
 [https://www.youtube.com/watch?v=apma_C24W58](https://www.youtube.com/watch?v=apma_C24W58)
 
-**Diogo Mónica on Orchestrating Least Privilege**
+**Diogo Monica on Orchestrating Least Privilege**
 
 * [https://www.youtube.com/watch?v=xpGNAiA3XW8](https://www.youtube.com/watch?v=xpGNAiA3XW8)
-* [https://www.slideshare.net/Docker/orchestrating-least-privilege-by-diogo-monica-67186063](https://www.slideshare.net/Docker/orchestrating-least-privilege-by-diogo-monica-67186063)
+* https://www.slideshare.net/Docker/orchestrating-least-privilege-by-diogo-monica-67186063
 
 **Comparison of secrets across orchestrators**  
-[https://medium.com/on-docker/secrets-and-lie-abilities-the-state-of-modern-secret-management-2017-c82ec9136a3d#.f6yba66ti](https://medium.com/on-docker/secrets-and-lie-abilities-the-state-of-modern-secret-management-2017-c82ec9136a3d#.f6yba66ti)
+https://medium.com/on-docker/secrets-and-lie-abilities-the-state-of-modern-secret-management-2017-c82ec9136a3d#.f6yba66ti
 
 **Description of how PKI automatically gets setup in swarm**  
 [https://docs.docker.com/engine/swarm/how-swarm-mode-works/pki/](https://docs.docker.com/engine/swarm/how-swarm-mode-works/pki/)

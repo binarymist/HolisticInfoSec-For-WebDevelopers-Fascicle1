@@ -543,7 +543,8 @@ arkdown.html
 [http://www.debianhelp.co.uk/backuptools.htm](http://www.debianhelp.co.uk/backuptools.htm) 
 
 **Snort can help with the Prevention** also  
-https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/august_8_2012_12_01_pm6?lang=en
+https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa40  
+58e9c/entry/august_8_2012_12_01_pm6?lang=en
 
 **Work through using the likes of**  
 harden  
@@ -771,7 +772,8 @@ http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-emp
 [http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm](http://web.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm)
 
 **There are some very sobering statistics**, also detailed in "the morning paper" by Adrian Colyer, on how many defective libraries we are depending on  
-[https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/](https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/)
+https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-out  
+dated-javascript-libraries-on-the-web/
 
 **the winston-syslog-posix package** was inspired by blargh  
 [https://www.npmjs.com/package/winston-syslog-posix](https://www.npmjs.com/package/winston-syslog-posix)  
