@@ -204,13 +204,15 @@ and the morning paper
 **As an aside, `PID` namespaces give us the functionality** of "_suspending/resuming the set of processes in the container and migrating the container to a new host while the processes inside the container maintain the same PIDs._"  
 [http://man7.org/linux/man-pages/man7/pid_namespaces.7.html](http://man7.org/linux/man-pages/man7/pid_namespaces.7.html)  
 with a handful of commands  
-[https://www.fir3net.com/Containers/Docker/the-essential-guide-in-transporting-your-docker-containers.html](https://www.fir3net.com/Containers/Docker/the-essential-guide-in-transporting-your-docker-containers.html)
+https://www.fir3net.com/Containers/Docker/the-essential-guide-in-transporting-your-docke  
+r-containers.html
 
 **A UTS namespace** is the set of identifiers returned by `uname`  
 [http://man7.org/linux/man-pages/man2/clone.2.html](http://man7.org/linux/man-pages/man2/clone.2.html)
 
 **When a container is created**, a UTS namespace is copied (`CLONE_NEWUTS` is set)  
-[https://github.com/docker/libcontainer/blob/83a102cc68a09d890cce3b6c2e5c14c49e6373a0/SPEC.md](https://github.com/docker/libcontainer/blob/83a102cc68a09d890cce3b6c2e5c14c49e6373a0/SPEC.md)
+https://github.com/docker/libcontainer/blob/83a102cc68a09d890cce3b6c2e5c14c49e6373a0/S  
+PEC.md
 
 **When a container is created** with `--uts="host"` a UTS namespace is inherited from the host  
 [https://docs.docker.com/engine/reference/run/#uts-settings---uts](https://docs.docker.com/engine/reference/run/#uts-settings---uts)
@@ -228,7 +230,7 @@ with a handful of commands
 [https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions](https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions) 
 
 **Docker engine reference** provides additional details around known restrictions of user namespaces  
-[https://docs.docker.com/engine/reference/commandline/dockerd/#/user-namespace-known-restrictions](https://docs.docker.com/engine/reference/commandline/dockerd/#/user-namespace-known-restrictions)
+[https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions](https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions)
 
 **Cgroups have been available** in the Linux kernel since January 2008 (2.6.24)  
 [https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3](https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3)
@@ -240,7 +242,8 @@ with a handful of commands
 [http://rhelblog.redhat.com/2016/10/17/secure-your-containers-with-this-one-weird-trick/](http://rhelblog.redhat.com/2016/10/17/secure-your-containers-with-this-one-weird-trick/)
 
 **Open Container Initiative (OCI) runC specification**  
-[https://github.com/opencontainers/runc/tree/6c22e77604689db8725fa866f0f2ec0b3e8c3a07#running-containers](https://github.com/opencontainers/runc/tree/6c22e77604689db8725fa866f0f2ec0b3e8c3a07#running-containers)
+https://github.com/opencontainers/runc/tree/6c22e77604689db8725fa866f0f2ec0b3e8c3a07#r  
+unning-containers
 
 **As stated on the Docker Engine security page** "_One primary risk with running Docker containers is that the default set of capabilities and mounts given to a container may provide incomplete isolation, either independently, or when used in combination with kernel vulnerabilities._"  
 [https://docs.docker.com/engine/security/security/](https://docs.docker.com/engine/security/security/)
@@ -252,7 +255,8 @@ with a handful of commands
 [https://www.linux.com/learn/overview-linux-kernel-security-features](https://www.linux.com/learn/overview-linux-kernel-security-features)
 
 **The first version of SecComp** was merged into the Linux kernel mainline in version 2.6.12 (March 8 2005)  
-[https://git.kernel.org/cgit/linux/kernel/git/tglx/history.git/commit/?id=d949d0ec9c601f2b148bed3cdb5f87c052968554](https://git.kernel.org/cgit/linux/kernel/git/tglx/history.git/commit/?id=d949d0ec9c601f2b148bed3cdb5f87c052968554)
+https://git.kernel.org/cgit/linux/kernel/git/tglx/history.git/commit/?id=d949d0ec9c601f2b148be  
+d3cdb5f87c052968554
 
 **In order to enable SecComp for a given process**, you would write a `1` to `/proc/<PID>/seccomp`  
 [https://lwn.net/Articles/656307/](https://lwn.net/Articles/656307/)
@@ -645,8 +649,9 @@ arkdown.html
 **Cisecurity has an excellent resource** for hardening docker images which the Docker Security team helped with  
 [https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf)
 
-**"_Docker Security Scanning_** _is available as an add-on to Docker hosted private repositories on both Docker Cloud and Docker Hub._", you also have to [opt in and pay for it  
-[https://docs.docker.com/docker-cloud/builds/image-scan/#/opt-in-to-docker-security-scanning](https://docs.docker.com/docker-cloud/builds/image-scan/#/opt-in-to-docker-security-scanning)
+**"_Docker Security Scanning_** _is available as an add-on to Docker hosted private repositories on both Docker Cloud and Docker Hub._", you also have to opt in and pay for it  
+https://docs.docker.com/docker-cloud/builds/image-scan  
+/#opt-in-to-docker-security-scanning
 
 **Docker Security Scanning** is also now available on the new Enterprise Edition  
 [https://blog.docker.com/2017/03/docker-enterprise-edition/](https://blog.docker.com/2017/03/docker-enterprise-edition/)
@@ -661,7 +666,8 @@ arkdown.html
 [https://github.com/docker/notary](https://github.com/docker/notary)
 
 **`DOCKER_CONTENT_TRUST`** environment variable must be set to `1`  
-[https://docs.docker.com/engine/security/trust/content_trust/#/enable-and-disable-content-trust-per-shell-or-per-invocation](https://docs.docker.com/engine/security/trust/content_trust/#/enable-and-disable-content-trust-per-shell-or-per-invocation)
+https://docs.docker.com/engine/security/trust/content_trust/#enable-and-disable-content-tr  
+ust-per-shell-or-per-invocation
 
 **`DOCKER_CONTENT_TRUST_SERVER`** must be set to the URL of the Notary server you setup  
 [https://docs.docker.com/engine/reference/commandline/cli/#environment-variables](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables)
@@ -670,12 +676,14 @@ arkdown.html
 [https://docs.docker.com/engine/security/trust/trust_delegation/](https://docs.docker.com/engine/security/trust/trust_delegation/)
 
 **Notary is based on a Go implementation** of The Update Framework (TUF)  
-[https://theupdateframework.github.io/](https://theupdateframework.github.io/)  
+[https://theupdateframework.github.io/](https://theupdateframework.github.io/)
+
 **An example of the NodeGoat image**  
 [https://github.com/owasp/nodegoat](https://github.com/owasp/nodegoat)
 
 **The space for tooling** to help find vulnerabilities in code, packages, etc within your Docker images has been noted, and tools provided  
-[https://community.alfresco.com/community/ecm/blog/2015/12/03/docker-security-tools-audit-and-vulnerability-assessment/](https://community.alfresco.com/community/ecm/blog/2015/12/03/docker-security-tools-audit-and-vulnerability-assessment/)
+https://community.alfresco.com/community/ecm/blog/2015/12/03/docker-security-tools-aud  
+it-and-vulnerability-assessment/
 
 **These tools should form** a part of your secure and trusted build pipeline / software supply-chain  
 [https://blog.acolyer.org/2017/04/03/a-study-of-security-vulnerabilities-on-docker-hub/](https://blog.acolyer.org/2017/04/03/a-study-of-security-vulnerabilities-on-docker-hub/)
@@ -735,7 +743,8 @@ arkdown.html
 [https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled](https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled)
 
 **Check out the Docker engine reference**  
-[https://docs.docker.com/engine/reference/commandline/dockerd/#detailed-information-on-subuidsubgid-ranges](https://docs.docker.com/engine/reference/commandline/dockerd/#detailed-information-on-subuidsubgid-ranges)
+https://docs.docker.com/engine/reference/commandline/dockerd/#detailed-information-on-su  
+buidsubgid-ranges
 
 **Check the Runtime constraints on resources**  
 [https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources](https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources)
@@ -828,7 +837,8 @@ arkdown.html
 [https://github.com/opencontainers/runc](https://github.com/opencontainers/runc)
 
 **runC can be installed separately**  
-[https://docker-saigon.github.io/post/Docker-Internals/#runc:cb6baf67dddd3a71c07abfd705dc7d4b](https://docker-saigon.github.io/post/Docker-Internals/#runc:cb6baf67dddd3a71c07abfd705dc7d4b)
+https://docker-saigon.github.io/post/Docker-Internals/#runc:cb6baf67dddd3a71c07abfd705d  
+c7d4b
 
 **Host independent** `config.json` and host specific `runtime.json` files  
 [https://github.com/containerd/containerd/blob/0.0.5/docs/bundle.md#configs](https://github.com/containerd/containerd/blob/0.0.5/docs/bundle.md#configs)
@@ -846,11 +856,9 @@ arkdown.html
 **Bugs listed in the Xen CVEs**  
 [https://xenbits.xen.org/xsa/](https://xenbits.xen.org/xsa/)
 
-**With the likes of Control Groups** you have many points at which you can monitor and control aspects of the application environment  
-[#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups)
-
 **Show #7 Understanding Container Security**  
-[http://www.heavybit.com/library/podcasts/the-secure-developer/ep-7-understanding-container-security/](http://www.heavybit.com/library/podcasts/the-secure-developer/ep-7-understanding-container-security/)
+http://www.heavybit.com/library/podcasts/the-secure-developer/ep-7-understanding-contai  
+ner-security/
 
 
 
