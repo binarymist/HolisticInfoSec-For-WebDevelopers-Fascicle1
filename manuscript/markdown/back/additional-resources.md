@@ -239,8 +239,8 @@ for Software Engineering Radio in which Docker Security Team Lead Diogo Monica a
 [https://www.mankier.com/8/docker_selinux](https://www.mankier.com/8/docker_selinux)
 
 **Understanding and Hardening Linux Containers**  
-https://www.nccgroup.trust/globalassets/our-research/us/whitepapers/2016/april/ncc_group_  
-understanding_hardening_linux_containers-10pdf/
+https://www.nccgroup.trust/globalassets/our-research/us/whitepapers/2016/april/ncc_group  
+_understanding_hardening_linux_containers-10pdf/
 
 **Increasing Attacker Cost using Immutable Infrastructure**  
 https://diogomonica.com/2016/11/19/increasing-attacker-cost-using-immutable-infrastructure/

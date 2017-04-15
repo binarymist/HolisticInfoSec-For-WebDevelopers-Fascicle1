@@ -1244,8 +1244,8 @@ Each aspect of a container runs in a separate namespace and its access is limite
 
 Docker leverage's the Linux (kernel) namespaces which provide an isolated workspace which wraps a global system resource abstraction that makes it appear to the processes within the namespace that they have their own isolated instance of the global resource. When a container is run, Docker creates a set of namespaces for that container, providing a layer of isolation between containers:
 
-1. `mnt`: (Mount) Provides filesystem isolation by managing filesystems and mount points. The `mnt` namespace allows a container to have its own isolated set of mounted filesystems, the propagation modes can be one of the following: [`r`]`shared`, [`r`]`slave` or [`r`]`private`. The `r` means recursive.  
-    
+1. `mnt`: (Mount) Provides filesystem isolation by managing filesystems and mount points. The `mnt` namespace allows a container to have its own isolated set of mounted filesystems, the propagation modes can be one of the following: [`r`]`shared`, [`r`]`slave` or [`r`]`private`. The `r` means recursive.
+  
   If you run the following command, then the hosts mounted `host-path` is [shared](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) with all others that mount `host-path`. Any changes made to the mounted data will be propagated to those that use the `shared` mode propagation. Using `slave` means only the master (`host-path`) is able to propagate changes, not vice-versa. Using `private` which is the default, will ensure no changes can be propagated.
   
   {title="mounting volumes in shared mode propagation", linenos=off, lang=bash}
@@ -1301,8 +1301,8 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
   You can also [mount](https://linux.die.net/man/8/mount) your Docker container mounts on the host by doing the following:
   
   {linenos=off, lang=bash}
-      mount --bind /var/lib/docker/<volumes>/<container id>/_data </path/on/host>
-  
+      mount --bind /var/lib/docker/<volumes>/<container id>/_data </path/on/host>  
+    
 2. `PID`: (Process ID) Provides process isolation, separates container processes from host and other container processes.  
     
   The first process that is created in a new `PID` namespace is the "init" process with `PID` 1, which assumes parenthood of the other processes within the same `PID` namespace. When `PID` 1 is terminated, so are the rest of the processes within the same `PID` namespace.
@@ -1339,9 +1339,9 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
       docker container unpause myContainer [mySecondContainer...]
   
 3. `net`: (Networking) Provides network isolation by managing the network stack and interfaces. Also essential to allow containers to communicate with the host system and other containers. Network namespaces were introduced into the kernel in 2.6.24, January 2008, with an additional year of development they were considered largely done. The only real concern here is understanding the Docker network modes and communication between containers. This is discussed in the Countermeasures.  
-  
-4. `UTS`: (Unix Timesharing System) Provides isolation of kernel and version identifiers.  
     
+4. `UTS`: (Unix Timesharing System) Provides isolation of kernel and version identifiers.  
+      
   UTS is the sharing of a computing resource with many users, a concept introduced in the 1960s/1970s.
   
   A UTS namespace is the set of identifiers [returned by `uname`](http://man7.org/linux/man-pages/man2/clone.2.html), which include the hostname and the [NIS](#vps-identify-risks-unnecessary-and-vulnerable-services-nis) domainname. Any processes which are not children of the process that requested the clone will not be able to see any changes made to the identifiers of the UTS namespace.
@@ -4074,7 +4074,7 @@ Your priority before you start testing images for vulnerable contents, is to und
     The image ID is also the hash of the configuration object which contains the hashes of all the layers that make up the images copy-on-write filesystem definition, also discussed in my Software Engineering Radio show with Diogo Mónica.
     2. Integrity: How do you know that your image has not been tampered with?  
     This is where secure signing comes in with the [Docker Content Trust](https://blog.docker.com/2015/08/content-trust-docker-1-8/) feature. Docker Content Trust is enabled through an integration of [Notary](https://github.com/docker/notary) into the Docker Engine. Both the Docker image producing party and image consuming party need to opt-in to use Docker Content Trust. By default, it is disabled. In order to do that, Notary must be downloaded and setup by both parties, and the `DOCKER_CONTENT_TRUST` environment variable [must be set](https://docs.docker.com/engine/security/trust/content_trust/#/enable-and-disable-content-trust-per-shell-or-per-invocation) to `1`, and the `DOCKER_CONTENT_TRUST_SERVER` must be [set to the URL](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) of the Notary server you setup.  
-      
+        
     Now the producer can sign their image, but first, they need to [generate a key pair](https://docs.docker.com/engine/security/trust/trust_delegation/). Once they have done that, when the image is pushed to the registry, it is signed with their private (tagging) key.
     
     When the image consumer pulls the signed image, Docker Engine uses the publishers public (tagging) key to verify that the image you are about to run is cryptographically identical to the image the publisher pushed.
@@ -4291,7 +4291,7 @@ Features of Runtime:
 ##### Namespaces {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces}
 
 1. `mnt`: Keep with the default propagation mode of `private` unless you have a very good reason to change it. If you do need to change it, think about defence in depth and employ other defence strategies.  
-    
+      
   If you have control over the Docker host, lock down the mounting of the host systems partitions as discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section.
   
   If you have to mount a sensitive host system directory, mount it as read-only:
@@ -4321,11 +4321,11 @@ Features of Runtime:
   If you are using LSM, you will probably want to use the `Z` option as discussed in the risks section.  
 
 2. `PID`: By default enforces isolation from the containers `PID` namespace, but not from the host to the container. If you are concerned about host systems being able to access your containers, as you should be, consider putting your containers within a VM  
-
+  
 3. `net`: A network namespace is a virtualisation of the network stack, with its own network devices, IP routing tables, firewall rules and ports.  
 When a network namespace is created the only network interface that is created is the loopback interface, which is down until brought up.  
 Each network interface whether physical or virtual, can only reside in one namespace, but can be moved between namespaces.  
-  
+    
   When the last process in a network namespace terminates, the namespace will be destroyed and destroy any virtual interfaces within it and move any physical network devices back to the initial network namespace, not the process parent.
   
   **Docker and Network Namespaces**
@@ -4468,7 +4468,7 @@ As mentioned in the CIS\_Docker\_1.13.0\_Benchmark "_Sharing the UTS namespace w
       docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: UTSMode={{ .HostConfig.UTSMode }}'
   
 5. `IPC`: In order to stop another untrusted container sharing your containers IPC namespace, you could isolate all of your trusted containers in a VM, or if you are using some type of orchestration, that will usually have functionality to isolate groups of containers. If you can isolate your trusted containers sufficiently, then you may still be able to share the IPC namespace of other near by containers.  
-  
+    
 6. `user`: If you have read the [risks section](#vps-identify-risks-docker-docker-host-engine-and-containers-namespaces) and still want to enable support for user namespaces, you first need to confirm that the host user of the associated containers `PID` is not root by running the following CIS Docker Benchmark recommended commands:
     
   {linenos=off, lang=Bash}
