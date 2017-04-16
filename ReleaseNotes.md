@@ -1,5 +1,62 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+## 2017-04-16
+
+Docker Security: 51 pages added
+
+### VPS
+
+#### Docker Risks and Countermeasures
+
+* Docker registries and consumption of
+  * Image provenance, identification, integrity
+  * copy-on-write filesystem
+* Doppelganger images
+* Default user root
+* Hardening Docker Host, Engine and Containers
+  * tools, tips, 
+* Namespaces
+  1. `mnt`
+  2. `PID`
+  3. `net`
+  4. `UTS`
+  5. `IPC`
+  6. `user`
+* Control Groups (Cgroups)
+* Linux Capabilities
+* Linux Security Modules (LSM)
+* Secure Computing Mode (SecComp)
+* Read-only Containers
+* runC and Docker architecture
+* Application Security
+* Diagrams added:
+  1. Type-2 Hypervisor vs Containers
+  2. Docker architecture
+  3. Linux Security Module architecture
+
+#### Other
+
+* PowerShell exploitation mitigations
+
+### Web Applications
+
+* Sobering statistics, on how many defective libraries we are depending on
+
+### Additional Resources
+
+* Software Engineering Radio interview with Docker Security Lead Diogo Monica
+* Linux namespaces and their use in Docker
+* Dockerscan
+* Increasing Attacker Cost using Immutable Infrastructure
+* Diogo Monica on Mutual TLS
+* Diogo Monica on Orchestrating Least Privilege
+* Image signing, and why it is important
+* Docker security scanning (content integrity)
+* The Secure Developer podcast on Understanding Container Security
+* Many more
+
+[Diff from release 2016-11-04](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/compare/9c9cdc1e5151700b45510cb4e06675f6865b7b70...fc6248fce0c550ab006565e26692f54f3f1734ec)
+
 ## 2017-01-23
 
 Updated links to hands on hack demos on [YouTube](https://www.youtube.com/playlist?list=PLfv6teOacMIuh3VheioAXXe70IwwQySIp).
