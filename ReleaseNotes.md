@@ -55,7 +55,7 @@ Docker Security: 51 pages added
 * The Secure Developer podcast on Understanding Container Security
 * Many more
 
-[Diff from release 2016-11-04](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/compare/9c9cdc1e5151700b45510cb4e06675f6865b7b70...fc6248fce0c550ab006565e26692f54f3f1734ec)
+[Diff from release 2017-01-23](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/compare/9c9cdc1e5151700b45510cb4e06675f6865b7b70...fc6248fce0c550ab006565e26692f54f3f1734ec)
 
 ## 2017-01-23
 
@@ -64,14 +64,14 @@ Updated links to hands on hack demos on [YouTube](https://www.youtube.com/playli
 ### VPS
 
 1. Added Windows exploitation using PowerShell with Psmsf generated payload and c virus, that pulls down payload that overwrites PowerShell with reverse shell. Includes:
-  * Detailed hands-on-hack
-  * Tutorial video
+    * Detailed hands-on-hack
+    * Tutorial video
 2. Added Windows exploitation using PowerShell leveraging previous Psmsf generated payload and office document virus C/- Nishang, that pulls down payload that overwrites PowerShell with reverse shell. Includes:
-  * Detailed hands-on-hack
+    * Detailed hands-on-hack
 3. Added atomic persistent exploit C/- PowerSploit, leveraging previous Psmsf generated payload and office document virus C/- Nishang, that pulls down payload that overwrites PowerShell with reverse shell. Includes:
-  * Sequence diagram
-  * Detailed hands-on-hack
-  * Tutorial video
+    * Sequence diagram
+    * Detailed hands-on-hack
+    * Tutorial video
 
 * Updated PsExec section
 * Added Pass The Hash (PTH) section, including details around Metasploit modules and potential countermeasures:
