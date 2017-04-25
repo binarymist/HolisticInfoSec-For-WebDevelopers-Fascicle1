@@ -1003,11 +1003,11 @@ As an architectural concern, also consider hiding cross cutting concerns like lo
 
 There are a couple of ways of approaching monitoring. You may want to see and be notified of the health of your application only when it is not fine (sometimes called the dark cockpit approach), or whether it is fine or not. Personally I like to have both
 
-##### Dark Cockpit:
+##### Dark Cockpit
 
 As discussed in the VPS chapter, Monit is an excellent tool for the dark cockpit approach. It's easy to configure. Monit Has excellent easy to read, short [documentation](https://mmonit.com/monit/documentation/monit.html) which is easy to understand, the configuration file has lots of examples commented out ready for you to take as is and modify to suite your environment. Remember I provided examples of monitoring a VPS and [NodeJS web application](#vps-countermeasures-lack-of-visibility-proactive-monitoring-keep-nodejs-application-alive) in the VPS chapter. I've personally had excellent success with Monit. Check the VPS chapter [Monitoring section](#vps-countermeasures-lack-of-visibility-proactive-monitoring-monit) for a refresher. Monit doesn't just give you monitoring, it can also perform pre-defined actions based on current states of many VPS resources and their applications.
 
-##### Statistics Graphing:
+##### Statistics Graphing {#web-applications-countermeasures-lack-of-visibility-insufficient-Monitoring-statistics-graphing}
 
 Continuing on with the [Statistics Graphing](#vps-countermeasures-lack-of-visibility-statistics-graphing) section in the VPS chapter, we look at adding [statsd](https://github.com/etsy/statsd/) as application instrumentation to our existing collectd -> graphite set-up.
 
@@ -1074,7 +1074,9 @@ Detail how we collect application statistics and send to graphite. Show real lif
 
 See list of commented resources.
 
-%% The first and best set of resources are the four posts detailed at the bottom of this one: https://www.digitalocean.com/community/tutorials/an-introduction-to-tracking-statistics-with-graphite-statsd-and-collectd
+%% https://www.digitalocean.com/community/tutorials/an-introduction-to-tracking-statistics-with-graphite-statsd-and-collectd
+
+%% https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04
 
 %% Looks like the first statsd spec for metric types: https://github.com/b/statsd_spec/blob/master/README.md
 %% Looks like the up to date, or at least more recent statsd spec for metric types: https://github.com/etsy/statsd/blob/master/docs/metric_types.md

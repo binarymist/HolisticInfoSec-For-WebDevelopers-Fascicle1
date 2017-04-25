@@ -1161,7 +1161,7 @@ Any attacker worth their weight will try to [cover their tracks](https://www.win
 * Make sure any trojan files they drop are the same size as the originals
 * Replace `md5sum` so that it contains sums for the files that were replaced including itself. Although if an administrator ran `rpm -V` or `debsums -c` (Debian, Ubuntu) it would not be affected by a modified `md5sum`.
 
-If an attacker wants their actions to be invisible, they may try replacing the likes of `ps`, `pstree`, `top` and possibly `netstat` or `ss` if they are trying to hide network activity from the host.
+If an attacker wants their actions to be invisible, they may try replacing the likes of `ps`, `pstree`, `top`, `ls` and possibly `netstat` or `ss`, and/or many other tools that reveal information about the system, if they are trying to hide network activity from the host.
 
 Taking things further, an attacker may load a kernel module that modifies the `readdir()` call and the `proc` filesystem so that any changes on the file system are untrustworthy, or if going to the length of loading custom modules, everything can be done from kernel space which is invisible until reboot.
 
@@ -1475,8 +1475,6 @@ Bringing your VPS(s) in-house provides all the flexibility/power required to mit
 
 #### PsExec and Pass The Hash (PTH) {#vps-countermeasures-psexec-pth}
 ![](images/ThreatTags/PreventionDIFFICULT.png)
-
-%% https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers/issues/1
 
 Defence in depth will help here, the attacker should not be in possession of your admin passwords or hashes. If this has already happened, how did it happen? Take the necessary steps to make sure it does not happen again.
 
@@ -2779,6 +2777,8 @@ Check the most recent login of all users, or of a given user. `lastlog` sources 
 `/var/log/lastlog`  
 `lastlog`
 
+Of course any of the above tools can be replaced with trojanised replicas, unless you have a [Host Intrusion Detection System (HIDS)](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) running from a location that the attacker is not aware of, continually checking for the existence and validity of the core system components.
+
 #### [Logging and Alerting](https://medium.com/starting-up-security/learning-from-a-year-of-security-breaches-ed036ea05d9b#41e1) {#vps-countermeasures-lack-of-visibility-logging-and-alerting}
 ![](images/ThreatTags/PreventionEASY.png)
 
@@ -3715,7 +3715,73 @@ Carry on and add to, or uncomment, and modify the `monitrc` file, with the likes
 
 #### Statistics Graphing: {#vps-countermeasures-lack-of-visibility-statistics-graphing}
 
-This is where collectd and graphite come to the party.
+This is where [collectd](https://collectd.org/) and [graphite](https://graphiteapp.org/) come to the party. Both tools do one thing, do it well, and are independent of each other, but are often used together.
+
+Also check the related [Statistics Graphing](#web-applications-countermeasures-lack-of-visibility-insufficient-Monitoring-statistics-graphing) section in the countermeasures section of the Web Applications chapter, where we introduce statsd as the collector for application metrics.
+
+Collectd can be used to feed statistics to many consumers, including AWS CloudWatch via a [plugin](https://aws.amazon.com/blogs/aws/new-cloudwatch-plugin-for-collectd/), but using it with graphite (and ultimately [Grafana](https://grafana.com/), which can take inputs from a collection of [data sources](https://grafana.com/plugins?type=datasource), including graphite, Elasticsearch, [AWS CloudWatch](http://docs.grafana.org/features/datasources/cloudwatch/), and others) would provide a much [better solution](http://blog.takipi.com/graphite-vs-grafana-build-the-best-monitoring-architecture-for-your-application/). 
+
+##### [Collectd](https://collectd.org/)
+
+"_Collectd is a daemon which collects system and application performance metrics_" at a configurable frequency. Almost everything in collectd is done with plugins. Most of the over 100 plugins are used to read statistics from the target system, but plugins are also used to define where to send those statistics, and in the case of distributed systems, read those statistics sent from collectd agents. Collectd is an agent based system metrics collection tool. An agent is deployed on every host that needs to be monitored.
+
+If you want to send statistics over the network, then the network plugin must be loaded. collectd is capable of [cryptographically signing or encrypting](https://collectd.org/wiki/index.php/Networking_introduction#Cryptographic_setup) the network traffic it transmits. Collectd is not a complete monitoring solution by it self.
+
+The collectd daemon has no external dependencies and should run on any POSIX supporting system, such as Linux, Solaris, Max OS X, AIX, the BSDs, and probably many others.
+
+##### [Graphite](http://graphiteapp.org/)
+
+Graphite is a statistics storage and visualisation component which consists of:
+
+* carbon - A daemon that listens for time-series data and stores it
+* whisper - A simple database library for storing time-series data
+* graphite-web - A (Django) webapp that renders graphs on demand
+
+Graphite has excellent [official](https://graphite.readthedocs.io/en/latest/) and [community](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-graphite-on-an-ubuntu-14-04-server) provided documentation.
+
+There are a large number of [tools](http://graphite.readthedocs.org/en/latest/tools.html) that can be integrated with graphite.
+
+Graphite can take [some work](https://kevinmccarthy.org/2013/07/18/10-things-i-learned-deploying-graphite/) to deploy, This can be made easier several ways. You could deploy it with your favourite configuration management tool, such as with an [ansible-graphite](https://github.com/dmichel1/ansible-graphite) playbook, or perhaps with one of the many collectd-graphite-docker type containers.
+
+You can even do better than graphite by adding the likes of [Grafana]()
+
+##### Assembling the Components
+
+Collectd can be used to send statistics locally or remotely. It can be setup as an agent and server, along with Graphite on a [single machine](https://www.digitalocean.com/community/tutorials/how-to-configure-collectd-to-gather-system-metrics-for-graphite-on-ubuntu-14-04).
+
+Another common deployment scenario which is more interesting is to have a collection of hosts (clients/agents) that all require statistics gathering from them, and a server that listens for the data coming from all of the clients/agents. Let us see [how this looks](https://pradyumnajoshi.blogspot.co.nz/2015/11/setting-up-collectd-based-monitoring.html):
+
+1. graphing server (1)
+  1. [install, configure](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-graphite-on-an-ubuntu-14-04-server), and run [graphite](https://graphite.readthedocs.io/en/latest/install.html)
+  2. Install collectd: If you are using a recent Ubuntu or Debian release, then more than likely you will be able to just install the distributions [`collectd`](https://packages.debian.org/stretch/collectd) (which depends on [`collectd-core`](https://packages.debian.org/stretch/collectd-core) which includes many plugins) and [`collectd-utils`](https://packages.debian.org/stretch/collectd-utils)
+  3. Configure collectd to use the following plugins, which will also require their own configuration:
+    * network (read, write)
+    * [write_graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite) (write)
+2. collection agents (1:n)
+  1. Install collectd
+  2. Configure collectd to use the following plugins, which will also require their own configuration:
+    * [Network]() (read, write)
+    * [CPU](https://collectd.org/wiki/index.php/Plugin:CPU) (read)
+    * [Load](https://collectd.org/wiki/index.php/Plugin:Load) (read)
+    * [Memory](https://collectd.org/wiki/index.php/Plugin:Memory) (read)
+    * [Disk](https://collectd.org/wiki/index.php/Plugin:Disk) (read)
+    * [Processes](https://collectd.org/wiki/index.php/Plugin:Processes) (read)
+    * Any other read plugins from [the list](https://collectd.org/wiki/index.php/Table_of_Plugins) that you would like to collect statistics for
+
+In this case, each collectd agent is sending its statistics from its Network plugin to the graphing servers network interface, which is picked up by the collectd Network plugin and flows through to the collectd [`write_graphite` plugin](https://collectd.org/wiki/index.php/Plugin:Write_Graphite), which sends the [statistics](https://collectd.org/wiki/index.php/Plugin:Write_Graphite#Example_data) (name actual-value timestamp-in-epoch) to graphites listening service called carbon (usually to [port 2003](https://graphite.readthedocs.io/en/latest/carbon-daemons.html#carbon-cache-py)). Carbon writes the data to the whisper library which is responsible for storing to its data files. graphite-web reads the data points from the wisper files, and provides user interface and API for rendering dashboards and graphs. 
+
+
+
+
+
+
+
+
+
+
+_Todo_ Redraw architecture.
+
+
 
 {linenos=off}
         Server1   
@@ -3737,14 +3803,6 @@ This is where collectd and graphite come to the party.
     |  +--------------+                     |
     +-------------------->------------------+
 
-This is an excellent set of tools for system instrumentation.  
-In the Web Applications chapter we add statsd to the mix to provide application specific statistics.
-
-
-
-
-
-_Todo_
 
 
 
@@ -3752,34 +3810,10 @@ _Todo_
 
 
 
-%% https://www.digitalocean.com/community/tutorials/an-introduction-to-tracking-statistics-with-graphite-statsd-and-collectd
 
-%% graphite
-%%  Consists of:
-%%     carbon - a daemon that listens for time-series data.
-%%     whisper - a simple database library for storing time-series data.
-%%     webapp - a (Django) webapp that renders graphs on demand.   
-%%  Tools that work with graphite: http://graphite.readthedocs.org/en/latest/tools.html
-%%  Useful Graphite posts:
-%%     https://kevinmccarthy.org/2013/07/18/10-things-i-learned-deploying-graphite/
 
-%% Configure CollectD to Gather System Metrics for Graphite on Ubuntu: https://www.digitalocean.com/community/tutorials/how-to-configure-collectd-to-gather-system-metrics-for-graphite-on-ubuntu-14-04   
-%%   collectd https://collectd.org
-%%      Collectd is an agent based system metrics collection tool. An agent is deployed on every host that needs to be monitored.
-%%      Can send stats to graphite: https://collectd.org/wiki/index.php/Plugin:Write_Graphite
-%%         Other plugins here: https://collectd.org/wiki/index.php/Table_of_Plugins
-%%      Plugins for collecting OpenStack metrics: https://github.com/catalyst/collectd-openstack
-%%      Nagios, Graphite, Collectd for OpenStack.
 
-%% There is also the RackSpace free Monitoring Agent writen in Lua. Details in NodeUp83_libuv.txt
-%% http://www.rackspace.com/cloud/monitoring/features
-%% https://luvit.io/blog/iot-relay.html
-%% https://www.tomaz.me/2013/11/28/running-luvit-and-rackspace-monitoring-agent-on-raspberry-pi.html
-
-I also looked into the following offerings which cater to providing visibility into many aspects of the applications, services, servers and networks, but none that really address security concerns:
-
-* Raygun (costs money)
-
+I also looked into [Raygun](https://raygun.com/) which provides visibility into many aspects of your applications. Raygun is an all-in-one offering, but does not focus on server statistics.
 
 #### Host Intrusion Detection Systems (HIDS) {#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids}
 ![](images/ThreatTags/PreventionAVERAGE.png)
