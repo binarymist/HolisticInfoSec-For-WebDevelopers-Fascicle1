@@ -3755,8 +3755,8 @@ Another common deployment scenario which is more interesting is to have a collec
     1. [install, configure](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-graphite-on-an-ubuntu-14-04-server), and run [graphite](https://graphite.readthedocs.io/en/latest/install.html)
     2. Install collectd: If you are using a recent Ubuntu or Debian release, then more than likely you will be able to just install the distributions [`collectd`](https://packages.debian.org/stretch/collectd) (which depends on [`collectd-core`](https://packages.debian.org/stretch/collectd-core) which includes many plugins) and [`collectd-utils`](https://packages.debian.org/stretch/collectd-utils)
     3. Configure collectd to use the following plugins, which will also require their own configuration:
-      * network (read, write)
-      * [write_graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite) (write)
+      * Network (read, write)
+      * [Write_Graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite) (write)
 2. collection agents (1:n)
     1. Install collectd
     2. Configure collectd to use the following plugins, which will also require their own configuration:
