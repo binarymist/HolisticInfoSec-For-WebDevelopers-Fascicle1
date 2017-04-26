@@ -3710,7 +3710,7 @@ Carry on and add to, or uncomment, and modify the `monitrc` file, with the likes
 1. CPU and memory usage
 2. Load averages
 3. File system space on all the mount points
-4. Check SSH that it has not been restarted by anything other than Monit (potentially swapping the binary or its config). Of course if an attacker kills Monit or systemd immediately restarts it and we get Monit alert(s). We also get real-time logging hopefully to an [off-site syslog server](#vps-countermeasures-lack-of-visibility-web-server-log-management-initial-set-up). Ideally your off-site syslog server also has alerts set-up on particular log events. On top of that you should also have inactivity alerts set-up so that if your log files are not generating events that you expect, then you also receive alerts. Services like [Dead Man’s Snitch](https://deadmanssnitch.com/) or packages like [Simple Event Correlator](https://simple-evcorr.github.io/) with Cron are good for this. On top of all that, if you have a file integrity checker that resides on another system that your host reveals no details of, and you have got it configured to check all the correct file check-sums, dates, permissions, etc, you are removing a lot of low hanging fruit for someone wanting to compromise your system.
+4. Check SSH that it has not been restarted by anything other than Monit (potentially swapping the binary or its config). Of course if an attacker kills Monit or systemd immediately restarts it and we get Monit alert(s). We also get real-time logging hopefully to an [off-site syslog server](#vps-countermeasures-lack-of-visibility-web-server-log-management-initial-set-up). Ideally your off-site syslog server also has alerts set-up on particular log events. On top of that you should also have inactivity alerts set-up so that if your log files are not generating events that you expect, then you also receive alerts. Services like [Dead Mans Snitch](https://deadmanssnitch.com/) or packages like [Simple Event Correlator](https://simple-evcorr.github.io/) with Cron are good for this. On top of all that, if you have a file integrity checker that resides on another system that your host reveals no details of, and you have got it configured to check all the correct file check-sums, dates, permissions, etc, you are removing a lot of low hanging fruit for someone wanting to compromise your system.
 5. Directory permissions, uid, gid and checksums. I believe the tools Monit uses to do these checks are part of Monit.
 
 #### Statistics Graphing: {#vps-countermeasures-lack-of-visibility-statistics-graphing}
@@ -3752,23 +3752,23 @@ Collectd can be used to send statistics locally or remotely. It can be setup as 
 Another common deployment scenario which is more interesting is to have a collection of hosts (clients/agents) that all require statistics gathering from them, and a server that listens for the data coming from all of the clients/agents. Let us see [how this looks](https://pradyumnajoshi.blogspot.co.nz/2015/11/setting-up-collectd-based-monitoring.html):
 
 1. graphing server (1)
-  1. [install, configure](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-graphite-on-an-ubuntu-14-04-server), and run [graphite](https://graphite.readthedocs.io/en/latest/install.html)
-  2. Install collectd: If you are using a recent Ubuntu or Debian release, then more than likely you will be able to just install the distributions [`collectd`](https://packages.debian.org/stretch/collectd) (which depends on [`collectd-core`](https://packages.debian.org/stretch/collectd-core) which includes many plugins) and [`collectd-utils`](https://packages.debian.org/stretch/collectd-utils)
-  3. Configure collectd to use the following plugins, which will also require their own configuration:
-    * network (read, write)
-    * [write_graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite) (write)
+    1. [install, configure](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-graphite-on-an-ubuntu-14-04-server), and run [graphite](https://graphite.readthedocs.io/en/latest/install.html)
+    2. Install collectd: If you are using a recent Ubuntu or Debian release, then more than likely you will be able to just install the distributions [`collectd`](https://packages.debian.org/stretch/collectd) (which depends on [`collectd-core`](https://packages.debian.org/stretch/collectd-core) which includes many plugins) and [`collectd-utils`](https://packages.debian.org/stretch/collectd-utils)
+    3. Configure collectd to use the following plugins, which will also require their own configuration:
+      * network (read, write)
+      * [write_graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite) (write)
 2. collection agents (1:n)
-  1. Install collectd
-  2. Configure collectd to use the following plugins, which will also require their own configuration:
-    * [Network]() (read, write)
-    * [CPU](https://collectd.org/wiki/index.php/Plugin:CPU) (read)
-    * [Load](https://collectd.org/wiki/index.php/Plugin:Load) (read)
-    * [Memory](https://collectd.org/wiki/index.php/Plugin:Memory) (read)
-    * [Disk](https://collectd.org/wiki/index.php/Plugin:Disk) (read)
-    * [Processes](https://collectd.org/wiki/index.php/Plugin:Processes) (read)
-    * Any other read plugins from [the list](https://collectd.org/wiki/index.php/Table_of_Plugins) that you would like to collect statistics for
+    1. Install collectd
+    2. Configure collectd to use the following plugins, which will also require their own configuration:
+      * [Network](https://collectd.org/wiki/index.php/Plugin:Network) (read, write)
+      * [CPU](https://collectd.org/wiki/index.php/Plugin:CPU) (read)
+      * [Load](https://collectd.org/wiki/index.php/Plugin:Load) (read)
+      * [Memory](https://collectd.org/wiki/index.php/Plugin:Memory) (read)
+      * [Disk](https://collectd.org/wiki/index.php/Plugin:Disk) (read)
+      * [Processes](https://collectd.org/wiki/index.php/Plugin:Processes) (read)
+      * Any other read plugins from [the list](https://collectd.org/wiki/index.php/Table_of_Plugins) that you would like to collect statistics for
 
-In this case, each collectd agent is sending its statistics from its Network plugin to the graphing servers network interface, which is picked up by the collectd Network plugin and flows through to the collectd [`write_graphite` plugin](https://collectd.org/wiki/index.php/Plugin:Write_Graphite), which sends the [statistics](https://collectd.org/wiki/index.php/Plugin:Write_Graphite#Example_data) (name actual-value timestamp-in-epoch) to graphites listening service called carbon (usually to [port 2003](https://graphite.readthedocs.io/en/latest/carbon-daemons.html#carbon-cache-py)). Carbon writes the data to the whisper library which is responsible for storing to its data files. graphite-web reads the data points from the wisper files, and provides user interface and API for rendering dashboards and graphs. 
+In this case, each collectd agent is sending its statistics from its Network plugin to the graphing servers network interface, which is picked up by the collectd Network plugin and flows through to the collectd `write_graphite` plugin, which sends the [statistics](https://collectd.org/wiki/index.php/Plugin:Write_Graphite#Example_data) (name actual-value timestamp-in-epoch) to graphites listening service called carbon (usually to [port 2003](https://graphite.readthedocs.io/en/latest/carbon-daemons.html#carbon-cache-py)). Carbon writes the data to the whisper library which is responsible for storing to its data files. graphite-web reads the data points from the wisper files, and provides user interface and API for rendering dashboards and graphs. 
 
 
 

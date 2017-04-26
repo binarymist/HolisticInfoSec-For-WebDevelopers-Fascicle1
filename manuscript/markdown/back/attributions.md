@@ -575,6 +575,111 @@ Arguments
 **Systemd NetworkTarget documentation**  
 [https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/](https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/)
 
+**Useful resources that I have used**  
+`kill`ing processes  
+[http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/](http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/)  
+Unix signals  
+[https://en.wikipedia.org/wiki/Unix_signal](https://en.wikipedia.org/wiki/Unix_signal)  
+Terse guide of systemd commands  
+[https://wiki.archlinux.org/index.php/systemd](https://wiki.archlinux.org/index.php/systemd)
+
+**Official Monit Documentation**  
+[https://mmonit.com/monit/documentation/monit.html](https://mmonit.com/monit/documentation/monit.html)
+
+**Monit Man page**  
+[http://linux.die.net/man/1/monit](http://linux.die.net/man/1/monit)
+
+**Dead Mans Snitch**  
+[https://deadmanssnitch.com/](https://deadmanssnitch.com/)
+
+**Simple Event Correlator**  
+[https://simple-evcorr.github.io/](https://simple-evcorr.github.io/)
+
+%% Statistics Graphing Countermeasures
+
+**This is where collectd and graphite come to the party**  
+[https://collectd.org/](https://collectd.org/)  
+[https://graphiteapp.org/](https://graphiteapp.org/)
+
+**AWS CloudWatch via a plugin**  
+[https://aws.amazon.com/blogs/aws/new-cloudwatch-plugin-for-collectd/](https://aws.amazon.com/blogs/aws/new-cloudwatch-plugin-for-collectd/)
+
+**Graphana**  
+[https://grafana.com/](https://grafana.com/)
+
+**Can take inputs from** a collection of data sources  
+[https://grafana.com/plugins?type=datasource](https://grafana.com/plugins?type=datasource)
+
+**AWS CloudWatch**  
+[http://docs.grafana.org/features/datasources/cloudwatch/](http://docs.grafana.org/features/datasources/cloudwatch/)
+
+**Better solution**  
+[http://blog.takipi.com/graphite-vs-grafana-build-the-best-monitoring-architecture-for-your-application/](http://blog.takipi.com/graphite-vs-grafana-build-the-best-monitoring-architecture-for-your-application/)
+
+**Collectd is capable of cryptographically signing or encrypting** the network traffic it transmits  
+[https://collectd.org/wiki/index.php/Networking_introduction#Cryptographic_setup](https://collectd.org/wiki/index.php/Networking_introduction#Cryptographic_setup)
+
+**Graphite has excellent official and community provided documentation**  
+[https://graphite.readthedocs.io/en/latest/](https://graphite.readthedocs.io/en/latest/)  
+[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-graphite-on-an-ubuntu-14-04-server](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-graphite-on-an-ubuntu-14-04-server)
+
+**Tools that can be integrated with graphite**  
+[http://graphite.readthedocs.org/en/latest/tools.html](http://graphite.readthedocs.org/en/latest/tools.html)
+
+**Graphite can take some work to deploy**  
+[https://kevinmccarthy.org/2013/07/18/10-things-i-learned-deploying-graphite/](https://kevinmccarthy.org/2013/07/18/10-things-i-learned-deploying-graphite/)
+
+**ansible-graphite playbook**  
+[https://github.com/dmichel1/ansible-graphite](https://github.com/dmichel1/ansible-graphite)
+
+**Graphite on a single machine**  
+[https://www.digitalocean.com/community/tutorials/how-to-configure-collectd-to-gather-system-metrics-for-graphite-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-configure-collectd-to-gather-system-metrics-for-graphite-on-ubuntu-14-04)
+
+**How this looks**  
+[https://pradyumnajoshi.blogspot.co.nz/2015/11/setting-up-collectd-based-monitoring.html](https://pradyumnajoshi.blogspot.co.nz/2015/11/setting-up-collectd-based-monitoring.html)
+
+**Install, configure, and run graphite**  
+[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-graphite-on-an-ubuntu-14-04-server](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-graphite-on-an-ubuntu-14-04-server)  
+[https://graphite.readthedocs.io/en/latest/install.html](https://graphite.readthedocs.io/en/latest/install.html)
+
+**`collectd`**  
+[https://packages.debian.org/stretch/collectd](https://packages.debian.org/stretch/collectd)
+
+**`collectd-core`**  
+[https://packages.debian.org/stretch/collectd-core](https://packages.debian.org/stretch/collectd-core)
+
+**`collectd-utils`**  
+[https://packages.debian.org/stretch/collectd-utils](https://packages.debian.org/stretch/collectd-utils)
+
+**`write_graphite`**  
+[https://collectd.org/wiki/index.php/Plugin:Write_Graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite)
+
+**`CPU`**  
+[https://collectd.org/wiki/index.php/Plugin:CPU](https://collectd.org/wiki/index.php/Plugin:CPU)
+
+**`Load`**  
+[https://collectd.org/wiki/index.php/Plugin:Load](https://collectd.org/wiki/index.php/Plugin:Load)
+
+**`Memory`**  
+[https://collectd.org/wiki/index.php/Plugin:Memory](https://collectd.org/wiki/index.php/Plugin:Memory)
+
+**`Disk`**  
+[https://collectd.org/wiki/index.php/Plugin:Disk](https://collectd.org/wiki/index.php/Plugin:Disk)
+
+**`Processes`**  
+[https://collectd.org/wiki/index.php/Plugin:Processes](https://collectd.org/wiki/index.php/Plugin:Processes)
+
+**Read plugins from the list**  
+[https://collectd.org/wiki/index.php/Table_of_Plugins](https://collectd.org/wiki/index.php/Table_of_Plugins)
+
+**Sends the statistics** (name actual-value timestamp-in-epoch) to graphites listening service called carbon  
+[https://collectd.org/wiki/index.php/Plugin:Write_Graphite#Example_data](https://collectd.org/wiki/index.php/Plugin:Write_Graphite#Example_data)
+
+**Usually to port 2003**  
+[https://graphite.readthedocs.io/en/latest/carbon-daemons.html#carbon-cache-py](https://graphite.readthedocs.io/en/latest/carbon-daemons.html#carbon-cache-py)
+
+%% End Statistics Graphing Countermeasures
+
 **DigitalOcean had a tutorial on setting Tripwire up**  
 [https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps](https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps)
 
@@ -617,32 +722,6 @@ arkdown.html
 
 **Source on github**  
 [https://github.com/fbb-git/stealth](https://github.com/fbb-git/stealth)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 %% Countermeasures Docker
 
@@ -860,13 +939,7 @@ c7d4b
 http://www.heavybit.com/library/podcasts/the-secure-developer/ep-7-understanding-contai  
 ner-security/
 
-
-
-
-
-
-
-
+%% End Countermeasures Docker
 
 **There are plenty of tools** available to help  
 [http://www.debianhelp.co.uk/backuptools.htm](http://www.debianhelp.co.uk/backuptools.htm) 
