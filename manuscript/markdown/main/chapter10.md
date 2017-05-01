@@ -1011,79 +1011,50 @@ As discussed in the VPS chapter, Monit is an excellent tool for the dark cockpit
 
 Continuing on with the [Statistics Graphing](#vps-countermeasures-lack-of-visibility-statistics-graphing) section in the VPS chapter, we look at adding [statsd](https://github.com/etsy/statsd/) as application instrumentation to our existing collectd -> graphite set-up.
 
-{linenos=off}
-      Server1   
-       +--------------+
-       | statsd client|--+
-    +-<| collectd     |  |
-    |  +--------------+  |
-    |                    v    Graphing
-    v   Server2          |    Server
-    |  +--------------+  |   +-----------+
-    |  | statsd client|--+-->| statsd    |
-    +-<| collectd     |  |   |   |       |
-    |  +--------------+  |   |   v       |
-    |                    ^   | graphite  |<-+
-    v   Server3, etc     |   +-----------+  |
-    |  +--------------+  |                  |
-    |  | statsd client|--+                  ^
-    +-<| collectd     |                     |
-    |  +--------------+                     |
-    +-------------------->------------------+
+Just as collectd can collect and send data to graphite directly if collectd agent and server are on the same machine, or indirectly via a collectd server on another machine to provide continual system visibility, statsd can play a similar role as collectd agent/server but for our applications. 
 
 
-Just as collectd can send data to graphite to provide continual system visibility ,statsd can do the same for our applications. 
 
-statsd is a lightweight NodeJS daemon that collects statistics by listening for UDP packets containing them and aggregates. The protocol that statsd expects to receive looks like the following:
+Statsd is a lightweight NodeJS daemon that collects and stores the statistics sent to it for a configurable amount of time (10 seconds by default) by listening for UDP packets containing them. Statsd then aggregates the statistics and flushes a single value for each statistic to its `backends` (graphite in our case) using a TCP connection. The `flushInterval` needs to be the same as the `retentions` interval in the Carbon [`/etc/carbon/storage-schemas.conf`](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf) file. This is how statsd [gets around](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#anatomy-of-statsd-data-metrics) the Carbon limitation of only accepting a single value per interval. The protocol that statsd expects to receive looks like the following, expecting a type in the third position instead of the timestamp that Carbon expects:
 
 {title="statsd receiving protocol", linenos=off}
-    <metric name>:<value>|<type>
+    <metric-name>:<actual-value>|<type>
 
 Where `<type>` is one of the following:
 
-{title="Counting", linenos=off}
+{title="Count", linenos=off}
     c
+
+This tells statsd to add up all of these values that it receives for a particular statistic during the flush interval and send the total on flush. A sample rate can also be provided from the statsd client as a decimal of the number of samples per event count:  
+`<metric-name>:<actual-value>|c[|@<sample-rate>]`  
+So if the statistic is [only being sampled 1/10th of the time](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sampling):  
+`<metric-name>:<actual-value>|c|@0.1`  
 
 {title="Timing", linenos=off}
     ms
 
+This value needs to be the timespan in milliseconds between a start and end time. This could be for example, the timespan that it took to hash a piece of data to be stored such as a password, or how long it took to pre-render an isomorphic web view. Just as with the count type, you can also provide a sample rate for timing as well. Statsd does quite a lot of work with timing data, it [works out](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#timing) percentiles, mean, standard deviation, sum, lower and upper bounds for the flush interval. This can be very useful for when you are making changes to your application and want to know if those changes are [slowing it down](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#timers).
+
 {title="Gauges", linenos=off}
     g
+
+A gauge is a snap shot of a reading, like your [cars fuel gauge](https://github.com/b/statsd_spec/blob/master/README.md#gauges) for example. As opposed to the count type which is calculated by statsd, a gauge is calculated at the statsd client.
 
 {title="Sets", linenos=off}
     s
 
-So for example if you have statsd running locally with the default server and port, you can test with the following command:
+[Sets](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#sets) allow you to send the number of [unique occurrences](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sets) of events between flushes, so for example you could send the source address of every request to your web application and statsd would workout the number of unique source requests per flush interval
+
+So for example if you have statsd running on a server called graphing-server with the default port, you can test sending a count metric with the following command:
 
 {title="statsd receiving protocol", linenos=off}
-    echo "foo:1|c" | nc -u -w0 127.0.0.1 8125
+    echo "<meteric-name>:<actual-value>|c" | nc -u -w0 graphing-server 8125
 
 The server and port are specified in the config file that you create for yourself. You can create this from the [`exampleConfig.js`](https://github.com/etsy/statsd/blob/master/exampleConfig.js) as a starting point. In `exampleConfig.js` you will see the server and port properties. The current options for server are tcp or udp, with udp being the default. The server file must exist in the [`./servers/`](https://github.com/etsy/statsd/tree/master/servers) directory.
 
-One of the ways we can generate statistics for our statsd daemon is by using one of the many language specific [statsd clients](https://github.com/etsy/statsd/wiki#client-implementations).
+One of the ways we can generate statistics to send to our listening statsd daemon is by using one of the many language specific [statsd clients](https://github.com/etsy/statsd/wiki#client-implementations), which make it trivially easy to collect and send application statistics via a single routine call.
 
-{linenos=off}
-    +----------------------+
-    | your application     |--> statsd -> graphite
-    | with a statsd client |
-    +----------------------+
-
-_Todo_
-
-Detail how we collect application statistics and send to graphite. Show real life example.
-
-See list of commented resources.
-
-%% https://www.digitalocean.com/community/tutorials/an-introduction-to-tracking-statistics-with-graphite-statsd-and-collectd
-
-%% https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04
-
-%% Looks like the first statsd spec for metric types: https://github.com/b/statsd_spec/blob/master/README.md
-%% Looks like the up to date, or at least more recent statsd spec for metric types: https://github.com/etsy/statsd/blob/master/docs/metric_types.md
-
-%% Configuring Graphite for statsd: https://github.com/etsy/statsd/blob/master/docs/graphite.md
-
-%% https://www.datadoghq.com/blog/statsd/
+![](images/statsd-graphite.png)
 
 ### Lack of Input Validation, Filtering and Sanitisation {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation}
 ![](images/ThreatTags/PreventionAVERAGE.png)
