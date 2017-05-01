@@ -1198,8 +1198,8 @@ https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exa
 nfig.js#L125
 
 **The `flushInterval`** needs to be the same as the `retentions` interval in the Carbon `/etc/carbon/storage-schemas.conf` file  
-https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleCon  
-fig.js#L50  
+https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleCo  
+nfig.js#L50  
 [https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf)
 
 **Statistic is only being sampled 1/10th of the time**  
