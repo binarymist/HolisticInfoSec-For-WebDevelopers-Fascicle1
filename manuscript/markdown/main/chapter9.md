@@ -32,6 +32,10 @@ If you are a start up, just be aware that the speed you have initially with a Pa
 
 %% https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
 
+%% Discuss Infrastsructure as Code (IaC) with the likes of Terraform
+%%    Quite a bit of thought gone into this in the SER review of James Turnbull, show #289: https://groups.google.com/forum/?hl=en#!topic/seradio/5OTTZMIUAns
+%%    Also discussed testing your IaC with the likes of Test Kitchen.
+%%    Also discussed Puppet, and the lower level configuration management tools like Ansible, which I've documented for Mobidiction.
 
 
 ## 1. SSM Asset Identification
@@ -128,7 +132,7 @@ collectd and graphite on OpenStack
 
 %% Plugins for collecting OpenStack metrics: https://github.com/catalyst/collectd-openstack
 
-%% Nagios, Graphite, Collectd for OpenStack.
+%% Nagios, Graphite, Collectd for OpenStack. Touched on this in VPS and Web chapters, may not need to do a lot here. Possibly cover the Mobiddiction learnings.
 
 
 ## 4. SSM Risks that Solution Causes

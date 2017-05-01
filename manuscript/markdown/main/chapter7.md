@@ -1469,7 +1469,7 @@ Now this is addressed, because so many rely on firewalls to hide many weak areas
 ### Forfeit Control thus Security {#vps-countermeasures-forfeit-control-thus-security}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Bringing your VPS(s) in-house provides all the flexibility/power required to mitigate just about all the risks due to outsourcing to a cloud or hosting provider. How easy this will be is determined by how much you already have invested. Cloud offerings are often more expensive in monetary terms for medium to large environments, so as you grow, the cost benefits you may have gained due to quick development up-front will often become an anchor holding you back. Because you may have bought into their proprietary way of doing things, it now becomes costly to migrate, and your younger competitors which can turn quicker, out manoeuvre you. Platform as a Service often appears even more attractive, but everything comes at a cost, cloud platforms may look good to start with, but often they are to good, and the costs will catch up with you. All that glitters is not gold.
+Bringing your VPS(s) in-house provides all the flexibility/power required to mitigate just about all the risks due to outsourcing to a cloud or hosting provider. How easy this will be is determined by how much you already have invested. Cloud offerings are often more expensive in monetary terms for medium to large environments, so as you grow, the cost benefits you may have gained due to quick development up-front will often become an anchor holding you back. Because you may have bought into their proprietary way of doing things, it now becomes costly to migrate, and your younger competitors which can turn quicker, out manoeuvre you. Platform as a Service and serverless technologies often appear even more attractive, but everything comes at a cost, cloud platforms may look good to start with, but often they are to good, and the costs will catch up with you. All that glitters is not gold.
 
 ### Windows
 
@@ -4969,14 +4969,14 @@ The following is a final type of check-list that I like to use before opening a 
 ## 4. SSM Risks that Solution Causes
 > Are there any? If so what are they?
 
-* Just beware that if you are intending to break the infrastructure or even what is running on your VPS(s) if they are hosted on someone else's infrastructure, that you make sure you have all the tests you intend to carry out documented including what could possibly go wrong, accepted and signed by your provider. Good luck with this. That is why I usually recommend self hosting.
-* Keep in mind: that if you do not break your system(s), someone else will.
-* Possible time constraints: It takes time to find skilled workers, gain expertise, set-up and configure.
-* Many of the points I have raised around VPS hardening require maintenance.
+* Just beware that if you are intending to break the infrastructure or even what is running on your VPS(s) if they are hosted on someone else's infrastructure, that you make sure you have all the tests you intend to carry out documented, including what could possibly go wrong, accepted and signed by your provider. Good luck with this. That is why self hosting is often easier
+* Keep in mind: that if you do not break your system(s), someone else will
+* Possible time constraints: It takes time to find skilled workers, gain expertise, set-up and configure
+* Many of the points I have raised around VPS hardening require maintenance, you can not just set-up once and forget about it
 
 ### Forfeit Control thus Security
 
-_Todo_
+Bringing your VPS(s) in-house can provide certainty and reduce risks of vendor lock-in, but the side-effect to this, is that you do not get your solution to market quick enough, and someone else beats you, which may mean the end of business for you. Many of the larger cloud providers are getting better at security and provide many tools and techniques for hardening the resources you hire.
 
 ### Windows
 
@@ -5167,7 +5167,22 @@ Personally I prefer not to rely on firewalls, once you have removed any surplus 
 
 ### Forfeit Control thus Security
 
-_Todo_
+If you choose to go the default way now and rely on others for your compute, these are some things [you should consider](https://www.owasp.org/images/7/71/2017-04-20-TrustMeImACloud.pdf):
+
+* Vendor lock-in
+  * Infrastructure as a Service (IaaS)
+  * Software as a Service (SaaS)
+  * Platform as a Service (PaaS)
+  * Serverless Technologies
+  * Is it even possible to move to an on-premise solution?
+* What happens when your provider goes down, looses your data? Can you or your business survive without them or without the data they are hosting?
+* Do you have a strategy in place for the event that your provider(s) discontinue their service. How quickly can you migrate? Where would you migrate to? Will you be able to retrieve your data? Do you actually own your data?
+* Do your providers have Service Level Agreements (SLAs) and have you tested them?
+* Fault tolerance, capacity management and scalability is often (not always) better with cloud providers
+* Do you back up your data and have you tested the restoration of it, or do you also out-source this? If so, have your tested the out-sourced providers data secrecy and recovery ability? You will also have to do this regularly, just because a provider passes once, does not mean it always will. Providers consist of people to, and people make mistakes
+* Do you test your disaster recovery plan regularly? If you own your own infrastructure, you can get hands-on access, in the cloud this is usually impossible
+* Do you have a strategy in place for when your accounts with your providers are locked out or hijacked by a malicious actor? Have you tested it? If you own your own infrastructure, you have far more control with this
+* Do you have security solutions in the cloud also, what happens if they become unavailable?
 
 ### Windows
 
