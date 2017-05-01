@@ -28,6 +28,7 @@ If you are a start up, just be aware that the speed you have initially with a Pa
 %%    Google CloudFunctions https://cloud.google.com/functions/
 %%    Azure Functions https://azure.microsoft.com/en-us/services/functions/
 %% What is to stop DoS attacks and costing the renter megabucks?
+%% https://devops.com/5-common-misconceptions-serverless-technology/
 
 %% https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
 

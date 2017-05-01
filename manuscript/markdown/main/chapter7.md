@@ -3713,7 +3713,7 @@ Carry on and add to, or uncomment, and modify the `monitrc` file, with the likes
 4. Check SSH that it has not been restarted by anything other than Monit (potentially swapping the binary or its config). Of course if an attacker kills Monit or systemd immediately restarts it and we get Monit alert(s). We also get real-time logging hopefully to an [off-site syslog server](#vps-countermeasures-lack-of-visibility-web-server-log-management-initial-set-up). Ideally your off-site syslog server also has alerts set-up on particular log events. On top of that you should also have inactivity alerts set-up so that if your log files are not generating events that you expect, then you also receive alerts. Services like [Dead Mans Snitch](https://deadmanssnitch.com/) or packages like [Simple Event Correlator](https://simple-evcorr.github.io/) with Cron are good for this. On top of all that, if you have a file integrity checker that resides on another system that your host reveals no details of, and you have got it configured to check all the correct file check-sums, dates, permissions, etc, you are removing a lot of low hanging fruit for someone wanting to compromise your system.
 5. Directory permissions, uid, gid and checksums. I believe the tools Monit uses to do these checks are part of Monit.
 
-#### Statistics Graphing: {#vps-countermeasures-lack-of-visibility-statistics-graphing}
+#### Statistics Graphing {#vps-countermeasures-lack-of-visibility-statistics-graphing}
 
 This is where [collectd](https://collectd.org/) and [graphite](https://graphiteapp.org/) come to the party. Both tools do one thing, do it well, and are independent of each other, but are often used together.
 
@@ -4986,6 +4986,10 @@ _Todo_
 
 _Todo_
 
+#### PowerShell Exploitation with Persistence
+
+_Todo_
+
 ### Minimise Attack Surface by Installing Only what you Need
 
 _Todo_
@@ -5006,7 +5010,7 @@ _Todo_
 
 _Todo_
 
-#### Disable Remote Root Logins
+#### Disable Root Logins from All Terminals
 
 _Todo_
 
@@ -5064,6 +5068,10 @@ _Todo_
 %% This sort of strategy provides a false sense of self security for the attacker. In a way a similar concept to the honey pot. They may know about a tool operating on the server they are on and even have disabled it, but if you keep the defence in depth mentality, you may just have the upper hand without the attacker being aware of it. This can create perfect ambush.
 %% Add defence in depth diagram from CampJS talk again.
 
+#### Web Server Log Management
+
+_Todo_
+
 #### Proactive Monitoring
 
 _Todo_
@@ -5081,6 +5089,9 @@ You could and should also have NIDs running on your network which makes this eve
 
 _Todo_
 
+#### Statistics Graphing
+
+_Todo_
 
 #### Host Intrusion Detection Systems (HIDS)
 
@@ -5090,13 +5101,55 @@ _Todo_
 
 _Todo_
 
+#### Consumption from Registries
+
+_Todo_
+
+#### Doppelganger images
+
+_Todo_
+
+#### The Default User is Root
+
+_Todo_
+
 #### Hardening Docker Host, Engine and Containers
+
+_Todo_
+
+##### Namespaces
+
+_Todo_
+
+##### Control Groups
+
+_Todo_
+
+##### Capabilities
+
+_Todo_
 
 ##### Linux Security Modules (LSM)
 
 There are hundreds of LSM security hooks throughout the kernel, these hooks provide additional attack surface. An attacker with a buffer overflow vulnerability for example may be able to insert their own byte code and bypass the LSM provided implementation, or even redirect to a payload of their choosing. James Morris, a Linux Kernel Developer discussed this on his [blog](https://blog.namei.org/2017/03/09/hardening-the-lsm-api/).
 
 Employing a LSM and learning its intricacies and how to configure it is a bit of a learning curve, but one that is often well worth the effort, and this does not just apply to Docker, but all of the hundreds of resources that the kernel attempts to manage.
+
+##### Seccomp
+
+_Todo_
+
+##### Read-only Containers
+
+_Todo_
+
+#### runC and where it fits in
+
+_Todo_
+
+#### Application Security
+
+_Todo_
 
 ### Using Components with Known Vulnerabilities
 
@@ -5124,6 +5177,10 @@ _Todo_
 
 _Todo_
 
+#### PowerShell Exploitation with Persistence
+
+_Todo_
+
 ### Minimise Attack Surface by Installing Only what you Need
 
 _Todo_
@@ -5144,7 +5201,7 @@ _Todo_
 
 _Todo_
 
-#### Disable Remote Root Logins
+#### Disable Root Logins from All Terminals
 
 _Todo_
 
@@ -5196,7 +5253,15 @@ _Todo_
 
 _Todo_
 
+#### Web Server Log Management
+
+_Todo_
+
 #### Proactive Monitoring
+
+_Todo_
+
+#### Statistics Graphing
 
 _Todo_
 
@@ -5205,6 +5270,54 @@ _Todo_
 _Todo_
 
 ### Docker
+
+_Todo_
+
+#### Consumption from Registries
+
+_Todo_
+
+#### Doppelganger images
+
+_Todo_
+
+#### The Default User is Root
+
+_Todo_
+
+#### Hardening Docker Host, Engine and Containers
+
+_Todo_
+
+##### Namespaces
+
+_Todo_
+
+##### Control Groups
+
+_Todo_
+
+##### Capabilities
+
+_Todo_
+
+##### Linux Security Modules (LSM)
+
+_Todo_
+
+##### Seccomp
+
+_Todo_
+
+##### Read-only Containers
+
+_Todo_
+
+#### runC and where it fits in
+
+_Todo_
+
+#### Application Security
 
 _Todo_
 
