@@ -678,6 +678,9 @@ Terse guide of systemd commands
 **Usually to port 2003**  
 [https://graphite.readthedocs.io/en/latest/carbon-daemons.html#carbon-cache-py](https://graphite.readthedocs.io/en/latest/carbon-daemons.html#carbon-cache-py)
 
+**Carbon only accepts a single value per interval**, which is 10 seconds by default  
+[https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf)
+
 %% End Statistics Graphing Countermeasures
 
 **DigitalOcean had a tutorial on setting Tripwire up**  
@@ -1187,6 +1190,42 @@ dated-javascript-libraries-on-the-web/
 
 **Monit Has excellent short documentation**  
 [https://mmonit.com/monit/documentation/monit.html](https://mmonit.com/monit/documentation/monit.html)
+
+%% Statistics Graphing Countermeasures
+
+**Statsd then aggregates the statistics** and flushes a single value for each statistic to its `backends`  
+[https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L125](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L125)
+
+**The `flushInterval`** needs to be the same as the `retentions` interval in the Carbon `/etc/carbon/storage-schemas.conf` file  
+[https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L50](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L50)  
+[https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf)
+
+**Statistic is only being sampled 1/10th of the time**  
+[https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sampling](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sampling)
+
+**Statsd does quite a lot of work with timing data**  
+[https://github.com/etsy/statsd/blob/master/docs/metric_types.md#timing](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#timing)
+
+**Want to know if those changes are slowing it down**  
+[https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#timers](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#timers)
+
+**Like your cars fuel gauge**  
+[https://github.com/b/statsd_spec/blob/master/README.md#gauges](https://github.com/b/statsd_spec/blob/master/README.md#gauges)
+
+**Sets allow you to send** the number of unique occurrences of events between flushes  
+[https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#sets](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#sets)  
+[https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sets](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sets)
+
+**`exampleConfig.js`**  
+[https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js)
+
+**The server file must exist in the `./servers/` directory**  
+[https://github.com/etsy/statsd/tree/master/servers](https://github.com/etsy/statsd/tree/master/servers)
+
+**statsd clients**  
+[https://github.com/etsy/statsd/wiki#client-implementations](https://github.com/etsy/statsd/wiki#client-implementations)
+
+%% End Statistics Graphing Countermeasures
 
 **Each Custom Element**  
 [https://w3c.github.io/webcomponents/spec/custom/](https://w3c.github.io/webcomponents/spec/custom/)

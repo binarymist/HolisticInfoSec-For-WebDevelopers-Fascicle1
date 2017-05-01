@@ -304,6 +304,8 @@ https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
 **Syslog compatible protocol severities**  
 [https://wiki.gentoo.org/wiki/Rsyslog#Severity](https://wiki.gentoo.org/wiki/Rsyslog#Severity)
 
+%% Statistics Graphing Countermeasures
+
 **statsd source code**  
 [https://github.com/etsy/statsd/](https://github.com/etsy/statsd/)
 
@@ -314,6 +316,14 @@ https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
 [https://github.com/b/statsd_spec/blob/master/README.md](https://github.com/b/statsd_spec/blob/master/README.md)  
 **Current, or at least more recent statsd spec** for metric types  
 [https://github.com/etsy/statsd/blob/master/docs/metric_types.md](https://github.com/etsy/statsd/blob/master/docs/metric_types.md)
+
+**Configuring Graphite for StatsD**  
+[https://github.com/etsy/statsd/blob/master/docs/graphite.md](https://github.com/etsy/statsd/blob/master/docs/graphite.md)
+
+**StatsD, what it is and how it can help you**  
+[https://www.datadoghq.com/blog/statsd/](https://www.datadoghq.com/blog/statsd/)
+
+%% End Statistics Graphing Countermeasures
 
 **Podcast on WebComponents**  
 [http://webcomponents.org/](http://webcomponents.org/)

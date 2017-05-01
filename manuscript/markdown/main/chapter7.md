@@ -3735,9 +3735,9 @@ Graphite is a statistics storage and visualisation component which consists of:
 
 * Carbon - A daemon that listens for time-series data and stores it. Any data sent to Graphite is actually sent to Carbon. The protocols for data transfer that Carbon accepts and understands are:
   1. Plain text, which includes fields:
-    1. The metric name
-    2. Value of the statistic
-    3. Timestamp that the statistic was captured
+      1. The metric name
+      2. Value of the statistic
+      3. Timestamp that the statistic was captured
   2. Pickle, because Graphite is written in Python, and Pickle serializers and de-serializers Python object structures. Pickle is good when you want to batch up large amounts of data and have the Carbon pickle receiver accept it
   3. AMQP, which Carbon can use to listen to a message bus
 * Whisper - A simple database library for storing time-series data
@@ -3774,7 +3774,8 @@ Another common deployment scenario which is more interesting is to have a collec
       * [Processes](https://collectd.org/wiki/index.php/Plugin:Processes) (read)
       * Any other read plugins from [the list](https://collectd.org/wiki/index.php/Table_of_Plugins) that you would like to collect statistics for
 
-In this case, each collectd agent is sending its statistics from its Network plugin to the graphing servers network interface (achieving the same result as the below netcat command), which is picked up by the collectd Network plugin and flows through to the collectd `write_graphite` plugin, which sends the [statistics](https://collectd.org/wiki/index.php/Plugin:Write_Graphite#Example_data) using the plain text transfer protocol (metric-name actual-value timestamp-in-epoch) to graphites listening service called carbon (usually to [port 2003](https://graphite.readthedocs.io/en/latest/carbon-daemons.html#carbon-cache-py)). Carbon only accepts a single value per interval, which is [10 seconds by default](https://graphite.readthedocs.io/en/latest/config-carbon.html). Carbon writes the data to the whisper library which is responsible for storing to its data files. graphite-web reads the data points from the wisper files, and provides user interface and API for rendering dashboards and graphs. 
+{#vps-countermeasures-lack-of-visibility-statistics-graphing-assembling-the-components-after}
+In this case, each collectd agent is sending its statistics from its Network plugin to the graphing servers network interface (achieving the same result as the below netcat command), which is picked up by the collectd Network plugin and flows through to the collectd `write_graphite` plugin, which sends the [statistics](https://collectd.org/wiki/index.php/Plugin:Write_Graphite#Example_data) using the plain text transfer protocol (metric-name actual-value timestamp-in-epoch) to graphites listening service called carbon (usually to [port 2003](https://graphite.readthedocs.io/en/latest/carbon-daemons.html#carbon-cache-py)). Carbon only accepts a single value per interval, which is [10 seconds by default](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf). Carbon writes the data to the whisper library which is responsible for storing to its data files. graphite-web reads the data points from the wisper files, and provides user interface and API for rendering dashboards and graphs. 
 
 {linenos=off, lang=bash}
     echo "<metric-name> <actual-value> `date +%s`" | nc -q0 graphing-server 2003

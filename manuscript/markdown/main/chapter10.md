@@ -1015,9 +1015,9 @@ Just as collectd can collect and send data to graphite directly if collectd agen
 
 
 
-Statsd is a lightweight NodeJS daemon that collects and stores the statistics sent to it for a configurable amount of time (10 seconds by default) by listening for UDP packets containing them. Statsd then aggregates the statistics and flushes a single value for each statistic to its `backends` (graphite in our case) using a TCP connection. The `flushInterval` needs to be the same as the `retentions` interval in the Carbon [`/etc/carbon/storage-schemas.conf`](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf) file. This is how statsd [gets around](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#anatomy-of-statsd-data-metrics) the Carbon limitation of only accepting a single value per interval. The protocol that statsd expects to receive looks like the following, expecting a type in the third position instead of the timestamp that Carbon expects:
+Statsd is a lightweight NodeJS daemon that collects and stores the statistics sent to it for a configurable amount of time (10 seconds by default) by listening for UDP packets containing them. Statsd then aggregates the statistics and flushes a single value for each statistic to its [`backends`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L125) (graphite in our case) using a TCP connection. The [`flushInterval`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L50) needs to be the same as the `retentions` interval in the Carbon [`/etc/carbon/storage-schemas.conf`](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf) file. This is how statsd [gets around](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#anatomy-of-statsd-data-metrics) the Carbon limitation of only accepting a single value per interval. The protocol that statsd expects to receive looks like the following, expecting a type in the third position instead of the timestamp that [Carbon expects](#vps-countermeasures-lack-of-visibility-statistics-graphing-assembling-the-components-after):
 
-{title="statsd receiving protocol", linenos=off}
+{title="statsd receiving protocol (syntax)", linenos=off}
     <metric-name>:<actual-value>|<type>
 
 Where `<type>` is one of the following:
@@ -1038,19 +1038,19 @@ This value needs to be the timespan in milliseconds between a start and end time
 {title="Gauges", linenos=off}
     g
 
-A gauge is a snap shot of a reading, like your [cars fuel gauge](https://github.com/b/statsd_spec/blob/master/README.md#gauges) for example. As opposed to the count type which is calculated by statsd, a gauge is calculated at the statsd client.
+A gauge is a snap shot of a reading in your application code, like your [cars fuel gauge](https://github.com/b/statsd_spec/blob/master/README.md#gauges) for example. As opposed to the count type which is calculated by statsd, a gauge is calculated at the statsd client.
 
 {title="Sets", linenos=off}
     s
 
-[Sets](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#sets) allow you to send the number of [unique occurrences](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sets) of events between flushes, so for example you could send the source address of every request to your web application and statsd would workout the number of unique source requests per flush interval
+[Sets](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#sets) allow you to send the number of [unique occurrences](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sets) of events between flushes, so for example you could send the source address of every request to your web application and statsd would workout the number of unique source requests per flush interval.
 
 So for example if you have statsd running on a server called graphing-server with the default port, you can test sending a count metric with the following command:
 
-{title="statsd receiving protocol", linenos=off}
+{title="statsd receiving protocol (example)", linenos=off}
     echo "<meteric-name>:<actual-value>|c" | nc -u -w0 graphing-server 8125
 
-The server and port are specified in the config file that you create for yourself. You can create this from the [`exampleConfig.js`](https://github.com/etsy/statsd/blob/master/exampleConfig.js) as a starting point. In `exampleConfig.js` you will see the server and port properties. The current options for server are tcp or udp, with udp being the default. The server file must exist in the [`./servers/`](https://github.com/etsy/statsd/tree/master/servers) directory.
+The server and port are specified in the config file that you create for yourself. You can create this from the [`exampleConfig.js`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js) as a starting point. In `exampleConfig.js` you will see the server and port properties. The current options for server are tcp or udp, with udp being the default. The server file must exist in the [`./servers/`](https://github.com/etsy/statsd/tree/master/servers) directory.
 
 One of the ways we can generate statistics to send to our listening statsd daemon is by using one of the many language specific [statsd clients](https://github.com/etsy/statsd/wiki#client-implementations), which make it trivially easy to collect and send application statistics via a single routine call.
 
