@@ -1038,7 +1038,7 @@ This value needs to be the timespan in milliseconds between a start and end time
 {title="Gauges", linenos=off}
     g
 
-A gauge is a snap shot of a reading in your application code, like your [cars fuel gauge](https://github.com/b/statsd_spec/blob/master/README.md#gauges) for example. As opposed to the count type which is calculated by statsd, a gauge is calculated at the statsd client.
+A gauge is a snap-shot of a reading in your application code, like your [cars fuel gauge](https://github.com/b/statsd_spec/blob/master/README.md#gauges) for example. As opposed to the count type which is calculated by statsd, a gauge is calculated at the statsd client.
 
 {title="Sets", linenos=off}
     s
