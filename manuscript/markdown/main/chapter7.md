@@ -5004,7 +5004,7 @@ You may find some stage later on that a component that you removed is actually n
 
 #### Partitioning on OS Installation
 
-_Todo_
+This process can sometimes lock things down to tightly. I would much rather go to far here and have to back things off a little, or get creative with a script to unmount, remount with less restrictions applied, perform the action you need, then mount again according to the `/etc/fstab`.
 
 #### Apt Proxy Set-up
 
@@ -5210,7 +5210,7 @@ Do your home-work up front and decide what is actually required to stay and what
 
 #### Partitioning on OS Installation
 
-_Todo_
+Often a little trial and error is required to get the optimal configuration for your needs.
 
 #### Apt Proxy Set-up
 
