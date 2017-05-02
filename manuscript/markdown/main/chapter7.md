@@ -5000,7 +5000,7 @@ You may not have something installed that you need.
 
 ### Disable, Remove Services. Harden what is left
 
-_Todo_
+You may find some stage later on that a component that you removed is actually needed.
 
 #### Partitioning on OS Installation
 
@@ -5206,7 +5206,7 @@ When you find out you need something, research it along with alternatives. Work 
 
 ### Disable, Remove Services. Harden what is left
 
-_Todo_
+Do your home-work up front and decide what is actually required to stay and what is not. In most cases re-enabling or re-adding will only cost you time.
 
 #### Partitioning on OS Installation
 
