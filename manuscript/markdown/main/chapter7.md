@@ -5107,7 +5107,7 @@ _Todo_
 
 The benefits far outweigh any risks here.
 
-Using a system like Stealth as your file integrity checker that resides on a server(s) somewhere else that run against the target server, means an attacker will very often not realise that they are under observation if they can not see the observer running on the machine that they are on.
+Using a system like Stealth as your file integrity checker that resides on a server(s) [somewhere else](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth-what-i-like) that run against the target server, means an attacker will very often not realise that they are under observation if they can not see the observer running on the machine that they are on.
 
 This sort of strategy provides a false sense of self security for the attacker. In a way a similar concept to the honey pot. They may know about a tool operating on the server they are on and even have disabled it, but if you keep the defence in depth mentality, there is no reason that you can not have the upper hand without the attacker being aware of it.
 
