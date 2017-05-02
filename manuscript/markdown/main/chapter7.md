@@ -5040,25 +5040,24 @@ You may be using NIS+. Make sure you are not before you disable it.
 
 #### Rpcbind
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+As discussed in the [Countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) section, just make sure you have no need for Rpcbind before you remove it. Taking the slightly safer approach of just denying rpcbind responses in the `/etc/hosts.deny` is also an option.
 
 #### Telnet
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### FTP
 
@@ -5258,27 +5257,26 @@ I am not aware of any costs with removing NIS if it is not necessary, and if it 
 
 #### Rpcbind
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+I am not aware of any costs with removing or disabling responses from rpcbind if it is not required.
 
 #### Telnet
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### FTP
 
