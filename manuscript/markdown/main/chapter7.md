@@ -5052,28 +5052,21 @@ You may have some staff that are set in their ways. Gently coax them to understa
 
 #### NFS
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Possible misconfiguration, make sure you test your configuration thoroughly after changes.
 
 ### Lack of Visibility
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
 
 #### Logging and Alerting
 
@@ -5273,20 +5266,17 @@ If you can convince your staff to read and understand the issues with FTP, and F
 
 #### NFS
 
-
-
-
-
-
-
-
-
-
-
+If you are using NFS, there is some configuration required, this can take a few minutes. Scripting this for a configuration management tool is a good idea if you need to apply the same configuration to many servers.
 
 ### Lack of Visibility
 
-_Todo_
+
+
+
+
+
+
+
 
 #### Logging and Alerting
 
