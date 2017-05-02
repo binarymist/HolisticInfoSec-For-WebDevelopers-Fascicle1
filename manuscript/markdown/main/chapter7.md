@@ -2779,8 +2779,6 @@ Check the most recent login of all users, or of a given user. `lastlog` sources 
 `/var/log/lastlog`  
 `lastlog`
 
-Of course any of the above tools can be replaced with trojanised replicas, unless you have a [Host Intrusion Detection System (HIDS)](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) running from a location that the attacker is not aware of, continually checking for the existence and validity of the core system components.
-
 #### [Logging and Alerting](https://medium.com/starting-up-security/learning-from-a-year-of-security-breaches-ed036ea05d9b#41e1) {#vps-countermeasures-lack-of-visibility-logging-and-alerting}
 ![](images/ThreatTags/PreventionEASY.png)
 
@@ -5056,19 +5054,19 @@ Possible misconfiguration, make sure you test your configuration thoroughly afte
 
 ### Lack of Visibility
 
+Possibly false confidence in the tools that are supposed to provide visibility. Using a collecting of similar tools can be a good idea. The attacker only needs to miss one then.
 
-
-
-
-
-
-
-
-
-
-
+Of course any of the visibility providing tools can be replaced with trojanised replicas, unless you have a [Host Intrusion Detection System (HIDS)](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) running from a location that the attacker is not aware of, continually checking for the existence and validity of the core system components.
 
 #### Logging and Alerting
+
+
+
+
+
+
+
+
 
 _Todo_
 
@@ -5270,21 +5268,22 @@ If you are using NFS, there is some configuration required, this can take a few 
 
 ### Lack of Visibility
 
-
-
-
-
-
-
-
+All of the suggested offerings under this heading take time to set-up. Evaluate where your weakest areas are, and which offerings will give you the best results for your situation, and start there.
 
 #### Logging and Alerting
+
+
+
+
+
+
+
 
 _Todo_
 
 #### Web Server Log Management
 
-_Todo_
+It is essential to have reliable off-site logging.
 
 #### Proactive Monitoring
 
@@ -5296,7 +5295,7 @@ _Todo_
 
 #### Host Intrusion Detection Systems (HIDS)
 
-_Todo_
+HIDS are one of the must haves on your systems, they also need to be set-up as early as possible, ideally before the server has been exposed to the internet, or any network that has the potential for an attacker to gain access and plant malware.
 
 ### Docker
 
