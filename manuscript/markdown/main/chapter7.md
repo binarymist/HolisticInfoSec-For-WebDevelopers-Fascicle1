@@ -5084,17 +5084,7 @@ You could and should also have NIDs running on your network which makes this eve
 
 #### Statistics Graphing
 
-
-
-
-
-
-
-
-
-
-
-
+There are new components introduced, which increases attack surface.
 
 #### Host Intrusion Detection Systems (HIDS)
 
@@ -5107,6 +5097,16 @@ This sort of strategy provides a false sense of self security for the attacker. 
 You can also take things further with honey pits and mirages, these are modules in code that actively produce answers designed to confuse and confound poking and prodding attackers. This can create perfect ambush and burn up the attackers time. Attackers have budgets too. The longer it takes an attacker to compromise your system(s), the more likely they are to start making mistakes and get caught.
 
 ### Docker
+
+
+
+
+
+
+
+
+
+
 
 _Todo_
 
@@ -5285,36 +5285,29 @@ There was quite a bit of time spent in the Countermeasures section, but most of 
 
 #### Statistics Graphing
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+I have found these tools to be well worth the investment when you are dealing with hosts. We also cover [statsd](#web-applications-countermeasures-lack-of-visibility-insufficient-Monitoring-statistics-graphing) in the Web Applications chapter which performs a similar role for the application itself, which if you are using Docker containers, the lowest hanging fruit in terms of security from an external attackers perspective defiantly falls on your application code.
 
 #### Host Intrusion Detection Systems (HIDS)
 
 HIDS are one of the must haves on your systems, they also need to be set-up as early as possible, ideally before the server has been exposed to the internet, or any network that has the potential for an attacker to gain access and plant malware.
 
 ### Docker
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 _Todo_
 
