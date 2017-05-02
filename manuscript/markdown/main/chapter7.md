@@ -3989,6 +3989,7 @@ File integrity tests leaving virtually no sediments on the tested client.
 
 Stealth subscribes to the “dark cockpit” approach. I.E. no mail is sent when no changes are detected. If you have a MTA, Stealth can be configured to send emails on changes it finds.
 
+{#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth-what-i-like}
 **What I like**
 
 * Its simplicity. There is one package to install on the Monitor. Nothing to install on the client machines. The Client just needs to have the Monitors SSH public key. You will need a Mail Transfer Agent on your Monitor if you do not already have one. My test machine (Linux Mint) did not have one.
@@ -5104,13 +5105,13 @@ _Todo_
 
 #### Host Intrusion Detection Systems (HIDS)
 
+The benefits far outweigh any risks here.
 
+Using a system like Stealth as your file integrity checker that resides on a server(s) somewhere else that run against the target server, means an attacker will very often not realise that they are under observation if they can not see the observer running on the machine that they are on.
 
+This sort of strategy provides a false sense of self security for the attacker. In a way a similar concept to the honey pot. They may know about a tool operating on the server they are on and even have disabled it, but if you keep the defence in depth mentality, there is no reason that you can not have the upper hand without the attacker being aware of it.
 
-%% For example using a file integrity checker that resides on your target server and others that reside on servers somewhere else that run against the target server. An attacker will very often not realise that they are under observation if they can not see the observer running on the machine that they are on.
-%% This sort of strategy provides a false sense of self security for the attacker. In a way a similar concept to the honey pot. They may know about a tool operating on the server they are on and even have disabled it, but if you keep the defence in depth mentality, you may just have the upper hand without the attacker being aware of it. This can create perfect ambush.
-
-
+You can also take things further with honeypits and mirages, these are modules in code that actively produce answers designed to confuse and confound poking and prodding attackers. This can create perfect ambush and burn up the attackers time. Attackers have budgets too. The longer it takes an attacker to compromise your system(s), the more likely they are to start making mistakes and get caught.
 
 ### Docker
 
