@@ -1068,7 +1068,7 @@ NIS can run on unprivileged ports, which means that any user on the system(s) ca
 
 `rpcbind` listens on the same port(s) as the deprecated [`portmap`](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap) and suffers the same types of DoS attacks.
 
-#### Telnet
+#### Telnet {#vps-identify-risks-unnecessary-and-vulnerable-services-telnet}
 
 Provides a command line interface on a remote server via its application layer client-server protocol traditionally to port 23. Telnet was created and launched in 1969, provides no encryption, credentials are sent in plain text. There have been extensions to the Telnet protocol which provide Transport Layer Security (TLS) and Simple Authentication and Security Layer (SASL), many Telnet implementations do not support these though.
 
@@ -5044,24 +5044,23 @@ As discussed in the [Countermeasures](#vps-countermeasures-disable-remove-servic
 
 #### Telnet
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Someone legitimate may be relying on telnet. If this is the case, you may have larger problems than telnet. The Ignorance section of Identify Risks of the People chapter in Fascicle 0 may be pertinent here.  
 
 #### FTP
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### NFS
 
@@ -5261,26 +5260,24 @@ I am not aware of any costs with removing or disabling responses from rpcbind if
 
 #### Telnet
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+If someone legitimate is still relying on telnet, send them to the [Risks](#vps-identify-risks-unnecessary-and-vulnerable-services-telnet) section followed by the [Countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-telnet) section.
 
 #### FTP
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### NFS
 
