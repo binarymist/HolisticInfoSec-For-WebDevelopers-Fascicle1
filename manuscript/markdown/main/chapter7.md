@@ -1618,12 +1618,14 @@ It may be worth looking at and modifying the `/etc/shadow` file. Consider changi
 * crypt 3
 * pam_unix
 
+{#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies-default-number-of-rounds}
 Out of the box crypt (glibc) supports MD5, SHA-256 and SHA-512, I wouldn't bother looking at DES, and MD5 is common but weak. You can also use the blowfish cipher via the bcrypt KDF with a little more work (a few minutes). The default of SHA-512 (in debian) enables salted passwords. The SHA family of hashing functions are to fast for password hashing. Crypt applies key stretching to slow brute-force cracking attempts down. The default number of rounds [have not changed](https://access.redhat.com/articles/1519843) in at least 9 years, so it is well worth modifying the number to keep up with hardware advancements. There are some [details](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-technology-and-design-decisions-membershipreboot) to work out what the factor should be, provided by OWASP in the MembershipReboot section in the Web Applications chapter. The [default number of rounds](https://en.wikipedia.org/wiki/Passwd) are as follows:
 
 * MD5: 1000 rounds
 * Blowfish: 64 rounds
 * SHA-[256, 512]: 5000 rounds
 
+{#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies-owasp-advice}
 The OWASP advice says we should double the rounds every subsequent two years. So for the likes of SHA in 2007 having 5000 rounds, we should be looking at increasing this to `160000` in the year 2017, so if you are still with the default, you are a long way behind and it is time to do some serious key stretching.
 
 ![](images/KeyStretching.png)
@@ -5006,13 +5008,11 @@ You may find some stage later on that a component that you removed is actually n
 
 This process can sometimes lock things down to tightly. I would much rather go to far here and have to back things off a little, or get creative with a script to unmount, remount with less restrictions applied, perform the action you need, then mount again according to the `/etc/fstab`. This is similar to the [Mounting of Partitions](#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions) section below
 
-#### Apt Proxy Set-up
-
-_Todo_
-
 #### Review Password Strategies
 
-_Todo_
+Risks that Solution Causes
+
+The default number of rounds applied to the key stretching process by the Unix C library (Crypt) [has not changed](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies-default-number-of-rounds) in the last 9 years. I addressed this in the Countermeasures section, but most people will not bother increasing this value. I would [recommend doing so](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies-owasp-advice).
 
 #### Disable Root Logins from All Terminals
 
@@ -5212,13 +5212,13 @@ Do your home-work up front and decide what is actually required to stay and what
 
 Often a little trial and error is required to get the optimal configuration for your needs.
 
-#### Apt Proxy Set-up
-
-_Todo_
-
 #### Review Password Strategies
 
-_Todo_
+Costs and Trade-offs
+
+Making these changes takes a little time, depending on how familiar you are with Crypt and how it does things.
+
+If you use Docker and do not run as root, then you have another layer that any attacker has to break through in order to get to the host system. This lifts the bar significantly on host password compromise.
 
 #### Disable Root Logins from All Terminals
 
