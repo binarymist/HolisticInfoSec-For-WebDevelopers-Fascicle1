@@ -5010,21 +5010,28 @@ This process can sometimes lock things down to tightly. I would much rather go t
 
 #### Review Password Strategies
 
-Risks that Solution Causes
-
 The default number of rounds applied to the key stretching process by the Unix C library (Crypt) [has not changed](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies-default-number-of-rounds) in the last 9 years. I addressed this in the Countermeasures section, but most people will not bother increasing this value. I would [recommend doing so](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies-owasp-advice).
-
-#### Disable Root Logins from All Terminals
-
-_Todo_
 
 #### SSH
 
-_Todo_
+Just because you may be using SSH and SSH itself is secure, does not mean you are using it in a secure way. If you follow my advice in the Countermeasures section you will be fine. SSH can be used in insecure ways.
+
+When you make configuration changes to SSH, it often pays to either have physical access or have more than one SSH session open when you make the change -> restart SSH -> exit your session, otherwise you run the risk of locking yourself out.
 
 #### Disable Boot Options
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Mounting of Partitions {#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions}
 
@@ -5214,23 +5221,32 @@ Often a little trial and error is required to get the optimal configuration for 
 
 #### Review Password Strategies
 
-Costs and Trade-offs
-
 Making these changes takes a little time, depending on how familiar you are with Crypt and how it does things.
 
 If you use Docker and do not run as root, then you have another layer that any attacker has to break through in order to get to the host system. This lifts the bar significantly on host password compromise.
 
-#### Disable Root Logins from All Terminals
-
-_Todo_
-
 #### SSH
 
-_Todo_
+SSH is secure by definition, in saying that, you can still use it insecurely. I have seen some organisations store their private keys on their developer wiki so that all the developers within the company can easily access the private key and copy it locally. Do not do this, there are so many things wrong with this.
+
+Make sure you use a pass phrase unless you have a good reason not to, and can in some other way safeguard your SSH access, like using [ssh-cron](https://fbb-git.github.io/ssh-cron/ssh-cron.1.html) for example.
 
 #### Disable Boot Options
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Mounting of Partitions
 
