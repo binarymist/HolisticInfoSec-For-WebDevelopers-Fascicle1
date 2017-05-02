@@ -4980,11 +4980,13 @@ Bringing your VPS(s) in-house can provide certainty and reduce risks of vendor l
 
 ### Windows
 
-_Todo_
-
 #### PsExec and Pass The Hash (PTH)
 
-_Todo_
+Often SMB services are required, so turning them off may not be an option.
+
+Some of the [countermeasures](#vps-countermeasures-psexec-pth) may introduce some inconvenience.
+
+There is the somewhat obvious aspect that applying the countermeasures will take some research to work out what can be done and the length of time it will take to do it.
 
 #### PowerShell Exploitation with Persistence
 
@@ -5186,11 +5188,9 @@ If you choose to go the default way now and rely on others for your compute, the
 
 ### Windows
 
-_Todo_
-
 #### PsExec and Pass The Hash (PTH)
 
-_Todo_
+Work through the collection of [Countermeasure items](#vps-countermeasures-psexec-pth) and just as we did in the Countermeasures section of the 30,000' view chapter of Fascicle 0 you should have already applied a relative number for the amount of work to be done to the Countermeasure Product Backlog Items. The Costs and Trade-offs will often become obvious as you iterate on the countermeasure work itself.
 
 #### PowerShell Exploitation with Persistence
 
