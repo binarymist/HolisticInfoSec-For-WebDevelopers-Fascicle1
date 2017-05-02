@@ -5020,18 +5020,7 @@ When you make configuration changes to SSH, it often pays to either have physica
 
 #### Disable Boot Options
 
-
-
-
-
-
-
-
-
-
-
-
-
+If you have to boot from an alternative medium such as a rescue CD, you may wonder why this does not work.
 
 #### Mounting of Partitions {#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions}
 
@@ -5233,20 +5222,7 @@ Make sure you use a pass phrase unless you have a good reason not to, and can in
 
 #### Disable Boot Options
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+I am sure you will be smart enough to work it out. Just re-enable the boot option from what ever device it is you are trying to boot from, and do not forget to disable it once you are finished.
 
 #### Mounting of Partitions
 
