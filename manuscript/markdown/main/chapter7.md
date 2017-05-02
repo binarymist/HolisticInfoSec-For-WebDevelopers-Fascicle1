@@ -2397,7 +2397,7 @@ Removing the following packages will solve that:
 
 #### Remove NIS
 
-If Network Information Service (NIS) or the replacement NIS+ is installed, ideally you will want to remove it. If you needed centralised authentication for multiple machines, you could set-up an LDAP server and configure PAM on your machines in order to contact the LDAP server for user authentication. We may have no need for distributed authentication on our web server at this stage.
+If Network Information Service (NIS) or the replacement NIS+ is installed, ideally you will want to remove it. If you needed centralised authentication for multiple machines, you could set-up an LDAP server and configure PAM on your machines in order to contact the LDAP server for user authentication. If you are in the cloud, you could look at using the platforms directly service, such as [AWS Directory Service](https://aws.amazon.com/directoryservice/). We may have no need for distributed authentication on our web server at this stage.
 
 Check to see if NIS is installed by running the following command:
 
@@ -5036,24 +5036,25 @@ You may be using Exim. Make sure you are not before you disable it.
 
 #### Remove NIS
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+You may be using NIS+. Make sure you are not before you disable it.
 
 #### Rpcbind
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Telnet
 
@@ -5253,29 +5254,27 @@ If you are not using Exim, it only takes a few minutes to disable, so go ahead.
 
 #### Remove NIS
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+I am not aware of any costs with removing NIS if it is not necessary, and if it is being used, consider using something else.
 
 #### Rpcbind
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Telnet
 
