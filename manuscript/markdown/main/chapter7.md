@@ -5071,15 +5071,6 @@ There are some complexities that you need to understand in order to create a wat
 
 #### Proactive Monitoring
 
-
-
-
-
-
-
-
-_Todo_
-
 Over confidence in monitoring tools. For example an attacker could try and replace the configuration files for Monit or the Monit daemon itself, so the following sorts of tests would either not run or return tampered with results:
 
   * File checksum testing
@@ -5087,15 +5078,23 @@ Over confidence in monitoring tools. For example an attacker could try and repla
   * File content testing
   * Filesystem flags testing
 
-In saying that, if you have an agentless (running from somewhere else) file integrity checker or even several of them running on different machines and as part of their scope are checking Monit, then the attacker is going to have to find the agentless file integrity checker(s) and disable them also without being noticed. Especially as I disguised in regards to Stealth, that the recommendation was that the Monitor not accept any incoming connections, and be in a physically safe location. This is increasing the level difficulty significantly.
+In saying that, if you have an agentless (running from somewhere else) file integrity checker or even several of them running on different machines and as part of their scope are checking Monit, then the attacker is going to have to find the agentless file integrity checker(s) and disable them also without being noticed. Especially as I disguised in regards to Stealth, that the recommendation was that the Monitor not accept any incoming connections, and be in a physically safe location. This is increasing the level of difficulty for an attacker significantly.
 
 You could and should also have NIDs running on your network which makes this even more likely that an attacker is going to step on a land mine.
 
-_Todo_
-
 #### Statistics Graphing
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
 
 #### Host Intrusion Detection Systems (HIDS)
 
@@ -5282,27 +5281,34 @@ This will take some time to set-up, test and verify all the requirements. It is 
 
 #### Proactive Monitoring
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-_Todo_
+There was quite a bit of time spent in the Countermeasures section, but most of that work is now done for you. Now it is just a matter of following the steps I laid out.
 
 #### Statistics Graphing
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Host Intrusion Detection Systems (HIDS)
 
