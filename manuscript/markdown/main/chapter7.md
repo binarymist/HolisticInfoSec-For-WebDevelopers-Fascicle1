@@ -5067,22 +5067,16 @@ Logging and Alerting is never going to be a complete solution. There is risk tha
 
 #### Web Server Log Management
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+There are some complexities that you need to understand in order to create a water-tight and reliable off-site logging system. I discuss these in the Countermeasures section along with testing and verifying your logs are being transferred privately.
 
 #### Proactive Monitoring
+
+
+
+
+
+
+
 
 _Todo_
 
@@ -5111,7 +5105,7 @@ Using a system like Stealth as your file integrity checker that resides on a ser
 
 This sort of strategy provides a false sense of self security for the attacker. In a way a similar concept to the honey pot. They may know about a tool operating on the server they are on and even have disabled it, but if you keep the defence in depth mentality, there is no reason that you can not have the upper hand without the attacker being aware of it.
 
-You can also take things further with honeypits and mirages, these are modules in code that actively produce answers designed to confuse and confound poking and prodding attackers. This can create perfect ambush and burn up the attackers time. Attackers have budgets too. The longer it takes an attacker to compromise your system(s), the more likely they are to start making mistakes and get caught.
+You can also take things further with honey pits and mirages, these are modules in code that actively produce answers designed to confuse and confound poking and prodding attackers. This can create perfect ambush and burn up the attackers time. Attackers have budgets too. The longer it takes an attacker to compromise your system(s), the more likely they are to start making mistakes and get caught.
 
 ### Docker
 
@@ -5284,24 +5278,25 @@ You will need to invest time into understanding what each offering does, its str
 
 #### Web Server Log Management
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-It is essential to have reliable off-site logging.
+This will take some time to set-up, test and verify all the requirements. It is essential to have reliable off-site logging on most systems.
 
 #### Proactive Monitoring
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 _Todo_
 
