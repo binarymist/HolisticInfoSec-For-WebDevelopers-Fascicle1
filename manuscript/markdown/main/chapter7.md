@@ -5060,25 +5060,26 @@ Of course any of the visibility providing tools can be replaced with trojanised 
 
 #### Logging and Alerting
 
+There are lots of options to choose from in this space.
 
-
-
-
-
-
-
-
-_Todo_
-
-%% Logging and Alerting is never going to be a complete solution. There is risk that people think that one or two tools mean they are covered from every type of attack.
-%% A large array of diverse countermeasures is always going to be required to produce good visibility of your system(s). Even using multiple tools that do similar jobs but take different strategies on how they execute and in-fact from where they run.
-%% For example using a file integrity checker that resides on your target server and others that reside on servers somewhere else that run against the target server. An attacker will very often not realise that they are under observation if they can not see the observer running on the machine that they are on.
-%% This sort of strategy provides a false sense of self security for the attacker. In a way a similar concept to the honey pot. They may know about a tool operating on the server they are on and even have disabled it, but if you keep the defence in depth mentality, you may just have the upper hand without the attacker being aware of it. This can create perfect ambush.
-%% Add defence in depth diagram from CampJS talk again.
+Logging and Alerting is never going to be a complete solution. There is risk that people think that one or two tools mean they are covered from every type of attack, this is never the case. A large array of diverse countermeasures is always going to be required to produce good visibility of your system(s). Even using multiple tools that do similar jobs but take different strategies on how they execute and in-fact from where they run.
 
 #### Web Server Log Management
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Proactive Monitoring
 
@@ -5103,7 +5104,13 @@ _Todo_
 
 #### Host Intrusion Detection Systems (HIDS)
 
-_Todo_
+
+
+
+%% For example using a file integrity checker that resides on your target server and others that reside on servers somewhere else that run against the target server. An attacker will very often not realise that they are under observation if they can not see the observer running on the machine that they are on.
+%% This sort of strategy provides a false sense of self security for the attacker. In a way a similar concept to the honey pot. They may know about a tool operating on the server they are on and even have disabled it, but if you keep the defence in depth mentality, you may just have the upper hand without the attacker being aware of it. This can create perfect ambush.
+
+
 
 ### Docker
 
@@ -5272,16 +5279,24 @@ All of the suggested offerings under this heading take time to set-up. Evaluate 
 
 #### Logging and Alerting
 
-
-
-
-
-
-
-
-_Todo_
+You will need to invest time into understanding what each offering does, its strengths and weaknesses
 
 #### Web Server Log Management
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 It is essential to have reliable off-site logging.
 
