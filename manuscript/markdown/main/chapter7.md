@@ -4990,7 +4990,9 @@ There is the somewhat obvious aspect that applying the countermeasures will take
 
 #### PowerShell Exploitation with Persistence
 
-_Todo_
+Next generation Anti-Virus (AV) using machine learning is currently expensive.
+
+Deep Script Block Logging can consume large amounts of disk space if you have "enabling Log script block invocation start / stop events" turned on.
 
 ### Minimise Attack Surface by Installing Only what you Need
 
@@ -5194,7 +5196,9 @@ Work through the collection of [Countermeasure items](#vps-countermeasures-psexe
 
 #### PowerShell Exploitation with Persistence
 
-_Todo_
+Personally I think the cost of next generation AV with machine learning is worth the investment.
+
+You could consider not turning on "enabling Log script block invocation start / stop events", I would sooner have it on and consider getting your logs off-site as we discussed in the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section, with a well configured logrotate schedule.
 
 ### Minimise Attack Surface by Installing Only what you Need
 
