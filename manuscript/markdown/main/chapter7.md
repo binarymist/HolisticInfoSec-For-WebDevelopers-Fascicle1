@@ -4996,7 +4996,7 @@ Deep Script Block Logging can consume large amounts of disk space if you have "e
 
 ### Minimise Attack Surface by Installing Only what you Need
 
-_Todo_
+You may not have something installed that you need.
 
 ### Disable, Remove Services. Harden what is left
 
@@ -5202,7 +5202,7 @@ You could consider not turning on "enabling Log script block invocation start / 
 
 ### Minimise Attack Surface by Installing Only what you Need
 
-_Todo_
+When you find out you need something, research it along with alternatives. Work out whether the additional attack surface is worth the functionality you wish to add.
 
 ### Disable, Remove Services. Harden what is left
 
