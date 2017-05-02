@@ -5024,19 +5024,32 @@ If you have to boot from an alternative medium such as a rescue CD, you may wond
 
 #### Mounting of Partitions {#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions}
 
-You may lock yourself out of being able to administer your system. This is similar to the [Partitioning on OS Installation](#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-partitioning-on-os-installation) section above
+You may lock yourself out of being able to administer your system. This is similar to the [Partitioning on OS Installation](#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-partitioning-on-os-installation) section above.
 
 #### Portmap
 
-_Todo_
+If you are using portmap, consider swapping it for rpcbind.
 
 #### Exim
 
-_Todo_
+You may be using Exim. Make sure you are not before you disable it.
 
 #### Remove NIS
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Rpcbind
 
@@ -5232,15 +5245,33 @@ This is also a place where Docker containers shine, by using the [`--read-only`]
 
 #### Portmap
 
-_Todo_
+Portmap is simple to disable, go ahead.
 
 #### Exim
 
-_Todo_
+If you are not using Exim, it only takes a few minutes to disable, so go ahead.
 
 #### Remove NIS
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Rpcbind
 
