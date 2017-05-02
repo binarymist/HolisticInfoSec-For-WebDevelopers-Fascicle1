@@ -5048,23 +5048,28 @@ Someone legitimate may be relying on telnet. If this is the case, you may have l
 
 #### FTP
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+You may have some staff that are set in their ways. Gently coax them to understand the complete absence of security with FTP and the issues with FTPS.
 
 #### NFS
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Lack of Visibility
 
@@ -5175,7 +5180,7 @@ _Todo_
 
 Personally I prefer not to rely on firewalls, once you have removed any surplus services and hardened what is left, firewalls do not provide a lot of benefit. I recommend not relying on them, but instead making your system(s) hard enough so that you do not require a firewall. Then if you decide to add one, they will be just another layer of defence. Dependence on firewalls often produce a single point of failure and a false sense of security, as to much trust is placed in them to protect weak and vulnerable services and communications that should instead be hardened themselves.
 
-## 5. SSM Costs and Trade-offs
+## 5. SSM Costs and Trade-offs {#vps-costs-and-trade-offs}
 
 ### Forfeit Control thus Security
 
@@ -5226,7 +5231,7 @@ Making these changes takes a little time, depending on how familiar you are with
 
 If you use Docker and do not run as root, then you have another layer that any attacker has to break through in order to get to the host system. This lifts the bar significantly on host password compromise.
 
-#### SSH
+#### SSH {#vps-costs-and-trade-offs-disable-remove-services-harden-what-is-left-ssh}
 
 SSH is secure by definition, in saying that, you can still use it insecurely. I have seen some organisations store their private keys on their developer wiki so that all the developers within the company can easily access the private key and copy it locally. Do not do this, there are so many things wrong with this.
 
@@ -5264,24 +5269,20 @@ If someone legitimate is still relying on telnet, send them to the [Risks](#vps-
 
 #### FTP
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+If you can convince your staff to read and understand the issues with FTP, and FTPS including the possible confusion around how to use FTPS securely, what can go wrong, and mandate a more secure file transfer protocol such as the recommended SFTP or SCP, then you just need to make sure SSH is not being [used incorrectly](#vps-costs-and-trade-offs-disable-remove-services-harden-what-is-left-ssh)
 
 #### NFS
 
-_Todo_
+
+
+
+
+
+
+
+
+
+
 
 ### Lack of Visibility
 
