@@ -4966,7 +4966,7 @@ The following is a final type of check-list that I like to use before opening a 
 4. Consider combining “Port Scan Attack Detector” ([psad](https://packages.debian.org/stretch/psad)) with [fwsnort](https://packages.debian.org/stretch/fwsnort) and Snort.
 5. Hack your own server and find the holes before someone else does. If you are not already familiar with the tricks of how systems on the internet get attacked, read up on the “[Attacks and Threats](http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/appendix.html#THREATS)”, Run [OpenVAS](https://blog.binarymist.net/2014/03/29/up-and-running-with-kali-linux-and-friends/#vulnerability-scanners), Run [Web Vulnerability Scanners](https://blog.binarymist.net/2014/03/29/up-and-running-with-kali-linux-and-friends/#web-vulnerability-scanners) 
 
-## 4. SSM Risks that Solution Causes
+## 4. SSM Risks that Solution Causes {#vps-risks-that-solution-causes}
 > Are there any? If so what are they?
 
 * Just beware that if you are intending to break the infrastructure or even what is running on your VPS(s) if they are hosted on someone else's infrastructure, that you make sure you have all the tests you intend to carry out documented, including what could possibly go wrong, accepted and signed by your provider. Good luck with this. That is why self hosting is often easier
@@ -5002,9 +5002,9 @@ You may not have something installed that you need.
 
 You may find some stage later on that a component that you removed is actually needed.
 
-#### Partitioning on OS Installation
+#### Partitioning on OS Installation {#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-partitioning-on-os-installation}
 
-This process can sometimes lock things down to tightly. I would much rather go to far here and have to back things off a little, or get creative with a script to unmount, remount with less restrictions applied, perform the action you need, then mount again according to the `/etc/fstab`.
+This process can sometimes lock things down to tightly. I would much rather go to far here and have to back things off a little, or get creative with a script to unmount, remount with less restrictions applied, perform the action you need, then mount again according to the `/etc/fstab`. This is similar to the [Mounting of Partitions](#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions) section below
 
 #### Apt Proxy Set-up
 
@@ -5026,9 +5026,9 @@ _Todo_
 
 _Todo_
 
-#### Mounting of Partitions
+#### Mounting of Partitions {#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions}
 
-_Todo_
+You may lock yourself out of being able to administer your system. This is similar to the [Partitioning on OS Installation](#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-partitioning-on-os-installation) section above
 
 #### Portmap
 
@@ -5234,7 +5234,9 @@ _Todo_
 
 #### Mounting of Partitions
 
-_Todo_
+Locking yourself out of being able to administer your system due to overly zealous restrictive mount options is not the end of the world, just boot from a live CD and you will be able to adjust your `/etc/fstab`.
+
+This is also a place where Docker containers shine, by using the [`--read-only`](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-read-only-containers) flag and many other options that can help immensely, be sure to check the Docker sections if you have not already. 
 
 #### Portmap
 
