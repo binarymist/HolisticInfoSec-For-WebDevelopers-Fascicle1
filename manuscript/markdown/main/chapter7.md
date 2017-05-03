@@ -749,8 +749,6 @@ There are many ways to achieve persistence. I have not included any lateral move
 #### Overly Permissive File Permissions, Ownership and Lack of Segmentation {#vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation}
 ![](images/ThreatTags/average-uncommon-difficult-moderate.png)
 
-%% test
-
 A lack of segmenting of a file system, according to what is the least amount of privilege any authorised parties require is often the precursor to **privilege escalation**.
 
 Privileged services that are started on system boot by your init system (as discussed under the [Proactive Monitoring](#vps-countermeasures-lack-of-visibility-proactive-monitoring-sysvinit-upstart-systemd-runit) section) often run other executable files whether they be binaries or scripts.
@@ -936,8 +934,6 @@ You may remember we did some fingerprinting of the SSH daemon in the Reconnaissa
 
 #### To Many Boot Options
 ![](images/ThreatTags/difficult-uncommon-difficult-severe.png)
-
-%% test
 
 Being able to boot from alternative media to that of your standard OS, provides additional opportunity for an attacker to install a root-kit on your machine, whether it be virtual or real media.
 
