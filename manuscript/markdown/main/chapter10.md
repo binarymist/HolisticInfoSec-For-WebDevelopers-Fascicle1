@@ -128,20 +128,6 @@ Sanitisation of input data is where the input data whether it is in your white l
 
 You need to know which contexts your input data will pass through in order to sanitise correctly for all potential execution contexts. This requires lateral thinking and following all execution paths. Both into and out of your application (once rehydrated), being pushed back to the client. We cover this in depth below in the ["Example in JavaScript and C#"](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-csharp) section in the countermeasures.
 
-#### Buffer Overflows {#web-applications-identify-risks-buffer-overflows}
-
-_Todo_
-<!--- https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008 -->
-
-%% https://github.com/trustedsec/unicorn
-
-%% demod at NodeConfEU by snyk https://snyk.io/blog/exploiting-buffer/
-
-%% Possibly work through a remote code execution.
-
-%% Videos to watch in my book dir:
-%% bg_injection_on_steroids_code_less_code_injections_and_0_day_techniques_paul_shofield_udi_yav.mp4
-
 #### Cross-Site Scripting (XSS) {#web-applications-identify-risks-cross-site-scripting}
 ![](images/ThreatTags/average-verywidespread-easy-moderate.png)
 
@@ -420,18 +406,6 @@ _Todo_
 %% http://www.windowsecurity.com/articles-tutorials/authentication_and_encryption/How-Cracked-Windows-Password-Part2.html
 
 
-#### Physical Access
-
-_Todo_
-
-#### Console Access
-
-_Todo_
-
-#### Network Access
-
-_Todo_
-
 #### Cracking {#web-applications-identify-risks-management-of-application-secrets-cracking}
 
 _Todo_
@@ -617,23 +591,7 @@ _Todo_
 
 Your application should be actively defending itself.
 
-### Defective Real-Time Peer-to-Peer Browser Communication
 
-_Todo_
-
-%% https://www.google.com/search?q=webrtc+owasp&oq=webrtc+owasp&aqs=chrome..69i57.4423j0j7&client=ubuntu&sourceid=chrome&ie=UTF-8#q=%22webrtc%22+owasp
-%% https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2016#tab=Speakers_List
-%% https://owaspappseceurope2015.sched.org/event/36y4/webrtc-or-how-secure-is-p2p-browser-communication
-%% https://www.google.com/search?q=web+security+specification&oq=web+security+specification&aqs=chrome..69i57j0l3.4975j0j7&client=ubuntu&sourceid=chrome&ie=UTF-8#q=web+security+specification+webrtc
-%% https://www.w3.org/TR/webrtc/
-%% https://tools.ietf.org/html/draft-ietf-rtcweb-security-arch-07
-%% https://webrtc-security.github.io/
-
-%% BeEF: http://blog.beefproject.com/2015/01/hooked-browser-meshed-networks-with.html
-%% BeEF: http://blog.beefproject.com/2015/01/hooked-browser-meshed-networks-with_26.html
-
-%% Details from anti-child-trafficking set-up I did
-%% Research from Felix
 
 ## 3. SSM Countermeasures
 
@@ -2661,10 +2619,6 @@ Refer to the section [above](#web-applications-identify-risks-lack-of-input-vali
 * Database accounts (in fact all accounts) should use [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege)
 * Well structured data, like dates, social security numbers, zip codes, email addresses, etc. then the developer should be able to define a very strong validation pattern
 
-#### Buffer Overflows {#web-applications-countermeasures-buffer-overflows}
-
-_Todo_
-
 #### Cross-Site Scripting (XSS) {#web-applications-countermeasures-cross-site-scripting}
 
 This is a place holder section. The countermeasures are covered in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) section.
@@ -3173,18 +3127,6 @@ For Internet Explorer:
 * `C:\Documents and Settings\<user_name>\Local Settings\Temporary Internet Files>`
 
 Don't forget to plug all your changes into your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
-
-#### Physical Access
-
-_Todo_
-
-#### Console Access
-
-_Todo_
-
-#### Network Access
-
-_Todo_
 
 #### Cracking
 
@@ -4258,9 +4200,7 @@ AppSensor provides > 50 (signature based) detection points. Provides guidance on
 
 At the time of writing the sample code is only in Java. The documentation is well worth checking out though. Resources in [Additional Resources]() chapter.
 
-### Defective Real-Time Peer-to-Peer Browser Communication
 
-_Todo_
 
 ## 4. SSM Risks that Solution Causes {#web-applications-risks-that-solution-causes}
 
@@ -4283,10 +4223,6 @@ You may have to invest considerable time yourself to gain good understanding int
 There will be more code in your systems. More code is more code that can have faults.
 
 Be very careful with sanitisation. Try first to use well tested and battle hardened libraries. Resist going out on your own to modify or create sanitisation routines. They are very easy to miss edge cases and small spots that your untrusted data may end up in that you did not anticipate, thus leaving you susceptible to attack.
-
-#### Buffer Overflows
-
-_Todo_
 
 #### Cross-Site Scripting (XSS)
 
@@ -4488,10 +4424,6 @@ Same goes for dark cockpit type monitoring. Find a tool that you find working wi
 If you can tighten up your validation and filtering, then less work will be required around sanitisation and that is where most of the effort (effort ≈ time) seems to go. This often reduces the end user experience though.
 
 Once you fully understand the dangers you'll be able to make these decisions easier.
-
-#### Buffer Overflows
-
-_Todo_
 
 #### Cross-Site Scripting (XSS)
 
