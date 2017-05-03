@@ -4403,10 +4403,6 @@ _Todo_
 
 _Todo_
 
-### Defective Real-Time Peer-to-Peer Browser Communication
-
-_Todo_
-
 ## 5. SSM Costs and Trade-offs {#web-applications-costs-and-trade-offs}
 
 All security has a cost. Your resources are limited, spend them wisely.
@@ -4539,6 +4535,4 @@ _Todo_
 
 _Todo_
 
-### Defective Real-Time Peer-to-Peer Browser Communication
 
-_Todo_
