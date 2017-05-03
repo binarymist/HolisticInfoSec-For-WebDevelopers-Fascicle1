@@ -5130,90 +5130,13 @@ You can also take things further with honey pits and mirages, these are modules 
 
 ### Docker
 
-
-
-
-
-
-
-
-
-
-
-_Todo_
-
-#### Consumption from Registries
-
-_Todo_
-
-#### Doppelganger images
-
-_Todo_
-
-#### The Default User is Root
-
-_Todo_
-
-#### Hardening Docker Host, Engine and Containers
-
-_Todo_
-
-##### Namespaces
-
-_Todo_
-
-##### Control Groups
-
-_Todo_
-
-##### Capabilities
-
-_Todo_
+Docker security is a balancing act. There are many things you can do, that will not disadvantage you in any way. Experiment.
 
 ##### Linux Security Modules (LSM)
 
 There are hundreds of LSM security hooks throughout the kernel, these hooks provide additional attack surface. An attacker with a buffer overflow vulnerability for example may be able to insert their own byte code and bypass the LSM provided implementation, or even redirect to a payload of their choosing. James Morris, a Linux Kernel Developer discussed this on his [blog](https://blog.namei.org/2017/03/09/hardening-the-lsm-api/).
 
 Employing a LSM and learning its intricacies and how to configure it is a bit of a learning curve, but one that is often well worth the effort, and this does not just apply to Docker, but all of the hundreds of resources that the kernel attempts to manage.
-
-##### Seccomp
-
-_Todo_
-
-##### Read-only Containers
-
-_Todo_
-
-#### runC and where it fits in
-
-_Todo_
-
-#### Application Security
-
-_Todo_
-
-### Using Components with Known Vulnerabilities
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### Schedule Backups
 
@@ -5344,92 +5267,7 @@ HIDS are one of the must haves on your systems, they also need to be set-up as e
 
 ### Docker
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-_Todo_
-
-#### Consumption from Registries
-
-_Todo_
-
-#### Doppelganger images
-
-_Todo_
-
-#### The Default User is Root
-
-_Todo_
-
-#### Hardening Docker Host, Engine and Containers
-
-_Todo_
-
-##### Namespaces
-
-_Todo_
-
-##### Control Groups
-
-_Todo_
-
-##### Capabilities
-
-_Todo_
-
-##### Linux Security Modules (LSM)
-
-_Todo_
-
-##### Seccomp
-
-_Todo_
-
-##### Read-only Containers
-
-_Todo_
-
-#### runC and where it fits in
-
-_Todo_
-
-#### Application Security
-
-_Todo_
-
-### Using Components with Known Vulnerabilities
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Some of the extra steps you may take from the default security standpoint with Docker may restrict some flexibility, when and if this happens, just back them off a bit. There are many aspects to hardening Docker that have no negative side effects at all. Concentrate on these after you have your application security to a good level, usually that in itself is a lot of work.
 
 ### Schedule Backups
 
