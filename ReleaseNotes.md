@@ -1,5 +1,26 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+## 2017-05-03
+
+### VPS
+
+Ready for technical review
+
+* Threat tags finished being added
+* Statistics Graphing (collectd, graphite) finished
+* SSM Risks that Solution Causes finished
+* SSM Costs and Trade-offs finished
+
+### Web Applications
+
+* Statistics Graphing (statsd, graphite) finished
+
+### Attributions
+
+Large number of attributions added
+
+[Diff from release 2017-04-16](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/compare/9c9cdc1e5151700b45510cb4e06675f6865b7b70...79abd6432d1a332114452ec660ec7f580de21e5d)
+
 ## 2017-04-16
 
 Docker Security: 51 pages added
