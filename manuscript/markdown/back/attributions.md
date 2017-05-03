@@ -970,6 +970,15 @@ harden-surveillance for monitoring your network
 **Read up on the “Attacks and Threats”**  
 [http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/appendix.html#THREATS](http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/appendix.html#THREATS)
 
+%% Costs and Trade-offs
+
+**These are some things you should consider**  
+[https://www.owasp.org/images/7/71/2017-04-20-TrustMeImACloud.pdf](https://www.owasp.org/images/7/71/2017-04-20-TrustMeImACloud.pdf)
+
+**Safeguard your SSH access, like using ssh-cron for example**  
+[https://fbb-git.github.io/ssh-cron/ssh-cron.1.html](https://fbb-git.github.io/ssh-cron/ssh-cron.1.html)
+
+
 ## [Network](#network)
 
 

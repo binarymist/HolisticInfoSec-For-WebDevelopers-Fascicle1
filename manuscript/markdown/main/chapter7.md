@@ -749,6 +749,8 @@ There are many ways to achieve persistence. I have not included any lateral move
 #### Overly Permissive File Permissions, Ownership and Lack of Segmentation {#vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation}
 ![](images/ThreatTags/average-uncommon-difficult-moderate.png)
 
+%% test
+
 A lack of segmenting of a file system, according to what is the least amount of privilege any authorised parties require is often the precursor to **privilege escalation**.
 
 Privileged services that are started on system boot by your init system (as discussed under the [Proactive Monitoring](#vps-countermeasures-lack-of-visibility-proactive-monitoring-sysvinit-upstart-systemd-runit) section) often run other executable files whether they be binaries or scripts.
@@ -934,6 +936,8 @@ You may remember we did some fingerprinting of the SSH daemon in the Reconnaissa
 
 #### To Many Boot Options
 ![](images/ThreatTags/difficult-uncommon-difficult-severe.png)
+
+%% test
 
 Being able to boot from alternative media to that of your standard OS, provides additional opportunity for an attacker to install a root-kit on your machine, whether it be virtual or real media.
 
@@ -5009,7 +5013,7 @@ The following is a final type of check-list that I like to use before opening a 
 
 ### Forfeit Control thus Security
 
-Bringing your VPS(s) in-house can provide certainty and reduce risks of vendor lock-in, but the side-effect to this, is that you do not get your solution to market quick enough, and someone else beats you, which may mean the end of business for you. Many of the larger cloud providers are getting better at security and provide many tools and techniques for hardening the resources you hire.
+Bringing your VPS(s) in-house can provide certainty and reduce risks of vendor lock-in, but the side-effect to this, is that you may not get your solution to market quick enough, and someone else beats you, which may mean the end of business for you. Many of the larger cloud providers are getting better at security and provide many tools and techniques for hardening the resources you hire.
 
 ### Windows
 
@@ -5140,7 +5144,7 @@ Employing a LSM and learning its intricacies and how to configure it is a bit of
 
 ### Schedule Backups
 
-Relying on scheduled backups that do not exist or have in some way failed. Make sure you test your backups routinely. What you use to backup will obviously depend on where you are operating and what you are trying to backup. For example, if you are backing up Docker containers, just get those Dockerfiles in source control. If you are backing up VPSs locally, use your preferred infrastructure management tool, such as Terraform. If you are in the cloud, your provider will almost certainly have a tool for this.
+Relying on scheduled backups that do not exist or have in some way failed. Make sure you test your backups routinely. What you use to backup will obviously depend on where you are operating and what you are trying to backup. For example, if you are backing up Docker containers, just get those Dockerfiles in source control. If you are backing up VPSs locally, use your preferred infrastructure management tool, such as [Terraform](http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/). If you are in the cloud, your provider will almost certainly have a tool for this.
 
 ### Host Firewall
 
@@ -5162,7 +5166,7 @@ If you choose to go the default way now and rely on others for your compute, the
 * Do you have a strategy in place for the event that your provider(s) discontinue their service. How quickly can you migrate? Where would you migrate to? Will you be able to retrieve your data? Do you actually own your data?
 * Do your providers have Service Level Agreements (SLAs) and have you tested them?
 * Fault tolerance, capacity management and scalability is often (not always) better with cloud providers
-* Do you back up your data and have you tested the restoration of it, or do you also out-source this? If so, have your tested the out-sourced providers data secrecy and recovery ability? You will also have to do this regularly, just because a provider passes once, does not mean it always will. Providers consist of people to, and people make mistakes
+* Do you back up your data and have you tested the restoration of it, or do you also out-source this? If so, have your tested the out-sourced providers data secrecy and recoverability? You will also have to do this regularly, just because a provider passes once, does not mean it always will. Providers consist of people to, and people make mistakes
 * Do you test your disaster recovery plan regularly? If you own your own infrastructure, you can get hands-on access, in the cloud this is usually impossible
 * Do you have a strategy in place for when your accounts with your providers are locked out or hijacked by a malicious actor? Have you tested it? If you own your own infrastructure, you have far more control with this
 * Do you have security solutions in the cloud also, what happens if they become unavailable?
@@ -5185,7 +5189,7 @@ When you find out you need something, research it along with alternatives. Work 
 
 ### Disable, Remove Services. Harden what is left
 
-Do your home-work up front and decide what is actually required to stay and what is not. In most cases re-enabling or re-adding will only cost you time.
+Do your home work up front and decide what is actually required to stay and what is not. In most cases re-enabling or re-adding will only cost you time.
 
 #### Partitioning on OS Installation
 
@@ -5255,7 +5259,7 @@ This will take some time to set-up, test and verify all the requirements. It is 
 
 #### Proactive Monitoring
 
-There was quite a bit of time spent in the Countermeasures section, but most of that work is now done for you. Now it is just a matter of following the steps I laid out.
+There was quite a bit of time spent in the Countermeasures section, but most of that work is now done for you. Now it is just a matter of following the steps I have laid out.
 
 #### Statistics Graphing
 
@@ -5273,7 +5277,7 @@ Some of the extra steps you may take from the default security standpoint with D
 
 There are many ways to do this. If you are a one man band, really simple techniques may work well, if you are a large shop, you will ideally want an automated solution, whether you build it yourself or rely on someone else to do it.
 
-Work out what you need, count the costs of that data being lost, and measure beside the cost of the potential solutions.
+Work out what you need, count the costs of that data being lost, measure the cost of the potential solutions, and compare.
 
 I have used rsync in many shapes and forms for many years and it has been good. Check your backup logs to make sure what you think is happening is. When you are setting up your backup scripts, dry-run test them, to make sure you do not over-write something or some place that was not intended.
 
