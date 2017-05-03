@@ -5166,7 +5166,7 @@ _Todo_
 
 ### Schedule Backups
 
-_Todo_
+Relying on scheduled backups that do not exist or have in some way failed. Make sure you test your backups routinely. What you use to backup will obviously depend on where you are operating and what you are trying to backup. For example, if you are backing up Docker containers, just get those Dockerfiles in source control. If you are backing up VPSs locally, use your preferred infrastructure management tool, such as Terraform. If you are in the cloud, your provider will almost certainly have a tool for this.
 
 ### Host Firewall
 
@@ -5365,7 +5365,13 @@ _Todo_
 
 ### Schedule Backups
 
-_Todo_
+There are many ways to do this. If you are a one man band, really simple techniques may work well, if you are a large shop, you will ideally want an automated solution, whether you build it yourself or rely on someone else to do it.
+
+Work out what you need, count the costs of that data being lost, and measure beside the cost of the potential solutions.
+
+I have used rsync in many shapes and forms for many years and it has been good. Check your backup logs to make sure what you think is happening is. When you are setting up your backup scripts, dry-run test them, to make sure you do not over-write something or some place that was not intended.
+
+You can run scripts manually if you are disciplined and they are very easy, otherwise it usually pays to automate them. Cron does what it says it will do on the box.
 
 ### Host Firewall
 
