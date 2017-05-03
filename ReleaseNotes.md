@@ -19,7 +19,7 @@ Ready for technical review
 
 Large number of attributions added
 
-[Diff from release 2017-04-16](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/compare/9c9cdc1e5151700b45510cb4e06675f6865b7b70...79abd6432d1a332114452ec660ec7f580de21e5d)
+[Diff from release 2017-04-16](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/compare/9e9af15c3ff79b7776a3f058553173f9c8bf888b...79abd6432d1a332114452ec660ec7f580de21e5d)
 
 ## 2017-04-16
 
