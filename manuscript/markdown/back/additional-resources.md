@@ -419,6 +419,9 @@ http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cra
 **Good podcast on OWASP 24/7 soundcloud**  
 [https://soundcloud.com/owasp-podcast/john-melton-and-the-owasp-appsensor-project](https://soundcloud.com/owasp-podcast/john-melton-and-the-owasp-appsensor-project)
 
+**Gaslighting with Honeypits and Mirages**  
+at OWASP NZ Day 2017 by Kate Pearce demonstrated a collection of very useful techniques for programmatically wasting your attackers time.
+
 
 
 **W3C Web Crypto API Update** Slides from Ryan Sleevi  

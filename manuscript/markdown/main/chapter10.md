@@ -4,10 +4,10 @@
 
 
 ## 1. SSM Asset Identification
-Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered. Here are some to get you started:
+Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable, add any relevant from previous chapters, add any newly discovered. Here are some to get you started:
 
 {#web-applications-asset-identification-ownership}
-* Ownership. Similarly as addressed in the VPS chapter, Do not assume that ownership, or at least control of your server(s) is something you will always have. Ownership is often one of the first assets an attacker will attempt to take from a target in order to execute further exploits. At first this may sound strange, but that is because of an assumption you may have that you will always own (have control of) your web application. Hopefully I dispelled this myth in the VPS chapter. If an attacker can take control of your web application (own it/steal it/what ever you want to call the act), then they have a foot hold to launch further attacks and gain other assets of greater value. The web application itself will often just be a stepping stone to other assets that you assume are safe. With this in mind, your web application is an asset. On the other hand you could think of it as a liability. Both may be correct. In any case, you need to protect your web application and in many cases take it to school and teach it how to protect itself. I cover that under the [Web Application Firewall](#web-applications-countermeasures-lack-of-active-automated-prevention-waf) section, where AppSensor can help.
+* Ownership. Similarly as addressed in the VPS chapter, Do not assume that ownership, or at least control of your server(s) is something you will always have. Ownership is often one of the first assets an attacker will attempt to take from a target in order to execute further exploits. At first this may sound strange, but that is because of an assumption you may have that you will always own (have control of) your web application. Hopefully I dispelled this myth in the VPS chapter. If an attacker can take control of your web application (own it/steal it/what ever you want to call the act), then they have a foot hold to launch further attacks and gain other assets of greater value. The web application itself will often just be a stepping stone to other assets that you assume are safe. With this in mind, your web application is an asset. On the other hand you could think of it as a liability. Both may be correct. In any case, you need to protect your web application and in many cases take it to school and teach it how to protect itself. I cover that under the [Insufficient Attack Protection](#web-applications-countermeasures-insufficient-attack-protection) section
 * Similarly to the [Asset Identification](#vps-asset-identification) section in the VPS chapter, Visibility is an asset that is up for grabs
 * Intellectual property or sensitive information within the code or configuration files such as email addresses and account credentials for the likes of data-stores, syslog servers, monitoring services. We address this in [Management of Application Secrets](#web-applications-identify-risks-management-of-application-secrets)
 * Sensitive Client/Customer data.
@@ -577,21 +577,17 @@ Many vulnerabilities can hide in these external dependencies. It is not just one
 
 Running any type of scripts from non local sources without first downloading and inspecting them, and checking for known vulnerabilities, has the potential to cause massive damage, for example, destroy or modify your systems and any other that may be reachable, send sensitive information to an attacker, or many other types of other malicious activity.
 
-### Insecure Direct Object References
+### Insufficient Attack Protection
 
-_Todo_
+There is a good example of what the Insecure Direct Object References risk looks like in the [NodeGoat](https://github.com/OWASP/NodeGoat/) web application. Check out the [tutorial](https://nodegoat.herokuapp.com/tutorial/a4), along with the video of how the attack is played out, along with the sample code and recommendations of how to fix.
 
-NodeGoat also had some good exercises around this.
+The web application is being attacked with unusual requests.
 
-%% Todo: Spider my website. Document how to.
+#### Lack of Active Automated Prevention
 
-### Lack of Active Automated Prevention
+Attackers probe for many types of weaknesses within the application, when they think they find a flaw, they attempt to learn from this and refine their attack technique.
 
-_Todo_
-
-Your application should be actively defending itself.
-
-
+Attackers have budgets just like application developers/defenders. As they get closer to depleting their budget without gaining a foothold, they become more impulsive, start making more noise, and mistakes creep into their techniques, which makes it even more obvious that their probes are of a malicious nature.
 
 ## 3. SSM Countermeasures
 
@@ -4163,23 +4159,16 @@ You could of course just list all of your projects and global packages and check
 For **.Net developers**, there is the likes of [OWASP **SafeNuGet**](https://github.com/OWASP/SafeNuGet).  
 OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) also notifies of known, publicly disclosed vulnerabilities in Java and .Net, with experimental support for Ruby, Node.js and Python. I haven't used DependencyCheck, it produces [false positives and false negatives](https://jeremylong.github.io/DependencyCheck/).
 
-### Insecure Direct Object References
+### Insufficient Attack Protection {#web-applications-countermeasures-insufficient-attack-protection}
 
-_Todo_
+[Insecure Direct Object References](https://www.owasp.org/index.php/Top_10_2013-A4-Insecure_Direct_Object_References) was part of the OWASP Top 10 in 2013, which in 2017 was [merged](https://www.owasp.org/index.php/Top_10_2017-Release_Notes) into [Insufficient Attack Protection](https://www.owasp.org/index.php/Top_10_2017-A7-Insufficient_Attack_Protection). OWASP has good guidance on this.
 
-### Lack of Active Automated Prevention {#web-applications-countermeasures-lack-of-active-automated-prevention}
+#### Web Application Firewall (WAF) 
 
-#### Web Application Firewall (WAF) {#web-applications-countermeasures-lack-of-active-automated-prevention-waf}
+[WAFs](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#wafs) are similar to Intrusion Prevention Systems (IPS) except they operate at the [Application Layer](http://en.wikipedia.org/wiki/Application_layer)(HTTP), Layer 7 of the [OSI model](http://en.wikipedia.org/wiki/OSI_model). So they understand the concerns of your web application at a technical level. WAFs protect your application against a large number of attacks, like XSS, CSRF, SQLi, [Local File Inclusion (LFI)](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion), session hijacking, invalid requests (requests to things that do not exist (think 404)). WAFs sit in-line between a gateway and the web application. They run as a proxy. Either on the physical web server or on another network node, but only the traffic directed to the web application is inspected, where as an IDS/IPS inspects all network traffic passed through its interfaces. WAFs use signatures that look like specific vulnerabilities to compare the network traffic targeting the web application and apply the associated rule(s) when matches are detected. Although not only limited to dealing with known signatures, some WAFs can detect and prevent attacks they have not seen before like responses containing larger than specified payloads. The source code of the web application does not have to be modified.
 
-_Todo_
-
-[WAFs](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#wafs) are similar to Intrusion Prevention Systems (IPS) except they operate at the [Application Layer](http://en.wikipedia.org/wiki/Application_layer)(HTTP), Layer 7 of the [OSI model](http://en.wikipedia.org/wiki/OSI_model). So they understand the concerns of your web application at a technical level. WAFs protect your application against a large number of attacks, like XSS, CSRF, SQLi, [Local File Inclusion (LFI)](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion), session hijacking, invalid requests (requests to things that do not exist (think 404)). WAFs sit in-line between a gateway and the web application. They run as a proxy. Either on the physical web server or on another network node, but only the traffic directed to the web application is inspected, where as an IDS/IPS inspects all network traffic passed through its interfaces. WAFs use signatures that look like specific vulnerabilities to compare the network traffic targeting the web application and apply the associated rule(s) when matches are detected. Although not only limited to dealing with known signatures, some WAFs can detect and prevent attacks they have not seen before like responses containing larger than specified payloads. Source code of the web application does not have to be modified.
-
-1. [Fusker](https://www.npmjs.com/package/fusker). Not sure if this is still actively maintained. At this point, there has not been any recent commits for about three years, but it does look like the best offering we have at this stage for NodeJS. So if your looking to help a security project out...
-2. [express-waf](https://www.npmjs.com/package/express-waf) has recent commits, but there is only a single developer working on it when I checked.
-
-%% OWASP Wellington WAF talk: https://www.youtube.com/watch?v=iAPFf9Iqwos
-%% ModSecurity
+1. [Fusker](https://www.npmjs.com/package/fusker). Not sure if this is still actively maintained. At this point, there has not been any recent commits since 2012, but it does look like the best offering we have at this stage for NodeJS. So if your looking to help a security project out...
+2. [express-waf](https://www.npmjs.com/package/express-waf) was last commited to in 2015, there was only a single developer working on it when I checked.
 
 #### Application Intrusion Detection and Response
 
@@ -4200,7 +4189,13 @@ AppSensor provides > 50 (signature based) detection points. Provides guidance on
 
 At the time of writing the sample code is only in Java. The documentation is well worth checking out though. Resources in [Additional Resources]() chapter.
 
+#### Active Automated Prevention
 
+The application should recognise unusual requests. Automated scanning should be distinguishable from normal traffic.
+
+By creating custom behaviour that responds to specific out of the ordinary requests with misleading feedback and/or behaviour that builds the attackers confidence and ultimately wastes their time, you as the application administrator can have the upper hand when it comes to actively defending against your attackers.
+
+By spending the attackers budget for them, you are ultimately depleting their resources, which will cause them to make silly mistakes and be caught and/or just run out of time.
 
 ## 4. SSM Risks that Solution Causes {#web-applications-risks-that-solution-causes}
 

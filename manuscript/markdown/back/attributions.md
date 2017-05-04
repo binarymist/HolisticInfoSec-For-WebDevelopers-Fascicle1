@@ -1190,6 +1190,15 @@ http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-emp
 https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-out  
 dated-javascript-libraries-on-the-web/
 
+%% Insufficient Attack Protection
+
+**What the Insecure Direct Object References risk looks like** in the NodeGoat web application  
+[https://github.com/OWASP/NodeGoat/](https://github.com/OWASP/NodeGoat/)  
+Check out the tutorial  
+[https://nodegoat.herokuapp.com/tutorial/a4](https://nodegoat.herokuapp.com/tutorial/a4)
+
+%% End Insufficient Attack Protection
+
 **the winston-syslog-posix package** was inspired by blargh  
 [https://www.npmjs.com/package/winston-syslog-posix](https://www.npmjs.com/package/winston-syslog-posix)  
 [http://tmont.com/blargh/2013/12/writing-to-the-syslog-with-winston](http://tmont.com/blargh/2013/12/writing-to-the-syslog-with-winston)
@@ -1495,4 +1504,15 @@ https://blog.liftsecurity.io/2015/02/10/introducing-requiresafe-peace-of-mind-th
 **The Web Crypto API supported algorithms** for Chromium (as of version 46) and Mozilla (as of July 2016)  
 [https://www.chromium.org/blink/webcrypto](https://www.chromium.org/blink/webcrypto)  
 [https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API/Supported_algorithms](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API/Supported_algorithms)
+
+%% Insufficient Attack Protection
+
+**Insecure Direct Object References** was part of the OWASP Top 10 in 2013  
+[https://www.owasp.org/index.php/Top_10_2013-A4-Insecure_Direct_Object_References](https://www.owasp.org/index.php/Top_10_2013-A4-Insecure_Direct_Object_References)  
+which in 2017 was merged  
+[https://www.owasp.org/index.php/Top_10_2017-Release_Notes](https://www.owasp.org/index.php/Top_10_2017-Release_Notes)  
+into Insufficient Attack Protection  
+[https://www.owasp.org/index.php/Top_10_2017-A7-Insufficient_Attack_Protection](https://www.owasp.org/index.php/Top_10_2017-A7-Insufficient_Attack_Protection)
+
+%% End Insufficient Attack Protection
 

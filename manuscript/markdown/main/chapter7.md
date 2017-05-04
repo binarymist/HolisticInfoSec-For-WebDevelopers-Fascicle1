@@ -4984,7 +4984,7 @@ The following is a final type of check-list that I like to use before opening a 
 
 ![](images/BinaryMistDeploymentTool.png)  
   
-4. Hopefully you have been baking security into your web application right from the start. This is an essential part of defence in depth. Rather than having your application completely rely on other security layers to protect it, it should also be standing up for itself and understanding when it is under attack and actually [fighting back](#web-applications-countermeasures-lack-of-active-automated-prevention), as we discuss in the Web Applications chapter under "Lack of Active Automated Prevention".
+4. Hopefully you have been baking security into your web application right from the start. This is an essential part of defence in depth. Rather than having your application completely rely on other security layers to protect it, it should also be standing up for itself and understanding when it is under attack and actually [fighting back](#web-applications-countermeasures-insufficient-attack-protection), as we discuss in the Web Applications chapter under "Lack of Active Automated Prevention".
 5. Set static IP address
 6. Double check that the only open ports on the web server are 80 and what ever you have chosen for SSH.
 7. Set-up [SSH tunnel](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh), so you can access your server from your LAN or where ever it is that you will be administering it from.
