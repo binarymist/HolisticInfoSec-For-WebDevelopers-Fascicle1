@@ -398,17 +398,7 @@ Other notable data-store compromises were [LinkedIn](https://en.wikipedia.org/wi
 
 Are you using well salted and quality strong key derivation functions (KDFs) for all of your sensitive data? Are you making sure you are notifying your customers about using high quality passwords? Are you informing them what a high quality password is? Consider checking new user credentials against a list of the most frequently used and insecure passwords collected. I discussed Password Lists in the Tooling Setup chapter. You could also use wordlists targeting the most commonly used passwords, or create an algorithm that works out what an easy to guess password looks like, and inform the user that it would be easy to guess by an attacker.
 
-#### Caching of Sensitive Data {#web-applications-identify-risks-management-of-application-secrets-caching-of-sensitive-data}
-![](images/ThreatTags/easy-common-difficult-moderate.png)
-
-_Todo_
-
-%% http://www.windowsecurity.com/articles-tutorials/authentication_and_encryption/How-Cracked-Windows-Password-Part2.html
-
-
 #### Cracking {#web-applications-identify-risks-management-of-application-secrets-cracking}
-
-_Todo_
 
 Remember we covered Password Profiling in the People chapter where we essentially made good guesses, both manually and with the use of profiling tools, around the end users passwords, and then feed the short-list to a brute forcing tool. Here we already have the password hashes. We just need to find the source passwords that created the hashes. This is where cracking comes in.
 
@@ -417,47 +407,6 @@ When an attacker acquires a data-store or domain controller dump of hashed passw
 A smaller wordlist is going to take less time to create the hashes. As this is often an off-line attack, a larger wordlist is often preferred over a smaller one because the number of generated hashes will be greater, which when compared to the dump of hashes means the likelihood of a greater number of matches is increased.
 
 As part of the hands on hack in the [SQLi](#web-applications-identify-risks-sqli) section, we obtained the password hashes via SQL injection from the target web application DVWA (part of the OWASP Broken Web Application suite (VM)). We witnessed how an attacker could obtain the passwords from the hashed values retrieved from the database.
-
-
-%% See section in TheHackerPlaybook2 on Password Cracking
-oclHashcat  
-John the Ripper (JtR)  
-Cain and Abel (windows)
-
-%% http://www.troyhunt.com/2011/06/owasp-top-10-for-net-developers-part-7.html "Anatomy of an insecure cryptographic storage attack" onwards
-%% http://www.troyhunt.com/2012/06/our-password-hashing-has-no-clothes.html
-
-_Todo_
-
-
-%% Resources:
-
-%% * DVWA? toastmasters example?
-%% * TheHackerPlaybook2 - Special Teams - Password Cracking
-%% * Owning the web presentation near the end
-%% * http://www.windowsecurity.com/articles-tutorials/authentication_and_encryption/How-Cracked-Windows-Password-Part2.html
-%% * John the Ripper vs Hashcat vs Ophcrack vs Findmyhash and Chntpw http://www.thesecurityblogger.com/how-hackers-crack-weak-passwords/
-%% * Hashcat http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-3-using-hashcat-0156543/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-identify-risks-lack-of-authentication-authorisation-session-management}
 
@@ -3126,7 +3075,7 @@ Don't forget to plug all your changes into your Zap Regression Test suite as dis
 
 #### Cracking
 
-_Todo_
+Slowing down and rendering cracking infeasible is addressed by the type of KDF and number of rounds you configure. We dealt with this in the "[Which KDF to use](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)" section.
 
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management}
 
