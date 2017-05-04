@@ -4384,19 +4384,11 @@ Relying on tooling alone is not enough.
 
 Using the likes of pre-commit hooks with the CLIs and the other tooling options detailed in the [Countermeasures](#web-applications-countermeasures-consuming-free-and-open-source-tooling) section integrated with CI builds, and creating scripts to do most of the work for us, is going to be a good option to start with. Adding the automation of security regression testing on top of that, and your solution for managing potential vulnerabilities in free and open source packages is starting to look pretty solid.
 
-### Insecure Direct Object References
+### Insufficient Attack Protection
 
-_Todo_
+Applying WAFs can act as a band-aid, masking the underlying issues with the application code. Ideally your security issues want to fail fast in development. If you are running the types of tests and doing the types of activities I discussed in Fascicle 0 in the Process and Practises chapter, you should have a fairly good handle on your defects. Most WAFs I have seen are pretty old-school, in that they do not actively attack the attackers.
 
-### Lack of Active Automated Prevention
-
-#### Web Application Firewall (WAF)
-
-_Todo_
-
-#### Application Intrusion Detection and Response
-
-_Todo_
+Moving toward an active automated prevention standpoint where you have code that intentionally attracts and responds to attackers is usually far more effective at dealing with malicious actors.
 
 ## 5. SSM Costs and Trade-offs {#web-applications-costs-and-trade-offs}
 
@@ -4516,18 +4508,9 @@ The process has to be streamlined so that it does not get in the developers way.
 
 The idea of setting up a process that notifies at least the Development Team if a library they want to use has known security defects, needs to be pitched to all stakeholders (developers, product owner, even external stakeholders) the right way. It needs to provide obvious benefit and not make anyones life harder than it already is. Everyone has their own agendas. Rather than fighting against them, include consideration for them in your pitch. I think this sort of a pitch is actually reasonably easy if you keep these factors in mind.
 
-### Insecure Direct Object References
+### Insufficient Attack Protection
 
-_Todo_
+It will cost you some time to create these type of active defence modules. If you are lucky, by the time you read this, I may already have some. It is on my current todo list.
 
-### Lack of Active Automated Prevention
-
-#### Web Application Firewall (WAF)
-
-_Todo_
-
-#### Application Intrusion Detection and Response
-
-_Todo_
 
 
