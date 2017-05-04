@@ -4982,8 +4982,8 @@ The following is a final type of check-list that I like to use before opening a 
 3. Deploy application files, you may use Docker or one of my deployment tools  
 [https://github.com/binarymist/DeploymentTool](https://github.com/binarymist/DeploymentTool)  
 
-![](images/BinaryMistDeploymentTool.png)  
-  
+  ![](images/BinaryMistDeploymentTool.png)  
+
 4. Hopefully you have been baking security into your web application right from the start. This is an essential part of defence in depth. Rather than having your application completely rely on other security layers to protect it, it should also be standing up for itself and understanding when it is under attack and actually [fighting back](#web-applications-countermeasures-insufficient-attack-protection), as we discuss in the Web Applications chapter under "Lack of Active Automated Prevention".
 5. Set static IP address
 6. Double check that the only open ports on the web server are 80 and what ever you have chosen for SSH.

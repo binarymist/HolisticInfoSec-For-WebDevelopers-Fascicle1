@@ -420,7 +420,8 @@ http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cra
 [https://soundcloud.com/owasp-podcast/john-melton-and-the-owasp-appsensor-project](https://soundcloud.com/owasp-podcast/john-melton-and-the-owasp-appsensor-project)
 
 **Gaslighting with Honeypits and Mirages**  
-at OWASP NZ Day 2017 by Kate Pearce demonstrated a collection of very useful techniques for programmatically wasting your attackers time.
+at OWASP NZ Day 2017 by Kate Pearce demonstrated a collection of very useful techniques for programmatically wasting your attackers time  
+[https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule)
 
 
 

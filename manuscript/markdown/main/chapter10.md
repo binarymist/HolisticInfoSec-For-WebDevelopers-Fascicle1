@@ -581,9 +581,9 @@ Running any type of scripts from non local sources without first downloading and
 
 There is a good example of what the Insecure Direct Object References risk looks like in the [NodeGoat](https://github.com/OWASP/NodeGoat/) web application. Check out the [tutorial](https://nodegoat.herokuapp.com/tutorial/a4), along with the video of how the attack is played out, along with the sample code and recommendations of how to fix.
 
-The web application is being attacked with unusual requests.
-
 #### Lack of Active Automated Prevention
+
+The web application is being attacked with unusual requests.
 
 Attackers probe for many types of weaknesses within the application, when they think they find a flaw, they attempt to learn from this and refine their attack technique.
 
