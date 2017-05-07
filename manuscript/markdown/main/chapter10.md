@@ -24,7 +24,7 @@ Take the results from the higher level Asset Identification in the 30,000' View 
 ## 2. SSM Identify Risks
 Go through the same process as we did at the top level, in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for Web Applications. Also [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008) is useful.
 
-The following is the OWASP Top 10 vulnerabilities for 2003, 2004, 2007, 2010 and 2013.
+The following is the OWASP Top 10 vulnerabilities for 2003, 2004, 2007, 2010, 2013 and 2017.
 
 &nbsp;
 
@@ -201,22 +201,120 @@ G> If you select the victims node and click on the Commands tab in the BeEF web 
 {icon=bomb}
 G> Click on the Execute button and on the next request -> response from the hook.js, the victims browser should pop a "Facebook Session Timed Out" modal. To get rid of this modal, the victim must enter their credentials and Log-in. There is no cancel or 'x' button. Once the victim has sent their credentials, they will be visible in the Command results of the BeEF web UI.  
 
-#### Cross-Site Request Forgery (CSRF)
+#### [Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#General_Recommendation:_Synchronizer_Token_Pattern) {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf}
+![](images/ThreatTags/average-uncommon-easy-moderate.png)
 
-_Todo_
+This type of attack depends on a fraudulent web resource, be it a: website, email, instant message, or program causes the targets web browser to perform an unintentional action on a website that the target is currently authenticated with.
 
-%% Take details from:
+CSRF attacks target functionality that change state on the server (`POST`, `PUT`, `DELETE`) that the target is currently authenticated with, requests such as changing the targets credentials, making a purchase, moving money at their bank. Forcing the target to retrieve data does not help the attacker.
 
-* http://www.asp.net/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages
-* https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#General_Recommendation:_Synchronizer_Token_Pattern
+If you are using cookies (authentication that the browser automatically sends from the client) for storage of client-side session artefacts, CSRF is your main concern, but XSS is also a possible attack vector. 
 
-The first link describes things the best.  
-"Anatomy of an attack"  
-"Generating the tokens"  
-The specific server side web application is responsible for generating the unique tokens and adding them to the responses.  
-The application in the browser, or browser, or users device, is responsible for storing the one-time token, then issuing it with each request where CSRF is a concern.  
+The target needs to submit the request either intentionally or unintentionally. The request could appear to the target as any action. For example:
 
-Each technology will do things differently.
+1. Intentionally by clicking a button on a website that does not appear to have anything in common with the website that the target is already authenticated with by way of session Id stored in a cookie
+2. Unintentionally by loading a page not appearing to have anything in common with the website that the target is already authenticated with by way of session Id stored in a cookie, that for example contains an `<iframe>` with a form and a script block inside
+ 
+**For No. 1 above**, the action attribute of the form for which the target submits could be to the website that the target is already authenticated with, thus a fraudulent request is issued from a web page seemingly unrelated to the website that the target is already authenticated with, the browser plays its part and sends the session Id stored in the cookie. NodeGoat has an excellent example of how this playes out:
+
+Below code can be found at [https://github.com/OWASP/NodeGoat/](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/views/profile.html):
+
+{title="snippet from legitimate profile.html", id="profile_html", linenos=on, lang=html}
+    <form role="form" method="post" action="/profile">
+       <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" class="form-control" id="firstName" name="firstName" value="{{firstName}}" placeholder="Enter first name">
+       </div>
+       <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" class="form-control" id="lastName" name="lastName" value="{{lastName}}" placeholder="Enter last name">
+       </div>
+       <div class="form-group">
+          <label for="ssn">SSN</label>
+          <input type="text" class="form-control" id="ssn" name="ssn" value="{{ssn}}" placeholder="Enter SSN">
+       </div>
+       <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" name="dob" value="{{dob}}" placeholder="Enter date of birth">
+       </div>
+       <div class="form-group">
+          <label for="bankAcc">Bank Account #</label>
+          <input type="text" class="form-control" id="bankAcc" name="bankAcc" value="{{bankAcc}}" placeholder="Enter bank account number">
+       </div>
+       <div class="form-group">
+          <label for="bankRouting">Bank Routing #</label>
+          <input type="text" class="form-control" id="bankRouting" name="bankRouting" value="{{bankRouting}}" placeholder="Enter bank routing number">
+          <p class="help-block">Must be entered as digits with a suffix of #. For example: 0198212# </p>
+       </div>
+       <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" class="form-control" id="address" name="address" value="{{address}}" placeholder="Enter address">
+       </div>
+       <input type="hidden" name="_csrf" value="{{csrftoken}}" />
+       <button type="submit" class="btn btn-default" name="submit">Submit</button>
+    </form>
+
+The below attack code can be found at the NodeGoat [tutorial for CSRF](https://nodegoat.herokuapp.com/tutorial/a8), along with the complete example that ckarande crafted, and an accompanying tutorial video of how the attack plays out:
+
+{title="snippet from attackers website", linenos=off, lang=html}
+    <html lang="en">
+    <head></head>
+       <body>
+          <form method="POST" action="http://TARGET_APP_URL_HERE/profile">
+             <h1> You are about to win a brand new iPhone!</h1>
+             <h2> Click on the win button to claim it...</h2>
+             <!--User is authenticated, let's force them to change some values-->
+             <input type="hidden" name="bankAcc" value="9999999"/>
+             <input type="hidden" name="bankRouting" value="88888888"/>
+                                <input type="submit" value="Win !!!"/>
+          </form>
+       </body>
+    </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**For No. 2 above**, is similar to No. 1, but the target does not have to action anything once the fraudulent web page is loaded. The script block submits the form automatically, thus making the request to the website that the target is already authenticated with, the browser again playing its part in sending the session Id stored in the cookie:
+
+{title="snippet from attackers website", linenos=off, lang=html}
+    <form id="theForm" action="http://TARGET_APP_URL_HERE/profile" method="post">
+       <input type="hidden" name="bankAcc" value="9999999"/>
+       <input type="hidden" name="bankRouting" value="88888888"/>
+                                <input type="submit" value="Win !!!"/>
+    </form>
+    <script type="text/javascript">
+       document.getElementById('theForm').submit();
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+* A form is not essential to carry out CSRF successfully
+* XSS is not essential to carry out CSRF successfully
+* HTTPS does nothing to defend against CSRF
+
+
+
+
+
 
 #### SQLi {#web-applications-identify-risks-sqli}
 
@@ -2570,7 +2668,59 @@ This is a place holder section. The countermeasures are covered in the [Lack of 
 
 #### Cross-Site Request Forgery (CSRF)
 
-_Todo_
+
+
+
+
+A token (often called the CSRF syncroniser/challenge token) is sent as part of a response to a legitimate request from a client browser. The application on the client side holds this syncroniser/challenge token and sends it on subsequent requests to the legitimate website.
+
+The specific server side web application is responsible for generating a unique token per session and adding it to the responses. The application in the browser, or users device, is responsible for storing the syncroniser/challenge one-time token, then issuing it with each request where CSRF is a concern.  
+
+When an attacker tricks a target into issuing a fraudulent request to the same website, they have no knowledge of the syncroniser/challenge token, so it is not sent.
+
+The legitimate website will only regard a request as being legitimate if the request also carries the syncroniser/challenge token.
+
+
+For the examples from the [Identify Risks](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf) section:
+
+The NodeGoat application deals with CSRF attacks by using an Express CSRF middleware named `_csrf` which should be added to all requests that mutate state such as discussed in the Identify Risks section. You can see this on line 31 of the [profile.html snippet](#profile_html) in the Identify Risks section within a hidden field. Repeated below:
+
+{linenos=off, lang=html}
+    <input type="hidden" name="_csrf" value="{{csrftoken}}" />
+
+When the form is submitted, the middleware checks for existence of the token, and validates it by matching to the generated token in the targets session. If the CSRF syncroniser/challenge token fails validation, the server rejects the requested action.
+
+To enable this CSRF middleware, simply uncomment the CSRF fix in the NodeGoat [server.js](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/server.js#L108) file. The CSRF middleware is initialised immediately after the applications session middleware is initialised, 
+
+{linenos=off, lang=JavaScript}
+    // Enable Express csrf protection.
+    app.use(express.csrf());
+    
+    app.use(function(req, res, next) {
+       // Expose the csrfToken to the view.
+       res.locals.csrftoken = req.csrfToken(); 
+       next(); 
+    }); 
+
+You can see and play with all this at [https://nodegoat.herokuapp.com/tutorial/](https://nodegoat.herokuapp.com/tutorial/a8)
+
+
+
+
+
+
+
+
+
+Also check the "[Securing Sessions](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions)" countermeasures section along with the "[Lack of Authentication, Authorisation and Session Management](#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management)" Risks that Solution Causes section for pertinent information. 
+
+
+
+
+
+
+
+
 
 #### SQLi {#web-applications-countermeasures-sqli}
 
@@ -3724,11 +3874,11 @@ The OWIN startup or config file could look like the following. You can see in th
 
 MembershipReboot supports adding secret questions and answers along with the ability to update user account details. Details on how this can be done is in the [sample code](https://github.com/brockallen/BrockAllen.MembershipReboot/tree/master/samples) kindly provided by Brock Allen and documentation on their [github wiki](https://github.com/brockallen/BrockAllen.MembershipReboot/wiki#features).
 
-#### Securing Sessions
+#### Securing Sessions {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions}
 
 In the above example we (were constrained by a business requirement) chose to use cookies to carry the access token. Alternatively the access token could be transported within the end users HTTP response and request bodies and stored in local storage.
 
-Using local storage means there is less to be concerned about in terms of protecting the token than using cookies. LocalStorag is only concerned with XSS, where as cookies are susceptible to both CSRF and XSS attacks (although XSS to a lesser degree). If you decided to use local storage, You're anti XSS strategy needs to be water-tight.  
+Using local storage means there is less to be concerned about in terms of protecting the token than with using cookies. LocalStorag is only concerned with XSS, where as cookies are susceptible to both CSRF and XSS attacks (although XSS to a lesser degree). If you decided to use local storage, You're anti XSS strategy needs to be water-tight.  
 Even with the `HttpOnly` flag set on your cookie, it is possible to compromise the cookie contents if the values of the `Domain` and/or `Path` cookie attributes are too permissive. For example if you have the `Domain` value set to `.localtest.me`, an attacker can attempt to launch attacks on the cookie token between other hosts with the same domain name. Some of these hosts may contain vulnerabilities, thus increasing the attack surface.
 
 ![](images/SecuringSessions.png)
@@ -4275,7 +4425,7 @@ Also consider that once an attacker has made off with your data-store, even if i
 
 Do not let over confidence be your weakness. An attacker will search out the weak link. Do your best to remove weak links.
 
-### Lack of Authentication, Authorisation and Session Management
+### Lack of Authentication, Authorisation and Session Management {#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management}
 
 This is a complex topic with many areas that the developer must understand in order to make the best decisions. Having team members that already have strengths in these areas can help a lot. The technologies are moving fast, but many of the concepts encountered are similar across the technology generations. It helps to have a healthy fear, some experience of what can go wrong, and an understanding of just how many concepts must be understood in order to piece together a solution that is going to work well and resist the attacks of your enemies.
 

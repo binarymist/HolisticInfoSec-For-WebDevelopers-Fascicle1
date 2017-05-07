@@ -3707,7 +3707,7 @@ Now just configure your Monit control file. You can spend a lot of time here twe
 * [Official Monit Documentation](https://mmonit.com/monit/documentation/monit.html)
 * [Monit Man page](http://linux.die.net/man/1/monit)
 
-There are a few things that had me stuck for a white. By default Monit only sends alerts on change (dark cockpit approach), not on every cycle if the condition stays the same, unless when you set-up your:
+There are a few things that had me stuck for a while. By default Monit only sends alerts on change (dark cockpit approach), not on every cycle if the condition stays the same, unless when you set-up your:
 
 {linenos=off, lang=bash}
     set alert your-email@your.domain
