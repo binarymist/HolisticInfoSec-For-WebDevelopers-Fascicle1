@@ -204,7 +204,7 @@ G> Click on the Execute button and on the next request -> response from the hook
 #### [Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#General_Recommendation:_Synchronizer_Token_Pattern) {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf}
 ![](images/ThreatTags/average-uncommon-easy-moderate.png)
 
-This type of attack depends on a fraudulent web resource, be it a: website, email, instant message, or program causes the targets web browser to perform an unintentional action on a website that the target is currently authenticated with.
+This type of attack depends on a fraudulent web resource, be it a website, email, instant message, or program that causes the targets web browser to perform an unintentional action on a website that the target is currently authenticated with.
 
 CSRF attacks target functionality that change state on the server (`POST`, `PUT`, `DELETE`) that the target is currently authenticated with, requests such as changing the targets credentials, making a purchase, moving money at their bank. Forcing the target to retrieve data does not help the attacker.
 
@@ -215,7 +215,7 @@ The target needs to submit the request either intentionally or unintentionally. 
 1. Intentionally by clicking a button on a website that does not appear to have anything in common with the website that the target is already authenticated with by way of session Id stored in a cookie
 2. Unintentionally by loading a page not appearing to have anything in common with the website that the target is already authenticated with by way of session Id stored in a cookie, that for example contains an `<iframe>` with a form and a script block inside
  
-**For No. 1 above**, the action attribute of the form for which the target submits could be to the website that the target is already authenticated with, thus a fraudulent request is issued from a web page seemingly unrelated to the website that the target is already authenticated with, the browser plays its part and sends the session Id stored in the cookie. NodeGoat has an excellent example of how this playes out:
+**For No. 1 above**, the action attribute of the form for which the target submits could be to the website that the target is already authenticated with, thus a fraudulent request is issued from a web page seemingly unrelated to the website that the target is already authenticated with. This can be seen in the second example below on line 4. The browser plays its part and sends the session Id stored in the cookie. NodeGoat has an excellent example of how this plays out:
 
 Below code can be found at [https://github.com/OWASP/NodeGoat/](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/views/profile.html):
 
@@ -292,7 +292,7 @@ Below code can be found at [https://github.com/OWASP/NodeGoat/](https://github.c
 
 The below attack code can be found at the NodeGoat [tutorial for CSRF](https://nodegoat.herokuapp.com/tutorial/a8), along with the complete example that ckarande crafted, and an accompanying tutorial video of how the attack plays out:
 
-{title="snippet from attackers website", linenos=off, lang=html}
+{title="snippet from attackers website", linenos=off, lang=html, linenos=on}
     <html lang="en">
     <head></head>
        <body>
@@ -2710,11 +2710,11 @@ This is a place holder section. The countermeasures are covered in the [Lack of 
 
 A token (often called the CSRF syncroniser/challenge token) is sent as part of a response to a legitimate request from a client browser. The application on the client side holds this syncroniser/challenge token and sends it on subsequent requests to the legitimate website.
 
-The specific server side web application is responsible for generating a unique token per session and adding it to the responses. The application in the browser, or users device, is responsible for storing the syncroniser/challenge one-time token, then issuing it with each request where CSRF is a concern.  
+The specific server side web application is responsible for generating a unique token per session and adding it to the responses. The application in the browser, or users device, is responsible for storing the syncroniser/challenge token, then issuing it with each request where CSRF is a concern.  
 
-When an attacker tricks a target into issuing a fraudulent request to the same website, they have no knowledge of the syncroniser/challenge token, so it is not sent.
+When an attacker tricks a target into issuing a fraudulent request to the same website, the request has no knowledge of the syncroniser/challenge token, so it is not sent.
 
-The legitimate website will only regard a request as being legitimate if the request also carries the syncroniser/challenge token.
+The legitimate website will only regard a request as being legitimate if the request also carries the valid matching syncroniser/challenge token as is contained in the targets session on the server.
 
 
 For the examples from the [Identify Risks](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf) section:
@@ -2729,8 +2729,10 @@ When the form is submitted, the middleware checks for existence of the token, an
 To enable this CSRF middleware, simply uncomment the CSRF fix in the NodeGoat [server.js](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/server.js#L108) file. The CSRF middleware is initialised immediately after the applications session middleware is initialised, 
 
 {linenos=off, lang=JavaScript}
+    // var csrf = require("csurf");
+    
     // Enable Express csrf protection.
-    app.use(express.csrf());
+    app.use(csrf());
     
     app.use(function(req, res, next) {
        // Expose the csrfToken to the view.
