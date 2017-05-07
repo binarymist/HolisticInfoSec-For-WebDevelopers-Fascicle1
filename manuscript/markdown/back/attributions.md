@@ -1297,7 +1297,8 @@ https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_
 %% Countermeasures for CSRF
 
 **OWASP CSRF Prevention Cheat Sheet**  
-https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#CSRF_Specific_Defense
+https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_  
+Sheet
 
 **OWASP CSRF** page  
 https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)

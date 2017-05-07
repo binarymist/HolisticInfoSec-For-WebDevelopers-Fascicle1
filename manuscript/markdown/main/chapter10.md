@@ -66,7 +66,7 @@ How easy is it for you to notice:
 * Any statistics that may be helpful in diagnosing any application specific issue
 
 ### Lack of Input Validation, Filtering and Sanitisation {#web-applications-identify-risks-lack-of-input-validation-and-sanitisation}
-![](images/ThreatTags/easy-common-average-severe.png)
+![](images/ThreatTags/average-widespread-average-moderage.png)
 
 #### Generic
 
@@ -129,7 +129,6 @@ Sanitisation of input data is where the input data whether it is in your white l
 You need to know which contexts your input data will pass through in order to sanitise correctly for all potential execution contexts. This requires lateral thinking and following all execution paths. Both into and out of your application (once rehydrated), being pushed back to the client. We cover this in depth below in the ["Example in JavaScript and C#"](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-csharp) section in the countermeasures.
 
 #### Cross-Site Scripting (XSS) {#web-applications-identify-risks-cross-site-scripting}
-![](images/ThreatTags/average-verywidespread-easy-moderate.png)
 
 The following hands on hack demonstrates what a XSS attack is and provides a little insight into some of the damages that it can cause.
 
@@ -4321,11 +4320,11 @@ Be very careful with sanitisation. Try first to use well tested and battle harde
 
 #### Cross-Site Scripting (XSS)
 
-_Todo_
+Covered above.
 
 ### Cross-Site Request Forgery (CSRF)
 
-_Todo_
+Catering for CSRF can be a daunting task and it is difficult to cover every possible attack vector. If possible, I usually try and avoid session cookies all together and use localstorage instead, then I just need to make sure my XSS countermeasures strategy is watertight, which is a bit simpler. If you are constrained to use cookies for your session identifiers, make sure you research both risks and countermeasures thoroughly. With the material I have provided along with the additional resources, you should be in good stead.
 
 ### Injection
 
@@ -4512,11 +4511,11 @@ Once you fully understand the dangers you'll be able to make these decisions eas
 
 #### Cross-Site Scripting (XSS)
 
-_Todo_
+Covered above.
 
 ### Cross-Site Request Forgery (CSRF)
 
-_Todo_
+As mentioned in the "Risks that Solution Causes", I will generally favour storing session identifiers in localstorage and concentrating on input Validation, Filtering and Sanitisation.
 
 ### Injection
 
