@@ -223,32 +223,68 @@ Below code can be found at [https://github.com/OWASP/NodeGoat/](https://github.c
     <form role="form" method="post" action="/profile">
        <div class="form-group">
           <label for="firstName">First Name</label>
-          <input type="text" class="form-control" id="firstName" name="firstName" value="{{firstName}}" placeholder="Enter first name">
+          <input
+             type="text"
+             id="firstName"
+             name="firstName"
+             value="{{firstName}}"
+             placeholder="Enter first name">
        </div>
        <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input type="text" class="form-control" id="lastName" name="lastName" value="{{lastName}}" placeholder="Enter last name">
+          <input
+             type="text"
+             id="lastName"
+             name="lastName"
+             value="{{lastName}}"
+             placeholder="Enter last name">
        </div>
        <div class="form-group">
           <label for="ssn">SSN</label>
-          <input type="text" class="form-control" id="ssn" name="ssn" value="{{ssn}}" placeholder="Enter SSN">
+          <input
+             type="text"
+             id="ssn"
+             name="ssn"
+             value="{{ssn}}"
+             placeholder="Enter SSN">
        </div>
        <div class="form-group">
           <label for="dob">Date of Birth</label>
-          <input type="date" class="form-control" id="dob" name="dob" value="{{dob}}" placeholder="Enter date of birth">
+          <input
+             type="date"
+             id="dob"
+             name="dob"
+             value="{{dob}}"
+             placeholder="Enter date of birth">
        </div>
        <div class="form-group">
           <label for="bankAcc">Bank Account #</label>
-          <input type="text" class="form-control" id="bankAcc" name="bankAcc" value="{{bankAcc}}" placeholder="Enter bank account number">
+          <input
+             type="text"
+             id="bankAcc"
+             name="bankAcc"
+             value="{{bankAcc}}"
+             placeholder="Enter bank account number">
        </div>
        <div class="form-group">
           <label for="bankRouting">Bank Routing #</label>
-          <input type="text" class="form-control" id="bankRouting" name="bankRouting" value="{{bankRouting}}" placeholder="Enter bank routing number">
-          <p class="help-block">Must be entered as digits with a suffix of #. For example: 0198212# </p>
+          <input
+             type="text"
+             id="bankRouting"
+             name="bankRouting"
+             value="{{bankRouting}}"
+             placeholder="Enter bank routing number">
+          <p class="help-block">
+             Must be entered as digits with a suffix of #. For example: 0198212# </p>
        </div>
        <div class="form-group">
           <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" name="address" value="{{address}}" placeholder="Enter address">
+          <input
+             type="text"
+             id="address"
+             name="address"
+             value="{{address}}"
+             placeholder="Enter address">
        </div>
        <input type="hidden" name="_csrf" value="{{csrftoken}}" />
        <button type="submit" class="btn btn-default" name="submit">Submit</button>
@@ -305,7 +341,7 @@ The below attack code can be found at the NodeGoat [tutorial for CSRF](https://n
 
 
 
-
+Some misnomers:
 
 * A form is not essential to carry out CSRF successfully
 * XSS is not essential to carry out CSRF successfully
@@ -2683,7 +2719,7 @@ The legitimate website will only regard a request as being legitimate if the req
 
 For the examples from the [Identify Risks](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf) section:
 
-The NodeGoat application deals with CSRF attacks by using an Express CSRF middleware named `_csrf` which should be added to all requests that mutate state such as discussed in the Identify Risks section. You can see this on line 31 of the [profile.html snippet](#profile_html) in the Identify Risks section within a hidden field. Repeated below:
+The NodeGoat application deals with CSRF attacks by using an Express CSRF middleware named `_csrf` which should be added to all requests that mutate state such as discussed in the Identify Risks section. You can see this on line 67 of the [profile.html snippet](#profile_html) in the Identify Risks section within a hidden field. Repeated below:
 
 {linenos=off, lang=html}
     <input type="hidden" name="_csrf" value="{{csrftoken}}" />
