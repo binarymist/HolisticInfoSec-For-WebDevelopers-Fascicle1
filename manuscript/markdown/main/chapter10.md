@@ -66,7 +66,7 @@ How easy is it for you to notice:
 * Any statistics that may be helpful in diagnosing any application specific issue
 
 ### Lack of Input Validation, Filtering and Sanitisation {#web-applications-identify-risks-lack-of-input-validation-and-sanitisation}
-![](images/ThreatTags/average-widespread-average-moderage.png)
+![](images/ThreatTags/average-verywidespread-average-moderage.png)
 
 #### Generic
 
@@ -4515,7 +4515,7 @@ Covered above.
 
 ### Cross-Site Request Forgery (CSRF)
 
-As mentioned in the "Risks that Solution Causes", I will generally favour storing session identifiers in localstorage and concentrating on input Validation, Filtering and Sanitisation.
+As mentioned in the "Risks that Solution Causes", I will generally favour storing session identifiers in localstorage and concentrating on Input Validation, Filtering and Sanitisation.
 
 ### Injection
 
