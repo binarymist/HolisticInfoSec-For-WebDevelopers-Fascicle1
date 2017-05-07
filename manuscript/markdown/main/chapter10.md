@@ -307,20 +307,6 @@ The below attack code can be found at the NodeGoat [tutorial for CSRF](https://n
        </body>
     </html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 **For No. 2 above**, is similar to No. 1, but the target does not have to action anything once the fraudulent web page is loaded. The script block submits the form automatically, thus making the request to the website that the target is already authenticated with, the browser again playing its part in sending the session Id stored in the cookie:
 
 {title="snippet from attackers website", linenos=off, lang=html}
@@ -333,24 +319,11 @@ The below attack code can be found at the NodeGoat [tutorial for CSRF](https://n
        document.getElementById('theForm').submit();
     </script>
 
-
-
-
-
-
-
-
-
 Some misnomers:
 
 * A form is not essential to carry out CSRF successfully
 * XSS is not essential to carry out CSRF successfully
 * HTTPS does nothing to defend against CSRF
-
-
-
-
-
 
 #### SQLi {#web-applications-identify-risks-sqli}
 
@@ -2704,9 +2677,7 @@ This is a place holder section. The countermeasures are covered in the [Lack of 
 
 #### Cross-Site Request Forgery (CSRF)
 
-
-
-
+CSRF syncroniser/challenge tokens are one approach commonly used to help defend against CSRF. This approach should also be used with other techniques like Identifying the source origin by checking the Origin and Referer headers, along with other useful techniques that have been well documented by the [OWASP CSRF Prevention Cheat Sheet](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#CSRF_Specific_Defense). Also the [OWASP CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) page has links to many useful resources. Do not forget to check the [Additional Resources](#additional-resources-countermeasures-for-csrf) chapter.
 
 A token (often called the CSRF syncroniser/challenge token) is sent as part of a response to a legitimate request from a client browser. The application on the client side holds this syncroniser/challenge token and sends it on subsequent requests to the legitimate website.
 
@@ -2715,7 +2686,6 @@ The specific server side web application is responsible for generating a unique 
 When an attacker tricks a target into issuing a fraudulent request to the same website, the request has no knowledge of the syncroniser/challenge token, so it is not sent.
 
 The legitimate website will only regard a request as being legitimate if the request also carries the valid matching syncroniser/challenge token as is contained in the targets session on the server.
-
 
 For the examples from the [Identify Risks](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf) section:
 
@@ -2729,7 +2699,7 @@ When the form is submitted, the middleware checks for existence of the token, an
 To enable this CSRF middleware, simply uncomment the CSRF fix in the NodeGoat [server.js](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/server.js#L108) file. The CSRF middleware is initialised immediately after the applications session middleware is initialised, 
 
 {linenos=off, lang=JavaScript}
-    // var csrf = require("csurf");
+    var csrf = require("csurf");
     
     // Enable Express csrf protection.
     app.use(csrf());
@@ -2742,23 +2712,7 @@ To enable this CSRF middleware, simply uncomment the CSRF fix in the NodeGoat [s
 
 You can see and play with all this at [https://nodegoat.herokuapp.com/tutorial/](https://nodegoat.herokuapp.com/tutorial/a8)
 
-
-
-
-
-
-
-
-
 Also check the "[Securing Sessions](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions)" countermeasures section along with the "[Lack of Authentication, Authorisation and Session Management](#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management)" Risks that Solution Causes section for pertinent information. 
-
-
-
-
-
-
-
-
 
 #### SQLi {#web-applications-countermeasures-sqli}
 

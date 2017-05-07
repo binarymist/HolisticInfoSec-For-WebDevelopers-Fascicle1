@@ -346,6 +346,16 @@ https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
 **express-form**  
 [https://github.com/freewil/express-form](https://github.com/freewil/express-form)
 
+%% Countermeasures for CSRF 
+{#additional-resources-countermeasures-for-csrf}
+**XSRF/CSRF Prevention in ASP.NET MVC and Web Pages** is good for understanding CSRF  
+[https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages](https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)
+
+**OWASP CSRF**  
+[https://www.owasp.org/index.php/Top_10_2017-A8-Cross-Site_Request_Forgery_(CSRF)](https://www.owasp.org/index.php/Top_10_2017-A8-Cross-Site_Request_Forgery_(CSRF))
+
+%% End Countermeasures for CSRF
+
 **Recording and testing user time expenditure**
 
 [http://www.smashingmagazine.com/2011/03/in-search-of-the-perfect-captcha/#recording-user-time-expenditure](http://www.smashingmagazine.com/2011/03/in-search-of-the-perfect-captcha/#recording-user-time-expenditure)

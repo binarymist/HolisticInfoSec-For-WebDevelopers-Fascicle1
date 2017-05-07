@@ -1161,6 +1161,16 @@ Good resource on what XSS actually is:
 **Dam Vulnerable Web Application (DVWA)** from the OWASP Broken Web Applications VM  
 [http://sourceforge.net/projects/owaspbwa/files/](http://sourceforge.net/projects/owaspbwa/files/)
 
+%% Identify Risks for CSRF
+
+**Code can be found at**  
+[https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/views/profile.html](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/views/profile.html)
+
+**NodeGoat tutorial for CSRF**  
+[https://nodegoat.herokuapp.com/tutorial/a8](https://nodegoat.herokuapp.com/tutorial/a8)
+
+%% End Identify Risks for CSRF
+
 **The New Zealand Intelligence Service** recently told Prime Minister John Key that this was one of the 6 top threats facing New Zealand. "_Cyber attack or loss of information and data, which poses financial and reputational risks._"  
 
 http://www.stuff.co.nz/national/politics/73704551/homegrown-threats-more-serious-says-spy-boss-rebecca-kitteridge
@@ -1282,6 +1292,22 @@ nfig.js
 
 **Excellent resource for dealing with user input** based on the execution contexts that it passes through  
 https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet
+
+%% Countermeasures for CSRF
+
+**OWASP CSRF Prevention Cheat Sheet**  
+[https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#CSRF_Specific_Defense](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#CSRF_Specific_Defense)
+
+**OWASP CSRF** page  
+[https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) 
+
+**To enable this CSRF middleware**, simply uncomment the CSRF fix in the NodeGoat server.js file  
+[https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/server.js#L108](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/server.js#L108)
+
+**Play with all this at**  
+[https://nodegoat.herokuapp.com/tutorial/a8](https://nodegoat.herokuapp.com/tutorial/a8)
+
+%% End Countermeasures for CSRF
 
 **Hackers halfway across the world** _might know your password, but they don't know who your friends are_  
 [https://m.facebook.com/story.php?story_fbid=191422450875446&id=121897834504447](https://m.facebook.com/story.php?story_fbid=191422450875446&id=121897834504447)
