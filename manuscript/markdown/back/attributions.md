@@ -1164,7 +1164,8 @@ Good resource on what XSS actually is:
 %% Identify Risks for CSRF
 
 **Code can be found at**  
-[https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/views/profile.html](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/views/profile.html)
+https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app  
+/views/profile.html
 
 **NodeGoat tutorial for CSRF**  
 [https://nodegoat.herokuapp.com/tutorial/a8](https://nodegoat.herokuapp.com/tutorial/a8)
@@ -1296,13 +1297,14 @@ https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_
 %% Countermeasures for CSRF
 
 **OWASP CSRF Prevention Cheat Sheet**  
-[https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#CSRF_Specific_Defense](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#CSRF_Specific_Defense)
+https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#CSRF_Specific_Defense
 
 **OWASP CSRF** page  
-[https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) 
+https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 
 **To enable this CSRF middleware**, simply uncomment the CSRF fix in the NodeGoat server.js file  
-[https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/server.js#L108](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/server.js#L108)
+https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/  
+server.js#L108
 
 **Play with all this at**  
 [https://nodegoat.herokuapp.com/tutorial/a8](https://nodegoat.herokuapp.com/tutorial/a8)

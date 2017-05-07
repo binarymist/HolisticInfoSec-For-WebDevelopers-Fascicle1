@@ -201,7 +201,7 @@ G> If you select the victims node and click on the Commands tab in the BeEF web 
 {icon=bomb}
 G> Click on the Execute button and on the next request -> response from the hook.js, the victims browser should pop a "Facebook Session Timed Out" modal. To get rid of this modal, the victim must enter their credentials and Log-in. There is no cancel or 'x' button. Once the victim has sent their credentials, they will be visible in the Command results of the BeEF web UI.  
 
-#### [Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#General_Recommendation:_Synchronizer_Token_Pattern) {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf}
+### [Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#General_Recommendation:_Synchronizer_Token_Pattern) {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf}
 ![](images/ThreatTags/average-uncommon-easy-moderate.png)
 
 This type of attack depends on a fraudulent web resource, be it a website, email, instant message, or program that causes the targets web browser to perform an unintentional action on a website that the target is currently authenticated with.
@@ -324,6 +324,9 @@ Some misnomers:
 * A form is not essential to carry out CSRF successfully
 * XSS is not essential to carry out CSRF successfully
 * HTTPS does nothing to defend against CSRF
+
+### Injection
+![](images/ThreatTags/easy-common-average-severe.png)
 
 #### SQLi {#web-applications-identify-risks-sqli}
 
@@ -2675,11 +2678,12 @@ Refer to the section [above](#web-applications-identify-risks-lack-of-input-vali
 
 This is a place holder section. The countermeasures are covered in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) section.
 
-#### Cross-Site Request Forgery (CSRF)
+### Cross-Site Request Forgery (CSRF)
+![](images/ThreatTags/PreventionAVERAGE.png)
 
-CSRF syncroniser/challenge tokens are one approach commonly used to help defend against CSRF. This approach should also be used with other techniques like Identifying the source origin by checking the Origin and Referer headers, along with other useful techniques that have been well documented by the [OWASP CSRF Prevention Cheat Sheet](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#CSRF_Specific_Defense). Also the [OWASP CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) page has links to many useful resources. Do not forget to check the [Additional Resources](#additional-resources-countermeasures-for-csrf) chapter.
+CSRF syncroniser/challenge tokens are one approach commonly used to help defend against CSRF. This approach should also be used with other techniques like Identifying the source origin by checking the Origin and Referer headers, along with other useful techniques that have been well documented by the [OWASP CSRF Prevention Cheat Sheet](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet). Also the [OWASP CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) page has links to many useful resources, and do not forget to check the [Additional Resources](#additional-resources-countermeasures-for-csrf) chapter.
 
-A token (often called the CSRF syncroniser/challenge token) is sent as part of a response to a legitimate request from a client browser. The application on the client side holds this syncroniser/challenge token and sends it on subsequent requests to the legitimate website.
+With the CSRF syncroniser/challenge token pattern, a token (often called the CSRF syncroniser/challenge token) is sent as part of a response to a legitimate request from a client browser. The application on the client side holds this syncroniser/challenge token and sends it on subsequent requests to the legitimate website.
 
 The specific server side web application is responsible for generating a unique token per session and adding it to the responses. The application in the browser, or users device, is responsible for storing the syncroniser/challenge token, then issuing it with each request where CSRF is a concern.  
 
@@ -2713,6 +2717,11 @@ To enable this CSRF middleware, simply uncomment the CSRF fix in the NodeGoat [s
 You can see and play with all this at [https://nodegoat.herokuapp.com/tutorial/](https://nodegoat.herokuapp.com/tutorial/a8)
 
 Also check the "[Securing Sessions](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions)" countermeasures section along with the "[Lack of Authentication, Authorisation and Session Management](#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management)" Risks that Solution Causes section for pertinent information. 
+
+### Injection
+![](images/ThreatTags/PreventionEASY.png)
+
+_Todo_
 
 #### SQLi {#web-applications-countermeasures-sqli}
 
@@ -4314,9 +4323,11 @@ Be very careful with sanitisation. Try first to use well tested and battle harde
 
 _Todo_
 
-#### Cross-Site Request Forgery (CSRF)
+### Cross-Site Request Forgery (CSRF)
 
 _Todo_
+
+### Injection
 
 #### SQLi
 
@@ -4503,9 +4514,11 @@ Once you fully understand the dangers you'll be able to make these decisions eas
 
 _Todo_
 
-#### Cross-Site Request Forgery (CSRF)
+### Cross-Site Request Forgery (CSRF)
 
 _Todo_
+
+### Injection
 
 #### SQLi
 
