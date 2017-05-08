@@ -2717,7 +2717,7 @@ You can see and play with all this at [https://nodegoat.herokuapp.com/tutorial/]
 
 Also check the "[Securing Sessions](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions)" countermeasures section along with the "[Lack of Authentication, Authorisation and Session Management](#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management)" Risks that Solution Causes section for pertinent information. 
 
-Other techniques such as requiring the user to reauthenticate, or even providing CAPTCHA's are often used.
+Other techniques such as requiring the user to reauthenticate, or even providing [CAPTCHA](#web-applications-countermeasures-captcha)'s are often used, although I am not a fan of those techniques. I fail to see we as developers should make our problem the users. We just need to make sure we make it hard enough for the attackers that the end user is not affected.
 
 As an end user, if you make sure you invalidate your authentication by logging out or deleting your session cookies when you finish working with a website that requires authentication or move away from the browser, then the browser will be unable to send authentication as part of a CSRF attack.
 
