@@ -2717,6 +2717,10 @@ You can see and play with all this at [https://nodegoat.herokuapp.com/tutorial/]
 
 Also check the "[Securing Sessions](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions)" countermeasures section along with the "[Lack of Authentication, Authorisation and Session Management](#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management)" Risks that Solution Causes section for pertinent information. 
 
+Other techniques such as requiring the user to reauthenticate, or even providing CAPTCHA's are often used.
+
+As an end user, if you make sure you invalidate your authentication by logging out or deleting your session cookies when you finish working with a website that requires authentication or move away from the browser, then the browser will be unable to send authentication as part of a CSRF attack.
+
 ### Injection
 ![](images/ThreatTags/PreventionEASY.png)
 
@@ -2764,7 +2768,7 @@ _Todo_
 
 _Todo_
 
-#### Captcha
+#### Captcha {#web-applications-countermeasures-captcha}
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
 ##### Types
