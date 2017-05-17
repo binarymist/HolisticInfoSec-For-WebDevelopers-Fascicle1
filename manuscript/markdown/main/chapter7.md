@@ -3472,8 +3472,6 @@ Will reveal that Monit is running:
 {linenos=off, lang=bash}
     /usr/bin/monit -c /etc/monit/monitrc
 
-Now if you issue a `sudo service monit restart`, it will not work as you can not access the Monit CLI due to the httpd not running.
-
 The first thing we need to do is make some changes to the control file (`/etc/monit/monitrc` in Debian). The control file has sensible defaults already. At this stage I do not need a web UI accessible via localhost or any other hosts, but it still needs to be turned on and accessible by at least localhost. [Here is why](http://mmonit.com/monit/documentation/monit.html#MONIT-HTTPD):
 
 "_Note that if HTTP support is disabled, the Monit CLI interface will have reduced functionality, as most CLI commands (such as "monit status") need to communicate with the Monit background process via the HTTP interface. We strongly recommend having HTTP support enabled. If security is a concern, bind the HTTP interface to local host only or use Unix Socket so Monit is not accessible from the outside._"

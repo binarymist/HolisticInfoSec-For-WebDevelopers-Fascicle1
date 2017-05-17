@@ -1172,6 +1172,119 @@ https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/
 
 %% End Identify Risks for CSRF
 
+%% Injection Risks
+
+**Defects can range from** trivial to complete system compromise  
+[https://www.owasp.org/index.php/Injection_Flaws](https://www.owasp.org/index.php/Injection_Flaws)
+
+**OWASP Broken Web Applications VM**  
+[http://sourceforge.net/projects/owaspbwa/files/](http://sourceforge.net/projects/owaspbwa/files/)
+
+%% End Injection Risks
+%% NoSQLi Risks
+
+**Over 225 types of NoSQL data stores**  
+[http://nosql-database.org/](http://nosql-database.org/)
+
+**The MongoDB `$gt` comparison operator**  
+[https://docs.mongodb.com/manual/reference/operator/query/gt/#op._S_gt](https://docs.mongodb.com/manual/reference/operator/query/gt/#op._S_gt)
+
+%% End NoSQLi Risks
+%% Command Injection Risks
+
+**JavaScript `eval` function**  
+[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval)
+
+**JavaScript `setTimeout` and `setInterval` functions**  
+[](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout)  
+[https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval)
+
+**JavaScript `Function` constructor**  
+[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function)
+
+**NodeGoat, provides some simple examples** in the form of executable code  
+[https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L24-L26](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L24-L26)
+
+**Tutorial with videos of exploiting Command Injection**  
+[https://nodegoat.herokuapp.com/tutorial/a1](https://nodegoat.herokuapp.com/tutorial/a1)
+
+**OWASP Top 10 A10 Underprotected APIs**  
+[https://www.owasp.org/index.php/Top_10_2017-A10-Underprotected_APIs](https://www.owasp.org/index.php/Top_10_2017-A10-Underprotected_APIs)
+
+%% End Command Injection Risks
+%% XML Injection Risks
+
+**Attempting to create invalid XML document** by injecting various XML metacharacters  
+[https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Discovery](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Discovery)
+
+**XML External Entity (XXE) exploitation**  
+[https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing)
+
+**Tag injections**  
+[https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_Injection](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_Injection)
+
+**Adam Bell also presented on the following XML Injection attack types** at the OWASP New Zealand Day conference in 2017  
+[https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule)
+
+**Adams slide-deck**  
+[https://www.owasp.org/images/4/48/2017-04-20-OWASPNZ-XMLDangerous.pdf](https://www.owasp.org/images/4/48/2017-04-20-OWASPNZ-XMLDangerous.pdf)
+
+%% End XML Injection Risks
+%% XSLT Injection Risks
+
+**XSLT Injection**  
+[https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf](https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf)
+
+%% End XSLT Injection Risks
+%% XPath Injection Risks
+
+**XPath has no provision for commenting out tails of expressions**  
+[https://www.owasp.org/index.php/Comment_Injection_Attack#Examples](https://www.owasp.org/index.php/Comment_Injection_Attack#Examples)
+
+**A query can access every part of the XML document**  
+[https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary](https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary)
+
+**Blind injection is a technique used in many types of injection**  
+[https://www.owasp.org/index.php/Blind_XPath_Injection](https://www.owasp.org/index.php/Blind_XPath_Injection)
+
+**OWASP XML Crawling documentation**  
+[https://www.owasp.org/index.php/Blind_XPath_Injection#XML_Crawling](https://www.owasp.org/index.php/Blind_XPath_Injection#XML_Crawling)
+
+**XPath functions and XSLT specific additions to XPath**  
+[https://developer.mozilla.org/en-US/docs/Web/XPath/Functions](https://developer.mozilla.org/en-US/docs/Web/XPath/Functions)
+
+**projects.webappsec.org**  
+[http://projects.webappsec.org/w/page/13247006/XQuery%20Injection%7C](http://projects.webappsec.org/w/page/13247006/XQuery%20Injection%7C)
+
+**XQuery also has an extension**  
+[https://www.mssqltips.com/sqlservertip/2738/examples-of-using-xquery-to-update-xml-data-in-sql-server/](https://www.mssqltips.com/sqlservertip/2738/examples-of-using-xquery-to-update-xml-data-in-sql-server/)
+
+**Called the XML Data Modification Language (DML)**  
+[https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)
+
+%% End XPath Injection Risks
+%% LDAP Injection Risks
+
+**Successful LDAP injection attacks**  
+[https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction](https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction)
+
+**LDAP search filter metacharacters can be injected**  
+[https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary](https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary)
+
+**Polish notation**  
+[https://en.wikipedia.org/wiki/Polish_notation](https://en.wikipedia.org/wiki/Polish_notation)
+
+**LDAP true filter**  
+[https://docs.oracle.com/cd/E19476-01/821-0510/def-and-search-filter.html](https://docs.oracle.com/cd/E19476-01/821-0510/def-and-search-filter.html)
+
+**Only the first filter is processed by the LDAP server**  
+[https://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf](https://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf)
+
+%% End LDAP Injection Risks
+
+
+
+
 **The New Zealand Intelligence Service** recently told Prime Minister John Key that this was one of the 6 top threats facing New Zealand. "_Cyber attack or loss of information and data, which poses financial and reputational risks._"  
 
 http://www.stuff.co.nz/national/politics/73704551/homegrown-threats-more-serious-says-spy-boss-rebecca-kitteridge
@@ -1308,6 +1421,88 @@ server.js#L108
 
 %% End Countermeasures for CSRF
 
+%% Injection Countermeasures
+%% End Injection Countermeasures
+
+%% SQLi Countermeasures
+
+**Improve performance by 20 to 30 percent**  
+[https://www.ibm.com/developerworks/library/se-bindvariables/](https://www.ibm.com/developerworks/library/se-bindvariables/)
+
+**OWASP SQLi Prevention Cheat Sheet**  
+[https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet](https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet)
+
+%% End SQLi Countermeasures
+%% NoSQLi Countermeasures
+
+**XML, JSON, LINQ, etc**  
+[https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary)
+
+**`security.javascriptEnabled`**  
+[https://docs.mongodb.com/manual/reference/configuration-options/#security.javascriptEnabled](https://docs.mongodb.com/manual/reference/configuration-options/#security.javascriptEnabled)
+
+**MongoDB attempts to address injection**  
+[https://docs.mongodb.com/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection](https://docs.mongodb.com/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection)  
+by using Binary JSON (BSON)  
+[http://bsonspec.org/](http://bsonspec.org/)
+
+**MongoDB docs say**  
+[https://docs.mongodb.com/manual/faq/fundamentals/#javascript](https://docs.mongodb.com/manual/faq/fundamentals/#javascript)
+
+%% End NoSQLi Countermeasures
+%% Command Injection Countermeasures
+
+**Untrusted data should never be inserted** to `eval`, `setTimeout`, `setInterval` or as the last argument to `Function`  
+[https://blog.binarymist.net/2012/12/19/javascript-coding-standards-and-guidelines/#JavaScript-evalisEvil](https://blog.binarymist.net/2012/12/19/javascript-coding-standards-and-guidelines/#JavaScript-evalisEvil)
+
+**It is generally not good practise** to use the `Function` constructor anyway  
+[https://blog.binarymist.net/2013/07/06/javascript-object-creation-patterns/#object-creation-via-constructor](https://blog.binarymist.net/2013/07/06/javascript-object-creation-patterns/#object-creation-via-constructor)
+
+**Written about this on several occasions**  
+[https://blog.binarymist.net/2011/08/17/function-declarations-vs-function-expressions/](https://blog.binarymist.net/2011/08/17/function-declarations-vs-function-expressions/)  
+[https://blog.binarymist.net/2014/05/31/javascript-closures/#what-are-closures](https://blog.binarymist.net/2014/05/31/javascript-closures/#what-are-closures)
+
+**Minimal countermeasure example**  
+[https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L30-L32](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L30-L32)
+
+**`use strict`**  
+[https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode)
+
+**MDN provides details** of how it helps secure your JavaScirpt environment  
+[https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode#Securing_JavaScript](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode#Securing_JavaScript)
+
+%% End Command Injection Countermeasures
+%% XML Injection Countermeasures
+
+**XML Schemas**  
+[http://www.ws-attacks.org/XML_Injection#Attack_mitigation_.2F_countermeasures](http://www.ws-attacks.org/XML_Injection#Attack_mitigation_.2F_countermeasures)
+
+**XML External Entity (XXE) Prevention Cheat Sheet**  
+[https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet)
+
+%% End XML Injection Countermeasures
+%% XSLT Injection Countermeasures
+
+**All mitigations discussed**  
+[https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf](https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf)
+
+%% End XSLT Injection Countermeasures
+%% XPath Injection Countermeasures
+
+**OWASP XPath Injection Defences**  
+[https://www.owasp.org/index.php/XPATH_Injection#XPath_Injection_Defenses](https://www.owasp.org/index.php/XPATH_Injection#XPath_Injection_Defenses)
+
+%% End XPath Injection Countermeasures
+%% XQuery Countermeasures
+%% End XQuery Countermeasures
+%% LDAP Injection Countermeasures
+
+**For each semantic type of untrusted data**, for any characters that pass the white list validation, define filters, and sanitise all of the following validated characters  
+[http://www.rlmueller.net/CharactersEscaped.htm](http://www.rlmueller.net/CharactersEscaped.htm)
+
+%% End LDAP Injection Countermeasures
+%% Captcha Countermeasures
+
 **Hackers halfway across the world** _might know your password, but they don't know who your friends are_  
 [https://m.facebook.com/story.php?story_fbid=191422450875446&id=121897834504447](https://m.facebook.com/story.php?story_fbid=191422450875446&id=121897834504447)
 
@@ -1337,6 +1532,10 @@ server.js#L108
 [http://haacked.com/archive/2007/09/11/honeypot-captcha.aspx/](http://haacked.com/archive/2007/09/11/honeypot-captcha.aspx/)
 
 **The Offensive Web Testing Framework (OWTF)** also has a [plugin](https://github.com/owtf/owtf/wiki/Listing-Plugins) for testing captchas. While you are at it. Check out the [OWTF](https://www.owasp.org/index.php/OWASP_OWTF#tab=Main). It's a very useful tool for penetration testers and developers testing their own work. Focussed on making the process of penetration testing efficient with time. The main documentation is [here](http://docs.owtf.org/en/latest/).
+
+%% End Captcha Countermeasures
+
+
 
 **The function used to protect stored credentials** should balance attacker and defender verification. The defender needs an acceptable response time for verification of users’ credentials during peak use. However, the time required to map `<credential> -> <protected form>` must remain beyond threats’ hardware (GPU, FPGA) and technique (dictionary-based, brute force, etc) capabilities:  
 [https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet#Impose_infeasible_verification_on_attacker](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet#Impose_infeasible_verification_on_attacker)

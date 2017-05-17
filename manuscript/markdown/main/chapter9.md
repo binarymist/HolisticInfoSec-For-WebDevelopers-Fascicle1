@@ -30,6 +30,9 @@ If you are a start up, just be aware that the speed you have initially with a Pa
 %% What is to stop DoS attacks and costing the renter megabucks?
 %% https://devops.com/5-common-misconceptions-serverless-technology/
 
+%% https://thenewstack.io/security-serverless-gets-better-gets-worse/
+
+
 %% https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
 
 %% Discuss Infrastsructure as Code (IaC) with the likes of Terraform

@@ -304,6 +304,24 @@ https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
 **Syslog compatible protocol severities**  
 [https://wiki.gentoo.org/wiki/Rsyslog#Severity](https://wiki.gentoo.org/wiki/Rsyslog#Severity)
 
+%% NoSQLi
+
+**cr0hn nosqlinjection_wordlists**  
+[https://github.com/cr0hn/nosqlinjection_wordlists](https://github.com/cr0hn/nosqlinjection_wordlists)
+
+%% End NoSQLi
+
+%% Command Injection Risks
+
+{#additional-resources-web-applications-risks-injection-command-injection}
+**Avoiding Command Injection in Node.js**  
+[https://blog.liftsecurity.io/2014/08/19/Avoid-Command-Injection-Node.js/](https://blog.liftsecurity.io/2014/08/19/Avoid-Command-Injection-Node.js/)
+
+**Server-Side JavaScript Injection**  
+[https://media.blackhat.com/bh-us-11/Sullivan/BH_US_11_Sullivan_Server_Side_WP.pdf](https://media.blackhat.com/bh-us-11/Sullivan/BH_US_11_Sullivan_Server_Side_WP.pdf)
+
+%% End Command Injection Risks
+
 %% Statistics Graphing Countermeasures
 
 **statsd source code**  
@@ -355,6 +373,13 @@ https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
 https://www.owasp.org/index.php/Top_10_2017-A8-Cross-Site_Request_Forgery_(CSRF)
 
 %% End Countermeasures for CSRF
+
+%% Countermeasures for XPath Injection
+{#additional-resources-countermeasures-for-xpath-injection}
+**Hacking XPath 2.0**  
+[https://media.blackhat.com/bh-eu-12/Siddharth/bh-eu-12-Siddharth-Xpath-WP.pdf](https://media.blackhat.com/bh-eu-12/Siddharth/bh-eu-12-Siddharth-Xpath-WP.pdf)
+
+%% End Countermeasures for XPath Injection
 
 **Recording and testing user time expenditure**
 

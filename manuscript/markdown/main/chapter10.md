@@ -327,6 +327,14 @@ Some misnomers:
 ### Injection
 ![](images/ThreatTags/easy-common-average-severe.png)
 
+injection occurs when untrusted data is sent to an interpreter as part of a command or query. The attacker’s hostile data can cause the interpreter to execute commands that would otherwise not be, or accessing data without proper authorization.
+
+In order for injection attacks to be successful, untrusted data must be unsuccessfully validated, filtered and sanitised before it reaches the interpreter.
+
+Injection defects are often easy to discover simply by examining the code that deals with untrusted data, including internal data. These same defects are often harder to discover when black-box testing, either manually or via fuzzers. Defects [can range](https://www.owasp.org/index.php/Injection_Flaws) from trivial to complete system compromise.
+
+As part of the discovery stage, the attacker can test their queries and start to build up what they think the underlying structure looks like that they are attacking with any number of useful on-line query test tools, such as [freeformatter.com](http://www.freeformatter.com/). This allows the attacker to make as little noise to signal ratio as possible.
+
 #### SQLi {#web-applications-identify-risks-sqli}
 
 ![](images/HandsOnHack.png)
@@ -432,41 +440,292 @@ There are two main problems here.
 1. SQL Injection
 2. Poor decisions around sensitive data protection. We discuss this in depth further on in this chapter in the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) section and even more so the [Countermeasures](#web-applications-countermeasures-data-store-compromise) of. Do not follow this example of a lack of well salted and quality strong key derivation functions (KDFs) used on all of the sensitive data in your own projects.
 
-%% Example from NodeConfEU snyk https://snyk.io/blog/sql-injection-orm-vulnerabilities/
-
 #### NoSQLi {#web-applications-identify-risks-nosqli}
 
-_Todo_
+NoSQL Injection is semantically very similar to SQL Injection and Command Injection with JavaScript running on the server. The main differences are in the syntax of the attack.
 
-https://www.owasp.org/index.php/Testing_for_NoSQL_injection
+NoSQL data stores often provide greater performance and scaling benefits, but in terms of security, are disadvantaged due to far fewer relational and consistency checks.
+
+There are currently [over 225 types of NoSQL](http://nosql-database.org/) data stores, and each one does things differently. This of course means that if all we considered was the number of systems compared to SQL, then the likelihood of confusion around what a safe query looks like in any given NoSQL engine has increased dramatically. There is also more room for an attacker to move within NoSQL queries than with SQL due to being heavily dependent on JavaScript which is a dynamic loosely typed general purpose language rather than a far more tightly constrained declarative SQL.
+
+Because there are so many types of NoSQl data store, crafting the attacks is often implementation specific, and because of that, the countermeasures are also implementation specific, making it even more work to provide a somewhat secure environment for your untrusted data to pass through. It often feels like there is no safe passage.
+
+The data store queries are usually written in the programming language of the application, or buried within an API of the same language, often the ubiquitous JavaScript is used, which can be executed in the Web UI, the server side code if it is JavaScirpt, and then the particular type of NoSQL data store, so there are many more execution contexts that can be attacked.
+
+I can not possibly cover all of the types of NoSQL data store, so the below is an example of some mongodb. 
+
+A typical SQL query used to select a user based on their username and password might look like the following:
+
+{linenos=off, lang="SQL"}
+    SELECT * FROM accounts WHERE username = '$username' AND password = '$password'
+
+If the $username and $password fields were not properly validated, filtered and sanitised, an attacker could supply `admin' --` as the username and the resulting query would look like:
+
+{linenos=off, lang="SQL"}
+    -- As you can see, the password is no longer required,
+    -- as the rest of the query is commented out.
+    SELECT * FROM accounts WHERE username = 'admin' --' AND password = ''
+
+The equivalent of a MongoDB query could be:
+
+{linenos=off}
+    db.accounts.find({username: username, password: password});
+
+One way an attacker could attempt to bypass the password if the untrusted data was not being validated would be to supply a username of:  
+`admin`  
+and a password of:  
+`{$gt: ""}`  
+
+The resulting query would then look like:
+
+{linenos=off}
+    {username: "admin", password: {$gt: ""}}
+
+The MongoDB [`$gt` comparison operator](https://docs.mongodb.com/manual/reference/operator/query/gt/#op._S_gt) is used here to select those documents where the value of the password is greater than "", which always results in true because empty passwords are not permitted. Check the [NodeGoat tutorial](https://nodegoat.herokuapp.com/tutorial/a1) for additional information.
 
 #### Command Injection {#web-applications-identify-risks-command-injection}
 
-![](images/HandsOnHack.png)
+The following examples target JavaScript running on the server. If your application on the server is written in some other language, then the attacker just needs to supply code of that language to be executed.
 
-_Todo_
+The following functions are easily exploited by an attacker by simply supplying the code they want to execute as a string of text input:
 
-%% NodeJS https://blog.liftsecurity.io/2014/08/19/Avoid-Command-Injection-Node.js
+The JavaScript [`eval`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) function executes the string of code it is passed with the privileges of the caller.
 
-#### LDAP Injection {#web-applications-identify-risks-ldap-injection}
+The JavaScript [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout) and [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval) functions allow you to pass a string of code as the first argument, which is compiled and executed on timer expiration (with `setTimeout`), and at intervals (with `setInterval`).
 
-_Todo_
+The JavaScript [`Function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function) constructor takes an arbitrary number of string arguments which are used as the formal parameter names within the function body that the constructor creates. The last argument passed to the `Function` constructor is also a string, but it contains the statements that are to be executed as the `Function` object that is returned.
 
-#### XPath Injection {#web-applications-identify-risks-xpath-injection}
+The purposely vulnerable Node Web Application NodeGoat, provides some simple examples in the form of executable [code](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L24-L26) including some countermeasures, a [tutorial](https://nodegoat.herokuapp.com/tutorial/a1) with videos of exploiting Command Injection in the form of a Denial of Service (DoS), by passing `while(1)` or `process.exit()` or `process.kill(process.pid)` through some input fields of the Web UI. It also covers discovery of the names of the files on the target web servers file system:
 
-_Todo_
+{title="reveal directory contents", linenos=off, lang=JavaScript}
+    // Read the contents of the current directory.
+    res.end(require('fs').readdirSync('.').toString());
+    // Read the contents of the parent directory.
+    res.end(require('fs').readdirSync('..').toString());
 
-#### XQuery Injection {#web-applications-identify-risks-xquery-injection}
+{title="reveal file contents", linenos=off, lang=JavaScript}
+    // res.end(require('fs').readFileSync(filename));
 
-_Todo_
+The attacker can take this further by writing new files and executing files on the server.
 
-#### XSLT Injection {#web-applications-identify-risks-xslt-injection}
+Many web applications take untrusted data, often from HTTP requests and pass this data directly to the Operating System, its programs, or even other systems, often by APIs, which is now addressed by the OWASP Top 10 [A10 Under protected APIs](https://www.owasp.org/index.php/Top_10_2017-A10-Underprotected_APIs)
 
-_Todo_
+Also check out the Additional Resources chapter for [command injection](#additional-resources-web-applications-risks-injection-command-injection) attack techniques.
 
 #### XML Injection {#web-applications-identify-risks-xml-injection}
 
-_Todo_
+XML injection techniques usually consist of a discovery stage followed by full exploitation:
+
+1. Attempting to create invalid XML document by injecting various [XML metacharacters](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Discovery) (metacharacter injection):
+  * Single quotes: `'`
+  * Double quotes: `"`
+  * Angle brackets: `><`
+  * Comment tags: `<!--` and `-->`
+  * Ampersand: `&`
+  * CDATA section delimiters: `<![CDATA[` and `]]>` allowing an attacker to form executable code
+2. Injecting an untrusted XML document which is accepted and not contextually validated, filtered or sanitised by the parser. That is if XML documents are accepted. Exploiting the XML parser that is configured to resolve, validate and process external entities in the form of Document Type Definitions (DTDs) and XML Schema Definitions (XSDs). This is known as [XML External Entity](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) (XXE) exploitation
+3. Attempting to modify the XML structure by injecting various XML data and Tags ([tag injections](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_Injection))
+
+and witnessing how the parser deals with the data.
+
+There are a number of XML attack categories exploitable via injection that target weaknesses such as:
+
+Adam Bell also presented on the following XML Injection attack types at the [OWASP New Zealand Day](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule) conference in 2017 that I helped to run. Adams talk was called: "XML Still Considered Dangerous:
+
+* Parameter expansion
+* XML External Entities (XXE)
+* URL Invocation
+
+Check out Adams [slide-deck](https://www.owasp.org/images/4/48/2017-04-20-OWASPNZ-XMLDangerous.pdf) at the OWASP NZ Day wiki for some interesting examples.
+
+#### [XSLT Injection](https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf) {#web-applications-identify-risks-xslt-injection}
+
+There is a lot that can go wrong in XSLT, the following is a collection of some of the vulnerabilities to be aware of:
+
+* Leverage's XPath to refer to parts of XML documents
+* Susceptible to XXE of local and remote files, as well as include additional arbitrary XSL files
+* Extract system information including file contents
+* Port scanning
+* Write files to file system
+* Access of arbitrary databases
+* Execution of arbitrary code
+
+#### XPath Injection {#web-applications-identify-risks-xpath-injection}
+
+Similarly to generic injection, when XPath incorporates untrusted data that has not been validated, filtered and sanitised based on the execution context in question, this is discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks, the intended logic of the query can be modified. This allows an attacker to inject purposely malformed data into a website, then by making educated guesses based on what is returned, including the returned data and any error messages, the attacker can build a picture of how the XML structure looks. Similar to XML Injection, the attacker will usually carry out this discovery stage followed by full exploitation if successful.
+
+Although this attack technique is similar to SQLi, XPath has no provision for [commenting](https://www.owasp.org/index.php/Comment_Injection_Attack#Examples) out tails of expressions:
+
+* MS SQL, MySQL and Oracle: `--`
+* MySQL: `#`
+* MS Access: `%00`
+
+XPath is a standards based language, unlike SQL, its syntax is implementation independent, this allows attacks to be automated across many targets that use user input to query XML documents.
+
+Unlike SQL where specific commands and queries are run as specific users, and thus the principle of least privilege can be applied to any given command or query based on the user running it, with XPath there is no notion of Access Control Lists (ACLs), this means that a query can [access every part](https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary) of the XML document. So for example, if user credentials are being stored in an XML document, they can be retrieved and allow the attacker to elevate their privileges to those of other users, perhaps administrators if the administrators credentials are stored in the XML document.
+
+Let us use the following XML document for examples:
+
+{title="users.xml", linenos=off, lang="XML"}
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Users>
+       <User ID="1">
+          <FirstName>John</FirstName>
+          <LastName>Deer</LastName>
+          <UserName>jdeer</UserName>
+          <Password>3xp10it3d</Password>
+          <Type>administrator</Type>
+       </User>
+       <User ID="2">
+          <FirstName>Kim</FirstName>
+          <LastName>Carter</LastName>
+          <UserName>kimc</UserName>
+          <Password>t03457</Password>
+          <Type>user</Type>
+       </User>
+    </Users>
+
+[Blind injection](https://www.owasp.org/index.php/Blind_XPath_Injection) is a technique used in many types of injection. A blind injection attack is used where the attacker does not know what the underlying query, or in the case of XPath, XML document looks like, and/or the feedback from the application reveals little detail in terms of data or error messages. Often booleanised queries and/or XML Crawling are used to facilitate blind injection attacks.
+
+**Booleanised Queries** are those that return very granular true/false information based on very small amounts of data supplied by the attacker.
+
+The following XPath query returns the first character of the first child node (no mater what it is called) of the first User:
+
+{linenos=off, lang="XQuery"}
+    substring((//User[1]/*[1]),1,1)
+
+The following XPath query returns the length of the forth element (no mater what it is called) of the first User:
+
+{linenos=off, lang="XQuery"}
+    string-length(//User[1]/*[4])
+
+**XML Crawling** allows the attacker to get to know what the XML document structure looks like.
+
+For example, the following reveals that the number of `Users` is 2:
+
+{linenos=off, lang="XQuery"}
+    count(//Users/*)
+
+The following reveals that the length of the value at the forth position of the child node (no mater what it is called) of the first `User` is in fact 9 characters long. Is the `Password` nine characters long? True.
+
+{linenos=off, lang="XQuery"}
+    string-length(//User[position()=1]/*[position()=4])=9
+
+The following query can be used to confirm that the first character of the child node (no mater what it is called) of the first `User` is in fact `3`:
+
+{linenos=off, lang="XQuery"}
+    substring((//User[1]/*[4]),1,1)="3"
+
+Checkout the OWASP [XML Crawling](https://www.owasp.org/index.php/Blind_XPath_Injection#XML_Crawling) documentation for further details. The queries at the OWASP documentation did not work for me, hence why I have supplied ones that do.
+
+Using booleanised queries can be very good for automated attacks, usually many of these granular tests will need to be performed, but because they are so small, an attacker can aggregate them, making them very versatile.
+
+Continuing on: If our target application contains logic to retrieve the account type so long as the user provides their username and password, that logic may look similar to the following, once the legitimate administrator has entered their credentials:
+
+{linenos=off, lang="XQuery"}
+    string(//User[UserName/text()='jdeer' and Password/text()='3xp10it3d']/Type/text())
+
+If the application does not take the countermeasures discussed, and the attacker enters the following:
+
+Username:  
+`' or '1' = '1`  
+Password:  
+`' or '1' = '1`
+
+Then the above query will look more like the following:
+
+{linenos=off, lang="XQuery"}
+    string(//User[UserName/text()='' or '1' = '1' and Password/text()='' or '1' = '1']/Type/text())
+
+Which although the attacker has not supplied a valid `UserName` or `Password`, according to the XPath query, they are still authenticated, because the query will always evaluate to true. This is called authentication bypass for obvious reasons. You may notice that this attack looks very similar to many SQLi attacks.
+
+The available XPath functions and XSLT specific additions to XPath are [documented](https://developer.mozilla.org/en-US/docs/Web/XPath/Functions) at Mozilla Developer Network (MDN)
+
+Technically, XPath is used to select parts of an XML document, it has no provision for updating, in saying that, command injection can be used to modify data that XPath returns. Standard language libraries usually provide functionality for modifying XML documents.
+
+#### XQuery Injection {#web-applications-identify-risks-xquery-injection}
+
+XQuery being a superset of XPath, suffers from the same vulnerabilities as XPath, plus the SQL-like `FOR`, `LET`, `WHERE`, `ORDER BY`, `RETURN` (FLWOR) expression abilities. Hopefully coming as no surprise, the attack vectors are a combination of those discussed in [XPath Injection](#web-applications-identify-risks-xpath-injection) and [SQLi](#web-applications-identify-risks-sqli). The canonical example is provided below thanks to [projects.webappsec.org](http://projects.webappsec.org/w/page/13247006/XQuery%20Injection%7C):
+
+{title="users.xml", linenos=off, lang="XML"}
+    <?xml version="1.0" encoding="UTF-8"?>
+    <userlist>
+       <user category="group1">
+          <uname>jdeer</uname>
+          <fname>John</fname>
+          <lname>Deer</lname>
+          <status>active</status>
+       </user>
+       <user category="admins">
+          <uname>kimc</uname>
+          <fname>Kim</fname>
+          <lname>Carter</lname>
+          <status>active</status>
+       </user>
+       <user category="group2">
+          <uname>bobm</uname>
+          <fname>Bob</fname>
+          <lname>Marley</lname>
+          <status>deceased</status>
+       </user>
+       <user category="group1">
+          <uname>MSmith</uname>
+          <fname>Matthew</fname>
+          <lname>Smith</lname>
+          <status>terminated</status>
+       </user>
+    </userlist>
+
+If the query to retrieve the user bobm was using a string literal from the users input (`bobm`), it may look similar to the following:
+
+{linenos=off, lang="XQuery"}
+    doc("users.xml")/userlist/user[uname="bobm"]
+
+An attacker could exploit the query by providing:  
+`something" or ""="` 
+
+which would form the following query:
+
+{linenos=off, lang="XQuery"}
+    doc("users.xml")/userlist/user[uname="something" or ""=""]
+
+which upon execution would yield all of the `user`s.
+
+Something else to keep in mind is that XQuery also [has an extension](https://www.mssqltips.com/sqlservertip/2738/examples-of-using-xquery-to-update-xml-data-in-sql-server/) called the XML Data Modification Language ([DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)), which is commonly used to update (`insert`, `delete` and `replace value of`) XML documents.
+
+#### LDAP Injection {#web-applications-identify-risks-ldap-injection}
+
+The same generic injection information is applicable to LDAP
+
+[Successful LDAP injection](https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction) attacks could result in the granting of permissions to unauthorised queries and/or adding, deleting or modifying of entries in the LDAP tree. Because LDAP is used extensively for user authentication, this is a particularly viable area for attackers.
+
+As we discussed the usage of metacharacters in [XML Injection](#web-applications-identify-risks-xml-injection), LDAP search filter metacharacters [can be injected](https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary) into the dynamic parts of the queries and thus executed by the application. 
+
+LDAP uses [Polish notation](https://en.wikipedia.org/wiki/Polish_notation) (PN), or normal Polish notation (NPN), or simply prefix notation, which has the distinguishing feature of placing operators to the left of their operands
+
+One of the canonical examples, is a web application that takes the users credentials and verifies their authenticity, if successful, the user is authenticated and granted access to specific resources.
+
+The LDAP filter used to check whether the supplied username and password of a user is correct, might look similar to the following:
+
+{linenos=off}
+    string ldapLoginQuery = "(&(uId="jdeer")(userPassword="3xp10it3d"))";
+
+With user input:
+
+{title="username", linenos=off}
+    jdeer")(&))("
+
+and:
+
+{title="password", linenos=off}
+    incorrectpass
+
+the search filter would look similar to the following:
+
+{linenos=off}
+    string ldapLoginQuery = "(&(uId="jdeer")(&))("")(userPassword="incorrectpass"))";
+
+The `(&)` we used that did not contain any embedded filters is called the [LDAP true filter](https://docs.oracle.com/cd/E19476-01/821-0510/def-and-search-filter.html), and will always match any target entry. This allows the attacker to compare a valid `uid` with `true`, the attacker can subsequently use any password as [only the first filter](https://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf) is processed by the LDAP server.
 
 #### Captcha
 ![](images/ThreatTags/easy-verywidespread-easy-low.png)
@@ -1082,7 +1341,7 @@ Your staple practises when it comes to defending against potentially dangerous i
 Research:
 
 * Libraries
-* The execution contexts that your data will flow through and / or be placed in
+* The [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) that your data will flow through and / or be placed in
 * Which character signatures need to be sanitised
 
 Attempt to use well tested, battle hardened language specific libraries that know how to validate, filter and sanitise.
@@ -1117,7 +1376,7 @@ Create enough "Evil Test Conditions" as discussed in the Process and Practises c
   * You have read, understood and implemented [Filtering](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-filtering) as per Identify Risks section
 * **Sanitisation**
   * All valid characters that need some modification are modified. Modifying could simply be a case of for example rounding a float down (removing precision), or changing the case of an alpha character. Not usually a security issue.
-  * Sanitising or transforming the character signatures known to be dangerous in the execution contexts you have discovered you have in your code that these character signatures pass through / are placed in; are transformed into their safe counterparts. If your libraries cover all cases, which from my experience I have not seen yet, that is great, but often there will be edge cases that stop the libraries being useful in every case. I provide an example of this below where the available libraries did not cover the edge cases I had in a project I worked on a few years ago. When this happens you may need to create some sanitisation logic. At this point, you are really going to have to gain good understanding of the execution contexts that will affect you and the different types of escaping you need to know about.
+  * Sanitising or transforming the character signatures known to be dangerous in the [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) you have discovered you have in your code that these character signatures pass through / are placed in; are transformed into their safe counterparts. If your libraries cover all cases, which from my experience I have not seen yet, that is great, but often there will be edge cases that stop the libraries being useful in every case. I provide an example of this below where the available libraries did not cover the edge cases I had in a project I worked on a few years ago. When this happens you may need to create some sanitisation logic. At this point, you are really going to have to gain good understanding of the execution contexts that will affect you and the different types of escaping you need to know about.
   * You have read, understood and implemented [Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) as per Identify Risks section
 
 ##### Types of Escaping: {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-types-of-escaping}
@@ -1246,7 +1505,7 @@ HTML5 provides the `pattern` attribute on the `input` tag, which allows us to sp
 Now what we do here is extend the `String` prototype with a function called `htmlEscape`.
 
 
-{title="Sanitisation using escaping", linenos=off, lang=JavaScript}
+{id="sanitisation-using-escaping", title="Sanitisation using escaping", linenos=off, lang=JavaScript}
     if (typeof Function.prototype.method !== "function") {
        Function.prototype.method = function (name, func) {
           this.prototype[name] = func;
@@ -1348,7 +1607,7 @@ Now when we ran our `xslt` transformation on the service, we chain our new exten
     return Transform().SingleDecodeDoubleEncodedHtml();
 
 Now turning our attention to the server side... Untrusted data (data entered by a user), should always be treated as though it may contain attack code.
-This data should not be sent anywhere without taking the necessary steps to detect and neutralise the malicious code depending on which execution contexts it will pass through.
+This data should not be sent anywhere without taking the necessary steps to detect and neutralise the malicious code depending on which [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) it will pass through.
 
 With applications becoming more interconnected, attacks being buried in user input and decoded and/or executed by a downstream interpreter is common. Input validation, that is restricting user input to allow only certain white listed characters and restricting field lengths are only two forms of defence. Any decent attacker can get around client side validation, so you need to employ defence in depth. If you need to validate, filter and sanitise, at the very least, it needs to be done on the server side.
 
@@ -2666,14 +2925,14 @@ Maybe it is semantics, but `toFloat`, `toInt`, ... `ifNull` are sanitisation fun
 
 Refer to the section [above](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) for a refresher on validation, filtering and sanitisation if you need it.
 
-##### Other things to think about
+##### Other things to think about {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about}
 
 * Try and make all of your specific input fields conform to well structured semantic types. Like dates, social security numbers, zip codes, email addresses, etc. This way the developer should be able to define a very strong validation, filtering and sanitisation (if needed) specification for each one. Thus making the task of assuring all input is safe before it reaches any execution contexts easier.
 * If the input field comes from a fixed set of options, like a drop down list or radio buttons, then the input needs to match exactly one of the values offered to the user in the first place.
 * Database accounts (in fact all accounts) should use [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege)
 * Well structured data, like dates, social security numbers, zip codes, email addresses, etc. then the developer should be able to define a very strong validation pattern
 
-#### Cross-Site Scripting (XSS) {#web-applications-countermeasures-cross-site-scripting}
+#### Cross-Site Scripting (XSS) {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-cross-site-scripting}
 
 This is a place holder section. The countermeasures are covered in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) section.
 
@@ -2721,52 +2980,125 @@ Other techniques such as requiring the user to reauthenticate, or even providing
 
 As an end user, if you make sure you invalidate your authentication by logging out or deleting your session cookies when you finish working with a website that requires authentication or move away from the browser, then the browser will be unable to send authentication as part of a CSRF attack.
 
-### Injection
-![](images/ThreatTags/PreventionEASY.png)
+### [Injection](https://www.owasp.org/index.php/Top_10_2017-A1-Injection)
+![](images/ThreatTags/PreventionEASY.png) {#web-applications-countermeasures-injection}
 
-_Todo_
+Usually the most effective technique for determining if/where your application is vulnerable to injection attacks is to review your code for all calls out to external resources, including interpreters, and determine whether the data you are passing is untrusted.
+
+If you can avoid external interpreters altogether, then they can no longer be tricked into executing untrusted data, whether directly or indirectly from untrusted actors or even stored.
+
+Use a parametrised API for the specific technology you are working with, whether it be SQL, NoSQL, execution of Operating System commands, XML, XPath, XSLT, XQuery, LDAP, etc. 
+
+Similarly to the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) section, validation, filtering, sanitisation, and [constraining](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about) all untrusted data to well structured semantic types is also necessary. Granularly isolating and semantic typing each piece of untrusted data from the command or query allows you to tightly define constraints on what you expect each specific piece of data to conform to.
+
+Keep the principle of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) in mind and implementation. When any attacks are successful, how much damage can they currently do? By enforcing the least amount of privileges possible for the given operation, you are minimising the possible risk.
+
+Make sure the feedback and error messages that are provided on invalid input only provide the necessary detail that the user needs in order to provide correct input. Don't provide unnecessary details on internal workings: exceptions, stack traces, etc. Make sure you capture and handle internal errors in software, rather than letting them bubble to the user interface.
 
 #### SQLi {#web-applications-countermeasures-sqli}
 
 There are a few options here:
 
-* Use prepared statements and/or parameterised queries
-* Consider using Stored Procedures
+* Use prepared statements and/or parameterised queries with bind variables to take untrusted data if you have to deal with dynamic queries. Using bind variables not only help to diffuse SQL injection, but also improve performance by [20 to 30 percent](https://www.ibm.com/developerworks/library/se-bindvariables/) by allowing the same execution plan to be used even though the arguments supplied may be different.
+* Consider using parameterised Stored Procedures, but also review the code within to ensure that the parameters are being handled with semantic typing at a minimum. Concatenating parameters and the use of `exec()` within stored procedures can be prone to SQLi exploitation
 * Read up on the [OWASP SQLi Prevention Cheat Sheet](https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet)
-* And even before any of these points above, make sure you have the generic input [Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic) that we have already discussed covered, so all user input is validated, filtered and sanitised, both client and server side, before it gets anywhere near your queries.
+* And even before any of these points above, make sure you have the generic input [Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic) that we have already discussed covered, so all user input is validated, filtered and sanitised, both client and server side, before it gets anywhere near your queries
+* ORMs, such as Hibernate with its Query Language (HQL) is not safe unless you use named parameters
 
 There are plenty of easy to find and understand resources on the inter-webs around SQLi mitigations and the countermeasures are generally very easy to implement. So now you have no excuse.
 
 #### NoSQLi {#web-applications-countermeasures-nosqli}
 
-_Todo_
+Take the advice from the generic [Injection](#web-applications-countermeasures-injection) section.
+
+For any dynamic queries, rather than piecing together strings with unvalidated user input, use prepared statements with strongly defined semantic types allowing you to use as short as possible white list of allowed characters, then follow up with filtering and sanitisation of any characters that must be allowed through.
+
+Queries can be formatted in many different types of conventions depending on the type of NoSQL data store, such as [XML, JSON, LINQ, etc](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary). As well as these execution contexts, there will also be the execution contexts of the application it self before the untrusted data reaches the particular type of NoSQL data store API. This means, as discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks, you must validate, filter and sanitise based on **all** of the execution contexts the untrusted data may pass through. With NoSQL this is usually far more tedious.
+
+Countermeasures will need to be carefully thought about once the type of NoSQL data store syntax, data model, and programming language(s) used throughout the application are thoroughly understood.
+
+Ideally the NoSQL client library you decide to use will provide the logic to perform validation on characters that are dangerous in the execution context of the NoSQL library, it may also provide some filtering, but you will often have to provide some configuration to help it know what you want. Ideally the NoSQL client library will also provide sanitisation for its own execution context. As discussed above, you will still need to define your own semantic types, white lists for the semantic types, filtering and sanitisation for your application specific execution contexts that the NoSQL client library has no knowledge of. 
+
+In regards to **MongoDB** (one of the 225 + types of NoSQL data stores):
+
+Server-side execution of JavaScript can be disabled by passing the `--noscripting` option on the command line or setting [`security.javascriptEnabled`](https://docs.mongodb.com/manual/reference/configuration-options/#security.javascriptEnabled) to `false` in the configuration file, which stops you executing legitimate JavaScript operations, these are not defaults, so you must read the documentation of the type of NoSQL data store you are working with. Turning JavaScript off in this manner may be quite debilitating.
+
+MongoDB attempts to [address injection](https://docs.mongodb.com/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection) by using Binary JSON ([BSON](http://bsonspec.org/))
+
+Just as the MongoDB [docs say](https://docs.mongodb.com/manual/faq/fundamentals/#javascript): You need to exercise care in these cases to prevent users submitting malicious JavaScript. Most queries can be expressed without JavaScript, and for those that require JavaScript, both JavaScript and non-JavaScript can be mixed into a query, placing the untrusted data into BSON fields and trusted JavaScript into the $where property value.
+
+So in essence, make sure you read and understand your NoSQL data store documentation before building your queries.
+
+Looking at the MongoDB query example from the [Risks](#web-applications-identify-risks-nosqli) section, the untrusted users password should be inserted to the query only after being processed by your Key Derivation Function ([KDF](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)), this would mitigate any JavaScript being inserted into the password property. The username should only permit alphanumeric characters.
 
 #### Command Injection {#web-applications-countermeasures-command-injection}
 
-On top of the points mentioned above under [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation), 
-[This article](http://www.golemtechnologies.com/articles/shell-injection) is quite good.
+On top of the points mentioned above under [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation), your greatest defence is to think through the path of where untrusted data flows, carefully considering each execution context you encounter.
 
-%% Command Injection in NodeJS: https://blog.liftsecurity.io/2014/08/19/Avoid-Command-Injection-Node.js
+Untrusted data should [never be inserted](https://blog.binarymist.net/2012/12/19/javascript-coding-standards-and-guidelines/#JavaScript-evalisEvil) to `eval`, `setTimeout`, `setInterval` or as the last argument to `Function` without properly validating, filtering, and sanitising if required. It is generally [not good practise](https://blog.binarymist.net/2013/07/06/javascript-object-creation-patterns/#object-creation-via-constructor) to use the `Function` constructor anyway. I have [written](https://blog.binarymist.net/2011/08/17/function-declarations-vs-function-expressions/) about this on several [occasions](https://blog.binarymist.net/2014/05/31/javascript-closures/#what-are-closures).
 
-#### LDAP Injection {#web-applications-countermeasures-ldap-injection}
+The NodeGoat Web Application also provides a very minimal [countermeasure example](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L30-L32)
 
-_Todo_
-
-#### XPath Injection {#web-applications-countermeasures-xpath-injection}
-
-_Todo_
-
-#### XQuery Injection {#web-applications-countermeasures-xquery-injection}
-
-_Todo_
-
-#### XSLT Injection {#web-applications-countermeasures-xslt-injection}
-
-_Todo_
+If you are still constrained to using ES5 and earlier, then add [`use strict`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode) mode to the beginning of your function bodies, MDN provides [details](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode#Securing_JavaScript) of how it helps secure your JavaScirpt environment.
 
 #### XML Injection {#web-applications-countermeasures-xml-injection}
 
-_Todo_
+First of all, as discussed in the generic [Injection](#web-applications-countermeasures-injection) section above, your application should validate, filter and sanitise all untrusted data before incorporating it into an XML document. If you can:
+
+1. Validate out as many XML metacharacters as possible, and sanitise those that must be accepted depending on their execution contexts. All discussed in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) Countermeasures section
+2. Constrain untrusted data to well structured semantic types, as discussed in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about) Countermeasures section
+
+Use **local static**: Document Type Definitions (DTDs) or better, [XML Schemas](http://www.ws-attacks.org/XML_Injection#Attack_mitigation_.2F_countermeasures). This will mitigate XXE attacks.
+
+If the XML parser you are using is vulnerable to XXE attacks by default, investigate disabling the XML parsers ability to follow all external resource inclusions, often available by flags. If the ability to disable the following of external resource inclusions is not available, consider using an alternative library. Failing that, make sure your untrusted data is validated, filtered and sanitised by a secure parser before passing to the defective parser.
+
+OWASP also has an XML External Entity (XXE) Prevention [Cheat Sheet](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet) that is quite useful.
+
+#### XSLT Injection {#web-applications-countermeasures-xslt-injection}
+
+All [mitigations discussed](https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf) and explored in the excellent paper by Emanuel Duss and Roland Bischofberger presented at an OWASP Switzerland meeting.
+
+#### XPath Injection {#web-applications-countermeasures-xpath-injection}
+
+Follow the precautions discussed in the generic [Injection](#web-applications-countermeasures-injection) countermeasures section, when handling dynamically constructed queries. A little validation of untrusted data will go a long way. For example, the username should only contain alphanumeric characters, filtering to a maximum length sometimes helps. In the case of usernames, because we have created a semantic type, it is easy to apply the white list of allowed characters to the untrusted data before inserting to your XPath query. In regards to the password, it should be the result of the untrusted user input password once processed by your Key Derivation Function ([KDF](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)), only then should it be inserted to your XPath query. 
+
+By performing some simple validation, the attacker is no longer able to escape the quotes and modify the intended logic of the query.
+
+Try to use a language library that supports parameterised queries. If the language you are coding in does not have any support or libraries available that have a parameterised XPath interface, you will need to sanitise the untrusted data being inserted to any dynamically constructed queries. What ever type of quote you are using to delimit the untrusted input, you need to sanitise the same type of quote with the XML encoded derivative, I discussed this in the [Sanitisation using escaping](#sanitisation-using-escaping) code sample in the Types of Escaping section of Countermeasures. The OWASP [XPath Injection Defences](https://www.owasp.org/index.php/XPATH_Injection#XPath_Injection_Defenses) also provides some coverage on this.
+
+Also check the [Additional Resources](#additional-resources-countermeasures-for-xpath-injection) chapter for both identifying risks and countermeasures in regards to XPath injection.
+
+#### XQuery Injection {#web-applications-countermeasures-xquery-injection}
+
+Because XQuery is a superset of XPath with the SQL-like FLWOR expression abilities, it enjoys the same countermeasures as XPath and SQLi.
+
+#### LDAP Injection {#web-applications-countermeasures-ldap-injection}
+
+The same [generic injection countermeasures](#web-applications-countermeasures-injection) as well as many of the more specific, are applicable to LDAP also.
+
+As part of your validation, define your semantic types for each dynamic section, this will help you define what is accepted as the white list of allowed characters for each untrusted section. If you can tightly constrain what is an allowable character for your given semantic types, then this alone in many cases (such as a username where you would only allow alphanumeric characters for example) will stop any potential characters able to break out of the intended context and change the logic of the query from being inserted into the LDAP query. This is why we always put the validation -> filtering -> sanitisation in this order, because often the first step will catch everything.
+
+For each semantic type of untrusted data, for any characters that pass the white list validation, define filters, and sanitise all of the following [validated characters](http://www.rlmueller.net/CharactersEscaped.htm):
+
+* comma: `,`
+* back slash: `\`
+* forward slash (when used in Distinguished Names): `/`
+* hash: `#`
+* plus: `+`
+* less than: `<`
+* greater than: `>`
+* semicolon: `;`
+* double quote: `"`
+* equals: `=`
+* Leading or trailing spaces
+
+with their [unicode hexidesimal](https://unicode-table.com/en/) number, such as
+
+comma: \2C, back slash: \5C
+
+Respect and implement the principle of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) as discussed in the generic injection countermeasures. Do not use administrative bind accounts in your execution environment, and apply the least privileges to the domain user service account.
+
+The framework and/or libraries you use to interact with LDAP servers should sanitise untrusted data and not allow application code to directly interact with LDAP servers.
 
 #### Captcha {#web-applications-countermeasures-captcha}
 ![](images/ThreatTags/PreventionVERYEASY.png)
@@ -4344,7 +4676,11 @@ _Todo_
 
 _Todo_
 
-#### LDAP Injection
+#### XML Injection
+
+_Todo_
+
+#### XSLT Injection
 
 _Todo_
 
@@ -4356,13 +4692,11 @@ _Todo_
 
 _Todo_
 
-#### XSLT Injection
+#### LDAP Injection
 
 _Todo_
 
-#### XML Injection
 
-_Todo_
 
 #### Captcha
 
@@ -4535,7 +4869,11 @@ _Todo_
 
 _Todo_
 
-#### LDAP Injection
+#### XML Injection
+
+_Todo_
+
+#### XSLT Injection
 
 _Todo_
 
@@ -4547,13 +4885,10 @@ _Todo_
 
 _Todo_
 
-#### XSLT Injection
+#### LDAP Injection
 
 _Todo_
 
-#### XML Injection
-
-_Todo_
 
 #### Captcha
 
