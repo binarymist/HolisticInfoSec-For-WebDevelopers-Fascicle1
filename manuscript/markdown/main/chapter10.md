@@ -536,7 +536,7 @@ XML injection techniques usually consist of a discovery stage followed by full e
 
 and witnessing how the parser deals with the data.
 
-There are a number of XML attack categories exploitable via injection that target weaknesses such as the following that Adam Bell presented on at the [OWASP New Zealand Day](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule) conference in 2017 that I helped to run. Adams talk was called: "XML Still Considered Dangerous:
+There are a number of XML attack categories exploitable via injection that target weaknesses such as the following that Adam Bell presented at the [OWASP New Zealand Day](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule) conference in 2017 that I helped to run. Adams talk was called: "XML Still Considered Dangerous:
 
 * Parameter expansion
 * XML External Entities (XXE)
@@ -612,7 +612,7 @@ For example, the following reveals that the number of `Users` is 2:
 {linenos=off, lang="XQuery"}
     count(//Users/*)
 
-The following reveals that the length of the value at the forth position of the child node (no mater what it is called) of the first `User` is in fact 9 characters long. Is the `Password` nine characters long? True.
+The following reveals that the length of the value at the fourth position of the child node (no mater what it is called) of the first `User` is in fact 9 characters long. Is the `Password` nine characters long? True.
 
 {linenos=off, lang="XQuery"}
     string-length(//User[position()=1]/*[position()=4])=9

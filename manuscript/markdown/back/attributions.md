@@ -1249,7 +1249,8 @@ edule
 [https://www.owasp.org/index.php/Comment_Injection_Attack#Examples](https://www.owasp.org/index.php/Comment_Injection_Attack#Examples)
 
 **A query can access every part of the XML document**  
-https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary
+https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Sum  
+mary
 
 **Blind injection is a technique used in many types of injection**  
 [https://www.owasp.org/index.php/Blind_XPath_Injection](https://www.owasp.org/index.php/Blind_XPath_Injection)
@@ -1276,7 +1277,8 @@ https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Sum
 [https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction](https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction)
 
 **LDAP search filter metacharacters can be injected**  
-https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary
+https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Sum  
+mary
 
 **Polish notation**  
 [https://en.wikipedia.org/wiki/Polish_notation](https://en.wikipedia.org/wiki/Polish_notation)
@@ -1498,7 +1500,8 @@ https://www.owasp.org/index.php/XML\_External\_Entity\_(XXE)\_Prevention\_Cheat\
 %% XSLT Injection Countermeasures
 
 **All mitigations discussed**  
-[https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf](https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf)
+https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSR  
+F_ENG.pdf
 
 %% End XSLT Injection Countermeasures
 %% XPath Injection Countermeasures
@@ -1561,7 +1564,8 @@ https://www.owasp.org/index.php/XML\_External\_Entity\_(XXE)\_Prevention\_Cheat\
 [https://github.com/lorenwest/node-config/wiki/Configuration-Files](https://github.com/lorenwest/node-config/wiki/Configuration-Files)
 
 **custom environment variables**  
-[https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables](https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables)
+https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environmen  
+t-variables
 
 **Use a SqlServer connection string** with `Trusted_Connection=yes`  
 [https://www.owasp.org/index.php/Configuration#Secure_connection_strings](https://www.owasp.org/index.php/Configuration#Secure_connection_strings) 
@@ -1612,7 +1616,8 @@ _Per Thorsheim_
 [http://www.tarsnap.com/scrypt.html](http://www.tarsnap.com/scrypt.html)
 
 **bcrypt which uses the Eksblowfish cipher** which was designed specifically for bcrypt from the blowfish cipher, to be very slow to initiate thus boosting protection against dictionary attacks which were often run on custom Application-specific Integrated Circuits (ASICs) with low gate counts.  
-[http://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage](http://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage)
+http://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcry  
+pt-for-password-storage
 
 **far greater memory required** for each hash, small and frequent pseudo-random memory accesses, making it harder to cache the data into faster memory.  
 [http://openwall.info/wiki/john/GPU/bcrypt](http://openwall.info/wiki/john/GPU/bcrypt)
@@ -1629,7 +1634,8 @@ _Per Thorsheim_
 [http://picozed.org/product/zedboard](http://picozed.org/product/zedboard)
 
 **Haswell**  
-[http://www.theplatform.net/2015/06/02/intel-finishes-haswell-xeon-e5-rollout-launches-broadwell-e3/](http://www.theplatform.net/2015/06/02/intel-finishes-haswell-xeon-e5-rollout-launches-broadwell-e3/)
+http://www.theplatform.net/2015/06/02/intel-finishes-haswell-xeon-e5-rollout-launches-broa  
+dwell-e3/
 
 **Salsa20/8**  
 [https://tools.ietf.org/html/rfc7914](https://tools.ietf.org/html/rfc7914)
@@ -1719,7 +1725,8 @@ what-you-require-
 [https://github.com/nodesource/distributions](https://github.com/nodesource/distributions)
 
 **Check to see if any package has hooks** that will run scripts  
-[https://blog.liftsecurity.io/2015/01/27/a-malicious-module-on-npm#inspect-the-source-before-you-npm-install-it](https://blog.liftsecurity.io/2015/01/27/a-malicious-module-on-npm#inspect-the-source-before-you-npm-install-it)
+https://blog.liftsecurity.io/2015/01/27/a-malicious-module-on-npm#inspect-the-source-befor  
+e-you-npm-install-it
 
 **Can define scripts to be run** on specific NPM hooks:  
 [https://docs.npmjs.com/misc/scripts](https://docs.npmjs.com/misc/scripts)
@@ -1738,7 +1745,8 @@ ling-the-right-thing
 [https://blog.andyet.com/2014/11/19/managing-code-changes](https://blog.andyet.com/2014/11/19/managing-code-changes)
 
 **RequireSafe provides** "_intentful auditing as a stream of intel for bithound_"   
-https://blog.liftsecurity.io/2015/02/10/introducing-requiresafe-peace-of-mind-third-party-node-modules
+https://blog.liftsecurity.io/2015/02/10/introducing-requiresafe-peace-of-mind-third-party-no  
+de-modules
 
 **The Web Crypto API supported algorithms** for Chromium (as of version 46) and Mozilla (as of July 2016)  
 [https://www.chromium.org/blink/webcrypto](https://www.chromium.org/blink/webcrypto)  
