@@ -3017,7 +3017,6 @@ There are plenty of easy to find and understand resources on the inter-webs arou
 
 Take the advice from the generic [Injection](#web-applications-countermeasures-injection) section.
 
-
 For any dynamic queries, rather than piecing together strings with unvalidated user input, use prepared statements with strongly defined semantic types allowing you to use as short as possible white list of allowed characters, then follow up with filtering and sanitisation of any characters that must be allowed through.
 
 Queries can be formatted in many different types of conventions depending on the type of NoSQL data store, such as [XML, JSON, LINQ, etc](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary). As well as these execution contexts, there will also be the execution contexts of the application itself before the untrusted data reaches the particular type of NoSQL data store API. This means, as discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks, you must validate, filter and sanitise based on **all** of the execution contexts that the untrusted data may pass through. With NoSQL this is usually far more tedious.
@@ -3052,7 +3051,6 @@ If you are still constrained to using ES5 and earlier, then add [`use strict`](h
 
 First of all, as discussed in the generic [Injection](#web-applications-countermeasures-injection) section above, your application should validate, filter and sanitise all untrusted data before incorporating it into an XML document. If you can:
 
-
 1. Validate out as many XML metacharacters as possible, and sanitise those that must be accepted depending on their execution contexts. All discussed in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) Countermeasures section
 2. Constrain untrusted data to well structured semantic types, as discussed in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about) Countermeasures section
 
@@ -3070,7 +3068,6 @@ All [mitigations discussed](https://www.owasp.org/images/a/ae/OWASP_Switzerland_
 
 Follow the precautions discussed in the generic [Injection](#web-applications-countermeasures-injection) countermeasures section, when handling dynamically constructed queries. A little validation of untrusted data will go a long way. For example, the username should only contain alphanumeric characters, filtering to a maximum length sometimes helps. In the case of usernames, because we have created a semantic type, it is easy to apply the white list of allowed characters to the untrusted data before inserting to your XPath query. In regards to the password, it should be the result of the untrusted user input password once processed by your Key Derivation Function ([KDF](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)), only then should it be inserted to your XPath query. 
 
-
 By performing some simple validation, the attacker is no longer able to escape the quotes and modify the intended logic of the query.
 
 Try to use a language library that supports parameterised queries. If the language you are coding in does not have any support or libraries available that have a parameterised XPath interface, you will need to sanitise the untrusted data being inserted to any dynamically constructed queries. What ever type of quote you are using to delimit the untrusted input, you need to sanitise the same type of quote with the XML encoded derivative, I discussed this in the [Sanitisation using escaping](#sanitisation-using-escaping) code sample in the Types of Escaping section of Countermeasures. The OWASP [XPath Injection Defences](https://www.owasp.org/index.php/XPATH_Injection#XPath_Injection_Defenses) also provides some coverage on this.
@@ -3084,7 +3081,6 @@ Because XQuery is a superset of XPath with the SQL-like FLWOR expression abiliti
 #### LDAP Injection {#web-applications-countermeasures-ldap-injection}
 
 The same [generic injection countermeasures](#web-applications-countermeasures-injection) as well as many of the more specific that we have already discussed, are applicable to LDAP also.
-
 
 As part of your validation, define your semantic types for each dynamic section, this will help you define what is accepted as the white list of allowed characters for each untrusted section. If you can tightly constrain what is an allowable character for your given semantic types, then this alone in many cases (such as a username where you would only allow alphanumeric characters for example) will stop any potential characters being able to break out of the intended context and change the logic of the LDAP query. This is why we always put the validation -> filtering -> sanitisation in this order, because often the first step will catch everything.
 
