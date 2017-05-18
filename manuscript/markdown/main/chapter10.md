@@ -733,7 +733,7 @@ the search filter would look similar to the following:
 
 The `(&)` we used that did not contain any embedded filters is called the [LDAP true filter](https://docs.oracle.com/cd/E19476-01/821-0510/def-and-search-filter.html), and will always match any target entry. This allows the attacker to compare a valid `uid` with `true`, the attacker can subsequently use any password as [only the first filter](https://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf) is processed by the LDAP server.
 
-#### Captcha
+### Captcha
 ![](images/ThreatTags/easy-verywidespread-easy-low.png)
 
 Lack of captchas are a risk, but so are captchas themselves...
@@ -3106,10 +3106,10 @@ Respect and implement the principle of [least privilege](#web-applications-count
 
 The framework and/or libraries you use to interact with LDAP servers should sanitise untrusted data and not allow application code to directly interact with LDAP servers.
 
-#### Captcha {#web-applications-countermeasures-captcha}
+### Captcha {#web-applications-countermeasures-captcha}
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
-##### Types
+#### Types
 
 &nbsp;
 
@@ -3143,7 +3143,7 @@ This is obviously not going to work for the visually impaired or for people with
 
 In NPM land, as usual there are many options to choose from. The following were the offerings I evaluated. None of which really felt like a good fit:
 
-##### Offerings
+#### Offerings
 
 * total-captcha. Depends on node-canvas. Have to install cairo first, but why? No explanation. Very little of anything here. Move on. How does this work? Do not know. What type is it? Presume text recognition.
 * [easy-captcha](https://www.npmjs.com/package/easy-captcha) is a text recognition offering generating images
@@ -3161,14 +3161,14 @@ After some additional research I worked out why the above types and offerings di
 
 Some other considerations I had. Ideally I wanted a simple solution requiring few or ideally no external dependencies, no JavaScript required, no reliance on the browser or anything out of my control, no images and it definitely should not cost any money.
 
-##### Alternative Approaches
+#### Alternative Approaches
 
 * Services like Disqus can be good for commenting. Obviously the comments are all stored somewhere in the cloud out of your control and this is an external dependency. For simple text input, this is probably not what you want. Similar services such as all the social media authentication services can take things a bit too far I think. They remove freedoms from your users. Why should your users be disadvantaged by leaving a comment or posting a message on your web application? Disqus tracks users activities from hosting website to website whether you have an account, are logged in or not. Any information they collect such as IP address, web browser details, installed add-ons, referring pages and exit links may be disclosed to any third party. When this data is aggregated it is useful for de-anonymising users. If users choose to block the Disqus script, the comments are not visible. Disqus has also published its registered users entire commenting histories, along with a list of connected blogs and services on publicly viewable user profile pages. Disqus also engage in add targeting and blackhat SEO techniques from the websites in which their script is installed.
 * Services like Akismet and Mollom which take user input and analyse for spam signatures. Mollom sometimes presents a captcha if it is unsure. These two services learn from their mistakes if they mark something as spam and you unmark it, but of course you are going to have to be watching for that. Matt Mullenweg created Akismet so that his mother could blog in safety. "_His first attempt was a JavaScript plugin which modified the comment form and hid fields, but within hours of launching it, spammers downloaded it, figured out how it worked, and bypassed it. This is a common pitfall for anti-spam plugins: once they get traction_". My advice to this is not to use a common plugin, but to create something custom. I discuss this soon.
 
 The above solutions are excellent targets for creating exploits that will have a large pay off due to the fact that so many websites are using them. There are exploits discovered for these services regularly.
 
-##### Still Not Cutting it
+#### Still Not Cutting it
 
 "_Given the fact that many clients count on conversions to make money, not receiving 3.2% of those conversions could put a dent in sales.  Personally, I would rather sort through a few SPAM conversions instead of losing out on possible income._"
 
@@ -3178,11 +3178,11 @@ The above solutions are excellent targets for creating exploits that will have a
 
 > Tim Kadlec: [Death to Captchas](http://timkadlec.com/2011/01/death-to-captchas/)
 
-##### User Time Expenditure
+#### User Time Expenditure
 
 Recording how long it takes from fetch to submit. This is another technique, in which the time is measured from fetch to submit. For example if the time span is under five seconds it is more than likely a bot, so handle the message accordingly.
 
-##### Bot Pot
+#### Bot Pot
 
 Spamming bots operating on custom mechanisms will in most cases just try, then move on. If you decide to use one of the common offerings from above, exploits will be more common, depending on how wide spread the offering is. This is one of the cases where going custom is a better option. Worse case is you get some spam and you can modify your technique, but you get to keep things simple, tailored to your web application, your users needs, no external dependencies and no monthly fees. This is also the simplest technique and requires very little work to implement.
 
@@ -3246,7 +3246,7 @@ This is also shown above in a larger example in the [Lack of Input Validation, F
 
 So as you can see, a very simple solution. You could even consider combining the above two techniques.
 
-##### Testing
+#### Testing
 
 &nbsp;
 
@@ -4704,7 +4704,7 @@ _Todo_
 
 
 
-#### Captcha
+### Captcha
 
 Bots may/will get smarter and start reading and thinking for themselves. It is probably worth not crossing that bridge until it arrives. This will not stop humans spamming, but neither will any other captcha, unless they also stop genuine users, which according to the studies mentioned in the countermeasures section happens very often.
 
@@ -4896,7 +4896,7 @@ _Todo_
 _Todo_
 
 
-#### Captcha
+### Captcha
 
 The proposed solution costs very little time to implement, is simple, has no external dependencies, is not circumvented if JavaScript is disabled, in fact is not dependant on the browser or what is in it at all. Humans are not disadvantaged.
 
