@@ -4670,6 +4670,13 @@ Catering for CSRF can be a daunting task and it is difficult to cover every poss
 
 ### Injection
 
+
+
+
+
+
+
+
 #### SQLi
 
 _Todo_
@@ -4862,6 +4869,12 @@ Covered above.
 As mentioned in the "Risks that Solution Causes", I will generally favour storing session identifiers in localstorage and concentrating on Input Validation, Filtering and Sanitisation.
 
 ### Injection
+
+
+
+
+
+
 
 #### SQLi
 
