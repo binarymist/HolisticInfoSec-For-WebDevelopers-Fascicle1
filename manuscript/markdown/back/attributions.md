@@ -1563,7 +1563,7 @@ F_ENG.pdf
 **There is a specific file loading order**  
 [https://github.com/lorenwest/node-config/wiki/Configuration-Files](https://github.com/lorenwest/node-config/wiki/Configuration-Files)
 
-**custom environment variables**  
+**Custom environment variables**  
 https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environmen  
 t-variables
 
