@@ -1164,8 +1164,8 @@ Good resource on what XSS actually is:
 %% Identify Risks for CSRF
 
 **Code can be found at**  
-https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app  
-/views/profile.html
+https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/  
+app/views/profile.html
 
 **NodeGoat tutorial for CSRF**  
 [https://nodegoat.herokuapp.com/tutorial/a8](https://nodegoat.herokuapp.com/tutorial/a8)
@@ -1196,14 +1196,18 @@ https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/
 [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval)
 
 **JavaScript `setTimeout` and `setInterval` functions**  
-[](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout)  
-[https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval)
+https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/  
+setTimeout  
+https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/  
+setInterval
 
 **JavaScript `Function` constructor**  
-[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function)
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/  
+Function
 
 **NodeGoat, provides some simple examples** in the form of executable code  
-[https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L24-L26](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L24-L26)
+https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09  
+/app/routes/contributions.js#L24-L26
 
 **Tutorial with videos of exploiting Command Injection**  
 [https://nodegoat.herokuapp.com/tutorial/a1](https://nodegoat.herokuapp.com/tutorial/a1)
@@ -1215,16 +1219,19 @@ https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/
 %% XML Injection Risks
 
 **Attempting to create invalid XML document** by injecting various XML metacharacters  
-[https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Discovery](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Discovery)
+https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Disco  
+very
 
 **XML External Entity (XXE) exploitation**  
-[https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing)
+https://www.owasp.org/index.php/XML\_External\_Entity\_(XXE)\_Processing
 
 **Tag injections**  
-[https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_Injection](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_Injection)
+https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_In  
+jection
 
 **Adam Bell also presented on the following XML Injection attack types** at the OWASP New Zealand Day conference in 2017  
-[https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule)
+https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Sch  
+edule
 
 **Adams slide-deck**  
 [https://www.owasp.org/images/4/48/2017-04-20-OWASPNZ-XMLDangerous.pdf](https://www.owasp.org/images/4/48/2017-04-20-OWASPNZ-XMLDangerous.pdf)
@@ -1242,7 +1249,7 @@ https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/
 [https://www.owasp.org/index.php/Comment_Injection_Attack#Examples](https://www.owasp.org/index.php/Comment_Injection_Attack#Examples)
 
 **A query can access every part of the XML document**  
-[https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary](https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary)
+https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary
 
 **Blind injection is a technique used in many types of injection**  
 [https://www.owasp.org/index.php/Blind_XPath_Injection](https://www.owasp.org/index.php/Blind_XPath_Injection)
@@ -1269,7 +1276,7 @@ https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/
 [https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction](https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction)
 
 **LDAP search filter metacharacters can be injected**  
-[https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary](https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary)
+https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary
 
 **Polish notation**  
 [https://en.wikipedia.org/wiki/Polish_notation](https://en.wikipedia.org/wiki/Polish_notation)
@@ -1299,7 +1306,8 @@ us-about-data-security-/a/d-id/1322129
 http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-employee-credentials-/d/d-id/1269093
 
 **The OWASP Top 10 risks** No. 2 Broken Authentication and Session Management  
-[https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management](https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management)
+https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_  
+Management
 
 **Warning against using CBC**  
 [https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers](https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers)
@@ -1439,10 +1447,12 @@ server.js#L108
 [https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary)
 
 **`security.javascriptEnabled`**  
-[https://docs.mongodb.com/manual/reference/configuration-options/#security.javascriptEnabled](https://docs.mongodb.com/manual/reference/configuration-options/#security.javascriptEnabled)
+https://docs.mongodb.com/manual/reference/configuration-options/#security.javascriptEna  
+bled
 
 **MongoDB attempts to address injection**  
-[https://docs.mongodb.com/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection](https://docs.mongodb.com/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection)  
+https://docs.mongodb.com/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-  
+query-injection  
 by using Binary JSON (BSON)  
 [http://bsonspec.org/](http://bsonspec.org/)
 
@@ -1453,32 +1463,36 @@ by using Binary JSON (BSON)
 %% Command Injection Countermeasures
 
 **Untrusted data should never be inserted** to `eval`, `setTimeout`, `setInterval` or as the last argument to `Function`  
-[https://blog.binarymist.net/2012/12/19/javascript-coding-standards-and-guidelines/#JavaScript-evalisEvil](https://blog.binarymist.net/2012/12/19/javascript-coding-standards-and-guidelines/#JavaScript-evalisEvil)
+https://blog.binarymist.net/2012/12/19/javascript-coding-standards-and-guidelines/#JavaScr  
+ipt-evalisEvil
 
 **It is generally not good practise** to use the `Function` constructor anyway  
-[https://blog.binarymist.net/2013/07/06/javascript-object-creation-patterns/#object-creation-via-constructor](https://blog.binarymist.net/2013/07/06/javascript-object-creation-patterns/#object-creation-via-constructor)
+https://blog.binarymist.net/2013/07/06/javascript-object-creation-patterns/#object-creation-v  
+ia-constructor
 
 **Written about this on several occasions**  
 [https://blog.binarymist.net/2011/08/17/function-declarations-vs-function-expressions/](https://blog.binarymist.net/2011/08/17/function-declarations-vs-function-expressions/)  
 [https://blog.binarymist.net/2014/05/31/javascript-closures/#what-are-closures](https://blog.binarymist.net/2014/05/31/javascript-closures/#what-are-closures)
 
 **Minimal countermeasure example**  
-[https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L30-L32](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L30-L32)
+https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/ap  
+p/routes/contributions.js#L30-L32
 
 **`use strict`**  
 [https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode)
 
 **MDN provides details** of how it helps secure your JavaScirpt environment  
-[https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode#Securing_JavaScript](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode#Securing_JavaScript)
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode#Securing_Jav  
+aScript
 
 %% End Command Injection Countermeasures
 %% XML Injection Countermeasures
 
 **XML Schemas**  
-[http://www.ws-attacks.org/XML_Injection#Attack_mitigation_.2F_countermeasures](http://www.ws-attacks.org/XML_Injection#Attack_mitigation_.2F_countermeasures)
+http://www.ws-attacks.org/XML\_Injection#Attack\_mitigation\_.2F\_countermeasures
 
 **XML External Entity (XXE) Prevention Cheat Sheet**  
-[https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet)
+https://www.owasp.org/index.php/XML\_External\_Entity\_(XXE)\_Prevention\_Cheat\_Sheet
 
 %% End XML Injection Countermeasures
 %% XSLT Injection Countermeasures
@@ -1711,7 +1725,8 @@ what-you-require-
 [https://docs.npmjs.com/misc/scripts](https://docs.npmjs.com/misc/scripts)
 
 **People often miss-type** what they want to install  
-https://blog.liftsecurity.io/2015/01/27/a-malicious-module-on-npm#make-sure-you-re-installing-the-right-thing
+https://blog.liftsecurity.io/2015/01/27/a-malicious-module-on-npm#make-sure-you-re-instal  
+ling-the-right-thing
 
 **For NodeJS developers** Keep your eye on the nodesecurity advisories  
 [https://nodesecurity.io/advisories](https://nodesecurity.io/advisories)
