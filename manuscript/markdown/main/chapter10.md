@@ -4670,44 +4670,49 @@ Catering for CSRF can be a daunting task and it is difficult to cover every poss
 
 ### Injection
 
+As with all code review, it can be costly, you need to weigh the cost of review with the cost of you and your customers being exploited, I.E. loosing the assets we have discussed.
 
+Avoiding the use of external interpreters means you will have to do the interpreting yourself, or you will have to be more thorough in performing the other countermeasures.
 
+Occasionally finding a parametrised API for your use case can be a challenge.
 
+Going through the process of defining your semantic types can take some time and it often causes the stake holders to think about things they may have glossed over. Working through validation, filtering and sanitisation can be time consuming.
 
+Making sure you embrace least privilege will probably take you some time, again, this cost needs to be weighed up.
 
-
+Making sure that the system is not revealing unnecessary information that could aid an attacker in their understanding of your systems internals will mean some testing and probably code review will be necessary. This will take time.
 
 #### SQLi
 
-_Todo_
+risks-that-solution-causes
 
 #### NoSQLi {#web-applications-risks-that-solution-causes-nosqli}
 
-_Todo_
+risks-that-solution-causes
 
 #### Command Injection
 
-_Todo_
+risks-that-solution-causes
 
 #### XML Injection
 
-_Todo_
+risks-that-solution-causes
 
 #### XSLT Injection
 
-_Todo_
+risks-that-solution-causes
 
 #### XPath Injection
 
-_Todo_
+risks-that-solution-causes
 
 #### XQuery Injection
 
-_Todo_
+risks-that-solution-causes
 
 #### LDAP Injection
 
-_Todo_
+risks-that-solution-causes
 
 
 
@@ -4870,43 +4875,49 @@ As mentioned in the "Risks that Solution Causes", I will generally favour storin
 
 ### Injection
 
+You have a responsibility to your organisation and your customers to keep them safe. When you have weighed the costs of reviewing your code and if it is honestly more expensive than the cost of you and your customers being exploited, I.E. loosing your assets, then and only then, should you neglect this.
 
+Writing interpreters will more than likely be very costly, and in most cases this will not be necessary. Find one that takes the risks discussed seriously and provides the correct countermeasures as discussed, or make sure you take care of the validation, filtering and sanitisation properly yourself.
 
+If you can not find a parametrised API for you use case, you will need to consider doing this your self, as in wrapping what ever the best is that is available and providing your own parametrisation.
 
+Creating semantic types forces you and your stake holders to think about your business requirements, anything that makes us think about these are usually helpful in making sure we are building the right thing. There is not really any alternatives to actually thinking the semantic types, validation, filtering and sanitisation through and making sure you are doing it properly, this is crucial to catching malicious sequences of untrusted data. The only other alternative is to just not process untrusted data.
 
+Making sure your accounts and everything that can execute untrusted data have only the privileges assigned to them to do what they must do and no more.
 
+If you do try and cut costs here, then you are providing the information that your attacker requires to understand how your systems internals are structured. If you reveal the systems weaknesses, they will be exploited.
 
 #### SQLi
 
-_Todo_
+costs-and-trade-offs
 
 #### NoSQLi {#web-applications-costs-and-trade-offs-nosqli}
 
-_Todo_
+costs-and-trade-offs
 
 #### Command Injection
 
-_Todo_
+costs-and-trade-offs
 
 #### XML Injection
 
-_Todo_
+costs-and-trade-offs
 
 #### XSLT Injection
 
-_Todo_
+costs-and-trade-offs
 
 #### XPath Injection
 
-_Todo_
+costs-and-trade-offs
 
 #### XQuery Injection
 
-_Todo_
+costs-and-trade-offs
 
 #### LDAP Injection
 
-_Todo_
+costs-and-trade-offs
 
 
 ### Captcha
