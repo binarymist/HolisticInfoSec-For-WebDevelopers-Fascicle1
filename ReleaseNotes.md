@@ -1,5 +1,55 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+## 2017-05-19
+
+### VPS
+
+* Added links to Interview with Docker Security Team Lead Diogo Monica on Docker Security
+* Fixed typo
+* Fixed ordered list sequence
+
+### Web Applications
+
+Ready for technical review
+
+* Updated the OWASP Top 10 over time diagram to reflect the new 2017 list
+* Added additional threat tags
+* Added Sensible Security Model sections for the following:
+  * Cross-Site Request Forgery (CSRF)
+  * Generic Injection
+  * NoSQL Injection
+  * Command Injection
+  * XML Injection
+  * XSLT Injection
+  * XPath Injection
+  * XQuery Injection
+  * LDAP Injection
+  * Insufficient Attack Protection
+  * Active Automated Prevention
+* Finished SQL Injection
+* Finished Cracking
+* Finished WAFs
+* Removed Physical Access
+* Remove Console Access
+* Removed Network Access
+* Removed Caching of Sensitive Data
+
+### Additional Resources
+
+* Interview with Docker Security Team Lead Diogo Monica on Docker Security
+* Injections
+  * NoSQL
+  * Command
+  * XPath
+* CSRF
+* Application Intrusion Detection and Response
+
+### Attributions
+
+Large number of attributions added
+
+[Diff from release 2017-05-03](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/compare/ca8e3feed499db0851c5f4af428b61051f08d5c2...a3520fb6a2f74581bdcfc2d7528b7e011aad9fc9)
+
 ## 2017-05-03
 
 ### VPS
