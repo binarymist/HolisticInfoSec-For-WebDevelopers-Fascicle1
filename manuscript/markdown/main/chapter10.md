@@ -4684,15 +4684,20 @@ Making sure that the system is not revealing unnecessary information that could 
 
 #### SQLi
 
-risks-that-solution-causes
+If you have a legacy system with SQLi issues, then you will need to invest the time to fix them, 
 
 #### NoSQLi {#web-applications-risks-that-solution-causes-nosqli}
 
-risks-that-solution-causes
+One risk that I see happening here all to often, is developers not understanding the particular NoSQL data store they are using, as I have mentioned, the 225 + data stores all like to do things differently, you will need to understand their APIs, what they do well and do not do well. Read the documentation, if the documentation is poor, consider using something else, if that is out of the question, dive into the implementation and work out what you need to do from that
 
 #### Command Injection
 
-risks-that-solution-causes
+
+
+
+
+
+
 
 #### XML Injection
 
@@ -4889,15 +4894,22 @@ If you do try and cut costs here, then you are providing the information that yo
 
 #### SQLi
 
-costs-and-trade-offs
+The only possible short-cut here is to not deal with untrusted data.
 
 #### NoSQLi {#web-applications-costs-and-trade-offs-nosqli}
 
-costs-and-trade-offs
+Similar to SQLi
 
 #### Command Injection
 
-costs-and-trade-offs
+
+
+
+
+
+
+
+
 
 #### XML Injection
 
