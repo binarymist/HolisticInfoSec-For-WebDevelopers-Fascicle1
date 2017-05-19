@@ -4696,16 +4696,17 @@ Reviewing code, testing and making the changes costs money.
 
 #### XML Injection
 
-
-
-
-
-
-
+May just be time here to work out what you are currently doing wrong and what you can do better.
 
 #### XSLT Injection
 
-risks-that-solution-causes
+
+
+
+
+
+
+
 
 #### XPath Injection
 
@@ -4906,18 +4907,15 @@ Exactly how much it will cost you will depend on how poorly the code is written,
 
 #### XML Injection
 
-
-
-
-
-
-
-
-
+If you have had a look at how easily some of these defects are exploitable, then you may realise that the costs to remedy are small in comparison to loosing your assets.
 
 #### XSLT Injection
 
-costs-and-trade-offs
+
+
+
+
+
 
 #### XPath Injection
 
