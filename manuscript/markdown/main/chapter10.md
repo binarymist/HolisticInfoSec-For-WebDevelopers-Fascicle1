@@ -4700,17 +4700,17 @@ May just be time here to work out what you are currently doing wrong and what yo
 
 #### XSLT Injection
 
-
-
-
-
-
-
-
+Time to review, test and apply countermeasures.
 
 #### XPath Injection
 
-risks-that-solution-causes
+
+
+
+
+
+
+
 
 #### XQuery Injection
 
@@ -4903,7 +4903,7 @@ Similar to SQLi
 
 #### Command Injection
 
-Exactly how much it will cost you will depend on how poorly the code is written, and how much has to be factored.
+Exactly how much it will cost you will depend on how poorly the code is written, and how much has to be refactored.
 
 #### XML Injection
 
@@ -4911,15 +4911,18 @@ If you have had a look at how easily some of these defects are exploitable, then
 
 #### XSLT Injection
 
-
-
-
-
-
+Similar costs to that of Command Injection, just different technology.
 
 #### XPath Injection
 
-costs-and-trade-offs
+
+
+
+
+
+
+
+
 
 #### XQuery Injection
 
