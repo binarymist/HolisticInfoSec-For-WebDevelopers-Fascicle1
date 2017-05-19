@@ -4704,23 +4704,15 @@ Time to review, test and apply countermeasures.
 
 #### XPath Injection
 
-
-
-
-
-
-
-
+Time to review, test and apply countermeasures.
 
 #### XQuery Injection
 
-risks-that-solution-causes
+Time to review, test and apply countermeasures.
 
 #### LDAP Injection
 
-risks-that-solution-causes
-
-
+Time to review, test and apply countermeasures.
 
 ### Captcha
 
@@ -4915,23 +4907,15 @@ Similar costs to that of Command Injection, just different technology.
 
 #### XPath Injection
 
-
-
-
-
-
-
-
-
+Similar costs to that of what we have already covered, just different technology.
 
 #### XQuery Injection
 
-costs-and-trade-offs
+Similar costs to that of what we have already covered, just different technology.
 
 #### LDAP Injection
 
-costs-and-trade-offs
-
+Similar costs to that of what we have already covered, just different technology.
 
 ### Captcha
 
