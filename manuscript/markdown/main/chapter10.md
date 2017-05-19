@@ -4877,7 +4877,7 @@ You have a responsibility to your organisation and your customers to keep them s
 
 Writing interpreters will more than likely be very costly, and in most cases this will not be necessary. Find one that takes the risks discussed seriously and provides the correct countermeasures as discussed, or make sure you take care of the validation, filtering and sanitisation properly yourself.
 
-If you can not find a parametrised API for you use case, you will need to consider doing this your self, as in wrapping what ever the best is that is available and providing your own parametrisation.
+If you can not find a parametrised API for your use case, you will need to consider doing this your self, as in wrapping what ever the best is that is available and providing your own parametrisation.
 
 Creating semantic types forces you and your stake holders to think about your business requirements, anything that makes us think about these are usually helpful in making sure we are building the right thing. There is not really any alternatives to actually thinking the semantic types, validation, filtering and sanitisation through and making sure you are doing it properly, this is crucial to catching malicious sequences of untrusted data. The only other alternative is to just not process untrusted data.
 
