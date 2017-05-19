@@ -4692,16 +4692,16 @@ One risk that I see happening here all to often, is developers not understanding
 
 #### Command Injection
 
-
-
-
-
-
-
+Reviewing code, testing and making the changes costs money.
 
 #### XML Injection
 
-risks-that-solution-causes
+
+
+
+
+
+
 
 #### XSLT Injection
 
@@ -4902,18 +4902,18 @@ Similar to SQLi
 
 #### Command Injection
 
-
-
-
-
-
-
-
-
+Exactly how much it will cost you will depend on how poorly the code is written, and how much has to be factored.
 
 #### XML Injection
 
-costs-and-trade-offs
+
+
+
+
+
+
+
+
 
 #### XSLT Injection
 
