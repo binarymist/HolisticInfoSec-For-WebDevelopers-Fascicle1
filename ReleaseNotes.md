@@ -30,7 +30,7 @@ Ready for technical review
 * Finished Cracking
 * Finished WAFs
 * Removed Physical Access
-* Remove Console Access
+* Removed Console Access
 * Removed Network Access
 * Removed Caching of Sensitive Data
 
