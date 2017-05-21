@@ -8,10 +8,10 @@ Take results from the higher level Asset Identification section of the 30,000' V
 Here are some possibilities to get you started:
 
 * Switches: Mainly because of the data that passes through them.
-* Routers: Same as above, plus there will be a lot of sensitive network related information stored here.
+* Routers and layer 3 switches: Same as above, plus there will be a lot of sensitive network related information stored here.
 * Syslog servers: For similar reasons to routers, plus events and sensitive information from all sorts of systems collected in one place.
 
-There will almost certainly be many others. Think about your network topology. What information is stored where and over which channels it may pass. If you have decided to hand your precious data over to a cloud provider, then you are not going to have much control over this and in most cases, your CSP will not have much control either (addressed in the [Cloud](#cloud) chapter). Also think about the areas that may be easier to compromise than others and take this information into the next step.
+There will almost certainly be many others. Think about your network topology. What information is stored where and over which channels it may pass. If you have decided to hand your precious data over to a Cloud Service Provider (CSP), then you are not going to have much control over this and in most cases, your CSP will not have as much control as you would like either, we address this in the [Cloud](#cloud) chapter. Also think about the areas that may be easier to compromise than others and take this information into the next step.
 
 ## 2. SSM Identify Risks
 Go through the same process as we did at the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for the network.
@@ -349,6 +349,8 @@ When ever a user browses to a website, an attacker can intercept the request bef
 
 This is a danger for all websites that do not enforce TLS for every page. For example many websites are run over plain HTTP until the user wants to log-in. At which point the browser issues a request to an HTTPS resource (that is listed on an unencrypted page). These requests can easily be intercepted and downgraded to a plain HTTP request.
 
+_Todo_ add https://httpswatch.nz/
+
 ### Firewall/Router {#network-identify-risks-firewall-router}
 
 Routing Configurations. Discuss egrees which is often neglected
@@ -425,7 +427,7 @@ _Todo_ Add Security Onion Linux distro as an IDS, Network Security Monitoring (N
 
 #### Insufficient Logging {#network-countermeasures-lack-of-visibility-insufficient-logging}
 
-If you think back to the Web Server Log Management countermeasures section in the VPS chapter, we outlined an [Environmental Considerations](#vps-countermeasures-lack-of-visibility-web-server-log-management-environmental-considerations) section, in which I defered to this section, as it made more sense to discuss alternative device system logging such as routers, layer 3 switches, in some cases layer 2 switches, data-store, and file servers here in the Network chapter rather than under VPS. Let us address that now. 
+If you think back to the Web Server Log Management countermeasures section in the VPS chapter, we outlined an [Environmental Considerations](#vps-countermeasures-lack-of-visibility-web-server-log-management-environmental-considerations) section, in which I deferred to this section, as it made more sense to discuss alternative device system logging such as routers, layer 3 switches, in some cases layer 2 switches, data-store, and file servers here in the Network chapter rather than under VPS. Let us address that now. 
 
 **Steps in order of dependencies**
 
