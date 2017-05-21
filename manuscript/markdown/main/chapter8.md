@@ -1043,13 +1043,13 @@ Make sure your web server only ever responds over HTTPS, including the very firs
 
 #### HTTP Strict Transport Security (HSTS) {#network-risks-that-solution-causes-tls-downgrade-hsts}
 
-Unless the browsers know about your domain and have it added to their HSTS Preload list, then the connection is still not safe.
-
-Make sure your web server only ever responds over HTTPS, including the very first response.
+Unless the browsers know about your domain and have it added to their HSTS Preload list, then the connection is still not safe on the very first request, unless your server refuses to serve without TLS, which should be the case.
 
 #### HTTP Strict Transport Security (HSTS) Preload {#network-risks-that-solution-causes-tls-downgrade-hsts-preload}
 
-Again your trusting the browser.
+Ultimately, if you have done you job correctly, you are trusting the browser to honour your decision to not communicate at all unless TLS is supported.
+
+If you make sure your web server only ever responds over HTTPS, including the very first response then the HSTS preload may work for you, just beware that once your domain is in the list, it is only reachable over HTTPS
 
 ### Firewall/Router
 
@@ -1138,27 +1138,23 @@ _Todo_
 
 ### Wrongfully Trusting the Loading of Untrusted Web Resources
 
-_Todo_
-
 #### Content Security Policy (CSP)
 
-_Todo_
+Any countermeasure costs here are fairly trivial.
 
 #### Sub-resource Integrity (SRI)
 
-_Todo_
+Any countermeasure costs here are fairly trivial.
 
 ### TLS Downgrade
 
-_Todo_
-
 #### HTTP Strict Transport Security (HSTS)
 
-_Todo_
+Make sure your server only serves responses over HTTPS.
 
 #### HTTP Strict Transport Security (HSTS) Preload
 
-_Todo_
+It may make sense to not add your domain to the preload list, but make sure that resources from your domain are not accessible unless over HTTPS. There are many ways to do this. 
 
 ### Firewall/Router
 
