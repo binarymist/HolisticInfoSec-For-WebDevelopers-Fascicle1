@@ -981,6 +981,12 @@ harden-surveillance for monitoring your network
 
 ## [Network](#network)
 
+%% TLS Downgrade Identify Risks
+
+**An excellent resource** for some of the prominent websites in New Zealand  
+[https://httpswatch.nz](https://httpswatch.nz)
+
+%% End TLS Downgrade Identify Risks
 
 **Create a jail in FreeNAS**, install OpenVPN in the jail  
 https://forums.freenas.org/index.php?threads/how-to-install-openvpn-inside-a-jail-in-freenas-9-2-1-6-with-access-to-remote-hosts-via-nat.22873/
@@ -1057,6 +1063,17 @@ Peter Kim discusses in "The Hacker PlayBook" about how he set-up SMTP and SSH do
 [http://www.w3.org/TR/SRI/](http://www.w3.org/TR/SRI/)
 
 **HSTS**
+
+**As your NodeJS web framework**  
+[https://hapijs.com/api/](https://hapijs.com/api/)
+
+**hapijs**  
+[https://hapijs.com/api/](https://hapijs.com/api/)
+
+**Use helmetjs/hsts**  
+[https://github.com/helmetjs/hsts](https://github.com/helmetjs/hsts)  
+to enforce `Strict-Transport-Security` in Express  
+[https://helmetjs.github.io/docs/hsts/](https://helmetjs.github.io/docs/hsts/)
 
 **Another Slide Deck from Francois Marier** covering HTTP Strict Transport Security (HSTS), Content Security Policy (CSP), Sub-resource Integrity (SRI)  
 [https://speakerdeck.com/fmarier/integrity-protection-for-third-party-javascript](https://speakerdeck.com/fmarier/integrity-protection-for-third-party-javascript)

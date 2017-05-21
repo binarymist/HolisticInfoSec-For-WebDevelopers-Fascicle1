@@ -338,18 +338,16 @@ An SSH server needs to be set-up to record the user-names and passwords. The Ope
 ### Wrongfully Trusting the Loading of Untrusted Web Resources {#network-identify-risks-wrongfully-trusting-the-loading-of-untrusted-web-resources}
 ![](images/ThreatTags/average-verywidespread-easy-moderate.png)
 
-By default, the browser allows all resources from all locations to be loaded. What would happen if one of those servers was compromised or an attacker was tampering with the payload potentially changing what was expected for something malicious to be executed once loaded?
-
-![](images/HandsOnHack.png)
+By default, the browser allows all resources from all locations to be loaded. What would happen if one of those servers was compromised or an attacker was tampering with the payload potentially changing what was expected for something malicious to be executed once loaded? This is a very common technique for attackers wishing to get their malicious scripts into your browser.
 
 ### TLS Downgrade {#network-identify-risks-tls-downgrade}
 ![](images/ThreatTags/average-common-average-severe.png)
 
-When ever a user browses to a website, an attacker can intercept the request before the TLS handshake is made and redirect the user to the same website but without the TLS.
+When ever a user browses to a HTTPS website, there is the potential for an attacker to intercept the request before the TLS handshake is made, and if the web server accepts an unencrypted request, redirect the user to the same website but without the TLS.
 
-This is a danger for all websites that do not enforce TLS for every page. For example many websites are run over plain HTTP until the user wants to log-in. At which point the browser issues a request to an HTTPS resource (that is listed on an unencrypted page). These requests can easily be intercepted and downgraded to a plain HTTP request.
+This is a danger for all websites that do not enforce TLS for every page, or better, at the domain level. For example many websites are run over plain HTTP until the user wants to log-in. At which point the browser issues a request to an HTTPS resource that is listed on an unencrypted page. These requests can easily be intercepted and the attacker change the request to HTTP so that the TLS handshake is never made.
 
-_Todo_ add https://httpswatch.nz/
+[https://httpswatch.nz](https://httpswatch.nz) is an excellent resource for some of the prominent websites in New Zealand, informing them of the issues in regards to HTTPS health.
 
 ### Firewall/Router {#network-identify-risks-firewall-router}
 
@@ -724,8 +722,6 @@ Names removed to save embarrassment. Sadly most banks do not take their web secu
     script-src 'self' 'unsafe-eval' 'unsafe-inline' secure.reputable.kiwi.bank.co.nz seal.entrust.net www.googletagmanager.com www.googleadservices.com www.google-analytics.com;
     style-src 'self' 'unsafe-inline' secure.reputable.kiwi.bank.co.nz seal.entrust.net;
 
-
-
 Of course this is only as good as a clients connection is trusted. If the connection is not over TLS, then there is no real safety that the headers can not be changed. If the connection is over TLS, but the connection is intercepted before the TLS hand-shake, the same lack of trust applies. See the section on [TLS Downgrade](#network-countermeasures-tls-downgrade) for more information.  
 Not to be confused with Cross Origin Resource Sharing (CORS). CORS instructs the browser to over-ride the "same origin policy" thus allowing AJAX requests to be made to header specified alternative domains. For example: web site a allows restricted resources on its web page to be requested from another domain outside the domain from which the resource originated. Thus specifically knowing and allowing specific other domains access to its resources.
 
@@ -756,10 +752,12 @@ Tools such as openssl and the standard sha[256|512]sum programmes normally suppl
 
 ### TLS Downgrade {#network-countermeasures-tls-downgrade}
 
+There are some great resources listed on the [https://httpswatch.nz/about.html](https://httpswatch.nz/about.html) page for improving the HTTPS health of your web resources.
+
 #### HTTP Strict Transport Security (HSTS) {#network-countermeasures-tls-downgrade-hsts}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Make sure your web server sends back the HSTS header. This is pretty straight forward. If you're using ExpressJS in NodeJS, then just use [helmetjs/hsts](https://github.com/helmetjs/hsts). For other environments it should be pretty straight forward as well.
+Make sure your web server sends back the HSTS header. If you are using [hapijs](https://hapijs.com/api/) as your NodeJS web framework, this is on by default, in fact hapi is one of the NodeJS web frameworks that has many security features on by default. This is also fairly straight forward if you are using ExpressJS, but you do need to use [helmetjs/hsts](https://github.com/helmetjs/hsts) to [enforce](https://helmetjs.github.io/docs/hsts/) `Strict-Transport-Security` in Express. For other environments it should be pretty straight forward as well.
 
 Then trust the browser to do something to stop these **downgrades**.
 
@@ -782,7 +780,7 @@ Details of how this attack plays out and additional HSTS resources are linked to
 
 This includes a list that browsers have with any domains that have been submitted. When a user requests one of the pages from a domain on the browsers HSTS preload list, the browser will always initiate all requests to that domain over TLS. the `includeSubdomains` token must be specified. Chrome, Firefox, Safari, IE 11 and Edge are including this list now.
 
-In order to have your domain added to the browsers preload list, submit it online at the [hstspreload.appspot.com](https://hstspreload.appspot.com/). I can't see this scaling, but then not many have submitted their domains to it so far.
+In order to have your domain added to the browsers preload list, submit it online at the [hstspreload.org](https://hstspreload.org/). I can not see this scaling, but then not many have submitted their domains to it so far. Just be aware that if you submit your top level domain to the hstspreload list and for some reason you can not serve your entire web application or site over TLS, then it will be unreachable until you either fix it, or [remove](https://hstspreload.org/#removal) it from the hstspreload list and it propagates to all or your users browsers.
 
 Domains added to the preload list are not susceptible to the newer SSLStrip2 - dns2proxy attack demonstrated at BlackHat Asia in 2014 by Leonardo Nve
 
