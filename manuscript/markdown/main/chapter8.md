@@ -757,7 +757,7 @@ There are some great resources listed on the [https://httpswatch.nz/about.html](
 #### HTTP Strict Transport Security (HSTS) {#network-countermeasures-tls-downgrade-hsts}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Make sure your web server sends back the HSTS header. If you are using [hapijs](https://hapijs.com/api/) as your NodeJS web framework, this is on by default, in fact hapi is one of the NodeJS web frameworks that has many security features on by default. This is also fairly straight forward if you are using ExpressJS, but you do need to use [helmetjs/hsts](https://github.com/helmetjs/hsts) to [enforce](https://helmetjs.github.io/docs/hsts/) `Strict-Transport-Security` in Express. For other environments it should be pretty straight forward as well.
+Make sure your web server sends back the HSTS header. If you are using [hapijs](https://hapijs.com/api/) as your NodeJS web framework, this is on by default, in fact hapi is one of the NodeJS web frameworks that has many security features on by default. This is also fairly straight forward if you are using ExpressJS, but you do need to use [helmetjs/hsts](https://github.com/helmetjs/hsts) to [enforce](https://helmetjs.github.io/docs/hsts/) `Strict-Transport-Security` in Express. For other environments it should be pretty straight forward as well, but do not just assume that HSTS is on by default, read the manual.
 
 Then trust the browser to do something to stop these **downgrades**.
 

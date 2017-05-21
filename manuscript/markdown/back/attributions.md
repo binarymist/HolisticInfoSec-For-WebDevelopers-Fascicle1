@@ -1064,9 +1064,6 @@ Peter Kim discusses in "The Hacker PlayBook" about how he set-up SMTP and SSH do
 
 **HSTS**
 
-**As your NodeJS web framework**  
-[https://hapijs.com/api/](https://hapijs.com/api/)
-
 **hapijs**  
 [https://hapijs.com/api/](https://hapijs.com/api/)
 
