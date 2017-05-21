@@ -28,11 +28,18 @@ _Todo_
 
 similar to Physical chapter
 
-### Lack of Segmentation
+### Lack of Segmentation {#network-identify-risks-lack-of-segmentation}
 
 Similar to the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section in the VPS chapter.
 
 %% https://www.optiv.com/blog/top-10-network-security-mistakes-5-lack-of-segmentation
+
+
+**Component Placement** 
+
+_Todo_
+
+DMZ for example. You may need to place your web server in a DMZ, but that does not mean its dependencies like data-store servers should also be there.
 
 
 ### Lack of Visibility
@@ -41,13 +48,17 @@ _Todo_
 
 Check the Lack of Visibility from VPS chapter, there will be some cross over.
 
-#### Insufficient Logging and Monitoring
+#### Insufficient Logging
 
 _Todo_
 
-%% #### Network Intrusion Detection Systems (NIDS)
+#### Lack of Network Intrusion Detection Systems (NIDS)
 
-%% ### DNS Exfiltration, Infiltration
+_Todo_
+
+#### DNS Exfiltration, Infiltration
+
+_Todo_
 
 %% This may also work for exfiltration TCP over HTTP https://github.com/derhuerst/tcp-over-websockets
 
@@ -341,12 +352,10 @@ This is a danger for all websites that do not enforce TLS for every page. For ex
 ### Firewall/Router {#network-identify-risks-firewall-router}
 
 Routing Configurations. Discuss egrees which is often neglected
+
 _Todo_
 
-### Component Placement {#network-identify-risks-component-placement}
 
-_Todo_:
-DMZ for example. You may need to place your web server in a DMZ, but that does not mean its dependencies like data-store servers should also be there.
 
 ### Wire Inspecting {#network-identify-risks-wire-inspecting}
 
@@ -384,11 +393,21 @@ https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulne
 
 _Todo_
 
-#### Network Segmentation
+### Lack of Segmentation  {#network-countermeasures-lack-of-segmentation}
 
 _Todo_
 
 %% https://www.fishnetsecurity.com/6labs/blog/top-10-network-security-mistakes-5-lack-segmentation
+
+
+**Component Placement**
+
+_Todo_
+
+Consider putting resources like data-stores in a secluded segment. VLAN or physical, but isolate them as much as possible.
+https://www.owasp.org/index.php/Configuration#Database_security
+Also consider using Linux containers, thus providing more isolation, making compromise just a little more time consuming.
+
 
 ### Lack of Visibility
 
@@ -554,7 +573,7 @@ In the second output, if you get a condition of `reject`, it is usually because 
 
 Now check all the times are in sync with the `date` command.
 
-#### Network Intrusion Detection Systems (NIDS) {#network-countermeasures-lack-of-visibility-nids}
+#### Lack of Network Intrusion Detection Systems (NIDS) {#network-countermeasures-lack-of-visibility-nids}
 Similar to [HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) but acting as a network spy with its network interface (NIC) in promiscuous mode, capturing all traffic crossing the specific network segment that the NIDS is on.
 
 As HIDS, NIDS also operate with signatures.
@@ -572,7 +591,13 @@ It is a good idea to have both Host and Network IDS/IPS in place at a minimum. I
 %% Maybe setup snort on raouter and detail it.
 %% BSidesLV IDS talk https://www.youtube.com/watch?v=iHRwAg8LQtI&feature=youtu.be
 
+#### DNS Exfiltration, Infiltration
+
+_Todo_
+
 ### Spoofing {#network-countermeasures-spoofing}
+
+_Todo_
 
 #### IP {#network-countermeasures-spoofing-ip}
 ![](images/ThreatTags/PreventionDIFFICULT.png)
@@ -902,13 +927,7 @@ _Todo_
 
 Discuss egrees and other configurations that are often neglected.
 
-### Component Placement {#network-countermeasures-component-placement}
 
-_Todo_
-
-Consider putting resources like data-stores in a secluded segment. VLAN or physical, but isolate them as much as possible.
-https://www.owasp.org/index.php/Configuration#Database_security
-Also consider using Linux containers, thus providing more isolation, making compromise just a little more time consuming.
 
 
 ### Wire Inspecting {#network-countermeasures-wire-inspecting}
@@ -937,11 +956,23 @@ Patch your systems
 
 _Todo_
 
+### Lack of Segmentation
+
+_Todo_
+
 ### Lack of Visibility
 
 _Todo_
 
-#### Network Intrusion Detection Systems (NIDS)
+#### Insufficient Logging
+
+_Todo_
+
+#### Lack of Network Intrusion Detection Systems (NIDS)
+
+_Todo_
+
+#### DNS Exfiltration, Infiltration
 
 _Todo_
 
@@ -1024,10 +1055,6 @@ Again your trusting the browser.
 
 _Todo_
 
-### Component Placement
-
-_Todo_
-
 ### Wire Inspecting
 
 _Todo_
@@ -1046,11 +1073,23 @@ _Todo_
 
 _Todo_
 
+### Lack of Segmentation
+
+_Todo_
+
 ### Lack of Visibility
 
 _Todo_
 
-#### Network Intrusion Detection Systems (NIDS)
+#### Insufficient Logging
+
+_Todo_
+
+#### Lack of Network Intrusion Detection Systems (NIDS)
+
+_Todo_
+
+#### DNS Exfiltration, Infiltration
 
 _Todo_
 
@@ -1122,10 +1161,6 @@ _Todo_
 _Todo_
 
 ### Firewall/Router
-
-_Todo_
-
-### Component Placement
 
 _Todo_
 

@@ -3472,7 +3472,7 @@ An application should have the least privileges possible in order to carry out w
 #### Location
 ![](images/ThreatTags/PreventionEASY.png)
 
-Put your services like data-stores on network segments that are as [sheltered](#network-countermeasures-component-placement) as possible and only contain similar services.
+Put your services like data-stores on network segments that are as [sheltered](#network-countermeasures-lack-of-segmentation) as possible and only contain similar services.
 
 Maintain as few user accounts on the servers in question as possible and with the least privileges as possible. 
 
