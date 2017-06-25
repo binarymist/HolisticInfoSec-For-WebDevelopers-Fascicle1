@@ -18,7 +18,9 @@ Go through the same process as we did at the top level Identify Risks section in
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
-Network risks are obviously huge. I will be just scratching the surface here at this stage.
+Most types of security exploitation have a network involved somewhere. Reconnaissance generally utilises the internet at a minimum. [Application security](#web-applications) generally requires a network in order to access the target application(s). [Cloud security](#cloud) similarly depends on a network in order to access the target resources. Social Engineering as discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) leverage's a network of people in order to access the human target. Even physical security (also discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)) often involves different types of networks. When we think of networks, try not to be constrained to computer networks.
+
+_Todo_: Add SER interview for Network Security
 
 ### Fortress Mentality
 
