@@ -24,11 +24,76 @@ _Todo_: Add SER interview for Network Security
 
 ### Fortress Mentality
 
-_Todo_
+This section takes the concepts from the section with the same name from the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). The largest percentage of successful attacks come from within organisations. Usually the inside attacks get covered up, because the public image of the organisation is affected to a greater extent than if the organisation publicises the fact that they were compromised by someone on the other side of the world.
 
-%% https://www.optiv.com/blog/top-10-network-security-mistakes-3-belief-in-perimeter-security
+There is somehow still a misnomer that having perimeters will save us from the attackers. They may stop some of the noise from unmotivated attackers, but usually not a lot more.
 
-similar to Physical chapter
+IBM X-Force [2016 Cyber Security Intelligence Index](http://ibm.biz/2016CyberIndex) provides the following information for 2014 and 2015, plus a lot more:
+
+2014:
+
+Industries that experienced the highest incident rates were as listed descending:
+1. Financial services
+2. Information and communication
+3. Manufacturing
+4. Retail and wholesale
+5. Energy and utilities
+
+* 55% of all attacks were carried out by insiders
+* 31.5% were malicious inside actors
+* 23.5% were inadvertent inside actors
+
+2015:
+
+Industries that experienced the highest incident rates were as listed descending:
+
+1. Healthcare
+2. Manufacturing
+3. Financial services
+4. Government
+5. Transportation
+
+* 60% of all attacks were carried out by insiders
+* 44.5% were malicious inside actors
+* 15.5% were inadvertent inside actors
+
+The 2017 IBM X-Force [Threat Intelligence Index](https://public.dhe.ibm.com/common/ssi/ecm/wg/en/wgl03140usen/WGL03140USEN.PDF) provides the following information for 2016, plus a lot more:
+
+Industries that experienced the highest incident rates were as listed descending:
+
+1. Financial services
+2. Information and communications
+3. Manufacturing
+4. Retail
+5. Healthcare
+
+In 2017 X-Force segregated the data. in 2016:
+
+* 30% of all attacks were carried out by insiders
+* 7% were malicious inside actors
+* 23% were inadvertent inside actors
+
+In saying that, Financial services was:
+
+* 58% of all attackers were carried out by insiders
+* 5% were malicious inside actors
+* 53% were inadvertent inside actors
+
+Healthcare was:
+
+* 71% of all attackers were carried out by insiders
+* 25% were malicious inside actors
+* 46% were inadvertent inside actors
+
+Malicious inside actors can be disgruntled employees that may or not have left the organisation and still have access via an account or a back door they introduced or know about, they could also be opportunists looking to make some extra money by selling access or private information.
+
+An inadvertent inside actor is usually someone that does not mean to cause harm, but falls prey to social engineering tactics often from malicious outsiders, as touched on in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). These are attacks such as phishing, or somehow being tricked or coerced into revealing sensitive information or carrying out an activity that will provide the attacker a foothold. The Social Engineer's Playbook by Jeremiah Talamantes has many very useful and practical examples.
+
+In all cases in 2016, we saw a significant trend of the inside actors shifting to the inadvertent, essentially this points to an emphasis on exploiting the organisations people (social engineering) with various attack strategies.
+
+This clearly shows, that although our technological defences are improving slowly, our people are much slower to improve. Spending resources on areas such as network perimeters while neglecting our most valuable assets (our people), does not make sense.
+
+Often workers bring their own devices to work, and bring their work devices home and back, potentially transferring malware from network to network, whether they be wired or wireless. Again though, people are the real issue here. No matter how good your technological solution is, people will circumvent it.
 
 ### Lack of Segmentation {#network-identify-risks-lack-of-segmentation}
 
@@ -393,7 +458,33 @@ https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulne
 
 ### Fortress Mentality {#network-countermeasures-fortress-mentality}
 
-_Todo_
+This section takes the concepts from the section with the same name from the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+
+Once we get over the fact that we are no longer safe behind our firewalls, we can start to progress in terms of the realisation that our inner components: services, clients, communications will be attacked, and we need to harden them.
+
+Our largest shortcoming continues to be our people falling victim to common social engineering attacks. I've spoken about this in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), so please refer to that if you have not already read it.
+
+The organisation needs to decide and enforce their own policies, just as you do for your own personal devices and network(s).
+
+The organisation could decide to not allow any work devices to be taken from the premises, but that is a fairly archaic technique that is likely to significantly negatively impact the business, as business's want their travelling sales people and even their developers, engineers to take their work home and work in the evenings and weekends.
+
+Another option is to actually help their workers be more secure with everything in their lives that have the potential to impact the business. Sure have a separate wireless network for your visitors and workers to access the internet, but your workers still need to connect to the corporate LAN. So put policies in place to make sure what ever they connect:
+
+* Has a local firewall enabled and configured correctly to cover ports to possibly insecure services
+* Must be fully patched
+* Anti Virus on systems that need it and rule sets up to date
+* Ability to authenticate itself, what ever technique you decide to use
+
+The best you can do is care and show you care for your workers. This all comes back to what we discussed in the People chapter of [fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/) around engaged and well looked after workers.
+
+In terms of technology, most of the VPS chapter was focussed on removing services that are not needed and hardening those that are, with the intention that your corporate network is almost as good as being directly on the internet without a perimeter anyway.
+
+Once you have made sure your listening services are patched and you are only using security focussed services, your communications between services are encrypted, then technology wise, you are doing well.
+
+for file and data sharing from machine to machine no matter where they are, and also from software client to service you can use the likes of Tresorits offerings:
+
+* [Tresorit](https://tresorit.com/) for encrypted file storage for as many people as need it, with about as much configurability as you can dream of
+* [Tresorit ZeroKit SDK](https://tresorit.com/zerokit) User authentication and end-to-end encryption for Android, iOS and JavaScript applications
 
 ### Lack of Segmentation  {#network-countermeasures-lack-of-segmentation}
 
