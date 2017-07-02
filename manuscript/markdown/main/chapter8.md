@@ -467,22 +467,17 @@ Our largest shortcoming continues to be our people falling victim to common soci
 
 The organisation needs to decide and enforce their own policies, just as you do for your own personal devices and network(s).
 
-The organisation could decide to not allow any work devices to be taken from the premises, but that is a fairly archaic technique that is likely to significantly negatively impact the business, as business's want their travelling sales people and even their developers, engineers to take their work home and work in the evenings and weekends.
+The organisation could decide to not allow any work devices to be taken from the premises.
 
-Another option is to actually help their workers be more secure with everything in their lives that have the potential to impact the business. Sure have a separate wireless network for your visitors and workers to access the internet, but your workers still need to connect to the corporate LAN. So put policies in place to make sure what ever they connect:
+Another option is to actually help their workers be more secure with everything in their lives that have the potential to impact the business. What effects the workers impacts the business.
 
-* Has a local firewall enabled and configured correctly to cover ports to possibly insecure services
-* Must be fully patched
-* Anti Virus on systems that need it and rule sets up to date
-* Ability to authenticate itself, what ever technique you decide to use
-
-The best you can do is care and show you care for your workers. This all comes back to what we discussed in the People chapter of [fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/) around engaged and well looked after workers.
+Have a separate wireless network for your visitors and workers to access the internet.
 
 In terms of technology, most of the VPS chapter was focussed on removing services that are not needed and hardening those that are, with the intention that your corporate network is almost as good as being directly on the internet without a perimeter anyway.
 
 Once you have made sure your listening services are patched and you are only using security conscious services, your communications between services are encrypted, then technology wise, you are doing well.
 
-for file and data sharing from machine to machine no matter where they are, and also from software client to service you can use the likes of Tresorits offerings:
+For file and data sharing from machine to machine no matter where they are, and also from software client to service you can use the likes of Tresorits offerings:
 
 * [Tresorit](https://tresorit.com/) for encrypted file storage for as many people as need it, with about as much configurability as you can dream of
 * [Tresorit ZeroKit SDK](https://tresorit.com/zerokit) User authentication and end-to-end encryption for Android, iOS and JavaScript applications
@@ -1048,7 +1043,11 @@ Patch your systems
 
 ### Fortress Mentality
 
-_Todo_
+Not allowing any work devices to be take from the premises is a fairly archaic technique that is likely to significantly negatively impact the business, as business's want their travelling sales people and even their developers, engineers to take their work home and work in the evenings and weekends.
+
+Having a separate wireless network for your workers to access the internet is not sufficient for them to get their work done.
+
+All of the technical solutions are costly, but they are only part of the solution.
 
 ### Lack of Segmentation
 
@@ -1165,7 +1164,18 @@ _Todo_
 
 ### Fortress Mentality
 
-_Todo_
+Your workers still need to connect to the corporate LAN. So put policies in place to make sure what ever they connect:
+
+* Has a local firewall enabled and configured correctly to cover ports to possibly insecure services
+* Must be fully patched
+* Anti Virus on systems that need it and rule sets up to date
+* Ability to authenticate itself, what ever technique you decide to use
+
+The technical solutions described are costly, but building a motivated and engaged work force is not, it just requires a little thought and action on behalf of those in charge.
+
+The best you can do is care and show you care for your workers. This all comes back to what we discussed in the People chapter of [fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/) around engaged and well looked after workers.
+
+Your people will be your weakest or your strongest line of defence, it is up to you.
 
 ### Lack of Segmentation
 
