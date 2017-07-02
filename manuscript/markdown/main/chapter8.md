@@ -1043,7 +1043,7 @@ Patch your systems
 
 ### Fortress Mentality
 
-Not allowing any work devices to be take from the premises is a fairly archaic technique that is likely to significantly negatively impact the business, as business's want their travelling sales people and even their developers, engineers to take their work home and work in the evenings and weekends.
+Not allowing any work devices to be taken from the premises is a fairly archaic technique that is likely to significantly negatively impact the business, as business's want their travelling sales people and even their developers, engineers to take their work home and work in the evenings and weekends.
 
 Having a separate wireless network for your workers to access the internet is not sufficient for them to get their work done.
 
