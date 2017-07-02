@@ -981,6 +981,16 @@ harden-surveillance for monitoring your network
 
 ## [Network](#network)
 
+%% Fortress Mentality Identify Risks
+
+**IBM X-Force 2016 Cyber Security Intelligence Index** provides the following information  
+[http://ibm.biz/2016CyberIndex](http://ibm.biz/2016CyberIndex)
+
+**The 2017 IBM X-Force Threat Intelligence Index** provides the following information  
+[https://public.dhe.ibm.com/common/ssi/ecm/wg/en/wgl03140usen/WGL03140USEN.PDF](https://public.dhe.ibm.com/common/ssi/ecm/wg/en/wgl03140usen/WGL03140USEN.PDF)
+
+
+%% End Fortress Mentality Identify Risks
 %% TLS Downgrade Identify Risks
 
 **An excellent resource** for some of the prominent websites in New Zealand  

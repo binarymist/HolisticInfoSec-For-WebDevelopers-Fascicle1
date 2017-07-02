@@ -18,7 +18,7 @@ Go through the same process as we did at the top level Identify Risks section in
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
-Most types of security exploitation have a network involved somewhere. Reconnaissance generally utilises the internet at a minimum. [Application security](#web-applications) generally requires a network in order to access the target application(s). [Cloud security](#cloud) similarly depends on a network in order to access the target resources. Social Engineering as discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) leverage's a network of people in order to access the human target. Even physical security (also discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)) often involves different types of networks. When we think of networks, try not to be constrained to computer networks.
+Most types of security exploitation have a network involved somewhere. Reconnaissance generally utilises the internet at a minimum. [Application security](#web-applications) generally requires a network in order to access the target application(s). [Cloud security](#cloud) similarly depends on a network in order to access the target resources. Social Engineering as discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) leverages a network of people in order to access the human target. Even physical security (also discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)) often involves different types of networks. When we think of networks, try not to be constrained to computer networks.
 
 _Todo_: Add SER interview for Network Security
 
@@ -33,6 +33,7 @@ IBM X-Force [2016 Cyber Security Intelligence Index](http://ibm.biz/2016CyberInd
 2014:
 
 Industries that experienced the highest incident rates were as listed descending:
+
 1. Financial services
 2. Information and communication
 3. Manufacturing
@@ -479,7 +480,7 @@ The best you can do is care and show you care for your workers. This all comes b
 
 In terms of technology, most of the VPS chapter was focussed on removing services that are not needed and hardening those that are, with the intention that your corporate network is almost as good as being directly on the internet without a perimeter anyway.
 
-Once you have made sure your listening services are patched and you are only using security focussed services, your communications between services are encrypted, then technology wise, you are doing well.
+Once you have made sure your listening services are patched and you are only using security conscious services, your communications between services are encrypted, then technology wise, you are doing well.
 
 for file and data sharing from machine to machine no matter where they are, and also from software client to service you can use the likes of Tresorits offerings:
 
