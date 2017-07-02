@@ -30,7 +30,7 @@ There is somehow still a misnomer that having perimeters will save us from the a
 
 IBM X-Force [2016 Cyber Security Intelligence Index](http://ibm.biz/2016CyberIndex) provides the following information for 2014 and 2015, plus a lot more:
 
-2014:
+**2014**:
 
 Industries that experienced the highest incident rates were as listed descending:
 
@@ -44,7 +44,7 @@ Industries that experienced the highest incident rates were as listed descending
 * 31.5% were malicious inside actors
 * 23.5% were inadvertent inside actors
 
-2015:
+**2015**:
 
 Industries that experienced the highest incident rates were as listed descending:
 
@@ -68,7 +68,7 @@ Industries that experienced the highest incident rates were as listed descending
 4. Retail
 5. Healthcare
 
-In 2017 X-Force segregated the data. in 2016:
+In 2017 X-Force segregated the data. in **2016**:
 
 * 30% of all attacks were carried out by insiders
 * 7% were malicious inside actors
