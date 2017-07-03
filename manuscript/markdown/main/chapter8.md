@@ -98,17 +98,15 @@ Often workers bring their own devices to work, and bring their work devices home
 
 ### Lack of Segmentation {#network-identify-risks-lack-of-segmentation}
 
-Similar to the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section in the VPS chapter.
+Similar to the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section in the VPS chapter, here we focus on the same concept but at the network layer.
 
-%% https://www.optiv.com/blog/top-10-network-security-mistakes-5-lack-of-segmentation
+Network segmentation is the act of splitting a network of computers that share network resources into multiple sub networks, whether it be real via routers, layer three switches, or virtual via VLANs.
 
+Without segmentation, attackers once on the network have direct access to the resources on that network.
 
-**Component Placement** 
+Having all or many resources of different trust boundaries on a monolithic network does nothing to constrain attackers or the transfer of malware. When we talk about trust boundaries we're talking about a configured firewall rather than just a router. A router routes, a firewall should deny or drop everything other than what you specify. That is right, it requires some thought of what should be allowed to enter the gateway interface and how it is then treated.
 
-_Todo_
-
-DMZ for example. You may need to place your web server in a DMZ, but that does not mean its dependencies like data-store servers should also be there.
-
+A good example of lack of segmentation is what is currently happening with the explosion of IoT devices. Why would your house-hold appliances need to be on the internet other than to perform unnecessary tasks, like a fridge ordering food, or an oven being able to tell you when your dinner is cooked, or worse, providing functionality to turn the appliance on and off, or worse still, being [commandeered by attackers](http://www.mirror.co.uk/news/technology-science/technology/hackers-use-fridge-send-spam-3046733#) to do their bidding which is quite common now for home appliances that have next to no consciousness of security. Even if these functions were considered important enough to reveal open sockets from your home to the internet, surely it would be much safer to have these devices on a network segment with the least of privileges available, tight egress filtering, encrypted communications, and someone that knows how to configure the firewall rules on the segments gateway.
 
 ### Lack of Visibility
 
@@ -124,11 +122,7 @@ _Todo_
 
 _Todo_
 
-#### DNS Exfiltration, Infiltration
 
-_Todo_
-
-%% This may also work for exfiltration TCP over HTTP https://github.com/derhuerst/tcp-over-websockets
 
 ### Spoofing {#network-identify-risks-spoofing}
 
@@ -366,6 +360,14 @@ G>
 G> `run bypassuac`  
 G> Now that is successful, but AV detects bad signatures on some of the root-kits. On this shell I only got the privileges of the target running the browser exploit.
 
+### Data Exfiltration, Infiltration leveraging DNS
+
+_Todo_
+
+%% This may also work for exfiltration TCP over HTTP https://github.com/derhuerst/tcp-over-websockets
+
+%% https://github.com/Crypt0s/FakeDns
+
 ### Doppelganger Domains {#network-identify-risks-doppelganger-domains}
 
 Often domain consumers (people: sending emails, browsing websites, SSHing, etc) miss type the domain. The most common errors are leaving '.' out between the domain and sub domain. Even using incorrect country suffixes. Attackers can take advantage of this by purchasing the miss typed domains. This allows them to intercept requests with: credentials, email and other sensitive information that comes their way by unsuspecting domain consumers.
@@ -423,7 +425,7 @@ Routing Configurations. Discuss egrees which is often neglected
 
 _Todo_
 
-
+%% Mention that we touched on Routing Firewalls in the Lack of Segmentation section, and that there is a distinct difference between the functions of a router and a firewall
 
 ### Wire Inspecting {#network-identify-risks-wire-inspecting}
 
@@ -484,19 +486,35 @@ For file and data sharing from machine to machine no matter where they are, and 
 
 ### Lack of Segmentation  {#network-countermeasures-lack-of-segmentation}
 
-_Todo_
+By creating network segments containing only the resources specific to the consumers that you authorise access to, you are creating an environment of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege), where only those authorised to access resources can access them.
 
-%% https://www.fishnetsecurity.com/6labs/blog/top-10-network-security-mistakes-5-lack-segmentation
+For example, if you felt it was essential for your kitchen appliances to be able to talk to the internet, then put them all on a separate network segment, and tightly constrain their privileges.
 
+By segmenting a network, it creates a point of indirection that the attacker has to attempt to navigate passage through. Depending on how the gateway is configured, depends how difficult and time consuming it is to traverse.
+
+Network segmentation has the potential to limit damage to the specific segment affected.
+
+PCI-DSS provide guidance on why and how to reduce your compliance scope, much of this comes down to segmenting all card holder data from the rest of the network.
+
+I spoke a little about host firewalls in the VPS chapter. In regards to network firewalls, they play an important role in allowing (white listing) only certain hosts, network segments, ports, protocols, etc into any given gateways network interface.
+
+Logging, alerting, IDS/IPS play an important part in monitoring, providing visibility and even preventing some network attacks. They were discussed in the context of hosts in the VPS chapter and similarly apply to networking, we will address these in the next section. 
 
 **Component Placement**
 
-_Todo_
+Some examples of how and where you could/should place components:
+
+Servers that need to serve the World Wide Web, should be on a demilitarisation zone (DMZ). Your organisations corporate LAN should only have network access to the DMZ in order to perform administrative activities at the most, SSH and possibly port 443. It is also a good idea to define which host IP addresses should be allowed traversal from the LAN gateway interface. In some cases even network access is locked down and physical access is the only way to access DMZ resources. The DMZ gateway interface should have rules to only allow what is necessary to another network segment as discussed briefly in the [VPS chapter](#vps-countermeasures-preparation-for-dmz), for example:
+
+* To data-stores if necessary
+* For [system updates](#vps-countermeasures-using-components-with-known-vulnerabilities)
+* DNS if necessary. Also review the sections on DNS spoofing and Data Exfiltration leveraging DNS later in this chapter
+* To a syslog server, [as discussed](#network-countermeasures-lack-of-visibility-insufficient-logging) later in this chapter and also in the [VPS chapter](#vps-countermeasures-lack-of-visibility-logging-and-alerting)
+* Access to [time server](#network-countermeasures-fortress-mentality-insufficient-logging-ntp) (NTP)
 
 Consider putting resources like data-stores in a secluded segment. VLAN or physical, but isolate them as much as possible.
-https://www.owasp.org/index.php/Configuration#Database_security
-Also consider using Linux containers, thus providing more isolation, making compromise just a little more time consuming.
 
+Also consider using [Docker containers](#vps-countermeasures-docker) also provide some free isolation.
 
 ### Lack of Visibility
 
@@ -680,10 +698,6 @@ It is a good idea to have both Host and Network IDS/IPS in place at a minimum. I
 %% Maybe setup snort on raouter and detail it.
 %% BSidesLV IDS talk https://www.youtube.com/watch?v=iHRwAg8LQtI&feature=youtu.be
 
-#### DNS Exfiltration, Infiltration
-
-_Todo_
-
 ### Spoofing {#network-countermeasures-spoofing}
 
 _Todo_
@@ -766,6 +780,10 @@ TLS works at the transport & session layer as opposed to S/MIME at the Applicati
 
 There is nothing to stop someone cloning and hosting a website. The vital part to getting someone to visit an attackers illegitimate website is to either social engineer them to visit it, or just clone a website that you know they are likely to visit. An Intranet at your work place for example. Then you will need to carry out ARP and/or DNS spoofing. Again
 tools such as free and open source [ArpON (ARP handler inspection)](http://arpon.sourceforge.net/) cover website spoofing and a lot more.
+
+### Data Exfiltration, Infiltration leveraging DNS
+
+_Todo_
 
 ### Doppelganger Domains {#network-countermeasures-doppelganger-domains}
 
@@ -1016,7 +1034,7 @@ _Todo_
 
 Discuss egrees and other configurations that are often neglected.
 
-
+%% Mention that we touched on Routing Firewalls in the Lack of Segmentation section, and that there is a distinct difference between the functions of a router and a firewall
 
 
 ### Wire Inspecting {#network-countermeasures-wire-inspecting}
@@ -1051,7 +1069,11 @@ All of the technical solutions are costly, but they are only part of the solutio
 
 ### Lack of Segmentation
 
-_Todo_
+If you make it harder for a determined attacker to compromise your network resources, they may change tack to exploiting your people or what ever is now easier. When you lift the low hanging fruit, then some other fruit becomes the low hanging. 
+
+By fire-walling your network segments gateway interface and having to think about everything that should be permitted safe passage out of the given network segment imposes restrictions. I often find people expecting to be able to access something via the network segments gateway interface but unable to because it has not been explicitly allowed.
+
+Applications exist that continue to target random ports to be able to function, the real-time chat application Discord is one of those. These can be a real pain for keeping a tight gateway interface if the application is mandatory to use.
 
 ### Lack of Visibility
 
@@ -1062,10 +1084,6 @@ _Todo_
 _Todo_
 
 #### Lack of Network Intrusion Detection Systems (NIDS)
-
-_Todo_
-
-#### DNS Exfiltration, Infiltration
 
 _Todo_
 
@@ -1094,6 +1112,10 @@ _Todo_
 _Todo_
 
 #### Website
+
+_Todo_
+
+### Data Exfiltration, Infiltration leveraging DNS
 
 _Todo_
 
@@ -1179,7 +1201,11 @@ Your people will be your weakest or your strongest line of defence, it is up to 
 
 ### Lack of Segmentation
 
-_Todo_
+Depending on your scenario, threat model and determine what the next lowest hanging fruit is and harden or remove that attack surface and just keep working your way up the tree.
+
+If you can explain why you have tight egress rules, people will usually be accepting.
+
+If you are constrained to use software that insists on changing what port it wants to communicate on, discuss this along with the perils of leaving large port spaces open with those mandating the tool. If you can not have the tool configured to communicate on a specific port and you do not get any traction with changing the tool, at least lock the outbound port space down to specific hosts and protocols.
 
 ### Lack of Visibility
 
@@ -1190,10 +1216,6 @@ _Todo_
 _Todo_
 
 #### Lack of Network Intrusion Detection Systems (NIDS)
-
-_Todo_
-
-#### DNS Exfiltration, Infiltration
 
 _Todo_
 
@@ -1222,6 +1244,10 @@ _Todo_
 _Todo_
 
 #### Website
+
+_Todo_
+
+### Data Exfiltration, Infiltration leveraging DNS
 
 _Todo_
 

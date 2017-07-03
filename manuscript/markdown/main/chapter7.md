@@ -4942,7 +4942,7 @@ The Secure Developer podcast with Guy Podjarny interviewing Ben Bernstein (CEO a
 
 Also be sure to check the [Additional Resources](#additional-resources-vps-countermeasures-docker) chapter for many excellent resources I collected along the way on Docker security.
 
-### Using Components with Known Vulnerabilities
+### Using Components with Known Vulnerabilities {#vps-countermeasures-using-components-with-known-vulnerabilities}
 ![](images/ThreatTags/PreventionEASY.png)
 
 Just do not do this. Either stay disciplined and upgrade your servers manually or automate it. Start out the way you intend to go. Work out your strategy for keeping your system(s) up to date and patched. There are many options here. If you go auto, make sure you test on a staging environment before upgrading live.
@@ -4957,7 +4957,7 @@ Make sure all your data and VM images are backed up routinely. Make sure you tes
 
 This is one of the last things you should look at. In fact, it is not really needed if you have taken the time to remove unnecessary services and harden what is left. If you use a host firewall keep your set of rules to a minimum to reduce confusion and increase legibility. Maintain both ingress & egress.
 
-### Preparation for DMZ
+### Preparation for DMZ {#vps-countermeasures-preparation-for-dmz}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
 The following is a final type of check-list that I like to use before opening a hardened web server to the world. You will probably have additional items you can add.

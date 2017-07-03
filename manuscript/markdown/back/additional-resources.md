@@ -269,6 +269,15 @@ ent-2017-c82ec9136a3d#.f6yba66ti
 
 ## [Network](#network)
 
+%% Lack of Segmentation Identify Risks
+
+**Top 10 Network Security Mistakes - #5: Lack of Segmentation**  
+[https://www.optiv.com/blog/top-10-network-security-mistakes-5-lack-of-segmentation](https://www.optiv.com/blog/top-10-network-security-mistakes-5-lack-of-segmentation)
+
+**Database security**  
+[https://www.owasp.org/index.php/Configuration#Database_security](https://www.owasp.org/index.php/Configuration#Database_security)
+
+%% End Lack of Segmentation Identify Risks
 
 {#additional-resources-network-insufficient-logging-internal-network-system-logging}
 **Insufficient Logging - Internal Network System Logging**  

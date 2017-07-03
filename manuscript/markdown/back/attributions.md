@@ -991,6 +991,14 @@ harden-surveillance for monitoring your network
 
 
 %% End Fortress Mentality Identify Risks
+
+%% Lack of Segmentation Identify Risks
+
+**Being commandeered by attackers to do their bidding**  
+[http://www.mirror.co.uk/news/technology-science/technology/hackers-use-fridge-send-spam-3046733#](http://www.mirror.co.uk/news/technology-science/technology/hackers-use-fridge-send-spam-3046733#)
+
+%% End Lack of Segmentation Identify Risks
+
 %% TLS Downgrade Identify Risks
 
 **An excellent resource** for some of the prominent websites in New Zealand  
