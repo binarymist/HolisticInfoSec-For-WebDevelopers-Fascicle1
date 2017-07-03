@@ -98,13 +98,13 @@ Often workers bring their own devices to work, and bring their work devices home
 
 ### Lack of Segmentation {#network-identify-risks-lack-of-segmentation}
 
-Similar to the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section in the VPS chapter, here we focus on the same concept but at the network layer.
+Similar to the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section in the VPS chapter, here we focus on the same concept but at the network layer.
 
 Network segmentation is the act of splitting a network of computers that share network resources into multiple sub networks, whether it be real via routers, layer three switches, or virtual via VLANs.
 
 Without segmentation, attackers once on the network have direct access to the resources on that network.
 
-Having all or many resources of different trust boundaries on a monolithic network does nothing to constrain attackers or the transfer of malware. When we talk about trust boundaries we're talking about a configured firewall rather than just a router. A router routes, a firewall should deny or drop everything other than what you specify. That is right, it requires some thought of what should be allowed to enter the gateway interface and how it is then treated.
+Having all or many resources from different trust boundaries on a monolithic network does nothing to constrain attackers or the transfer of malware. When we talk about trust boundaries we are talking about a configured firewall rather than just a router. A router routes, a firewall should deny or drop everything other than what you specify. That is right, it requires some thought of what should be allowed to enter the gateway interface and how it is then treated.
 
 A good example of lack of segmentation is what is currently happening with the explosion of IoT devices. Why would your house-hold appliances need to be on the internet other than to perform unnecessary tasks, like a fridge ordering food, or an oven being able to tell you when your dinner is cooked, or worse, providing functionality to turn the appliance on and off, or worse still, being [commandeered by attackers](http://www.mirror.co.uk/news/technology-science/technology/hackers-use-fridge-send-spam-3046733#) to do their bidding which is quite common now for home appliances that have next to no consciousness of security. Even if these functions were considered important enough to reveal open sockets from your home to the internet, surely it would be much safer to have these devices on a network segment with the least of privileges available, tight egress filtering, encrypted communications, and someone that knows how to configure the firewall rules on the segments gateway.
 
@@ -494,7 +494,7 @@ By segmenting a network, it creates a point of indirection that the attacker has
 
 Network segmentation has the potential to limit damage to the specific segment affected.
 
-PCI-DSS provide guidance on why and how to reduce your compliance scope, much of this comes down to segmenting all card holder data from the rest of the network.
+PCI-DSS provides guidance on why and how to reduce your compliance scope, much of this comes down to segmenting all card holder data from the rest of the network.
 
 I spoke a little about host firewalls in the VPS chapter. In regards to network firewalls, they play an important role in allowing (white listing) only certain hosts, network segments, ports, protocols, etc into any given gateways network interface.
 
@@ -514,7 +514,7 @@ Servers that need to serve the World Wide Web, should be on a demilitarisation z
 
 Consider putting resources like data-stores in a secluded segment. VLAN or physical, but isolate them as much as possible.
 
-Also consider using [Docker containers](#vps-countermeasures-docker) also provide some free isolation.
+Also consider using [Docker containers](#vps-countermeasures-docker) which provide some free isolation.
 
 ### Lack of Visibility
 
