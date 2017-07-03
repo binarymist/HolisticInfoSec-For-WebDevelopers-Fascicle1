@@ -279,12 +279,21 @@ ent-2017-c82ec9136a3d#.f6yba66ti
 
 %% End Lack of Segmentation Identify Risks
 
+
+
 {#additional-resources-network-insufficient-logging-internal-network-system-logging}
 **Insufficient Logging - Internal Network System Logging**  
 These resources in order were helpful for establishing a strategy for the unreliable and unconfidental transport UDP  
 [https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/](https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/)  
 [https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/](https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/)  
 [https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog](https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog)
+
+%% Lack of Network Intrusion Detection Systems (NIDS) Countermeasures
+
+**BSidesLV IDS talk**  
+[https://www.youtube.com/watch?v=iHRwAg8LQtI&feature=youtu.be](https://www.youtube.com/watch?v=iHRwAg8LQtI&feature=youtu.be)
+
+%% End Lack of Network Intrusion Detection Systems (NIDS) Countermeasures
 
 **FakeDNS**  
 [https://github.com/Crypt0s/FakeDns](https://github.com/Crypt0s/FakeDns)

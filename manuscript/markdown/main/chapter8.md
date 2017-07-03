@@ -585,65 +585,65 @@ There are two NTP packages to disgus.
 2. **ntpd** or just ntp, is a daemon that continuously monitors and updates the system time with an upstream NTP server specified in the local systems  
 `/etc/ntp.conf`
 
-Setting up NTP
+**Setting up NTP**
 
 1. This is how it used to be done with ntpdate:  
-  
-  If you have ntpdate installed, `/etc/default/ntpdate` specifies that the list of NTP servers is taken from `/etc/ntp.conf` which does not exist without ntp being installed. It looks like this:
-
-  {title="/etc/default/ntpdate", linenos=off, lang=bash}
-      # Set to "yes" to take the server list from /etc/ntp.conf, from package ntp,
-      # so you only have to keep it in one place.
-      NTPDATE_USE_NTP_CONF=yes
-  
-  You would see that it also has a default `NTPSERVERS` variable set which is overridden if you add your time server to `/etc/ntp.conf`. If you entered the following and ntpdate is installed:
-  
-  {linenos=off, lang=bash}
-      dpkg-query -W -f='${Status} ${Version}\n' ntpdate
-  
-  You would receive output like:
-  
-  {linenos=off, lang=bash}
-      install ok installed 1:4.2.6.p5+dfsg-3
-  
+    
+    If you have ntpdate installed, `/etc/default/ntpdate` specifies that the list of NTP servers is taken from `/etc/ntp.conf` which does not exist without ntp being installed. It looks like this:  
+    
+    {title="/etc/default/ntpdate", linenos=off, lang=bash}
+        # Set to "yes" to take the server list from /etc/ntp.conf, from package ntp,
+        # so you only have to keep it in one place.
+        NTPDATE_USE_NTP_CONF=yes
+    
+    You would see that it also has a default `NTPSERVERS` variable set which is overridden if you add your time server to `/etc/ntp.conf`. If you entered the following and ntpdate is installed:  
+    
+    {linenos=off, lang=bash}
+        dpkg-query -W -f='${Status} ${Version}\n' ntpdate
+    
+    You would receive output like:  
+    
+    {linenos=off, lang=bash}
+        install ok installed 1:4.2.6.p5+dfsg-3
+    
 2. This is how it is done now with ntp:  
+    
+    If you enter the following and ntp is installed:
+    
+    {linenos=off, lang=bash}
+        dpkg-query -W -f='${Status} ${Version}\n' ntp
+    
+    You will receive output like:  
+    
+    {linenos=off, lang=bash}
+        install ok installed 1:4.2.8p4+dfsg-3
+    
+    Alternatively run this command for more information on the installed state:  
+    
+    {linenos=off, lang=bash}
+        dpkg-query -l '*ntp*'
+        # Will also tell you about ntpdate if it is installed.
+    
+    If ntp is not installed, install it with:  
+    
+    {linenos=off, lang=bash}
+        sudo apt-get install ntp
+    
+    You will find that there is no `/etc/default/ntpdate` file installed with ntp.  
+    
+    The public NTP server(s) can be added straight to the bottom of the `/etc/ntp.conf` file, but because we want to use our own NTP server, we add the IP address of our server that is configured with our NTP pools to the bottom of the file.  
+    
+    {title="/etc/ntp.conf", linenos=off}
+        server <IP address of your local NTP server here>
+    
+    Now if your NTP daemon is running on your router, hopefully you have everything blocked on its interface(s) by default and are using a white-list for egress filtering. In which case you will need to add a firewall rule to each interface of the router that you want NTP served up on. NTP talks over UDP and listens on port 123 by default. After any configuration changes to your `ntpd` make sure you restart it. On most routers this is done via the web UI.
+    
+    On the client (Linux) machines:  
+    
+    {linenos=off, lang=bash}
+        sudo service ntp restart
   
-  If you enter the following and ntp is installed:
-  
-  {linenos=off, lang=bash}
-      dpkg-query -W -f='${Status} ${Version}\n' ntp
-  
-  You will receive output like:
-  
-  {linenos=off, lang=bash}
-      install ok installed 1:4.2.8p4+dfsg-3
-  
-  Alternativly run this command for more information on the installed state:
-  
-  {linenos=off, lang=bash}
-     dpkg-query -l '*ntp*'
-     # Will also tell you about ntpdate if it is installed.
-  
-  If ntp is not installed, install it with:
-  
-  {linenos=off, lang=bash}
-      sudo apt-get install ntp
-  
-  You will find that there is no `/etc/default/ntpdate` file installed with ntp.
-  
-  The public NTP server(s) can be added straight to the bottom of the `/etc/ntp.conf` file, but because we want to use our own NTP server, we add the IP address of our server that is configured with our NTP pools to the bottom of the file.
-  
-  {title="/etc/ntp.conf", linenos=off}
-      server <IP address of your local NTP server here>
-  
-  Now if your NTP daemon is running on your router, hopefully you have everything blocked on its interface(s) by default and are using a white-list for egress filtering. In which case you will need to add a firewall rule to each interface of the router that you want NTP served up on. NTP talks over UDP and listens on port 123 by default. After any configuration changes to your `ntpd` make sure you restart it. On most routers this is done via the web UI.
-  
-  On the client (Linux) machines:
-  
-  {linenos=off, lang=bash}
-      sudo service ntp restart
-  
-  Now issuing the date command on your Linux machine will provide the current time with seconds.
+    Now issuing the date command on your Linux machine will provide the current time with seconds.
 
 **Trouble-shooting**
 
@@ -691,14 +691,13 @@ As HIDS, NIDS also operate with signatures.
 2. Port: "_Port signatures commonly probes for the connection setup attempts to well known, and frequently attacked ports. Obvious examples include telnet (TCP port 23), FTP (TCP port 21/20), SUNRPC (TCP/UDP port 111), and IMAP (TCP port 143). If these ports aren't being used by the site at a point in time, then the incoming packets directed to these ports are considered suspicious._"
 3. Header condition: "_Header signatures are designed to watch for dangerous or illegitimate combinations in packet headers fields. The most famous example is Winnuke, in which a packet's port field is NetBIOS port and one of the Urgent pointer, or Out Of Band pointer is set. In earlier version of Windows, this resulted in the "blue screen of death". Another well known such header signature is a TCP packet header in which both the SYN and FIN flags are set. This signifies that the requestor is attempting to start and stop a connection simultaneously._"
 
-Quotes from the excellent [Survey of Current Network Intrusion Detection Techniques](http://www1.cse.wustl.edu/~jain/cse571-07/ftp/ids/index.html)
+> Quotes from the excellent [Survey of Current Network Intrusion Detection Techniques](http://www1.cse.wustl.edu/~jain/cse571-07/ftp/ids/index.html)
 
 Some NIDS go further to not only detect but prevent. They are known as Network Intrusion Prevention Systems NIPS.
 
 It is a good idea to have both Host and Network IDS/IPS in place at a minimum. I personally like to have more than one tool doing the same job but with different areas of strength covering the weaker areas of its sibling. An example of this is with HIDS. Having one HIDS on the system it is protecting and another somewhere else on the network, or even on another network completely, looking into the host and performing its checks. This makes discoverability difficult for an attacker.
 
 %% Maybe setup snort on router and detail it.
-%% BSidesLV IDS talk https://www.youtube.com/watch?v=iHRwAg8LQtI&feature=youtu.be
 
 ### Spoofing {#network-countermeasures-spoofing}
 
