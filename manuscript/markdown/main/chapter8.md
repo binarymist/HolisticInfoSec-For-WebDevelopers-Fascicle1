@@ -585,6 +585,8 @@ There are two NTP packages to disgus.
 2. **ntpd** or just ntp, is a daemon that continuously monitors and updates the system time with an upstream NTP server specified in the local systems  
 `/etc/ntp.conf`
 
+Setting up NTP
+
 1. This is how it used to be done with ntpdate:  
   
   If you have ntpdate installed, `/etc/default/ntpdate` specifies that the list of NTP servers is taken from `/etc/ntp.conf` which does not exist without ntp being installed. It looks like this:
