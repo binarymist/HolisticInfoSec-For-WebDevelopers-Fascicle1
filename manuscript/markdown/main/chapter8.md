@@ -110,7 +110,17 @@ A good example of lack of segmentation is what is currently happening with the e
 
 ### Lack of Visibility
 
-_Todo_
+%% Start here ...................................................
+
+
+
+
+
+
+
+
+
+
 
 Check the Lack of Visibility from VPS chapter, there will be some cross over.
 
@@ -517,6 +527,17 @@ Consider putting resources like data-stores in a secluded segment. VLAN or physi
 Also consider using [Docker containers](#vps-countermeasures-docker) which provide some free isolation.
 
 ### Lack of Visibility
+
+
+
+
+
+
+
+
+
+
+
 
 _Todo_ Add Security Onion Linux distro as an IDS, Network Security Monitoring (NSM) and log management.
 
