@@ -279,7 +279,7 @@ ent-2017-c82ec9136a3d#.f6yba66ti
 
 %% End Lack of Segmentation Identify Risks
 
-
+%% Insufficient Logging Countermeasures
 
 {#additional-resources-network-insufficient-logging-internal-network-system-logging}
 **Insufficient Logging - Internal Network System Logging**  
@@ -287,6 +287,11 @@ These resources in order were helpful for establishing a strategy for the unreli
 [https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/](https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/)  
 [https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/](https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/)  
 [https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog](https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog)
+
+**The ELK stack** is also well worth considering  
+[https://logz.io/blog/install-elk-stack-amazon-aws/](https://logz.io/blog/install-elk-stack-amazon-aws/)
+
+%% End Insufficient Logging Countermeasures
 
 %% Lack of Network Intrusion Detection Systems (NIDS) Countermeasures
 

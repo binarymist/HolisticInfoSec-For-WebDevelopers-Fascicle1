@@ -10,6 +10,7 @@ Here are some possibilities to get you started:
 * Switches: Mainly because of the data that passes through them.
 * Routers and layer 3 switches: Same as above, plus there will be a lot of sensitive network related information stored here.
 * Syslog servers: For similar reasons to routers, plus events and sensitive information from all sorts of systems collected in one place.
+* Visibility into what is actually happening in the communications between devices on your network.
 
 There will almost certainly be many others. Think about your network topology. What information is stored where and over which channels it may pass. If you have decided to hand your precious data over to a Cloud Service Provider (CSP), then you are not going to have much control over this and in most cases, your CSP will not have as much control as you would like either, we address this in the [Cloud](#cloud) chapter. Also think about the areas that may be easier to compromise than others and take this information into the next step.
 
@@ -110,29 +111,15 @@ A good example of lack of segmentation is what is currently happening with the e
 
 ### Lack of Visibility
 
-%% Start here ...................................................
-
-
-
-
-
-
-
-
-
-
-
-Check the Lack of Visibility from VPS chapter, there will be some cross over.
+Check the [Lack of Visibility](#vps-identify-risks-lack-of-visibility) from the VPS chapter, there will be some cross over. If you do not have visibility of what is being communicated in your protocol stack, then the network protocols are open to being exploited. [Data Exfiltration leveraging DNS](#network-identify-risks-data-exfiltration-infiltration-leveraging-dns) is one example of this. If you are unable to detect potential attacks on the network, before they occur, then the actual network components will be exploited.
 
 #### Insufficient Logging
 
-_Todo_
+Similar to the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section in the VPS chapter, if you do not have a real-time logging system that sends your events of each network appliance off-site, encrypted, and is able to correlate, aggregate and even graph, you will have a lack of visibility as to what is actually happening on your network.
 
 #### Lack of Network Intrusion Detection Systems (NIDS)
 
-_Todo_
-
-
+Intrusion Detection Systems play a big part in detecting and preventing the target from being exploited, they are another crucial component in your defence strategy.
 
 ### Spoofing {#network-identify-risks-spoofing}
 
@@ -370,7 +357,7 @@ G>
 G> `run bypassuac`  
 G> Now that is successful, but AV detects bad signatures on some of the root-kits. On this shell I only got the privileges of the target running the browser exploit.
 
-### Data Exfiltration, Infiltration leveraging DNS
+### Data Exfiltration, Infiltration leveraging DNS {#network-identify-risks-data-exfiltration-infiltration-leveraging-dns}
 
 _Todo_
 
