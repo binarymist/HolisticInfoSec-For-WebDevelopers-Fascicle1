@@ -685,7 +685,7 @@ Now check all the times are in sync with the `date` command.
 #### Lack of Network Intrusion Detection Systems (NIDS) {#network-countermeasures-lack-of-visibility-nids}
 Similar to [HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) but acting as a network spy with its network interface (NIC) in promiscuous mode, capturing all traffic crossing the specific network segment that the NIDS is on, ideally before (preventative) it reaches its target. NIDS are usually positioned strategically between a potential attack source and target.
 
-NIDS can be installed into many existing network devices, such as routers, network firewalls, switches, or come out of the box as stand-alone hardware, not consuming any existing hosts resources. HIDS are reactive, as in the attack has to have already occurred in order to be detected. Where as NIDS/NIPS can analyse the network packets before they reach their target, ideally mitigating the attack. All security is a combination of detection, prevention and response. We need to realise that any single one of these is not enough, but all three are required to achieve defence in depth.
+NIDS can be installed into many existing network devices, such as routers, network firewalls, switches, or come out of the box as stand-alone hardware, not consuming any existing hosts resources. HIDS are in most cases reactive, as in the attack has to have already occurred in order to be detected. Where as NIDS/NIPS can analyse the network packets before they reach their target, ideally mitigating the attack. All security is a combination of detection, prevention and response. We need to realise that any single one of these is not enough, but all three are required to achieve defence in depth.
 
 **NIDS can operate with Signatures**:
 
@@ -697,9 +697,9 @@ NIDS can be installed into many existing network devices, such as routers, netwo
 
 **NIDS can operate with [Anomalies](http://www1.cse.wustl.edu/~jain/cse571-07/ftp/ids/index.html#sec4)**:
 
-With anomaly detection, a known good state must be established and recorded before the system is able to detect changes to that good state. Similarly to file integrity checkers such as [Stealth](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth), the system needs to know what a good state looks like before that good state can be protected. This initial recording of the good state can take time and requires normal operating network traffic without any malicious activity, similar to how we discussed the [preparation for DMZ](Preparation for DMZ {#vps-countermeasures-preparation-for-dmz}) in the VPS chapter.
+With anomaly detection, a known good state must be established and recorded before the system is able to detect changes to that good state. Similarly to file integrity checkers such as [Stealth](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth), the system needs to know what a good state looks like before that good state can be protected. This initial recording of the good state can take time and requires normal operating network traffic without any malicious activity, similar to how we discussed the [preparation for DMZ](#vps-countermeasures-preparation-for-dmz) in the VPS chapter.
 
-Signature-based pros:
+**Signature-based pros**:
 
 * Off the shelf patterns can be used to match against
 * No learning period for the NIDS required
@@ -707,35 +707,35 @@ Signature-based pros:
 * Less false positives
 * Easier to set-up/configure
 
-Signature-based cons:
+**Signature-based cons**:
 
 * Fails when it comes to zero-day attacks, until the signatures have been provided by analysts
 * Often do not stand up well to sophisticated new attacks
 
-Anomaly-based pros:
+**Anomaly-based pros**:
 
 * The system can continue to learn and be taught what new attacks look like. Thus the system can grow with your needs
 * Does not need existing patterns as signature-based does
 * Can react immediately to zero-day attacks because they do not fit the normal known good state
-* Stand a much better chance and standing up to sophisticated new attacks
+* Stand a much better chance at standing up to sophisticated new attacks
 * Effective at establishing good known state for each protocol stack
 
-Anomaly-based cons:
+**Anomaly-based cons**:
 
 * A learning period is required for the NIDS to establish a good known state of normal non-malicious traffic
 * More false positives
 * Can be harder to set-up/configure
 
-Ideally set-up NIDS that uses both signature and anomaly based detection.
+Ideally you will set-up NIDS that uses both signature and anomaly based detection.
 
 It is a good idea to have both Host and Network IDS/IPS in place at a minimum. I personally like to have more than one tool doing the same job but with different areas of strength covering the weaker areas of its sibling. An example of this is with HIDS. Having one HIDS on the system it is protecting and another somewhere else on the network, or even on another network completely, looking into the host and performing its checks. This makes discoverability difficult for an attacker.
 
 **Some excellent free and open Enterprise grade NIDS**
 
 * [Snort](https://www.snort.org/) is the leader in free and open source NIDS, mature with a strong community, Snort can be seen used in many different scenarios. Written in C, and version 3 which is supposed to be multi-threaded is still [in its third alpha](http://blog.snort.org/2014/12/introducing-snort-30.html). Covering both signature and anomaly-based techniques. I've personally used Snort and found it a joy to work with
-* [Bro](https://www.bro.org/) uses its own domain specific language (DSL), uses anomaly-based detection techniques and is often used in conjunction with Snort, they complement each other well. Bro has many protocol analysers and is also often used for forensics
-* [Suricata](https://suricata-ids.org/) is a direct competitor with Snort, is written in C, multi-threaded and supposed to be faster, but possibly only noticed once throughput of 1 Gbps speeds are [well exceeded](https://forum.pfsense.org/index.php?topic=83548.0). SANS produced an [Open Source IDS Performance Shootout](https://www.sans.org/reading-room/whitepapers/intrusion/open-source-ids-high-performance-shootout-35772) document worth reading if performance is an issue for you
-* [Security Onion](https://securityonion.net/) is an Ubuntu based distribution containing intrusion detection, network security monitoring, and log management tools. Containing tools such as: OSSEC, Snort, Suricata, Bro, netsniff-ng, Sguil, ELSA, Xplico, NetworkMiner, and many others. This allows you to set-up a free and open source enterprise grade network security appliance
+* [Bro](https://www.bro.org/) uses its own domain specific language (DSL), uses anomaly-based detection techniques and is often used in conjunction with Snort, they complement each other well. Bro has many protocol analysers and is also often used for forensic analysis
+* [Suricata](https://suricata-ids.org/) is a direct competitor with Snort, is written in C, multi-threaded and supposed to be faster, but possibly only noticed once throughput of 1 Gbps speeds are [well exceeded](https://forum.pfsense.org/index.php?topic=83548.0). SANS produced an [Open Source IDS Performance Shootout](https://www.sans.org/reading-room/whitepapers/intrusion/open-source-ids-high-performance-shootout-35772) document worth reading if performance is an issue for you. Suricata can be thought of as the next generation Snort
+* [Security Onion](https://securityonion.net/) is an Ubuntu based distribution containing intrusion detection, network security monitoring, and log management tools, such as: OSSEC, Snort, Suricata, Bro, netsniff-ng, Sguil, ELSA, Xplico, NetworkMiner, and many others. This allows you to set-up a free and open source enterprise grade network security appliance
 
 %% https://securityonion.net/#about
 %% https://github.com/Security-Onion-Solutions/security-onion/wiki/IntroductionToSecurityOnion
