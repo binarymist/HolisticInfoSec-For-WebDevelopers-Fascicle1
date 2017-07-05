@@ -293,10 +293,20 @@ These resources in order were helpful for establishing a strategy for the unreli
 **BSidesLV IDS talk**  
 [https://www.youtube.com/watch?v=iHRwAg8LQtI&feature=youtu.be](https://www.youtube.com/watch?v=iHRwAg8LQtI&feature=youtu.be)
 
+**Top Free Network-Based Intrusion Detection Systems (IDS) for the Enterprise**  
+[https://www.upguard.com/articles/top-free-network-based-intrusion-detection-systems-ids-for-the-enterprise](https://www.upguard.com/articles/top-free-network-based-intrusion-detection-systems-ids-for-the-enterprise)
+
+**Suricata-vs-snort**  
+[https://www.aldeid.com/wiki/Suricata-vs-snort](https://www.aldeid.com/wiki/Suricata-vs-snort)
+
+
+
+
 %% End Lack of Network Intrusion Detection Systems (NIDS) Countermeasures
 
 **FakeDNS**  
 [https://github.com/Crypt0s/FakeDns](https://github.com/Crypt0s/FakeDns)
+
 
 
 ## [Cloud](#cloud)

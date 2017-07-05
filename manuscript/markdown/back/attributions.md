@@ -1042,12 +1042,24 @@ http://www.syslog.org/forum/profile/?area=showposts;u=29
 **See the NTP parameters**  
 [http://www.iana.org/assignments/ntp-parameters/ntp-parameters.xhtml](http://www.iana.org/assignments/ntp-parameters/ntp-parameters.xhtml)
 
+%% Lack of Network Intrusion Detection Systems (NIDS) Countermeasures
 
+**Survey of Current Network Intrusion Detection Techniques**  
+[http://www1.cse.wustl.edu/~jain/cse571-07/ftp/ids/index.html](http://www1.cse.wustl.edu/~jain/cse571-07/ftp/ids/index.html)
 
+**NIDS can operate with Anomalies**  
+[http://www1.cse.wustl.edu/~jain/cse571-07/ftp/ids/index.html#sec4](http://www1.cse.wustl.edu/~jain/cse571-07/ftp/ids/index.html#sec4)
 
+**Snort can be seen used in many different scenarios**. Written in C, and version 3 which is supposed to be multi-threaded is still in its third alpha  
+[http://blog.snort.org/2014/12/introducing-snort-30.html](http://blog.snort.org/2014/12/introducing-snort-30.html)
 
+**1 Gbps speeds are well exceeded**  
+[https://forum.pfsense.org/index.php?topic=83548.0](https://forum.pfsense.org/index.php?topic=83548.0)
 
+**SANS produced an Open Source IDS Performance Shootout document**  
+[https://www.sans.org/reading-room/whitepapers/intrusion/open-source-ids-high-performance-shootout-35772](https://www.sans.org/reading-room/whitepapers/intrusion/open-source-ids-high-performance-shootout-35772)
 
+%% End Lack of Network Intrusion Detection Systems (NIDS) Countermeasures
 
 **If the victims SMTP server does not perform reverse lookups on the hostname**, an email `from` and `reply-to` fields can be successfully spoofed.  
 [http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/](http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/)

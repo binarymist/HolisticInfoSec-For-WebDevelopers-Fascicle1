@@ -839,6 +839,8 @@ _Todo_
 Purchase as many doppelganger domains related to your own domain as makes sense and that you can afford.  
 Do what the attacker does on your internal DNS server.
 
+%% Check Peter Kim in the attributions.
+
 #### Web-sites {#network-countermeasures-doppelganger-domains-websites}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
