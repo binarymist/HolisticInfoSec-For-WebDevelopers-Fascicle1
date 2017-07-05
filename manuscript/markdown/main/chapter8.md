@@ -115,11 +115,11 @@ Check the [Lack of Visibility](#vps-identify-risks-lack-of-visibility) from the 
 
 #### Insufficient Logging
 
-Similar to the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section in the VPS chapter, if you do not have a real-time logging system that sends your events of each network appliance off-site, encrypted, and is able to correlate, aggregate and even graph, you will have a lack of visibility as to what is actually happening on your network.
+Similar to the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section in the VPS chapter, if you do not have a real-time logging system that sends your events of each network appliance off-site, encrypted, and is able to correlate, aggregate and even [graph](#web-applications-countermeasures-lack-of-visibility-insufficient-Monitoring-statistics-graphing), you will have a lack of visibility as to what is actually happening on your network.
 
 #### Lack of Network Intrusion Detection Systems (NIDS)
 
-Intrusion Detection Systems play a big part in detecting and preventing the target from being exploited, they are another crucial component in your defence strategy.
+[Intrusion Detection Systems](#network-countermeasures-lack-of-visibility-nids) play a big part in detecting and preventing the target from being exploited, they are another crucial component in your defence strategy.
 
 ### Spoofing {#network-identify-risks-spoofing}
 
