@@ -304,10 +304,14 @@ These resources in order were helpful for establishing a strategy for the unreli
 **Suricata-vs-snort**  
 [https://www.aldeid.com/wiki/Suricata-vs-snort](https://www.aldeid.com/wiki/Suricata-vs-snort)
 
-
-
-
 %% End Lack of Network Intrusion Detection Systems (NIDS) Countermeasures
+
+%% Spoofing IP Countermeasures
+
+**Defense and mitigate ARP Spoofing**  
+[http://www.jaringankita.com/blog/defense-arp-spoofing](http://www.jaringankita.com/blog/defense-arp-spoofing)
+
+%% Spoofing IP Countermeasures
 
 **FakeDNS**  
 [https://github.com/Crypt0s/FakeDns](https://github.com/Crypt0s/FakeDns)

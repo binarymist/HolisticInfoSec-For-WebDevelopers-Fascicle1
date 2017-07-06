@@ -999,6 +999,13 @@ harden-surveillance for monitoring your network
 
 %% End Lack of Segmentation Identify Risks
 
+%% Spoofing EMail Address Identify Risks
+
+**There are also on-line services** that allow the sending of email and specifying any from address  
+[http://www.anonymailer.net/](http://www.anonymailer.net/)
+
+%% End Spoofing EMail Address Identify Risks
+
 %% TLS Downgrade Identify Risks
 
 **An excellent resource** for some of the prominent websites in New Zealand  
@@ -1061,8 +1068,22 @@ http://www.syslog.org/forum/profile/?area=showposts;u=29
 
 %% End Lack of Network Intrusion Detection Systems (NIDS) Countermeasures
 
+%% Spoofing Referrer Countermesaures
+
+**Check the OWASP Failure to Restrict URL Access** for countermeasures  
+[https://www.owasp.org/index.php/Top_10_2007-Failure_to_Restrict_URL_Access](https://www.owasp.org/index.php/Top_10_2007-Failure_to_Restrict_URL_Access)
+
+**Guide to authorisation**  
+[https://www.owasp.org/index.php/Guide_to_Authorization](https://www.owasp.org/index.php/Guide_to_Authorization)
+
+%% End Spoofing Referrer Countermesaures
+
+%% Spoofing EMail Address Countermeasures
+
 **If the victims SMTP server does not perform reverse lookups on the hostname**, an email `from` and `reply-to` fields can be successfully spoofed.  
 [http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/](http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/)
+
+%% End Spoofing EMail Address Countermeasures
 
 **Doppelganger Domains** An old trick brought back to light by Peter Kim's research  
 [http://www.wired.com/2011/09/doppelganger-domains/](http://www.wired.com/2011/09/doppelganger-domains/)  

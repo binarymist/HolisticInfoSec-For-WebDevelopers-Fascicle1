@@ -123,9 +123,9 @@ Similar to the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-lo
 
 ### Spoofing {#network-identify-risks-spoofing}
 
-Spoofing on a network is the act of an entity (often malicious(Mallory), [but not necessarily](http://blog.binarymist.net/2015/04/25/web-server-log-management/#mitm)) successfully masquerading/impersonating another (Bob) in order to receive information from Alice (sometimes via Eve) that should then reach Bob.
+Spoofing on a network is the act of an entity (often malicious (Mallory), [but not necessarily](http://blog.binarymist.net/2015/04/25/web-server-log-management/#mitm)) successfully masquerading/impersonating another (Bob) in order to receive information from Alice (sometimes via Eve) that should then reach Bob.
 
-The following are some of the different types of network spoofing 
+The following are some of the different types of network spoofing.
 
 #### [IP](http://en.wikipedia.org/wiki/IP_address_spoofing) {#network-identify-risks-spoofing-ip}
 ![](images/ThreatTags/easy-common-average-severe.png)
@@ -136,7 +136,7 @@ Remember we did something similar to this under the "Concealing NMap Source IP A
 
 This is where a sending node will spoof its public IP address (not actually change its IP address) (by forging the header) to look like someone else's. When the message is received and a reply crafted, the entity creating the reply will look up its ARP table and send the reply to the impersonated entity because the MAC address is still associated with the IP address of the message it received. This sort of play is commonly used in Denial of Service (DoS) attacks, because the attacker does not need or want the response.
 
-In a Distributed DoS (D-DoS) Often the attacker will impersonate the target (often a router or some server it want to be brought to its knees) and broadcast messages. The nodes that receive these messages consult their ARP tables looking up the spoofed IP address and find the targets associated MAC address and reply to it. This way the replies will be sourced from many nodes. Thus swamping the targets network interface.  
+In a Distributed DoS (D-DoS) Often the attacker will impersonate the target (often a router or some server it wants to be brought to its knees) and broadcast messages. The nodes that receive these messages consult their ARP tables looking up the spoofed IP address and find the targets associated MAC address and reply to it. This way the replies will be sourced from many nodes. Thus swamping the targets network interface.  
 Many load testing tools also use this technique to stress a server or application.
 
 #### ARP (Address Resolution Protocol) {#network-identify-risks-spoofing-arp}
@@ -150,8 +150,7 @@ The attack is often used as a component of larger attacks, harvesting credential
 
 There is a complete cloning example of a website, ARP spoof, DNS spoof and hands on hack, in the [website section below](#network-identify-risks-spoofing-website).
 
-* [MItM with ARP spoofing](http://blog.binarymist.net/2015/04/25/web-server-log-management/#mitm)
-* [With TLS](http://frishit.com/tag/ettercap/)
+Remember we set-up [MItM with ARP spoofing](#confirm-that-our-logs-are-commuting-over-tls) in the VPS chapter to confirm that our logs were in-fact encrypted in transit? Also checkout the MItM With TLS [http://frishit.com/tag/ettercap/](http://frishit.com/tag/ettercap/)
 
 #### DNS {#network-identify-risks-spoofing-dns}
 ![](images/ThreatTags/difficult-uncommon-average-severe.png)
@@ -160,17 +159,19 @@ Affects any domain name lookup. That includes email.
 This type of attack could allow an intermediary to intercept and read all company emails for example. Completely destroying any competitive advantage. The victim may never know it is happened.  
 DNS spoofing refers to an end goal rather than a specific type of attack. There are many ways to spoof a name server.
 
-* Compromise the name server itself potentially through it is own vulnerabilities ([Kaminsky bug](http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-1447) for example)
+* Compromise the name server itself potentially through its own vulnerabilities ([Kaminsky bug](http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-1447) for example)
 * Poison the cache of the name server
 * Poison the cache of an upstream name server and wait for the downstream propagation
 * MItM attack. A good example of this is:
   * cloning a website you hope your victim will visit
   * offering a free Wi-Fi hot-spot attached to your gateway with DNS server provided.
- Your DNS server provides your cloned website IP address. You may still have to deal with X.509 certificates though, unless the website enforces TLS across the entire site, which is definitely my recommendation. If not, and the potential victim already has the websites certificate they are wanting to visit in their browser, then you will have to hope your victim will click through the warning or work out a TLS downgrade which is going to be harder.
+ Your DNS server provides your cloned website IP address. You may still have to deal with X.509 certificates though, unless the website enforces TLS across the entire site, which is definitely my recommendation. If not, and the potential victim already has the websites certificate they are wanting to visit in their browser, then you will have to hope your victim will click through the warning or work out a [TLS downgrade](#network-identify-risks-tls-downgrade) which is going to be harder.
 
 There is a complete cloning example of a website, ARP spoof, DNS spoof and hands on hack, in the [website section below](#network-identify-risks-spoofing-website)
 
-[dnschef](http://www.question-defense.com/2012/12/14/dnschef-backtrack-privilege-escalation-spoofing-attacks-network-spoofing-dnschef) is a flexible spoofing tool, also available in Kali Linux. Would be interesting to test on the likes of Arpon and Unbound.
+[dnschef](http://www.question-defense.com/2012/12/14/dnschef-backtrack-privilege-escalation-spoofing-attacks-network-spoofing-dnschef) is a flexible spoofing tool, also available in Kali Linux.
+
+%% Would be interesting to test on the likes of Arpon and Unbound.
 
 #### Referrer {#network-identify-risks-spoofing-referrer}
 ![](images/ThreatTags/easy-common-average-moderate.png)
@@ -179,10 +180,6 @@ This comes under the [OWASP Top 10 A7 Missing Function Level Access Control](htt
 
 Often websites will allow access to certain resources so long as the request was referred from a specific page defined by the `referer` header.  
 The referrer (spelled `referer`) field in HTTP requests can be intercepted and modified, so it is not a good idea to use it for authentication or authorisation. The Social Engineering Toolkit (SET) also exploits the `referer` header, as discussed in the hands on hack within the Spear Phishing section of Identify Risks in the People chapter of Fascicle 0.
-
-![](images/HandsOnHack.png)
-
-_Todo_
 
 #### EMail Address {#network-identify-risks-spoofing-email-address}
 ![](images/ThreatTags/easy-widespread-average-moderate.png)
@@ -339,7 +336,8 @@ G> Better update.
 G>
 G> Anti-virus (AV) says we are all safe. Must be all good.  
 G> A PowerShell exploit fails.  
-G>
+
+{icon=bomb}
 G> Here come the shells.  
 G> Interact with the first one:
 G> `sessions -i 1`
@@ -347,8 +345,7 @@ G>
 G> Attempt to elevate privileges:  
 G> `getsystem`  
 G> Does not work on this shell.
-
-{icon=bomb}
+G>
 G> Let us list the available meterpreter extensions to make sure we have `priv`.  
 G> `use -l`  
 G> and priv is in the list.  
@@ -738,14 +735,14 @@ It is a good idea to have both Host and Network IDS/IPS in place at a minimum. I
 
 ### Spoofing {#network-countermeasures-spoofing}
 
-_Todo_
+The following are a collection of mitigations for the types of network spoofing discussed.
 
 #### IP {#network-countermeasures-spoofing-ip}
 ![](images/ThreatTags/PreventionDIFFICULT.png)
 
 Filter incoming packets (ingress) that appear to come from an internal IP address at your perimeter.  
 Filter outgoing packets (egress) that appear to originate from an invalid local IP address.  
-Not relying on IP source address's for authentication (AKA trust relationships). I have seen this on quite a few occasions when I was younger and it did not feel right, but I could not put my finger on why? Now it is obvious.
+Not relying on IP source address's for authentication (AKA trust relationships). I have seen this on quite a few occasions as the sole form of authentication, this is just not good enough as the only means of authentication.
 
 #### ARP (Address Resolution Protocol) {#network-countermeasures-spoofing-arp}
 ![](images/ThreatTags/PreventionAVERAGE.png)
@@ -756,9 +753,7 @@ As ARP poisoning is quite noisy. The attacker continually sends [ARP packets](ht
 Tools such as free and open source [ArpON (ARP handler inspection)](http://arpon.sourceforge.net/) do the whole job plus a lot more.  
 There is also [ArpWatch](http://linux.die.net/man/8/arpwatch) and others.
 
-If you have a decent gateway device, you should be able to install and configure Arpwatch
-
-Thoughts on [mitigations](http://www.jaringankita.com/blog/defense-arp-spoofing)
+If you have a decent gateway device, you should be able to install and configure Arpwatch.
 
 #### DNS {#network-countermeasures-spoofing-dns}
 ![](images/ThreatTags/PreventionAVERAGE.png)
