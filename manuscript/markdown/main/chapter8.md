@@ -529,6 +529,8 @@ None of these are ideal, as UDP provides no reliable messaging and it is crucial
 
 **Steps with details**
 
+Here we discuss three steps. Each step has a selection of options. You could choose one option from each of the three steps.
+
 1. As per the PaperTrail set-up we performed in our test lab
 2.    
   * Create persistence of FreeNAS syslogs, as currently they are lost on shutdown because FreeNAS runs entirely in RAM
@@ -1115,15 +1117,15 @@ Applications exist that continue to target random ports to be able to function, 
 
 ### Lack of Visibility
 
-_Todo_
+The following are some of the risks that the mentioned solutions may cause.
 
 #### Insufficient Logging
 
-_Todo_
+With the test cases we set-up, there was no ideal solution, it would be a matter of choosing the options that worked the best for you, or finding something else that worked.
 
 #### Lack of Network Intrusion Detection Systems (NIDS)
 
-_Todo_
+As mentioned in the Countermeasures section, there are some pros and cons of signature vs anomaly based detection techniques. Choosing a tool-suite that uses both can help mitigate the risks discussed. You will also need to weigh up what each product offers in terms of features and how mature it is etc, and what the risks of each would be to your environment and business.
 
 ### Spoofing
 
@@ -1247,15 +1249,17 @@ If you are constrained to use software that insists on changing what port it wan
 
 ### Lack of Visibility
 
-_Todo_
+The following are some costs and trade-offs for lack of visibility. Your mileage may vary. As noted below, this is one area that moving your business to the cloud frees up a lot of work you would have to do otherwise.
 
 #### Insufficient Logging
 
-_Todo_
+Any of the options I detailed would take time to set-up, depending on the size of your network and considering what you are protecting will help you decide which of the options would work the best, or investigate some other options.
+
+This is one area that moving to the cloud makes sense, let your cloud provider take care of the infrastructure, and you make sure you have your configuration and application security water tight.
 
 #### Lack of Network Intrusion Detection Systems (NIDS)
 
-_Todo_
+Most of this should have been covered in the Countermeasures section
 
 ### Spoofing
 
