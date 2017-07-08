@@ -2999,8 +2999,7 @@ Socket Statistics (`ss`) (the better `netstat`) should also show the established
 
 By default papertrail accepts TCP over TLS (TLS encryption check-box on, Plain text check-box off) and UDP. So if your TLS is not set-up properly, your events will not be accepted by papertrail. This is how I confirmed this to be true:
 
-**Confirm that our Logs are Commuting over TLS**
-{#confirm-that-our-logs-are-commuting-over-tls}
+**Confirm that our Logs are Commuting over TLS** {#confirm-that-our-logs-are-commuting-over-tls}
 
 Now without installing anything on the web server or router, or physically touching the server sending packets to papertrail, or the router. Using a switch (ubiquitous) rather than a hub. No wire tap or multi-network interfaced computer. No switch monitoring port available on expensive enterprise grade switches (along with the much needed access). I was basically down to two approaches I could think of, and I like to achieve as much as possible with as little amount of effort as possible, so could not be bothered getting out of my chair and walking to the server rack.
 
