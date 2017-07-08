@@ -436,10 +436,7 @@ _Todo_ Discuss and detail some wireless exploits. Specifically at least some of 
 %% http://adaywithtape.blogspot.co.nz/2011/05/creating-wordlists-with-crunch-v30.html
 %% http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-4-creating-custom-wordlist-with-crunch-0156817/
 
-### Using Components with Known Vulnerabilities
 
-_Todo_
-https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities
 
 
 
@@ -1084,11 +1081,7 @@ Here we want to discuss possible sensitive information flowing through your netw
 
 _Todo_
 
-### Using Components with Known Vulnerabilities
 
-_Todo_
-https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities
-Patch your systems
 
 ## 4. SSM Risks that Solution Causes
 
@@ -1211,9 +1204,7 @@ _Todo_
 
 _Todo_
 
-### Using Components with Known Vulnerabilities
 
-_Todo_
 
 ## 5. SSM Costs and Trade-offs
 
@@ -1330,10 +1321,6 @@ _Todo_
 _Todo_
 
 ### Wi-Fi
-
-_Todo_
-
-### Using Components with Known Vulnerabilities
 
 _Todo_
 
