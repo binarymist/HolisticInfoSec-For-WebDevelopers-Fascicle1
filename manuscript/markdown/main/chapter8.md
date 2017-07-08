@@ -1054,31 +1054,23 @@ As mentioned in the Countermeasures section, there are some pros and cons of sig
 
 ### Spoofing
 
-_Todo_
+Most of the spoofing mitigations don't introduce a lot of risk.
 
 #### IP
 
-_Todo_
+The only risks that spring to mind is the additional complexity that will be added to your router configuration.
 
 #### ARP (Address Resolution Protocol)
 
-_Todo_
+The only risks that spring to mind is the additional complexity that will be added to your IDS configuration.
 
 #### DNS
 
-_Todo_
+The only risks that spring to mind is the additional complexity that will be added to your name servers configuration.
 
 #### Referrer
 
-_Todo_
-
-#### EMail Address
-
-_Todo_
-
-#### Website
-
-_Todo_
+No risks if you work out who should be able to access what and make the appropriate code changes.
 
 ### Data Exfiltration, Infiltration leveraging DNS
 
@@ -1172,31 +1164,7 @@ Most of this should have been covered in the Countermeasures section.
 
 ### Spoofing
 
-_Todo_
-
-#### IP
-
-_Todo_
-
-#### ARP (Address Resolution Protocol)
-
-_Todo_
-
-#### DNS
-
-_Todo_
-
-#### Referrer
-
-_Todo_
-
-#### EMail Address
-
-_Todo_
-
-#### Website
-
-_Todo_
+It's really up to you to weigh up how much time you should spend on the solutions.
 
 ### Data Exfiltration, Infiltration leveraging DNS
 
