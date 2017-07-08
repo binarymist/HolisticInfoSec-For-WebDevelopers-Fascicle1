@@ -1233,8 +1233,6 @@ _Todo_
 
 ### Doppelganger Domains
 
-Costs and Trade-offs
-
 Weigh up what your attack surface looks like in terms of doppelganger domains, acquire domains with obvious similarities that users could mistakenly type. weigh up where to stop purchasing the doppelganger domains.
 
 ### Wrongfully Trusting the Loading of Untrusted Web Resources
