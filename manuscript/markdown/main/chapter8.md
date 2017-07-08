@@ -412,39 +412,6 @@ This is a danger for all websites that do not enforce TLS for every page, or bet
 
 [https://httpswatch.nz](https://httpswatch.nz) is an excellent resource for some of the prominent websites in New Zealand, informing them of the issues in regards to HTTPS health.
 
-### Firewall/Router {#network-identify-risks-firewall-router}
-
-Routing Configurations. Discuss egrees which is often neglected
-
-_Todo_
-
-%% Mention that we touched on Routing Firewalls in the Lack of Segmentation section, and that there is a distinct difference between the functions of a router and a firewall
-
-### Wire Inspecting {#network-identify-risks-wire-inspecting}
-
-_Todo_
-
-%% obtaining hashes, discussed in "0wn1ng The Web" talk.
-
-### Wi-Fi
-
-_Todo_ Discuss and detail some wireless exploits. Specifically at least some of the WPS vectors discussed in the Physical chapter. Plus hopefully some more.
-
-%% Can we crack WPA2? Provide quick overview of how it can be done or at least the likes of WEP.
-%% Crunch generates every possible combination of characters you tell it too
-%% https://forums.kali.org/showthread.php?18261-Cracking-WPA-key-with-crunch-aircrack-(almost-fullproof-but-how-speed-things-up)
-%% http://adaywithtape.blogspot.co.nz/2011/05/creating-wordlists-with-crunch-v30.html
-%% http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-4-creating-custom-wordlist-with-crunch-0156817/
-
-
-
-
-
-
-
-
-
-
 ## 3. SSM Countermeasures {#network-countermeasures}
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
@@ -1055,34 +1022,6 @@ There are two ways that the "must staple" are being looked at for solution. The 
 
 As far as I know Firefox and Chrome are both working toward implementing Must-Staple in certificates, but I haven't seen or heard anything yet for Internet Explorer.
 
-### Firewall/Router {#network-countermeasures-firewall-router}
-I do not trust commercial proprietary routers. I have seen too many vulnerabilities in them to take them seriously for any network I have control of. Yes open source hardware and software routers can and do have vulnerabilities, but they can be patched. There are a few good choices here. Some of which also come with enterprise support if you want it. This means the software and the hardware, if you choose to obtain the hardware as well is open to inspection. The vendor also supplies regular firmware updates which is crucial for there to be any hope of having a system that in some way resembles a device that places a priority on your networks security.
-
-Most closed routers suffer from the [same problems](https://securityevaluators.com/knowledge/case_studies/routers/soho_service_hacks.php) I illustrate on my blog. They have active unsecured services that have little to nothing to do with routing and in many cases, you can not [Disable](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#disable-services-we-dont-need), [Remove](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#remove-services), or [Harden](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#secure-services) them.
-
-_Todo_
-
-Discuss egrees and other configurations that are often neglected.
-
-%% Mention that we touched on Routing Firewalls in the Lack of Segmentation section, and that there is a distinct difference between the functions of a router and a firewall
-
-
-### Wire Inspecting {#network-countermeasures-wire-inspecting}
-
-%% Linked to from web applications chapter
-
-_Todo_
-
-Here we want to discuss possible sensitive information flowing through your network. Authentication requests and data transmission for many things. Your web applications data-store (web app sitting in DMZ, data store on another segment), SMB, obtaining hashes, email accounts, any communications between machines (consider using SSH and/or SSL for everything to prevent the data from being intercepted and possibly modified over the wire. Consider internal networks just as malicious as the internet) syslog servers, health monitoring services, many things. Show a few tools that we can use and how to use them. Ethereal, Wireshark, http intercepting proxies.
-
-%% Show my blog posts on the topic. 
-
-### Wi-Fi
-
-_Todo_
-
-
-
 ## 4. SSM Risks that Solution Causes
 
 ### Fortress Mentality
@@ -1192,20 +1131,6 @@ Ultimately, if you have done you job correctly, you are trusting the browser to 
 
 If you make sure your web server only ever responds over HTTPS, including the very first response then the HSTS preload may work for you, just beware that once your domain is in the list, it is only reachable over HTTPS
 
-### Firewall/Router
-
-_Todo_
-
-### Wire Inspecting
-
-_Todo_
-
-### Wi-Fi
-
-_Todo_
-
-
-
 ## 5. SSM Costs and Trade-offs
 
 ### Fortress Mentality
@@ -1311,16 +1236,3 @@ Make sure your server only serves responses over HTTPS.
 #### HTTP Strict Transport Security (HSTS) Preload
 
 It may make sense to not add your domain to the preload list, but make sure that resources from your domain are not accessible unless over HTTPS. There are many ways to do this. 
-
-### Firewall/Router
-
-_Todo_
-
-### Wire Inspecting
-
-_Todo_
-
-### Wi-Fi
-
-_Todo_
-
