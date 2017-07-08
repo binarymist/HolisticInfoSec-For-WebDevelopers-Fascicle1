@@ -363,6 +363,31 @@ _Todo_
 
 %% https://github.com/Crypt0s/FakeDns
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Doppelganger Domains {#network-identify-risks-doppelganger-domains}
 
 Often domain consumers (people: sending emails, browsing websites, SSHing, etc) miss type the domain. The most common errors are leaving '.' out between the domain and sub domain. Even using incorrect country suffixes. Attackers can take advantage of this by purchasing the miss typed domains. This allows them to intercept requests with: credentials, email and other sensitive information that comes their way by unsuspecting domain consumers.
@@ -781,6 +806,31 @@ tools such as free and open source [ArpON (ARP handler inspection)](http://arpon
 
 _Todo_
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Doppelganger Domains {#network-countermeasures-doppelganger-domains}
 
 Purchase as many doppelganger domains related to your own domain as makes sense and that you can afford. Do what the attacker does on your internal DNS server. If you are embracing defence in depth, then your attacker will have a much harder time compromising you.
@@ -1076,21 +1126,21 @@ No risks if you work out who should be able to access what and make the appropri
 
 _Todo_
 
+
+
+
+
+
+
+
+
+
+
+
+
 ### Doppelganger Domains
 
-
-#### Web-sites
-
-_Todo_
-
-#### SMTP
-
-_Todo_
-
-#### SSH
-
-_Todo_
-
+There are no real risks with acquiring domains.
 
 ### Wrongfully Trusting the Loading of Untrusted Web Resources {#network-risks-that-solution-causes-wrongfully-trusting-the-loading-of-untrusted-web-resources}
 
@@ -1170,20 +1220,22 @@ It's really up to you to weigh up how much time you should spend on the solution
 
 _Todo_
 
+
+
+
+
+
+
+
+
+
+
+
 ### Doppelganger Domains
 
+Costs and Trade-offs
 
-#### Web-sites
-
-_Todo_
-
-#### SMTP
-
-_Todo_
-
-#### SSH
-
-_Todo_
+Weigh up what your attack surface looks like in terms of doppelganger domains, acquire domains with obvious similarities that users could mistakenly type. weigh up where to stop purchasing the doppelganger domains.
 
 ### Wrongfully Trusting the Loading of Untrusted Web Resources
 
