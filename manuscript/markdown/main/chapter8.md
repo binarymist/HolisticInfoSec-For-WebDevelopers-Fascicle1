@@ -152,7 +152,6 @@ There is a complete cloning example of a website, ARP spoof, DNS spoof and hands
 
 Remember we set-up [MItM with ARP spoofing](#confirm-that-our-logs-are-commuting-over-tls) in the VPS chapter to confirm that our logs were in-fact encrypted in transit? Also checkout the MItM With TLS [http://frishit.com/tag/ettercap/](http://frishit.com/tag/ettercap/)
 
-
 #### DNS {#network-identify-risks-spoofing-dns}
 ![](images/ThreatTags/difficult-uncommon-average-severe.png)
 
@@ -166,7 +165,7 @@ DNS spoofing refers to an end goal rather than a specific type of attack. There 
 * MItM attack. A good example of this is:
   * cloning a website you hope your victim will visit
   * offering a free Wi-Fi hot-spot attached to your gateway with DNS server provided.  
-  Your DNS server provides your cloned website IP address. You may still have to deal with X.509 certificates though, unless the website enforces TLS across the entire site, which is definitely my recommendation. If not, and the potential victim already has the websites certificate they are wanting to visit in their browser, then you will have to hope your victim will click through the warning or work out a [TLS downgrade](#network-identify-risks-tls-downgrade) which is going to be harder.
+ Your DNS server provides your cloned website IP address. You may still have to deal with X.509 certificates though, unless the website enforces TLS across the entire site, which is definitely my recommendation. If not, and the potential victim already has the websites certificate they are wanting to visit in their browser, then you will have to hope your victim will click through the warning or work out a [TLS downgrade](#network-identify-risks-tls-downgrade) which is going to be harder.
 
 There is a complete cloning example of a website, ARP spoof, DNS spoof and hands on hack, in the [website section below](#network-identify-risks-spoofing-website)
 
