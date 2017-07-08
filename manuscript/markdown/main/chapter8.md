@@ -391,13 +391,11 @@ The attacker gleans a lot of potentially sensitive information.
 #### SSH {#network-identify-risks-doppelganger-domains-ssh}
 ![](images/ThreatTags/average-common-difficult-severe.png)
 
-Less traffic, but if/when compromised, potentially much larger gains. You do not get better than shell access. Especially if they have not disallowed root.
+Less traffic, but if/when compromised, potentially much larger gains. You do not get better than shell access. Especially if they have not disallowed root, as discussed in the VPS chapter under [Hardening SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-sshd_config).
 
 Setup the DNS A record value to be the IP address of the attackers SSH server and the left most part of the name to be "*", so that all possible substitutions that do not exist (not just that do not have any matching records) will receive the attackers SSH server IP address. The DNS wild-card rules are complicated.
 
 An SSH server needs to be set-up to record the user-names and passwords. The OpenSSH code needs to be modified in order to do this.
-
-![](images/HandsOnHack.png)
 
 ### Wrongfully Trusting the Loading of Untrusted Web Resources {#network-identify-risks-wrongfully-trusting-the-loading-of-untrusted-web-resources}
 ![](images/ThreatTags/average-verywidespread-easy-moderate.png)
@@ -820,13 +818,12 @@ _Todo_
 
 ### Doppelganger Domains {#network-countermeasures-doppelganger-domains}
 
-Purchase as many doppelganger domains related to your own domain as makes sense and that you can afford.  
-Do what the attacker does on your internal DNS server.
-
-%% Check Peter Kim in the attributions.
+Purchase as many doppelganger domains related to your own domain as makes sense and that you can afford. Do what the attacker does on your internal DNS server. If you are embracing defence in depth, then your attacker will have a much harder time compromising you.
 
 #### Web-sites {#network-countermeasures-doppelganger-domains-websites}
 ![](images/ThreatTags/PreventionAVERAGE.png)
+
+Train users to have their wits about these things. Just being aware that this is a technique used by attackers is often enough
 
 #### SMTP {#network-countermeasures-doppelganger-domains-smtp}
 ![](images/ThreatTags/PreventionAVERAGE.png)
@@ -837,7 +834,7 @@ Set-up your own internal catch-all SMTP server to correct miss typed domains bef
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
 Do not miss type the domain.  
-Use [key pair authentication](http://blog.binarymist.net/2010/04/06/a-few-steps-to-secure-a-freenas-server/) so no passwords are exchanged.
+Use [key pair authentication](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication) as discussed, so no passwords are exchanged.
 
 ### Wrongfully Trusting the Loading of Untrusted Web Resources {#network-countermeasures-wrongfully-trusting-the-loading-of-untrusted-web-resources}
 

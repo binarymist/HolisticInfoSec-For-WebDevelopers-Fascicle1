@@ -1976,6 +1976,7 @@ If you wanted to deny all only to SSH, so that users not listed in `hosts.allow`
 
 There are also commented examples in the above files and check the man page for all of the details.
 
+{#vps-countermeasures-disable-remove-services-harden-what-is-left-sshd_config}
 **Changes to the servers `/etc/ssh/sshd_config` file**
 
 To tighten security up considerably Make the necessary changes to your servers:  
