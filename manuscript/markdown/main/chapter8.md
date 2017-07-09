@@ -388,6 +388,7 @@ _Todo_
 
 
 
+
 ### Doppelganger Domains {#network-identify-risks-doppelganger-domains}
 
 Often domain consumers (people: sending emails, browsing websites, SSHing, etc) miss type the domain. The most common errors are leaving '.' out between the domain and sub domain. Even using incorrect country suffixes. Attackers can take advantage of this by purchasing the miss typed domains. This allows them to intercept requests with: credentials, email and other sensitive information that comes their way by unsuspecting domain consumers.
@@ -793,8 +794,8 @@ TLS works at the transport & session layer as opposed to S/MIME at the Applicati
 * Read your message headers and trace IP addresses, although any decent self respecting spammer or social engineer is going to be using proxies.
 * Do not click links or execute files from unsolicited emails even if the email appears to be from someone you know. It may not be.
 * Make sure your mail provider is using [Domain-based Message Authentication, Reporting and Conformance (DMARC)](http://dmarc.org/)
-  * Sender Policy Framework (SPF)
-  * DomainKeys Identified Mail (DKIM)
+  * [Sender Policy Framework](https://tools.ietf.org/html/rfc7208) (SPF) is a path-based email authentication technique in which a receiving mail exchange can check that the incoming email originates from a host authorised by the given domains administrators by way of a specially formatted DNS TXT record
+  * [DomainKeys Identified Mail](https://tools.ietf.org/html/rfc6376) (DKIM) is a signature-based email authentication technique which also uses a DNS TXT record, the content of which is the DKIM signature, which is comprised of a set of `tag=value` pairs such as `d=<sending domain>`, `p=<public key>`, and [others](https://tools.ietf.org/html/rfc6376#section-3.2), which the receiving mail exchange uses to validate the end-to-end integrity and source of the email message
 
 #### Website {#network-countermeasures-spoofing-website}
 ![](images/ThreatTags/PreventionAVERAGE.png)

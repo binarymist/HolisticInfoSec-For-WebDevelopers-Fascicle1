@@ -1083,6 +1083,15 @@ http://www.syslog.org/forum/profile/?area=showposts;u=29
 **If the victims SMTP server does not perform reverse lookups on the hostname**, an email `from` and `reply-to` fields can be successfully spoofed.  
 [http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/](http://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/)
 
+**Sender Policy Framework** (SPF)  
+[https://tools.ietf.org/html/rfc7208](https://tools.ietf.org/html/rfc7208)
+
+**Domain Keys Identified Mail** (DKIM)  
+[https://tools.ietf.org/html/rfc6376](https://tools.ietf.org/html/rfc6376)
+
+**DKIM signature**, which is comprised of a set of `tag=value` pairs such as `d=<sending domain>`, `p=<public key>`, and others  
+[https://tools.ietf.org/html/rfc6376#section-3.2](https://tools.ietf.org/html/rfc6376#section-3.2)
+
 %% End Spoofing EMail Address Countermeasures
 
 **Doppelganger Domains** An old trick brought back to light by Peter Kim's research  

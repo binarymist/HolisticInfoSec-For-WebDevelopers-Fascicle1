@@ -316,7 +316,18 @@ These resources in order were helpful for establishing a strategy for the unreli
 **FakeDNS**  
 [https://github.com/Crypt0s/FakeDns](https://github.com/Crypt0s/FakeDns)
 
+%% Spoofing EMail Address Countermeasures
 
+**Open Sender Policy Framework**  
+[http://www.openspf.org/](http://www.openspf.org/)
+
+**Wikipedia Sender Policy Framework** (SPF)  
+[https://en.wikipedia.org/wiki/Sender_Policy_Framework](https://en.wikipedia.org/wiki/Sender_Policy_Framework)
+
+**Wikipedia DomainKeys Identified Mail** (DKIM)  
+[https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
+
+%% End Spoofing EMail Address Countermeasures
 
 ## [Cloud](#cloud)
 
