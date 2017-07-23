@@ -279,6 +279,34 @@ ent-2017-c82ec9136a3d#.f6yba66ti
 
 %% End Lack of Segmentation Identify Risks
 
+%% Data Exfiltration, Infiltration Identify Risks
+
+**Dropbox Inerview of James Cowling**  
+[http://www.se-radio.net/2017/03/se-radio-episode-285-james-cowling-on-dropboxs-distributed-storage-system/](http://www.se-radio.net/2017/03/se-radio-episode-285-james-cowling-on-dropboxs-distributed-storage-system/)
+
+**DropSmack**  
+[https://media.blackhat.com/eu-13/briefings/Williams/bh-eu-13-dropsmack-jwilliams-slides.pdf](https://media.blackhat.com/eu-13/briefings/Williams/bh-eu-13-dropsmack-jwilliams-slides.pdf)
+
+**NS1 Using dig +trace**  
+[https://ns1.com/articles/using-dig-trace](https://ns1.com/articles/using-dig-trace)
+
+**Difference between Authoritative and Recursive DNS Nameservers** by Chris Frost  
+[https://umbrella.cisco.com/blog/blog/2014/07/16/difference-authoritative-recursive-dns-nameservers/](https://umbrella.cisco.com/blog/blog/2014/07/16/difference-authoritative-recursive-dns-nameservers/)
+
+**Comparison of DNS Server Types** by Justin Ellingwood  
+[https://www.digitalocean.com/community/tutorials/a-comparison-of-dns-server-types-how-to-choose-the-right-dns-configuration](https://www.digitalocean.com/community/tutorials/a-comparison-of-dns-server-types-how-to-choose-the-right-dns-configuration)
+
+**DNS Steps in Detail**  
+[http://blog.catchpoint.com/2014/07/01/dns-lookup-domain-name-ip-address/](http://blog.catchpoint.com/2014/07/01/dns-lookup-domain-name-ip-address/)
+
+**How long can my SPF record be**  
+[https://agari.zendesk.com/hc/en-us/articles/202952749-How-long-can-my-SPF-record-be-](https://agari.zendesk.com/hc/en-us/articles/202952749-How-long-can-my-SPF-record-be-)
+
+**Tunneling Data and Commands Over DNS to Bypass Firewalls** by Lenny Zeltser  
+[https://zeltser.com/c2-dns-tunneling/](https://zeltser.com/c2-dns-tunneling/)
+
+%% End Data Exfiltration, Infiltration Identify Risks
+
 %% Insufficient Logging Countermeasures
 
 {#additional-resources-network-insufficient-logging-internal-network-system-logging}
@@ -316,6 +344,8 @@ These resources in order were helpful for establishing a strategy for the unreli
 **FakeDNS**  
 [https://github.com/Crypt0s/FakeDns](https://github.com/Crypt0s/FakeDns)
 
+%% End Spoofing IP Countermeasures
+
 %% Spoofing EMail Address Countermeasures
 
 **Open Sender Policy Framework**  
@@ -328,6 +358,22 @@ These resources in order were helpful for establishing a strategy for the unreli
 [https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
 
 %% End Spoofing EMail Address Countermeasures
+
+%% Data Exfiltration, Infiltration leveraging DNS Countermeasures
+
+**tcp-over-websockets**  
+[https://github.com/derhuerst/tcp-over-websockets](https://github.com/derhuerst/tcp-over-websockets)
+
+**chisel**  
+[https://github.com/jpillora/chisel](https://github.com/jpillora/chisel)
+
+**Dnscat documentation**  
+[https://wiki.skullsecurity.org/Dnscat](https://wiki.skullsecurity.org/Dnscat)
+
+**FakeDns**  
+[https://github.com/Crypt0s/FakeDns](https://github.com/Crypt0s/FakeDns)
+
+%% Data Exfiltration, Infiltration leveraging DNS Countermeasures
 
 ## [Cloud](#cloud)
 

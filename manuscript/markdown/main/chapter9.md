@@ -1,5 +1,10 @@
 # 9. Cloud {#cloud}
 
+%% Cover password vaults such as for Terraform and Ansible vaults, storing secrets with docker containers as I discussed on PB redmine wiki
+%%   https://www.vaultproject.io/docs/secrets/aws/index.html
+%%   https://www.vaultproject.io/docs/auth/aws.html
+
+
 %% Show 1212 "Cloud-Oriented Programming with Vishwas Lele" has a good section on instrumentation & logging from about 21:00
 
 %% AWS blog posts: https://aws.amazon.com/blogs/security/

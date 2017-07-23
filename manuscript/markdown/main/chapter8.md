@@ -355,39 +355,138 @@ G>
 G> `run bypassuac`  
 G> Now that is successful, but AV detects bad signatures on some of the root-kits. On this shell I only got the privileges of the target running the browser exploit.
 
-### Data Exfiltration, Infiltration leveraging DNS {#network-identify-risks-data-exfiltration-infiltration-leveraging-dns}
+### Data Exfiltration, Infiltration {#network-identify-risks-data-exfiltration-infiltration}
 
-_Todo_
+#### Ingress and Egress Techniques
 
-%% This may also work for exfiltration TCP over HTTP https://github.com/derhuerst/tcp-over-websockets
+In many/most cases a target will have direct access, or almost direct via a proxy from their corporate LAN to the internet. This makes egress of any kind trivial. The following are some commonly used techniques:
 
-%% https://github.com/Crypt0s/FakeDns
+#### Dropbox
 
+No anti-virus is run by Dropbox on the files that Dropbox syncs. This means that Dropbox is a risk in a corporate environment, or any work environment where workers can access their files from multiple networks. Dropbox via an account or even just their HTTP links can be a useful means for exfiltration of data. Dropbox APIs and their SDKs along with community provided SDKs can assist the attacker greatly in exfiltrating their targets data over HTTP(S). All bar the most secure environments allow HTTP(S) egress.
 
+#### Physical
 
+If there is no internet access from the targets environment, physical media can be utilised. We discussed this in the Infectious Media subsection of Identify Risks of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
 
+#### Mobile Phone Data
 
+In most cases, everyone carries at least one mobile phone capable of connecting to the internet via their cellular provider, obviously this bypasses any rules that the target organisation has in place. Data can be easily exfiltrated directly from mobile devices, or via their access point feature if enabled. Bluetooth offers a similar functionality.
 
+An attacker has options such as using staff members phones, or if they can get a phone to within wireless access coverage of a computer with a wireless interface that has data to be exfiltrated, then they just need to make the access point switch. This could be done during a lunch break.
 
+#### DNS, SSH
 
+In the case of very security conscious environments, where few users have any access to the internet, and those that do have, the access is indirect via a very restrictive proxy.
 
+If a user has any internet access from a machine on the internal network, then you can probably leverage DNS.
 
+If a `ping` command is sent from the internal machine, this may produce a `timed out` result, but before the `ping` can be attempted, a DNS query must be satisfied.
 
+{linenos=off, lang=bash}
+    ping google.comm
+    PING google.com (216.58.220.110) 56(84) bytes of data.
 
+    # Here, the command will print:
 
+    Request timed out.
+    Request timed out.
+    Request timed out.
+    etc.
 
+    # Or just hang and then print something similar to:
 
+    --- google.com ping statistics ---
+    662 packets transmitted, 0 received, 100% packet loss, time 662342ms
 
+So although the ICMP protocol requests may be blocked or dropped,
+the DNS query will likely be forwarded from the local system resolver / DNS client / [stub resolver](http://www.zytrax.com/books/dns/apa/resolver.html) to the organisations internet facing name server, then forwarded to an ISPs or alternative name servers on the internet. This same DNS lookup will occur when many other protocols that may be blocked are initiated.
 
+`dig +trace` mirrors the way a typical DNS resolution works, but provides visibility into the actual process and steps taken.
 
+By using `dig +trace` we can get feedback on how the given fully qualified domain name (FQDM) is resolved. `dig +trace` works by pretending it's a name server, iteratively querying recursive and authoritative name servers. The steps taken in a DNS query which is mirrored by `dig +trace` look like the following:
 
+1. DNS query is sent from a client application to the system resolver / DNS client / stub resolver. The stub resolver is not capable of a lot more than searching a few static files locally such as `/etc/hosts`, maintaining a cache, and forwarding requests to a recursive resolver, which is usually provided by your ISP or one of the other DNS providers you may choose, such as Level 3, Google, DynDNS, etc. The stub resolver can not follow referrals. If the stub resolvers cache or hosts file does not contain the IP address of the queried FQDM that is within the time-to-live (TTL) if cached, the stub resolver will query the recursive resolver. The query that the stub resolver sends to the recursive DNS resolver has a special flag called "Recursion Desired" (`RD`) in the DNS request header (see [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) for details) which instructs the resolver to complete the recursion and provide a response of either an IP address (with the "Recursion Available" (`RA`) flag set), or an error (with the "Recursion Available" (`RA`) flag not set)
+2. The recursive resolver will check to see if it has a cached DNS record from the authoritative nameserver with a valid TTL. If the recursive server does not have the DNS record cached, it begins the recursive process of going through the authoritative DNS hierarchy. The recursive resolver queries one of the root name servers (denoted by the '.' at the end of the domain name) for the requested DNS record to find out who is the authoritative name server for the TLD (.nz in our case). This query does not have the `RD` flag set, which means it is an "iterative query", meaning that the response must be one of either:    
+    1. The location of an authoritative name server
+    2. An IP address as seen in step 6 once the recursion resolves
+    3. An error
+  There are 13 root server clusters from a-m, as you can see in the `dig +trace` output, with servers from [over 380 locations](http://www.root-servers.org/).
+3. The root servers know the locations of all of the Top-Level Domain (TLDs) such as `.nz`, `.io`, `.blog`, `.com`, but they do not have the IP information for the FQDN, such as `google.co.nz`. The root server does know that the TLD `.nz` may know, so it returns a list of all the four to thirteen clustered `.nz` [generic TLD](https://en.wikipedia.org/wiki/Generic_top-level_domain) (gTLD) server `ns` (name server) IP addresses. This is the root name servers way of telling the recursive resolver to query one of the `.nz` gTLD authoritative servers
+4. The recursive resolver queries one of the `.nz` gTLD authoritative servers (`ns<n>.dns.net.nz.` in our case) for `google.co.nz.`
+5. The `.nz` TLD authoritative server refers your recursive server to the authoritative servers for `google.co.nz.` (`ns<n>.google.com.`)
+6. The recursive resolver queries the authoritative servers for `google.co.nz,` and receives 172.217.25.163 as the answer
+7. At this point the recursive resolver has finished its recursive process, caches the answer for the TTL duration specified on the DNS record, and returns it to the stub resolver having the "Recursion Available" (RA) flag set, indicating that the answer was indeed fully resolved
 
+![](images/DNSResolution.png)
 
+{title="Step 1", linenos=off, lang=bash}
+    dig +trace google.co.nz
 
+{title="Step 2", linenos=off, lang=bash}
+    ; <<>> DiG 9.10.3-P4-Ubuntu <<>> +trace google.co.nz
+    ;; global options: +cmd
+    .        448244   IN NS b.root-servers.net.
+    .        448244   IN NS h.root-servers.net.
+    .        448244   IN NS l.root-servers.net.
+    .        448244   IN NS a.root-servers.net.
+    .        448244   IN NS j.root-servers.net.
+    .        448244   IN NS c.root-servers.net.
+    .        448244   IN NS m.root-servers.net.
+    .        448244   IN NS e.root-servers.net.
+    .        448244   IN NS g.root-servers.net.
+    .        448244   IN NS i.root-servers.net.
+    .        448244   IN NS d.root-servers.net.
+    .        448244   IN NS k.root-servers.net.
+    .        448244   IN NS f.root-servers.net.
+    # The RRSIG holds the DNSSEC signature.
+    # +trace includes +dnssec which emulates the default queries from a nameserver
+    .        514009   IN RRSIG NS 8 0 518400 20170728170000 20170715160000 15768 . Egf30NpCVAwTA4q8B8Ye7lOcFraVLo3Vh8vlhlZFGIFHsHNUFDyK2NxM RJr4Z+NzZat/JUmNQscob5Mg9N2ujVPZ9ZgQ1TJ8Uu6+azR6A1kr95Vu S8hepkdr42lZdrv2QV9qR0DeXWglo0NemF7D7ZMlM/fVAoiYvoDRugc6 v9SWjedD3XtOoOjPAYjNc7M8PQ6VZ5qIil2arnR/ltQJm2bQbIXAw4DG a3NQJw06G5E7FjMqn+/tTfzm/Z95UIsAUojGV4l1VIGulm9IZtYB5H5C hCoWt4bhaCKm2U2BJBfmvvB7rN1fsd1JKnCayzKvHRL0WWvSsvjyN6Hv F/PCaw==
+    ;; Received 1097 bytes from 127.0.1.1#53(127.0.1.1) in 91 ms
 
+{title="Step 3", linenos=off, lang=bash}
+    nz.        172800   IN NS ns1.dns.net.nz.
+    nz.         172800   IN NS ns2.dns.net.nz.
+    nz.         172800   IN NS ns3.dns.net.nz.
+    nz.         172800   IN NS ns4.dns.net.nz.
+    nz.         172800   IN NS ns5.dns.net.nz.
+    nz.         172800   IN NS ns6.dns.net.nz.
+    nz.         172800   IN NS ns7.dns.net.nz.
+    nz.         86400 IN DS 46034 8 1 316AB5861714BD58905C68B988B2B7C87CB78C4A
+    nz.         86400 IN DS 46034 8 2 02C64093D011629EF821494C5D918B8151B1B81FD008E175954F8871 19FEB5B1
+    nz.         86400 IN RRSIG DS 8 1 86400 20170728170000 20170715160000 15768 . RAn3+mAjCAk5+/H3J4YMjISnitGJHMaR49n+YPn2q447VXViBcUxm0hO ZK+3ut5ywtiT4v1AMZXN9TDQ1EFe2T/VPWbdpOEs71pOS9/wdAZOlySR 9tfdwdnnPb1+InA9H1u384vCZDIoy4vsz9jRnBk3+hIocIcrmMhMdSJU jNBXfaW3uZ5vboQqAzr1WhrbyHebRFMdiq+NliSQU/DunOOD2j/9fJu/ VT4dWFP3mkb3wYPm+MLwDO7hDatJih5dmKzREzjVbxiGjaFQyTUTz7CZ EJsP8O21e8TZLk5mWenBrWhkcce+xas8PGXh754Ltg3/1zuUmuuJ93Sf PwCBwQ==
+    ;; Received 854 bytes from 192.58.128.30#53(j.root-servers.net) in 649 ms
 
+{title="Step 4", linenos=off, lang=bash}
+    google.co.nz.    86400 IN NS ns3.google.com.
+    google.co.nz.     86400 IN NS ns1.google.com.
+    google.co.nz.     86400 IN NS ns2.google.com.
+    google.co.nz.     86400 IN NS ns4.google.com.
+    e1e8sage14qa404t0i37cbi1vb5jlkpq.co.nz.   3600 IN  NSEC3 1 1 5 5AFBAC60E6291D43 E3D0PASFAJFBN713OGDH06QD9PUOUFOL NS SOA RRSIG DNSKEY NSEC3PARAM
+    e1e8sage14qa404t0i37cbi1vb5jlkpq.co.nz.   3600 IN  RRSIG NSEC3 8 3 3600 20170724002713 20170715224319 17815 co.nz. PSQpSuLombCp+gzGad6vfjQwQXdtEho1asIu7LR8ROpISAiVYuNaDCzn syxVWPDt5JXuV4Ro9QwqtIIyKGp+SR0E6vfB0ZBmKMWTGE8JDs4wFJD8 4Pa3EJE9HD6D5OzYLGWp74j5rKCmhX1tHsAZH6kxMepxmXe7Yxr1ejSU pNA=
+    o5jradpam3chashu782ej6r90spf0slk.co.nz.   3600 IN  NSEC3 1 1 5 5AFBAC60E6291D43 OBU0IO78N1LTERC33TPID5EMGNQOA7T7 NS DS RRSIG
+    o5jradpam3chashu782ej6r90spf0slk.co.nz.   3600 IN  RRSIG NSEC3 8 3 3600 20170721184152 20170714214319 17815 co.nz. F7I2sw56hULCCYpZuO9i5020cXoq+31tTaoU9c/uNr6amFdO112oximh mDr3Ad/w/E7Le4WVmGAHOgeLsFH8OI19MciVqMmg232z04jVLdIuFIBH U+SsRXiwzoRb5fFh/mlUthjiqjk+0U/LPbM3jZNqRduSbDRFaEJOsGz4 ZlQ=
+    ;; Received 628 bytes from 185.159.197.130#53(ns5.dns.net.nz) in 319 ms
 
+{title="Step 5", linenos=off, lang=bash}
+    google.co.nz.    300   IN A  172.217.25.163
+    ;; Received 46 bytes from 216.239.32.10#53(ns1.google.com) in 307 ms
 
+In following the above process through, you can see that although egress may be very restricted, DNS will just about always make it to the authoritative name server(s).
+
+The most flexible and useful type of DNS record for the attacker is the `TXT` record. We discuss the DNS `TXT` record briefly in the [EMail Address Spoofing Countermeasures](#network-countermeasures-spoofing-email-address) subsection. The `TXT` record is very flexible, useful for transferring arbitrary data, including code, commands (see section 3.3.14. `TXT RDATA` format of the [specification](https://www.ietf.org/rfc/rfc1035.txt)), which can also be modified at any point along its travels. There is no specific limit on the number of text strings in a  `TXT RDATA` field, but the TXT-DATA can not exceed 65535 bytes (general restriction on ) in total. Each text string can not exceed 255 characters in length including the length byte octet of each. This provides plenty of flexibility for the attacker.
+
+The evolution of data exfiltration and infiltration started with [OzymanDNS](https://room362.com/post/2009/2009310ozymandns-tunneling-ssh-over-dns-html/) from Dan Kaminsky in 2004. Shortly after that Tadeusz Pietraszek created [DNScat](http://tadek.pietraszek.org/projects/DNScat/), providing bi-directional communications through DNS servers. DNScat took the netcat idea and applied it to DNS, allowing penetration testers and attackers alike to pass through firewalls unhindered. DNScat is written in Java, requiring the JVM to be installed. Ron Bowes created the successor called [dnscat2](https://github.com/iagox86/dnscat2), you can check the history of dnscat2 on the github [history section](https://github.com/iagox86/dnscat2#history).
+
+In order to carry out a successful Exfil, the attacker will need:
+
+1. A domain name registered for this attack
+2. A payload they can drop on one to many hosts inside their target network.
+The [dnscat2 client](https://github.com/iagox86/dnscat2#client) is written in C, modifications can and should be made to the source to help avoid detection.
+Dnscat2 also provides the ability to tunnel SSH from the dnscat2 server (C2) to the dnscat2 client, and even to other machines on the same network. All details are provided on the dnscat2 [github](https://github.com/iagox86/dnscat2#tunnels), and even more detail are provided on [Ron's blog](https://blog.skullsecurity.org/2015/dnscat2-0-05-with-tunnels). Once the attacker has modified the client source, they will most likely run [VirusTotal](https://www.virustotal.com/) or a similar service over it, to attempt to verify the likelihood of the payload being detected. We have covered quite a few techniques for increasing the chances of getting the payload onto the target systems in the [PowerShell](#vps-identify-risks-powershell) subsections of the VPS chapter, and the Infectious Media subsections of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+3. A command and control (C2) server set-up as the domains authoritative name server that is capable of communicating with the executing payload(s) on the hosts inside the targets network. [izhan](https://github.com/izhan) created a [howto document](https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md) covering the authoritative name server set-up. dnscat2 was created for this very reason.
+
+All the documentation required to set-up the C2 server and client is provided by dnscat2.
 
 ### Doppelganger Domains {#network-identify-risks-doppelganger-domains}
 
@@ -803,34 +902,40 @@ TLS works at the transport & session layer as opposed to S/MIME at the Applicati
 There is nothing to stop someone cloning and hosting a website. The vital part to getting someone to visit an attackers illegitimate website is to either social engineer them to visit it, or just clone a website that you know they are likely to visit. An Intranet at your work place for example. Then you will need to carry out ARP and/or DNS spoofing. Again
 tools such as free and open source [ArpON (ARP handler inspection)](http://arpon.sourceforge.net/) cover website spoofing and a lot more.
 
-### Data Exfiltration, Infiltration leveraging DNS
+### Data Exfiltration, Infiltration
 
-_Todo_
+There are so many ways to get data in and out of an organisations environment.
+The following are some of the countermeasures you need to think about when it comes to stopping unauthorised communications entering your network and/or your data leaving your premises, servers or compute.
 
+#### Dropbox
 
+The options here are to:
 
+* Closely monitor the Dropbox and other file sync tools usage by way of [NI[D|P]S](#network-countermeasures-lack-of-visibility-nids) as we discussed previously in this chapter
+* Block Dropbox and other file sync tools entirely at the firewall
 
+#### Physical
 
+We discussed this in the Infectious Media subsection of Countermeasures of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
 
+#### Mobile Phone Data
 
+You could ask that people don't use their cell phones, or perhaps leave them at reception. You could block the cell phone signals, but in many countries this is [illegal](https://www.fcc.gov/general/jamming-cell-phones-and-gps-equipment-against-law). This is a hard one, do some brain-storming with your colleagues.
 
+#### DNS, SSH
 
+As usual, defence in depth is your best defence.
 
+Basically just stop all traffic from leaving the target network. Even then though, there are many other ways of getting data in and out of your network.
 
+Run a decent HIDS on vulnerable hosts, [as discussed](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) in the VPS chapter under Lack of Visibility in the Countermeasures subsection. This will let you know if the integrity of any existing files on the vulnerable systems have been compromised, along with any important new files being added or removed.
 
+Run anti-virus that leverage's decent machine learning algorithms, this will increase your chances of being informed when malicious payloads are dropped on vulnerable hosts.
 
+Run a decent NIDS on your network, [as discussed](#network-countermeasures-lack-of-visibility-nids) in the Lack of Visibility subsection of this chapter, covering both signature-based and anomaly-based analysis/detection.
 
-
-
-
-
-
-
-
-
-
-
-
+In most cases the target vulnerable hosts will not have a reason to query `TXT`
+records, and especially in the quantity that are used in DNS tunnelling. Consider blocking them.
 
 ### Doppelganger Domains {#network-countermeasures-doppelganger-domains}
 
@@ -1123,21 +1228,31 @@ The only risks that spring to mind is the additional complexity that will be add
 
 No risks if you work out who should be able to access what and make the appropriate code changes.
 
-### Data Exfiltration, Infiltration leveraging DNS
+### Data Exfiltration, Infiltration
 
-_Todo_
+#### Dropbox
 
+There will be NI[D|P]S configuration required to monitor file sync tools such as Dropbox which is extra work and depending on how Dropbox is used may just fail. Blocking file sync tools may be an option, 
 
+#### Physical
 
+As per the Infectious Media subsection of Risks that Solution Causes of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
 
+#### Mobile Phone Data
 
+In most cases, what ever you do to stop cell phone signals escaping your premises, is either going to be ineffective, or significantly disadvantage your organisation, both in terms of productivity and morale.
 
+#### DNS, SSH
 
+Employees will always find a way to get around organisational policy if it stops or slows their work down.
 
+It can be a lot of work to have HIDS running on all systems, and is impractical.
 
+Not all anti-virus is created equal. The next generation anti-virus with machine learning is expensive.
 
+NIDS set-up and administration takes a lot of work for any security operations team. Often organisations will out source this.
 
-
+There may be a legitimate reason for allowing DNS `TXT` records, obviously you will not be able to block them if that is the case.
 
 ### Doppelganger Domains
 
@@ -1182,7 +1297,7 @@ Your workers still need to connect to the corporate LAN. So put policies in plac
 
 * Has a local firewall enabled and configured correctly to cover ports to possibly insecure services
 * Must be fully patched
-* Anti Virus on systems that need it and rule sets up to date
+* Anti-virus on systems that need it and rule sets up to date
 * Ability to authenticate itself, what ever technique you decide to use
 
 The technical solutions described are costly, but building a motivated and engaged work force is not, it just requires a little thought and action on behalf of those in charge.
@@ -1217,20 +1332,31 @@ Most of this should have been covered in the Countermeasures section.
 
 It's really up to you to weigh up how much time you should spend on the solutions.
 
-### Data Exfiltration, Infiltration leveraging DNS
+### Data Exfiltration, Infiltration
 
-_Todo_
+#### Dropbox
 
+You will need to weigh up whether stopping file sync tools will damage productivity and by how much.
 
+#### Physical
 
+As per the Infectious Media subsection of Costs and Trade-offs of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
 
+#### Mobile Phone Data
 
+There are many scenarios to be considered here.
 
+#### DNS, SSH
 
+Strike a balance between security and pragmatism.
 
+You should consider having HIDS running on critical servers. Depending on your security requirements, you could extend these to other work stations, but this increases the administrative overheads.
 
+In many cases, the extra expense of the newer anti-virus products is worth the expenditure. You will have to weigh this up.
 
+Setting up and maintaining a NIDS is pretty much a given for any medium to large sized business's network. There are many arguments around whether an organisation should run their own in house security operations team. This will often come down to the size of the organisation, whether or not you already have some of the specialities required in house, what your assets are, who your adversaries are, how long you plan on existing, and many other considerations. This is all part of your threat modelling.
 
+You could inspect the DNS records, this is where your NIDS comes in.
 
 ### Doppelganger Domains
 

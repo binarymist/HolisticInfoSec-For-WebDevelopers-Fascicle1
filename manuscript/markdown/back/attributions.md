@@ -989,7 +989,6 @@ harden-surveillance for monitoring your network
 **The 2017 IBM X-Force Threat Intelligence Index** provides the following information  
 [https://public.dhe.ibm.com/common/ssi/ecm/wg/en/wgl03140usen/WGL03140USEN.PDF](https://public.dhe.ibm.com/common/ssi/ecm/wg/en/wgl03140usen/WGL03140USEN.PDF)
 
-
 %% End Fortress Mentality Identify Risks
 
 %% Lack of Segmentation Identify Risks
@@ -1005,6 +1004,40 @@ harden-surveillance for monitoring your network
 [http://www.anonymailer.net/](http://www.anonymailer.net/)
 
 %% End Spoofing EMail Address Identify Risks
+
+%% Data Exfiltration, Infiltration Identify Risks
+
+**Advanced Penetration Testing** by Will Allsopp
+
+**Stub resolver**  
+[http://www.zytrax.com/books/dns/apa/resolver.html](http://www.zytrax.com/books/dns/apa/resolver.html)
+
+**The query that the stub resolver sends to the recursive DNS resolver** has a special flag called "Recursion Desired" (`RD`) in the DNS request header (see RFC 1035 for details)  
+[https://www.ietf.org/rfc/rfc1035.txt](https://www.ietf.org/rfc/rfc1035.txt)
+
+**There are 13 root server clusters** from a-m, as you can see in the `dig +trace` output, with servers from over 380 locations  
+[http://www.root-servers.org/](http://www.root-servers.org/)
+
+**The `TXT` record is very flexible**, useful for transferring arbitrary data, including code, commands (see section 3.3.14. `TXT RDATA` format of the specification)  
+[https://www.ietf.org/rfc/rfc1035.txt](https://www.ietf.org/rfc/rfc1035.txt)
+
+**The evolution of data exfiltration and infiltration** started with OzymanDNS from Dan Kaminsky in 2004  
+[https://room362.com/post/2009/2009310ozymandns-tunneling-ssh-over-dns-html/](https://room362.com/post/2009/2009310ozymandns-tunneling-ssh-over-dns-html/) 
+
+**Tadeusz Pietraszek created DNScat**  
+[http://tadek.pietraszek.org/projects/DNScat/](http://tadek.pietraszek.org/projects/DNScat/)
+
+**Ron Bowes created the successor called dnscat2**  
+[https://github.com/iagox86/dnscat2](https://github.com/iagox86/dnscat2)
+
+**More detail are provided on Ron's blog**  
+[https://blog.skullsecurity.org/2015/dnscat2-0-05-with-tunnels](https://blog.skullsecurity.org/2015/dnscat2-0-05-with-tunnels)
+
+**Izhan created a howto document** covering the authoritative name server set-up  
+[https://github.com/izhan](https://github.com/izhan)  
+[https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md](https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md)
+
+%% End Data Exfiltration, Infiltration Identify Risks
 
 %% TLS Downgrade Identify Risks
 
@@ -1093,6 +1126,13 @@ http://www.syslog.org/forum/profile/?area=showposts;u=29
 [https://tools.ietf.org/html/rfc6376#section-3.2](https://tools.ietf.org/html/rfc6376#section-3.2)
 
 %% End Spoofing EMail Address Countermeasures
+
+%% Data Exfiltration, Infiltration Countermeasures
+
+**Block the cell phone signals**, but in many countries this is illegal  
+[https://www.fcc.gov/general/jamming-cell-phones-and-gps-equipment-against-law](https://www.fcc.gov/general/jamming-cell-phones-and-gps-equipment-against-law)
+
+%% End Data Exfiltration, Infiltration Countermeasures
 
 **Doppelganger Domains** An old trick brought back to light by Peter Kim's research  
 [http://www.wired.com/2011/09/doppelganger-domains/](http://www.wired.com/2011/09/doppelganger-domains/)  
