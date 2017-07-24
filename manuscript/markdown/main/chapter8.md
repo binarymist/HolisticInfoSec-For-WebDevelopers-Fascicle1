@@ -416,7 +416,7 @@ By using `dig +trace` we can get feedback on how the given fully qualified domai
     2. An IP address as seen in step 6 once the recursion resolves
     3. An error
 
-There are 13 root server clusters from a-m, as you can see in the `dig +trace` output below, with servers from [over 380 locations](http://www.root-servers.org/)
+    There are 13 root server clusters from a-m, as you can see in the `dig +trace` output below, with servers from [over 380 locations](http://www.root-servers.org/)
 3. The root servers know the locations of all of the Top-Level Domains (TLDs) such as `.nz`, `.io`, `.blog`, `.com`, but they do not have the IP information for the FQDN, such as `google.co.nz`. The root server does know that the TLD `.nz` may know, so it returns a list of all the four to thirteen clustered `.nz` [generic TLD](https://en.wikipedia.org/wiki/Generic_top-level_domain) (gTLD) server `ns` (name server) IP addresses. This is the root name servers way of telling the recursive resolver to query one of the `.nz` gTLD authoritative servers
 4. The recursive resolver queries one of the `.nz` gTLD authoritative servers (`ns<n>.dns.net.nz.` in our case) for `google.co.nz.`
 5. The `.nz` TLD authoritative server refers the recursive server to the authoritative servers for `google.co.nz.` (`ns<n>.google.com.`)
