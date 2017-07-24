@@ -1,5 +1,77 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+## 2017-07-24
+
+Typos and grammatical tweaks
+Added anchors
+Added threat tags
+
+
+
+### Network
+
+Ready for technical review
+
+* Finished Asset Identification
+* Fortress Mentality
+* Lack of Segmentation
+* Lack of Visibility
+* Insufficient Logging
+* Lack of Network Intrusion Detection Systems (NIDS)
+* Refactored Spoofing: IP, ARP, DNS, Referrer, EMail Address, Website
+* Added Data Exfiltration, Infiltration
+  * Ingress and Egress Techniques
+  * Dropbox
+  * Physical
+  * Mobile Phone Data
+  * DNS, SSH including primer on how DNS works
+  * Added DNS resolution sequence diagram
+* Doppelganger Domains: Web-sites, SMTP, SSH
+* Finished off "Wrongfully Trusting the Loading of Untrusted Web Resources"
+* TLS Downgrade
+  * HTTP Strict Transport Security (HSTS) + Preload  
+* Refactored NTP
+* NIDS: Signature-based, Anomaly-based
+  * Snort, Bro, Suricata, Security Onion
+
+
+
+### Additional Resources
+
+* Top 10 Network Security Mistakes
+* Database security
+* Lack of segmentation
+* Data Exfiltration, Infiltration
+  * TCP over WebSockets
+  * File sync tools such as Dropbox
+  * DNS (`dig +trace`)
+    * Differences between authoritative and recursive nameservers
+    * DNS steps in detail
+    * Tunneling Data and Commands Over DNS to Bypass Firewalls
+    * DNSCat
+* The ELK stack
+* IDS
+  * Suricata-vs-snort
+* Spoofing
+  * Defense and mitigations for ARP Spoofing
+  * Open Sender Policy Framework
+    * SPF, DKIM
+
+### Attributions
+
+* IBM X-Force Threat Intelligence Index
+* Hackers use fridge to send spam
+* Spoofing EMail address
+* DNS tunnelling
+* NIDS
+* Blocking cell phone signals
+* hapijs
+* helmetjs for HSTS
+
+Many other attributions added
+
+[Diff from release 2017-05-19](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/compare/359fe9b8dcbcb83e4c5354d09263bb5639a22905...13b1f44e0ac421ff65ffbfd6666f79663860508c)
+
 ## 2017-05-19
 
 ### VPS
