@@ -2,11 +2,9 @@
 
 ## 2017-07-24
 
-Typos and grammatical tweaks
-Added anchors
+Typos and grammatical tweaks  
+Added anchors  
 Added threat tags
-
-
 
 ### Network
 
@@ -34,8 +32,6 @@ Ready for technical review
 * NIDS: Signature-based, Anomaly-based
   * Snort, Bro, Suricata, Security Onion
 
-
-
 ### Additional Resources
 
 * Top 10 Network Security Mistakes
@@ -53,9 +49,8 @@ Ready for technical review
 * IDS
   * Suricata-vs-snort
 * Spoofing
-  * Defense and mitigations for ARP Spoofing
-  * Open Sender Policy Framework
-    * SPF, DKIM
+  * Defence and mitigations for ARP Spoofing
+  * Open Sender Policy Framework: SPF, DKIM
 
 ### Attributions
 
