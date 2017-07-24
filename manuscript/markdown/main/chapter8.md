@@ -367,25 +367,25 @@ No anti-virus is run by Dropbox on the files that Dropbox syncs. This means that
 
 #### Physical
 
-If there is no internet access from the targets environment, physical media can be utilised. We discussed this in the Infectious Media subsection of Identify Risks of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+If there is no Internet access from the targets environment, physical media can be utilised. We discussed this in the Infectious Media subsection of Identify Risks of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
 
 #### Mobile Phone Data
 
-In most cases, everyone carries at least one mobile phone capable of connecting to the internet via their cellular provider, obviously this bypasses any rules that the target organisation has in place. Data can be easily exfiltrated directly from mobile devices, or via their access point feature if enabled. Bluetooth offers a similar functionality.
+In most cases, everyone carries at least one mobile phone capable of connecting to the Internet via their cellular provider, obviously this bypasses any rules that the target organisation has in place. Data can be easily exfiltrated directly from mobile devices, or via their access point feature if enabled. Bluetooth offers a similar functionality.
 
 An attacker has options such as using staff members phones, or if they can get a phone to within wireless access coverage of a computer with a wireless interface that has data to be exfiltrated, then they just need to make the access point switch. This could be done during a lunch break.
 
 #### DNS, SSH
 
-In the case of very security conscious environments, where few users have any access to the internet, and those that do have, the access is indirect via a very restrictive proxy.
+In the case of very security conscious environments, where few users have any access to the Internet, and those that do have, the access is indirect via a very restrictive proxy.
 
-If a user has any internet access from a machine on the internal network, then you can probably leverage DNS.
+If a user has any Internet access from a machine on the internal network, then you can probably leverage DNS.
 
-If a `ping` command is sent from the internal machine, this may produce a `timed out` result, but before the `ping` can be attempted, a DNS query must be satisfied.
+If a `ping` command is sent from the internal machine, this may produce a `timed out` result, but before the `ping` can be resolved, a DNS query must be satisfied.
 
 {linenos=off, lang=bash}
-    ping google.comm
-    PING google.com (216.58.220.110) 56(84) bytes of data.
+    ping google.co.nz
+    PING google.co.nz (172.217.25.163) 56(84) bytes of data.
 
     # Here, the command will print:
 
@@ -396,25 +396,25 @@ If a `ping` command is sent from the internal machine, this may produce a `timed
 
     # Or just hang and then print something similar to:
 
-    --- google.com ping statistics ---
+    --- google.co.nz ping statistics ---
     662 packets transmitted, 0 received, 100% packet loss, time 662342ms
 
 So although the ICMP protocol requests may be blocked or dropped,
-the DNS query will likely be forwarded from the local system resolver / DNS client / [stub resolver](http://www.zytrax.com/books/dns/apa/resolver.html) to the organisations internet facing name server, then forwarded to an ISPs or alternative name servers on the internet. This same DNS lookup will occur when many other protocols that may be blocked are initiated.
+the DNS query will likely be forwarded from the local system resolver / DNS client / [stub resolver](http://www.zytrax.com/books/dns/apa/resolver.html) to the organisations Internet facing name server, then forwarded to an ISPs or alternative name servers on the Internet. This same DNS lookup will occur when many other protocols that may be blocked are initiated.
 
 `dig +trace` mirrors the way a typical DNS resolution works, but provides visibility into the actual process and steps taken.
 
-By using `dig +trace` we can get feedback on how the given fully qualified domain name (FQDM) is resolved. `dig +trace` works by pretending it's a name server, iteratively querying recursive and authoritative name servers. The steps taken in a DNS query which is mirrored by `dig +trace` look like the following:
+By using `dig +trace` we can get feedback on how the given fully qualified domain name (FQDM) is resolved. `dig +trace` works by pretending it is a name server, iteratively querying recursive and authoritative name servers. The steps taken in a DNS query which is mirrored by `dig +trace` look like the following:
 
 1. DNS query is sent from a client application to the system resolver / DNS client / stub resolver. The stub resolver is not capable of a lot more than searching a few static files locally such as `/etc/hosts`, maintaining a cache, and forwarding requests to a recursive resolver, which is usually provided by your ISP or one of the other DNS providers you may choose, such as Level 3, Google, DynDNS, etc. The stub resolver can not follow referrals. If the stub resolvers cache or hosts file does not contain the IP address of the queried FQDM that is within the time-to-live (TTL) if cached, the stub resolver will query the recursive resolver. The query that the stub resolver sends to the recursive DNS resolver has a special flag called "Recursion Desired" (`RD`) in the DNS request header (see [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) for details) which instructs the resolver to complete the recursion and provide a response of either an IP address (with the "Recursion Available" (`RA`) flag set), or an error (with the "Recursion Available" (`RA`) flag not set)
-2. The recursive resolver will check to see if it has a cached DNS record from the authoritative nameserver with a valid TTL. If the recursive server does not have the DNS record cached, it begins the recursive process of going through the authoritative DNS hierarchy. The recursive resolver queries one of the root name servers (denoted by the '.' at the end of the domain name) for the requested DNS record to find out who is the authoritative name server for the TLD (.nz in our case). This query does not have the `RD` flag set, which means it is an "iterative query", meaning that the response must be one of either:    
+2. The recursive resolver will check to see if it has a cached DNS record from the authoritative nameserver with a valid TTL. If the recursive server does not have the DNS record cached, it begins the recursive process of going through the authoritative DNS hierarchy. The recursive resolver queries one of the root name servers (denoted by the '.' at the end of the domain name) for the requested DNS record to find out who is the authoritative name server for the TLD (`.nz` in our case). This query does not have the `RD` flag set, which means it is an "iterative query", meaning that the response must be one of either:    
     1. The location of an authoritative name server
     2. An IP address as seen in step 6 once the recursion resolves
-    3. An error
-  There are 13 root server clusters from a-m, as you can see in the `dig +trace` output, with servers from [over 380 locations](http://www.root-servers.org/).
-3. The root servers know the locations of all of the Top-Level Domain (TLDs) such as `.nz`, `.io`, `.blog`, `.com`, but they do not have the IP information for the FQDN, such as `google.co.nz`. The root server does know that the TLD `.nz` may know, so it returns a list of all the four to thirteen clustered `.nz` [generic TLD](https://en.wikipedia.org/wiki/Generic_top-level_domain) (gTLD) server `ns` (name server) IP addresses. This is the root name servers way of telling the recursive resolver to query one of the `.nz` gTLD authoritative servers
+    3. An error  
+  There are 13 root server clusters from a-m, as you can see in the `dig +trace` output below, with servers from [over 380 locations](http://www.root-servers.org/).
+3. The root servers know the locations of all of the Top-Level Domains (TLDs) such as `.nz`, `.io`, `.blog`, `.com`, but they do not have the IP information for the FQDN, such as `google.co.nz`. The root server does know that the TLD `.nz` may know, so it returns a list of all the four to thirteen clustered `.nz` [generic TLD](https://en.wikipedia.org/wiki/Generic_top-level_domain) (gTLD) server `ns` (name server) IP addresses. This is the root name servers way of telling the recursive resolver to query one of the `.nz` gTLD authoritative servers
 4. The recursive resolver queries one of the `.nz` gTLD authoritative servers (`ns<n>.dns.net.nz.` in our case) for `google.co.nz.`
-5. The `.nz` TLD authoritative server refers your recursive server to the authoritative servers for `google.co.nz.` (`ns<n>.google.com.`)
+5. The `.nz` TLD authoritative server refers the recursive server to the authoritative servers for `google.co.nz.` (`ns<n>.google.com.`)
 6. The recursive resolver queries the authoritative servers for `google.co.nz,` and receives 172.217.25.163 as the answer
 7. At this point the recursive resolver has finished its recursive process, caches the answer for the TTL duration specified on the DNS record, and returns it to the stub resolver having the "Recursion Available" (RA) flag set, indicating that the answer was indeed fully resolved
 
@@ -474,7 +474,7 @@ By using `dig +trace` we can get feedback on how the given fully qualified domai
 
 In following the above process through, you can see that although egress may be very restricted, DNS will just about always make it to the authoritative name server(s).
 
-The most flexible and useful type of DNS record for the attacker is the `TXT` record. We discuss the DNS `TXT` record briefly in the [EMail Address Spoofing Countermeasures](#network-countermeasures-spoofing-email-address) subsection. The `TXT` record is very flexible, useful for transferring arbitrary data, including code, commands (see section 3.3.14. `TXT RDATA` format of the [specification](https://www.ietf.org/rfc/rfc1035.txt)), which can also be modified at any point along its travels. There is no specific limit on the number of text strings in a  `TXT RDATA` field, but the TXT-DATA can not exceed 65535 bytes (general restriction on ) in total. Each text string can not exceed 255 characters in length including the length byte octet of each. This provides plenty of flexibility for the attacker.
+The most flexible and useful type of DNS record for the attacker is the `TXT` record. We discuss the DNS `TXT` record briefly in the [EMail Address Spoofing Countermeasures](#network-countermeasures-spoofing-email-address) subsection. The `TXT` record is very flexible, useful for transferring arbitrary data, including code, commands (see section 3.3.14. `TXT RDATA` format of the [specification](https://www.ietf.org/rfc/rfc1035.txt)), which can also be modified at any point along its travels. There is no specific limit on the number of text strings in a  `TXT RDATA` field, but the TXT-DATA can not exceed 65535 bytes (general restriction on all records) in total. Each text string can not exceed 255 characters in length including the length byte octet of each. This provides plenty of flexibility for the attacker.
 
 The evolution of data exfiltration and infiltration started with [OzymanDNS](https://room362.com/post/2009/2009310ozymandns-tunneling-ssh-over-dns-html/) from Dan Kaminsky in 2004. Shortly after that Tadeusz Pietraszek created [DNScat](http://tadek.pietraszek.org/projects/DNScat/), providing bi-directional communications through DNS servers. DNScat took the netcat idea and applied it to DNS, allowing penetration testers and attackers alike to pass through firewalls unhindered. DNScat is written in Java, requiring the JVM to be installed. Ron Bowes created the successor called [dnscat2](https://github.com/iagox86/dnscat2), you can check the history of dnscat2 on the github [history section](https://github.com/iagox86/dnscat2#history).
 
@@ -483,7 +483,7 @@ In order to carry out a successful Exfil, the attacker will need:
 1. A domain name registered for this attack
 2. A payload they can drop on one to many hosts inside their target network.
 The [dnscat2 client](https://github.com/iagox86/dnscat2#client) is written in C, modifications can and should be made to the source to help avoid detection.
-Dnscat2 also provides the ability to tunnel SSH from the dnscat2 server (C2) to the dnscat2 client, and even to other machines on the same network. All details are provided on the dnscat2 [github](https://github.com/iagox86/dnscat2#tunnels), and even more detail are provided on [Ron's blog](https://blog.skullsecurity.org/2015/dnscat2-0-05-with-tunnels). Once the attacker has modified the client source, they will most likely run [VirusTotal](https://www.virustotal.com/) or a similar service over it, to attempt to verify the likelihood of the payload being detected. We have covered quite a few techniques for increasing the chances of getting the payload onto the target systems in the [PowerShell](#vps-identify-risks-powershell) subsections of the VPS chapter, and the Infectious Media subsections of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+Dnscat2 also provides the ability to tunnel SSH from the dnscat2 server (C2) to the dnscat2 client, and even to other machines on the same network. All details are provided on the dnscat2 [github](https://github.com/iagox86/dnscat2#tunnels), and even more details are provided on [Ron's blog](https://blog.skullsecurity.org/2015/dnscat2-0-05-with-tunnels). Once the attacker has modified the client source, they will most likely run [VirusTotal](https://www.virustotal.com/) or a similar service over it, to attempt to verify the likelihood of the payload being detected. We have covered quite a few techniques for increasing the chances of getting the payload onto the target systems in the [PowerShell](#vps-identify-risks-powershell) subsections of the VPS chapter, and the Infectious Media subsections of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
 3. A command and control (C2) server set-up as the domains authoritative name server that is capable of communicating with the executing payload(s) on the hosts inside the targets network. [izhan](https://github.com/izhan) created a [howto document](https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md) covering the authoritative name server set-up. dnscat2 was created for this very reason.
 
 All the documentation required to set-up the C2 server and client is provided by dnscat2.
@@ -920,7 +920,7 @@ We discussed this in the Infectious Media subsection of Countermeasures of the P
 
 #### Mobile Phone Data
 
-You could ask that people don't use their cell phones, or perhaps leave them at reception. You could block the cell phone signals, but in many countries this is [illegal](https://www.fcc.gov/general/jamming-cell-phones-and-gps-equipment-against-law). This is a hard one, do some brain-storming with your colleagues.
+You could ask that people do not use their cell phones, or perhaps leave them at reception. You could block the cell phone signals, but in many countries this is [illegal](https://www.fcc.gov/general/jamming-cell-phones-and-gps-equipment-against-law). This is a hard one, do some brain-storming with your colleagues.
 
 #### DNS, SSH
 
@@ -1240,7 +1240,7 @@ As per the Infectious Media subsection of Risks that Solution Causes of the Peop
 
 #### Mobile Phone Data
 
-In most cases, what ever you do to stop cell phone signals escaping your premises, is either going to be ineffective, or significantly disadvantage your organisation, both in terms of productivity and morale.
+In most cases, what ever you do to stop cell phone signals escaping your premises, servers or compute, is either going to be ineffective, or significantly disadvantage your organisation, both in terms of productivity and morale. Since when have attackers played by the rules of their victims?
 
 #### DNS, SSH
 

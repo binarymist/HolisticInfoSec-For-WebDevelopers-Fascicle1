@@ -281,7 +281,7 @@ ent-2017-c82ec9136a3d#.f6yba66ti
 
 %% Data Exfiltration, Infiltration Identify Risks
 
-**Dropbox Inerview of James Cowling**  
+**Dropbox Interview of James Cowling**  
 [http://www.se-radio.net/2017/03/se-radio-episode-285-james-cowling-on-dropboxs-distributed-storage-system/](http://www.se-radio.net/2017/03/se-radio-episode-285-james-cowling-on-dropboxs-distributed-storage-system/)
 
 **DropSmack**  

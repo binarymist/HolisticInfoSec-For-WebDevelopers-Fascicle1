@@ -1007,7 +1007,7 @@ harden-surveillance for monitoring your network
 
 %% Data Exfiltration, Infiltration Identify Risks
 
-**Advanced Penetration Testing** by Will Allsopp
+**Advanced Penetration Testing** by Wil Allsopp
 
 **Stub resolver**  
 [http://www.zytrax.com/books/dns/apa/resolver.html](http://www.zytrax.com/books/dns/apa/resolver.html)
@@ -1030,7 +1030,7 @@ harden-surveillance for monitoring your network
 **Ron Bowes created the successor called dnscat2**  
 [https://github.com/iagox86/dnscat2](https://github.com/iagox86/dnscat2)
 
-**More detail are provided on Ron's blog**  
+**Additional details are provided on Ron's blog**  
 [https://blog.skullsecurity.org/2015/dnscat2-0-05-with-tunnels](https://blog.skullsecurity.org/2015/dnscat2-0-05-with-tunnels)
 
 **Izhan created a howto document** covering the authoritative name server set-up  
