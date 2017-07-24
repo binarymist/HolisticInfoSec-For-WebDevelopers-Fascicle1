@@ -754,7 +754,7 @@ People submitting genuinely innocent input. If a person is prepared to fill out 
 #### Data-store Compromise {#web-applications-identify-risks-management-of-application-secrets-data-store-compromise}
 ![](images/ThreatTags/difficult-widespread-average-moderate.png)
 
-The reason I've tagged this as moderate is because if you take the countermeasures, it doesn't have to be a disaster.
+The reason I have tagged this as moderate is because if you take the countermeasures, it doesn't have to be a disaster.
 
 The New Zealand Intelligence Service recently [told](http://www.stuff.co.nz/national/politics/73704551/homegrown-threats-more-serious-says-spy-boss-rebecca-kitteridge) Prime Minister John Key that this was one of the 6 top threats facing New Zealand. "_Cyber attack or loss of information and data, which poses financial and reputational risks._"
 
@@ -783,6 +783,7 @@ A smaller wordlist is going to take less time to create the hashes. As this is o
 As part of the hands on hack in the [SQLi](#web-applications-identify-risks-sqli) section, we obtained the password hashes via SQL injection from the target web application DVWA (part of the OWASP Broken Web Application suite (VM)). We witnessed how an attacker could obtain the passwords from the hashed values retrieved from the database.
 
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-identify-risks-lack-of-authentication-authorisation-session-management}
+![](images/ThreatTags/average-common-average-severe.png)
 
 Also brought to light by the OWASP Top 10 risks "[_No. 2 Broken Authentication and Session Management_](https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management)".
 
@@ -901,6 +902,7 @@ Many vulnerabilities can hide in these external dependencies. It is not just one
 Running any type of scripts from non local sources without first downloading and inspecting them, and checking for known vulnerabilities, has the potential to cause massive damage, for example, destroy or modify your systems and any other that may be reachable, send sensitive information to an attacker, or many other types of other malicious activity.
 
 ### Insufficient Attack Protection
+![](images/ThreatTags/easy-common-average-moderate.png)
 
 There is a good example of what the Insecure Direct Object References risk looks like in the [NodeGoat](https://github.com/OWASP/NodeGoat/) web application. Check out the [tutorial](https://nodegoat.herokuapp.com/tutorial/a4), along with the video of how the attack is played out, along with the sample code and recommendations of how to fix.
 
@@ -3570,6 +3572,7 @@ Don't forget to plug all your changes into your Zap Regression Test suite as dis
 Slowing down and rendering cracking infeasible is addressed by the type of KDF and number of rounds you configure. We dealt with this in the "[Which KDF to use](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)" section.
 
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management}
+![](images/ThreatTags/PreventionDIFFICULT.png)
 
 I'm going to walk you through some of the important parts of what a possible authentication and authorisation solution might look like that will address the points raised in the [Identify Risks](#web-applications-identify-risks-lack-of-authentication-authorisation-session-management) section from above.
 
@@ -4601,6 +4604,7 @@ For **.Net developers**, there is the likes of [OWASP **SafeNuGet**](https://git
 OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) also notifies of known, publicly disclosed vulnerabilities in Java and .Net, with experimental support for Ruby, Node.js and Python. I haven't used DependencyCheck, it produces [false positives and false negatives](https://jeremylong.github.io/DependencyCheck/).
 
 ### Insufficient Attack Protection {#web-applications-countermeasures-insufficient-attack-protection}
+![](images/ThreatTags/PreventionEASY.png)
 
 [Insecure Direct Object References](https://www.owasp.org/index.php/Top_10_2013-A4-Insecure_Direct_Object_References) was part of the OWASP Top 10 in 2013, which in 2017 was [merged](https://www.owasp.org/index.php/Top_10_2017-Release_Notes) into [Insufficient Attack Protection](https://www.owasp.org/index.php/Top_10_2017-A7-Insufficient_Attack_Protection). OWASP has good guidance on this.
 

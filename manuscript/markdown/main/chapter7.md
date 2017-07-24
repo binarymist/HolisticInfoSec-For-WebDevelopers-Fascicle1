@@ -747,7 +747,7 @@ There are many ways to achieve persistence. I have not included any lateral move
 ### Unnecessary and Vulnerable Services 
 
 #### Overly Permissive File Permissions, Ownership and Lack of Segmentation {#vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation}
-![](images/ThreatTags/average-uncommon-difficult-moderate.png)
+![](images/ThreatTags/average-common-difficult-moderate.png)
 
 A lack of segmenting of a file system, according to what is the least amount of privilege any authorised parties require is often the precursor to **privilege escalation**.
 

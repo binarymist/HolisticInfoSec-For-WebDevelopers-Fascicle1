@@ -24,6 +24,7 @@ Most types of security exploitation have a network involved somewhere. Reconnais
 _Todo_: Add SER interview for Network Security
 
 ### Fortress Mentality
+![](images/ThreatTags/easy-widespread-easy-severe.png)
 
 This section takes the concepts from the section with the same name from the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). The largest percentage of successful attacks come from within organisations. Usually the inside attacks get covered up, because the public image of the organisation is affected to a greater extent than if the organisation publicises the fact that they were compromised by someone on the other side of the world.
 
@@ -98,6 +99,7 @@ This clearly shows, that although our technological defences are improving slowl
 Often workers bring their own devices to work, and bring their work devices home and back, potentially transferring malware from network to network, whether they be wired or wireless. Again though, people are the real issue here. No matter how good your technological solution is, people will circumvent it.
 
 ### Lack of Segmentation {#network-identify-risks-lack-of-segmentation}
+![](images/ThreatTags/average-common-easy-moderate.png)
 
 Similar to the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section in the VPS chapter, here we focus on the same concept but at the network layer.
 
@@ -110,6 +112,7 @@ Having all or many resources from different trust boundaries on a monolithic net
 A good example of lack of segmentation is what is currently happening with the explosion of IoT devices. Why would your house-hold appliances need to be on the internet other than to perform unnecessary tasks, like a fridge ordering food, or an oven being able to tell you when your dinner is cooked, or worse, providing functionality to turn the appliance on and off, or worse still, being [commandeered by attackers](http://www.mirror.co.uk/news/technology-science/technology/hackers-use-fridge-send-spam-3046733#) to do their bidding which is quite common now for home appliances that have next to no consciousness of security. Even if these functions were considered important enough to reveal open sockets from your home to the internet, surely it would be much safer to have these devices on a network segment with the least of privileges available, tight egress filtering, encrypted communications, and someone that knows how to configure the firewall rules on the segments gateway.
 
 ### Lack of Visibility
+![](images/ThreatTags/average-common-difficult-moderate.png)
 
 Check the [Lack of Visibility](#vps-identify-risks-lack-of-visibility) from the VPS chapter, there will be some cross over. If you do not have visibility of what is being communicated in your protocol stack, then the network protocols are open to being exploited. [Data Exfiltration leveraging DNS](#network-identify-risks-data-exfiltration-infiltration-leveraging-dns) is one example of this. If you are unable to detect potential attacks on the network, before they occur, then the actual network components will be exploited.
 
@@ -356,6 +359,7 @@ G> `run bypassuac`
 G> Now that is successful, but AV detects bad signatures on some of the root-kits. On this shell I only got the privileges of the target running the browser exploit.
 
 ### Data Exfiltration, Infiltration {#network-identify-risks-data-exfiltration-infiltration}
+![](images/ThreatTags/average-common-difficult-severe.png)
 
 #### Ingress and Egress Techniques
 
@@ -542,6 +546,7 @@ This is a danger for all websites that do not enforce TLS for every page, or bet
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
 ### Fortress Mentality {#network-countermeasures-fortress-mentality}
+![](images/ThreatTags/PreventionAVERAGE.png)
 
 This section takes the concepts from the section with the same name from the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
 
@@ -567,6 +572,7 @@ For file and data sharing from machine to machine no matter where they are, and 
 * [Tresorit ZeroKit SDK](https://tresorit.com/zerokit) User authentication and end-to-end encryption for Android, iOS and JavaScript applications
 
 ### Lack of Segmentation  {#network-countermeasures-lack-of-segmentation}
+![](images/ThreatTags/PreventionAVERAGE.png)
 
 By creating network segments containing only the resources specific to the consumers that you authorise access to, you are creating an environment of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege), where only those authorised to access resources can access them.
 
@@ -599,6 +605,7 @@ Consider putting resources like data-stores in a secluded segment. VLAN or physi
 Also consider using [Docker containers](#vps-countermeasures-docker) which provide some free isolation.
 
 ### Lack of Visibility
+![](images/ThreatTags/PreventionAVERAGE.png)
 
 There are quite a few things that can be done to improve visibility on your networks. Let us address logging and Network Intrusion Detection Systems.
 
@@ -903,6 +910,7 @@ There is nothing to stop someone cloning and hosting a website. The vital part t
 tools such as free and open source [ArpON (ARP handler inspection)](http://arpon.sourceforge.net/) cover website spoofing and a lot more.
 
 ### Data Exfiltration, Infiltration
+![](images/ThreatTags/PreventionDIFFICULT.png)
 
 There are so many ways to get data in and out of an organisations environment.
 The following are some of the countermeasures you need to think about when it comes to stopping unauthorised communications entering your network and/or your data leaving your premises, servers or compute.
