@@ -414,8 +414,9 @@ By using `dig +trace` we can get feedback on how the given fully qualified domai
 2. The recursive resolver will check to see if it has a cached DNS record from the authoritative nameserver with a valid TTL. If the recursive server does not have the DNS record cached, it begins the recursive process of going through the authoritative DNS hierarchy. The recursive resolver queries one of the root name servers (denoted by the '.' at the end of the domain name) for the requested DNS record to find out who is the authoritative name server for the TLD (`.nz` in our case). This query does not have the `RD` flag set, which means it is an "iterative query", meaning that the response must be one of either:
     1. The location of an authoritative name server
     2. An IP address as seen in step 6 once the recursion resolves
-    3. An error  
-There are 13 root server clusters from a-m, as you can see in the `dig +trace` output below, with servers from [over 380 locations](http://www.root-servers.org/).
+    3. An error
+
+There are 13 root server clusters from a-m, as you can see in the `dig +trace` output below, with servers from [over 380 locations](http://www.root-servers.org/)
 3. The root servers know the locations of all of the Top-Level Domains (TLDs) such as `.nz`, `.io`, `.blog`, `.com`, but they do not have the IP information for the FQDN, such as `google.co.nz`. The root server does know that the TLD `.nz` may know, so it returns a list of all the four to thirteen clustered `.nz` [generic TLD](https://en.wikipedia.org/wiki/Generic_top-level_domain) (gTLD) server `ns` (name server) IP addresses. This is the root name servers way of telling the recursive resolver to query one of the `.nz` gTLD authoritative servers
 4. The recursive resolver queries one of the `.nz` gTLD authoritative servers (`ns<n>.dns.net.nz.` in our case) for `google.co.nz.`
 5. The `.nz` TLD authoritative server refers the recursive server to the authoritative servers for `google.co.nz.` (`ns<n>.google.com.`)
