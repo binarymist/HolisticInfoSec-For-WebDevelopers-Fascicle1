@@ -130,6 +130,8 @@ Spoofing on a network is the act of an entity (often malicious (Mallory), [but n
 
 The following are some of the different types of network spoofing.
 
+![](images/Spoof.png)
+
 #### [IP](http://en.wikipedia.org/wiki/IP_address_spoofing) {#network-identify-risks-spoofing-ip}
 ![](images/ThreatTags/easy-common-average-severe.png)
 
