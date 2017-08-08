@@ -546,6 +546,8 @@ This is a danger for all websites that do not enforce TLS for every page, or bet
 
 ## 3. SSM Countermeasures {#network-countermeasures}
 
+Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
 ### Fortress Mentality {#network-countermeasures-fortress-mentality}

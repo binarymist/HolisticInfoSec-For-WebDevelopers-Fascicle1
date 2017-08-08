@@ -749,7 +749,7 @@ People submitting genuinely innocent input. If a person is prepared to fill out 
 ### Management of Application Secrets {#web-applications-identify-risks-management-of-application-secrets}
 
 * Passwords and other secrets for things like data-stores, syslog servers, monitoring services, email accounts and so on can be useful to an attacker to compromise data-stores, obtain further secrets from email accounts, file servers, system logs, services being monitored, etc, and may even provide credentials to continue moving through the network compromising other machines.
-* Passwords and/or their hashes travelling over the network. Also see the [Wire Inspecting](#network-identify-risks-wire-inspecting) section in the [Network](#network) chapter.
+* Passwords and/or their hashes travelling over the network.
 
 #### Data-store Compromise {#web-applications-identify-risks-management-of-application-secrets-data-store-compromise}
 ![](images/ThreatTags/difficult-widespread-average-moderate.png)

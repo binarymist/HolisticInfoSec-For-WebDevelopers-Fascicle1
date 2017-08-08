@@ -2,7 +2,7 @@
 
 ![10,000' view of VPS Security](images/10000VPS.png)
 
-If it makes sense, I usually advocate bringing VPS(s) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have more control. Most of my work around VPS's are with GNU/Linux instances. Most of the testing in this chapter was performed on Debian instances, usually, but not allways, web servers. Unless stated otherwise, the following applies to these type of instances.
+If you have the necessary resources, that's knowledge, skill, experience, desire, money, and of course the need for high security which is becomming more and more important all the time, I usually advocate bringing VPS(s) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have more control. Most of my work around VPS's are with GNU/Linux instances. Most of the testing in this chapter was performed on Debian instances, usually, but not allways, web servers. Unless stated otherwise, the following applies to these type of instances.
 
 ## 1. SSM Asset Identification {#vps-asset-identification}
 Take results from higher level Asset Identification found in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered. Here are some to get you started:
@@ -159,30 +159,30 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
 "PsExec via Current User Token"  
    
    1. This module uploads an executable file to the victim system, then creates a share containing that executable
-   2. Then creates a remote service on each target system similar to the `psexec` module, using a UNC path to the file on the victim system, this is essentially a pivot, or lateral movement.
-   3. Then starts the service(s) on the target hosts which run the executable from step 1. The reason the service(s) on the target(s) can be placed and run, is because we are using the victims legitimate current session's authentication token to pivot to the target(s), we do not need to know the credentials for the target(s).  
+   2. Then creates a remote service on each target system similar to the `psexec` module, using a UNC path to the file on the victim system, this is essentially a pivot, or lateral movement
+   3. Then starts the service(s) on the target hosts which run the executable from step 1. The reason the service(s) on the target(s) can be placed and run, is because we are using the victims legitimate current session's authentication token to pivot to the target(s), we do not need to know the credentials for the target(s)  
    
    You are going to want to run ss to find out which system(s) if any, the administrator is connected to, ideally something important like a Domain Controller. From the victim, you can compromise many targets using the same administrators authentication token.  
    
-   This is a local exploit, it has to be run from an already compromised administrator that you have a Meterpreter session on, a reverse shell for example, against your target, this is where the pivot occurs.  
+   This is a local exploit, it has to be run from an already compromised administrator that you have a Meterpreter session on, a reverse shell for example, against your target, this is where the pivot occurs  
    
 2. [`psexec_command`](https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_command)  
 (2012-11-23) `auxiliary/admin/smb/psexec_command`  
 "Microsoft Windows Authenticated Administration Utility"  
    
-   This module passes the valid administrator credentials, then executes a single arbitrary Windows command on one or more target systems, using a similar technique to the PsExec utility provided by SysInternals. This will not trigger AV as no binaries are uploaded, we are simply leveraging cmd.exe. but it also does not provide a meterpreter shell. Concatenating commands with '&' does not work.  
+   This module passes the valid administrator credentials, then executes a single arbitrary Windows command on one or more target systems, using a similar technique to the PsExec utility provided by SysInternals. This will not trigger AV as no binaries are uploaded, we are simply leveraging cmd.exe. but it also does not provide a meterpreter shell. Concatenating commands with '&' does not work  
    
 3. [`psexec_loggedin_users`](https://www.rapid7.com/db/modules/auxiliary/scanner/smb/psexec_loggedin_users)  
 (2012-12-05) `auxiliary/scanner/smb/psexec_loggedin_users`  
 "Microsoft Windows Authenticated Logged In Users Enumeration"  
    
-   This module passes the valid administrator credentials, then using a similar technique to that of the PsExec utility queries the HKU base registry key on the remote machine with reg.exe to get the list of currently logged in users. Notice this is a scanner module, so it can be run against many target machines concurrently.  
+   This module passes the valid administrator credentials, then using a similar technique to that of the PsExec utility queries the HKU base registry key on the remote machine with reg.exe to get the list of currently logged in users. Notice this is a scanner module, so it can be run against many target machines concurrently  
    
 4. [`psexec_psh`](https://www.rapid7.com/db/modules/exploit/windows/smb/psexec_psh)  
 (2013-1-21) `exploit/windows/smb/psexec_psh`  
 "Microsoft Windows Authenticated Powershell Command Execution"  
    
-   This module passes the valid administrator credentials as usual, then attempts to execute a powershell payload using a similar technique to the PsExec utility. This method is far less likely to be detected by AV because: PowerShell is native to Windows, each payload is unique because it is your script and it is just base64 encoded, more likely to escape signature based detection, it also never gets written to disk. It is executed from the commandline using the `-encodedcommand ` flag and provides the familiar Meterpreter shell.  
+   This module passes the valid administrator credentials as usual, then attempts to execute a powershell payload using a similar technique to the PsExec utility. This method is far less likely to be detected by AV because: PowerShell is native to Windows, each payload is unique because it is your script and it is just base64 encoded, more likely to escape signature based detection, it also never gets written to disk. It is executed from the commandline using the `-encodedcommand ` flag and provides the familiar Meterpreter shell  
    
    * "_A persist option is also provided to execute the payload in a while loop in order to maintain a form of persistence._"
    * "_In the event of a sandbox observing PowerShell execution, a delay and other obfuscation may be added to avoid detection._"
@@ -196,7 +196,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
    
    There are additional details around where `NTDS.dit` fits into the picture in the [Windows section](#web-applications-countermeasures-management-of-application-secrets-store-configuration-windows) of the Web Applications chapter.  
    
-   Unlike SmbExec, we have to parse the files that `psexec_ntdsgrab` downloads for us with a separate tool, also discussed briefly in the [Windows section](#web-applications-countermeasures-management-of-application-secrets-store-configuration-windows) of the Web Applications chapter.  
+   Unlike SmbExec, we have to parse the files that `psexec_ntdsgrab` downloads for us with a separate tool, also discussed briefly in the [Windows section](#web-applications-countermeasures-management-of-application-secrets-store-configuration-windows) of the Web Applications chapter  
    
 6. [`wmi`](https://www.rapid7.com/db/modules/exploit/windows/local/wmi)  
 (2013-09-21) `exploit/windows/local/wmi`  
@@ -218,7 +218,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
    
    WMI needs to be accessible for remote access, of which there are step(s) to make sure this is the case. These step(s), vary depending according to the specific Windows release and other configurations.  
    
-   Rather than relying on SMB via the psexec technique, starting a service on the target, the `wmi` module executes PowerShell on the target using the current user credentials or those that you supply, so this is still a PTH technique. We use the WMI Command-line (WMIC) to [start a Remote Procedure Call](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48) on TCP port 135 and an ephemeral port. Then create a [ReverseListenerComm](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61) to tunnel traffic through that session.
+   Rather than relying on SMB via the psexec technique, starting a service on the target, the `wmi` module executes PowerShell on the target using the current user credentials or those that you supply, so this is still a PTH technique. We use the WMI Command-line (WMIC) to [start a Remote Procedure Call](https://github.com/rapid7/metasploit-framework/blob/master/lib/msf/core/post/windows/wmic.rb#L48) on TCP port 135 and an ephemeral port. Then create a [ReverseListenerComm](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/windows/local/wmi.rb#L61) to tunnel traffic through that session
 
 #### PowerShell {#vps-identify-risks-powershell}
 ![](images/ThreatTags/average-common-average-severe.png)
@@ -1481,9 +1481,14 @@ There is not a lot to say here, other than make sure you do this. I have persona
 Now this is addressed, because so many rely on firewalls to hide many weak areas of defence. The lack of a firewall if your services and communications between them are hardened does not have to be an issue, in-fact I see it as a goal many of us should have, as it forces us to build better layers of defence.
 
 ## 3. SSM Countermeasures {#vps-countermeasures}
-* [MS Host Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007)
-* [MS Securing Your Web Server](https://msdn.microsoft.com/en-us/library/ff648653.aspx) This is Microsoft specific, but does offer some insight into technology agnostic risks and countermeasures
-* [MS Securing Your Application Server](https://msdn.microsoft.com/en-us/library/ff648657.aspx) As above, Microsoft specific, but does provide some ideas for vendor agnostic concepts
+
+Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+
+The following resources are also worth reviewing:
+
+* MS Host Threats and Countermeasures: [https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007)
+* MS Securing Your Web Server: [https://msdn.microsoft.com/en-us/library/ff648653.aspx](https://msdn.microsoft.com/en-us/library/ff648653.aspx) This is Microsoft specific, but does offer some insight into technology agnostic risks and countermeasures
+* MS Securing Your Application Server: [https://msdn.microsoft.com/en-us/library/ff648657.aspx](https://msdn.microsoft.com/en-us/library/ff648657.aspx) As above, Microsoft specific, but does provide some ideas for vendor agnostic concepts
 
 ### Forfeit Control thus Security {#vps-countermeasures-forfeit-control-thus-security}
 ![](images/ThreatTags/PreventionEASY.png)
@@ -4122,7 +4127,7 @@ Your priority before you start testing images for vulnerable contents, is to und
 
 If you are already doing the last step from above, then fetching an image with a very similar name becomes highly unlikely.
 
-#### The Default User is Root
+#### The Default User is Root {#vps-countermeasures-docker-the-dDefault-user-is-root}
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
 In order to run containers as a non-root user, the user needs to be added in the (preferably base) image (`Dockerfile`) if it is under your control, and set before any commands you want run as a non-root user. Here is an example of the [NodeGoat](https://github.com/owasp/nodegoat) image:
@@ -4235,7 +4240,7 @@ With reapplication of the ownership and permissions of the non-root user, as the
 
 An alternative to setting the non-root user in the `Dockerfile`, is to set it in the `docker-compose.yml`, providing the non-root user has been added to the image in the `Dockerfile`. In the case of NodeGoat, the mongo `Dockerfile` is maintained by DockerHub, and it adds a user called `mongodb`. Then in the NodeGoat projects `docker-compose.yml`, we just need to set the user, as seen on line 13 below:
 
-{title="NodeGoat docker-compose.yml", linenos=on}
+{id="nodegoat-docker-compose.yml", title="NodeGoat docker-compose.yml", linenos=on}
     version: "2.0"
     
     services:
@@ -4923,7 +4928,7 @@ A container manifest (`config.json`) can be created by running:
 `runc spec`  
 which creates a manifest according to the Open Container Initiative (OCI)/runc specification. Engineers can then add any additional attributes such as capabilities on top of the three specified within a container manifest created by the `runc spec` command.
 
-#### Application Security
+#### Application Security {#vps-countermeasures-docker-application-security}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
 Yes container security is important, but in most cases, it is not the lowest hanging fruit for an attacker.
