@@ -5,7 +5,7 @@
 
 ![10,000' view of Cloud and In-house Cloud Security](images/10000Cloud.png)
 
-If you skipped the [VPS](#vps) chapter, just be aware that it has a lot of similarities due to the fact that in many cases your VPS may be on someone else's hardware and in their control, just as many Cloud Service Providers leverage AWS resources, which ultimately still runs on real hardware.
+If you skipped the [VPS](#vps) chapter, just be aware that it has a lot of similarities due to the fact that in many cases your VPS may be on someone else's hardware and under their control, just as many Cloud Service Providers leverage AWS resources, which ultimately still runs on real hardware. The Cloud is an abstraction (a lie).
 
 
 
@@ -36,21 +36,21 @@ Take the results from the higher level Asset Identification in the 30,000' View 
 
 Using IaaS and even more so PaaS can provide great productivity gains, but everything comes at a cost. You don't get productivity gains for free. You will be sacrificing something and usually that something is at least security. You no longer have control of your data.
 
-Using cloud services can be a good thing especially for smaller businesses and start ups, but before the decision is made as to whether to use an external cloud provider or whether to use or create your own, there are some very important considerations to be made.
+Using cloud services can be a good thing especially for smaller businesses and start ups, but before the decision is made as to whether to use an external cloud provider or whether to use or create your own, there are some very important considerations to be made. We will discuss these in the Identify Risks and Countermeasures subsections.
 
 ### Competitive Advantage
 
-If you are a start up, just be aware that the speed you have initially with a PaaS will not continue as your product moves from Proof of Concept to something that customers start to use if you decide to be more careful about customers and your own IP by bringing it in-house or entrusting it to a provider that takes security seriously rather than just saying they do.
+If you are a start up, just be aware that the speed you have initially with a PaaS may not continue as your product moves from Proof of Concept to something that customers start to use if you decide to be more careful about customers and your own IP by bringing it in-house or entrusting it to a provider that takes security seriously rather than just saying they do. We will be investigating these options through the Identify Risks subsection.
 
 ### Control
 
 Control of our environments
 
-We are blindly trusting huge amounts of IP to CSPs. In fact, I have worked for clients that insist on putting everything in The Cloud. Some have even said that they are not concerned with security. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to market as their progress and plans are intercepted. The best book I have read to date that reveals the problem with this blind yielding of everything is Bruce Schneier Data and Goliath. This is an eye opening canon of what we are doing and what its results are going to be.
+We are blindly trusting huge amounts of IP to CSPs. In fact, I have worked for many customers that insist on putting everything in The Cloud without much thought. Some have even said that they are not concerned with security. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to market as their progress and plans are intercepted. The best book I have read to date that reveals the problem with this blind yielding of everything is Bruce Schneier Data and Goliath. This is an eye opening canon of what we are doing and what its results are going to be.
 
-When ever you see that word "trust", you are yielding control to the party you are trusting. When you trust an entity with your assets, you are giving them control. Are your assets their primary concern, or is it maximising profits?
+When ever you see that word "trust", you are yielding control to the party you are trusting. When you trust an entity with your assets, you are giving them control. Are your assets their primary concern, or is it maximising their profits by using you and/or your data as their asset?
 
-If you decide to use an external cloud provider, you need to be aware that what ever goes into The Cloud is almost completely out of your control and you can not pull it back once it has been released, as you have no idea whether the existing data is really removed from The Cloud.
+If you decide to use an external cloud provider, you need to be aware that what ever goes into The Cloud is almost completely out of your control, you may not be able to remove it once it is there, as you may not have visibility into whether or not the existing data is really removed from The Cloud.
 
 ### Data
 
@@ -66,7 +66,7 @@ If you deal with sensitive customer data, then you have an ethical and legal res
 
 ## 2. SSM Identify Risks {#cloud-identify-risks}
 
-Some of the thinking around the process we went through at the top level in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) are worth revisiting.
+Some of the thinking around the process we went through at the top level in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) may be worth revisiting.
 
 ### Shared Responsibility Model {#cloud-identify-risks-shared-responsibility-model}
 
@@ -142,19 +142,17 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
    
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, also allowing the network to be in-scope?  
    
-   CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness, if their networks stand up to penetration tests, then obviously take security seriously also. Ideally this is what you are looking for. CSPs that do not permit penetration testing of their environments, are usually trying to hide the fact that either they know they have major insecurities, skill shortages in terms of security professionals, or are unaware of where their security stature lies, and not willing to have their faults demonstrated.
-
+   CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness, if their networks stand up to penetration tests, then obviously take security seriously also. Ideally this is what you are looking for. CSPs that do not permit penetration testing of their environments, are usually trying to hide the fact that either they know they have major insecurities, skill shortages in terms of security professionals, or are unaware of where their security stature lies, and not willing to have their faults demonstrated  
+   
 11. Do you have bug bounty programmes running, if so, what do they look like?  
    
-   This is another example if the programme is run well, that the CSP is open, transparent about their security faults and willing to mitigate them as soon as possible.
+   This is another example if the programme is run well, that the CSP is open, transparent about their security faults and willing to mitigate them as soon as possible
 
 
 
 
 
-
-
-Focus on collection of the largest providers
+Now we will focus on a collection of the largest providers.
 
 #### AWS
 
@@ -163,6 +161,7 @@ Focus on collection of the largest providers
 ##### Password-less sudo
 
 Password-less sudo. A low privileged user can operate with root privileges. This is essentially as bad as root logins.
+
 %% https://serverfault.com/questions/615034/disable-nopasswd-sudo-access-for-ubuntu-user-on-an-ec2-instance
 
 
@@ -212,7 +211,7 @@ Trust is an issue with The Cloud, you do not have control of your data or the pe
 
 #### Skills
 
-The smaller CSPs in many cases suffer from the same resourcing issues that many business's do in regards to having solid security skills and engagement of their workers to apply security in-house. In general, in order to benefit from the Shared Responsibility Model of the CSP, it pays to go with one of the larger CSPs
+The smaller CSPs in many cases suffer from the same resourcing issues that many business's do in regards to having solid security skills and engagement of their workers to apply security in-house. In general, in order to benefit from the Shared Responsibility Model of the CSP, it pays to go with one of the larger CSPs.
 
 #### EULA
 
@@ -221,7 +220,7 @@ Most CSPs will have End User License Agreements (EULA) that have the right to ch
 #### Giving up Secrets {#cloud-identify-risks-cloud-service-provider-vs-in-house-giving-up-secrets}
 
 In many cases, hosting providers can be, and in many cases are [forced](http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me) by governing authorities to [give up](https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information) your and your customers secrets. This is a really bad place to be in and it is very common place now, you may not even know it’s happened.  
-The NZ Herald [covered a story](http://www.nzherald.co.nz/nz/news/article.cfm?c_id=1&objectid=11481516) in which Senior lawyers and the Privacy Commissioner have told the Herald of concerns about the practise which sees companies coerced into giving up information to the police. Instead of seeking legal order, police have asked companies to hand over information to assist with the "maintenance of the law", threatened them with prosecution if they tell the person about whom they are interested and accept data with no record keeping to show how often requests are made. The request from police carries no legal force at all yet is regularly complied with
+The NZ Herald [covered a story](http://www.nzherald.co.nz/nz/news/article.cfm?c_id=1&objectid=11481516) in which Senior lawyers and the Privacy Commissioner have told the Herald of concerns about the practise which sees companies coerced into giving up information to the police. Instead of seeking legal order, police have asked companies to hand over information to assist with the "maintenance of the law", threatened them with prosecution if they tell the person about whom they are interested and accept data with no record keeping to show how often requests are made. The request from police carries no legal force at all yet is regularly complied with.
 
 #### Location of Data
 
@@ -237,7 +236,7 @@ Reliance on vendor guarantees
 
 _Todo_ vvv.
 
-Single points of failure
+Single points of failure  
 Loss of availability zone
 
 
@@ -319,7 +318,7 @@ In most organisations I work for as an architect or engineer, I see many cases o
 
 #### Private Key Abuse
 
-SSH key-pair auth is no better than password auth if it is abused in the following way, in-fact it may even be worse. What I have seen some organisations do is store a single private key with no pass-phrase for all of their EC2 instances in their developer wiki. All or many developers have access to this. There are a number of things wrong with this. 
+[SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) key-pair auth is no better than password auth if it is abused in the following way, in-fact it may even be worse. What I have seen some organisations do is store a single private key with no pass-phrase for all of their EC2 instances in their developer wiki. All or many developers have access to this. There are a number of things wrong with this. 
 
 * Private key is not private if it is shared amongst the team
 * No pass-phrase, means no second factor of authentication
@@ -378,7 +377,7 @@ If you leverage The Cloud, Make sure the following aspects of security are all a
 
 ### CSP Evaluation
 
-Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risks-csp-evaluation) subsection on your service provider and received their answers, you will be in a good position to feed these into the following subsections.
+Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risks-csp-evaluation) subsection in the Identify Risks subsection on your service provider and received their answers, you will be in a good position to feed these into the following subsections.
 
 
 1. Do you keep a signed audit log on which users performed which actions and when, via UIs and APIs?  
@@ -423,11 +422,11 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, also allowing the network to be in-scope?  
    
-   You will not need to go through this process of requesting permission from your own company to carry out penetration testing, and if you do, there should be a lot fewer restrictions in place.
+   You will not need to go through this process of requesting permission from your own company to carry out penetration testing, and if you do, there should be a lot fewer restrictions in place  
    
 11. Do you have bug bounty programmes running, if so, what do they look like?  
    
-   If the CSP is of a reasonable size and is not already running bug bounties, this is a good sign that security could be taken more seriously. 
+   If the CSP is of a reasonable size and is not already running bug bounties, this is a good sign that security could be taken more seriously.
 
 
 
@@ -490,8 +489,8 @@ If you use an in-house cloud, you decide where services & data reside.
 #### Vendor lock-in
 
 Vendor guarantees: Verify how water tight these are
-Single points of failure, create reduncancy in services that we simply can not do without
-Multiple availability zones
+Single points of failure, create reduncancy in services that we simply can not do without  
+Multiple availability zones  
 Consider vendor agnostic
 
 
@@ -534,7 +533,7 @@ _Todo_ Discuss some of the other orchestration options below vvv.
 
 _Todo_ more research required here vvv.
 
-As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS (this all needs to be automated). With Docker, I discussed how this is done in the [you do this in the [Dockerfile](#vps-countermeasures-docker-the-dDefault-user-is-root).
+As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS (this all needs to be automated). With Docker, I discussed how this is done in the [Dockerfile](#vps-countermeasures-docker-the-dDefault-user-is-root).
 
 Research and document the options we have for AWS IAM segregation, and drive a least provilage policy around this, implement [multi-factor authentication](https://aws.amazon.com/iam/details/mfa/) which will help with poor password selection of users.
 
@@ -552,7 +551,7 @@ Research and document the options we have for AWS IAM segregation, and drive a l
 
 There are many ways to harden SSH as we discussed in the [SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) subsection in the VPS chapter. Usually the issue will lie with lack of knowledge, desire and a dysfunctional [culture](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/) in the work place. You will need to address the people issues before looking at basic SSH hardening techniques.
 
-Ideally SSH access should be reduced to a select few. Most of the work we do now by SSHing should be automated. If you have a look at all the commands in `history` on any of the VPS's, most of the commands are either deployment or
+Ideally SSH access should be reduced to a select few. Most of the work we do now by SSHing should be automated. If you have a look at all the commands in history on any of the VPSs, most of the commands are either deployment or
 manual monitoring which should all be automated.
 
 Every user should have their [own key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html), the private part should always be private, not shared on your developer wiki or anywhere else for that matter. The public part can be put on every server that the user needs access to.
@@ -566,7 +565,7 @@ Follow the procedure I laid out for [Establishing your SSH Servers Key Fingerpri
 _Todo_ vvv.
 
 
-Create multiple accounts with least privileges required for each user
+Create multiple accounts with least privileges required for each user  
 Create and enforce password policies
 
 

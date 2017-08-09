@@ -2,7 +2,7 @@
 
 ![10,000' view of VPS Security](images/10000VPS.png)
 
-If you have the necessary resources, that's knowledge, skill, experience, desire, money, and of course the need for high security which is becomming more and more important all the time, I usually advocate bringing VPS(s) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have more control. Most of my work around VPS's are with GNU/Linux instances. Most of the testing in this chapter was performed on Debian instances, usually, but not allways, web servers. Unless stated otherwise, the following applies to these type of instances.
+If you have the necessary resources, that is knowledge, skill, experience, desire, money, and of course the need for high security which is becomming more and more important all the time, I usually advocate bringing VPS(s) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have more control. Most of my work around VPSs are with GNU/Linux instances. Most of the testing in this chapter was performed on Debian instances, usually, but not allways, web servers. Unless stated otherwise, the following applies to these type of instances.
 
 ## 1. SSM Asset Identification {#vps-asset-identification}
 Take results from higher level Asset Identification found in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered. Here are some to get you started:
@@ -1486,7 +1486,8 @@ Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](http
 
 The following resources are also worth reviewing:
 
-* MS Host Threats and Countermeasures: [https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007)
+* MS Host Threats and Countermeasures:  
+[https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007)
 * MS Securing Your Web Server: [https://msdn.microsoft.com/en-us/library/ff648653.aspx](https://msdn.microsoft.com/en-us/library/ff648653.aspx) This is Microsoft specific, but does offer some insight into technology agnostic risks and countermeasures
 * MS Securing Your Application Server: [https://msdn.microsoft.com/en-us/library/ff648657.aspx](https://msdn.microsoft.com/en-us/library/ff648657.aspx) As above, Microsoft specific, but does provide some ideas for vendor agnostic concepts
 
