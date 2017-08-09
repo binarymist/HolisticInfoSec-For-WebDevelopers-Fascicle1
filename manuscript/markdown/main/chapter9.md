@@ -141,12 +141,12 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
    If the CSP can answer this with a "everything" and prove it, they have done a lot of work to make this possible, this shows a level of commitment to something security related. Just be aware, as with any certification, it is just that, it does not prove a lot  
    
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, also allowing the network to be in-scope?  
-  
-  CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness, if their networks stand up to penetration tests, then obviously take security seriously also. Ideally this is what you are looking for. CSPs that do not permit penetration testing of their environments, are usually trying to hide the fact that either they know they have major insecurities, skill shortages in terms of security professionals, or are unaware of where their security stature lies, and not willing to have their faults demonstrated  
+    
+    CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness, if their networks stand up to penetration tests, then obviously take security seriously also. Ideally this is what you are looking for. CSPs that do not permit penetration testing of their environments, are usually trying to hide the fact that either they know they have major insecurities, skill shortages in terms of security professionals, or are unaware of where their security stature lies, and not willing to have their faults demonstrated  
    
 11. Do you have bug bounty programmes running, if so, what do they look like?  
-  
-  This is another example if the programme is run well, that the CSP is open, transparent about their security faults and willing to mitigate them as soon as possible
+    
+    This is another example if the programme is run well, that the CSP is open, transparent about their security faults and willing to mitigate them as soon as possible
 
 
 
@@ -425,12 +425,12 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    _Todo_
    
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, also allowing the network to be in-scope?  
-  
-  You will not need to go through this process of requesting permission from your own company to carry out penetration testing, and if you do, there should be a lot fewer restrictions in place  
+    
+    You will not need to go through this process of requesting permission from your own company to carry out penetration testing, and if you do, there should be a lot fewer restrictions in place  
    
 11. Do you have bug bounty programmes running, if so, what do they look like?  
-  
-  If the CSP is of a reasonable size and is not already running bug bounties, this is a good sign that security could be taken more seriously.
+    
+    If the CSP is of a reasonable size and is not already running bug bounties, this is a good sign that security could be taken more seriously.
 
 
 
