@@ -54,7 +54,7 @@ If you decide to use an external cloud provider, you need to be aware that what 
 
 ### Data
 
-If you deal with sensitive customer data, then you have an ethical and legal responsibility for it. If you are putting sensitive data in The Cloud then you could very well be being irresponsible with your responsibility.
+If you deal with sensitive customer data, then you have an ethical and legal responsibility for it. If you are putting sensitive data in The Cloud then you could very well be being irresponsible with your responsibility. You may not even retain legal ownership of it.
 
 
 
@@ -106,7 +106,7 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
    * A false assumption often encountered that somehow the data you provide is safer by default on your CSPs network
    * Your CSP can be forced by governing authorities to give up the data you entrust to them, as we discuss in the [Giving up Secrets](#cloud-identify-risks-cloud-service-provider-vs-in-house-giving-up-secrets) subsection  
    
-3. Do you encrypt all communications between servers within your data centres?  
+3. Do you encrypt all communications between servers within your data centres and also your service providers?  
    
    How is your data encrypted in transit (as discussed in the Management of Application Secrets subsections of the Web Applications chapter? In reality, you have no idea what paths it will take once in your CSPs possession, and could very well be intercepted without your knowledge.  
    
@@ -141,12 +141,12 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
    If the CSP can answer this with a "everything" and prove it, they have done a lot of work to make this possible, this shows a level of commitment to something security related. Just be aware, as with any certification, it is just that, it does not prove a lot  
    
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, also allowing the network to be in-scope?  
-   
-   CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness, if their networks stand up to penetration tests, then obviously take security seriously also. Ideally this is what you are looking for. CSPs that do not permit penetration testing of their environments, are usually trying to hide the fact that either they know they have major insecurities, skill shortages in terms of security professionals, or are unaware of where their security stature lies, and not willing to have their faults demonstrated  
+  
+  CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness, if their networks stand up to penetration tests, then obviously take security seriously also. Ideally this is what you are looking for. CSPs that do not permit penetration testing of their environments, are usually trying to hide the fact that either they know they have major insecurities, skill shortages in terms of security professionals, or are unaware of where their security stature lies, and not willing to have their faults demonstrated  
    
 11. Do you have bug bounty programmes running, if so, what do they look like?  
-   
-   This is another example if the programme is run well, that the CSP is open, transparent about their security faults and willing to mitigate them as soon as possible
+  
+  This is another example if the programme is run well, that the CSP is open, transparent about their security faults and willing to mitigate them as soon as possible
 
 
 
@@ -219,12 +219,12 @@ Most CSPs will have End User License Agreements (EULA) that have the right to ch
 
 #### Giving up Secrets {#cloud-identify-risks-cloud-service-provider-vs-in-house-giving-up-secrets}
 
-In many cases, hosting providers can be, and in many cases are [forced](http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me) by governing authorities to [give up](https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information) your and your customers secrets. This is a really bad place to be in and it is very common place now, you may not even know it’s happened.  
+In many cases, hosting providers can be, and in many cases are [forced](http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me) by governing authorities to [give up](https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information) your and your customers secrets. This is a really bad place to be in and it is very common place now, you may not even know it has happened.  
 The NZ Herald [covered a story](http://www.nzherald.co.nz/nz/news/article.cfm?c_id=1&objectid=11481516) in which Senior lawyers and the Privacy Commissioner have told the Herald of concerns about the practise which sees companies coerced into giving up information to the police. Instead of seeking legal order, police have asked companies to hand over information to assist with the "maintenance of the law", threatened them with prosecution if they tell the person about whom they are interested and accept data with no record keeping to show how often requests are made. The request from police carries no legal force at all yet is regularly complied with.
 
 #### Location of Data
 
-In many cases CSPs are outsourcing their outsourced services to several providers deep. They do not even have visibility themselves. Often the data is hosted in other jurisdictions. Control is lost. 
+As touched on in the CSP Evaluation questions, in many cases CSPs are outsourcing their outsourced services to several providers deep. They do not even have visibility themselves. Often the data is hosted in other jurisdictions. Control is lost. 
 
 #### Vendor lock-in
 
@@ -302,6 +302,10 @@ With the shift to The Cloud, AppSec has become more important than it used to be
 
 The reason being, that in general, as discussed in the [Shared Responsibility Model](#cloud-identify-risks-shared-responsibility-model), the dedicated security resources, focus, awareness, engagement of our major CSPs are usually greater than most organisations have access to. This pushes the target areas for the attackers further up the tree. People followed by AppSec are now usually the lowest hanging fruit for the attackers.
 
+### Network Security
+
+The network between the components you decide to use in The Cloud will almost certainly no longer be administered by your network administrator(s), but rather by you as a Software Engineer. That is right, networks are now [expressed as code](#infrastructure-and-configuration-management), and because coding is part of your responsibility as a Software Engineer, the network will more than likely be left to you to design and code, so you better have a good understanding of [Network Security](#network).
+
 ### Single User Root
 
 The default on AWS EC2 instances is to have a single user (root). There is no audit trail with a bunch of developers all using the same login. When ever anything happens on any of these machine instances, it's always the fault of user `ubuntu`. There are so many things wrong with this approach.
@@ -348,7 +352,7 @@ Doesn't take much from here to have your accounts hijacked
 
 %% https://thenewstack.io/security-serverless-gets-better-gets-worse/
 
-### Infrastructure and Configuration Management
+### Infrastructure and Configuration Management {#infrastructure-and-configuration-management}
 
 %% Discuss Infrastsructure as Code (IaC) with the likes of Terraform
 %%    Quite a bit of thought gone into this in the SER review of James Turnbull, show #289: https://groups.google.com/forum/?hl=en#!topic/seradio/5OTTZMIUAns
@@ -421,12 +425,12 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    _Todo_
    
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, also allowing the network to be in-scope?  
-   
-   You will not need to go through this process of requesting permission from your own company to carry out penetration testing, and if you do, there should be a lot fewer restrictions in place  
+  
+  You will not need to go through this process of requesting permission from your own company to carry out penetration testing, and if you do, there should be a lot fewer restrictions in place  
    
 11. Do you have bug bounty programmes running, if so, what do they look like?  
-   
-   If the CSP is of a reasonable size and is not already running bug bounties, this is a good sign that security could be taken more seriously.
+  
+  If the CSP is of a reasonable size and is not already running bug bounties, this is a good sign that security could be taken more seriously.
 
 
 
@@ -510,24 +514,15 @@ As I mentioned in the [Identify Risks](#cloud-identify-risks-review-other-chapte
 
 ### People
 
-Storing infrastructure and configuration as code is an effective measure for many mundane tasks that people may still be doing that are prone to human error. This means we can sequence specific processes, debug them, source control them, and achieve repeatable processes that are far less likely to have security defects in them, providing those that are writing the automation are sufficiently skilled and knowledgeable on the security topics involved. This also has the positive side-effect of speeding processes up.
-
-When an artefact is deployed, how do you know that it will perform the same in production that it did in development? That is what a staging environment is for. A staging environment will never be exactly the same as production unless your infrastructure is codified, this is another place where containers can help, Using containers, you can test the new software anywhere and it will run the same, providing its environment is the same and in the case of
-containers the environment is the image, and that is what you ship. The container goes from the developers machine once tested, to the staging environment then to production. The staging environment in this case is less important that it used to be, and is just responsible for testing your infrastructure, which should all be built from source controlled infrastructure as code, so it is guaranteed repeatable.
-
-_Todo_ Discuss some of the other orchestration options below vvv.
-
-1. Pick off repetitious, booring, prone to human error and easily automatable tasks that your team(s) have been doing. Script and source control them
-    * **Configuration management**: One of the grass root types of tooling options required here is a configuration management tool. I have found Ansible to be excellent. If you use Docker containers, most of the configuration management is already taken care of in the [`Dockerfile`](#vps-countermeasures-docker-the-dDefault-user-is-root). The [`docker-compose.yml`](#nodegoat-docker-compose.yml) file, orchestration platforms and tooling take us to "infrastructure as code"
-    * **Infrastructure management** :Terraform is one of the tools that can act as a simple version control for cloud infrastructure. One of my co-hosts (lead host Robert Blumen) on Software Engineering Radio ran an excellent [podcast on Terraform](http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/)
-    * Ultimately we want to get to the place where we can have an entire front-end and back-end (if Web) deployment automated. There are many things this depends on. A deployment must come from a specific source branch that is production ready. A production ready branch is that way because another branch leading into it has passed all the quality checks mentioned in the Agile Development and Practises subsection of the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), plus others such as [continuous integration](https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/)
-2. Once a few of the above tasks are done, start stringing them together in pipelines
-3. Schedule execution of any/all of the above
-
-
 
 
 ### Application Security
+
+_Todo_
+
+### Network Security
+
+_Todo_
 
 ### Single User Root
 
@@ -574,6 +569,23 @@ Password managers
 ### Serverless
 
 ### Infrastructure and Configuration Management
+
+Storing infrastructure and configuration as code is an effective measure for many mundane tasks that people may still be doing that are prone to human error. This means we can sequence specific processes, debug them, source control them, and achieve repeatable processes that are far less likely to have security defects in them, providing those that are writing the automation are sufficiently skilled and knowledgeable on the security topics involved. This also has the positive side-effect of speeding processes up.
+
+When an artefact is deployed, how do you know that it will perform the same in production that it did in development? That is what a staging environment is for. A staging environment will never be exactly the same as production unless your infrastructure is codified, this is another place where containers can help, Using containers, you can test the new software anywhere and it will run the same, providing its environment is the same and in the case of
+containers the environment is the image, and that is what you ship. The container goes from the developers machine once tested, to the staging environment then to production. The staging environment in this case is less important that it used to be, and is just responsible for testing your infrastructure, which should all be built from source controlled infrastructure as code, so it is guaranteed repeatable.
+
+_Todo_ Discuss some of the other orchestration options below vvv.
+
+1. Pick off repetitious, booring, prone to human error and easily automatable tasks that your team(s) have been doing. Script and source control them
+    * **Configuration management**: One of the grass root types of tooling options required here is a configuration management tool. I have found Ansible to be excellent. If you use Docker containers, most of the configuration management is already taken care of in the [`Dockerfile`](#vps-countermeasures-docker-the-dDefault-user-is-root). The [`docker-compose.yml`](#nodegoat-docker-compose.yml) file, orchestration platforms and tooling take us to "infrastructure as code"
+    * **Infrastructure management** :Terraform is one of the tools that can act as a simple version control for cloud infrastructure. One of my co-hosts (lead host Robert Blumen) on Software Engineering Radio ran an excellent [podcast on Terraform](http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/)
+    * Ultimately we want to get to the place where we can have an entire front-end and back-end (if Web) deployment automated. There are many things this depends on. A deployment must come from a specific source branch that is production ready. A production ready branch is that way because another branch leading into it has passed all the quality checks mentioned in the Agile Development and Practises subsection of the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), plus others such as [continuous integration](https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/)
+2. Once a few of the above tasks are done, start stringing them together in pipelines
+3. Schedule execution of any/all of the above
+
+
+
 
 ## 4. SSM Risks that Solution Causes
 
