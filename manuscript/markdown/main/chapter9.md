@@ -132,7 +132,7 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
    
 8. What is your Service Level Agreement (SLA) for uptime?  
    
-   Make sure you are aware of what the uptime promises mean in terms of real time. Some CSPs will allow 99.95% uptime if you are running on a single availability zone, but closer to 100% if you run on multiple availability zones.  
+   Make sure you are aware of what the uptime promises mean in terms of real time. Some CSPs will allow 99.95% uptime if you are running on a single availability zone, but closer to 100% if you run on multiple availability zones. Some CSPs do not have a SLA at all.  
    
    CSPs will often provide credits for the downtime, but these credits in many cases may not cover the losses you encounter during hot times  
    
@@ -234,16 +234,14 @@ Reliance on vendor guarantees
 
 #### Possible Single Points of Failure
 
-_Todo_ vvv.
+There are plenty of single points of failure in The Cloud
 
-Single points of failure  
-Loss of availability zone
-
-
-
-
-
-
+* Machine instance dies
+* Docker container dies
+* Availability Zone goes down
+* Region goes down
+* Multiple Regions go down
+* Account Takeover occurs
 
 ### Review Other Chapters {#cloud-identify-risks-review-other-chapters}
 
@@ -336,7 +334,7 @@ Most developers will also blindly accept what they think are the server key fing
 
 Sharing accounts, especially super-user
 
-Doesn't take much from here to have your accounts hijacked
+Doesn't take much from here to have your accounts taken over.
 
 
 ### Serverless
@@ -351,6 +349,17 @@ Doesn't take much from here to have your accounts hijacked
 %% https://devops.com/5-common-misconceptions-serverless-technology/
 
 %% https://thenewstack.io/security-serverless-gets-better-gets-worse/
+
+
+
+
+[Amazon](https://aws.amazon.com/serverless/)
+[Serverless AWS Provider](https://serverless.com/framework/docs/providers/aws/). There are many offerings here.
+
+
+What happens when you need to move from your current CSP? How much to you have invested in proprietary services such as serverless offerings? What would it cost your organisation to port to another CSPs environment?
+
+
 
 ### Infrastructure and Configuration Management {#infrastructure-and-configuration-management}
 
@@ -500,13 +509,19 @@ Consider vendor agnostic
 
 #### Possible Single Points of Failure
 
+The following are some of the countermeasures to the single points of failure in The Cloud:
 
-
-
-
-
-
-
+* Load balanced instances and/or start up scripts
+* Docker [restart policy](https://docs.docker.com/engine/admin/start-containers-automatically/) and/or orchestration tools
+* Multiple Availability Zones
+* Multiple Regions
+* Multiple Accounts
+* Make it hard for an attacker to succeed
+  * Long complex passwords, yes the ones you can not remember and must store in a password database
+  * Multi-factor authentication
+  * Make sure you are collecting and storing login history in a safe place, this can be used to challenge attackers that have successfully logged in, as you will have their IP addresses and browser user agent string
+  * Third party authentication
+  * Lots of other techniques
 
 ### Review Other Chapters {#cloud-countermeasures-review-other-chapters}
 
