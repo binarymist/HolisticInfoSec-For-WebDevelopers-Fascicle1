@@ -23,7 +23,7 @@ If you are a start up, just be aware that the speed you have initially with a Pa
 
 Control of our environments
 
-We are blindly trusting huge amounts of IP to Cloud Service Providers CSPs. In fact, I have worked for many customers that insist on putting everything in The Cloud without much thought. Some have even said that they are not concerned with security. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to market as their progress and plans are intercepted. The best book I have read to date that reveals the problem with this blind yielding of everything is Bruce Schneier Data and Goliath. This is an eye opening canon of what we are doing and what its results are going to be.
+We are blindly trusting huge amounts of IP to Cloud Service Providers (CSPs). In fact, I have worked for many customers that insist on putting everything in The Cloud without much thought. Some have even said that they are not concerned with security. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to market as their progress and plans are intercepted. The best book I have read to date that reveals the problem with this blind yielding of everything is Bruce Schneier Data and Goliath. This is an eye opening canon of what we are doing and what its results are going to be.
 
 When ever you see that word "trust", you are yielding control to the party you are trusting. When you trust an entity with your assets, you are giving them control. Are your assets their primary concern, or is it maximising their profits by using you and/or your data as their asset?
 
@@ -59,7 +59,7 @@ CSP customers are expected to take care of their own security in terms of:
   * Surely "as a software engineer", I can just use TLS and that is the end of it?
   * Well if the machine is compromised, then we give up on security, we aren't responsible for the network. (For this statement, please refer to the VPS chapter for your responsibilities as a Software Engineer in regards to "the machine". In regards to "the network", please refer to the [Network Security](#cloud-identify-risks-network-security) subsection)
   * What is the difference between application security and network security? Aren't they just two aspects of the same thing?
-  * If I've implemented TLS for communication, have I fixed all of the network security problems?
+  * If I have implemented TLS for communication, have I fixed all of the network security problems?
 3. Configuring the Infrastructure and/or platform components: Again leading back to people defects
 
 but all to often the customers responsibility is neglected, which renders The Cloud no better for the customer in terms of security.
@@ -356,7 +356,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
 2. There is this thing called the shared responsibility model I have heard about between CSPs and their customers. Please explain what your role and my role is in the protection of my and my customers data?  
    
-   Make sure you are completely clear on who is responsible for which data, where and when. It's not a matter of if your data will be stolen, but more a matter of when. Know your responsibilities. As discussed in the Web Applications chapter under the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) subsection... Data-store Compromise is one of the 6 top threats facing New Zealand, and these types of breaches are happening daily.  
+   Make sure you are completely clear on who is responsible for which data, where and when. It is not a matter of if your data will be stolen, but more a matter of when. Know your responsibilities. As discussed in the Web Applications chapter under the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) subsection... Data-store Compromise is one of the 6 top threats facing New Zealand, and these types of breaches are happening daily.  
    
    Also consider data security insurance  
    
