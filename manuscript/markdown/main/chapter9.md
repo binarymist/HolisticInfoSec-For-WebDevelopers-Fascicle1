@@ -83,7 +83,11 @@ CSPs creating the infrastructural architecture, building the components, framewo
 CSP customers are expected to take care of their own security in terms of:
 
 1. Their people working with the technology
-2. [Application Security](#web-applications), ultimately leading back to shortcomings in people: Lack of skills, experience, engagement, etc
+2. [Application Security](#web-applications), ultimately leading back to shortcomings in people: Lack of skills, experience, engagement, etc. Which reminds me of the type of questions I hear far to frequently. The following are a collection of questions I've been asked recently verbatim by people that really should know better:
+  * As a software engineer, do I really care about physical network security and network logging?
+  * Surely "as a software engineer", I can just use TLS and that is the end of it?
+  * Well if the machine is compromised, then we give up on security, we aren't responsible for the network. (For this statement, please refer to the VPS chapter for your responsibilities as a Software Engineer in regards to "the machine". In regards to "the network", please refer to the [Network Security](#cloud-identify-risks-network-security) subsection)
+  * What is the difference between application security and network security? Aren't they just two aspects of the same thing?
 3. Configuring the Infrastructure and/or platform components: Again leading back to people defects
 
 but all to often the customers responsibility is neglected, which renders The Cloud no better for the customer in terms of security.
@@ -300,7 +304,7 @@ With the shift to The Cloud, AppSec has become more important than it used to be
 
 The reason being, that in general, as discussed in the [Shared Responsibility Model](#cloud-identify-risks-shared-responsibility-model), the dedicated security resources, focus, awareness, engagement of our major CSPs are usually greater than most organisations have access to. This pushes the target areas for the attackers further up the tree. People followed by AppSec are now usually the lowest hanging fruit for the attackers.
 
-### Network Security
+### Network Security {#cloud-identify-risks-network-security}
 
 The network between the components you decide to use in The Cloud will almost certainly no longer be administered by your network administrator(s), but rather by you as a Software Engineer. That is right, networks are now [expressed as code](#infrastructure-and-configuration-management), and because coding is part of your responsibility as a Software Engineer, the network will more than likely be left to you to design and code, so you better have a good understanding of [Network Security](#network).
 
@@ -353,7 +357,7 @@ Doesn't take much from here to have your accounts taken over.
 
 
 
-[Amazon](https://aws.amazon.com/serverless/)
+[Amazon](https://aws.amazon.com/serverless/)  
 [Serverless AWS Provider](https://serverless.com/framework/docs/providers/aws/). There are many offerings here.
 
 
