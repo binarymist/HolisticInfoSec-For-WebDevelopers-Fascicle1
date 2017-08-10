@@ -1,31 +1,8 @@
 # 9. Cloud {#cloud}
 
-
-
-
 ![10,000' view of Cloud and In-house Cloud Security](images/10000Cloud.png)
 
 If you skipped the [VPS](#vps) chapter, just be aware that it has a lot of similarities due to the fact that in many cases your VPS may be on someone else's hardware and under their control, just as many Cloud Service Providers leverage AWS resources, which ultimately still runs on real hardware. The Cloud is an abstraction (a lie).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## 1. SSM Asset Identification
 
@@ -46,7 +23,7 @@ If you are a start up, just be aware that the speed you have initially with a Pa
 
 Control of our environments
 
-We are blindly trusting huge amounts of IP to CSPs. In fact, I have worked for many customers that insist on putting everything in The Cloud without much thought. Some have even said that they are not concerned with security. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to market as their progress and plans are intercepted. The best book I have read to date that reveals the problem with this blind yielding of everything is Bruce Schneier Data and Goliath. This is an eye opening canon of what we are doing and what its results are going to be.
+We are blindly trusting huge amounts of IP to Cloud Service Providers CSPs. In fact, I have worked for many customers that insist on putting everything in The Cloud without much thought. Some have even said that they are not concerned with security. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to market as their progress and plans are intercepted. The best book I have read to date that reveals the problem with this blind yielding of everything is Bruce Schneier Data and Goliath. This is an eye opening canon of what we are doing and what its results are going to be.
 
 When ever you see that word "trust", you are yielding control to the party you are trusting. When you trust an entity with your assets, you are giving them control. Are your assets their primary concern, or is it maximising their profits by using you and/or your data as their asset?
 
@@ -56,13 +33,7 @@ If you decide to use an external cloud provider, you need to be aware that what 
 
 If you deal with sensitive customer data, then you have an ethical and legal responsibility for it. If you are putting sensitive data in The Cloud then you could very well be being irresponsible with your responsibility. You may not even retain legal ownership of it.
 
-
-
-
-
-
-
-
+We will keep these assets in mind as we work through the rest of this chapter.
 
 ## 2. SSM Identify Risks {#cloud-identify-risks}
 
@@ -88,6 +59,7 @@ CSP customers are expected to take care of their own security in terms of:
   * Surely "as a software engineer", I can just use TLS and that is the end of it?
   * Well if the machine is compromised, then we give up on security, we aren't responsible for the network. (For this statement, please refer to the VPS chapter for your responsibilities as a Software Engineer in regards to "the machine". In regards to "the network", please refer to the [Network Security](#cloud-identify-risks-network-security) subsection)
   * What is the difference between application security and network security? Aren't they just two aspects of the same thing?
+  * If I've implemented TLS for communication, have I fixed all of the network security problems?
 3. Configuring the Infrastructure and/or platform components: Again leading back to people defects
 
 but all to often the customers responsibility is neglected, which renders The Cloud no better for the customer in terms of security.
@@ -123,11 +95,11 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
    
 5. What is your process around terminating my contract with you and/or moving to another CSP?  
    
-   No CSP is going to last forever, termination or migration is inevitible, it is just a matter of when.  
+   No CSP is going to last forever, termination or migration is inevitible, it is just a matter of when  
    
 6. Where abouts do your servers, processes and data reside physically?  
    
-   As we discuss a little later in the Cloud Services Provider vs In-house subsection of Countermeasures, your data is governed by different people and jurisdictions depending on where it physically resides. CSPs have data centres in different countries and jurisdictions, each having different laws around data security.
+   As we discuss a little later in the Cloud Services Provider vs In-house subsection of Countermeasures, your data is governed by different people and jurisdictions depending on where it physically resides. CSPs have data centres in different countries and jurisdictions, each having different laws around data security
 
 
 7. Who can view the data I store in the cloud?  
@@ -146,31 +118,21 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
    
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, also allowing the network to be in-scope?  
     
-    CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness, if their networks stand up to penetration tests, then obviously take security seriously also. Ideally this is what you are looking for. CSPs that do not permit penetration testing of their environments, are usually trying to hide the fact that either they know they have major insecurities, skill shortages in terms of security professionals, or are unaware of where their security stature lies, and not willing to have their faults demonstrated  
+    CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness, if their networks stand up to penetration tests, then they obviously take security seriously also. Ideally this is what you are looking for. CSPs that do not permit penetration testing of their environments, are usually trying to hide the fact that either they know they have major insecurities, skill shortages in terms of security professionals, or are unaware of where their security stature lies, and not willing to have their faults demonstrated  
    
 11. Do you have bug bounty programmes running, if so, what do they look like?  
     
     This is another example if the programme is run well, that the CSP is open, transparent about their security faults and willing to mitigate them as soon as possible
 
-
-
-
-
 Now we will focus on a collection of the largest providers.
 
 #### AWS
-
-%%    Kiwicon 10 talk "Hacking AWS end to end". Slide-deck here: https://github.com/dagrz/aws_pwn/blob/master/miscellanea/Kiwicon%202016%20-%20Hacking%20AWS%20End%20to%20End.pdf, along with readme and code.
 
 ##### Password-less sudo
 
 Password-less sudo. A low privileged user can operate with root privileges. This is essentially as bad as root logins.
 
 %% https://serverfault.com/questions/615034/disable-nopasswd-sudo-access-for-ubuntu-user-on-an-ec2-instance
-
-
-
-
 
 #### Google 
 
@@ -185,12 +147,6 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 %% https://docs.microsoft.com/en-us/azure/security/azure-security-iaas
 
 #### Etc.
-
-
-
-
-
-
 
 ### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom) {#cloud-identify-risks-cloud-service-provider-vs-in-house}
 
@@ -215,7 +171,7 @@ Trust is an issue with The Cloud, you do not have control of your data or the pe
 
 #### Skills
 
-The smaller CSPs in many cases suffer from the same resourcing issues that many business's do in regards to having solid security skills and engagement of their workers to apply security in-house. In general, in order to benefit from the Shared Responsibility Model of the CSP, it pays to go with one of the larger CSPs.
+The smaller CSPs in many cases suffer from the same resourcing issues that many business's do in regards to having solid security skills and engagement of their workers to apply security in-house. In general, in order to benefit from the Shared Responsibility Model of the CSP, it pays to go with the larger CSPs.
 
 #### EULA
 
@@ -288,7 +244,7 @@ You might ask what people have to do with cloud security? A large amount of my e
 
 You will notice that most of the defects addressed in this chapter come down to people:
 
-* Missing a step in a sequence (often performed manually)
+* Missing a step in a sequence (often performed manually rather than automatically)
 * Lacking the required knowledge
 * Lacking the required desire / engagement
 
@@ -340,7 +296,6 @@ Sharing accounts, especially super-user
 
 Doesn't take much from here to have your accounts taken over.
 
-
 ### Serverless
 
 %% Serverless https://serverless.com/
@@ -378,11 +333,9 @@ Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](http
 
 ### Shared Responsibiltiy Model
 
-_Todo_
-
 #### CSP Responsibility
 
-_Todo_
+There is not a lot you can do about this, just be aware of what you are buying into before you do so.
 
 #### CSP Customer Responsibility
 
@@ -403,7 +356,9 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
 2. There is this thing called the shared responsibility model I have heard about between CSPs and their customers. Please explain what your role and my role is in the protection of my and my customers data?  
    
-   _Todo_
+   Make sure you are completely clear on who is responsible for which data, where and when. It's not a matter of if your data will be stolen, but more a matter of when. Know your responsibilities. As discussed in the Web Applications chapter under the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) subsection... Data-store Compromise is one of the 6 top threats facing New Zealand, and these types of breaches are happening daily.  
+   
+   Also consider data security insurance  
    
 3. Do you encrypt all communications between servers within your data centres?  
    
@@ -435,8 +390,6 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
 9. Are you ISO/IEC 27001:2013 Certified? If so, what is within its scope?  
    
-   _Todo_
-   
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, also allowing the network to be in-scope?  
     
     You will not need to go through this process of requesting permission from your own company to carry out penetration testing, and if you do, there should be a lot fewer restrictions in place  
@@ -445,15 +398,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
     
     If the CSP is of a reasonable size and is not already running bug bounties, this is a good sign that security could be taken more seriously.
 
-
-
-
-
-
 #### AWS
-
-%% AWS: CIS Benchmark
-
 
 ##### Password-less sudo
 
@@ -463,7 +408,6 @@ We have covered the people aspects along with exploitation techniques of Weak Pa
 
 We have covered the technical aspects of password strategies in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) subsection of the VPS chapter
 
-
 #### Google 
 
 #### Heroku
@@ -471,8 +415,6 @@ We have covered the technical aspects of password strategies in the [Review Pass
 #### Azure
 
 #### Etc.
-
-
 
 ### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom)
 
@@ -505,15 +447,11 @@ If you use an in-house cloud, you decide where services & data reside.
 
 #### Vendor lock-in
 
-Vendor guarantees: Verify how water tight these are
-Single points of failure, create reduncancy in services that we simply can not do without  
-Multiple availability zones  
-Consider vendor agnostic
-
+You have to weigh up the vendor benefits vs how hard / costly it is to move away from them when you need to.
 
 #### Possible Single Points of Failure
 
-The following are some of the countermeasures to the single points of failure in The Cloud:
+The following are some of the countermeasures to the single points of failure in The Cloud. The idea is to create redundancy on items that we can not do without:
 
 * Load balanced instances and/or start up scripts
 * Docker [restart policy](https://docs.docker.com/engine/admin/start-containers-automatically/) and/or orchestration tools
@@ -533,15 +471,15 @@ As I mentioned in the [Identify Risks](#cloud-identify-risks-review-other-chapte
 
 ### People
 
-
+Most of the countermeasures are discussed in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
 
 ### Application Security
 
-_Todo_
+Full coverage in the [Web Applications](#web-applications) chapter.
 
 ### Network Security
 
-_Todo_
+Full coverage in the [Network](#network) chapter.
 
 ### Single User Root
 
