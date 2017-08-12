@@ -1559,7 +1559,7 @@ Now what we do here is extend the `String` prototype with a function called `htm
 
 Just before any user input was sent back to the server, we would check each of the fields that we were receiving input from by doing the following:
 
-{linenos=on, lang=JavaScript}
+{linenos=off, lang=JavaScript}
     element.value.htmlEscape();
 
 "_HTML entity encoding is okay for untrusted data that you put in the body of the HTML document, such as inside a `<div>` tag. It even sort of works for untrusted data that goes into attributes, particularly if you're religious about using quotes around your attributes._"
@@ -1611,7 +1611,7 @@ Now in regards to the code comments in the block of code above titled "Sanitisat
 
 Now when we ran our `xslt` transformation on the service, we chain our new extension method on the end. Which gives us back a single encoded string that the browser is happy to display as the decoded value.
 
-{linenos=on, lang=C#}
+{linenos=off, lang=C#}
     return Transform().SingleDecodeDoubleEncodedHtml();
 
 Now turning our attention to the server side... Untrusted data (data entered by a user), should always be treated as though it may contain attack code.

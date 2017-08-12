@@ -63,11 +63,11 @@ but all to often the customers responsibility is neglected, which renders The Cl
 
 The following are a set of questions (verbatim) I have been asked recently, and that I hear similar versions of frequently:
 
-* As a software engineer, do I really care about physical network security and network logging?
-* Surely "as a software engineer", I can just use TLS and that is the end of it?
-* Well if the machine is compromised, then we give up on security, we aren't responsible for the network
-* What is the difference between application security and network security? Aren't they just two aspects of the same thing?
-* If I have implemented TLS for communication, have I fixed all of the network security problems?
+* _As a software engineer, do I really care about physical network security and network logging?_
+* _Surely "as a software engineer", I can just use TLS and that is the end of it?_
+* _Well if the machine is compromised, then we give up on security, we aren't responsible for the network_
+* _What is the difference between application security and network security? Aren't they just two aspects of the same thing?_
+* _If I have implemented TLS for communication, have I fixed all of the network security problems?_
 
 ### CSP Evaluation {#cloud-identify-risks-csp-evaluation}
 
@@ -373,23 +373,23 @@ If you leverage The Cloud, Make sure the following aspects of security are all a
 
 The following is in response to the set of frequently asked questions under the [risks subsection](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) of CSP Customer Responsibility:
 
-* **(Q)**: As a software engineer, do I really care about physical network security and network logging?  
+* **(Q)**: _As a software engineer, do I really care about physical network security and network logging?_  
    
    **(A)**: In the past, many aspects of [network security](#cloud-identify-risks-network-security) were the responsibility of the Network Administrators, with the move to The Cloud, this has to large degree changed. The networks established (intentionally or not) between the components we are leveraging and creating in The Cloud are a result of Infrastructure and Configuration Management, often (and rightly so) expressed as code. Infrastructure as Code (IaC). As discussed in the [Network Security](#cloud-identify-risks-network-security) subsection, this is now the responsibility of the Software Engineer  
    
-* **(Q)**: Surely "as a software engineer", I can just use TLS and that is the end of it?  
+* **(Q)**: _Surely "as a software engineer", I can just use TLS and that is the end of it?_  
    
    **(A)**: TLS is one very small area of network security. Its implementation as HTTPS and the PKI model is effectively [broken](#network-identify-risks-tls-downgrade). If TLS is your only saviour, putting it bluntly, you are without hope. The [Network Chapter](#network) covers the tip of the network security ice berg, network security is a huge topic, and one that has many books written along with other resources that provide more in-depth coverage than I can provide as part of a holistic view of security for Software Engineers. Software Engineers must come to grips with the fact that they need to implement defence in depth  
    
-* **(Q)**: Well if the machine is compromised, then we give up on security, we aren't responsible for the network  
+* **(Q)**: _Well if the machine is compromised, then we give up on security, we aren't responsible for the network_  
    
    **(A)**: For this statement, please refer to the [VPS](#vps) chapter for your responsibilities as a Software Engineer in regards to "the machine". In regards to "the network", please refer to the [Network Security](#cloud-identify-risks-network-security) subsection  
    
-* **(Q)**: What is the difference between application security and network security? Aren't they just two aspects of the same thing?  
+* **(Q)**: _What is the difference between application security and network security? Aren't they just two aspects of the same thing?_  
    
    **(A)**: No, for application security, see the [Web Applications](#web-applications) chapter. For network security, see the [Network](#network) chapter. Again, as Software Engineers, you are now responsible for all aspects of information security  
    
-* **(Q)**: If I have implemented TLS for communication, have I fixed all of the network security problems?  
+* **(Q)**: _If I have implemented TLS for communication, have I fixed all of the network security problems?_  
    
    **(A)**: If you are still reading this, I'm pretty sure you know the answer, please share it with other Developers, Engineers as you receive the same questions
 
