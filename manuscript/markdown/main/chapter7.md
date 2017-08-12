@@ -1016,7 +1016,7 @@ US-CERT also published an [alert](https://www.us-cert.gov/ncas/alerts/TA14-017A)
 
 You will notice in the response as recorded by Wireshark, that the length is many times larger than the request, 726 bytes in this case, hence the reflected amplification:
 
-{title="wireshark results", linenos=off, lang=bash}
+{title="Wireshark results", linenos=off, lang=bash}
     Source      Destination Protocol Length Info
     <source IP> <dest IP>   Portmap  82     V3 DUMP Call (Reply In 76)
     <dest IP>   <source IP> Portmap  726    V3 DUMP Reply (Call In 75)
@@ -1131,7 +1131,7 @@ If the `mountd` daemon is listed in the output of the above `rpcinfo` command, t
 
 NFS is one of those protocols that you need to have some understanding on in order to achieve a level of security sufficient for your target environment. NFS provides no user authentication, only host based authentication. NFS relies on the AUTH_UNIX method of authentication, the user ID (UID) and group ID (GIDs) that the NFS client passes to the server are implicitly trusted.
 
-{title="mount nfs export", linenos=off, lang=bash}
+{title="Mount nfs export", linenos=off, lang=bash}
     # Make sure local rpcbind service is running:
     service rpcbind status
     # Should yield [ ok ] rpcbind is running.
@@ -1265,7 +1265,7 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
     
     If you run the following command, then the hosts mounted `host-path` is [shared](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) with all others that mount `host-path`. Any changes made to the mounted data will be propagated to those that use the `shared` mode propagation. Using `slave` means only the master (`host-path`) is able to propagate changes, not vice-versa. Using `private` which is the default, will ensure no changes can be propagated.
     
-    {title="mounting volumes in shared mode propagation", linenos=off, lang=bash}
+    {title="Mounting volumes in shared mode propagation", linenos=off, lang=bash}
         docker run <run arguments> --volume=[host-path:]<container-path>:[z][r]shared <container image name or id> <command> <args...>
     
     If you omit the `host-path` you can [see the host path](https://docs.docker.com/engine/tutorials/dockervolumes/#locating-a-volume) that was mounted by running the following command:
@@ -1334,21 +1334,21 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
     
     The default behaviour can however be overridden to allow a container to be able to access processes within a sibling container, or the hosts `PID` namespace. [Example](https://docs.docker.com/engine/reference/run/#pid-settings---pid):
     
-    {title="syntax", linenos=off, lang=bash}
+    {title="Syntax", linenos=off, lang=bash}
         --pid=[container:<name|id>],[host]
     
-    {title="example", linenos=off, lang=bash}
+    {title="Example", linenos=off, lang=bash}
         # Provides access to the `PID` namespace of container called myContainer
         # for container created from myImage.
         docker run --pid=container:myContainer myImage
     
-    {title="example", linenos=off, lang=bash}
+    {title="Example", linenos=off, lang=bash}
         # Provides access to the host `PID` namespace for container created from myImage
         docker run --pid=host myImage
     
     As an aside, `PID` namespaces give us the [functionality of](http://man7.org/linux/man-pages/man7/pid_namespaces.7.html): "_suspending/resuming the set of processes in the container and migrating the container to a new host while the processes inside the container maintain the same PIDs._" with a [handful of commands](https://www.fir3net.com/Containers/Docker/the-essential-guide-in-transporting-your-docker-containers.html):
     
-    {title="example", linenos=off, lang=bash}
+    {title="Example", linenos=off, lang=bash}
         docker container pause myContainer [mySecondContainer...]
         docker export [options] myContainer
         # Move your container to another host.
@@ -1379,11 +1379,11 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
     
     By default a container does not share the hosts or any other containers IPC namespace. This behaviour can be overridden to allow a (any) container to reuse another containers or the hosts message queues, semaphores, and shared memory via their IPC namespace. [Example](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc):
     
-    {title="syntax", linenos=off, lang=bash}
+    {title="Syntax", linenos=off, lang=bash}
         # Allows a container to reuse another container's IPC namespace.
         --ipc=[container:<name|id>],[host]
     
-    {title="example", linenos=off, lang=bash}
+    {title="Example", linenos=off, lang=bash}
         docker run -it --rm --name=container-producer ubuntu
         root@609d19340303:/#
         
@@ -4399,10 +4399,10 @@ Each network interface whether physical or virtual, can only reside in one names
     
     Create:
     
-    {title="syntax", linenos=off, lang=bash}
+    {title="Syntax", linenos=off, lang=bash}
         ip netns add <yournamespacename>
     
-    {title="example", linenos=off, lang=bash}
+    {title="Example", linenos=off, lang=bash}
         ip netns add testnamespace
     
     This ip command adds a bind mount point for the `testnamespace` namespace to `/var/run/netns/`. When the `testnamespace` namespace is created, the resulting file descriptor keeps the network namespace alive/persisted. This allows system administrators to apply configuration to the network namespace without fear that it will disappear when no processes are within it.
@@ -4483,10 +4483,10 @@ Each network interface whether physical or virtual, can only reside in one names
     
     The following command will remove the bind mount for the specified namespace. The namespace will continue to persist until all processes within it are terminated, at which point any virtual interfaces within it will be destroyed and any physical network devices if they were assigned, would be moved back to the initial network namespace, not the process parent.
     
-    {title="syntax", linenos=off, lang=bash}
+    {title="Syntax", linenos=off, lang=bash}
         ip netns delete <yournamespacename>
     
-    {title="example", linenos=off, lang=bash}
+    {title="Example", linenos=off, lang=bash}
         ip netns delete testnamespace  
     
     {title="To remove a docker network", linenos=off, lang=bash}
@@ -4814,7 +4814,7 @@ label confinement for the container can be configured using [`--security-opt`](h
 
 [SELinux Labels for Docker](https://www.projectatomic.io/docs/docker-and-selinux/) consist of four parts:
 
-{title="syntax", linenos=off, lang=bash}
+{title="Syntax", linenos=off, lang=bash}
     # Set the label user for the container.
     --security-opt="label:user:USER"
     # Set the label role for the container.
@@ -4824,7 +4824,7 @@ label confinement for the container can be configured using [`--security-opt`](h
     # Set the label level for the container.
     --security-opt="label:level:LEVEL"
 
-{title="example", linenos=off, lang=bash}
+{title="Example", linenos=off, lang=bash}
     docker run -it --security-opt label=level:s0:c100,c200 ubuntu
 
 SELinux can be enabled in the container using [`setenforce 1`](http://www.unix.com/man-page/debian/8/setenforce/).

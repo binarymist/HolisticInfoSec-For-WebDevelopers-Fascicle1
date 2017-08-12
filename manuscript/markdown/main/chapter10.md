@@ -218,7 +218,7 @@ The target needs to submit the request either intentionally or unintentionally. 
 
 Below code can be found at [https://github.com/OWASP/NodeGoat/](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/views/profile.html):
 
-{title="snippet from legitimate profile.html", id="profile_html", linenos=on, lang=html}
+{title="Snippet from legitimate profile.html", id="profile_html", linenos=on, lang=html}
     <form role="form" method="post" action="/profile">
        <div class="form-group">
           <label for="firstName">First Name</label>
@@ -291,7 +291,7 @@ Below code can be found at [https://github.com/OWASP/NodeGoat/](https://github.c
 
 The below attack code can be found at the NodeGoat [tutorial for CSRF](https://nodegoat.herokuapp.com/tutorial/a8), along with the complete example that ckarande crafted, and an accompanying tutorial video of how the attack plays out:
 
-{title="snippet from attackers website", linenos=off, lang=html, linenos=on}
+{title="Snippet from attackers website", linenos=off, lang=html, linenos=on}
     <html lang="en">
     <head></head>
        <body>
@@ -308,7 +308,7 @@ The below attack code can be found at the NodeGoat [tutorial for CSRF](https://n
 
 **For No. 2 above**, is similar to No. 1, but the target does not have to action anything once the fraudulent web page is loaded. The script block submits the form automatically, thus making the request to the website that the target is already authenticated with, the browser again playing its part in sending the session Id stored in the cookie:
 
-{title="snippet from attackers website", linenos=off, lang=html}
+{title="Snippet from attackers website", linenos=off, lang=html}
     <form id="theForm" action="http://TARGET_APP_URL_HERE/profile" method="post">
        <input type="hidden" name="bankAcc" value="9999999"/>
        <input type="hidden" name="bankRouting" value="88888888"/>
@@ -505,13 +505,13 @@ or
 `process.kill(process.pid)`  
 through some input fields of the Web UI. It also covers discovery of the names of the files on the target web servers file system:
 
-{title="reveal directory contents", linenos=off, lang=JavaScript}
+{title="Reveal directory contents", linenos=off, lang=JavaScript}
     // Read the contents of the current directory.
     res.end(require('fs').readdirSync('.').toString());
     // Read the contents of the parent directory.
     res.end(require('fs').readdirSync('..').toString());
 
-{title="reveal file contents", linenos=off, lang=JavaScript}
+{title="Reveal file contents", linenos=off, lang=JavaScript}
     res.end(require('fs').readFileSync(filename));
 
 The attacker can take this further by writing new files and executing files on the server.
@@ -1504,7 +1504,7 @@ The following was the strategy that evolved. Performance was measured and even w
 
 Each time we changed the page, we cleared the interval and reset it for the new page.
 
-{title="", linenos=off, lang=JavaScript}
+{linenos=off, lang=JavaScript}
     clearInterval(userInputValidationIntervalId);
     setupUserInputValidation();
 
@@ -1559,7 +1559,7 @@ Now what we do here is extend the `String` prototype with a function called `htm
 
 Just before any user input was sent back to the server, we would check each of the fields that we were receiving input from by doing the following:
 
-{title="", linenos=on, lang=JavaScript}
+{linenos=on, lang=JavaScript}
     element.value.htmlEscape();
 
 "_HTML entity encoding is okay for untrusted data that you put in the body of the HTML document, such as inside a `<div>` tag. It even sort of works for untrusted data that goes into attributes, particularly if you're religious about using quotes around your attributes._"
@@ -1578,12 +1578,12 @@ Rule #2 of the OWASP XSS Prevention Cheat Sheet discusses attribute escaping. No
 
 Because I wanted to be sure about not being able to escape out of the attributes context if it was properly quoted I tested it. I created a collection of injection attacks, none of which worked. If you enter something like the following into the attribute `value` of an `input` element where `type="text"`, then the first double quote will be interpreted as the corresponding quote and the end double quote will be interpreted as the end quote of the `onmouseover` attribute value.
 
-{title="", linenos=off, lang=JavaScript}
+{linenos=off, lang=JavaScript}
     " onmouseover="alert(2)
 
 All the legitimate double quotes are interpreted as the double quote `HTML` entity `"` and all illegitimate double quotes are interpreted as the character value. This is what you end up with:
 
-{title="", linenos=off, lang=JavaScript}
+{linenos=off, lang=JavaScript}
     value=" &quot; onmouseover=&quot;alert(2)"
 
 Now in regards to the code comments in the block of code above titled "Sanitisation using escaping", I mentioned having to double escape character references. We were using `XSL` for the `HTML` because we needed to perform transformations before delivering to the browser. Because we were sending the strings to the browser, it was easiest to single decode the double encoded `HTML` on the service side only. Now because we were still focused on the client side sanitisation and we would soon be shifting our focus to making sure we cover the server side, we knew we were going to have to create some sanitisation routines for our .NET service. Because the routines are quite likely going to be static and we were pretty much just dealing with strings, we created an extensions class in a new project in a common library we already had. This would provide the widest use from our sanitisation routines. It also allowed us to wrap any existing libraries or parts of them that we wanted to get use of.
@@ -1611,7 +1611,7 @@ Now in regards to the code comments in the block of code above titled "Sanitisat
 
 Now when we ran our `xslt` transformation on the service, we chain our new extension method on the end. Which gives us back a single encoded string that the browser is happy to display as the decoded value.
 
-{title="", linenos=on, lang=C#}
+{linenos=on, lang=C#}
     return Transform().SingleDecodeDoubleEncodedHtml();
 
 Now turning our attention to the server side... Untrusted data (data entered by a user), should always be treated as though it may contain attack code.
@@ -2281,7 +2281,7 @@ Now the code that satisfies the above executable specifications, and more:
 
 To drive the development of the `Sanitisation` API, we wrote the following tests. We created a `MockedOperationContext`, code not included here. We also used RhinoMocks as our mocking framework which is no longer being maintained. I would recommend NSubstitute instead if you were looking for a mocking framework for .NET. We also used NLog and wrapped it in `Common.Wrapper.Log`
 
-{title="Drive Sanitisation API development", linenos=off, lang=C#}
+{title="Drive sanitisation API development", linenos=off, lang=C#}
     using System;
     using System.ServiceModel;
     using System.ServiceModel.Channels;
@@ -3318,7 +3318,7 @@ There is a specific [file loading order](https://github.com/lorenwest/node-confi
 
 The config files for the required attributes used above may take the following directory structure:
 
-{title="directory layout", linenos=off, lang=JavaScript}
+{title="Directory layout", linenos=off, lang=JavaScript}
     OurApp/
     |
     +-- config/

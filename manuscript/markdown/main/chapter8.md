@@ -1098,7 +1098,7 @@ The certificate can't be tampered with because if it is, then the signature that
 
 You can check the CRL yourself by just browsing to the CRL distribution point. Then run the following command on the downloaded file to read it as it's binary.
 
-{title="", linenos=off, lang=bash}
+{linenos=off, lang=bash}
     openssl crl -inform DER -text -in evcal-g5.crl
 
 `DER` is the encoding  
