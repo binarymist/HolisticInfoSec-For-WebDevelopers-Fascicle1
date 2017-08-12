@@ -54,17 +54,20 @@ CSPs creating the infrastructural architecture, building the components, framewo
 CSP customers are expected to take care of their own security in terms of:
 
 1. Their people working with the technology
-2. [Application Security](#web-applications), ultimately leading back to shortcomings in people: Lack of skills, experience, engagement, etc. Which reminds me of the type of questions I hear far to frequently. The following are a collection of questions I've been asked recently verbatim by people that really should know better:
-  * As a software engineer, do I really care about physical network security and network logging?
-  * Surely "as a software engineer", I can just use TLS and that is the end of it?
-  * Well if the machine is compromised, then we give up on security, we aren't responsible for the network. (For this statement, please refer to the VPS chapter for your responsibilities as a Software Engineer in regards to "the machine". In regards to "the network", please refer to the [Network Security](#cloud-identify-risks-network-security) subsection)
-  * What is the difference between application security and network security? Aren't they just two aspects of the same thing?
-  * If I have implemented TLS for communication, have I fixed all of the network security problems?
-3. Configuring the Infrastructure and/or platform components: Again leading back to people defects
+2. [Application security](#web-applications), ultimately leading back to shortcomings in people: Lack of skills, experience, engagement, etc.
+3. Configuring the infrastructure and/or platform components: Again leading back to people defects
 
 but all to often the customers responsibility is neglected, which renders The Cloud no better for the customer in terms of security.
 
 > The primary problem with The Cloud is: Customers have the misconception that someone else is taking care of all their security. That is not how the shared security model works though. Yes the CSP is probably taking care of the infrastructure security, but other forms of security such as I just listed above, are even more important than before the shift to The Cloud, this is because these items are now the lowest hanging fruit for the attacker.
+
+The following are a set of questions (verbatim) I have been asked recently, and that I hear similar versions of frequently:
+
+* As a software engineer, do I really care about physical network security and network logging?
+* Surely "as a software engineer", I can just use TLS and that is the end of it?
+* Well if the machine is compromised, then we give up on security, we aren't responsible for the network
+* What is the difference between application security and network security? Aren't they just two aspects of the same thing?
+* If I have implemented TLS for communication, have I fixed all of the network security problems?
 
 ### CSP Evaluation {#cloud-identify-risks-csp-evaluation}
 
@@ -280,7 +283,9 @@ In most organisations I work for as an architect or engineer, I see many cases o
 
 #### Private Key Abuse
 
-[SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) key-pair auth is no better than password auth if it is abused in the following way, in-fact it may even be worse. What I have seen some organisations do is store a single private key with no pass-phrase for all of their EC2 instances in their developer wiki. All or many developers have access to this. There are a number of things wrong with this. 
+##### SSH
+
+[SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) key-pair auth is no better than password auth if it is abused in the following way, in-fact it may even be worse. What I have seen some organisations do is store a single private key with no pass-phrase for all of their EC2 instances in their developer wiki. All or many developers have access to this, with the idea being that they just copy the key from the wiki to their local `~/.ssh/`. There are a number of things wrong with this. 
 
 * Private key is not private if it is shared amongst the team
 * No pass-phrase, means no second factor of authentication
@@ -289,6 +294,28 @@ VPSs, there is also no audit trail
 * The weakest link is the weakest wiki password of all the developers, and we all know how weak that is likely to be, with a bit of reconnaissance, probably guessable in a few attempts without any password profiling tools. I discussed this and demonstrated a collection of password profiling tools in the "Weak Password Strategies" subsection of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). Once the attacker has the weakest password, then they own all of the EC2 (if on AWS) instances, or any resource that is using key-pair authentication. If the organisation is failing this badly, then they almost certainly will not have any password complexity constraints on their wiki either
 
 Most developers will also blindly accept what they think are the server key fingerprints without verifying them, thus opening themselves up to a MItM attack, as discussed in the VPS chapter under the [SSH subsection](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint). This very quickly moves from just a technical issue to a cultural one. People are trained to just accept that the server is who it says it is, the fact that they have to verify the fingerprint is essentially a step that gets in their way.
+
+##### TLS
+
+When Docker reads the instructions in the following `Dockerfile`, an image is created that copies our certificate, private key, and any other secrets you have declared, and bakes them into an additional layer, forming the resulting imaage. Both `COPY` and `ADD` will bake what ever you are copying or adding into an additional layer or delta, as discussed in the [Consumption from Registries](#vps-countermeasures-docker-consumption-from-registries) Docker subsection in the VPS chapter. Who ever can access this image from a public or less public registry now has access to your certificate and even worse your private key.
+
+Anyone can see how these images were built using the likes of [dockerfile-from-image](https://github.com/CenturyLinkLabs/dockerfile-from-image) or [ImageLayers](https://imagelayers.io/).
+
+The `ENV` command similarly bakes the "dirty little secret" value as the mySecret key into the image layer.
+
+{id="dockerfile-private-key-abuse", title="Private key abuse with Dockerfile", linenos=off}
+    FROM nginx
+
+    # ...
+    COPY /host-path/star.mydomain.com.cert /etc/nginx/certs/my.cert
+    COPY /host-path/star.mydomain.com.key /etc/nginx/certs/my.key
+    ENV mySecret="dirty little secret"
+    COPY /host-path/nginx.conf /etc/nginx/nginx.conf 
+    # ...
+
+##### Others
+
+
 
 #### Credentials
 
@@ -344,6 +371,28 @@ If you leverage The Cloud, Make sure the following aspects of security are all a
 1. People Security: Discussed in Fascicle 0 under the People chapter
 2. [Application Security](#web-applications): Discussed in the Web Applications chapter. The move to application security was also [discussed](#vps-countermeasures-docker-application-security) in the VPS chapter as a response of using Docker containers
 3. Configuring the Infrastructure and/or platform components: Usually CSP specific, but I cover some aspects in this chapter
+
+In response to the set of frequently asked questions under the [risks subsection](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) of CSP Customer Responsibility:
+
+* **(Q)**: As a software engineer, do I really care about physical network security and network logging?  
+   
+   **(A)**: In the past, many aspects of [network security](#cloud-identify-risks-network-security) were the responsibility of the Network Administrators, with the move to The Cloud, this has to large degree changed. The networks established (intentionally or not) between the components we are leveraging and creating in The Cloud are a result of Infrastructure and Configuration Management, often (and rightly so) expressed as code. Infrastrucure as Code (IaC). As discussed in the [Network Security](#cloud-identify-risks-network-security) subsection, this is now the responsibility of the Software Engineer  
+   
+* **(Q)**: Surely "as a software engineer", I can just use TLS and that is the end of it?  
+   
+   **(A)**: TLS is one very small area of network security. It's implementation as HTTPS and the PKI model is essentially [broken](#network-identify-risks-tls-downgrade). If TLS is your only saviour, putting it bluntly, you are without hope. The [Network Chapter](#network) covers the tip of the network security ice berg, network security is a huge topic, and one that has many books and resources written to provide more in-depth coverage than I can provide as part of a holistic view of security for Software Engineers. Software Engineers must come to grips with the fact that they need to implement defence in depth  
+   
+* **(Q)**: Well if the machine is compromised, then we give up on security, we aren't responsible for the network  
+   
+   **(A)**: For this statement, please refer to the VPS chapter for your responsibilities as a Software Engineer in regards to "the machine". In regards to "the network", please refer to the [Network Security](#cloud-identify-risks-network-security) subsection  
+   
+* **(Q)**: What is the difference between application security and network security? Aren't they just two aspects of the same thing?  
+   
+   **(A)**: No, for application security, see the [Web Applications)(#web-applications) chapter. For network security, see the [Network](#network) chapter. Again, as Software Engineers, you are now responsible for all aspects of information security  
+   
+* **(Q)**: If I have implemented TLS for communication, have I fixed all of the network security problems?  
+   
+   **(A)**: If you are still reading this, I'm pretty sure you know the answer, please share it with other Developers, Engineers as you receive the same questions
 
 ### CSP Evaluation
 
@@ -499,7 +548,7 @@ Research and document the options we have for AWS IAM segregation, and drive a l
 
 #### Private Key Abuse
 
-
+##### SSH
 
 There are many ways to harden SSH as we discussed in the [SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) subsection in the VPS chapter. Usually the issue will lie with lack of knowledge, desire and a dysfunctional [culture](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/) in the work place. You will need to address the people issues before looking at basic SSH hardening techniques.
 
@@ -512,6 +561,45 @@ _Todo_ more research required here ^^^ vvv find a better way.
 
 Follow the procedure I laid out for [Establishing your SSH Servers Key Fingerprint](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) in the VPS chapter, and make it organisational policy. We should never blindly just accept key fingerprints. The key fingerprints should be stored in a relatively secure place, so that only trusted parties can modify them. What I'd like to see happen, is that as part of the server creation process, the place (probably the wiki) that specifies the key fingerprints is automatically updated by something on the VPS that keeps watch of the key fingerprints. Something like Monit would be capable of the monitoring and firing a script to do this.
 
+##### TLS
+
+So how do we stop baking secrets into our Docker images?
+
+The easiest way is to just not add secrets to the process of building your images. You can add them at run time in several ways. If you think back to the [Namespaces](#vps-identify-risks-docker-docker-host-engine-and-containers-namespaces) Docker subsection in the VPS chapter, we used volumes. This allows us to keep the secrets entirely out of the image and only include in the container as mounted host directories. This is how we would do it, rather than adding those secrets to the `Dockerfile`:
+
+{id="docker-run-mitigating-private-key-abuse", title="Mitigate Private Key Abuse", linenos=off}
+    docker run -d -p 443:443 -v /host-path/star.mydomain.com.cert:/etc/nginx/certs/my.cert -v /host-path/star.mydomain.com.key:/etc/nginx/certs/my.key -e "mySecret=dirty little secret" nginx
+
+An even easier technique is to just add your adding of secrets to the `docker-compose.yml` file, thus saving all that typing every time you want to run the container:
+
+{id="docker-compose-mitigating-private-key-abuse", title="Mitigate Private Key Abuse", linenos=off}
+    nginx:
+        build: .
+        ports:
+            - "443:443"
+        volumes:
+            - /host-path/star.mydomain.com.key:/etc/nginx/ssl/nginx.key
+            - /host-path/star.mydomain.com.cert:/etc/nginx/ssl/nginx.crt
+            - /host-path/nginx.conf:/etc/nginx/nginx.conf
+        env_file:
+            - /host-path/secrets.env
+
+Using the `env_file` we can hide our environment variables in the `.env` file.  
+Our `Dockerfile` would now look like the following, even our config is volume mounted and will no longer reside in our image:
+
+{id="dockerfile-no-private-key-abuse", title="Mitigate private key abuse with Dockerfile", linenos=off}
+    FROM nginx
+
+    # ...
+    # ...
+
+##### Others
+
+HashiCorp has Vault https://www.vaultproject.io/ good for infrastructure management
+Ansible has Vault https://docs.ansible.com/ansible/latest/playbooks_vault.html good for configuration management
+AWS has Parameter Store https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html
+
+
 #### Credentials
 
 _Todo_ vvv.
@@ -521,7 +609,9 @@ Create multiple accounts with least privileges required for each user
 Create and enforce password policies
 
 
-Password managers
+Password managers for teams:
+
+[Plesant Password Server](http://pleasantsolutions.com/PasswordServer/)
 
 ### Serverless
 

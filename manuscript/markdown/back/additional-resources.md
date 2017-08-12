@@ -373,9 +373,18 @@ These resources in order were helpful for establishing a strategy for the unreli
 **FakeDns**  
 [https://github.com/Crypt0s/FakeDns](https://github.com/Crypt0s/FakeDns)
 
-%% Data Exfiltration, Infiltration leveraging DNS Countermeasures
+%% End Data Exfiltration, Infiltration leveraging DNS Countermeasures
 
 ## [Cloud](#cloud)
+
+%% Storage of Secrets, Private Key Abuse, TLS, Countermeasures
+
+**Secrets out of Docker images**  
+[https://www.ctl.io/developers/blog/post/tutorial-protecting-sensitive-info-docker](https://www.ctl.io/developers/blog/post/tutorial-protecting-sensitive-info-docker)
+
+%% End Storage of Secrets, Private Key Abuse, TLS, Countermeasures
+
+
 
 ## [Web Applications](#web-applications)
 
