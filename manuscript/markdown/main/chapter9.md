@@ -580,11 +580,11 @@ Research and document the options we have for AWS IAM segregation, and drive a l
 
 ### Storage of Secrets
 
-%% Cover password vaults such as for Terraform and Ansible vaults, storing secrets with docker containers as I discussed on PB redmine wiki
-%%   https://www.vaultproject.io/docs/secrets/aws/index.html
-%%   https://www.vaultproject.io/docs/auth/aws.html
+In this section I discusses some techniques to handle our sensitive information in a safer manner.
 
 #### Private Key Abuse
+
+The following are some techniques to better handle private keys.
 
 ##### SSH
 
@@ -632,6 +632,10 @@ Our `Dockerfile` would now look like the following, even our config is volume mo
     # ...
 
 #### Others
+
+%% Cover password vaults such as for Terraform and Ansible vaults, storing secrets with docker containers as I discussed on PB redmine wiki
+%%   https://www.vaultproject.io/docs/secrets/aws/index.html
+%%   https://www.vaultproject.io/docs/auth/aws.html
 
 HashiCorp has Vault https://www.vaultproject.io/ good for infrastructure management
 Ansible has Vault https://docs.ansible.com/ansible/latest/playbooks_vault.html good for configuration management
