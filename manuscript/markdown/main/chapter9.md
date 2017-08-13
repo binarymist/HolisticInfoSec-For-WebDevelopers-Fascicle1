@@ -191,9 +191,13 @@ As touched on in the CSP Evaluation questions, in many cases CSPs are outsourcin
 
 #### Vendor lock-in
 
+This does not just apply to The Cloud vs In-house, it also applies to open technologies in The Cloud vs closed/proprietary offerings.
+
 _Todo_ vvv.
 
 Reliance on vendor guarantees
+
+
 
 #### Possible Single Points of Failure
 
@@ -495,7 +499,17 @@ If you use an in-house cloud, you decide where services & data reside.
 
 #### Vendor lock-in
 
-You have to weigh up the vendor benefits vs how hard / costly it is to move away from them when you need to.
+You have to weigh up the vendor benefits and possible cost savings vs how hard / costly it is to move away from them when you need to.
+
+Many projects are locked into technology decisions / offerings, libraries, services from the design stage, and are unable to swap these at a later stage without incurring significant cost. If the offering that was chosen is proprietary, then it makes it all the more difficult to swap if and when it makes sense to do so.
+
+Some times it can cost more up front to go with an open (non proprietary) offering because somehow the proprietary offering has streamlined the development, deployment, maintainability process, that is the whole point of proprietary offerings right? Sometimes the open offering can actually be the cheaper option, due to proprietary offerings usually inuring an additional learning or upskilling cost for the teams/people involved.
+
+Often technology choices are chosen because they are the "new shiny", it is just what everyone else seems to be using, or there is a lot of buzz or noise around it.
+
+An analogy: Do Software Engineers write non-testable code because it is cheaper to write? Many/most code shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and run workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing non-testable code is a short sighted approach. Code is read and attempted to be modified and extended many times more than it is written up front. If you are putting all your cost savings on the initial write, and failing to consider all the times that modification will be attempted, then you are missing huge cost savings. Taking an initial hit up front to write testable code, that is code that has the properties of maintainability, extensibility defined by the [Liskov substitution principle](https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/) will set you up so that the interface is not coupled to the implementation. If you get your thought process right up front, and make sure you can swap components (implementation) out-in at will, maintainability and extensibility are not just possible, but a pleasure to do.
+
+An example: You do not make the decision up front that you are going to switch from running your JavaScript on on CSPs VM to another CSPs proprietary serverless technology in 5 years, you have no idea up front what you may switch to in 5 or 10 years time. If you choose to not be locked into a proprietary technology (AWS Lambda for example), you will be able to move that code anywhere you want trivially in the future. This is just swapping the implementation out. Just as professional Software Engineers do with code to make it testable, we should think seriously about doing the same with technology offerings. Just apply the same concept.
 
 #### Possible Single Points of Failure
 
