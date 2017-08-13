@@ -137,6 +137,16 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 %% https://serverfault.com/questions/615034/disable-nopasswd-sudo-access-for-ubuntu-user-on-an-ec2-instance
 
+
+
+%% AWS general
+%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
+%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+%%  https://cloudonaut.io/aws-security-primer/
+
+
+
+
 #### Google 
 
 %% https://cloud.google.com/
@@ -269,7 +279,7 @@ The reason being, that in general, as discussed in the [Shared Responsibility Mo
 
 ### Network Security {#cloud-identify-risks-network-security}
 
-The network between the components you decide to use in The Cloud will almost certainly no longer be administered by your network administrator(s), but rather by you as a Software Engineer. That is right, networks are now [expressed as code](#infrastructure-and-configuration-management), and because coding is part of your responsibility as a Software Engineer, the network will more than likely be left to you to design and code, so you better have a good understanding of [Network Security](#network).
+The network between the components you decide to use in The Cloud will almost certainly no longer be administered by your network administrator(s), but rather by you as a Software Engineer. That is right, networks are now [expressed as code](#cloud-identify-risks-infrastructure-and-configuration-management), and because coding is part of your responsibility as a Software Engineer, the network will more than likely be left to you to design and code, so you better have a good understanding of [Network Security](#network).
 
 ### Single User Root
 
@@ -350,7 +360,7 @@ What happens when you need to move from your current CSP? How much to you have i
 
 
 
-### Infrastructure and Configuration Management {#infrastructure-and-configuration-management}
+### Infrastructure and Configuration Management {#cloud-identify-risks-infrastructure-and-configuration-management}
 
 %% Discuss Infrastsructure as Code (IaC) with the likes of Terraform
 %%    Quite a bit of thought gone into this in the SER review of James Turnbull, show #289: https://groups.google.com/forum/?hl=en#!topic/seradio/5OTTZMIUAns
@@ -459,6 +469,14 @@ Add password to the default user.
 We have covered the people aspects along with exploitation techniques of Weak Password Strategies in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
 
 We have covered the technical aspects of password strategies in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) subsection of the VPS chapter
+
+
+%% AWS general
+%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
+%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+%%  https://cloudonaut.io/aws-security-primer/
+
+
 
 #### Google 
 
