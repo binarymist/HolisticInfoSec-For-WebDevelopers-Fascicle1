@@ -144,6 +144,9 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 %%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
 %%  https://cloudonaut.io/aws-security-primer/
 
+%% https://appsecday.com/schedule/hacking-aws-end-to-end/
+
+%% Kiwicon 10 talk "Hacking AWS end to end". Slide-deck here: https://github.com/dagrz/aws_pwn/blob/master/miscellanea/Kiwicon%202016%20-%20Hacking%20AWS%20End%20to%20End.pdf, along with readme and code.
 
 
 
@@ -295,7 +298,11 @@ In most organisations I work for as an architect or engineer, I see many cases o
 
 ### Storage of Secrets
 
+As a Consultant / contract Architect, Engineer, I see a lot of mishandling of sensitive information. The following are some examples.
+
 #### Private Key Abuse
+
+The following are some of the ways I see private keys mishandled.
 
 ##### SSH
 
