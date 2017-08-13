@@ -375,6 +375,12 @@ These resources in order were helpful for establishing a strategy for the unreli
 
 %% End Data Exfiltration, Infiltration leveraging DNS Countermeasures
 
+
+
+
+
+
+
 ## [Cloud](#cloud)
 
 %% Storage of Secrets, Private Key Abuse, TLS, Countermeasures
@@ -383,6 +389,17 @@ These resources in order were helpful for establishing a strategy for the unreli
 [https://www.ctl.io/developers/blog/post/tutorial-protecting-sensitive-info-docker](https://www.ctl.io/developers/blog/post/tutorial-protecting-sensitive-info-docker)
 
 %% End Storage of Secrets, Private Key Abuse, TLS, Countermeasures
+
+
+%% Countermeasures, Storage of Secrets, Credentials, Entered by people (manually)
+
+**Darkreading 10 Password Managers For Business Use**  
+[https://www.darkreading.com/endpoint/10-password-managers-for-business-use/d/d-id/1322326](https://www.darkreading.com/endpoint/10-password-managers-for-business-use/d/d-id/1322326)
+
+%% End Countermeasures, Storage of Secrets, Credentials, Entered by people (manually)
+
+
+
 
 
 

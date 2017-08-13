@@ -296,7 +296,7 @@ The default on AWS EC2 instances is to have a single user (root). There is no au
 
 In most organisations I work for as an architect or engineer, I see many cases of violating the principle of least privilege. 
 
-### Storage of Secrets
+### Storage of Secrets {#cloud-identify-risks-storage-of-secrets}
 
 As a Consultant / contract Architect, Engineer, I see a lot of mishandling of sensitive information. The following are some examples.
 
@@ -304,7 +304,7 @@ As a Consultant / contract Architect, Engineer, I see a lot of mishandling of se
 
 The following are some of the ways I see private keys mishandled.
 
-##### SSH
+##### SSH {#cloud-identify-risks-storage-of-secrets-private-key-abuse-ssh}
 
 [SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) key-pair auth is no better than password auth if it is abused in the following way, in-fact it may even be worse. What I have seen some organisations do is store a single private key with no pass-phrase for all of their EC2 instances in their developer wiki. All or many developers have access to this, with the idea being that they just copy the key from the wiki to their local `~/.ssh/`. There are a number of things wrong with this. 
 
@@ -342,6 +342,19 @@ The `ENV` command similarly bakes the `dirty little secret` value as the `mySecr
 Sharing accounts, especially super-user
 
 Doesn't take much from here to have your accounts taken over.
+
+
+
+##### Entered by People (manually)
+
+Developers and others putting user-names and passwords in company wikis, source control, anywhere where there is a reasonably good chance that someone will be able to view them with a little to moderate amount of persistence, as discussed above in the [SSH](#cloud-identify-risks-storage-of-secrets-private-key-abuse-ssh) section. When you have a team of Developers sharing passwords, the weakest link is usually very weak.
+
+##### Entered by Software (automatically)
+
+
+
+
+
 
 ### Serverless
 
@@ -580,7 +593,7 @@ Research and document the options we have for AWS IAM segregation, and drive a l
 
 ### Storage of Secrets
 
-In this section I discusses some techniques to handle our sensitive information in a safer manner.
+In this section I discuss some techniques to handle our sensitive information in a safer manner.
 
 #### Private Key Abuse
 
@@ -651,9 +664,38 @@ Create multiple accounts with least privileges required for each user
 Create and enforce password policies
 
 
-Password managers for teams:
 
-[Plesant Password Server](http://pleasantsolutions.com/PasswordServer/)
+##### Entered by People (manually)
+
+The most effective alternative to storing user-names and passwords in an insecure manner is to use a group or team password manager. There are quite a few offerings here, some are very expensive and 
+
+The following are some of the points you will need to consider as part of your selection process:
+
+* Cost in terms of money
+* Cost in terms of set-up and maintenance
+* Closed or open source. If you care about security, which you obviously do if you are looking at using a team password manager, it is important to see how secrets are handled, which rules out many. For me I need to be able to see how the code is written, which [Key Derivation Functions](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use) (KDFs) and [cyphers](#web-applications-identify-risks-cryptography-on-the-client) are used. If it is of high quality, we can have more confidence that our precious sensitive pieces of information are in-fact going to be private
+* Do you need a web client?
+* Do you need a mobile client (iOS & Android only)?
+* What platforms does it need to support?
+* Manage secrets of multiple customers?
+* Auditing of user actions? Who is accessing and changing what?
+* Ability to be able to lock out users, when they leave for example?
+* Multi-factor authentication
+* Options: Does it have all the features you would need?
+* Who is behind the offering? Are they well known for creating solid, reliable, secure solutions?
+
+The following were my personal top three, with No. 1 being my preference, based on research I performed for one of my customers recently. All the points above were considered for a collection of about ten team password managers that I reviewed:
+
+1. [Plesant Password Server](http://pleasantsolutions.com/PasswordServer/)
+2. [Password Manager Pro](https://www.manageengine.com/products/passwordmanagerpro/msp/features.html)
+3. [LastPass](https://www.lastpass.com/teams)
+
+##### Entered by Software (automatically)
+
+
+
+
+
 
 ### Serverless
 
