@@ -393,8 +393,9 @@ These resources in order were helpful for establishing a strategy for the unreli
 
 %% Countermeasures, Storage of Secrets, Credentials, Entered by people (manually)
 
-**Darkreading 10 Password Managers For Business Use**  
-[https://www.darkreading.com/endpoint/10-password-managers-for-business-use/d/d-id/1322326](https://www.darkreading.com/endpoint/10-password-managers-for-business-use/d/d-id/1322326)
+**Darkreading: 10 Password Managers For Business Use**  
+https://www.darkreading.com/endpoint/10-password-managers-for-business-use/d/d-id/  
+1322326
 
 %% End Countermeasures, Storage of Secrets, Credentials, Entered by people (manually)
 

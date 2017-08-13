@@ -667,17 +667,15 @@ Create and enforce password policies
 
 ##### Entered by People (manually)
 
-The most effective alternative to storing user-names and passwords in an insecure manner is to use a group or team password manager. There are quite a few offerings here, some are very expensive and 
-
-The following are some of the points you will need to consider as part of your selection process:
+The most effective alternative to storing user-names and passwords in an insecure manner is to use a group or team password manager. There are quite a few offerings available with all sorts of different attributes. The following are some of the points you will need to consider as part of your selection process:
 
 * Cost in terms of money
 * Cost in terms of set-up and maintenance
 * Closed or open source. If you care about security, which you obviously do if you are looking at using a team password manager, it is important to see how secrets are handled, which rules out many. For me I need to be able to see how the code is written, which [Key Derivation Functions](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use) (KDFs) and [cyphers](#web-applications-identify-risks-cryptography-on-the-client) are used. If it is of high quality, we can have more confidence that our precious sensitive pieces of information are in-fact going to be private
 * Do you need a web client?
-* Do you need a mobile client (iOS & Android only)?
+* Do you need a mobile client (iOS, Android)?
 * What platforms does it need to support?
-* Manage secrets of multiple customers?
+* Does it need to be able to manage secrets of multiple customers?
 * Auditing of user actions? Who is accessing and changing what?
 * Ability to be able to lock out users, when they leave for example?
 * Multi-factor authentication
@@ -686,7 +684,7 @@ The following are some of the points you will need to consider as part of your s
 
 The following were my personal top three, with No. 1 being my preference, based on research I performed for one of my customers recently. All the points above were considered for a collection of about ten team password managers that I reviewed:
 
-1. [Plesant Password Server](http://pleasantsolutions.com/PasswordServer/)
+1. [Plesant Password Server](http://pleasantsolutions.com/PasswordServer/) (KeePass backed)
 2. [Password Manager Pro](https://www.manageengine.com/products/passwordmanagerpro/msp/features.html)
 3. [LastPass](https://www.lastpass.com/teams)
 
@@ -721,6 +719,14 @@ _Todo_ Discuss some of the other orchestration options below vvv.
 ## 4. SSM Risks that Solution Causes
 
 _Todo_
+
+### Storage of Secrets
+
+#### Credentials
+
+##### Entered by People (manually)
+
+%% Discuss how KeePass can be broken
 
 ## 5. SSM Costs and Trade-offs
 
