@@ -98,7 +98,7 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
    
 5. What is your process around terminating my contract with you and/or moving to another CSP?  
    
-   No CSP is going to last forever, termination or migration is inevitible, it is just a matter of when  
+   No CSP is going to last forever, termination or migration is inevitable, it is just a matter of when  
    
 6. Where abouts do your servers, processes and data reside physically?  
    
