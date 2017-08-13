@@ -471,7 +471,7 @@ We have covered the people aspects along with exploitation techniques of Weak Pa
 We have covered the technical aspects of password strategies in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) subsection of the VPS chapter
 
 
-%% AWS general
+%% AWS general (security enhancing services and features)
 %%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
 %%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
 %%  https://cloudonaut.io/aws-security-primer/
