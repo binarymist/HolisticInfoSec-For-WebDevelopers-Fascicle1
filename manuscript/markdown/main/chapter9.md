@@ -155,7 +155,7 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 A question that I hear frequently is: "What is more secure, building and maintaining your own cloud, or trusting a CSP to take care of security for you?". That is a defective question, as discussed in the [Shared Responsibility Model ](#cloud-identify-risks-shared-responsibility-model) subsections. There are [some aspects](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) of security that the CSP has no knowledge of, and only you as the CSP customer can work security into those areas.
 
-Going with a CSP means you are depending on their security professionals to design, build and maintain the infrastructure, frameworks, hardware and platforms. Usually the large CSPs will do a decent job of this. If you go with designing, building, and maintaining your own in-house cloud, then you will also be leveraging the skills of those that have created the cloud components you decide to use, but you will be responsible for the following along with many aspects of how these components fit together and interact with each other:
+Going with a CSP means you are depending on their security professionals to design, build and maintain the infrastructure, frameworks, hardware and platforms. Usually the large CSPs will do a decent job of this. If you go with designing, building, and maintaining your own In-house cloud, then you will also be leveraging the skills of those that have created the cloud components you decide to use, but you will be responsible for the following along with many aspects of how these components fit together and interact with each other:
 
 * General infrastructure
 * Hardware
@@ -482,20 +482,20 @@ Based on the threat modelling I hope you have done through each chapter, which w
 
 #### Skills
 
-The fate of your and your customers data is in your hands. If you have the resources to provide the necessary security then you are better off with an in-house cloud, if not, the opposite is true.  
-If you go with an in-house cloud, you should have tighter control over the people creating and administering it, this is good if they have the necessary skills and experience, if not, then the opposite is true again.
+The fate of your and your customers data is in your hands. If you have the resources to provide the necessary security then you are better off with an In-house cloud, if not, the opposite is true.  
+If you go with an In-house cloud, you should have tighter control over the people creating and administering it, this is good if they have the necessary skills and experience, if not, then the opposite is true again.
 
 #### EULA
 
-You and any in-house cloud environment you establish is not subject to changing EULAs.
+You and any In-house cloud environment you establish is not subject to changing EULAs.
 
 #### Giving up Secrets 
 
-If you are using an in-house cloud and find yourself in a place where you have made it possible for your customers secrets to be read, and you are being forced by the authorities to give up secrets, you will know about it and be able to react appropriately, invoke your incident response team(s) and procedures.
+If you are using an In-house cloud and find yourself in a place where you have made it possible for your customers secrets to be read, and you are being forced by the authorities to give up secrets, you will know about it and be able to react appropriately, invoke your incident response team(s) and procedures.
 
 #### Location of Data
 
-If you use an in-house cloud, you decide where services & data reside.
+If you use an In-house cloud, you decide where services & data reside.
 
 #### Vendor lock-in
 
@@ -503,13 +503,13 @@ You have to weigh up the vendor benefits and possible cost savings vs how hard /
 
 Many projects are locked into technology decisions / offerings, libraries, services from the design stage, and are unable to swap these at a later stage without incurring significant cost. If the offering that was chosen is proprietary, then it makes it all the more difficult to swap if and when it makes sense to do so.
 
-Some times it can cost more up front to go with an open (non proprietary) offering because somehow the proprietary offering has streamlined the development, deployment, maintainability process, that is the whole point of proprietary offerings right? Sometimes the open offering can actually be the cheaper option, due to proprietary offerings usually inuring an additional learning or upskilling cost for the teams/people involved.
+Some times it can cost more up front to go with an open (non proprietary) offering because somehow the proprietary offering has streamlined the development, deployment, maintainability process, that is the whole point of proprietary offerings right? Sometimes the open offering can actually be the cheaper option, due to proprietary offerings usually incurring an additional learning or upskilling cost for the teams/people involved.
 
 Often technology choices are chosen because they are the "new shiny", it is just what everyone else seems to be using, or there is a lot of buzz or noise around it.
 
-An analogy: Do Software Engineers write non-testable code because it is cheaper to write? Many/most code shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and run workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing non-testable code is a short sighted approach. Code is read and attempted to be modified and extended many times more than it is written up front. If you are putting all your cost savings on the initial write, and failing to consider all the times that modification will be attempted, then you are missing huge cost savings. Taking an initial hit up front to write testable code, that is code that has the properties of maintainability, extensibility defined by the [Liskov substitution principle](https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/) will set you up so that the interface is not coupled to the implementation. If you get your thought process right up front, and make sure you can swap components (implementation) out-in at will, maintainability and extensibility are not just possible, but a pleasure to do.
+**An analogy**: Do Software Developers write non-testable code because it is cheaper to write? Many/most code shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and run workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing non-testable code is a short sighted approach. Code is read and attempted to be modified and extended many times more than it is written up front. If you are putting all your cost savings on the initial write, and failing to consider all the times that modification will be attempted, then you are missing huge cost savings. Taking an initial hit up front to write testable code, that is code that has the properties of maintainability, extensibility defined by the [Liskov Substitution Principle](https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/) will set you up so that the interface is not coupled to the implementation. If you get your thought process right up front, and make sure you can swap components (implementation) out-in at will, maintainability and extensibility are not just possible, but a pleasure to do.
 
-An example: You do not make the decision up front that you are going to switch from running your JavaScript on on CSPs VM to another CSPs proprietary serverless technology in 5 years, you have no idea up front what you may switch to in 5 or 10 years time. If you choose to not be locked into a proprietary technology (AWS Lambda for example), you will be able to move that code anywhere you want trivially in the future. This is just swapping the implementation out. Just as professional Software Engineers do with code to make it testable, we should think seriously about doing the same with technology offerings. Just apply the same concept.
+**An example**: You do not make the decision up front that you are going to switch from running your JavaScript on one CSPs VM to another CSPs proprietary serverless technology in 5 years, you have no idea up front what you may switch to in 5 or 10 years time. If you choose to not be locked into a proprietary technology (AWS Lambda for example), you will be able to move that code anywhere you want trivially in the future. This is just swapping the implementation out. Just as professional Software Engineers do with code to make it testable, we should think seriously about doing the same with technology offerings. Just apply the same concept.
 
 #### Possible Single Points of Failure
 
