@@ -127,43 +127,6 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
     
     This is another example if the programme is run well, that the CSP is open, transparent about their security faults and willing to mitigate them as soon as possible
 
-Now we will focus on a collection of the largest providers.
-
-#### AWS
-
-##### Password-less sudo
-
-Password-less sudo. A low privileged user can operate with root privileges. This is essentially as bad as root logins.
-
-%% https://serverfault.com/questions/615034/disable-nopasswd-sudo-access-for-ubuntu-user-on-an-ec2-instance
-
-
-
-%% AWS general
-%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
-%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
-%%  https://cloudonaut.io/aws-security-primer/
-
-%% https://appsecday.com/schedule/hacking-aws-end-to-end/
-
-%% Kiwicon 10 talk "Hacking AWS end to end". Slide-deck here: https://github.com/dagrz/aws_pwn/blob/master/miscellanea/Kiwicon%202016%20-%20Hacking%20AWS%20End%20to%20End.pdf, along with readme and code.
-
-
-
-#### Google 
-
-%% https://cloud.google.com/
-
-#### Heroku
-
-%% http://stackoverflow.com/questions/9802259/why-do-people-use-heroku-when-aws-is-present-whats-distinguishing-about-heroku
-
-#### Azure
-
-%% https://docs.microsoft.com/en-us/azure/security/azure-security-iaas
-
-#### Etc.
-
 ### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom) {#cloud-identify-risks-cloud-service-provider-vs-in-house}
 
 A question that I hear frequently is: "What is more secure, building and maintaining your own cloud, or trusting a CSP to take care of security for you?". That is a defective question, as discussed in the [Shared Responsibility Model ](#cloud-identify-risks-shared-responsibility-model) subsections. There are [some aspects](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) of security that the CSP has no knowledge of, and only you as the CSP customer can work security into those areas.
@@ -222,6 +185,43 @@ There are plenty of single points of failure in The Cloud
 * Region goes down
 * Multiple Regions go down
 * Account Takeover occurs
+
+Now we will focus on a collection of the largest providers.
+
+### AWS
+
+#### Password-less sudo
+
+Password-less sudo. A low privileged user can operate with root privileges. This is essentially as bad as root logins.
+
+%% https://serverfault.com/questions/615034/disable-nopasswd-sudo-access-for-ubuntu-user-on-an-ec2-instance
+
+
+
+%% AWS general
+%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
+%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+%%  https://cloudonaut.io/aws-security-primer/
+
+%% https://appsecday.com/schedule/hacking-aws-end-to-end/
+
+%% Kiwicon 10 talk "Hacking AWS end to end". Slide-deck here: https://github.com/dagrz/aws_pwn/blob/master/miscellanea/Kiwicon%202016%20-%20Hacking%20AWS%20End%20to%20End.pdf, along with readme and code.
+
+
+
+### Google 
+
+%% https://cloud.google.com/
+
+### Heroku
+
+%% http://stackoverflow.com/questions/9802259/why-do-people-use-heroku-when-aws-is-present-whats-distinguishing-about-heroku
+
+### Azure
+
+%% https://docs.microsoft.com/en-us/azure/security/azure-security-iaas
+
+
 
 ### Review Other Chapters {#cloud-identify-risks-review-other-chapters}
 
@@ -286,7 +286,7 @@ The network between the components you decide to use in The Cloud will almost ce
 
 ### Single User Root
 
-The [default](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) on AWS EC2 instances is to have a single user (root). There is no audit trail with a bunch of developers all using the same login. When ever anything happens on any of these machine instances, it's always the fault of user `ubuntu` on an Ubuntu AMI, `ec2-user` on a RHEL AMI, or `centos` on a Centos AMI. There are so many things wrong with this approach.
+The [default](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) on AWS EC2 instances is to have a single user (root). There is no audit trail with a bunch of developers all using the same login. When ever anything happens on any of these machine instances, it is always the fault of user `ubuntu` on an Ubuntu AMI, `ec2-user` on a RHEL AMI, or `centos` on a Centos AMI. There are so many things wrong with this approach.
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege)
 
@@ -476,32 +476,6 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
     
     If the CSP is of a reasonable size and is not already running bug bounties, this is a good sign that security could be taken more seriously.
 
-#### AWS
-
-##### Password-less sudo
-
-Add password to the default user.
-
-We have covered the people aspects along with exploitation techniques of Weak Password Strategies in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
-
-We have covered the technical aspects of password strategies in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) subsection of the VPS chapter
-
-
-%% AWS general (security enhancing services and features)
-%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
-%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
-%%  https://cloudonaut.io/aws-security-primer/
-
-
-
-#### Google 
-
-#### Heroku
-
-#### Azure
-
-#### Etc.
-
 ### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom)
 
 It depends on the CSP, and many things about your organisation. Each CSP does things differently, has strengths and weaknesses in different areas of the shared security model, has different specialities, is governed by different people and jurisdictions (USA vs Sweden for example), some are less security conscious than others. The largest factor in this question is your organisation. How security conscious and capable of implementing a secure cloud environment are your workers.
@@ -560,6 +534,32 @@ The following are some of the countermeasures to the single points of failure in
   * Make sure you are collecting and storing login history in a safe place, this can be used to challenge attackers that have successfully logged in, as you will have their IP addresses and browser user agent string
   * Third party authentication
   * Lots of other techniques
+
+### AWS
+
+#### Password-less sudo
+
+Add password to the default user.
+
+We have covered the people aspects along with exploitation techniques of Weak Password Strategies in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
+
+We have covered the technical aspects of password strategies in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) subsection of the VPS chapter
+
+
+%% AWS general (security enhancing services and features)
+%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
+%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+%%  https://cloudonaut.io/aws-security-primer/
+
+
+
+### Google 
+
+### Heroku
+
+### Azure
+
+
 
 ### Review Other Chapters {#cloud-countermeasures-review-other-chapters}
 
