@@ -348,6 +348,24 @@ What ever you use to get work done in The Cloud programmatically, you are going 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Serverless
 
 %% Serverless https://serverless.com/
@@ -602,7 +620,8 @@ Every user should have their [own key-pair](https://docs.aws.amazon.com/AWSEC2/l
 
 For generic confirming of the hosts SSH key fingerprint as you are prompted before establishing the SSH connection, follow the procedure I laid out for: [Establishing your SSH Servers Key Fingerprint](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) in the VPS chapter, and make it organisational policy. We should never blindly just accept key fingerprints. The key fingerprints should be stored in a relatively secure place, so that only trusted parties can modify them. What I would like to see happen, is that as part of the server creation process, the place (probably the wiki) that specifies the key fingerprints is automatically updated by something on the VPS that keeps watch of the key fingerprints. Something like [Monit](#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit) as discussed in the VPS chapter, would be capable of the monitoring and firing a script to do this.
 
-To SSH to an EC2 instance, you will have to view the console output of the keys being generated. You can see this **only for the first run** of the instance when it is being created, this can be seen by first fetching https://console.aws.amazon.com  
+To SSH to an EC2 instance, you will have to view the console output of the keys being generated. You can see this **only for the first run** of the instance when it is being created, this can be seen by first fetching:  
+https://console.aws.amazon.com  
 Then:
 
 1. Click the "EC2" link
@@ -611,7 +630,7 @@ Then:
 4. Click the select button "Actions" and choose "Get System Log" (a.k.a. "Console Output")
 5. In the console output, you should see the keys being generated. Record them
 
-Then to SSH to your EC2 instance: the command to use can be seen by fetching  
+Then to SSH to your EC2 instance: the command to use can be seen by fetching:  
 https://console.aws.amazon.com  
 Then:
 
