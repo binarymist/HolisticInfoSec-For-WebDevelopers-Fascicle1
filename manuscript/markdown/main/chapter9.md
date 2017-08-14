@@ -343,7 +343,7 @@ Developers and others putting user-names and passwords in company wikis, source 
 
 ##### Entered by Software (automatically)
 
-
+What ever you use to get work done in The Cloud programmatically, you are going to need to authenticate the process at some point
 
 
 
@@ -598,9 +598,9 @@ manual monitoring which should all be automated.
 
 When you create an AWS EC2 instance you can create a key pair [using EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair) or you can [provide your own](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws), either way, to be able to log-in to your instance, you need to have provided EC2 with the public key of your key pair and specified it by name. 
 
-Every user should have their [own key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html), the private part should always be private, kept in the users `~/.ssh/` directory with permissions `600` or more restrictive, not shared on your developer wiki or anywhere else for that matter. The public part can be put on every server that the user needs access to. There is no excuse for every user not to have their own key pair, you can have up to five thousand key pairs per AWS region. AWS has [clear directions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) on how to create additional users and provide SSH access with their own key pairs.
+Every user should have their [own key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html), the private part should always be private, kept in the users local `~/.ssh/` directory (not the server) with permissions `600` or more restrictive, not shared on your developer wiki or anywhere else for that matter. The public part can be put on every server that the user needs access to. There is no excuse for every user not to have their own key pair, you can have up to five thousand key pairs per AWS region. AWS has [clear directions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) on how to create additional users and provide SSH access with their own key pairs.
 
-For generic confirming of the hosts SSH key fingerprint as you are prompted before establishing the SSH connection, follow the procedure I laid out for: [Establishing your SSH Servers Key Fingerprint](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) in the VPS chapter, and make it organisational policy. We should never blindly just accept key fingerprints. The key fingerprints should be stored in a relatively secure place, so that only trusted parties can modify them. What I'd like to see happen, is that as part of the server creation process, the place (probably the wiki) that specifies the key fingerprints is automatically updated by something on the VPS that keeps watch of the key fingerprints. Something like [Monit](#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit) as discussed in the VPS chapter, would be capable of the monitoring and firing a script to do this.
+For generic confirming of the hosts SSH key fingerprint as you are prompted before establishing the SSH connection, follow the procedure I laid out for: [Establishing your SSH Servers Key Fingerprint](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) in the VPS chapter, and make it organisational policy. We should never blindly just accept key fingerprints. The key fingerprints should be stored in a relatively secure place, so that only trusted parties can modify them. What I would like to see happen, is that as part of the server creation process, the place (probably the wiki) that specifies the key fingerprints is automatically updated by something on the VPS that keeps watch of the key fingerprints. Something like [Monit](#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit) as discussed in the VPS chapter, would be capable of the monitoring and firing a script to do this.
 
 To SSH to an EC2 instance, you will have to view the console output of the keys being generated. You can see this **only for the first run** of the instance when it is being created, this can be seen by first fetching https://console.aws.amazon.com  
 Then:
@@ -611,7 +611,8 @@ Then:
 4. Click the select button "Actions" and choose "Get System Log" (a.k.a. "Console Output")
 5. In the console output, you should see the keys being generated. Record them
 
-Then to SSH to your EC2 instance: the command to use can be seen by fetching https://console.aws.amazon.com  
+Then to SSH to your EC2 instance: the command to use can be seen by fetching  
+https://console.aws.amazon.com  
 Then:
 
 1. EC2
