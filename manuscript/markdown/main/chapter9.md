@@ -333,17 +333,13 @@ The `ENV` command similarly bakes the `dirty little secret` value as the `mySecr
     COPY /host-path/nginx.conf /etc/nginx/nginx.conf 
     # ...
 
-#### Credentials
+#### Credentials {#cloud-identify-risks-storage-of-secrets-credentials}
 
-Sharing accounts, especially super-user
-
-Doesn't take much from here to have your accounts taken over.
-
-
+Sharing accounts, especially super-user accounts on the likes of machine instances and even worse, your CSP IAM account(s), and worse still, the account root user. I have worked for organisations that had only the single default AWS account [root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html) you get when you first sign up to AWS, shared amongst several teams of Developers and managers, on the organisations wiki, which in itself is a big security risk. Subsequently the organisation I am thinking about had one of the business owners go rogue change the single password and lock everyone else out.
 
 ##### Entered by People (manually)
 
-Developers and others putting user-names and passwords in company wikis, source control, anywhere where there is a reasonably good chance that someone will be able to view them with a little to moderate amount of persistence, as discussed above in the [SSH](#cloud-identify-risks-storage-of-secrets-private-key-abuse-ssh) section. When you have a team of Developers sharing passwords, the weakest link is usually very weak.
+Developers and others putting user-names and passwords in company wikis, source control, anywhere where there is a reasonably good chance that an unauthorised person will be able to view them with a little to moderate amount of persistence, as discussed above in the [SSH](#cloud-identify-risks-storage-of-secrets-private-key-abuse-ssh) section. When you have a team of Developers sharing passwords, the weakest link is usually very weak, and that is only if you are considering outsiders to be a risk, which according to the study I discussed in the [Fortress Mentality](#network-identify-risks-fortress-mentality) subsection of the network chapter would be a mistake, with about half of the security incidents being carried out from inside of an organisation.
 
 ##### Entered by Software (automatically)
 
@@ -638,34 +634,18 @@ Our `Dockerfile` would now look like the following, even our config is volume mo
     # ...
     # ...
 
-#### Others
-
-%% Cover password vaults such as for Terraform and Ansible vaults, storing secrets with docker containers as I discussed on PB redmine wiki
-%%   https://www.vaultproject.io/docs/secrets/aws/index.html
-%%   https://www.vaultproject.io/docs/auth/aws.html
-
-HashiCorp has Vault https://www.vaultproject.io/ good for infrastructure management
-Ansible has Vault https://docs.ansible.com/ansible/latest/playbooks_vault.html good for configuration management
-AWS has Parameter Store https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html
-
-
 #### Credentials
 
-_Todo_ vvv.
+Create multiple accounts with least privileges required for each user, discussed below.  
+Create and enforce password policies, discussed below.
 
+Funnily enough, with the AWS account root user story I mentioned in the [Risks](#cloud-identify-risks-storage-of-secrets-credentials) subsection, I had created a report detailing this as one of the most critical issues that needed addressing before everyone but one person lost access.
 
-Create multiple accounts with least privileges required for each user  
-Create and enforce password policies
-
-
-
-
-
-
-
-
+If your business is in The Cloud, the account root user is one of your most valuable assets, do not share it with anyone, and only use it when essential.
 
 ##### Entered by People (manually)
+
+**Protecting against outsiders**
 
 The most effective alternative to storing user-names and passwords in an insecure manner is to use a group or team password manager. There are quite a few offerings available with all sorts of different attributes. The following are some of the points you will need to consider as part of your selection process:
 
@@ -688,9 +668,32 @@ The following were my personal top three, with No. 1 being my preference, based 
 2. [Password Manager Pro](https://www.manageengine.com/products/passwordmanagerpro/msp/features.html)
 3. [LastPass](https://www.lastpass.com/teams)
 
+**Protecting against insiders as well**
+
+The above alone is not going to stop an account take over if you are sharing the likes of the AWS account root user email and password, even if it is in a group password manager. As AWS have [already stated](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html), only use the root user for what is absolutely essential (remember: least privilege), this is usually just to create an Administrators group to which you attach the `AdministratorAccess` managed policy, then add any new IAM users to that group that require administrative access.
+
+Once you have created IAM users within the Administrators group as mentioned above, these users should set-up groups to which you attach further restricted managed policies such as a group for `PowerUserAccess`, a group for `ReadOnlyAccess`, a group for `IAMFullAccess`, progressively becoming more restrictive. Use the most restrictive group possible in order to achieve specific tasks, simply assigning users to the groups you have created.
+
+Also use multi-factor authentication.
+
+&nbsp;
+
+Your AWS users do not get created with access keys to use for programmatic access, do not create these unless you actually need them, and again consider least privilege, there should be almost no reason to create an [access key](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials) for the root user.
+
+Configure [strong password policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy) for your users, make sure they are using personal password managers and know how to generate long complex passwords.
+
 ##### Entered by Software (automatically)
 
 
+
+
+%% Cover password vaults such as for Terraform and Ansible vaults, storing secrets with docker containers as I discussed on PB redmine wiki
+%%   https://www.vaultproject.io/docs/secrets/aws/index.html
+%%   https://www.vaultproject.io/docs/auth/aws.html
+
+HashiCorp has Vault https://www.vaultproject.io/ good for infrastructure management
+Ansible has Vault https://docs.ansible.com/ansible/latest/playbooks_vault.html good for configuration management
+AWS has Parameter Store https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html
 
 
 

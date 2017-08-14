@@ -23,7 +23,7 @@ Most types of security exploitation have a network involved somewhere. Reconnais
 
 _Todo_: Add SER interview for Network Security
 
-### Fortress Mentality
+### Fortress Mentality {#network-identify-risks-fortress-mentality}
 ![](images/ThreatTags/easy-widespread-easy-severe.png)
 
 This section takes the concepts from the section with the same name from the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). The largest percentage of successful attacks come from within organisations. Usually the inside attacks get covered up, because the public image of the organisation is affected to a greater extent than if the organisation publicises the fact that they were compromised by someone on the other side of the world.
