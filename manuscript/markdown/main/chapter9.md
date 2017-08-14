@@ -335,7 +335,7 @@ The `ENV` command similarly bakes the `dirty little secret` value as the `mySecr
 
 #### Credentials {#cloud-identify-risks-storage-of-secrets-credentials}
 
-Sharing accounts, especially super-user accounts on the likes of machine instances and even worse, your CSP IAM account(s), and worse still, the account root user. I have worked for organisations that had only the single default AWS account [root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html) you get when you first sign up to AWS, shared amongst several teams of Developers and managers, on the organisations wiki, which in itself is a big security risk. Subsequently the organisation I am thinking about had one of the business owners go rogue change the single password and lock everyone else out.
+Sharing accounts, especially super-user accounts on the likes of machine instances and even worse, your CSP IAM account(s), and worse still, the account root user. I have worked for organisations that had only the single default AWS account [root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html) you are given when you first sign up to AWS, shared amongst several teams of Developers and managers, on the organisations wiki, which in itself is a big security risk. Subsequently the organisation I am thinking about had one of the business owners go rogue, and change the single password and lock everyone else out.
 
 ##### Entered by People (manually)
 
@@ -575,13 +575,13 @@ Full coverage in the [Network](#network) chapter.
 
 ### Single User Root
 
-As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS (this all needs to be automated). With Docker, I discussed how this is done in the [Dockerfile](#vps-countermeasures-docker-the-dDefault-user-is-root).
+As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS, including [SSH access](#cloud-countermeasures-storage-of-secrets-private-key-abuse-ssh) if this is required (ideally this should be automated). With Docker, I discussed how this is done in the [Dockerfile](#vps-countermeasures-docker-the-dDefault-user-is-root).
 
-Research and document the options we have for AWS IAM segregation, and drive a [least privilege policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) around this, configuring a strong [password policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy) for your users, and implement [multi-factor authentication](https://aws.amazon.com/iam/details/mfa/) which will help with poor password selection of users.
+Drive a [least privilege policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) around this, configuring a strong [password policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy) for your users, and implement [multi-factor authentication](https://aws.amazon.com/iam/details/mfa/) which will help with poor password selection of users. I discuss this in more depth in the [Storage of Secrets](#cloud-countermeasures-storage-of-secrets) subsection.
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege)
 
-### Storage of Secrets
+### Storage of Secrets {#cloud-countermeasures-storage-of-secrets}
 
 In this section I discuss some techniques to handle our sensitive information in a safer manner.
 
@@ -589,18 +589,35 @@ In this section I discuss some techniques to handle our sensitive information in
 
 The following are some techniques to better handle private keys.
 
-##### SSH
+##### SSH {#cloud-countermeasures-storage-of-secrets-private-key-abuse-ssh}
 
 There are many ways to harden SSH as we discussed in the [SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) subsection in the VPS chapter. Usually the issue will lie with lack of knowledge, desire and a dysfunctional [culture](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/) in the work place. You will need to address the people issues before looking at basic SSH hardening techniques.
 
 Ideally SSH access should be reduced to a select few. Most of the work we do now by SSHing should be automated. If you have a look at all the commands in history on any of the VPSs, most of the commands are either deployment or
 manual monitoring which should all be automated.
 
-Every user should have their [own key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html), the private part should always be private, not shared on your developer wiki or anywhere else for that matter. The public part can be put on every server that the user needs access to.
+When you create an AWS EC2 instance you can create a key pair [using EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair) or you can [provide your own](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws), either way, to be able to log-in to your instance, you need to have provided EC2 with the public key of your key pair and specified it by name. 
 
-_Todo_ more research required here ^^^ vvv find a better way.
+Every user should have their [own key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html), the private part should always be private, kept in the users `~/.ssh/` directory with permissions `600` or more restrictive, not shared on your developer wiki or anywhere else for that matter. The public part can be put on every server that the user needs access to. There is no excuse for every user not to have their own key pair, you can have up to five thousand key pairs per AWS region. AWS has [clear directions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) on how to create additional users and provide SSH access with their own key pairs.
 
-Follow the procedure I laid out for [Establishing your SSH Servers Key Fingerprint](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) in the VPS chapter, and make it organisational policy. We should never blindly just accept key fingerprints. The key fingerprints should be stored in a relatively secure place, so that only trusted parties can modify them. What I'd like to see happen, is that as part of the server creation process, the place (probably the wiki) that specifies the key fingerprints is automatically updated by something on the VPS that keeps watch of the key fingerprints. Something like Monit would be capable of the monitoring and firing a script to do this.
+For generic confirming of the hosts SSH key fingerprint as you are prompted before establishing the SSH connection, follow the procedure I laid out for: [Establishing your SSH Servers Key Fingerprint](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) in the VPS chapter, and make it organisational policy. We should never blindly just accept key fingerprints. The key fingerprints should be stored in a relatively secure place, so that only trusted parties can modify them. What I'd like to see happen, is that as part of the server creation process, the place (probably the wiki) that specifies the key fingerprints is automatically updated by something on the VPS that keeps watch of the key fingerprints. Something like [Monit](#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit) as discussed in the VPS chapter, would be capable of the monitoring and firing a script to do this.
+
+To SSH to an EC2 instance, you will have to view the console output of the keys being generated. You can see this **only for the first run** of the instance when it is being created, this can be seen by first fetching https://console.aws.amazon.com  
+Then:
+
+1. Click the "EC2" link
+2. Click "Instances" in the left column
+3. Click the instance name you want
+4. Click the select button "Actions" and choose "Get System Log" (a.k.a. "Console Output")
+5. In the console output, you should see the keys being generated. Record them
+
+Then to SSH to your EC2 instance: the command to use can be seen by fetching https://console.aws.amazon.com  
+Then:
+
+1. EC2
+2. Instances
+3. Select your instance
+4. Click the Connect button for details
 
 ##### TLS
 
@@ -639,7 +656,7 @@ Our `Dockerfile` would now look like the following, even our config is volume mo
 Create multiple accounts with least privileges required for each user, discussed below.  
 Create and enforce password policies, discussed below.
 
-Funnily enough, with the AWS account root user story I mentioned in the [Risks](#cloud-identify-risks-storage-of-secrets-credentials) subsection, I had created a report detailing this as one of the most critical issues that needed addressing before everyone but one person lost access.
+Funnily enough, with the AWS account root user story I mentioned in the [Risks](#cloud-identify-risks-storage-of-secrets-credentials) subsection, I had created a report detailing this as one of the most critical issues that needed addressing several weeks before everyone but one person lost access.
 
 If your business is in The Cloud, the account root user is one of your most valuable assets, do not share it with anyone, and only use it when essential.
 
@@ -672,7 +689,7 @@ The following were my personal top three, with No. 1 being my preference, based 
 
 The above alone is not going to stop an account take over if you are sharing the likes of the AWS account root user email and password, even if it is in a group password manager. As AWS have [already stated](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html), only use the root user for what is absolutely essential (remember: least privilege), this is usually just to create an Administrators group to which you attach the `AdministratorAccess` managed policy, then add any new IAM users to that group that require administrative access.
 
-Once you have created IAM users within the Administrators group as mentioned above, these users should set-up groups to which you attach further restricted managed policies such as a group for `PowerUserAccess`, a group for `ReadOnlyAccess`, a group for `IAMFullAccess`, progressively becoming more restrictive. Use the most restrictive group possible in order to achieve specific tasks, simply assigning users to the groups you have created.
+Once you have created IAM users within an Administrators group as mentioned above, these users should set-up groups to which you attach further restricted managed policies such as a group for `PowerUserAccess`, a group for `ReadOnlyAccess`, a group for `IAMFullAccess`, progressively becoming more restrictive. Use the most restrictive group possible in order to achieve specific tasks, simply assigning users to the groups you have created.
 
 Also use multi-factor authentication.
 
