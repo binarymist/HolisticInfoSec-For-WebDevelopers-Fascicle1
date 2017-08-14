@@ -286,11 +286,7 @@ The network between the components you decide to use in The Cloud will almost ce
 
 ### Single User Root
 
-The default on AWS EC2 instances is to have a single user (root). There is no audit trail with a bunch of developers all using the same login. When ever anything happens on any of these machine instances, it's always the fault of user `ubuntu`. There are so many things wrong with this approach.
-
-%% Todo: verify this is the default
-
-
+The [default](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) on AWS EC2 instances is to have a single user (root). There is no audit trail with a bunch of developers all using the same login. When ever anything happens on any of these machine instances, it's always the fault of user `ubuntu` on an Ubuntu AMI, `ec2-user` on a RHEL AMI, or `centos` on a Centos AMI. There are so many things wrong with this approach.
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege)
 
@@ -583,11 +579,9 @@ Full coverage in the [Network](#network) chapter.
 
 ### Single User Root
 
-_Todo_ more research required here vvv.
-
 As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS (this all needs to be automated). With Docker, I discussed how this is done in the [Dockerfile](#vps-countermeasures-docker-the-dDefault-user-is-root).
 
-Research and document the options we have for AWS IAM segregation, and drive a least provilage policy around this, implement [multi-factor authentication](https://aws.amazon.com/iam/details/mfa/) which will help with poor password selection of users.
+Research and document the options we have for AWS IAM segregation, and drive a [least privilege policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) around this, configuring a strong [password policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy) for your users, and implement [multi-factor authentication](https://aws.amazon.com/iam/details/mfa/) which will help with poor password selection of users.
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege)
 
@@ -662,6 +656,12 @@ _Todo_ vvv.
 
 Create multiple accounts with least privileges required for each user  
 Create and enforce password policies
+
+
+
+
+
+
 
 
 
