@@ -706,26 +706,25 @@ Configure [strong password policies](https://docs.aws.amazon.com/IAM/latest/User
 
 ##### Entered by Software (automatically) {#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software}
 
-There are many places in software that require access to secrets, to communicate with a service, API, datastore. configuration and infrastructure management systems have a problem of storing and accessing these secrets in a secure manner
+There are many places in software that require access to secrets, to communicate with services, APIs, datastores. configuration and infrastructure management systems have a problem of storing and accessing these secrets in a secure manner.
 
-[HashiCorp Vault](https://www.vaultproject.io/). The most fully featured of these tools
+HashiCorp **[Vault](https://www.vaultproject.io/)**. The most fully featured of these tools, has the following attributes/features:
 
 * [Open Source](https://github.com/hashicorp/vault) written in Go-Lang
 * Deployable to any environment, including development machines
 * Arbitrary key/value secrets can be stored of any type of data
 * Supports cryptographic operations of the secrets
-* a lot more than just key management.... what?
 * Supports dynamic secrets, generating credentials on-demand for fine-grained security controls
 * Auditing: Vault forces a mandatory lease contract with clients, which allows the rolling of keys, automatic revocation, along with multiple revocation mechanisms providing operators a break-glass for security incidents
 * Non-repudiation
 * Secrets protected in transit and at rest
 * Not coupled to any specific configuration or infrastructure management system
 * Can read secrets from configuration, infrastructure management systems and applications via its API
-* Applications can query Vault for secrets to connect to services such as datastores, thus removing the need for these secrets to reside in configuration files
+* Applications can query Vault for secrets to connect to services such as datastores, thus removing the need for these secrets to reside in configuration files (See the [Risks that Solution Causes](#cloud-risks-that-solution-causes-storage-of-secrets-credentials-and-other-secrets-entered-by-software) for the caveat)
 * Requires multiple keys generally distributed to multiple individuals to read its encrypted secrets
 * Check the [Secret Backends](https://www.vaultproject.io/docs/secrets/index.html) for integrations
 
-[Docker secrets](https://docs.docker.com/engine/swarm/secrets/)
+**[Docker secrets](https://docs.docker.com/engine/swarm/secrets/)**
 
 * Manages any sensitive data (including generic string or binary content up to 500 kb in size) that a [container needs at runtime](#cloud-countermeasures-storage-of-secrets-private-key-abuse-tls), but you do not want to [store in the image](#cloud-identify-risks-storage-of-secrets-private-key-abuse-tls), source control, or the host systems file-system as we did in the TLS section above
 * Only available to Docker containers managed by Swarm (services). Swarm manages the secrets
@@ -733,7 +732,7 @@ There are many places in software that require access to secrets, to communicate
 * Any given secret is only accessibly to services (Swarm managed container) that have been granted explicit access to the secret
 * Secrets are decrypted and mounted into the container in an in-memory filesystem which defaults to `/run/secrets/<secret_name>` in Linux, `C:\ProgramData\Docker\secrets` in Windows
 
-[Ansible Vault](https://docs.ansible.com/ansible/latest/playbooks_vault.html)
+**[Ansible Vault](https://docs.ansible.com/ansible/latest/playbooks_vault.html)**
 
 Ansible is an [Open Source](https://github.com/ansible/ansible/blob/devel/docs/docsite/rst/playbooks_vault.rst) configuration management tool, and has a simple secrets management feature.
 
@@ -742,7 +741,7 @@ Ansible is an [Open Source](https://github.com/ansible/ansible/blob/devel/docs/d
 * From version 2.3 can encrypt single values inside YAML files
 * Suggested workflow is to check the encrypted files into source control for auditing purposes
 
-AWS [Key Management Service](https://aws.amazon.com/kms/) (KMS) 
+AWS **[Key Management Service](https://aws.amazon.com/kms/)** (KMS) 
 
 * Encrypt up to 4 KB of arbitrary data (passwords, keys)
 * Supports cryptographic operations of the secrets: encrypt and decrypt
@@ -750,9 +749,9 @@ AWS [Key Management Service](https://aws.amazon.com/kms/) (KMS)
 * Integrated with AWS CloudTrail to provide auditing of all key usage
 * AWS managed service
 * Create, import and rotate keys
-* Usage via AWS Management Console, SDK, CLI
+* Usage via AWS Management Console, SDK and CLI
 
-AWS has [Parameter Store](https://aws.amazon.com/ec2/systems-manager/parameter-store/)
+AWS has **[Parameter Store](https://aws.amazon.com/ec2/systems-manager/parameter-store/)**
 
 * Centralised store on AWS to manage configuration data, plain text, or encrypted secrets via AWS KMS
 * All calls to the parameter store are recorded with AWS CloudTrail, supports access controls.
@@ -792,7 +791,7 @@ _Todo_
 
 %% Discuss how KeePass can be broken
 
-##### Entered by Software (manually)
+##### Entered by Software (automatically) {#cloud-risks-that-solution-causes-storage-of-secrets-credentials-and-other-secrets-entered-by-software}
 
 In order for an application or service to access the secrets provided by one of these tools, it must also be able to authenticate itself, which means we have replaced the secrets in the configuration file with another secret to access that initial secret, thus making the whole strategy not that much more secure, unless you are relying on obscurity. This is commonly known as the [secret zero](https://news.ycombinator.com/item?id=9453754) problem.
 
@@ -808,6 +807,6 @@ _Todo_
 
 
 
-##### Entered by Software (manually)
+##### Entered by Software (automatically)
 
-All of security is a deception. By embracing defence in depth, we make it harder to break into systems, which just means it takes longer and someone has to think a little harder. There is no secure system. You decide how much it is worth investing to slow your attackers down. If your attacker is 100% determined and resourced, they will own you eventually no matter what you do.
+All of security is a deception. By embracing defence in depth, we make it harder to break into systems, which just means it takes longer and someone has to think a little harder. There is no secure system. You decide how much it is worth investing to slow your attackers down. If your attacker is 100% determined and well resourced, they will own you eventually no matter what you do.
