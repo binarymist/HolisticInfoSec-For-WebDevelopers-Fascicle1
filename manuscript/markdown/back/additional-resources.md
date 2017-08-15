@@ -391,15 +391,24 @@ These resources in order were helpful for establishing a strategy for the unreli
 %% End Storage of Secrets, Private Key Abuse, TLS, Countermeasures
 
 
-%% Countermeasures, Storage of Secrets, Credentials, Entered by people (manually)
+%% Countermeasures, Storage of Secrets, Credentials and Other Secrets, Entered by people (manually)
 
 **Darkreading: 10 Password Managers For Business Use**  
 https://www.darkreading.com/endpoint/10-password-managers-for-business-use/d/d-id/  
 1322326
 
-%% End Countermeasures, Storage of Secrets, Credentials, Entered by people (manually)
+%% End Countermeasures, Storage of Secrets, Credentials and Other Secrets, Entered by people (manually)
 
+%% Countermeasures, Storage of Secrets, Credentials and Other Secrets, Entered by Software (manually)
+{#additional-resources-cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software}
+**Using Vault with MySQL**  
+[https://dzone.com/articles/using-vault-with-mysql](https://dzone.com/articles/using-vault-with-mysql)
 
+**Infrastructure Secret Management Overview**  
+[https://gist.github.com/binarymist/66206419df712bd738c3d664542157d8](https://gist.github.com/binarymist/66206419df712bd738c3d664542157d8)  
+Forked from maxvt.
+
+%% End Countermeasures, Storage of Secrets, Credentials and Other Secrets, Entered by Software (manually)
 
 
 

@@ -748,6 +748,8 @@ People submitting genuinely innocent input. If a person is prepared to fill out 
 
 ### Management of Application Secrets {#web-applications-identify-risks-management-of-application-secrets}
 
+Also consider reviewing the [Storage of Secrets](#cloud-identify-risks-storage-of-secrets) subsections in the Cloud chapter.
+
 * Passwords and other secrets for things like data-stores, syslog servers, monitoring services, email accounts and so on can be useful to an attacker to compromise data-stores, obtain further secrets from email accounts, file servers, system logs, services being monitored, etc, and may even provide credentials to continue moving through the network compromising other machines.
 * Passwords and/or their hashes travelling over the network.
 
@@ -3256,7 +3258,7 @@ Check out the "Testing for Captcha (OWASP-AT-008" in v3 of the OWASP Testing Gui
 
 ### Management of Application Secrets {#web-applications-countermeasures-management-of-application-secrets}
 
-Secure password management within applications is a case of doing what you can, often relying on obscurity and leaning on other layers of defence to make it harder for compromise. Like many of the layers already discussed in the previous chapters.
+Secure password management within applications is a case of doing what you can, often relying on obscurity and leaning on other layers of defence to make it harder for compromise. Like many of the layers already discussed in the previous chapters. Review the [Storage of Secrets](#cloud-countermeasures-storage-of-secrets) subsections in the Cloud chapter for some ideas and tooling options to help with this.
 
 Find out how secret the data that is supposed to be secret that is being sent over the network actually is and consider your internal network just as malicious as the internet. Then you will be starting to get the idea of what defence in depth is about. That way when one defence breaks down, you will still be in good standing.
 

@@ -312,7 +312,7 @@ VPSs, there is also no audit trail
 
 Most developers will also blindly accept what they think are the server key fingerprints without verifying them, thus opening themselves up to a MItM attack, as discussed in the VPS chapter under the [SSH subsection](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint). This very quickly moves from just a technical issue to a cultural one. People are trained to just accept that the server is who it says it is, the fact that they have to verify the fingerprint is essentially a step that gets in their way.
 
-##### TLS
+##### TLS {#cloud-identify-risks-storage-of-secrets-private-key-abuse-tls}
 
 When Docker reads the instructions in the following `Dockerfile`, an image is created that copies our certificate, private key, and any other secrets you have declared, and bakes them into an additional layer, forming the resulting image. Both `COPY` and `ADD` will bake what ever you are copying or adding into an additional layer or delta, as discussed in the [Consumption from Registries](#vps-countermeasures-docker-consumption-from-registries) Docker subsection in the VPS chapter. Who ever can access this image from a public or less public registry now has access to your certificate and even worse your private key.
 
@@ -333,7 +333,7 @@ The `ENV` command similarly bakes the `dirty little secret` value as the `mySecr
     COPY /host-path/nginx.conf /etc/nginx/nginx.conf 
     # ...
 
-#### Credentials {#cloud-identify-risks-storage-of-secrets-credentials}
+#### Credentials and Other Secrets {#cloud-identify-risks-storage-of-secrets-credentials-and-other-secrets}
 
 Sharing accounts, especially super-user accounts on the likes of machine instances and even worse, your CSP IAM account(s), and worse still, the account root user. I have worked for organisations that had only the single default AWS account [root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html) you are given when you first sign up to AWS, shared amongst several teams of Developers and managers, on the organisations wiki, which in itself is a big security risk. Subsequently the organisation I am thinking about had one of the business owners go rogue, and change the single password and lock everyone else out.
 
@@ -343,28 +343,13 @@ Developers and others putting user-names and passwords in company wikis, source 
 
 ##### Entered by Software (automatically)
 
-What ever you use to get work done in The Cloud programmatically, you are going to need to authenticate the process at some point
+What ever you use to get work done in The Cloud programmatically, you are going to need to authenticate the process at some point. I see a lot of passwords in configuration files, stored in:
 
+* Source control
+* [Dropbox](#network-identify-risks-data-exfiltration-infiltration-dropbox)
+* Many other insecure mediums
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+This is a major insecurity.
 
 ### Serverless
 
@@ -379,7 +364,7 @@ What ever you use to get work done in The Cloud programmatically, you are going 
 
 %% https://thenewstack.io/security-serverless-gets-better-gets-worse/
 
-
+%% https://github.com/JustServerless/awesome-serverless
 
 
 [Amazon](https://aws.amazon.com/serverless/)  
@@ -639,7 +624,7 @@ Then:
 3. Select your instance
 4. Click the Connect button for details
 
-##### TLS
+##### TLS {#cloud-countermeasures-storage-of-secrets-private-key-abuse-tls}
 
 So how do we stop baking secrets into our Docker images?
 
@@ -671,12 +656,12 @@ Our `Dockerfile` would now look like the following, even our config is volume mo
     # ...
     # ...
 
-#### Credentials
+#### Credentials and Other Secrets
 
 Create multiple accounts with least privileges required for each user, discussed below.  
 Create and enforce password policies, discussed below.
 
-Funnily enough, with the AWS account root user story I mentioned in the [Risks](#cloud-identify-risks-storage-of-secrets-credentials) subsection, I had created a report detailing this as one of the most critical issues that needed addressing several weeks before everyone but one person lost access.
+Funnily enough, with the AWS account root user story I mentioned in the [Risks](#cloud-identify-risks-storage-of-secrets-credentials-and-other-secrets) subsection, I had created a report detailing this as one of the most critical issues that needed addressing several weeks before everyone but one person lost access.
 
 If your business is in The Cloud, the account root user is one of your most valuable assets, do not share it with anyone, and only use it when essential.
 
@@ -719,21 +704,60 @@ Your AWS users do not get created with access keys to use for programmatic acces
 
 Configure [strong password policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy) for your users, make sure they are using personal password managers and know how to generate long complex passwords.
 
-##### Entered by Software (automatically)
+##### Entered by Software (automatically) {#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software}
 
+There are many places in software that require access to secrets, to communicate with a service, API, datastore. configuration and infrastructure management systems have a problem of storing and accessing these secrets in a secure manner
 
+[HashiCorp Vault](https://www.vaultproject.io/). The most fully featured of these tools
 
+* [Open Source](https://github.com/hashicorp/vault) written in Go-Lang
+* Deployable to any environment, including development machines
+* Arbitrary key/value secrets can be stored of any type of data
+* Supports cryptographic operations of the secrets
+* a lot more than just key management.... what?
+* Supports dynamic secrets, generating credentials on-demand for fine-grained security controls
+* Auditing: Vault forces a mandatory lease contract with clients, which allows the rolling of keys, automatic revocation, along with multiple revocation mechanisms providing operators a break-glass for security incidents
+* Non-repudiation
+* Secrets protected in transit and at rest
+* Not coupled to any specific configuration or infrastructure management system
+* Can read secrets from configuration, infrastructure management systems and applications via its API
+* Applications can query Vault for secrets to connect to services such as datastores, thus removing the need for these secrets to reside in configuration files
+* Requires multiple keys generally distributed to multiple individuals to read its encrypted secrets
+* Check the [Secret Backends](https://www.vaultproject.io/docs/secrets/index.html) for integrations
 
-%% Cover password vaults such as for Terraform and Ansible vaults, storing secrets with docker containers as I discussed on PB redmine wiki
-%%   https://www.vaultproject.io/docs/secrets/aws/index.html
-%%   https://www.vaultproject.io/docs/auth/aws.html
+[Docker secrets](https://docs.docker.com/engine/swarm/secrets/)
 
-HashiCorp has Vault https://www.vaultproject.io/ good for infrastructure management
-Ansible has Vault https://docs.ansible.com/ansible/latest/playbooks_vault.html good for configuration management
-AWS has Parameter Store https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html
+* Manages any sensitive data (including generic string or binary content up to 500 kb in size) that a [container needs at runtime](#cloud-countermeasures-storage-of-secrets-private-key-abuse-tls), but you do not want to [store in the image](#cloud-identify-risks-storage-of-secrets-private-key-abuse-tls), source control, or the host systems file-system as we did in the TLS section above
+* Only available to Docker containers managed by Swarm (services). Swarm manages the secrets
+* Secrets are stored in the Raft log, which is encrypted if using Docker 1.13 and higher
+* Any given secret is only accessibly to services (Swarm managed container) that have been granted explicit access to the secret
+* Secrets are decrypted and mounted into the container in an in-memory filesystem which defaults to `/run/secrets/<secret_name>` in Linux, `C:\ProgramData\Docker\secrets` in Windows
 
+[Ansible Vault](https://docs.ansible.com/ansible/latest/playbooks_vault.html)
 
+Ansible is an [Open Source](https://github.com/ansible/ansible/blob/devel/docs/docsite/rst/playbooks_vault.rst) configuration management tool, and has a simple secrets management feature.
 
+* Ansible tasks and handlers can be encrypted
+* Arbitrary files, including binary data can be encrypted
+* From version 2.3 can encrypt single values inside YAML files
+* Suggested workflow is to check the encrypted files into source control for auditing purposes
+
+AWS [Key Management Service](https://aws.amazon.com/kms/) (KMS) 
+
+* Encrypt up to 4 KB of arbitrary data (passwords, keys)
+* Supports cryptographic operations of the secrets: encrypt and decrypt
+* Uses Hardware Security Modules (HSM)
+* Integrated with AWS CloudTrail to provide auditing of all key usage
+* AWS managed service
+* Create, import and rotate keys
+* Usage via AWS Management Console, SDK, CLI
+
+AWS has [Parameter Store](https://aws.amazon.com/ec2/systems-manager/parameter-store/)
+
+* Centralised store on AWS to manage configuration data, plain text, or encrypted secrets via AWS KMS
+* All calls to the parameter store are recorded with AWS CloudTrail, supports access controls.
+
+Also see the [additional resources](#additional-resources-cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software) for other similar tools.
 
 ### Serverless
 
@@ -762,13 +786,28 @@ _Todo_
 
 ### Storage of Secrets
 
-#### Credentials
+#### Credentials and Other Secrets
 
 ##### Entered by People (manually)
 
 %% Discuss how KeePass can be broken
 
+##### Entered by Software (manually)
+
+In order for an application or service to access the secrets provided by one of these tools, it must also be able to authenticate itself, which means we have replaced the secrets in the configuration file with another secret to access that initial secret, thus making the whole strategy not that much more secure, unless you are relying on obscurity. This is commonly known as the [secret zero](https://news.ycombinator.com/item?id=9453754) problem.
+
 ## 5. SSM Costs and Trade-offs
 
 _Todo_
 
+### Storage of Secrets
+
+#### Credentials and Other Secrets
+
+##### Entered by People (manually)
+
+
+
+##### Entered by Software (manually)
+
+All of security is a deception. By embracing defence in depth, we make it harder to break into systems, which just means it takes longer and someone has to think a little harder. There is no secure system. You decide how much it is worth investing to slow your attackers down. If your attacker is 100% determined and resourced, they will own you eventually no matter what you do.

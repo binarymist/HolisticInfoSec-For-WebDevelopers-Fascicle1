@@ -367,7 +367,7 @@ G> Now that is successful, but AV detects bad signatures on some of the root-kit
 
 In many/most cases a target will have direct access, or almost direct via a proxy from their corporate LAN to the internet. This makes egress of any kind trivial. The following are some commonly used techniques:
 
-#### Dropbox
+#### Dropbox {#network-identify-risks-data-exfiltration-infiltration-dropbox}
 
 No anti-virus is run by Dropbox on the files that Dropbox syncs. This means that Dropbox is a risk in a corporate environment, or any work environment where workers can access their files from multiple networks. Dropbox via an account or even just their HTTP links can be a useful means for exfiltration of data. Dropbox APIs and their SDKs along with community provided SDKs can assist the attacker greatly in exfiltrating their targets data over HTTP(S), and establishing command and control (C2) communications. [DropboxC2C](https://github.com/0x09AL/DropboxC2C) is one project that does this. All bar the most secure environments allow HTTP(S) egress.
 
