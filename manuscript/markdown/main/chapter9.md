@@ -377,10 +377,7 @@ What happens when you need to move from your current CSP? How much to you have i
 
 ### Infrastructure and Configuration Management {#cloud-identify-risks-infrastructure-and-configuration-management}
 
-%% Discuss Infrastsructure as Code (IaC) with the likes of Terraform
-%%    Quite a bit of thought gone into this in the SER review of James Turnbull, show #289: https://groups.google.com/forum/?hl=en#!topic/seradio/5OTTZMIUAns
-%%    Also discussed testing your IaC with the likes of Test Kitchen.
-%%    Also discussed Puppet, and the lower level configuration management tools like Ansible, which I've documented for Mobidiction.
+The only real glaringly obvious risks with the management of configuration and infrastructure - as code, is the management of secrets, and most of the other forms of information security. "Hu?" I hear you say. Let me try and unpack that statement. When you create and configure infrastructure as code, you are essentially combining many technical aspects: machine instances (addressed in the VPS chapter), networking (addressed in the Network chapter), The Cloud obviously, and of course your applications (addressed in the Web Applications chapter), and baking them all into code to be executed. If you create security defects as part of the configuration or infrastructure, then lock them up in code, you will have the same consistent security defects each time that code is run. Hence, why Software Engineers now need to understand so much more than they used to about security. We are now responsible for so much more than we used to be.
 
 ## 3. SSM Countermeasures
 
@@ -765,9 +762,7 @@ Also see the [additional resources](#additional-resources-cloud-countermeasures-
 Storing infrastructure and configuration as code is an effective measure for many mundane tasks that people may still be doing that are prone to human error. This means we can sequence specific processes, debug them, source control them, and achieve repeatable processes that are far less likely to have security defects in them, providing those that are writing the automation are sufficiently skilled and knowledgeable on the security topics involved. This also has the positive side-effect of speeding processes up.
 
 When an artefact is deployed, how do you know that it will perform the same in production that it did in development? That is what a staging environment is for. A staging environment will never be exactly the same as production unless your infrastructure is codified, this is another place where containers can help, Using containers, you can test the new software anywhere and it will run the same, providing its environment is the same and in the case of
-containers the environment is the image, and that is what you ship. The container goes from the developers machine once tested, to the staging environment then to production. The staging environment in this case is less important that it used to be, and is just responsible for testing your infrastructure, which should all be built from source controlled infrastructure as code, so it is guaranteed repeatable.
-
-_Todo_ Discuss some of the other orchestration options below vvv.
+containers the environment is the image, and that is what you ship. The container goes from the developers machine once tested, to the staging environment then to production. The staging environment in this case is less important than it used to be, and is just responsible for testing your infrastructure, which should all be built from source controlled infrastructure as code, so it is guaranteed repeatable.
 
 1. Pick off repetitious, booring, prone to human error and easily automatable tasks that your team(s) have been doing. Script and source control them
     * **Configuration management**: One of the grass root types of tooling options required here is a configuration management tool. I have found Ansible to be excellent. If you use Docker containers, most of the configuration management is already taken care of in the [`Dockerfile`](#vps-countermeasures-docker-the-dDefault-user-is-root). The [`docker-compose.yml`](#nodegoat-docker-compose.yml) file, orchestration platforms and tooling take us to "infrastructure as code"
