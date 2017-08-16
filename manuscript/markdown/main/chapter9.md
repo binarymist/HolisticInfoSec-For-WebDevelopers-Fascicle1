@@ -186,43 +186,6 @@ There are plenty of single points of failure in The Cloud
 * Multiple Regions go down
 * Account Takeover occurs
 
-Now we will focus on a collection of the largest providers.
-
-### AWS
-
-#### Password-less sudo
-
-Password-less sudo. A low privileged user can operate with root privileges. This is essentially as bad as root logins.
-
-%% https://serverfault.com/questions/615034/disable-nopasswd-sudo-access-for-ubuntu-user-on-an-ec2-instance
-
-
-
-%% AWS general
-%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
-%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
-%%  https://cloudonaut.io/aws-security-primer/
-
-%% https://appsecday.com/schedule/hacking-aws-end-to-end/
-
-%% Kiwicon 10 talk "Hacking AWS end to end". Slide-deck here: https://github.com/dagrz/aws_pwn/blob/master/miscellanea/Kiwicon%202016%20-%20Hacking%20AWS%20End%20to%20End.pdf, along with readme and code.
-
-
-
-### Google 
-
-%% https://cloud.google.com/
-
-### Heroku
-
-%% http://stackoverflow.com/questions/9802259/why-do-people-use-heroku-when-aws-is-present-whats-distinguishing-about-heroku
-
-### Azure
-
-%% https://docs.microsoft.com/en-us/azure/security/azure-security-iaas
-
-
-
 ### Review Other Chapters {#cloud-identify-risks-review-other-chapters}
 
 There is a lot in common with the topic of cloud security in the other chapters of this fascicle and Fascicle 0, that if I had not already provided coverage, I would be doing so now.
@@ -379,6 +342,43 @@ What happens when you need to move from your current CSP? How much to you have i
 
 The only real glaringly obvious risks with the management of configuration and infrastructure - as code, is the management of secrets, and most of the other forms of information security. "Hu?" I hear you say. Let me try and unpack that statement. When you create and configure infrastructure as code, you are essentially combining many technical aspects: machine instances (addressed in the VPS chapter), networking (addressed in the Network chapter), The Cloud obviously, and of course your applications (addressed in the Web Applications chapter), and baking them all into code to be executed. If you create security defects as part of the configuration or infrastructure, then lock them up in code, you will have the same consistent security defects each time that code is run. Hence, why Software Engineers now need to understand so much more than they used to about security. We are now responsible for so much more than we used to be.
 
+Now we will focus on a collection of the largest providers.
+
+### AWS
+
+#### Password-less sudo
+
+Password-less sudo. A low privileged user can operate with root privileges. This is essentially as bad as root logins.
+
+%% https://serverfault.com/questions/615034/disable-nopasswd-sudo-access-for-ubuntu-user-on-an-ec2-instance
+
+
+
+%% AWS general
+%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
+%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+%%  https://cloudonaut.io/aws-security-primer/
+
+%% https://appsecday.com/schedule/hacking-aws-end-to-end/
+
+%% Kiwicon 10 talk "Hacking AWS end to end". Slide-deck here: https://github.com/dagrz/aws_pwn/blob/master/miscellanea/Kiwicon%202016%20-%20Hacking%20AWS%20End%20to%20End.pdf, along with readme and code.
+
+
+
+### Google 
+
+%% https://cloud.google.com/
+
+### Heroku
+
+%% http://stackoverflow.com/questions/9802259/why-do-people-use-heroku-when-aws-is-present-whats-distinguishing-about-heroku
+
+### Azure
+
+%% https://docs.microsoft.com/en-us/azure/security/azure-security-iaas
+
+
+
 ## 3. SSM Countermeasures
 
 Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
@@ -530,32 +530,6 @@ The following are some of the countermeasures to the single points of failure in
   * Make sure you are collecting and storing login history in a safe place, this can be used to challenge attackers that have successfully logged in, as you will have their IP addresses and browser user agent string
   * Third party authentication
   * Lots of other techniques
-
-### AWS
-
-#### Password-less sudo
-
-Add password to the default user.
-
-We have covered the people aspects along with exploitation techniques of Weak Password Strategies in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
-
-We have covered the technical aspects of password strategies in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) subsection of the VPS chapter
-
-
-%% AWS general (security enhancing services and features)
-%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
-%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
-%%  https://cloudonaut.io/aws-security-primer/
-
-
-
-### Google 
-
-### Heroku
-
-### Azure
-
-
 
 ### Review Other Chapters {#cloud-countermeasures-review-other-chapters}
 
@@ -771,6 +745,29 @@ containers the environment is the image, and that is what you ship. The containe
 2. Once a few of the above tasks are done, start stringing them together in pipelines
 3. Schedule execution of any/all of the above
 
+### AWS
+
+#### Password-less sudo
+
+Add password to the default user.
+
+We have covered the people aspects along with exploitation techniques of Weak Password Strategies in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
+
+We have covered the technical aspects of password strategies in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) subsection of the VPS chapter
+
+
+%% AWS general (security enhancing services and features)
+%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
+%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+%%  https://cloudonaut.io/aws-security-primer/
+
+
+
+### Google 
+
+### Heroku
+
+### Azure
 
 
 
