@@ -2,6 +2,10 @@
 
 ![10,000' view of Network Security](images/10000Network.png)
 
+I had the pleasure of interviewing [Haroon Meer](https://twitter.com/haroonmeer) on Software Engineering Radio for a show on Network Security. Do your self a favour and listen to it. We cover most of the topics in this chapter plus more. While you are at it, check out the great Thinkst tools, also discussed near the end of the show:
+* [Canarytokens](https://canarytokens.org/)
+* [Canary Tools](https://canary.tools/)
+
 ## 1. SSM Asset Identification
 Take results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered.
 

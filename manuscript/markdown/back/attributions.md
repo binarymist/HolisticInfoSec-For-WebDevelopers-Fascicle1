@@ -981,6 +981,11 @@ harden-surveillance for monitoring your network
 
 ## [Network](#network)
 
+**Check out the great Thinkst tools**, also discussed near the end of the show:
+
+* [https://canarytokens.org/](https://canarytokens.org/)
+* [https://canary.tools/](https://canary.tools/)
+
 %% Fortress Mentality Identify Risks
 
 **IBM X-Force 2016 Cyber Security Intelligence Index** provides the following information  

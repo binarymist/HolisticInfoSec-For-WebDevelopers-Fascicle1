@@ -1218,7 +1218,7 @@ The Docker Registry [project](https://github.com/docker/distribution) is an open
 
 Beware of doppelganger images that will be available for all to consume, similar to [doppelganger packages](#web-applications-countermeasures-consuming-free-and-open-source-keeping-safe-doppelganger-packages) that we discuss in the Web Applications chapter. These can contain a huge number of packages and code to hide malware in a Docker image.
 
-#### The Default User is Root
+#### The Default User is Root {#vps-identify-risks-docker-the-default-user-is-root}
 ![](images/ThreatTags/easy-common-veryeasy-moderate.png)
 
 What is worse, dockers default is to run containers, and all commands / processes within a container as root. This can be seen by running the following command from the [CIS_Docker_1.13.0_Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf):
@@ -4128,7 +4128,7 @@ Your priority before you start testing images for vulnerable contents, is to und
 
 If you are already doing the last step from above, then fetching an image with a very similar name becomes highly unlikely.
 
-#### The Default User is Root {#vps-countermeasures-docker-the-dDefault-user-is-root}
+#### The Default User is Root {#vps-countermeasures-docker-the-default-user-is-root}
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
 In order to run containers as a non-root user, the user needs to be added in the (preferably base) image (`Dockerfile`) if it is under your control, and set before any commands you want run as a non-root user. Here is an example of the [NodeGoat](https://github.com/owasp/nodegoat) image:
