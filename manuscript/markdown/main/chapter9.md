@@ -394,6 +394,9 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 
 
+[Cognito](https://aws.amazon.com/cognito/)
+
+
 ### GCP 
 
 %% https://cloud.google.com/
@@ -467,7 +470,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
 3. Do you encrypt all communications between servers within your data centres?  
    
-   I've discussed in many places that we should be aiming to have all communications on any given network encrypted. This is usually not to onerous to establish on your own network, but may in some cases not be possible on a CSPs network, especially if you are using proprietary/serverless technologies. If you are using usual machine instances, then in most cases, the CSPs infrastructure is logically not really any different than an in-house network. AWS also provides [Virtual Private Cloud](https://aws.amazon.com/vpc/) (VPC), which you can build your networks within, including [Serverless](https://aws.amazon.com/serverless/) technologies. This allows for segmentation and isolation  
+   I have discussed in many places that we should be aiming to have all communications on any given network encrypted. This is usually not to onerous to establish on your own network, but may in some cases not be possible on a CSPs network, especially if you are using proprietary/serverless technologies. If you are using usual machine instances, then in most cases, the CSPs infrastructure is logically not really any different than an in-house network, in which case you can encrypt your own communications. AWS also provides [Virtual Private Cloud](https://aws.amazon.com/vpc/) (VPC), which you can build your networks within, including [Serverless](https://aws.amazon.com/serverless/) technologies. This allows for segmentation and isolation  
    
 4. Do you provide access to logs, if so what sort of access to what sort of logs?  
    
