@@ -981,7 +981,7 @@ harden-surveillance for monitoring your network
 
 ## [Network](#network)
 
-**Check out the great Thinkst tools**, also discussed near the end of the show:
+**Check out the great Thinkst tools**, also discussed near the end of the Network Security show I hosted for Software Enineering Radio with Haroon Meer:
 
 * [https://canarytokens.org/](https://canarytokens.org/)
 * [https://canary.tools/](https://canary.tools/)

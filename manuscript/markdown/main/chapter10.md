@@ -339,7 +339,7 @@ As part of the discovery stage, the attacker can test their queries and start to
 
 ![](images/HandsOnHack.png)
 
- One of the simplest and quickest vulnerabilities to fix is SQL Injection, yet it is still top of the hit lists. I am going to hammer this home some more.
+ One of the simplest and quickest vulnerabilities to fix is SQL Injection, yet it is still top of the hit lists. I am going to hammer this home some more. Also checkout the podcast I hosted with [Haroon Meer](https://twitter.com/haroonmeer) as guest on Network Security for Software Engineering Radio. Haroon used SQLi for data exfiltration.
 
 I> ## Synopsis
 I>

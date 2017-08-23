@@ -253,27 +253,26 @@ The principle of Least Privilege is an essential aspect of defence in depth, sto
 
 The attack and demise of [Code Spaces](https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aws-the-best-practices-to-avoid-it/), is a good example of what happens when least privilege is not kept on top of. An unauthorised attacker gained access to the Code Spaces AWS console and deleted everything attached to their account. Code Spaces was no more, they could not recover.
 
-In most organisations I work for as an architect or engineer, I see many cases of violating the principle of least privilege. We discuss this principle in many places through this entire book series. It is a concept that needs to become part of your instinct. The principle of least privilege means that no actor should be given more privileges than is necessary to do their job.
+In most organisations I work for as an architect or engineer, I see many cases of violating the principle of least privilege. We discuss this principle in many places through this entire book series. It is a concept that needs to become part of your instincts. The principle of least privilege means that no actor should be given more privileges than is necessary to do their job.
 
 Here are some examples of violating least privilege:
 
 In [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/):
 
-Physical chapter: If someone has access to a facility that they do not need access to in order to do their job, a cleaner for example having access to a server room, or any room where they could possibly exfill or infill anything.
+* Physical chapter: If someone has access to a facility that they do not need access to in order to do their job, a cleaner for example having access to a server room, or any room where they could possibly exfill or infill anything
+* People chapter: In a phishing attack, the attacker may have access to an email address to use as a from address, thus making an attack appear more legitimate, the attacker should not have access to an email address of an associate of their target, thus violating least privilege
 
-People chapter: In a phishing attack, the attacker may have access to an email address to use as a from address, thus making an attack appear more legitimate, the attacker should not have access to an email address of a associate of their target, thus violating least privilege.
+In this fascicle:
 
-In the VPS chapter we discussed privilege escalation. This is a direct violating of least privilege, because after escalation, they now have additional privileges.
+* VPS chapter: We discussed privilege escalation. This is a direct violation of least privilege, because after escalation, they now have additional privileges
+* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the Network Security show I hosted for Software Engineering Radio. This for example could allow an attacker that managed to gain control of a network to have unhindered access to all of an organisations assets due to all being on a monolithic network segment rather than having assets on alternative network segments with firewalls between them
+* Web Applications chapter: We discuss setting up data-store accounts that only have privileges to query the stored procedures necessary for a given application, thus reducing the power that any possible SQL injection attack may have to carry out arbitrary commands. [Haroon Meer](https://twitter.com/haroonmeer) also discussed this as a technique for exfiltration of data in the Network Security podcast
 
-In the Network chapter we discussed lack of segmentation. This for example could allow an attacker that managed to gain control of a network to have unhindered access to all of an organisations assets due to all being on a monolithic network segment rather than having assets on alternative network segments with firewalls between them.
+Hopefully you are getting the idea of what least privilege is, and subsequently how it breaks down in a cloud environment. Some examples:
 
-In the Web Applications chapter, we discuss setting up data-store accounts that only have privileges to query the stored procedures necessary for a given application, thus reducing the power that any possible SQL injection attack may have to carry out arbitrary commands.
-
-Hopefully you are getting the idea of what least privilege is and how it breaks down in a cloud environment. Some examples:
-
-* Running services as root. A perfect example of this is running a docker container that does not specify a non root user in its image, that is right, by just not considering the user you may run as, Docker will default to root, as discussed in the [Docker](#vps-identify-risks-docker-the-default-user-is-root) subsection of the VPS chapter
-* Because there are so many features and configurations that can be easily modified, developers and administrators will modify them. For example, someone needs access right now, and we are in the middle of something else, so we quickly modify a permissions setting without realising we have just modified that permission for a group of other people as well. Because it is so easy to make ad hoc changes, they will be made
-* Is an attacker permitted to access your machine instances from anywhere? If so, this is additional attack surface that you should consider removing. You may think that having the source IP address that people can administer your machine instances from locked down to a single IP address will make it difficult for workers outside of a single office to connect to your machine instances
+* **Running services as root**: A perfect example of this is running a docker container that does not specify a non root user in its image. By just not considering the user you may run as, Docker will default to root, as discussed in the [Docker](#vps-identify-risks-docker-the-default-user-is-root) subsection of the VPS chapter
+* **Configuration Settings Changed Ad Hoc**: Because there are so many features and configurations that can be easily modified, developers and administrators will modify them. For example, someone needs access right now, and we are in the middle of something else, so we quickly modify a permissions setting without realising we have just modified that permission for a group of other people as well. Because it is so easy to make ad hoc changes, they will be made
+* **Machine Instance Access To Open**: Is an attacker permitted to access your machine instances from anywhere? If so, this is additional attack surface
 
 #### Machine Instance Single User Root {#cloud-identify-risks-violations-of-least-privilege-machine-instance-single-user-root}
 
@@ -374,7 +373,7 @@ Now we will focus on a collection of the largest providers.
 
 ### AWS
 
-AWS is continually announcing and releasing new products, features and configuration options. The attack surface just keeps expanding. AWS does an incredible job of providing security features and options for its customers, but... just as the [AWS Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/) states, "_security in the cloud is the responsibility of the customer_". That is right, AWS provide the security, you have to decide to use it and educate yourself on doing so. Obviously if you are reading this, you are already well down this path. If you fail to use and configure what AWS has provided correctly, your attackers will at the very minimum use your resources for evil, and you will foot the bill. Even more likely, they will attack and steal your business assets, and bring your organisation to its knees. 
+AWS is continually announcing and releasing new products, features and configuration options. The attack surface just keeps expanding. AWS does an incredible job of providing security features and options for its customers, but... just as the [AWS Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/) states, "_security in the cloud is the responsibility of the customer_". AWS provide the security, you have to decide to use it and educate yourself on doing so. Obviously if you are reading this, you are already well down this path. If you fail to use and configure correctly what AWS has provided, your attackers will at the very minimum use your resources for evil, and you will foot the bill. Even more likely, they will attack and steal your business assets, and bring your organisation to its knees. 
 
 #### Password-less sudo
 
@@ -413,15 +412,15 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
-As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are an excellent token you can drop anywhere on your infrastructure, and when an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones being added every so often. These tokens are very quick and also free to generate, and drop where ever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the Network Security show I hosted for Software Engineering Radio new the end.
+As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are an excellent token you can drop anywhere on your infrastructure, and when an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones being added every so often. These tokens are very quick and also free to generate, and drop where ever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the Network Security show I hosted for Software Engineering Radio near the end.
 
 ### Shared Responsibiltiy Model
 
-#### CSP Responsibility
+#### CSP Responsibility 
 
 There is not a lot you can do about this, just be aware of what you are buying into before you do so. [AWS for example](https://aws.amazon.com/compliance/shared-responsibility-model/) states: "_Customers retain control of what security they choose to implement to protect their own content, platform, applications, systems and networks, **no differently than they would for applications in an on-site** datacenter._"
 
-#### CSP Customer Responsibility
+#### CSP Customer Responsibility {#cloud-countermeasures-shared-responsibility-model-csp-customer-responsibility}
 
 If you leverage The Cloud, Make sure the following aspects of security are all at an excellent level:
 
@@ -458,7 +457,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
 
 1. Do you keep a signed audit log on which users performed which actions and when, via UIs and APIs?  
    
-   On AWS you can enable [CloudTrail](https://aws.amazon.com/cloudtrail/) to log all of your API calls, command line, SDKs, and Console interactions. This will provide a good amount of visibility around who has been accessing the AWS resources and Identities
+   On AWS you can enable [CloudTrail](https://aws.amazon.com/cloudtrail/) to log all of your API calls, command line tools, SDKs, and Console interactions. This will provide a good amount of visibility around who has been accessing the AWS resources and Identities
    
 2. There is this thing called the shared responsibility model I have heard about between CSPs and their customers. Please explain what your role and my role is in the protection of my and my customers data?  
    
@@ -583,7 +582,7 @@ Full coverage in the [Network](#network) chapter.
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) {#cloud-countermeasures-violations-of-least-privilege}
 
-When you create IAM policies, grant only the permissions required to perform the task(s) necessary for the given users. If the user needs additional permissions, then they can be added, rather than adding everything up front.
+When you create IAM policies, grant only the permissions required to perform the task(s) necessary for the given users. If the user needs additional permissions, then they can be added, rather than adding everything up front and potentially having to remove again at some stage.
 
 **For example, [in AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)**:, you need to keep a close watch on which [permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_permissions.html) are assigned to [policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html) that your groups have attached, and subsequently which groups your users are in.
 
@@ -602,9 +601,13 @@ The [IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/acce
 
 [AWS Trusted Advisor](https://aws.amazon.com/premiumsupport/trustedadvisor/) should be run periodically to check for security issues. Accessible from the [Console](https://console.aws.amazon.com/trustedadvisor/), CLI and API. Trusted Advisor has a collection of core checks and recommendations which are free to use, such as security groups, specific ports unrestricted, IAM use, MFA on root user, EBS and RDS public snapshots.
 
-* Make sure the user that a Docker container is running as is not root. Full details in [The Default User is Root](#vps-countermeasures-docker-the-default-user-is-root) Countermeasures subsection of the VPS chapter
-* One option is to have solid change control in place. [AWS Config](https://aws.amazon.com/config/) can assist with this. [AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/) continuously monitors and records how the AWS resources were configured and how they have changed, including how they are related to each other. This enables you to assess, audit, evaluate the configurations of your AWS resources and have notifications sent to you when Config detects that a resource is violating the conditions of any given Config rule you define, by being either created, modified or deleted. AWS Config records IAM policies assigned to users, groups, or roles, and EC2 security groups, including port rules for any given time. Changes to your configuration settings can trigger Amazon Simple Notification Service (SNS) notifications, which you can have sent to those tasked with controlling changes to your configurations. Your custom rules can be codified and thus source controlled. AWS calls this Compliance as Code. I discussed AWS CloudTrail briefly in item 1 of the [CSP Evaluation](#cloud-countermeasures-csp-evaluation) countermeasures subsection. AWS Config is integrated with CloudTrail which captures all API calls from AWS Config console or API. The information collected by CloudTrail provides insight on what request was made, from which IP address, by who, and when  
-* Lock the source IP address down to the public facing IP address of your bastion host required to access your machine instances. I discussed this in the [Hardening SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-hardening-ssh) subsection of the VPS chapter. Your bastion host will be hardened as discussed throughout the VPS chapter. All authorised workers can VPN to the bastion host and SSH from there, or just SSH tunnel from where ever they are on the planet through the bastion host via port forward and to any given machine instances. If you have Windows boxes you need to reach, you can tunnel RDP through your SSH tunnel as I have [blogged about](https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/). A second option with SSH (using the `-A` option) is to, rather than tunneling, hop from the bastion host to your machine instances by forwarding the private key, which does provide the risk that someone could gain access to your forwarded SSH agent connection, thus being able to use your private key while you have an SSH connection established. `ssh-add -c` can provide some protection with this. If you do decide to use the `-A` option, then you are essentially considering your bastion host as a trusted machine. I commented on the `-A` option in the [Tunneling SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh) subsection of the VPS chapter. There is plenty of good [documentation](https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/) around setting up the bastion host in AWS. AWS provide some [Best Practices](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices) for security on bastion hosts, and also [discuss](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/) recording the SSH sessions that your users establish through a bastion host for auditing purposes
+* **Running services as root**: Make sure the user that a Docker container is running as is not root. Full details in [The Default User is Root](#vps-countermeasures-docker-the-default-user-is-root) Countermeasures subsection of the VPS chapter
+* **Configuration Settings Changed Ad Hoc**: One option is to have solid change control in place. [AWS Config](https://aws.amazon.com/config/) can assist with this. [AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/) continuously monitors and records how the AWS resources were configured and how they have changed, including how they are related to each other. This enables you to assess, audit, evaluate the configurations of your AWS resources and have notifications sent to you when Config detects that a resource is violating the conditions of any given Config rule you define, by being either created, modified or deleted.  
+   
+   AWS Config records IAM policies assigned to users, groups, or roles, and EC2 security groups, including port rules for any given time. Changes to your configuration settings can trigger Amazon Simple Notification Service (SNS) notifications, which you can have sent to those tasked with controlling changes to your configurations.  
+   
+   Your custom rules can be codified and thus source controlled. AWS calls this Compliance as Code. I discussed AWS CloudTrail briefly in item 1 of the [CSP Evaluation](#cloud-countermeasures-csp-evaluation) countermeasures subsection. AWS Config is integrated with CloudTrail which captures all API calls from AWS Config console or API. The information collected by CloudTrail provides insight on what request was made, from which IP address, by who, and when  
+* **Machine Instance Access To Open**: Consider removing the additional attack surface of being able to access your machine instances from any source IP address
 
 #### Machine Instance Single User Root
 
@@ -870,9 +873,11 @@ _Todo_
 
 
 
-* _todo_
-* _todo_
-* Because features, and settings will be changed on an ad hoc basis, and change control just like security is often seen as an annoyance, if it can be bypassed, it will be, and those changes will be forgotten. AWS as many other CSPs provide many great tools to help us harden our configuration and infrastructure. If we decide not to take our part of the shared responsibility model seriously, then it is just time before we are compromised
+* **Running services as root**: Removing permissions, once a service has been running as root, may make something stop working
+* **Configuration Settings Changed Ad Hoc**: Because features, and settings will be changed on an ad hoc basis, and change control just like security is often seen as an annoyance, if it can be bypassed, it will be, and those changes will be forgotten.  
+   
+   AWS as many other CSPs provide many great tools to help us harden our configuration and infrastructure. If we decide not to take [our part](#cloud-countermeasures-shared-responsibility-model-csp-customer-responsibility) of the shared responsibility model seriously, then it is just time before we are compromised
+* **Machine Instance Access To Open**: You may think that having the source IP address that people can administer your machine instances from locked down to a single IP address will make it difficult for workers outside of a single office to connect to your machine instances
 
 
 
@@ -896,10 +901,19 @@ _Todo_
 ### Violations of Least Privilege
 
 
-* _todo_
-* _todo_
-* Remember detection works where prevention fails, that means in this case, where your change control fails, because it is decided not to use it, you need something to detect changes and notify someone that cares. For this, there are also other options specifically designed for this. For a collection of such tooling, review the [Tooling](#cloud-countermeasures-aws-tooling) sections. You need to have these tools set-up so that they are [continually auditing](https://blog.cloudsploit.com/the-importance-of-continual-auditing-in-the-cloud-8d22e0554639) your infrastructure and notifying the person(s) responsible and/or that care about the issues, rather than having people continually manually reviewing settings, permissions and so forth
-
+* **Running services as root**: Always start with the minimum permissions possible and add if necessary, it is far easier to add than to remove
+* **Configuration Settings Changed Ad Hoc**: Remember detection works where prevention fails, that means in this case, where your change control fails, because it is decided not to use it, you need something to detect changes and notify someone that cares. For this, there are also other options specifically designed for this. For a collection of such tooling, review the [Tooling](#cloud-countermeasures-aws-additional-tooling) sections.  
+   
+   You need to have these tools set-up so that they are [continually auditing](https://blog.cloudsploit.com/the-importance-of-continual-auditing-in-the-cloud-8d22e0554639) your infrastructure and notifying the person(s) responsible and/or that care about the issues, rather than having people continually manually reviewing settings, permissions and so forth
+* **Machine Instance Access To Open**: Lock the source IP address down to the public facing IP address of your bastion host required to access your machine instances. I discussed this in the [Hardening SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-hardening-ssh) subsection of the VPS chapter.  
+   
+   Your bastion host will be hardened as discussed throughout the VPS chapter. All authorised workers can VPN to the bastion host and SSH from there, or just SSH tunnel from where ever they are on the planet through the bastion host via port forward and to any given machine instances.  
+   
+   If you have Windows boxes you need to reach, you can tunnel RDP through your SSH tunnel as I have [blogged about](https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/).  
+   
+   A second option with SSH (using the `-A` option) is to, rather than tunneling, hop from the bastion host to your machine instances by forwarding the private key, which does provide the risk that someone could gain access to your forwarded SSH agent connection, thus being able to use your private key while you have an SSH connection established. `ssh-add -c` can provide some protection with this.  
+   
+   If you do decide to use the `-A` option, then you are essentially considering your bastion host as a trusted machine. I commented on the `-A` option in the [Tunneling SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh) subsection of the VPS chapter. There is plenty of good [documentation](https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/) around setting up the bastion host in AWS. AWS provide some [Best Practices](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices) for security on bastion hosts, and also [discuss](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/) recording the SSH sessions that your users establish through a bastion host for auditing purposes
 
 ### Storage of Secrets
 

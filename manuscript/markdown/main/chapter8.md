@@ -3,6 +3,7 @@
 ![10,000' view of Network Security](images/10000Network.png)
 
 I had the pleasure of interviewing [Haroon Meer](https://twitter.com/haroonmeer) on Software Engineering Radio for a show on Network Security. Do your self a favour and listen to it. We cover most of the topics in this chapter plus more. While you are at it, check out the great Thinkst tools, also discussed near the end of the show:
+
 * [Canarytokens](https://canarytokens.org/)
 * [Canary Tools](https://canary.tools/)
 
