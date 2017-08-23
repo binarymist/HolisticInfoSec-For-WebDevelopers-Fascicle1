@@ -467,7 +467,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
 3. Do you encrypt all communications between servers within your data centres?  
    
-   I've discussed in many places that we should be aiming to have all communications on any given network encrypted. This is usually not to onerous to establish on your own network, but if it does not already exist on the CSPs network that you are evaluating, you will probably not be able to do anything about it, and once an attacker has access to the internal network, they can listen to the conversations happening. You can provide encryption between the services you offer and your customers because the Internet is open, but this is not usually the case with CSPs, so if they do not encrypt all internal traffic you could very well be at risk. This is part of the CSPs shared security model that they may or not provide  
+   I've discussed in many places that we should be aiming to have all communications on any given network encrypted. This is usually not to onerous to establish on your own network, but may in some cases not be possible on a CSPs network, especially if you are using proprietary/serverless technologies. If you are using usual machine instances, then in most cases, the CSPs infrastructure is logically not really any different than an in-house network. AWS also provides [Virtual Private Cloud](https://aws.amazon.com/vpc/) (VPC), which you can build your networks within, including [Serverless](https://aws.amazon.com/serverless/) technologies. This allows for segmentation and isolation  
    
 4. Do you provide access to logs, if so what sort of access to what sort of logs?  
    
