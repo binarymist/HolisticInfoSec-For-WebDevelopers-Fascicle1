@@ -373,6 +373,8 @@ Now we will focus on a collection of the largest providers.
 
 ### AWS
 
+One of the resources I have found very useful to understand some of the risks along with auditing whether they exist currently, and countermeasures including clear direction on how to apply them, is the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf). This is well worth following along with as you read through this chapter.
+
 AWS is continually announcing and releasing new products, features and configuration options. The attack surface just keeps expanding. AWS does an incredible job of providing security features and options for its customers, but... just as the [AWS Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/) states, "_security in the cloud is the responsibility of the customer_". AWS provide the security, you have to decide to use it and educate yourself on doing so. Obviously if you are reading this, you are already well down this path. If you fail to use and configure correctly what AWS has provided, your attackers will at the very minimum use your resources for evil, and you will foot the bill. Even more likely, they will attack and steal your business assets, and bring your organisation to its knees. 
 
 #### Password-less sudo
@@ -595,7 +597,7 @@ When you create IAM policies, grant only the permissions required to perform the
 
 The sequence of how the granting of least privilege looks in AWS is as follows, other CSPs will be similar:
 
-1. First work out which permissions a given user requres
+1. First work out which permissions a given user requires
 2. Create or select an existing group
 3. Attach policy to the group that has the permissions that your given user requires. You can select existing policies or create new ones
 4. Add the given user to the group
@@ -828,6 +830,8 @@ containers the environment is the image, and that is what you ship. The containe
 3. Schedule execution of any/all of the above
 
 ### AWS
+
+As mentioned in the risks subsection for AWS, the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf) is well worth following along with.
 
 #### Password-less sudo
 
