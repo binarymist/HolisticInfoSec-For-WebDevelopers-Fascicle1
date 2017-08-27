@@ -602,6 +602,8 @@ The sequence of how the granting of least privilege looks in AWS is as follows, 
 
 Regularly review all of the IAM policies you are using, making sure only the required permissions (Services, Access Levels, and Resources) are available to the users and/or groups attached to the specific policies.
 
+[Enable Multi Factor Authentication](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users) (MFA) on the root user, and all IAM users with console access, especially privileged users at a minimum. AWS provides the ability to mandate that users use MFA, you can do this by creating a new managed policy based on the AWS [DelegateManagementofMFA_policydocument](https://s3.amazonaws.com/awsiammedia/public/sample/DelegateManagementofMFA/DelegateManagementofMFA_policydocument_060115.txt) template, attach the new policy to a group that you have created and add users that must use MFA to that group. As usual, AWS has [documentation](https://aws.amazon.com/blogs/security/how-to-delegate-management-of-multi-factor-authentication-to-aws-iam-users/) on the process.
+
 The [Access Advisor](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/) tab, which is visible on the IAM console details page for Users, Groups, Roles, or Policies after you select a list item, provides information about which services are accessible from any of your users, groups, or roles. This can be helpful for auditing permissions that should not be available to any of your users that are part of the group, role or policy you selected.
 
 The [IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) which is accessible from the IAM console is also good for granular reporting on the permissions of your specific Users, Groups and Roles, filtered by service and actions.
@@ -632,6 +634,8 @@ on the topic.
 Another idea is to set-up monitoring and notifications on activity of your AWS account root user. AWS [documentation](https://aws.amazon.com/blogs/mt/monitor-and-notify-on-aws-account-root-user-activity/) explains how to do this.
 
 Another great idea is to generate an AWS key [Canarytoken](https://canarytokens.org/) from canarytokens.org, and put it somewhere more obvious than your real AWS key(s). When someone uses it, you will be automatically notified. I discussed these with Haroon Meer on the Software Engineering Radio Network Security podcast.
+
+Also consider rotating your IAM access keys to your CSP services. AWS EC2 for example provide [auto-expire, auto-renew](https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/) access keys by using roles.
 
 ### Storage of Secrets {#cloud-countermeasures-storage-of-secrets}
 
