@@ -488,7 +488,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
    As mentioned in point 1 above and [Violations of Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) countermeasures, AWS provides **CloudTrail** to log API calls, Management Console actions, SDKs, CLI tools, and other AWS services. As usual, AWS has good [documentation](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) around what sort of log events are captured, what form they take, and the plethora of [services you can integrate](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-supported-services.html) with CloudTrail. As well as viewing and analysing account activity, you can [define AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/with-cloudtrail.html) functions to be run on the `s3:ObjectCreated:*` event that is published by S3 when CloudTrail drops its logs in an S3 bucket.  
    
-   AWS **[CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)** can be used to collect and track your resource and application metrics, CloudWatch can be used to react to collected events with the likes of Lambda functions  
+   AWS **[CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)** can be used to collect and track your resource and application metrics, CloudWatch can be used to react to collected events with the likes of Lambda functions to do your bidding  
    
 5. What is your process around terminating my contract with you and/or moving to another CSP?  
    
@@ -894,9 +894,9 @@ _Todo_
 
 ### CSP Evaluation {#cloud-risks-that-the-solution-causes-csp-evaluation}
 
-1.
-2.
-3.
+1. 
+2. 
+3. 
 4. There are also a collection of items that need to be addressed in the Logging subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
 
 ### Violations of Least Privilege
