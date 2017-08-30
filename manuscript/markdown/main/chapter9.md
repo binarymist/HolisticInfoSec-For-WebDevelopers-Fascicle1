@@ -524,26 +524,26 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, also allowing the network to be in-scope?  
     
     You will not need to go through this process of requesting permission from your own company to carry out penetration testing, and if you do, there should be a lot fewer restrictions in place.  
-   
-   **[AWS](https://aws.amazon.com/security/penetration-testing)** allow customers to submit requests to penetration test to and from some AWS EC2 and RDS instance types that you own. All other AWS services are not permitted to be tested or tested from.  
-   
-   **[GCP](https://cloud.google.com/security/)** does not require penetration testers to contact them before beginning to test their GCP hosted services, so long as they abide by the Acceptable Use Policy and the Terms of Service.  
-   
-   **[Heroku](https://devcenter.heroku.com/articles/pentest-instructions)** are happy for you to penetration test your applications running on their PaaS. If you are performing automated security scans, you will need to give them two business days notice before you begin testing.  
-   
-   **[Azure](https://blogs.msdn.microsoft.com/azuresecurity/2016/08/29/pen-testing-from-azure-virtual-machines/)** allows penetration testing of your applications and services running in Azure, you just need to fill out their form. In order to use Azure to perform penetration testing on other targets, you do not need permission providing you are not DDoS testing.   
+    
+    **[AWS](https://aws.amazon.com/security/penetration-testing)** allow customers to submit requests to penetration test to and from some AWS EC2 and RDS instance types that you own. All other AWS services are not permitted to be tested or tested from.  
+    
+    **[GCP](https://cloud.google.com/security/)** does not require penetration testers to contact them before beginning testing of their GCP hosted services, so long as they abide by the Acceptable Use Policy and the Terms of Service.  
+    
+    **[Heroku](https://devcenter.heroku.com/articles/pentest-instructions)** are happy for you to penetration test your applications running on their PaaS. If you are performing automated security scans, you will need to give them two business days notice before you begin testing.  
+    
+    **[Azure](https://blogs.msdn.microsoft.com/azuresecurity/2016/08/29/pen-testing-from-azure-virtual-machines/)** allows penetration testing of your applications and services running in Azure, you just need to fill out their form. In order to use Azure to perform penetration testing on other targets, you do not need permission providing you are not DDoS testing.   
    
 11. Do you have bug bounty programmes running, if so, what do they look like?  
     
     If the CSP is of a reasonable size and is not already running bug bounties, this is a good sign that security could be taken more seriously.  
     
     **AWS** has a [bug bounty](https://hackerone.com/amazon-web-services) program.  
-   
-   **GCP** states that if a bug is found in the google infrastructure, the penetration tester is encouraged to submit it to their bug bounty program.  
-   
-   **Heroku** offer a [bug bounty](https://hackerone.com/heroku) program.  
-   
-   **Azure** offers a [bug bounty](https://hackerone.com/azure) program.
+    
+    **GCP** states that if a bug is found in the google infrastructure, the penetration tester is encouraged to submit it to their bug bounty program.  
+    
+    **Heroku** offer a [bug bounty](https://hackerone.com/heroku) program.  
+    
+    **Azure** offer a [bug bounty](https://hackerone.com/azure) program.
 
 ### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom)
 
