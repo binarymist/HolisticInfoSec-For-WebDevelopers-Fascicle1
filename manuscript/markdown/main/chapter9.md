@@ -59,7 +59,7 @@ CSP customers are expected to take care of their own security in terms of:
 
 but all to often the customers responsibility is neglected, which renders The Cloud no better for the customer in terms of security.
 
-> The primary problem with The Cloud is: Customers have the misconception that someone else is taking care of all their security. That is not how the shared security model works though. Yes the CSP is probably taking care of the infrastructure security, but other forms of security such as I just listed above, are even more important than before the shift to The Cloud, this is because these items are now the lowest hanging fruit for the attacker.
+> The primary problem with The Cloud is: Customers have the misconception that someone else is taking care of all their security. That is not how the shared responsibility model works though. Yes the CSP is probably taking care of the infrastructure security, but other forms of security such as I just listed above, are even more important than before the shift to The Cloud, this is because these items are now the lowest hanging fruit for the attacker.
 
 The following are a set of questions (verbatim) I have been asked recently, and that I hear similar versions of frequently:
 
@@ -171,7 +171,7 @@ This does not just apply to The Cloud vs In-house, it also applies to open techn
 
 There is a certain reliance on vendor guarantees, these are not usually an issue though, the issue is usually us not understanding fully what our part to play in the shared responsibility model is.
 
-What happens when you need to move from your current CSP? How much do you have invested in proprietary services such as [serverless](#cloud-identify-risks-serverless) offerings? What would it cost your organisation to port to another CSPs environment? Are you getting so much benefit that it just does not matter? If you are thinking like this, then you could very well be missing many of the steps that you should be doing as your part of the shared security model. We discuss these throughout this chapter. Serverless technologies really look great until you [measure](#cloud-identify-risks-serverless) the costs of [securing everything](#cloud-countermeasures-serverless). Weigh up the costs and benefits. 
+What happens when you need to move from your current CSP? How much do you have invested in proprietary services such as [serverless](#cloud-identify-risks-serverless) offerings? What would it cost your organisation to port to another CSPs environment? Are you getting so much benefit that it just does not matter? If you are thinking like this, then you could very well be missing many of the steps that you should be doing as your part of the shared responsibility model. We discuss these throughout this chapter. Serverless technologies really look great until you [measure](#cloud-identify-risks-serverless) the costs of [securing everything](#cloud-countermeasures-serverless). Weigh up the costs and benefits. 
 
 #### Possible Single Points of Failure
 
@@ -353,11 +353,11 @@ Any perimeters that you used to, or at least thought you had are gone. We discus
 
 #### Functions
 
-[Amazon](https://aws.amazon.com/serverless/) has [Lambda](https://aws.amazon.com/lambda/) which can run Java, C#, Python, Node.js
+[Amazon](https://aws.amazon.com/serverless/) has [Lambda](https://aws.amazon.com/lambda/) which can run Java, C#, Python, Node.js.
 
-[GCP](https://cloud.google.com/serverless/) has [Cloud Functions](https://cloud.google.com/functions/) which are JavaScript functions
+[GCP](https://cloud.google.com/serverless/) has [Cloud Functions](https://cloud.google.com/functions/) which are JavaScript functions.
 
-[Azure]() has [Functions](https://azure.microsoft.com/en-us/services/functions/)
+[Azure]() has [Functions](https://azure.microsoft.com/en-us/services/functions/).
 
 The complexity alone with AWS causes a lot of Developers to just "get it working" if they are lucky, then push it to production. Of course this has the side effect that security is in most cases overlooked. With AWS Lambda, you need to first:
 
@@ -373,10 +373,10 @@ What changes is the target areas for the attacker, they just move closer to appl
 2. Identity and Access Management (IAM) and permissions. What permissions does an attacker have to execute in any given environment, including all and any services consuming and consumed by functions 
 3. API key, being a distant third
 
-Rich Jones demonstrated what can happen if you fail at the above three points in his talk "[Gone in 60 Milliseconds](https://www.youtube.com/watch?v=YZ058hmLuv0)":
+Rich Jones demonstrated what can happen if you fail at the above three points in AWS in his talk "[Gone in 60 Milliseconds](https://www.youtube.com/watch?v=YZ058hmLuv0)":
 
 * Getting some exploit code into an S3 bucket via an injection vulnerability and passing a parameter that references the injected key value
-* /tmp is writeable
+* `/tmp` is writeable
 * Persistence is possible if you keep the container warm
 * Lots of other attack vectors
 
@@ -568,7 +568,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
 
 ### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom)
 
-It depends on the CSP, and many things about your organisation. Each CSP does things differently, has strengths and weaknesses in different areas of the shared security model, has different specialities, is governed by different people and jurisdictions (USA vs Sweden for example), some are less security conscious than others. The largest factor in this question is your organisation. How security conscious and capable of implementing a secure cloud environment are your workers.
+It depends on the CSP, and many things about your organisation. Each CSP does things differently, has strengths and weaknesses in different areas of the shared responsibility model, has different specialities, is governed by different people and jurisdictions (USA vs Sweden for example), some are less security conscious than others. The largest factor in this question is your organisation. How security conscious and capable of implementing a secure cloud environment are your workers.
 
 You can have a more secure cloud environment than any CSP if you decide to do so and have the necessary resources to build it. If you don't decide to and/or don't have the necessary resources, then most well known CSPs will probably be doing a better job than your organisation.
 
@@ -880,7 +880,7 @@ Also see the [additional resources](#additional-resources-cloud-countermeasures-
 
 Serverless is another form of separation of concerns / decoupling. Serverless is yet another attempt to coerce Software Developers into abiding by the Object Oriented (OO) [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) principles, that the vast majority of Developers never quite understood. Serverless forces the microservice way of thinking.
 
-Serverless mandates the reactive / event driven approach that insists that our code features stand alone without the tight coupling of many services that we often seem to have. Serverless forces us to split our database's out from our business logic. Serverless goes a long way to forcing us to write [testable code](https://blog.binarymist.net/2012/12/01/moving-to-tdd/), and as I have said so many times, testable code is good code, code that is easy to maintain and extend, thus abiding by the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle)
+Serverless mandates the reactive / event driven approach that insists that our code features stand alone without the tight coupling of many services that we often seem to have. Serverless forces us to split our database's out from our business logic. Serverless goes a long way to forcing us to write [testable code](https://blog.binarymist.net/2012/12/01/moving-to-tdd/), and as I have said so many times, testable code is good code, code that is easy to maintain and extend, thus abiding by the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).
 
 Serverless provides another step up in terms of abstraction, but at the same time allows you to focus on the code, which as a Developer, sounds great.
 
@@ -900,7 +900,7 @@ Not really much different to the [Fortress Mentality](#network-countermeasures-f
 
 With AWS Lambda, as well as getting your application security right, you also need to fully understand the [Permissions Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html), apply it, and protect your API gateway with a key.
 
-1. Firstly: No matter where your code is executing, you must have a good grasp on application security, no amount of sand-boxing, Dockerising, application firewalling, or anything else will protect you from poorly written applications if they are running. In regards to help with consuming all the free and open source, review the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source) countermeasures subsection of the Web Applications chapter. Snyk has a [Serverless](https://snyk.io/serverless) offering also. Every function you add adds attack surface and all the risks that come with integrating with other services. Keep your inventory control tight with your functions and consumed dependencies, that is, know which packages you are consuming and what defects they have, know how many and which functions are in production, as discussed in the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source). Test removing permissions and see if everything still works. If it does, your permissions are to open, reduce them
+1. Firstly: No matter where your code is executing, you must have a good grasp on application security, no amount of sand-boxing, Dockerising, application firewalling, or anything else will protect you from poorly written applications if they are running. In regards to help with consuming all the free and open source, review the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source) countermeasures subsection of the Web Applications chapter. Snyk has a [Serverless](https://snyk.io/serverless) offering also. Every function you add adds attack surface and all the risks that come with integrating with other services. Keep your inventory control tight with your functions and consumed dependencies, that is, know which packages you are consuming and which known defects they have, know how many and which functions are in production, as discussed in the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source). Test removing permissions and see if everything still works. If it does, your permissions were to open, reduce them
 2. In regards to AWS Lambda, although it should be similar with the other large CSPs, Make sure you apply only privileges required, this way you will not be [violating the principle](#cloud-countermeasures-violations-of-least-privilege) of Least Privilege
     * AWS Lambda function [access to other AWS resources](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role):
       * Create an [IAM execution role](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html) of type `AWS Service Roles`, grant the AWS Lambda service permissions to assume your role by choosing `AWS Lambda`
@@ -919,6 +919,7 @@ AWS Lambda allows you to [throttle](https://docs.aws.amazon.com/lambda/latest/dg
 Set [Cloudwatch alarms](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html) on [duration and invocations](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metrics.html). These can even be sent to slack.
 
 Drive the creation of your functions the same way you would drive any other production quality code... with unit tests ([TDD](https://blog.binarymist.net/2012/12/01/moving-to-tdd/)), that is in isolation. Follow that with integration testing of the function in a production like test environment with all the other components in place. [You can](https://serverless.zone/unit-and-integration-testing-for-lambda-fc9510963003) mock, stub, pass spies in the AWS:
+
 * JavaScript SDK using tools such as:
   * [aws-sdk-mock](https://www.npmjs.com/package/aws-sdk-mock)
   * [mock-aws](https://www.npmjs.com/package/mock-aws)
@@ -926,7 +927,7 @@ Drive the creation of your functions the same way you would drive any other prod
   * [placebo](https://github.com/garnaat/placebo)
   * [moto](https://github.com/spulec/moto)
 
-Set-up billing alerts
+Set-up billing alerts.
 
 Be careful not to create direct or indirect recursive function calls.
 
@@ -942,7 +943,7 @@ You should also be sending your logs to an aggregator and not in your execution 
 
 The following are supposed to make the exercise of deploying your functions to the cloud easier:
 
-**[Serverless](https://serverless.com/framework/)** along with a large collection of [awesome-serverless](https://github.com/JustServerless/awesome-serverless) resources.
+**[Serverless](https://serverless.com/framework/)** along with a large collection of [awesome-serverless](https://github.com/JustServerless/awesome-serverless) resources on github.
 
 The Serverless framework currently has the following provider APIs:
 
@@ -954,7 +955,7 @@ The Serverless framework currently has the following provider APIs:
 
 **[Claudia.JS](https://claudiajs.com/)**: Specific to AWS and only covers Node.js. Authored by Gojko Adzic, which if you have been in the industry as a Software Engineer for long, this fact alone may be enough to sell it.
 
-**[Zappa](https://www.zappa.io/)**: Specific to AWS and only covers Python
+**[Zappa](https://www.zappa.io/)**: Specific to AWS and only covers Python.
 
 
 ### Infrastructure and Configuration Management
@@ -1072,7 +1073,7 @@ These frameworks may lead the Developer to think that the framework does everyth
 
 API keys are great, but not so great when they reside in untrusted territory, which in the case of the web, is any time your users need access to your API, so anyone permitted to become a user has permission to send requests to your API.
 
-Do not depend on client side API keys for security, this is a very think layer of defence. You can not protect API keys sent to a client over the internet. Yes, we have TLS, but that will not stop an end user masquerading as someone else.
+Do not depend on client side API keys for security, this is a very thin layer of defence. You can not protect API keys sent to a client over the internet. Yes, we have TLS, but that will not stop an end user masquerading as someone else.
 
 Also consider anything you put in source control even if not public, already compromised. Your source control is only as strong as the weakest password of any given team member at best. You have also got build pipelines that are often leaking, along with other leaky mediums such as people.
 

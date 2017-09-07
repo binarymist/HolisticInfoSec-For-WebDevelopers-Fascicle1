@@ -4617,7 +4617,7 @@ OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) 
 
 1. [Fusker](https://www.npmjs.com/package/fusker). Not sure if this is still actively maintained. At this point, there has not been any recent commits since 2012, but it does look like the best offering we have at this stage for NodeJS. So if your looking to help a security project out...
 2. [express-waf](https://www.npmjs.com/package/express-waf) was last commited to in 2015, there was only a single developer working on it when I checked
-3. Many cloud providers also have offerings, such as [AWS WAF](https://aws.amazon.com/waf/), which can provide some assistance in mitigating generic injection, XSS, DoS type attacks. Also providing an API useful for the automation, creation and deployment of web security rules.
+3. Many cloud providers also have offerings, such as [AWS WAF](https://aws.amazon.com/waf/), which can provide some assistance in mitigating generic injection, XSS, DoS type attacks. Also providing an API useful for the automation, creation and deployment of web security rules
 
 #### Application Intrusion Detection and Response
 
