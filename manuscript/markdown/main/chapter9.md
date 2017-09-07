@@ -404,35 +404,11 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 %% https://serverfault.com/questions/615034/disable-nopasswd-sudo-access-for-ubuntu-user-on-an-ec2-instance
 
-
-
-%% AWS general
-%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
-%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
-%%  https://cloudonaut.io/aws-security-primer/
-
 %% https://appsecday.com/schedule/hacking-aws-end-to-end/
 
 %% Kiwicon 10 talk "Hacking AWS end to end". Slide-deck here: https://github.com/dagrz/aws_pwn/blob/master/miscellanea/Kiwicon%202016%20-%20Hacking%20AWS%20End%20to%20End.pdf, along with readme and code.
 
-
-
-[Cognito](https://aws.amazon.com/cognito/)
-
-
-### GCP 
-
-%% https://cloud.google.com/
-
-### Heroku
-
-%% http://stackoverflow.com/questions/9802259/why-do-people-use-heroku-when-aws-is-present-whats-distinguishing-about-heroku
-
-### Azure
-
-%% https://docs.microsoft.com/en-us/azure/security/azure-security-iaas
-
-
+%% [Cognito](https://aws.amazon.com/cognito/)
 
 ## 3. SSM Countermeasures
 
@@ -984,19 +960,7 @@ We have covered the people aspects along with exploitation techniques of Weak Pa
 
 We have covered the technical aspects of password strategies in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) subsection of the VPS chapter
 
-
-%% AWS general (security enhancing services and features)
-%%  https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
-%%  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
-%%  https://cloudonaut.io/aws-security-primer/
-
-
-
-
-
 #### Additional Tooling {#cloud-countermeasures-aws-additional-tooling} 
-
-
 
 * [Security Monkey](https://github.com/Netflix/security_monkey/): Monitors AWS and GCP accounts for policy changes, and alerts on insecure configurations, conceptually similar to AWS Config, as discussed in the [Violations of Least Privilege](#cloud-countermeasures-violations-of-least-privilege) countermeasures subsection. Security Monkey is free and open source. Although not strictly security related, the [Simian Army](https://github.com/Netflix/SimianArmy/wiki) tools from Netflix are also well worth mentioning if you are serious about doing things the right way in AWS. They include:
   * [Chaos Monkey](https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey)
@@ -1005,23 +969,6 @@ We have covered the technical aspects of password strategies in the [Review Pass
 * [CloudSploit](https://cloudsploit.com/): Aims to solve the problem of missconfigured AWS accounts. Background scanning through hundreds of resources, settings, and activity logs looking for potential issues. Their blog also has some good resources on it. Scan reports include in-depth remediation steps. Has a free and paid hosted tiers. Auto scanning scheduling for the paid plans. Is open source on [github](https://github.com/cloudsploit/scans)
 * [Amazon Inspector](https://console.aws.amazon.com/inspector/): At this time only targets EC2 instances. Inspector agent needs to be installed on all target EC2 instances
 * [Awesome AWS](https://github.com/donnemartin/awesome-aws) has many useful resources
-
-
-### GCP 
-
-
-
-#### Additional Tooling {#cloud-countermeasures-gcp-additional-tooling} 
-
-
-
-* [Security Monkey](https://github.com/Netflix/security_monkey/): As discussed in the AWS countermeasures [Additional Tooling](#cloud-countermeasures-aws-additional-tooling) subsection
-
-### Heroku
-
-### Azure
-
-
 
 ## 4. SSM Risks that Solution Causes
 
