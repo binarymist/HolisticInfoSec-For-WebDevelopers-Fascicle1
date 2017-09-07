@@ -169,11 +169,9 @@ As touched on in the CSP Evaluation questions, in many cases CSPs are outsourcin
 
 This does not just apply to The Cloud vs In-house, it also applies to open technologies in The Cloud vs closed/proprietary offerings.
 
-_Todo_ vvv.
+There is a certain reliance on vendor guarantees, these are not usually an issue though, the issue is usually us not understanding fully what our part to play in the shared responsibility model is.
 
-Reliance on vendor guarantees
-
-
+What happens when you need to move from your current CSP? How much do you have invested in proprietary services such as [serverless](#cloud-identify-risks-serverless) offerings? What would it cost your organisation to port to another CSPs environment? Are you getting so much benefit that it just does not matter? If you are thinking like this, then you could very well be missing many of the steps that you should be doing as your part of the shared security model. We discuss these throughout this chapter. Serverless technologies really look great until you [measure](#cloud-identify-risks-serverless) the costs of [securing everything](#cloud-countermeasures-serverless). Weigh up the costs and benefits. 
 
 #### Possible Single Points of Failure
 
@@ -341,29 +339,52 @@ What ever you use to get work done in The Cloud programmatically, you are going 
 
 This is a major insecurity.
 
-### Serverless
+### Serverless {#cloud-identify-risks-serverless}
 
-%% Serverless https://serverless.com/
-%%    AWS Lambda
-%%       https://aws.amazon.com/lambda/
-%%       http://www.alldaydevops.com/blog/taking-lambda-to-the-max
-%%    Google CloudFunctions https://cloud.google.com/functions/
-%%    Azure Functions https://azure.microsoft.com/en-us/services/functions/
-%% What is to stop DoS attacks and costing the renter megabucks?
-%% https://devops.com/5-common-misconceptions-serverless-technology/
+Serverless is not serverless, but the idea is that as a Software Engineer, you do not think about the physical machines that your code will run on. You can also focus on small pieces of functionality without understanding all of the interactions and relationships of the code you write.
 
-%% https://thenewstack.io/security-serverless-gets-better-gets-worse/
+#### Third Party Services
 
-%% https://github.com/JustServerless/awesome-serverless
+There is a lot of implicit trust put in third party services that components of your serverless architecture consume.
 
+#### Perimeterless
 
-[Amazon](https://aws.amazon.com/serverless/)  
-[Serverless AWS Provider](https://serverless.com/framework/docs/providers/aws/). There are many offerings here.
+Any perimeters that you used to, or at least thought you had are gone. We discussed this in the [Fortress Mentality](#network-identify-risks-fortress-mentality) subsection of the Network chapter.
 
+#### Functions
 
-What happens when you need to move from your current CSP? How much to you have invested in proprietary services such as serverless offerings? What would it cost your organisation to port to another CSPs environment?
+[Amazon](https://aws.amazon.com/serverless/) has [Lambda](https://aws.amazon.com/lambda/) which can run Java, C#, Python, Node.js
 
+[GCP](https://cloud.google.com/serverless/) has [Cloud Functions](https://cloud.google.com/functions/) which are JavaScript functions
 
+[Azure]() has [Functions](https://azure.microsoft.com/en-us/services/functions/)
+
+The complexity alone with AWS causes a lot of Developers to just "get it working" if they are lucky, then push it to production. Of course this has the side effect that security is in most cases overlooked. With AWS Lambda, you need to first:
+
+1. Pick your function from a huge collection
+2. Pick the trigger (event) from one of the many AWS services available
+3. Choosing API Gateway allows you to invoke your function from the Internet
+
+So... What is security when it comes to the Serverless paradigm?
+
+What changes is the target areas for the attacker, they just move closer to application security, in order of most important first, we have:
+
+1. [Application Security](#web-applications). Functions are still just code. Now that some other areas of infrastructure have become harder to compromise, more focus is invested by attackers on application security, and as usual, this is a weak area for most developers. Also consider the huge threat surface of depending on other open source consumables, as discussed in the Web Applications chapter "[Consuming Free and Open Source](#web-applications-identify-risks-consuming-free-and-open-source)" subsection
+2. Identity and Access Management (IAM) and permissions. What permissions does an attacker have to execute in any given environment, including all and any services consuming and consumed by functions 
+3. API key, being a distant third
+
+Rich Jones demonstrated what can happen if you fail at the above three points in his talk "[Gone in 60 Milliseconds](https://www.youtube.com/watch?v=YZ058hmLuv0)":
+
+* Getting some exploit code into an S3 bucket via an injection vulnerability and passing a parameter that references the injected key value
+* /tmp is writeable
+* Persistence is possible if you keep the container warm
+* Lots of other attack vectors
+
+#### DoS of Lambda Functions
+
+The compute executing the functions you supply are short lived. With AWS, [containers are used](https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html) and reused providing your function runs at least once approximately every four minutes and thirty seconds according to Rich Jones talk. So the idea of hardware DoS is less likely, but [billing DoS](https://thenewstack.io/zombie-toasters-eat-startup/) is a [real issue](https://sourcebox.be/blog/2017/08/07/serverless-a-lesson-learned-the-hard-way/).
+
+AWS Lambda will by default allow any given function a [concurrent execution](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#concurrent-execution-safety-limit) of 1000 per region. 
 
 ### Infrastructure and Configuration Management {#cloud-identify-risks-infrastructure-and-configuration-management}
 
@@ -480,7 +501,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
 4. Do you provide access to logs, if so what sort of access to what sort of logs?  
    
-   If you don't have access to logs, then you are flying blind, you have no idea what is happening around you. How much does the CSP strip out of the logs before they allow you to view them? It is really important to weigh up what you will have visibility of, what you will not have visibility of, in order to work out where you may be vulnerable. Can the CSP provide guarantees that those vulnerable areas are taken care of by them? Make sure you are comfortable with the amount of visibility you will and will not have up front, as unless you make sure blind spots are covered, then you could be unnecessarily opening yourself up to be attacked.  
+   If you don't have access to logs, then you are flying blind, you have no idea what is happening around you. How much does the CSP strip out of the logs before they allow you to view them? It is really important to weigh up what you will have visibility of, what you will not have visibility of, in order to work out where you may be vulnerable. Can the CSP provide guarantees that those vulnerable areas are taken care of by them? Make sure you are comfortable with the amount of visibility you will and will not have up front, as unless you make sure blind spots are covered, then you could be unnecessarily opening yourself up to be attacked. Some of the CSPs log aggregators could be [flaky for example](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f).   
    
    With the likes of machine instances and network components, you should be taking the same responsibilities as you would if you were self hosting. I addressed these in the VPS and Network chapters under the Lack of Visibility subsections.  
    
@@ -622,16 +643,16 @@ Full coverage in the [Network](#network) chapter.
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) {#cloud-countermeasures-violations-of-least-privilege}
 
-When you create IAM policies, grant only the permissions required to perform the task(s) necessary for the given users. If the user needs additional permissions, then they can be added, rather than adding everything up front and potentially having to remove again at some stage.
+When you create IAM policies, grant only the permissions required to perform the task(s) necessary for the given users. If the user needs additional permissions, then they can be added, rather than adding everything up front and potentially having to remove again at some stage. Adding as required, rather than removing as required will cause much less friction technically and socially.
 
-**For example, [in AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)**:, you need to keep a close watch on which [permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_permissions.html) are assigned to [policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html) that your groups have attached, and subsequently which groups your users are in.
+**For example, [in AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)**:, you need to keep a close watch on which [permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_permissions.html) are assigned to [policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html) that your groups and roles have attached, and subsequently which groups and roles your users are in or part of.
 
 The sequence of how the granting of least privilege looks in AWS is as follows, other CSPs will be similar:
 
 1. First work out which permissions a given user requires
-2. Create or select an existing group
-3. Attach policy to the group that has the permissions that your given user requires. You can select existing policies or create new ones
-4. Add the given user to the group
+2. Create or select an existing group or role
+3. Attach policy to the group or role that has the permissions that your given user requires. You can select existing policies or create new ones
+4. Add the given user to the group or role
 
 Regularly review all of the IAM policies you are using, making sure only the required permissions (Services, Access Levels, and Resources) are available to the users and/or groups attached to the specific policies.
 
@@ -670,9 +691,19 @@ Another great idea is to generate an AWS key [Canarytoken](https://canarytokens.
 
 Also consider rotating your IAM access keys to your CSP services. AWS EC2 for example provide [auto-expire, auto-renew](https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/) access keys by using roles.
 
-### Storage of Secrets {#cloud-countermeasures-storage-of-secrets}
+### [Storage of Secrets](https://www.programmableweb.com/news/why-exposed-api-keys-and-sensitive-data-are-growing-cause-concern/analysis/2015/01/05) {#cloud-countermeasures-storage-of-secrets}
 
 In this section I discuss some techniques to handle our sensitive information in a safer manner.
+
+If you have "secrets" in source control or wikis, they are probably not secret. Remove them and change the secret (password, key, what ever it is). [Github provides guidance](https://help.github.com/articles/removing-sensitive-data-from-a-repository/) on removing sensitive data from a repository.
+
+Also consider using [git-crypt](https://github.com/AGWA/git-crypt)
+
+Use different access keys for each service and application requiring them.
+
+Use [temporary security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html).
+
+Rotate access keys.
 
 #### Private Key Abuse
 
@@ -827,6 +858,7 @@ Ansible is an [Open Source](https://github.com/ansible/ansible/blob/devel/docs/d
 * From version 2.3 can encrypt single values inside YAML files
 * Suggested workflow is to check the encrypted files into source control for auditing purposes
 
+{#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software-kms}
 AWS **[Key Management Service](https://aws.amazon.com/kms/)** (KMS) 
 
 * Encrypt up to 4 KB of arbitrary data (passwords, keys)
@@ -844,7 +876,86 @@ AWS has **[Parameter Store](https://aws.amazon.com/ec2/systems-manager/parameter
 
 Also see the [additional resources](#additional-resources-cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software) for other similar tools.
 
-### Serverless
+### [Serverless](https://github.com/anaibol/awesome-serverless) {#cloud-countermeasures-serverless}
+
+Serverless is another form of separation of concerns / decoupling. Serverless is yet another attempt to coerce Software Developers into abiding by the Object Oriented (OO) [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) principles, that the vast majority of Developers never quite understood. Serverless forces the microservice way of thinking.
+
+Serverless mandates the reactive / event driven approach that insists that our code features stand alone without the tight coupling of many services that we often seem to have. Serverless forces us to split our database's out from our business logic. Serverless goes a long way to forcing us to write [testable code](https://blog.binarymist.net/2012/12/01/moving-to-tdd/), and as I have said so many times, testable code is good code, code that is easy to maintain and extend, thus abiding by the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle)
+
+Serverless provides another step up in terms of abstraction, but at the same time allows you to focus on the code, which as a Developer, sounds great.
+
+With AWS Lambda, you only pay when your code executes, as opposed to paying for machine instances, or with Heroku for the entire time your application is running on their compute, even if the application code is not executing. AWS Lambda and similar offerings allow granular costing, thus passing on cost savings due to many customers all using the same hardware.
+
+AWS Lambda and similar offerings allow us to not think about machine/OS and language environment patching, compute resource capacity or scaling. You are now trusting your CSP to do these things. There are [no maintenance windows](https://aws.amazon.com/lambda/faqs/#scalability) or scheduled downtimes. Lambda is also currently free for up to one million requests per month, and does not expire after twelve months. This in itself is quite compelling to leverage the service.
+
+#### Third Party Services
+
+When you consume third party services (APIs, functions, etc), you are in essence outsourcing what ever you send or receive from them. How is that service handling what you pass to it or receive from it? How do you know that the service is who you think it is, are you checking its TLS certificate? Is the data in transit encrypted? Just as I discuss below under [Functions](#cloud-countermeasures-serverless-functions), you are sending and receiving from a potentially untrusted service. This all increases the attack surface.
+
+#### Perimeterless
+
+Not really much different to the [Fortress Mentality](#network-countermeasures-fortress-mentality) subsection discussed in the Network chapter.
+
+#### Functions {#cloud-countermeasures-serverless-functions}
+
+With AWS Lambda, as well as getting your application security right, you also need to fully understand the [Permissions Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html), apply it, and protect your API gateway with a key.
+
+1. Firstly: No matter where your code is executing, you must have a good grasp on application security, no amount of sand-boxing, Dockerising, application firewalling, or anything else will protect you from poorly written applications if they are running. In regards to help with consuming all the free and open source, review the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source) countermeasures subsection of the Web Applications chapter. Snyk has a [Serverless](https://snyk.io/serverless) offering also. Every function you add adds attack surface and all the risks that come with integrating with other services. Keep your inventory control tight with your functions and consumed dependencies, that is, know which packages you are consuming and what defects they have, know how many and which functions are in production, as discussed in the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source). Test removing permissions and see if everything still works. If it does, your permissions are to open, reduce them
+2. In regards to AWS Lambda, although it should be similar with the other large CSPs, Make sure you apply only privileges required, this way you will not be [violating the principle](#cloud-countermeasures-violations-of-least-privilege) of Least Privilege
+    * AWS Lambda function [access to other AWS resources](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role):
+      * Create an [IAM execution role](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html) of type `AWS Service Roles`, grant the AWS Lambda service permissions to assume your role by choosing `AWS Lambda`
+      * Attach the policy to the role as discussed in step 3 under [Violations of Least Privilege](#cloud-countermeasures-violations-of-least-privilege). Make sure to tightly constrain the `Resource`'s of the chosen policy. `AWSLambdaBasicExecuteRole` if your Lambda function only needs to write logs to CloudWatch, `AWSLambdaKinesisExecutionRoleAWS` if your Lambda function also needs to access Kinesis Streams actions, `AWSLambdaDynamoDBExecutionRole` if your Lambda function needs to access DynamoDB streams actions along with CloudWatch, and `AWSLambdaVPCAccessExecutionRole` if your Lambda function needs to access AWS EC2 actions along with CloudWatch
+      * When you create your Lambda function, apply your Amazon Resource Name (ARN) as the value to the `role`
+      * Each function accessing a data store should use a unique user/credentials with only the permissions to do what that specific function needs to do, this honours least privilege, and also provides some level of auditing
+    * Other AWS resources [access to AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permission-model-access-policy):
+      * Permissions are added via function policies. Make sure these are granular and specific
+
+3. [Use](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-setup-api-key-with-console.html) an [API key](https://serverless.com/framework/docs/providers/aws/events/apigateway/#setting-api-keys-for-your-rest-api)
+
+#### DoS of Lambda Functions
+
+AWS Lambda allows you to [throttle](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#concurrent-execution-safety-limit) the concurrent execution count. AWS Lambda functions being invoked asynchronously can handle bursts for approximately 15-30 minutes. Essentially if the default is not right for you, then you need to define the policy, that is set reasonable limits. Make sure you do this!
+
+Set [Cloudwatch alarms](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html) on [duration and invocations](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metrics.html). These can even be sent to slack.
+
+Drive the creation of your functions the same way you would drive any other production quality code... with unit tests ([TDD](https://blog.binarymist.net/2012/12/01/moving-to-tdd/)), that is in isolation. Follow that with integration testing of the function in a production like test environment with all the other components in place. [You can](https://serverless.zone/unit-and-integration-testing-for-lambda-fc9510963003) mock, stub, pass spies in the AWS:
+* JavaScript SDK using tools such as:
+  * [aws-sdk-mock](https://www.npmjs.com/package/aws-sdk-mock)
+  * [mock-aws](https://www.npmjs.com/package/mock-aws)
+* Python SDK (boto3) using tools such as:
+  * [placebo](https://github.com/garnaat/placebo)
+  * [moto](https://github.com/spulec/moto)
+
+Set-up billing alerts
+
+Be careful not to create direct or indirect recursive function calls.
+
+Use an application firewall as I discuss in the Web Application chapter under the "[Insufficient Attack Protection](#web-applications-countermeasures-insufficient-attack-protection-waf)" subsection may provide some protection if your rules are adequate.
+
+Consider how important it is to scale compute to service requests. If it is more important to you to have a fixed price, knowing how much you are going to be charged each month, consider fixed price machine instances.
+
+#### [Centralised logging of AWS Lambda](https://hackernoon.com/centralised-logging-for-aws-lambda-b765b7ca9152) Functions
+
+You should also be sending your logs to an aggregator and not in your execution time. What ever your function writes to stdout is captured by Lambda and sent to Cloudwatch Logs asynchronously, that means consumers of the function will not take a latency hit and you will not take a cost hit. Cloudwatch Logs can then be streamed to AWS Elasticsearch which may or may not be [stable enough](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f) for you. Other than that, there are not that many good options on AWS yet, beside sending to Lambda which of course could also end up costing you compute and being another DoS vector. 
+
+#### Frameworks
+
+The following are supposed to make the exercise of deploying your functions to the cloud easier:
+
+**[Serverless](https://serverless.com/framework/)** along with a large collection of [awesome-serverless](https://github.com/JustServerless/awesome-serverless) resources.
+
+The Serverless framework currently has the following provider APIs:
+
+* AWS
+* Microsoft Azure
+* IBM OpenWhisk
+* GCP
+* Kuberless
+
+**[Claudia.JS](https://claudiajs.com/)**: Specific to AWS and only covers Node.js. Authored by Gojko Adzic, which if you have been in the industry as a Software Engineer for long, this fact alone may be enough to sell it.
+
+**[Zappa](https://www.zappa.io/)**: Specific to AWS and only covers Python
+
 
 ### Infrastructure and Configuration Management
 
@@ -947,6 +1058,25 @@ _Todo_
 ##### Entered by Software (automatically) {#cloud-risks-that-solution-causes-storage-of-secrets-credentials-and-other-secrets-entered-by-software}
 
 In order for an application or service to access the secrets provided by one of these tools, it must also be able to authenticate itself, which means we have replaced the secrets in the configuration file with another secret to access that initial secret, thus making the whole strategy not that much more secure, unless you are relying on obscurity. This is commonly known as the [secret zero](https://news.ycombinator.com/item?id=9453754) problem.
+
+### Serverless
+
+Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities required to understand in order to secure the integration of the components. There is a real danger that Developers fail to understand and implement all the security countermeasures required to get them to a similar security stand point that they enjoyed having their components less distributed and running in long lived processes.
+
+#### Frameworks
+
+These frameworks may lead the Developer to think that the framework does everything for them, it does not, so using a framework is just another thing to learn.
+
+
+#### Functions
+
+API keys are great, but not so great when they reside in untrusted territory, which in the case of the web, is any time your users need access to your API, so anyone permitted to become a user has permission to send requests to your API.
+
+Do not depend on client side API keys for security, this is a very think layer of defence. You can not protect API keys sent to a client over the internet. Yes, we have TLS, but that will not stop an end user masquerading as someone else.
+
+Also consider anything you put in source control even if not public, already compromised. Your source control is only as strong as the weakest password of any given team member at best. You have also got build pipelines that are often leaking, along with other leaky mediums such as people.
+
+AWS as the largest CSP is a primary target for attackers.
 
 ## 5. SSM Costs and Trade-offs
 

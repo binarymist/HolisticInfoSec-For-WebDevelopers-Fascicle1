@@ -787,7 +787,7 @@ As part of the hands on hack in the [SQLi](#web-applications-identify-risks-sqli
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-identify-risks-lack-of-authentication-authorisation-session-management}
 ![](images/ThreatTags/average-common-average-severe.png)
 
-Also brought to light by the OWASP Top 10 risks "[_No. 2 Broken Authentication and Session Management_](https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management)".
+Also brought to light by the OWASP Top 10 risks "[_No. 2 Broken Authentication and Session Management_](https://www.owasp.org/index.php/Top_10_2017-A2-Broken_Authentication_and_Session_Management)".
 
 With this category of attacks, your attacker could be either someone you do or do not know. Possibly someone already with an account, an insider maybe, looking to take the next step which could be privilege escalation or even just alteration so that they have access to different resources by way of acquiring other accounts. Some possible attack vectors could be:
 
@@ -886,9 +886,9 @@ The following is a list of the best JavaScript crypto libraries we have availabl
   * NuGet package: [https://www.nuget.org/packages/Inferno/](https://www.nuget.org/packages/Inferno/)
 
 ### Consuming Free and Open Source {#web-applications-identify-risks-consuming-free-and-open-source}
-![](images/ThreatTags/average-widespread-difficult-moderate.png)
+![](images/ThreatTags/average-common-average-moderate.png)
 
-This is where [A9 (Using Components with Known Vulnerabilities)](https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities) of the 2013 OWASP Top 10 comes in.
+This is where [A9 (Using Components with Known Vulnerabilities)](https://www.owasp.org/index.php/Top_10_2017-A9-Using_Components_with_Known_Vulnerabilities) of the 2017 OWASP Top 10 comes in.
 
 We are consuming far more free and open source libraries than we have ever before. Much of the code we are pulling into our projects is never intentionally used, but is still adding surface area for attack. Much of it:
 
@@ -4590,7 +4590,8 @@ Has a fairly similar feature set to NSP, plus more, like:
 
 * Email notifications for new vulnerabilities and fixes
 * Customisation of the severity level at which the tests should fail
-* Automatically create Github pull requests to fix the vulnerability 
+* Automatically create Github pull requests to fix the vulnerability
+* Snyk for [Serverless](https://snyk.io/serverless)
 
 The pricing model seems a little dearer for non open source projects than NSP.
 
@@ -4610,12 +4611,13 @@ OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) 
 
 [Insecure Direct Object References](https://www.owasp.org/index.php/Top_10_2013-A4-Insecure_Direct_Object_References) was part of the OWASP Top 10 in 2013, which in 2017 was [merged](https://www.owasp.org/index.php/Top_10_2017-Release_Notes) into [Insufficient Attack Protection](https://www.owasp.org/index.php/Top_10_2017-A7-Insufficient_Attack_Protection). OWASP has good guidance on this.
 
-#### Web Application Firewall (WAF) 
+#### Web Application Firewall (WAF) {#web-applications-countermeasures-insufficient-attack-protection-waf}
 
 [WAFs](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#wafs) are similar to Intrusion Prevention Systems (IPS) except they operate at the [Application Layer](http://en.wikipedia.org/wiki/Application_layer)(HTTP), Layer 7 of the [OSI model](http://en.wikipedia.org/wiki/OSI_model). So they understand the concerns of your web application at a technical level. WAFs protect your application against a large number of attacks, like XSS, CSRF, SQLi, [Local File Inclusion (LFI)](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion), session hijacking, invalid requests (requests to things that do not exist (think 404)). WAFs sit in-line between a gateway and the web application. They run as a proxy. Either on the physical web server or on another network node, but only the traffic directed to the web application is inspected, where as an IDS/IPS inspects all network traffic passed through its interfaces. WAFs use signatures that look like specific vulnerabilities to compare the network traffic targeting the web application and apply the associated rule(s) when matches are detected. Although not only limited to dealing with known signatures, some WAFs can detect and prevent attacks they have not seen before like responses containing larger than specified payloads. The source code of the web application does not have to be modified.
 
 1. [Fusker](https://www.npmjs.com/package/fusker). Not sure if this is still actively maintained. At this point, there has not been any recent commits since 2012, but it does look like the best offering we have at this stage for NodeJS. So if your looking to help a security project out...
-2. [express-waf](https://www.npmjs.com/package/express-waf) was last commited to in 2015, there was only a single developer working on it when I checked.
+2. [express-waf](https://www.npmjs.com/package/express-waf) was last commited to in 2015, there was only a single developer working on it when I checked
+3. Many cloud providers also have offerings, such as [AWS WAF](https://aws.amazon.com/waf/), which can provide some assistance in mitigating generic injection, XSS, DoS type attacks. Also providing an API useful for the automation, creation and deployment of web security rules.
 
 #### Application Intrusion Detection and Response
 
