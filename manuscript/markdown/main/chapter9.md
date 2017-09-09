@@ -39,6 +39,8 @@ Some of the thinking around the process we went through at the top level in the 
 
 ### Shared Responsibility Model {#cloud-identify-risks-shared-responsibility-model}
 
+The shared responsibility model is one that many have not grasped or understood well. Let's look at the responsibilities of the parties.
+
 #### CSP Responsibility
 
 The CSP takes care of the infrastructure, not the customer specific configuration of it, and Due to the shear scale of what they are building, are able to build in good security controls, in contrast to the average system administrator, which just does not have the resources or ability to focus on security to the same degree.
@@ -188,13 +190,15 @@ There is a lot in common with the topic of cloud security in the other chapters 
 
 Now would be a good time to orient / reorient yourself with the related topics / concepts from the other chapters. From here on in, I will be assuming you can apply the knowledge from the other chapters to the topic of cloud security without me having to revisit large sections of it, specifically:
 
-[Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
+**[Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)**
 
 People chapter
 
 * Ignorance
 * Morale, Productivity and Engagement Killers
 * Weak Password Strategies 
+
+**This Fascicle**
 
 [VPS](#vps) chapter
 
@@ -253,12 +257,12 @@ In most organisations I work for as an architect or engineer, I see many cases o
 
 Here are some examples of violating least privilege:
 
-In [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/):
+**[Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)**:
 
 * Physical chapter: If someone has access to a facility that they do not need access to in order to do their job, a cleaner for example having access to a server room, or any room where they could possibly exfill or infill anything
 * People chapter: In a phishing attack, the attacker may have access to an email address to use as a from address, thus making an attack appear more legitimate, the attacker should not have access to an email address of an associate of their target, thus violating least privilege
 
-In this fascicle:
+**This Fascicle**:
 
 * VPS chapter: We discussed privilege escalation. This is a direct violation of least privilege, because after escalation, they now have additional privileges
 * Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the Network Security show I hosted for Software Engineering Radio. This for example could allow an attacker that managed to gain control of a network to have unhindered access to all of an organisations assets due to all being on a monolithic network segment rather than having assets on alternative network segments with firewalls between them
@@ -415,6 +419,8 @@ Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](http
 As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are an excellent token you can drop anywhere on your infrastructure, and when an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones being added every so often. These tokens are very quick and also free to generate, and drop where ever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the Network Security show I hosted for Software Engineering Radio near the end.
 
 ### Shared Responsibiltiy Model
+
+The following responsibilities are those that you need to have a good understanding of in order to establish a good level of security when operating in The Cloud.
 
 #### CSP Responsibility 
 
