@@ -390,7 +390,9 @@ AWS Lambda will by default allow any given function a [concurrent execution](htt
 
 ### Infrastructure and Configuration Management {#cloud-identify-risks-infrastructure-and-configuration-management}
 
-The only real glaringly obvious risks with the management of configuration and infrastructure - as code, is the management of secrets, and most of the other forms of information security. "Hu?" I hear you say. Let me try and unpack that statement. When you create and configure infrastructure as code, you are essentially combining many technical aspects: machine instances (addressed in the VPS chapter), networking (addressed in the Network chapter), The Cloud obviously, and of course your applications (addressed in the Web Applications chapter), and baking them all into code to be executed. If you create security defects as part of the configuration or infrastructure, then lock them up in code, you will have the same consistent security defects each time that code is run. Hence, why Software Engineers now need to understand so much more than they used to about security. We are now responsible for so much more than we used to be.
+The only real glaringly obvious risks with the management of configuration and infrastructure - as code, is the management of secrets, and most of the other forms of information security. "Hu?" I hear you say. Let me try and unpack that statement.
+
+When you create and configure infrastructure as code, you are essentially combining many technical aspects: machine instances (addressed in the VPS chapter), networking (addressed in the Network chapter), The Cloud obviously, and of course your applications (addressed in the Web Applications chapter), and baking them all into code to be executed. If you create security defects as part of the configuration or infrastructure, then lock them up in code, you will have the same consistent security defects each time that code is run. Hence, why Software Engineers now need to understand so much more than they used to about security. We are now responsible for so much more than we used to be.
 
 Now we will focus on a collection of the largest providers.
 
