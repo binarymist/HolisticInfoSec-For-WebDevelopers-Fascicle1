@@ -371,9 +371,9 @@ So... What is security when it comes to the Serverless paradigm?
 
 What changes is the target areas for the attacker, they just move closer to application security, in order of most important first, we have:
 
-1. [Application Security](#web-applications). Functions are still just code. Now that some other areas of infrastructure have become harder to compromise, more focus is invested by attackers on application security, and as usual, this is a weak area for most developers. Also consider the huge threat surface of depending on other open source consumables, as discussed in the Web Applications chapter "[Consuming Free and Open Source](#web-applications-identify-risks-consuming-free-and-open-source)" subsection
-2. Identity and Access Management (IAM) and permissions. What permissions does an attacker have to execute in any given environment, including all and any services consuming and consumed by functions 
-3. API key, being a distant third
+1. **[Application Security](#web-applications)**: Functions are still just code. Now that some other areas of infrastructure have become harder to compromise, more focus is invested by attackers on application security, and as usual, this is a weak area for most developers. Also consider the huge threat surface of depending on other open source consumables, as discussed in the Web Applications chapter "[Consuming Free and Open Source](#web-applications-identify-risks-consuming-free-and-open-source)" subsection
+2. Identity and Access Management (**IAM**) and permissions. What permissions does an attacker have to execute in any given environment, including all and any services consuming and consumed by functions 
+3. **API key**, being a distant third
 
 Rich Jones demonstrated what can happen if you fail at the above three points in AWS in his talk "[Gone in 60 Milliseconds](https://www.youtube.com/watch?v=YZ058hmLuv0)":
 
@@ -884,13 +884,13 @@ Not really much different to the [Fortress Mentality](#network-countermeasures-f
 
 With AWS Lambda, as well as getting your application security right, you also need to fully understand the [Permissions Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html), apply it, and protect your API gateway with a key.
 
-1. Firstly: No matter where your code is executing, you must have a good grasp on application security, no amount of sand-boxing, Dockerising, application firewalling, or anything else will protect you from poorly written applications if they are running.  
+1. **[Application Security](#web-applications)**: No matter where your code is executing, you must have a good grasp on application security, no amount of sand-boxing, Dockerising, application firewalling, or anything else will protect you from poorly written applications if they are running.  
    
    In regards to help with consuming all the free and open source, review the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source) countermeasures subsection of the Web Applications chapter. Snyk has a [Serverless](https://snyk.io/serverless) offering also. Every function you add adds attack surface and all the risks that come with integrating with other services. Keep your inventory control tight with your functions and consumed dependencies, that is, know which packages you are consuming and which known defects they have, know how many and which functions are in production, as discussed in the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source).  
    
    Test removing permissions and see if everything still works. If it does, your permissions were to open, reduce them  
    
-2. In regards to AWS Lambda, although it should be similar with the other large CSPs, Make sure you apply only privileges required, this way you will not be [violating the principle](#cloud-countermeasures-violations-of-least-privilege) of Least Privilege
+2. **IAM**: In regards to AWS Lambda, although it should be similar with the other large CSPs, Make sure you apply only privileges required, this way you will not be [violating the principle](#cloud-countermeasures-violations-of-least-privilege) of Least Privilege
     * AWS Lambda function [access to other AWS resources](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role):
       * Create an [IAM execution role](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html) of type `AWS Service Roles`, grant the AWS Lambda service permissions to assume your role by choosing `AWS Lambda`
       * Attach the policy to the role as discussed in step 3 under [Violations of Least Privilege](#cloud-countermeasures-violations-of-least-privilege). Make sure to tightly constrain the `Resource`'s of the chosen policy. `AWSLambdaBasicExecuteRole` if your Lambda function only needs to write logs to CloudWatch, `AWSLambdaKinesisExecutionRoleAWS` if your Lambda function also needs to access Kinesis Streams actions, `AWSLambdaDynamoDBExecutionRole` if your Lambda function needs to access DynamoDB streams actions along with CloudWatch, and `AWSLambdaVPCAccessExecutionRole` if your Lambda function needs to access AWS EC2 actions along with CloudWatch
@@ -899,7 +899,7 @@ With AWS Lambda, as well as getting your application security right, you also ne
     * Other AWS resources [access to AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permission-model-access-policy):
       * Permissions are added via function policies. Make sure these are granular and specific
 
-3. [Use](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-setup-api-key-with-console.html) an [API key](https://serverless.com/framework/docs/providers/aws/events/apigateway/#setting-api-keys-for-your-rest-api)
+3. [Use](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-setup-api-key-with-console.html) an **[API key](https://serverless.com/framework/docs/providers/aws/events/apigateway/#setting-api-keys-for-your-rest-api)**
 
 #### DoS of Lambda Functions
 
