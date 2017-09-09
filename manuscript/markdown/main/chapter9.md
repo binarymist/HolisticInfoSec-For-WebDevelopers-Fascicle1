@@ -805,7 +805,7 @@ Configure [strong password policies](https://docs.aws.amazon.com/IAM/latest/User
 
 There are many places in software that require access to secrets, to communicate with services, APIs, datastores. configuration and infrastructure management systems have a problem of storing and accessing these secrets in a secure manner.
 
-HashiCorp **[Vault](https://www.vaultproject.io/)**. The most fully featured of these tools, has the following attributes/features:
+**HashiCorp [Vault](https://www.vaultproject.io/)**. The most fully featured of these tools, has the following attributes/features:
 
 * [Open Source](https://github.com/hashicorp/vault) written in Go-Lang
 * Deployable to any environment, including development machines
@@ -880,7 +880,12 @@ Not really much different to the [Fortress Mentality](#network-countermeasures-f
 
 With AWS Lambda, as well as getting your application security right, you also need to fully understand the [Permissions Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html), apply it, and protect your API gateway with a key.
 
-1. Firstly: No matter where your code is executing, you must have a good grasp on application security, no amount of sand-boxing, Dockerising, application firewalling, or anything else will protect you from poorly written applications if they are running. In regards to help with consuming all the free and open source, review the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source) countermeasures subsection of the Web Applications chapter. Snyk has a [Serverless](https://snyk.io/serverless) offering also. Every function you add adds attack surface and all the risks that come with integrating with other services. Keep your inventory control tight with your functions and consumed dependencies, that is, know which packages you are consuming and which known defects they have, know how many and which functions are in production, as discussed in the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source). Test removing permissions and see if everything still works. If it does, your permissions were to open, reduce them
+1. Firstly: No matter where your code is executing, you must have a good grasp on application security, no amount of sand-boxing, Dockerising, application firewalling, or anything else will protect you from poorly written applications if they are running.  
+   
+   In regards to help with consuming all the free and open source, review the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source) countermeasures subsection of the Web Applications chapter. Snyk has a [Serverless](https://snyk.io/serverless) offering also. Every function you add adds attack surface and all the risks that come with integrating with other services. Keep your inventory control tight with your functions and consumed dependencies, that is, know which packages you are consuming and which known defects they have, know how many and which functions are in production, as discussed in the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source).  
+   
+   Test removing permissions and see if everything still works. If it does, your permissions were to open, reduce them  
+   
 2. In regards to AWS Lambda, although it should be similar with the other large CSPs, Make sure you apply only privileges required, this way you will not be [violating the principle](#cloud-countermeasures-violations-of-least-privilege) of Least Privilege
     * AWS Lambda function [access to other AWS resources](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role):
       * Create an [IAM execution role](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html) of type `AWS Service Roles`, grant the AWS Lambda service permissions to assume your role by choosing `AWS Lambda`
@@ -943,7 +948,9 @@ The Serverless framework currently has the following provider APIs:
 Storing infrastructure and configuration as code is an effective measure for many mundane tasks that people may still be doing that are prone to human error. This means we can sequence specific processes, debug them, source control them, and achieve repeatable processes that are far less likely to have security defects in them, providing those that are writing the automation are sufficiently skilled and knowledgeable on the security topics involved. This also has the positive side-effect of speeding processes up.
 
 When an artefact is deployed, how do you know that it will perform the same in production that it did in development? That is what a staging environment is for. A staging environment will never be exactly the same as production unless your infrastructure is codified, this is another place where containers can help, Using containers, you can test the new software anywhere and it will run the same, providing its environment is the same and in the case of
-containers the environment is the image, and that is what you ship. The container goes from the developers machine once tested, to the staging environment then to production. The staging environment in this case is less important than it used to be, and is just responsible for testing your infrastructure, which should all be built from source controlled infrastructure as code, so it is guaranteed repeatable.
+containers the environment is the image, and that is what you ship.
+
+The container goes from the developers machine once tested, to the staging environment then to production. The staging environment in this case is less important than it used to be, and is just responsible for testing your infrastructure, which should all be built from source controlled infrastructure as code, so it is guaranteed repeatable.
 
 1. Pick off repetitious, booring, prone to human error and easily automatable tasks that your team(s) have been doing. Script and source control them
     * **Configuration management**: One of the grass root types of tooling options required here is a configuration management tool. I have found Ansible to be excellent. If you use Docker containers, most of the configuration management is already taken care of in the [`Dockerfile`](#vps-countermeasures-docker-the-dDefault-user-is-root). The [`docker-compose.yml`](#nodegoat-docker-compose.yml) file, orchestration platforms and tooling take us to "infrastructure as code"
