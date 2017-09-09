@@ -483,7 +483,9 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
 4. Do you provide access to logs, if so what sort of access to what sort of logs?  
    
-   If you don't have access to logs, then you are flying blind, you have no idea what is happening around you. How much does the CSP strip out of the logs before they allow you to view them? It is really important to weigh up what you will have visibility of, what you will not have visibility of, in order to work out where you may be vulnerable. Can the CSP provide guarantees that those vulnerable areas are taken care of by them? Make sure you are comfortable with the amount of visibility you will and will not have up front, as unless you make sure blind spots are covered, then you could be unnecessarily opening yourself up to be attacked. Some of the CSPs log aggregators could be [flaky for example](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f).   
+   If you do not have access to logs, then you are flying blind, you have no idea what is happening around you. How much does the CSP strip out of the logs before they allow you to view them? It is really important to weigh up what you will have visibility of, what you will not have visibility of, in order to work out where you may be vulnerable.  
+   
+   Can the CSP provide guarantees that those vulnerable areas are taken care of by them? Make sure you are comfortable with the amount of visibility you will and will not have up front, as unless you make sure blind spots are covered, then you could be unnecessarily opening yourself up to be attacked. Some of the CSPs log aggregators could be [flaky for example](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f).   
    
    With the likes of machine instances and network components, you should be taking the same responsibilities as you would if you were self hosting. I addressed these in the VPS and Network chapters under the Lack of Visibility subsections.  
    
@@ -491,7 +493,9 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
    As mentioned in point 1 above and [Violations of Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) countermeasures, AWS provides **CloudTrail** to log API calls, Management Console actions, SDKs, CLI tools, and other AWS services. As usual, AWS has good [documentation](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) around what sort of log events are captured, what form they take, and the plethora of [services you can integrate](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-supported-services.html) with CloudTrail. As well as viewing and analysing account activity, you can [define AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/with-cloudtrail.html) functions to be run on the `s3:ObjectCreated:*` event that is published by S3 when CloudTrail drops its logs in an S3 bucket.  
    
-   AWS **[CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)** can be used to collect and track your resource and application metrics, CloudWatch can be used to react to collected events with the likes of Lambda functions to do your bidding  
+   AWS **[CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)** can be used to collect and track your resource and application metrics, CloudWatch can be used to react to collected events with the likes of Lambda functions to do your bidding.  
+   
+   There are also a collection of logging specific items that you should review in the Logging subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)  
    
 5. What is your process around terminating my contract with you and/or moving to another CSP?  
    
@@ -625,7 +629,7 @@ Full coverage in the [Web Applications](#web-applications) chapter.
 
 ### Network Security
 
-Full coverage in the [Network](#network) chapter.
+Full coverage in the [Network](#network) chapter. There are also a collection of network specific items that you should review in the Networking subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) {#cloud-countermeasures-violations-of-least-privilege}
 
@@ -658,6 +662,8 @@ The [IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/acce
    Your custom rules can be codified and thus source controlled. AWS calls this Compliance as Code. I discussed AWS CloudTrail briefly in item 1 of the [CSP Evaluation](#cloud-countermeasures-csp-evaluation) countermeasures subsection. AWS Config is integrated with CloudTrail which captures all API calls from AWS Config console or API, SDKs, CLI tools, and other AWS services. The information collected by CloudTrail provides insight on what request was made, from which IP address, by who, and when  
 * **Machine Instance Access To Open**: Consider removing the additional attack surface of being able to access your machine instances from any source IP address
 
+There are also a collection of IAM specific items that you should review in the Identity and Access Management subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
+
 #### Machine Instance Single User Root
 
 As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS, including [SSH access](#cloud-countermeasures-storage-of-secrets-private-key-abuse-ssh) if this is required (ideally this should be automated). With Docker, I discussed how this is done in the [Dockerfile](#vps-countermeasures-docker-the-dDefault-user-is-root).
@@ -672,6 +678,8 @@ As I discussed in the [Credentials and Other Secrets](#cloud-countermeasures-sto
 on the topic.
 
 Another idea is to set-up monitoring and notifications on activity of your AWS account root user. AWS [documentation](https://aws.amazon.com/blogs/mt/monitor-and-notify-on-aws-account-root-user-activity/) explains how to do this.
+
+There are also a collection of monitoring specific items that you should review in the Monitoring subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
 
 Another great idea is to generate an AWS key [Canarytoken](https://canarytokens.org/) from canarytokens.org, and put it somewhere more obvious than your real AWS key(s). When someone uses it, you will be automatically notified. I discussed these with Haroon Meer on the Software Engineering Radio Network Security podcast.
 
@@ -991,16 +999,18 @@ We have covered the technical aspects of password strategies in the [Review Pass
 
 ### Shared Responsibility Model
 
-#### CSP Responsibility
-
-#### CSP Customer Responsibility
+The risk is simply lack of knowledge, the speed of which the technological solutions are changing, and the fact that you must keep up with it.
 
 ### CSP Evaluation {#cloud-risks-that-the-solution-causes-csp-evaluation}
 
-1. 
-2. 
-3. 
-4. There are also a collection of items that need to be addressed in the Logging subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
+
+
+
+
+
+
+
+
 
 ### Cloud Service Provider vs In-house
 
@@ -1093,14 +1103,19 @@ These frameworks may lead the Developer to think that the framework does everyth
 
 ## 5. SSM Costs and Trade-offs
 
-
 ### Shared Responsibility Model
 
-#### CSP Responsibility
-
-#### CSP Customer Responsibility
+My hope is that I have provided enough visibility into your responsibility throughout this chapter that you will have a good understanding of what you need to do to keep your environments as secure as is required for your particular business model.
 
 ### CSP Evaluation
+
+
+
+
+
+
+
+
 
 ### Cloud Service Provider vs In-house
 
