@@ -569,7 +569,7 @@ If you go with an In-house cloud, you should have tighter control over the peopl
 
 You and any In-house cloud environment you establish is not subject to changing EULAs.
 
-#### Giving up Secrets 
+#### Giving up Secrets
 
 If you are using an In-house cloud and find yourself in a place where you have made it possible for your customers secrets to be read, and you are being forced by the authorities to give up secrets, you will know about it and be able to react appropriately, invoke your incident response team(s) and procedures.
 
@@ -989,7 +989,11 @@ We have covered the technical aspects of password strategies in the [Review Pass
 
 ## 4. SSM Risks that Solution Causes
 
-_Todo_
+### Shared Responsibility Model
+
+#### CSP Responsibility
+
+#### CSP Customer Responsibility
 
 ### CSP Evaluation {#cloud-risks-that-the-solution-causes-csp-evaluation}
 
@@ -998,10 +1002,27 @@ _Todo_
 3. 
 4. There are also a collection of items that need to be addressed in the Logging subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
 
+### Cloud Service Provider vs In-house
+
+#### Skills
+
+#### EULA
+
+#### Giving up Secrets
+
+#### Location of Data
+
+#### Vendor lock-in
+
+#### Possible Single Points of Failure
+
+### People
+
+### Application Security
+
+### Network Security
+
 ### Violations of Least Privilege
-
-
-
 
 * **Running services as root**: Removing permissions, once a service has been running as root, may make something stop working
 * **Configuration Settings Changed Ad Hoc**: Because features, and settings will be changed on an ad hoc basis, and change control just like security is often seen as an annoyance, if it can be bypassed, it will be, and those changes will be forgotten.  
@@ -1009,10 +1030,17 @@ _Todo_
    AWS as many other CSPs provide many great tools to help us harden our configuration and infrastructure. If we decide not to take [our part](#cloud-countermeasures-shared-responsibility-model-csp-customer-responsibility) of the shared responsibility model seriously, then it is just time before we are compromised
 * **Machine Instance Access To Open**: You may think that having the source IP address that people can administer your machine instances from locked down to a single IP address will make it difficult for workers outside of a single office to connect to your machine instances
 
+#### Machine Instance Single User Root
 
-
+#### CSP Account Single User Root
 
 ### Storage of Secrets
+
+#### Private Key Abuse
+
+##### SSH
+
+##### TLS
 
 #### Credentials and Other Secrets
 
@@ -1028,10 +1056,9 @@ In order for an application or service to access the secrets provided by one of 
 
 Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities required to understand in order to secure the integration of the components. There is a real danger that Developers fail to understand and implement all the security countermeasures required to get them to a similar security stand point that they enjoyed having their components less distributed and running in long lived processes.
 
-#### Frameworks
+#### Third Party Services
 
-These frameworks may lead the Developer to think that the framework does everything for them, it does not, so using a framework is just another thing to learn.
-
+#### Perimeterless
 
 #### Functions
 
@@ -1043,12 +1070,59 @@ Also consider anything you put in source control even if not public, already com
 
 AWS as the largest CSP is a primary target for attackers.
 
+#### DoS of Lambda Functions
+
+#### Centralised logging of AWS Lambda
+
+#### Frameworks
+
+These frameworks may lead the Developer to think that the framework does everything for them, it does not, so using a framework is just another thing to learn.
+
+### Infrastructure and Configuration Management
+
+### AWS
+
+#### Password-less sudo
+
+#### Additional Tooling
+
+
+
+
+
+
 ## 5. SSM Costs and Trade-offs
 
-_Todo_
+
+### Shared Responsibility Model
+
+#### CSP Responsibility
+
+#### CSP Customer Responsibility
+
+### CSP Evaluation
+
+### Cloud Service Provider vs In-house
+
+#### Skills
+
+#### EULA
+
+#### Giving up Secrets
+
+#### Location of Data
+
+#### Vendor lock-in
+
+#### Possible Single Points of Failure
+
+### People
+
+### Application Security
+
+### Network Security
 
 ### Violations of Least Privilege
-
 
 * **Running services as root**: Always start with the minimum permissions possible and add if necessary, it is far easier to add than to remove
 * **Configuration Settings Changed Ad Hoc**: Remember detection works where prevention fails, that means in this case, where your change control fails, because it is decided not to use it, you need something to detect changes and notify someone that cares. For this, there are also other options specifically designed for this. For a collection of such tooling, review the [Tooling](#cloud-countermeasures-aws-additional-tooling) sections.  
@@ -1064,14 +1138,48 @@ _Todo_
    
    If you do decide to use the `-A` option, then you are essentially considering your bastion host as a trusted machine. I commented on the `-A` option in the [Tunneling SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh) subsection of the VPS chapter. There is plenty of good [documentation](https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/) around setting up the bastion host in AWS. AWS provide some [Best Practices](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices) for security on bastion hosts, and also [discuss](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/) recording the SSH sessions that your users establish through a bastion host for auditing purposes
 
+#### Machine Instance Single User Root
+
+#### CSP Account Single User Root
+
 ### Storage of Secrets
+
+#### Private Key Abuse
+
+##### SSH
+
+##### TLS
 
 #### Credentials and Other Secrets
 
 ##### Entered by People (manually)
 
-
-
 ##### Entered by Software (automatically)
 
 All of security is a deception. By embracing defence in depth, we make it harder to break into systems, which just means it takes longer and someone has to think a little harder. There is no secure system. You decide how much it is worth investing to slow your attackers down. If your attacker is 100% determined and well resourced, they will own you eventually no matter what you do.
+
+### Serverless
+
+#### Third Party Services
+
+#### Perimeterless
+
+#### Functions
+
+#### DoS of Lambda Functions
+
+#### Centralised logging of AWS Lambda
+
+#### Frameworks
+
+### Infrastructure and Configuration Management
+
+### AWS
+
+#### Password-less sudo
+
+#### Additional Tooling
+
+
+
+
