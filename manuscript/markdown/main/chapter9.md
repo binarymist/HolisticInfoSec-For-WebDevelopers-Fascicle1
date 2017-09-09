@@ -418,7 +418,7 @@ Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](http
 
 As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are an excellent token you can drop anywhere on your infrastructure, and when an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones being added every so often. These tokens are very quick and also free to generate, and drop where ever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the Network Security show I hosted for Software Engineering Radio near the end.
 
-### Shared Responsibiltiy Model
+### Shared Responsibility Model
 
 The following responsibilities are those that you need to have a good understanding of in order to establish a good level of security when operating in The Cloud.
 
