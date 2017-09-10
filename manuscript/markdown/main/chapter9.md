@@ -664,7 +664,7 @@ The [IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/acce
    Your custom rules can be codified and thus source controlled. AWS calls this Compliance as Code. I discussed AWS CloudTrail briefly in item 1 of the [CSP Evaluation](#cloud-countermeasures-csp-evaluation) countermeasures subsection. AWS Config is integrated with CloudTrail which captures all API calls from AWS Config console or API, SDKs, CLI tools, and other AWS services. The information collected by CloudTrail provides insight on what request was made, from which IP address, by who, and when  
 * **Machine Instance Access To Open**: Consider removing the additional attack surface of being able to access your machine instances from any source IP address
 
-There are also a collection of IAM specific items that you should review in the Identity and Access Management subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
+There are also a collection of IAM specific items that you should review in the Identity and Access Management subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf).
 
 #### Machine Instance Single User Root
 
@@ -681,7 +681,7 @@ on the topic.
 
 Another idea is to set-up monitoring and notifications on activity of your AWS account root user. AWS [documentation](https://aws.amazon.com/blogs/mt/monitor-and-notify-on-aws-account-root-user-activity/) explains how to do this.
 
-There are also a collection of monitoring specific items that you should review in the Monitoring subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
+There are also a collection of monitoring specific items that you should review in the Monitoring subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf).
 
 Another great idea is to generate an AWS key [Canarytoken](https://canarytokens.org/) from canarytokens.org, and put it somewhere more obvious than your real AWS key(s). When someone uses it, you will be automatically notified. I discussed these with Haroon Meer on the Software Engineering Radio Network Security podcast.
 
@@ -1005,7 +1005,7 @@ The risk is simply lack of knowledge, the speed of which the technological solut
 
 ### CSP Evaluation {#cloud-risks-that-the-solution-causes-csp-evaluation}
 
-There may not be any risks by simply asking the questions and analysing the responses. This is all part of helping you to build a better picture of where your current or prospect CSP is at on the security maturity model, thus helping your ascertain whether you should stick with them, select them as your CSP, and/or what your responsibility needs to be to achieve the security maturity you require,
+There may not be any risks by simply asking the questions and analysing the responses. This is all part of helping you to build a better picture of where your current or prospect CSP is at on the security maturity model, thus helping you ascertain whether you should stick with them, select them as your CSP, and/or what your responsibility needs to be to achieve the security maturity you require.
 
 ### Cloud Service Provider vs In-house {#cloud-risks-that-the-solution-causes-cloud-service-provider-vs-in-house}
 
@@ -1021,7 +1021,7 @@ Refer to the [Risks that Solution Causes](#web-applications-risks-that-solution-
 
 ### Network Security
 
-Refer to the [Risks that Solution Causes](#network-countermeasures-risks-that-solution-causes) subsection of the Network chapter.
+Refer to the [Risks that Solution Causes](#network-risks-that-solution-causes) subsection of the Network chapter.
 
 ### Violations of Least Privilege
 
@@ -1035,7 +1035,7 @@ Granting the minimum permissions required takes more work because you have to ac
 
 ### Storage of Secrets
 
-This involves a good sense of smell to sniff out all the possible leaking secrets. This may need to be developed.
+This involves a good sense of smell to sniff out all the possible leaking secrets. This sense may need to be developed.
 
 #### Private Key Abuse
 
@@ -1055,14 +1055,11 @@ It could be slightly inconvenient to maintain multiple users, rather than all us
 
 ##### Entered by People (manually)
 
-Risks that Solution Causes
-%% Discuss how KeePass can be broken
-
-Password databases/managers can provide a huge improvement on not using them and resorting to storing secrets in insecure places such as unencrypted files, on post-it notes, and using the same or similar passwords across many accounts. If a password database is used correctly, all passwords will be unique and unmemorable.
+Password databases/managers can provide a huge improvement over not using them and resorting to storing secrets in insecure places such as unencrypted files, on post-it notes, and using the same or similar passwords across many accounts. If a password database is used correctly, all passwords will be unique and unmemorable.
 
 One risk is that using a password database but not changing habits like the above, may improve your security every so slightly at best. You must change the way you think about passwords and other secrets you enter manually.
 
-There are [tools](https://github.com/denandz/KeeFarce) that can break password databases also. Understand how they do this and make sure you do not do what they require to succeed. The shorter the duration you have the password database running, the less likely an attack will occur. Also configure the duration that a secret is in memory to the minimum possible.
+There are [tools](https://github.com/denandz/KeeFarce) that can break password databases also. Understand how they do this and make sure you do not do what they require to succeed. The shorter the duration you have the password database running, the less likely an attack will be successful. Also configure the duration that a secret is in memory to the minimum possible.
 
 ##### Entered by Software (automatically) {#cloud-risks-that-solution-causes-storage-of-secrets-credentials-and-other-secrets-entered-by-software}
 
@@ -1082,11 +1079,11 @@ Also consider anything you put in source control even if not public, already com
 
 AWS as the largest CSP is a primary target for attackers.
 
-The risk with application security is that it needs to be learnt and most Developers do not have a very good understanding of it.
+The risk with application security is that it needs to be learnt, and most Developers currently do not have a great understanding of it.
 
 #### DoS of Lambda Functions
 
-Some trial and error is probably necessary here, just make sure you err on the side of caution, else you could be up for some large billing stress, and this may not even be from an attacker, it could simply be due to your own coding or configuration mistakes.
+Some trial and error is probably necessary here, just make sure you err on the side of caution, else you could be up for some large billing stress, and this may not even be from an attacker, it could simply be due to your own coding or configuration mistakes as already mentioned.
 
 #### Frameworks
 
@@ -1128,6 +1125,7 @@ Refer to the [Costs and Trade-offs](#web-applications-costs-and-trade-offs) subs
 
 Refer to the [Costs and Trade-offs](#network-costs-and-trade-offs) subsection of the Network chapter.
 
+
 ### Violations of Least Privilege
 
 It is worth investing the effort to make sure only the required user permissions are granted. As discussed, there are tools you can use to help speed this process up and make it more accurate.
@@ -1154,17 +1152,17 @@ Credential and key theft are right up there with the most common attacks. This i
 
 I have discussed company culture and techniques for bringing change in various [talks](https://www.slideshare.net/kimcarter75098/agile-nz2014fornonattendees-38768039), [blog posts](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/#effecting-change), etc. The following is an extract from my "Culture in the work place" blog post:
 
-Org charts, in difference, don’t show how influence takes place in a business. In reality businesses don’t function through the organizational hierarchy but through its hidden social networks.
+Org charts, in difference, do not show how influence takes place in a business. In reality businesses do not function through the organizational hierarchy but through its hidden social networks.
 
 People do not resist change or innovation, but they resist the insecurity created by change beyond their influence.
 
 Have you heard the argument that “the quickest way to introduce a new approach is to mandate its use”?
 
-A level of immediate compliance may be achieved, but the commitment will not necessarily be (Fearless Change 2010).
+A level of immediate compliance may be achieved, but the commitment will not necessarily be achieved (Fearless Change 2010).
 
 If you want to bring change, the most effective way is from the bottom up. In saying that, bottom-up takes longer and is harder. Like anything. No pain, no gain. Or as my wife puts it... it is the difference between instant coffee and espresso.
 
-Top-down change is imposed on people and tries to make change occur quickly and deals with problems such as rejection and rebellion only if necessary.
+Top-down change is imposed on people, and tries to make change occur quickly and deals with problems such as rejection and rebellion only if necessary.
 Bottom-up change triggered from a personal level focused on first obtaining trust, loyalty, respect from serving as in servant leadership, and the right to speak (have you served your time, done the hard yards)?
 
 Because the personal relationship and involvement is not usually present with top-down, people will appear to be doing what you mandated, but secretly, still doing things the way they always have done.
@@ -1193,7 +1191,7 @@ All of security is a deception. By embracing defence in depth, we make it harder
 
 ### Serverless
 
-Securing Serverless currently is hard because the interactions between components are all in the open and on different platforms, requiring different sets of users, privileges, trust boundaries are disparate.
+Securing Serverless currently is hard because the interactions between components are all in the open and on different platforms, requiring different sets of users, privileges. Trust boundaries are disparate.
 
 At the same time, Serverless does push the Developer into creating more testable components.
 

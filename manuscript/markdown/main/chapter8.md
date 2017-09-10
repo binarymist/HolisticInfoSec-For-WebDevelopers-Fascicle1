@@ -1198,7 +1198,7 @@ There are two ways that the "must staple" are being looked at for solution. The 
 
 As far as I know Firefox and Chrome are both working toward implementing Must-Staple in certificates, but I haven't seen or heard anything yet for Internet Explorer.
 
-## 4. SSM Risks that Solution Causes
+## 4. SSM Risks that Solution Causes {#network-risks-that-solution-causes}
 
 ### Fortress Mentality
 
@@ -1309,7 +1309,7 @@ Ultimately, if you have done you job correctly, you are trusting the browser to 
 
 If you make sure your web server only ever responds over HTTPS, including the very first response then the HSTS preload may work for you, just beware that once your domain is in the list, it is only reachable over HTTPS
 
-## 5. SSM Costs and Trade-offs
+## 5. SSM Costs and Trade-offs {#network-costs-and-trade-offs}
 
 ### Fortress Mentality
 
