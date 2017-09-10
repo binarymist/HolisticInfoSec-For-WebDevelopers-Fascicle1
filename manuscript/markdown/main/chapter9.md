@@ -1045,19 +1045,18 @@ Taking away your Developers SSH access will not work unless the work that they w
 
 ##### TLS
 
-Risks that Solution Causes
-
-
-
-
-
-
-
-
+The Countermeasures just require some thought, establishing process and not a lot more.
 
 #### Credentials and Other Secrets
 
 Risks that Solution Causes
+
+
+
+
+
+
+
 
 ##### Entered by People (manually)
 
@@ -1196,18 +1195,24 @@ By automating the work usually done manually by a Developer with SSH access, you
 
 ##### TLS
 
-Costs and Trade-offs
-
-
-
-
-
-
-
+No trade-offs required.
 
 #### Credentials and Other Secrets
 
 Costs and Trade-offs
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ##### Entered by People (manually)
 
