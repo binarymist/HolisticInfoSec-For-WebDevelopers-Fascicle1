@@ -1156,7 +1156,7 @@ Org charts, in difference, do not show how influence takes place in a business. 
 
 People do not resist change or innovation, but they resist the insecurity created by change beyond their influence.
 
-Have you heard the argument that “the quickest way to introduce a new approach is to mandate its use”?
+Have you heard the argument that "the quickest way to introduce a new approach is to mandate its use"?
 
 A level of immediate compliance may be achieved, but the commitment will not necessarily be achieved (Fearless Change 2010).
 
@@ -1191,7 +1191,7 @@ All of security is a deception. By embracing defence in depth, we make it harder
 
 ### Serverless
 
-Securing Serverless currently is hard because the interactions between components are all in the open and on different platforms, requiring different sets of users, privileges. Trust boundaries are disparate.
+Securing Serverless currently is hard because the interactions between components are all in the open and on different platforms, requiring different sets of users and privileges. Trust boundaries are disparate.
 
 At the same time, Serverless does push the Developer into creating more testable components.
 
