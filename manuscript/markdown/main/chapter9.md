@@ -1056,14 +1056,11 @@ It could be slightly inconvenient to maintain multiple users, rather than all us
 Risks that Solution Causes
 %% Discuss how KeePass can be broken
 
+Password databases/managers can provide a huge improvement on not using them and resorting to storing secrets in insecure places such as unencrypted files, on post-it notes, and using the same or similar passwords across many accounts. If a password database is used correctly, all passwords will be unique and unmemorable.
 
+One risk is that using a password database but not changing habits like the above, may improve your security every so slightly at best. You must change the way you think about passwords and other secrets you enter manually.
 
-
-
-
-
-
-
+There are [tools](https://github.com/denandz/KeeFarce) that can break password databases also. Understand how they do this and make sure you do not do what they require to succeed. The shorter the duration you have the password database running, the less likely an attack will occur. Also configure the duration that a secret is in memory to the minimum possible.
 
 ##### Entered by Software (automatically) {#cloud-risks-that-solution-causes-storage-of-secrets-credentials-and-other-secrets-entered-by-software}
 
@@ -1072,6 +1069,10 @@ In order for an application or service to access the secrets provided by one of 
 ### Serverless
 
 Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities required to understand in order to secure the integration of the components. There is a real danger that Developers fail to understand and implement all the security countermeasures required to get them to a similar security stand point that they enjoyed having their components less distributed and running in long lived processes.
+
+
+
+
 
 #### Third Party Services
 
@@ -1205,26 +1206,21 @@ It may may cost you a little to set-up and maintain additional accounts. This is
 
 ##### Entered by People (manually)
 
-Costs and Trade-offs
-
-
-
-
-
-
-
-
-
-
-
+It costs little to do a little research on the most suitable team password database for you and to implement it. I provided a good selection of factors to consider when reviewing and making your selection in the [Countermeasures](#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-people-manually) subsection.
 
 ##### Entered by Software (automatically)
 
-All of security is a deception. By embracing defence in depth, we make it harder to break into systems, which just means it takes longer and someone has to think a little harder. There is no secure system. You decide how much it is worth investing to slow your attackers down. If your attacker is 100% determined and well resourced, they will own you eventually no matter what you do.
+All of security is a deception. By embracing defence in depth, we make it harder to break into systems, which just means it takes longer and someone may have to think a little harder. There is no secure system. You decide how much it is worth investing to slow your attackers down. If your attacker is 100% determined and well resourced, they will own you eventually no matter what you do.
 
 ### Serverless
 
 Costs and Trade-offs
+
+
+
+
+
+
 
 #### Third Party Services
 
