@@ -1015,11 +1015,18 @@ Refer to the "Risks that Solution Causes" subsection of the People chapter of [F
 
 ### Application Security
 
-Risks that Solution Causes
+Refer to the [Risks that Solution Causes](#web-applications-risks-that-solution-causes) subsection of the Web Applications chapter.
 
 ### Network Security
 
 Risks that Solution Causes
+
+
+
+
+
+
+
 
 ### Violations of Least Privilege
 
@@ -1139,11 +1146,18 @@ Refer to the "Costs and Trade-offs" subsection of the People chapter of [Fascicl
 
 ### Application Security
 
-Costs and Trade-offs
+Refer to the [Costs and Trade-offs](#web-applications-costs-and-trade-offs) subsection of the Web Applications chapter.
 
 ### Network Security
 
 Costs and Trade-offs
+
+
+
+
+
+
+
 
 ### Violations of Least Privilege
 
