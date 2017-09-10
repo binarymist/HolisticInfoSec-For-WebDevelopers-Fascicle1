@@ -1049,19 +1049,21 @@ The Countermeasures just require some thought, establishing process and not a lo
 
 #### Credentials and Other Secrets
 
-Risks that Solution Causes
-
-
-
-
-
-
-
+It could be slightly inconvenient to maintain multiple users, rather than all users using a single user.
 
 ##### Entered by People (manually)
 
 Risks that Solution Causes
 %% Discuss how KeePass can be broken
+
+
+
+
+
+
+
+
+
 
 ##### Entered by Software (automatically) {#cloud-risks-that-solution-causes-storage-of-secrets-credentials-and-other-secrets-entered-by-software}
 
@@ -1199,24 +1201,22 @@ No trade-offs required.
 
 #### Credentials and Other Secrets
 
-Costs and Trade-offs
-
-
-
-
-
-
-
-
-
-
-
-
-
+It may may cost you a little to set-up and maintain additional accounts. This is essential if you want to retain ownership of your CSP account and resources.
 
 ##### Entered by People (manually)
 
 Costs and Trade-offs
+
+
+
+
+
+
+
+
+
+
+
 
 ##### Entered by Software (automatically)
 
