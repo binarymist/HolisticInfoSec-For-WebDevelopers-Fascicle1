@@ -1068,7 +1068,7 @@ In order for an application or service to access the secrets provided by one of 
 
 ### Serverless
 
-Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities required to understand in order to secure the integration of the components. There is a real danger that Developers fail to understand and implement all the security countermeasures required to get them to a similar security stand point that they enjoyed having their components less distributed and running in long lived processes.
+Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities required to understand in order to secure the integration of the components. There is a real danger that Developers fail to understand and implement all the security countermeasures required to get them to a similar security stand point that they enjoyed with having their components less distributed and running in long lived processes.
 
 
 
@@ -1214,9 +1214,11 @@ All of security is a deception. By embracing defence in depth, we make it harder
 
 ### Serverless
 
-Costs and Trade-offs
+Securing Serverless currently is hard because the interactions between components are all in the open and on different platforms, requiring different sets of users, privileges, trust boundaries are disparate.
 
+At the same time, Serverless does push the Developer into creating more testable components.
 
+If you are going to go Serverless, which I admit does have some very compelling reasons, make sure you invest heavily into implementing the [Countermeasures](#cloud-countermeasures-serverless) I discussed.
 
 
 
