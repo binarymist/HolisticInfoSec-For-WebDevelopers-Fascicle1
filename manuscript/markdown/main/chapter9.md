@@ -398,6 +398,8 @@ Now we will focus on a collection of the largest providers.
 
 ### AWS {#cloud-identify-risks-aws}
 
+The AWS section is intended as an overflow for items that have not been covered elsewhere in this chapter, but require some attention.
+
 One of the resources I have found very useful to understand some of the risks along with auditing whether they exist currently, and countermeasures, including clear direction on how to apply them, is the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf). This is well worth following along with as you read through this chapter.
 
 AWS is continually announcing and releasing new products, features and configuration options. The attack surface just keeps expanding. AWS does an incredible job of providing security features and options for its customers, but... just as the [AWS Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/) states, "_security in the cloud is the responsibility of the customer_". AWS provide the security, you have to decide to use it and educate yourself on doing so. Obviously if you are reading this, you are already well down this path. If you fail to use and configure correctly what AWS has provided, your attackers will at the very minimum use your resources for evil, and you will foot the bill. Even more likely, they will attack and steal your business assets, and bring your organisation to its knees. 
@@ -1096,12 +1098,6 @@ Time is required to codify and automate your infrastructure and configuration. C
 
 ### AWS
 
-Risks that Solution Causes
-
-#### Password-less sudo
-
-Risks that Solution Causes
-
 #### Additional Tooling
 
 Relying on tooling alone to provide visibility on errors and defects is a risk.
@@ -1220,12 +1216,6 @@ If you have time to learn another framework then go for it, this may take some t
 You will need to weigh up the life of your project/product and the cost of codifying parts of your infrastructure and configuration. In most cases projects will benefit from some initial outlay in this, the pay off will usually be realised reasonably quickly.
 
 ### AWS
-
-Costs and Trade-offs
-
-#### Password-less sudo
-
-Costs and Trade-offs
 
 #### Additional Tooling
 
