@@ -1104,10 +1104,7 @@ Risks that Solution Causes
 
 #### Additional Tooling
 
-Risks that Solution Causes
-
-
-
+Relying on tooling alone to provide visibility on errors and defects is a risk.
 
 ## 5. SSM Costs and Trade-offs
 
@@ -1232,6 +1229,6 @@ Costs and Trade-offs
 
 #### Additional Tooling
 
-Costs and Trade-offs
+Understand the underlying issues, errors and defects that the tooling options operate on, and do not depend solely on tools to inform you of problems.
 
 
