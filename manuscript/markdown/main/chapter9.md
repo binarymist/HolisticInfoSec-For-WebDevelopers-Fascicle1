@@ -1070,18 +1070,6 @@ In order for an application or service to access the secrets provided by one of 
 
 Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities required to understand in order to secure the integration of the components. There is a real danger that Developers fail to understand and implement all the security countermeasures required to get them to a similar security stand point that they enjoyed with having their components less distributed and running in long lived processes.
 
-
-
-
-
-#### Third Party Services
-
-Risks that Solution Causes
-
-#### Perimeterless
-
-Risks that Solution Causes
-
 #### Functions
 
 API keys are great, but not so great when they reside in untrusted territory, which in the case of the web, is any time your users need access to your API, so anyone permitted to become a user has permission to send requests to your API.
@@ -1092,9 +1080,24 @@ Also consider anything you put in source control even if not public, already com
 
 AWS as the largest CSP is a primary target for attackers.
 
+The risk with application security is that it needs to be learnt and most Developers do not have a very good understanding of it.
+
 #### DoS of Lambda Functions
 
 Risks that Solution Causes
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Centralised logging of AWS Lambda
 
@@ -1220,25 +1223,27 @@ At the same time, Serverless does push the Developer into creating more testable
 
 If you are going to go Serverless, which I admit does have some very compelling reasons, make sure you invest heavily into implementing the [Countermeasures](#cloud-countermeasures-serverless) I discussed.
 
-
-
-
-
-#### Third Party Services
-
-Costs and Trade-offs
-
-#### Perimeterless
-
-Costs and Trade-offs
-
 #### Functions
 
-Costs and Trade-offs
+My hope is that after consuming this book series, you will be in a much better place to apply application security, understand how the Permissions Model works and not only be able to but actually apply it.
 
 #### DoS of Lambda Functions
 
 Costs and Trade-offs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Centralised logging of AWS Lambda
 
