@@ -1003,14 +1003,7 @@ The risk is simply lack of knowledge, the speed of which the technological solut
 
 ### CSP Evaluation {#cloud-risks-that-the-solution-causes-csp-evaluation}
 
-
-
-
-
-
-
-
-
+There may not be any risks by simply asking the questions and analysing the responses. This is all part of helping you to build a better picture of where your current or prospect CSP is at on the security maturity model, thus helping your ascertain whether you should stick with them, select them as your CSP, and/or what your responsibility needs to be to achieve the security maturity you require,
 
 ### Cloud Service Provider vs In-house
 
@@ -1109,13 +1102,7 @@ My hope is that I have provided enough visibility into your responsibility throu
 
 ### CSP Evaluation
 
-
-
-
-
-
-
-
+There is quite a bit to be done here, but it all depends on the answers you receive. I have provided scenarios and many points to consider in the [Countermeasures](#cloud-countermeasures-csp-evaluation) section. You can evaluate these now if you have not already.
 
 ### Cloud Service Provider vs In-house
 
