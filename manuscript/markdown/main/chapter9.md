@@ -1037,21 +1037,23 @@ This involves a good sense of smell to sniff out all the possible leaking secret
 
 #### Private Key Abuse
 
-Risks that Solution Causes
-
-
-
-
-
-
+The biggest issue I see in these situations is company culture. This needs to be attacked from both bottom up and top down.
 
 ##### SSH
 
-Risks that Solution Causes
+Taking away your Developers SSH access will not work unless the work that they would need SSH access for is automated, which of course is usually the best option anyway.
 
 ##### TLS
 
 Risks that Solution Causes
+
+
+
+
+
+
+
+
 
 #### Credentials and Other Secrets
 
@@ -1169,21 +1171,39 @@ Credential and key theft are right up there with the most common attacks. This i
 
 #### Private Key Abuse
 
-Costs and Trade-offs
+I have discussed company culture and techniques for bringing change in various [talks](https://www.slideshare.net/kimcarter75098/agile-nz2014fornonattendees-38768039), [blog posts](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/#effecting-change), etc. The following is an extract from my "Culture in the work place" blog post:
 
+Org charts, in difference, don’t show how influence takes place in a business. In reality businesses don’t function through the organizational hierarchy but through its hidden social networks.
 
+People do not resist change or innovation, but they resist the insecurity created by change beyond their influence.
 
+Have you heard the argument that “the quickest way to introduce a new approach is to mandate its use”?
 
+A level of immediate compliance may be achieved, but the commitment will not necessarily be (Fearless Change 2010).
 
+If you want to bring change, the most effective way is from the bottom up. In saying that, bottom-up takes longer and is harder. Like anything. No pain, no gain. Or as my wife puts it... it is the difference between instant coffee and espresso.
 
+Top-down change is imposed on people and tries to make change occur quickly and deals with problems such as rejection and rebellion only if necessary.
+Bottom-up change triggered from a personal level focused on first obtaining trust, loyalty, respect from serving as in servant leadership, and the right to speak (have you served your time, done the hard yards)?
+
+Because the personal relationship and involvement is not usually present with top-down, people will appear to be doing what you mandated, but secretly, still doing things the way they always have done.
+
+The most effective way to bring change is on a local and personal level once you have built good relationships of trust.
 
 ##### SSH
 
-Costs and Trade-offs
+By automating the work usually done manually by a Developer with SSH access, you are investing a little time in order to do a mundane job that once automated can be done many times without requiring the concentration and time of a human. This can end up being a huge cost saving as well as increasing your security.
 
 ##### TLS
 
 Costs and Trade-offs
+
+
+
+
+
+
+
 
 #### Credentials and Other Secrets
 
