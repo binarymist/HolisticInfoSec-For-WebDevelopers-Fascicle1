@@ -1007,23 +1007,50 @@ There may not be any risks by simply asking the questions and analysing the resp
 
 ### Cloud Service Provider vs In-house
 
+Risks that Solution Causes
+
+
+
+
+
+
+
+
 #### Skills
+
+Risks that Solution Causes
 
 #### EULA
 
+Risks that Solution Causes
+
 #### Giving up Secrets
+
+Risks that Solution Causes
 
 #### Location of Data
 
+Risks that Solution Causes
+
 #### Vendor lock-in
+
+Risks that Solution Causes
 
 #### Possible Single Points of Failure
 
+Risks that Solution Causes
+
 ### People
+
+Risks that Solution Causes
 
 ### Application Security
 
+Risks that Solution Causes
+
 ### Network Security
+
+Risks that Solution Causes
 
 ### Violations of Least Privilege
 
@@ -1035,20 +1062,35 @@ There may not be any risks by simply asking the questions and analysing the resp
 
 #### Machine Instance Single User Root
 
+Risks that Solution Causes
+
 #### CSP Account Single User Root
+
+Risks that Solution Causes
 
 ### Storage of Secrets
 
+Risks that Solution Causes
+
 #### Private Key Abuse
+
+Risks that Solution Causes
 
 ##### SSH
 
+Risks that Solution Causes
+
 ##### TLS
+
+Risks that Solution Causes
 
 #### Credentials and Other Secrets
 
+Risks that Solution Causes
+
 ##### Entered by People (manually)
 
+Risks that Solution Causes
 %% Discuss how KeePass can be broken
 
 ##### Entered by Software (automatically) {#cloud-risks-that-solution-causes-storage-of-secrets-credentials-and-other-secrets-entered-by-software}
@@ -1061,7 +1103,11 @@ Many of the gains that attract people to the serverless paradigm are imbalanced 
 
 #### Third Party Services
 
+Risks that Solution Causes
+
 #### Perimeterless
+
+Risks that Solution Causes
 
 #### Functions
 
@@ -1075,7 +1121,11 @@ AWS as the largest CSP is a primary target for attackers.
 
 #### DoS of Lambda Functions
 
+Risks that Solution Causes
+
 #### Centralised logging of AWS Lambda
+
+Risks that Solution Causes
 
 #### Frameworks
 
@@ -1083,13 +1133,19 @@ These frameworks may lead the Developer to think that the framework does everyth
 
 ### Infrastructure and Configuration Management
 
+Risks that Solution Causes
+
 ### AWS
+
+Risks that Solution Causes
 
 #### Password-less sudo
 
+Risks that Solution Causes
+
 #### Additional Tooling
 
-
+Risks that Solution Causes
 
 
 
@@ -1106,23 +1162,43 @@ There is quite a bit to be done here, but it all depends on the answers you rece
 
 ### Cloud Service Provider vs In-house
 
+Costs and Trade-offs
+
 #### Skills
+
+Costs and Trade-offs
 
 #### EULA
 
+Costs and Trade-offs
+
 #### Giving up Secrets
+
+Costs and Trade-offs
 
 #### Location of Data
 
+Costs and Trade-offs
+
 #### Vendor lock-in
+
+Costs and Trade-offs
 
 #### Possible Single Points of Failure
 
+Costs and Trade-offs
+
 ### People
+
+Costs and Trade-offs
 
 ### Application Security
 
+Costs and Trade-offs
+
 ### Network Security
+
+Costs and Trade-offs
 
 ### Violations of Least Privilege
 
@@ -1142,19 +1218,35 @@ There is quite a bit to be done here, but it all depends on the answers you rece
 
 #### Machine Instance Single User Root
 
+Costs and Trade-offs
+
 #### CSP Account Single User Root
+
+Costs and Trade-offs
 
 ### Storage of Secrets
 
+Costs and Trade-offs
+
 #### Private Key Abuse
+
+Costs and Trade-offs
 
 ##### SSH
 
+Costs and Trade-offs
+
 ##### TLS
+
+Costs and Trade-offs
 
 #### Credentials and Other Secrets
 
+Costs and Trade-offs
+
 ##### Entered by People (manually)
+
+Costs and Trade-offs
 
 ##### Entered by Software (automatically)
 
@@ -1162,26 +1254,46 @@ All of security is a deception. By embracing defence in depth, we make it harder
 
 ### Serverless
 
+Costs and Trade-offs
+
 #### Third Party Services
+
+Costs and Trade-offs
 
 #### Perimeterless
 
+Costs and Trade-offs
+
 #### Functions
+
+Costs and Trade-offs
 
 #### DoS of Lambda Functions
 
+Costs and Trade-offs
+
 #### Centralised logging of AWS Lambda
+
+Costs and Trade-offs
 
 #### Frameworks
 
+Costs and Trade-offs
+
 ### Infrastructure and Configuration Management
+
+Costs and Trade-offs
 
 ### AWS
 
+Costs and Trade-offs
+
 #### Password-less sudo
+
+Costs and Trade-offs
 
 #### Additional Tooling
 
-
+Costs and Trade-offs
 
 
