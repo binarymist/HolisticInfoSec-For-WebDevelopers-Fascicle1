@@ -629,7 +629,7 @@ Full coverage in the [Web Applications](#web-applications) chapter.
 
 ### Network Security
 
-Full coverage in the [Network](#network) chapter. There are also a collection of network specific items that you should review in the Networking subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
+Full coverage in the [Network](#network) chapter. There are also a collection of network specific items that you should review in the Networking subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf).
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) {#cloud-countermeasures-violations-of-least-privilege}
 
