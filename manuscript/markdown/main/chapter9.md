@@ -1031,17 +1031,16 @@ Granting the minimum permissions required takes more work because you have to ac
    AWS as many other CSPs provide many great tools to help us harden our configuration and infrastructure. If we decide not to take [our part](#cloud-countermeasures-shared-responsibility-model-csp-customer-responsibility) of the shared responsibility model seriously, then it is just time before we are compromised
 * **Machine Instance Access To Open**: You may think that having the source IP address that people can administer your machine instances from locked down to a single IP address will make it difficult for workers outside of a single office to connect to your machine instances
 
-#### Machine Instance Single User Root
-
-Risks that Solution Causes
-
-#### CSP Account Single User Root
-
-Risks that Solution Causes
-
 ### Storage of Secrets
 
 Risks that Solution Causes
+
+
+
+
+
+
+
 
 #### Private Key Abuse
 
@@ -1165,17 +1164,16 @@ It is worth investing the effort to make sure only the required user permissions
    
    If you do decide to use the `-A` option, then you are essentially considering your bastion host as a trusted machine. I commented on the `-A` option in the [Tunneling SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh) subsection of the VPS chapter. There is plenty of good [documentation](https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/) around setting up the bastion host in AWS. AWS provide some [Best Practices](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices) for security on bastion hosts, and also [discuss](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/) recording the SSH sessions that your users establish through a bastion host for auditing purposes
 
-#### Machine Instance Single User Root
-
-Costs and Trade-offs
-
-#### CSP Account Single User Root
-
-Costs and Trade-offs
-
 ### Storage of Secrets
 
 Costs and Trade-offs
+
+
+
+
+
+
+
 
 #### Private Key Abuse
 
