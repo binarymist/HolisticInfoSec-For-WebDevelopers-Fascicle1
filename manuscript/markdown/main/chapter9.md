@@ -1033,18 +1033,17 @@ Granting the minimum permissions required takes more work because you have to ac
 
 ### Storage of Secrets
 
-Risks that Solution Causes
-
-
-
-
-
-
-
+This involves a good sense of smell to sniff out all the possible leaking secrets. This may need to be developed.
 
 #### Private Key Abuse
 
 Risks that Solution Causes
+
+
+
+
+
+
 
 ##### SSH
 
@@ -1166,18 +1165,17 @@ It is worth investing the effort to make sure only the required user permissions
 
 ### Storage of Secrets
 
-Costs and Trade-offs
-
-
-
-
-
-
-
+Credential and key theft are right up there with the most common attacks. This is not the place to skimp on costs.
 
 #### Private Key Abuse
 
 Costs and Trade-offs
+
+
+
+
+
+
 
 ##### SSH
 
