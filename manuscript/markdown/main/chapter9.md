@@ -1102,7 +1102,7 @@ Risks that Solution Causes
 
 #### Frameworks
 
-These frameworks may lead the Developer to think that the framework does everything for them, it does not, so using a framework is just another thing to learn.
+These frameworks may lead the Developer to think that the framework does everything for them, it does not, so although using a framework will abstract some operations, it is another thing to learn.
 
 ### Infrastructure and Configuration Management
 
@@ -1246,7 +1246,7 @@ Costs and Trade-offs
 
 #### Frameworks
 
-Costs and Trade-offs
+If you have time to learn another framework then go for it, this may take some trial and error to know whether the framework provides the right level of abstraction for you, while still providing enough break-out to obtain the low level control you may need.
 
 ### Infrastructure and Configuration Management
 
