@@ -1084,24 +1084,20 @@ The risk with application security is that it needs to be learnt and most Develo
 
 #### DoS of Lambda Functions
 
-Risks that Solution Causes
-
-
-
-
-
-
-
-
-
-
-
-
-
+Some trial and error is probably necessary here, just make sure you err on the side of caution, else you could be up for some large billing stress, and this may not even be from an attacker, it could simply be due to your own coding or configuration mistakes.
 
 #### Centralised logging of AWS Lambda
 
 Risks that Solution Causes
+
+
+
+
+
+
+
+
+
 
 #### Frameworks
 
@@ -1229,25 +1225,17 @@ My hope is that after consuming this book series, you will be in a much better p
 
 #### DoS of Lambda Functions
 
-Costs and Trade-offs
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Yes you need to spend some time here up front making sure you configure your duration and invocation counts conservatively. As well as setting alarms.
 
 #### Centralised logging of AWS Lambda
 
 Costs and Trade-offs
+
+
+
+
+
+
 
 #### Frameworks
 
