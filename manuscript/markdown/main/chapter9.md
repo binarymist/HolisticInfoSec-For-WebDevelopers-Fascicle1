@@ -1092,7 +1092,7 @@ These frameworks may lead the Developer to think that the framework does everyth
 
 ### Infrastructure and Configuration Management
 
-Risks that Solution Causes
+Time is required to codify and automate your infrastructure and configuration. Creating a repeatable process that continues to add the same bugs is a risk.
 
 ### AWS
 
@@ -1220,7 +1220,7 @@ If you have time to learn another framework then go for it, this may take some t
 
 ### Infrastructure and Configuration Management
 
-Costs and Trade-offs
+You will need to weigh up the life of your project/product and the cost of codifying parts of your infrastructure and configuration. In most cases projects will benefit from some initial outlay in this, the pay off will usually be realised reasonably quickly.
 
 ### AWS
 
