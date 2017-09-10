@@ -1019,14 +1019,7 @@ Refer to the [Risks that Solution Causes](#web-applications-risks-that-solution-
 
 ### Network Security
 
-Risks that Solution Causes
-
-
-
-
-
-
-
+Refer to the [Risks that Solution Causes](#network-countermeasures-risks-that-solution-causes) subsection of the Network chapter.
 
 ### Violations of Least Privilege
 
@@ -1150,14 +1143,7 @@ Refer to the [Costs and Trade-offs](#web-applications-costs-and-trade-offs) subs
 
 ### Network Security
 
-Costs and Trade-offs
-
-
-
-
-
-
-
+Refer to the [Costs and Trade-offs](#network-costs-and-trade-offs) subsection of the Network chapter.
 
 ### Violations of Least Privilege
 
