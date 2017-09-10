@@ -552,7 +552,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
     
     **Azure** offer a [bug bounty](https://hackerone.com/azure) program.
 
-### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom)
+### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom) {#cloud-countermeasures-cloud-service-provider-vs-in-house}
 
 It depends on the CSP, and many things about your organisation. Each CSP does things differently, has strengths and weaknesses in different areas of the shared responsibility model, has different specialities, is governed by different people and jurisdictions (USA vs Sweden for example), some are less security conscious than others. The largest factor in this question is your organisation. How security conscious and capable of implementing a secure cloud environment are your workers.
 
@@ -1005,16 +1005,9 @@ The risk is simply lack of knowledge, the speed of which the technological solut
 
 There may not be any risks by simply asking the questions and analysing the responses. This is all part of helping you to build a better picture of where your current or prospect CSP is at on the security maturity model, thus helping your ascertain whether you should stick with them, select them as your CSP, and/or what your responsibility needs to be to achieve the security maturity you require,
 
-### Cloud Service Provider vs In-house
+### Cloud Service Provider vs In-house {#cloud-risks-that-the-solution-causes-cloud-service-provider-vs-in-house}
 
-Risks that Solution Causes
-
-
-
-
-
-
-
+In the [Countermeasures](#cloud-countermeasures-cloud-service-provider-vs-in-house) section I provided a few points to consider, rather than outright solutions. These mostly depend on specifics of your organisation, which you will have to weigh up. There is no one answer for all here.
 
 #### Skills
 
@@ -1162,7 +1155,7 @@ There is quite a bit to be done here, but it all depends on the answers you rece
 
 ### Cloud Service Provider vs In-house
 
-Costs and Trade-offs
+There is not a lot to add to the [Risks that Solution Causes](#cloud-risks-that-the-solution-causes-cloud-service-provider-vs-in-house) and [Countermeasures](#cloud-countermeasures-cloud-service-provider-vs-in-house) subsections.
 
 #### Skills
 
