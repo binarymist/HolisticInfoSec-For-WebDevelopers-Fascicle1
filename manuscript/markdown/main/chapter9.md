@@ -1011,7 +1011,7 @@ In the [Countermeasures](#cloud-countermeasures-cloud-service-provider-vs-in-hou
 
 ### People
 
-Risks that Solution Causes
+Refer to the "Risks that Solution Causes" subsection of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
 
 ### Application Security
 
@@ -1135,7 +1135,7 @@ There is not a lot to add to the [Risks that Solution Causes](#cloud-risks-that-
 
 ### People
 
-Costs and Trade-offs
+Refer to the "Costs and Trade-offs" subsection of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
 
 ### Application Security
 
