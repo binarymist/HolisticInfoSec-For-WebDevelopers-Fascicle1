@@ -1023,6 +1023,8 @@ Refer to the [Risks that Solution Causes](#network-countermeasures-risks-that-so
 
 ### Violations of Least Privilege
 
+Granting the minimum permissions required takes more work because you have to actually work out what is required.
+
 * **Running services as root**: Removing permissions, once a service has been running as root, may make something stop working
 * **Configuration Settings Changed Ad Hoc**: Because features, and settings will be changed on an ad hoc basis, and change control just like security is often seen as an annoyance, if it can be bypassed, it will be, and those changes will be forgotten.  
    
@@ -1146,6 +1148,8 @@ Refer to the [Costs and Trade-offs](#web-applications-costs-and-trade-offs) subs
 Refer to the [Costs and Trade-offs](#network-costs-and-trade-offs) subsection of the Network chapter.
 
 ### Violations of Least Privilege
+
+It is worth investing the effort to make sure only the required user permissions are granted. As discussed, there are tools you can use to help speed this process up and make it more accurate.
 
 * **Running services as root**: Always start with the minimum permissions possible and add if necessary, it is far easier to add than to remove
 * **Configuration Settings Changed Ad Hoc**: Remember detection works where prevention fails, that means in this case, where your change control fails, because it is decided not to use it, you need something to detect changes and notify someone that cares. For this, there are also other options specifically designed for this. For a collection of such tooling, review the [Tooling](#cloud-countermeasures-aws-additional-tooling) sections.  
