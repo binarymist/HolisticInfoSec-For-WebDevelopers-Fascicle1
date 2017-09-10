@@ -1007,31 +1007,7 @@ There may not be any risks by simply asking the questions and analysing the resp
 
 ### Cloud Service Provider vs In-house {#cloud-risks-that-the-solution-causes-cloud-service-provider-vs-in-house}
 
-In the [Countermeasures](#cloud-countermeasures-cloud-service-provider-vs-in-house) section I provided a few points to consider, rather than outright solutions. These mostly depend on specifics of your organisation, which you will have to weigh up. There is no one answer for all here.
-
-#### Skills
-
-Risks that Solution Causes
-
-#### EULA
-
-Risks that Solution Causes
-
-#### Giving up Secrets
-
-Risks that Solution Causes
-
-#### Location of Data
-
-Risks that Solution Causes
-
-#### Vendor lock-in
-
-Risks that Solution Causes
-
-#### Possible Single Points of Failure
-
-Risks that Solution Causes
+In the [Countermeasures](#cloud-countermeasures-cloud-service-provider-vs-in-house) section I provided a good number of points to consider, rather than outright solutions. These mostly depend on specifics of your organisation, which you will have to weigh up. There is no one answer for all here. Consider all options and make the decision based on what suites your organisation the best.
 
 ### People
 
@@ -1156,30 +1132,6 @@ There is quite a bit to be done here, but it all depends on the answers you rece
 ### Cloud Service Provider vs In-house
 
 There is not a lot to add to the [Risks that Solution Causes](#cloud-risks-that-the-solution-causes-cloud-service-provider-vs-in-house) and [Countermeasures](#cloud-countermeasures-cloud-service-provider-vs-in-house) subsections.
-
-#### Skills
-
-Costs and Trade-offs
-
-#### EULA
-
-Costs and Trade-offs
-
-#### Giving up Secrets
-
-Costs and Trade-offs
-
-#### Location of Data
-
-Costs and Trade-offs
-
-#### Vendor lock-in
-
-Costs and Trade-offs
-
-#### Possible Single Points of Failure
-
-Costs and Trade-offs
 
 ### People
 
