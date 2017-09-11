@@ -1413,26 +1413,151 @@ _Todo_: Add Network Security show when it is published.
 **Azure offer a bug bounty program**  
 [https://hackerone.com/azure](https://hackerone.com/azure)
 
+**Physical and People chapters in Fascicle 0** of this book series  
+[https://leanpub.com/holistic-infosec-for-web-developers](https://leanpub.com/holistic-infosec-for-web-developers)
 
+**I have blogged**  
+[https://blog.binarymist.net/?s=tdd](https://blog.binarymist.net/?s=tdd)  
+**Spoken and run workshops** on the topic of testability  
+[https://blog.binarymist.net/presentations-publications/](https://blog.binarymist.net/presentations-publications/)
 
+**Liskov Substitution Principle**  
+[https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/](https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/)
 
+**Docker restart policy**  
+[https://docs.docker.com/engine/admin/start-containers-automatically/](https://docs.docker.com/engine/admin/start-containers-automatically/)
 
+**In AWS**  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)  
+**You need to keep a close watch on which permissions**  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/access_permissions.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_permissions.html)  
+**Are assigned to policies**  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html)
 
+**Enable Multi Factor Authentication**  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users)
 
+**AWS DelegateManagementofMFA_policydocument template**  
+[https://s3.amazonaws.com/awsiammedia/public/sample/DelegateManagementofMFA/DelegateManagementofMFA_policydocument_060115.txt](https://s3.amazonaws.com/awsiammedia/public/sample/DelegateManagementofMFA/DelegateManagementofMFA_policydocument_060115.txt) 
 
+**AWS has documentation on the process**  
+[https://aws.amazon.com/blogs/security/how-to-delegate-management-of-multi-factor-authentication-to-aws-iam-users/](https://aws.amazon.com/blogs/security/how-to-delegate-management-of-multi-factor-authentication-to-aws-iam-users/) 
 
+**The Access Advisor** tab  
+[https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/)
 
+**IAM Policy Simulator**  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html)
 
+**AWS Trusted Advisor**  
+[https://aws.amazon.com/premiumsupport/trustedadvisor/](https://aws.amazon.com/premiumsupport/trustedadvisor/)
 
+**Accessible from the Console**  
+[https://console.aws.amazon.com/trustedadvisor/](https://console.aws.amazon.com/trustedadvisor/)
 
+**Have solid change control in place**. AWS Config can assist with this  
+[](https://aws.amazon.com/config/)  
+**AWS Config** continuously monitors and records  
+[https://docs.aws.amazon.com/config/latest/developerguide/](https://docs.aws.amazon.com/config/latest/developerguide/)
 
+**As part of the VPS and container builds**, there should be specific users created  
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html)
 
+**Drive a least privilege policy**  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
 
+**Configuring a strong password policy** for your users  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy) 
 
+**Implement multi-factor authentication**  
+[https://aws.amazon.com/iam/details/mfa/](https://aws.amazon.com/iam/details/mfa/)
 
+**As usual, AWS has plenty of documentation**  
+[https://aws.amazon.com/blogs/security/how-to-receive-notifications-when-your-aws-accounts-root-access-keys-are-used/](https://aws.amazon.com/blogs/security/how-to-receive-notifications-when-your-aws-accounts-root-access-keys-are-used/)
 
+**Set-up monitoring and notifications** on activity of your AWS account root user. AWS documentation explains how to do this  
+[https://aws.amazon.com/blogs/mt/monitor-and-notify-on-aws-account-root-user-activity/](https://aws.amazon.com/blogs/mt/monitor-and-notify-on-aws-account-root-user-activity/) 
 
+**Canarytoken**  
+[https://canarytokens.org/](https://canarytokens.org/)
 
+**AWS EC2 for example provide auto-expire, auto-renew**  
+[https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/](https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/)
+
+**Storage of Secrets**  
+[https://www.programmableweb.com/news/why-exposed-api-keys-and-sensitive-data-are-growing-cause-concern/analysis/2015/01/05](https://www.programmableweb.com/news/why-exposed-api-keys-and-sensitive-data-are-growing-cause-concern/analysis/2015/01/05)
+
+**Github provides guidance** on removing sensitive data from a repository  
+[https://help.github.com/articles/removing-sensitive-data-from-a-repository/](https://help.github.com/articles/removing-sensitive-data-from-a-repository/)
+
+**Consider using git-crypt**  
+[https://github.com/AGWA/git-crypt](https://github.com/AGWA/git-crypt)
+
+**Temporary security credentials**  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
+
+**Desire and a dysfunctional culture in the work place**  
+[https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/)
+
+**Create a key pair using EC2**  
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair)  
+**Or you can provide your own**  
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws)
+
+**Every user should have their own key-pair**  
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
+
+**AWS has clear directions** on how to create additional users  
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
+
+**Plesant Password Server**  
+[http://pleasantsolutions.com/PasswordServer/](http://pleasantsolutions.com/PasswordServer/)  
+**Password Manager Pro**  
+[https://www.manageengine.com/products/passwordmanagerpro/msp/features.html](https://www.manageengine.com/products/passwordmanagerpro/msp/features.html)  
+**LastPass**  
+[https://www.lastpass.com/teams](https://www.lastpass.com/teams)
+
+**Even if it is in a group password manager**. As AWS have already stated  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html)
+
+**There should be almost no reason** to create an access key for the root user  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials)
+
+**Configure strong password policies**  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy)
+
+**Check the Secret Backends for integrations**  
+[https://www.vaultproject.io/docs/secrets/index.html](https://www.vaultproject.io/docs/secrets/index.html)
+
+**Docker secrets**  
+[https://docs.docker.com/engine/swarm/secrets/](https://docs.docker.com/engine/swarm/secrets/)
+
+**Ansible Vault**  
+[https://docs.ansible.com/ansible/latest/playbooks_vault.html](https://docs.ansible.com/ansible/latest/playbooks_vault.html)
+
+**Ansible is an Open Source**  
+[https://github.com/ansible/ansible/blob/devel/docs/docsite/rst/playbooks_vault.rst](https://github.com/ansible/ansible/blob/devel/docs/docsite/rst/playbooks_vault.rst)
+
+**AWS Key Management Service**  
+[https://aws.amazon.com/kms/](https://aws.amazon.com/kms/)
+
+**AWS has Parameter Store**  
+[https://aws.amazon.com/ec2/systems-manager/parameter-store/](https://aws.amazon.com/ec2/systems-manager/parameter-store/)
+
+**Serverless**  
+[https://github.com/anaibol/awesome-serverless](https://github.com/anaibol/awesome-serverless)
+
+**SOLID principles**  
+[https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
+
+**Serverless** goes a long way to forcing us to write testable code**  
+[https://blog.binarymist.net/2012/12/01/moving-to-tdd/](https://blog.binarymist.net/2012/12/01/moving-to-tdd/)
+
+**Open/closed principle**  
+[https://en.wikipedia.org/wiki/Open/closed_principle](https://en.wikipedia.org/wiki/Open/closed_principle)
+
+**There are no maintenance windows or scheduled downtimes**  
+[https://aws.amazon.com/lambda/faqs/#scalability](https://aws.amazon.com/lambda/faqs/#scalability)
 
 
 

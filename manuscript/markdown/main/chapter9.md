@@ -687,6 +687,8 @@ Another idea is to set-up monitoring and notifications on activity of your AWS a
 
 There are also a collection of monitoring specific items that you should review in the Monitoring subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf).
 
+_Todo_: Add links when show goes live.
+
 Another great idea is to generate an AWS key [Canarytoken](https://canarytokens.org/) from canarytokens.org, and put it somewhere more obvious than your real AWS key(s). When someone uses it, you will be automatically notified. I discussed these with Haroon Meer on the Software Engineering Radio Network Security podcast.
 
 Also consider rotating your IAM access keys to your CSP services. AWS EC2 for example provide [auto-expire, auto-renew](https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/) access keys by using roles.
@@ -697,7 +699,7 @@ In this section I discuss some techniques to handle our sensitive information in
 
 If you have "secrets" in source control or wikis, they are probably not secret. Remove them and change the secret (password, key, what ever it is). [Github provides guidance](https://help.github.com/articles/removing-sensitive-data-from-a-repository/) on removing sensitive data from a repository.
 
-Also consider using [git-crypt](https://github.com/AGWA/git-crypt)
+Also consider using [git-crypt](https://github.com/AGWA/git-crypt).
 
 Use different access keys for each service and application requiring them.
 
