@@ -1265,7 +1265,191 @@ and also the specification
 [https://www.grc.com/sn/sn-453-notes.pdf](https://www.grc.com/sn/sn-453-notes.pdf)  
 [https://www.grc.com/sn/sn-453.htm](https://www.grc.com/sn/sn-453.htm)
 
+
+
+
+
+
+
+
+
+
+
+
 ## [Cloud](#cloud)
+
+**Most of these questions were already part of my Cloud vs In-house** talk at the Saturn Architects conference  
+[http://blog.binarymist.net/presentations-publications/#does-your-cloud-solution-look-like-a-mushroom](http://blog.binarymist.net/presentations-publications/#does-your-cloud-solution-look-like-a-mushroom)
+
+**Hosting providers can be, and in many cases are forced** by governing authorities to give up your and your customers secrets  
+[http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me](http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me)  
+[https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information](https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information)
+
+**The attack and demise of Code Spaces**  
+[https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aws-the-best-practices-to-avoid-it/](https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aws-the-best-practices-to-avoid-it/)
+
+_Todo_: Add Network Security show when it is published.
+
+**Discussed this with Haroon Meer** on the Network Security show I hosted for Software Engineering Radio  
+[]()
+
+**The default on AWS EC2 instances** is to have a single user (root)  
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html)
+
+**dockerfile-from-image**  
+[https://github.com/CenturyLinkLabs/dockerfile-from-image](https://github.com/CenturyLinkLabs/dockerfile-from-image)
+
+**ImageLayers**  
+[https://imagelayers.io/](https://imagelayers.io/) 
+
+**Single default AWS account root user** you are given when you first sign up to AWS  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html)
+
+**Amazon**  
+[https://aws.amazon.com/serverless/](https://aws.amazon.com/serverless/)  
+**Has Lambda**  
+[https://aws.amazon.com/lambda/](https://aws.amazon.com/lambda/)
+
+**GCP**  
+[https://cloud.google.com/serverless/](https://cloud.google.com/serverless/)  
+**Has Cloud Functions**  
+[https://cloud.google.com/functions/](https://cloud.google.com/functions/)
+
+**Azure has Functions**  
+[https://azure.microsoft.com/en-us/services/functions/](https://azure.microsoft.com/en-us/services/functions/)
+
+**Rich Jones demonstrated** what can happen if you fail at the above three points in AWS in his talk "Gone in 60 Milliseconds"  
+[https://www.youtube.com/watch?v=YZ058hmLuv0](https://www.youtube.com/watch?v=YZ058hmLuv0)
+
+**Containers are used**  
+[https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html](https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html)
+
+**Billing DoS**  
+[https://thenewstack.io/zombie-toasters-eat-startup/](https://thenewstack.io/zombie-toasters-eat-startup/)  
+**Is a real issue**  
+[https://sourcebox.be/blog/2017/08/07/serverless-a-lesson-learned-the-hard-way/](https://sourcebox.be/blog/2017/08/07/serverless-a-lesson-learned-the-hard-way/)
+
+**AWS Lambda will by default** allow any given function a concurrent execution of 1000 per region  
+[https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#concurrent-execution-safety-limit](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#concurrent-execution-safety-limit)
+
+**CIS AWS Foundations document**  
+[https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf)
+
+**AWS Shared Responsibility Model**  
+[https://aws.amazon.com/compliance/shared-responsibility-model/](https://aws.amazon.com/compliance/shared-responsibility-model/)
+
+**AWS for example states:** "_Customers retain control of what security they choose to implement to protect their own content, platform, applications, systems and networks, no differently than they would for applications in an on-site datacenter._"  
+[https://aws.amazon.com/compliance/shared-responsibility-model/](https://aws.amazon.com/compliance/shared-responsibility-model/)
+
+**CloudTrail**  
+[https://aws.amazon.com/cloudtrail/](https://aws.amazon.com/cloudtrail/)
+
+**AWS also provides Virtual Private Cloud**  
+[https://aws.amazon.com/vpc/](https://aws.amazon.com/vpc/)
+
+**Including Serverless**  
+[https://aws.amazon.com/serverless/](https://aws.amazon.com/serverless/)
+
+**AWS also offers four different types of VPN connections** to your VPC  
+[https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)
+
+**Some of the CSPs log aggregators** could be flaky for example  
+[https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f)
+
+**As usual, AWS has good documentation** around what sort of log events are captured  
+[https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
+
+**Plethora of services you can integrate with CloudTrail**  
+[https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-supported-services.html](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-supported-services.html) 
+
+**Define AWS Lambda functions**  
+[https://docs.aws.amazon.com/lambda/latest/dg/with-cloudtrail.html](https://docs.aws.amazon.com/lambda/latest/dg/with-cloudtrail.html)
+
+**AWS CloudWatch** can be used to collect and track your resource and application metrics  
+[https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
+
+**Make sure you have an exit and/or migration strategy planned**  
+[http://blog.sysfore.com/do-you-have-your-cloud-exit-plan-ready/](http://blog.sysfore.com/do-you-have-your-cloud-exit-plan-ready/)
+
+**CSPs proprietary API based technique** for migrating your data  
+[http://searchcloudstorage.techtarget.com/opinion/The-need-for-a-cloud-exit-strategy-and-what-we-can-learn-from-Nirvanix](http://searchcloudstorage.techtarget.com/opinion/The-need-for-a-cloud-exit-strategy-and-what-we-can-learn-from-Nirvanix)
+
+**Nirvanix**  
+[http://searchcloudstorage.techtarget.com/news/2240205813/Nirvanix-cloud-customers-face-worse-nightmares](http://searchcloudstorage.techtarget.com/news/2240205813/Nirvanix-cloud-customers-face-worse-nightmares)
+
+**The less you depend on your CSPs proprietary services**, the less benefit you will be getting from them  
+[http://www.theserverside.com/feature/Getting-out-is-harder-than-getting-in-The-importance-of-a-cloud-exit-strategy](http://www.theserverside.com/feature/Getting-out-is-harder-than-getting-in-The-importance-of-a-cloud-exit-strategy)
+
+**EC2 Instance Store Encryption**  
+[https://aws.amazon.com/blogs/security/how-to-protect-data-at-rest-with-amazon-ec2-instance-store-encryption/](https://aws.amazon.com/blogs/security/how-to-protect-data-at-rest-with-amazon-ec2-instance-store-encryption/)
+
+**Elastic File System (EFS) encryption**  
+[https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-efs-now-supports-encryption-of-data-at-rest/](https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-efs-now-supports-encryption-of-data-at-rest/)
+
+**Ben Humphreys spoke about this at CHCon**  
+[https://2016.chcon.nz/talks.html#1245](https://2016.chcon.nz/talks.html#1245)
+
+**AWS has a list of their compliance certificates**  
+[https://pages.awscloud.com/compliance-contact-us.html](https://pages.awscloud.com/compliance-contact-us.html)
+
+**AWS allow customers to submit requests to penetration test**  
+[https://aws.amazon.com/security/penetration-testing](https://aws.amazon.com/security/penetration-testing)
+
+**GCP does not require penetration testers** to contact them before beginning testing of their GCP hosted services  
+[https://cloud.google.com/security/](https://cloud.google.com/security/)
+
+**Heroku are happy for you to penetration test** your applications running on their PaaS  
+[https://devcenter.heroku.com/articles/pentest-instructions](https://devcenter.heroku.com/articles/pentest-instructions)
+
+**Azure allows penetration testing** of your applications and services running in Azure  
+[https://blogs.msdn.microsoft.com/azuresecurity/2016/08/29/pen-testing-from-azure-virtual-machines/](https://blogs.msdn.microsoft.com/azuresecurity/2016/08/29/pen-testing-from-azure-virtual-machines/)
+
+**AWS has a bug bounty program**  
+[https://hackerone.com/amazon-web-services](https://hackerone.com/amazon-web-services)
+
+**Heroku offer a bug bounty program**  
+[https://hackerone.com/heroku](https://hackerone.com/heroku)
+
+**Azure offer a bug bounty program**  
+[https://hackerone.com/azure](https://hackerone.com/azure)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## [Web Applications](#web-applications)
 

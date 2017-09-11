@@ -233,7 +233,7 @@ You will notice that most of the defects addressed in this chapter come down to 
 
 ### Application Security
 
-_Todo_ Add in SER podcast
+_Todo_ Add in SER podcast from Zane Lackey.
 
 With the shift to The Cloud, AppSec has become more important than it used to be, recognised and discussed:
 
@@ -264,8 +264,10 @@ Here are some examples of violating least privilege:
 
 **This Fascicle**:
 
+_Todo_: Add Network Security show when it is published.
+
 * VPS chapter: We discussed privilege escalation. This is a direct violation of least privilege, because after escalation, they now have additional privileges
-* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the Network Security show I hosted for Software Engineering Radio. This for example could allow an attacker that managed to gain control of a network to have unhindered access to all of an organisations assets due to all being on a monolithic network segment rather than having assets on alternative network segments with firewalls between them
+* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the [Network Security]() show I hosted for Software Engineering Radio. This for example could allow an attacker that managed to gain control of a network to have unhindered access to all of an organisations assets due to all being on a monolithic network segment rather than having assets on alternative network segments with firewalls between them
 * Web Applications chapter: We discuss setting up data-store accounts that only have privileges to query the stored procedures necessary for a given application, thus reducing the power that any possible SQL injection attack may have to carry out arbitrary commands. [Haroon Meer](https://twitter.com/haroonmeer) also discussed this as a technique for exfiltration of data in the Network Security podcast
 
 Hopefully you are getting the idea of what least privilege is, and subsequently how it breaks down in a cloud environment. Some examples:
@@ -359,7 +361,7 @@ Any perimeters that you used to, or at least thought you had are gone. We discus
 
 [GCP](https://cloud.google.com/serverless/) has [Cloud Functions](https://cloud.google.com/functions/) which are JavaScript functions.
 
-[Azure]() has [Functions](https://azure.microsoft.com/en-us/services/functions/).
+Azure has [Functions](https://azure.microsoft.com/en-us/services/functions/).
 
 The complexity alone with AWS causes a lot of Developers to just "get it working" if they are lucky, then push it to production. Of course this has the side effect that security is in most cases overlooked. With AWS Lambda, you need to first:
 
@@ -420,7 +422,9 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
-As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are an excellent token you can drop anywhere on your infrastructure, and when an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones being added every so often. These tokens are very quick and also free to generate, and drop where ever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the Network Security show I hosted for Software Engineering Radio near the end.
+_Todo_: Add Network Security show link when it is published.
+
+As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are an excellent token you can drop anywhere on your infrastructure, and when an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones being added every so often. These tokens are very quick and also free to generate, and drop where ever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the [Network Security]() show I hosted for Software Engineering Radio near the end.
 
 ### Shared Responsibility Model
 
