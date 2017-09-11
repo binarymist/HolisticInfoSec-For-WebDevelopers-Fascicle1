@@ -1,5 +1,58 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+## 2017-09-11
+
+Fascicle 1 is now content complete
+
+### Cloud
+
+Ready for technical review
+Strong focus on AWS, although other CSPs discussed
+
+* Shared Responsibility Model: CSP Responsibility, CSP Customer Responsibility
+* CSP Evaluation
+* Cloud Service Provider vs In-house
+  * Skills
+  * EULA
+  * Giving up Secrets
+  * Location of Data
+  * Vendor lock-in
+  * Possible Single Points of Failure
+* People Sec
+* App Sec
+* Net Sec
+* Violations of Least Privilege
+* Storage of Secrets
+  * Private Key Abuse: SSH, TLS
+  * Credentials and Other Secrets
+    * Entered by People
+    * Entered by Software: HashiCorp Vault, Docker secrets, Ansible Vault, AWS Key Management Service and Parameter Store
+* Serverless
+  * Third Party Services
+  * Perimeterless
+  * Functions
+  * DoS of Lambda Functions
+* Infrastructure and Configuration Management
+
+### Additional Resources
+
+* Getting Secrets out of Docker images
+* Password Managers For Business Use
+* Many tooling options covered
+
+### Attributions
+
+* Thinkst tools (Canary tools and tokens)
+* DropboxC2C for Data Exfiltration, Infiltration
+* Hosting providers forced to give up customer secrets
+* Software Engineering Radio show on Network Security with host: Kim Carter, guest: Haroon Meer
+* Docker Image layers
+* AWS Lambda
+
+Many other attributions added
+
+[Diff from release 2017-07-24](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/compare/5f31901f1f9be1318127325a984494c9728eb5e5...293ad92523908dd83be45e183ad85a96a0a904aa)
+
 ## 2017-07-24
 
 Typos and grammatical tweaks  
