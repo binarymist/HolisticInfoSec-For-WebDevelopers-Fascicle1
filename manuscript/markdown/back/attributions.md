@@ -1559,6 +1559,71 @@ _Todo_: Add Network Security show when it is published.
 **There are no maintenance windows or scheduled downtimes**  
 [https://aws.amazon.com/lambda/faqs/#scalability](https://aws.amazon.com/lambda/faqs/#scalability)
 
+**Permissions Model**  
+[https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html)
+
+**Snyk has a Serverless offering**  
+[https://snyk.io/serverless](https://snyk.io/serverless)
+
+**AWS Lambda function access to other AWS resources**  
+[https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role)
+
+**Create an IAM execution role of type** `AWS Service Roles`  
+[https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html)
+
+**Other AWS resources access to AWS Lambda**  
+[https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permission-model-access-policy](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permission-model-access-policy)
+
+**Use**  
+[https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-setup-api-key-with-console.html](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-setup-api-key-with-console.html)  
+**An API key**  
+[https://serverless.com/framework/docs/providers/aws/events/apigateway/#setting-api-keys-for-your-rest-api](https://serverless.com/framework/docs/providers/aws/events/apigateway/#setting-api-keys-for-your-rest-api)
+
+**AWS Lambda allows you to throttle the concurrent execution count**  
+[https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#concurrent-execution-safety-limit](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#concurrent-execution-safety-limit)
+
+**Set Cloudwatch alarms**  
+[https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html)  
+**On duration and invocations**  
+[https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metrics.html](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metrics.html)
+
+**Drive the creation of your functions** the same way you would drive any other production quality code... with unit tests (TDD)  
+[https://blog.binarymist.net/2012/12/01/moving-to-tdd/](https://blog.binarymist.net/2012/12/01/moving-to-tdd/)
+
+**You can mock, stub, pass spies in the AWS**  
+[https://serverless.zone/unit-and-integration-testing-for-lambda-fc9510963003](https://serverless.zone/unit-and-integration-testing-for-lambda-fc9510963003)
+
+**aws-sdk-mock**  
+[https://www.npmjs.com/package/aws-sdk-mock](https://www.npmjs.com/package/aws-sdk-mock)  
+**mock-aws**  
+[https://www.npmjs.com/package/mock-aws](https://www.npmjs.com/package/mock-aws)  
+**placebo**  
+[https://github.com/garnaat/placebo](https://github.com/garnaat/placebo)  
+**moto**  
+[https://github.com/spulec/moto](https://github.com/spulec/moto)
+
+**Centralised logging of AWS Lambda Functions**  
+[https://hackernoon.com/centralised-logging-for-aws-lambda-b765b7ca9152](https://hackernoon.com/centralised-logging-for-aws-lambda-b765b7ca9152)
+
+**AWS Elasticsearch which may or may not be stable enough**  
+[https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f)
+
+**Serverless**  
+[https://serverless.com/framework/](https://serverless.com/framework/)  
+**Along with a large collection** of awesome-serverless resources on github  
+[https://github.com/JustServerless/awesome-serverless](https://github.com/JustServerless/awesome-serverless)
+
+**Claudia.JS**  
+[https://claudiajs.com/](https://claudiajs.com/)
+
+**Zappa**  
+[https://www.zappa.io/](https://www.zappa.io/)
+
+
+
+
+
+
 
 
 
