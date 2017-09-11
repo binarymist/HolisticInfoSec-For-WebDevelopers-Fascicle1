@@ -1265,17 +1265,6 @@ and also the specification
 [https://www.grc.com/sn/sn-453-notes.pdf](https://www.grc.com/sn/sn-453-notes.pdf)  
 [https://www.grc.com/sn/sn-453.htm](https://www.grc.com/sn/sn-453.htm)
 
-
-
-
-
-
-
-
-
-
-
-
 ## [Cloud](#cloud)
 
 **Most of these questions were already part of my Cloud vs In-house** talk at the Saturn Architects conference  
@@ -1340,6 +1329,7 @@ _Todo_: Add Network Security show when it is published.
 [https://aws.amazon.com/compliance/shared-responsibility-model/](https://aws.amazon.com/compliance/shared-responsibility-model/)
 
 **AWS for example states:** "_Customers retain control of what security they choose to implement to protect their own content, platform, applications, systems and networks, no differently than they would for applications in an on-site datacenter._"  
+
 https://aws.amazon.com/compliance/shared-responsibility-model/
 
 **CloudTrail**  
@@ -1533,15 +1523,15 @@ eate-your-key-pair
 [https://www.lastpass.com/teams](https://www.lastpass.com/teams)
 
 **Even if it is in a group password manager**. As AWS have already stated  
-https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.ht  
-ml
+https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.h  
+tml
 
 **There should be almost no reason** to create an access key for the root user  
 [https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials)
 
 **Configure strong password policies**  
-https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-pa  
-ssword-policy
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-p  
+assword-policy
 
 **Check the Secret Backends for integrations**  
 [https://www.vaultproject.io/docs/secrets/index.html](https://www.vaultproject.io/docs/secrets/index.html)
@@ -1691,22 +1681,6 @@ astion-host/
 [https://www.slideshare.net/kimcarter75098/agile-nz2014fornonattendees-38768039](https://www.slideshare.net/kimcarter75098/agile-nz2014fornonattendees-38768039)  
 **Blog posts**  
 [https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/#effecting-change](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/#effecting-change)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## [Web Applications](#web-applications)
 
