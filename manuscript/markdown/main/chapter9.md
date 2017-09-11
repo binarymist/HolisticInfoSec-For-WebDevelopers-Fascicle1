@@ -233,7 +233,7 @@ You will notice that most of the defects addressed in this chapter come down to 
 
 ### Application Security
 
-_Todo_ Add in SER podcast from Zane Lackey.
+_Todo_ Add in SER podcast from Zane Lackey when published.
 
 With the shift to The Cloud, AppSec has become more important than it used to be, recognised and discussed:
 

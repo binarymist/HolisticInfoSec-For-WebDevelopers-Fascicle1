@@ -1286,7 +1286,8 @@ and also the specification
 [https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information](https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information)
 
 **The attack and demise of Code Spaces**  
-[https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aws-the-best-practices-to-avoid-it/](https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aws-the-best-practices-to-avoid-it/)
+https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aws-the-b  
+est-practices-to-avoid-it/
 
 _Todo_: Add Network Security show when it is published.
 
@@ -1339,7 +1340,7 @@ _Todo_: Add Network Security show when it is published.
 [https://aws.amazon.com/compliance/shared-responsibility-model/](https://aws.amazon.com/compliance/shared-responsibility-model/)
 
 **AWS for example states:** "_Customers retain control of what security they choose to implement to protect their own content, platform, applications, systems and networks, no differently than they would for applications in an on-site datacenter._"  
-[https://aws.amazon.com/compliance/shared-responsibility-model/](https://aws.amazon.com/compliance/shared-responsibility-model/)
+https://aws.amazon.com/compliance/shared-responsibility-model/
 
 **CloudTrail**  
 [https://aws.amazon.com/cloudtrail/](https://aws.amazon.com/cloudtrail/)
@@ -1354,37 +1355,45 @@ _Todo_: Add Network Security show when it is published.
 [https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)
 
 **Some of the CSPs log aggregators** could be flaky for example  
-[https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f)
+https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7  
+cd70c9afb4f
 
 **As usual, AWS has good documentation** around what sort of log events are captured  
 [https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
 
 **Plethora of services you can integrate with CloudTrail**  
-[https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-supported-services.html](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-supported-services.html) 
+https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-supported-services  
+.html
 
 **Define AWS Lambda functions**  
 [https://docs.aws.amazon.com/lambda/latest/dg/with-cloudtrail.html](https://docs.aws.amazon.com/lambda/latest/dg/with-cloudtrail.html)
 
 **AWS CloudWatch** can be used to collect and track your resource and application metrics  
-[https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.  
+html
 
 **Make sure you have an exit and/or migration strategy planned**  
 [http://blog.sysfore.com/do-you-have-your-cloud-exit-plan-ready/](http://blog.sysfore.com/do-you-have-your-cloud-exit-plan-ready/)
 
 **CSPs proprietary API based technique** for migrating your data  
-[http://searchcloudstorage.techtarget.com/opinion/The-need-for-a-cloud-exit-strategy-and-what-we-can-learn-from-Nirvanix](http://searchcloudstorage.techtarget.com/opinion/The-need-for-a-cloud-exit-strategy-and-what-we-can-learn-from-Nirvanix)
+http://searchcloudstorage.techtarget.com/opinion/The-need-for-a-cloud-exit-strategy-and-w  
+hat-we-can-learn-from-Nirvanix
 
 **Nirvanix**  
-[http://searchcloudstorage.techtarget.com/news/2240205813/Nirvanix-cloud-customers-face-worse-nightmares](http://searchcloudstorage.techtarget.com/news/2240205813/Nirvanix-cloud-customers-face-worse-nightmares)
+http://searchcloudstorage.techtarget.com/news/2240205813/Nirvanix-cloud-customers-face-  
+worse-nightmares
 
 **The less you depend on your CSPs proprietary services**, the less benefit you will be getting from them  
-[http://www.theserverside.com/feature/Getting-out-is-harder-than-getting-in-The-importance-of-a-cloud-exit-strategy](http://www.theserverside.com/feature/Getting-out-is-harder-than-getting-in-The-importance-of-a-cloud-exit-strategy)
+http://www.theserverside.com/feature/Getting-out-is-harder-than-getting-in-The-importanc  
+e-of-a-cloud-exit-strategy
 
 **EC2 Instance Store Encryption**  
-[https://aws.amazon.com/blogs/security/how-to-protect-data-at-rest-with-amazon-ec2-instance-store-encryption/](https://aws.amazon.com/blogs/security/how-to-protect-data-at-rest-with-amazon-ec2-instance-store-encryption/)
+https://aws.amazon.com/blogs/security/how-to-protect-data-at-rest-with-amazon-ec2-instan  
+ce-store-encryption/
 
 **Elastic File System (EFS) encryption**  
-[https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-efs-now-supports-encryption-of-data-at-rest/](https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-efs-now-supports-encryption-of-data-at-rest/)
+https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-efs-now-supports-encryptio  
+n-of-data-at-rest/
 
 **Ben Humphreys spoke about this at CHCon**  
 [https://2016.chcon.nz/talks.html#1245](https://2016.chcon.nz/talks.html#1245)
@@ -1402,7 +1411,8 @@ _Todo_: Add Network Security show when it is published.
 [https://devcenter.heroku.com/articles/pentest-instructions](https://devcenter.heroku.com/articles/pentest-instructions)
 
 **Azure allows penetration testing** of your applications and services running in Azure  
-[https://blogs.msdn.microsoft.com/azuresecurity/2016/08/29/pen-testing-from-azure-virtual-machines/](https://blogs.msdn.microsoft.com/azuresecurity/2016/08/29/pen-testing-from-azure-virtual-machines/)
+https://blogs.msdn.microsoft.com/azuresecurity/2016/08/29/pen-testing-from-azure-vir  
+tual-machines/
 
 **AWS has a bug bounty program**  
 [https://hackerone.com/amazon-web-services](https://hackerone.com/amazon-web-services)
@@ -1438,7 +1448,8 @@ _Todo_: Add Network Security show when it is published.
 [https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users)
 
 **AWS DelegateManagementofMFA_policydocument template**  
-[https://s3.amazonaws.com/awsiammedia/public/sample/DelegateManagementofMFA/DelegateManagementofMFA_policydocument_060115.txt](https://s3.amazonaws.com/awsiammedia/public/sample/DelegateManagementofMFA/DelegateManagementofMFA_policydocument_060115.txt) 
+https://s3.amazonaws.com/awsiammedia/public/sample/Delegat  
+eManagementofMFA/DelegateManagementofMFA_policydocument_060115.txt
 
 **AWS has documentation on the process**  
 [https://aws.amazon.com/blogs/security/how-to-delegate-management-of-multi-factor-authentication-to-aws-iam-users/](https://aws.amazon.com/blogs/security/how-to-delegate-management-of-multi-factor-authentication-to-aws-iam-users/) 
@@ -1467,13 +1478,15 @@ _Todo_: Add Network Security show when it is published.
 [https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
 
 **Configuring a strong password policy** for your users  
-[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy) 
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-pa  
+ssword-policy 
 
 **Implement multi-factor authentication**  
 [https://aws.amazon.com/iam/details/mfa/](https://aws.amazon.com/iam/details/mfa/)
 
 **As usual, AWS has plenty of documentation**  
-[https://aws.amazon.com/blogs/security/how-to-receive-notifications-when-your-aws-accounts-root-access-keys-are-used/](https://aws.amazon.com/blogs/security/how-to-receive-notifications-when-your-aws-accounts-root-access-keys-are-used/)
+https://aws.amazon.com/blogs/security/how-to-receive-notifications-when-your-aws-accoun  
+ts-root-access-keys-are-used/
 
 **Set-up monitoring and notifications** on activity of your AWS account root user. AWS documentation explains how to do this  
 [https://aws.amazon.com/blogs/mt/monitor-and-notify-on-aws-account-root-user-activity/](https://aws.amazon.com/blogs/mt/monitor-and-notify-on-aws-account-root-user-activity/) 
@@ -1485,7 +1498,8 @@ _Todo_: Add Network Security show when it is published.
 [https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/](https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/)
 
 **Storage of Secrets**  
-[https://www.programmableweb.com/news/why-exposed-api-keys-and-sensitive-data-are-growing-cause-concern/analysis/2015/01/05](https://www.programmableweb.com/news/why-exposed-api-keys-and-sensitive-data-are-growing-cause-concern/analysis/2015/01/05)
+https://www.programmableweb.com/news/why-exposed-api-keys-and-sensitive-data-are-gro  wing-cause-concern/analysis/2015/01/05
+
 
 **Github provides guidance** on removing sensitive data from a repository  
 [https://help.github.com/articles/removing-sensitive-data-from-a-repository/](https://help.github.com/articles/removing-sensitive-data-from-a-repository/)
@@ -1500,7 +1514,8 @@ _Todo_: Add Network Security show when it is published.
 [https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/)
 
 **Create a key pair using EC2**  
-[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair)  
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-cr  
+eate-your-key-pair  
 **Or you can provide your own**  
 [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws)
 
@@ -1518,13 +1533,15 @@ _Todo_: Add Network Security show when it is published.
 [https://www.lastpass.com/teams](https://www.lastpass.com/teams)
 
 **Even if it is in a group password manager**. As AWS have already stated  
-[https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html)
+https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.ht  
+ml
 
 **There should be almost no reason** to create an access key for the root user  
 [https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials)
 
 **Configure strong password policies**  
-[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy)
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-pa  
+ssword-policy
 
 **Check the Secret Backends for integrations**  
 [https://www.vaultproject.io/docs/secrets/index.html](https://www.vaultproject.io/docs/secrets/index.html)
@@ -1548,7 +1565,7 @@ _Todo_: Add Network Security show when it is published.
 [https://github.com/anaibol/awesome-serverless](https://github.com/anaibol/awesome-serverless)
 
 **SOLID principles**  
-[https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
+https://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29
 
 **Serverless** goes a long way to forcing us to write testable code**  
 [https://blog.binarymist.net/2012/12/01/moving-to-tdd/](https://blog.binarymist.net/2012/12/01/moving-to-tdd/)
@@ -1572,7 +1589,8 @@ _Todo_: Add Network Security show when it is published.
 [https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html)
 
 **Other AWS resources access to AWS Lambda**  
-[https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permission-model-access-policy](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permission-model-access-policy)
+https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permiss  
+ion-model-access-policy
 
 **Use**  
 [https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-setup-api-key-with-console.html](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-setup-api-key-with-console.html)  
@@ -1606,7 +1624,8 @@ _Todo_: Add Network Security show when it is published.
 [https://hackernoon.com/centralised-logging-for-aws-lambda-b765b7ca9152](https://hackernoon.com/centralised-logging-for-aws-lambda-b765b7ca9152)
 
 **AWS Elasticsearch which may or may not be stable enough**  
-[https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f)
+https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7  
+cd70c9afb4f
 
 **Serverless**  
 [https://serverless.com/framework/](https://serverless.com/framework/)  
@@ -1620,7 +1639,8 @@ _Todo_: Add Network Security show when it is published.
 [https://www.zappa.io/](https://www.zappa.io/)
 
 **Software Engineering Radio** ran an excellent podcast on Terraform  
-[http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/](http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/)
+http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-progra  
+mming-with-terraform/
 
 **Continuous integration**  
 [https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/](https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/)
@@ -1664,7 +1684,8 @@ _Todo_: Add Network Security show when it is published.
 [https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices)
 
 **Also discuss recording the SSH sessions** that your users establish through a bastion host  
-[https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/)
+https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-b  
+astion-host/
 
 **Culture and techniques for bringing change** in various talks  
 [https://www.slideshare.net/kimcarter75098/agile-nz2014fornonattendees-38768039](https://www.slideshare.net/kimcarter75098/agile-nz2014fornonattendees-38768039)  
