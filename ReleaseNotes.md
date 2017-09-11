@@ -2,12 +2,19 @@
 
 ## 2017-09-11
 
-Fascicle 1 is now content complete
+Fascicle 1 is now content complete  
+Weighing in at aprox 550 pages incl Additional Resources and Attributions
+
+* Added links to Network Security Interview between Kim Carter and Haroon Meer on Software Engineering Radio ... to be released in a day or two
+* Updated threat tags
+* Code formatting changes
+* Punctuation modifications
 
 ### Cloud
 
-Ready for technical review
-Strong focus on AWS, although other CSPs discussed
+Ready for technical review  
+Strong focus on AWS, although other CSPs discussed  
+50 Pages of content added
 
 * Shared Responsibility Model: CSP Responsibility, CSP Customer Responsibility
 * CSP Evaluation
@@ -33,6 +40,11 @@ Strong focus on AWS, although other CSPs discussed
   * Functions
   * DoS of Lambda Functions
 * Infrastructure and Configuration Management
+
+### Web Applications
+
+* Updated OWASP Top 10 resources to 2017
+* Added AWS WAF
 
 ### Additional Resources
 
