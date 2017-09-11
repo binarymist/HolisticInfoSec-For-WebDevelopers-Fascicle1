@@ -1328,10 +1328,6 @@ _Todo_: Add Network Security show when it is published.
 **AWS Shared Responsibility Model**  
 [https://aws.amazon.com/compliance/shared-responsibility-model/](https://aws.amazon.com/compliance/shared-responsibility-model/)
 
-**AWS for example states:** "_Customers retain control of what security they choose to implement to protect their own content, platform, applications, systems and networks, no differently than they would for applications in an on-site datacenter._"  
-
-https://aws.amazon.com/compliance/shared-responsibility-model/
-
 **CloudTrail**  
 [https://aws.amazon.com/cloudtrail/](https://aws.amazon.com/cloudtrail/)
 
@@ -1457,7 +1453,7 @@ eManagementofMFA/DelegateManagementofMFA_policydocument_060115.txt
 [https://console.aws.amazon.com/trustedadvisor/](https://console.aws.amazon.com/trustedadvisor/)
 
 **Have solid change control in place**. AWS Config can assist with this  
-[](https://aws.amazon.com/config/)  
+[https://aws.amazon.com/config/](https://aws.amazon.com/config/)  
 **AWS Config** continuously monitors and records  
 [https://docs.aws.amazon.com/config/latest/developerguide/](https://docs.aws.amazon.com/config/latest/developerguide/)
 
@@ -1500,7 +1496,7 @@ https://www.programmableweb.com/news/why-exposed-api-keys-and-sensitive-data-are
 **Temporary security credentials**  
 [https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
 
-**Desire and a dysfunctional culture in the work place**  
+**Lack of knowledge, desire and a dysfunctional culture** in the work place  
 [https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/)
 
 **Create a key pair using EC2**  
@@ -1510,9 +1506,6 @@ eate-your-key-pair
 [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws)
 
 **Every user should have their own key-pair**  
-[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
-
-**AWS has clear directions** on how to create additional users  
 [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
 
 **Plesant Password Server**  
