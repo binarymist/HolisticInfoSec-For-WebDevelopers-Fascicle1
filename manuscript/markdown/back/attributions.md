@@ -1619,11 +1619,57 @@ _Todo_: Add Network Security show when it is published.
 **Zappa**  
 [https://www.zappa.io/](https://www.zappa.io/)
 
+**Software Engineering Radio** ran an excellent podcast on Terraform  
+[http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/](http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/)
 
+**Continuous integration**  
+[https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/](https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/)
 
+**Security Monkey Monitors AWS and GCP accounts for policy changes**  
+[https://github.com/Netflix/security_monkey/](https://github.com/Netflix/security_monkey/)
 
+**Simian Army tools from Netflix**  
+[https://github.com/Netflix/SimianArmy/wiki](https://github.com/Netflix/SimianArmy/wiki)
 
+**Chaos Monkey**  
+[https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey](https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey)  
+**Janitor Monkey**  
+[https://github.com/Netflix/SimianArmy/wiki/Janitor-Home](https://github.com/Netflix/SimianArmy/wiki/Janitor-Home)  
+**Conformity Monkey**  
+[https://github.com/Netflix/SimianArmy/wiki/Conformity-Home](https://github.com/Netflix/SimianArmy/wiki/Conformity-Home)  
+**CloudSploit**  
+[https://cloudsploit.com/](https://cloudsploit.com/)
 
+**Amazon Inspector**  
+[https://console.aws.amazon.com/inspector/](https://console.aws.amazon.com/inspector/)  
+**Awesome AWS**  
+[https://github.com/donnemartin/awesome-aws](https://github.com/donnemartin/awesome-aws)
+
+**Tools that can break password databases**  
+[https://github.com/denandz/KeeFarce](https://github.com/denandz/KeeFarce)
+
+**Commonly known as the secret zero** problem  
+[https://news.ycombinator.com/item?id=9453754](https://news.ycombinator.com/item?id=9453754)
+
+**Tools set-up** so that they are continually auditing your infrastructure  
+[https://blog.cloudsploit.com/the-importance-of-continual-auditing-in-the-cloud-8d22e0554639](https://blog.cloudsploit.com/the-importance-of-continual-auditing-in-the-cloud-8d22e0554639)
+
+**Tunnel RDP through your SSH tunnel** as I have blogged about  
+[https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/](https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/)
+
+**Documentation around setting up the bastion host in AWS**  
+[https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/](https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/)
+
+**AWS provide some Best Practices** for security on bastion hosts  
+[https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices)
+
+**Also discuss recording the SSH sessions** that your users establish through a bastion host  
+[https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/)
+
+**Culture and techniques for bringing change** in various talks  
+[https://www.slideshare.net/kimcarter75098/agile-nz2014fornonattendees-38768039](https://www.slideshare.net/kimcarter75098/agile-nz2014fornonattendees-38768039)  
+**Blog posts**  
+[https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/#effecting-change](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/#effecting-change)
 
 
 
