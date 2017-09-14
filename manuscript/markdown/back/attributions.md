@@ -1278,8 +1278,6 @@ and also the specification
 https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aws-the-b  
 est-practices-to-avoid-it/
 
-_Todo_: Add Network Security show when it is published.
-
 **Discussed this with Haroon Meer** on the Network Security show I hosted for Software Engineering Radio  
 [http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/)
 

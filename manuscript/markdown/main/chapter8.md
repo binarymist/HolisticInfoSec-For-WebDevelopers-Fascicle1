@@ -26,7 +26,7 @@ Go through the same process as we did at the top level Identify Risks section in
 
 Most types of security exploitation have a network involved somewhere. Reconnaissance generally utilises the internet at a minimum. [Application security](#web-applications) generally requires a network in order to access the target application(s). [Cloud security](#cloud) similarly depends on a network in order to access the target resources. Social Engineering as discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) leverages a network of people in order to access the human target. Even physical security (also discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)) often involves different types of networks. When we think of networks, try not to be constrained to computer networks.
 
-I also discussed [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) with Haroon Meer on a Software Engineering Radio show, which is well worth a listen.
+I also discussed [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) with Haroon Meer on a Software Engineering Radio show, which is well worth a listen during evaluation of both risks and countermeasures.
 
 ### Fortress Mentality {#network-identify-risks-fortress-mentality}
 ![](images/ThreatTags/easy-widespread-easy-severe.png)
