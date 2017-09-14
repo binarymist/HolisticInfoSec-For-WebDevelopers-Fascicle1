@@ -1281,7 +1281,7 @@ est-practices-to-avoid-it/
 _Todo_: Add Network Security show when it is published.
 
 **Discussed this with Haroon Meer** on the Network Security show I hosted for Software Engineering Radio  
-[]()
+[http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/)
 
 **The default on AWS EC2 instances** is to have a single user (root)  
 [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html)

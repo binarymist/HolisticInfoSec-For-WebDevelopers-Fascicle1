@@ -264,11 +264,9 @@ Here are some examples of violating least privilege:
 
 **This Fascicle**:
 
-_Todo_: Add Network Security show when it is published.
-
 * VPS chapter: We discussed privilege escalation. This is a direct violation of least privilege, because after escalation, they now have additional privileges
-* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the [Network Security]() show I hosted for Software Engineering Radio. This for example could allow an attacker that managed to gain control of a network to have unhindered access to all of an organisations assets due to all being on a monolithic network segment rather than having assets on alternative network segments with firewalls between them
-* Web Applications chapter: We discuss setting up data-store accounts that only have privileges to query the stored procedures necessary for a given application, thus reducing the power that any possible SQL injection attack may have to carry out arbitrary commands. [Haroon Meer](https://twitter.com/haroonmeer) also discussed this as a technique for exfiltration of data in the Network Security podcast
+* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio. This for example could allow an attacker that managed to gain control of a network to have unhindered access to all of an organisations assets due to all being on a monolithic network segment rather than having assets on alternative network segments with firewalls between them
+* Web Applications chapter: We discuss setting up data-store accounts that only have privileges to query the stored procedures necessary for a given application, thus reducing the power that any possible SQL injection attack may have to carry out arbitrary commands. [Haroon Meer](https://twitter.com/haroonmeer) also discussed this as a technique for exfiltration of data in the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) podcast
 
 Hopefully you are getting the idea of what least privilege is, and subsequently how it breaks down in a cloud environment. Some examples:
 
@@ -422,9 +420,7 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
-_Todo_: Add Network Security show link when it is published.
-
-As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are an excellent token you can drop anywhere on your infrastructure, and when an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones being added every so often. These tokens are very quick and also free to generate, and drop where ever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the [Network Security]() show I hosted for Software Engineering Radio near the end.
+As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are an excellent token you can drop anywhere on your infrastructure, and when an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones being added every so often. These tokens are very quick and also free to generate, and drop where ever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio near the end.
 
 ### Shared Responsibility Model
 
@@ -687,9 +683,7 @@ Another idea is to set-up monitoring and notifications on activity of your AWS a
 
 There are also a collection of monitoring specific items that you should review in the Monitoring subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf).
 
-_Todo_: Add links when show goes live.
-
-Another great idea is to generate an AWS key [Canarytoken](https://canarytokens.org/) from canarytokens.org, and put it somewhere more obvious than your real AWS key(s). When someone uses it, you will be automatically notified. I discussed these with Haroon Meer on the Software Engineering Radio Network Security podcast.
+Another great idea is to generate an AWS key [Canarytoken](https://canarytokens.org/) from canarytokens.org, and put it somewhere more obvious than your real AWS key(s). When someone uses it, you will be automatically notified. I discussed these with Haroon Meer on the Software Engineering Radio [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) podcast.
 
 Also consider rotating your IAM access keys to your CSP services. AWS EC2 for example provide [auto-expire, auto-renew](https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/) access keys by using roles.
 
