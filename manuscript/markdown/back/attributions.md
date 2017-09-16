@@ -1478,6 +1478,11 @@ ts-root-access-keys-are-used/
 **Canarytoken**  
 [https://canarytokens.org/](https://canarytokens.org/)
 
+**Jay**  
+[https://twitter.com/HeyJayza](https://twitter.com/HeyJayza)  
+**Also wrote a blog post** on the thinkst blog  
+[http://blog.thinkst.com/2017/09/canarytokens-new-member-aws-api-key.html](http://blog.thinkst.com/2017/09/canarytokens-new-member-aws-api-key.html)
+
 **AWS EC2 for example provide auto-expire, auto-renew**  
 [https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/](https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/)
 
