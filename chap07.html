@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Table of Contents</title>
-<link href="stylesheet.css" type="text/css" rel="stylesheet" />
-<meta charset="utf-8"/>
+  <meta charset="utf-8">
+  <title>Additional Resources</title>
+  <link href="stylesheet.css" rel="stylesheet" />
 </head>
-<body dir="ltr">
-      <section class="frontmatter TableOfContents" epub:type="frontmatter toc">
-        <h2 id='toc'>Table of Contents</h2>
-
-         <nav xmlns:epub="http://www.idpf.org/2007/ops" epub:type="toc">
-           <ul class='toc no-parts'>
+<body dir="ltr" class="kramdown">
+<div id="leanpub-toc">
+<h2></h2>
+<ol class="toc">
+<ul class='toc no-parts'>
   <li>
     <a href='chap00.html#leanpub-auto-foreword'>Foreword</a>
   </li>
@@ -2118,16 +2117,535 @@
   </li>
 </ul>
 
-         </nav>
+</ol>
+</div>
+<div id="leanpub-main" class="kramdown">
+<h2 id="additional-resources">Additional Resources</h2>
 
-         <nav xmlns:epub="http://www.idpf.org/2007/ops" epub:type="landmarks" id="guide">
-            <h2>Guide</h2>
-            <ol>
-               <li>
-                  <a epub:type="bodymatter" href="chap00.xhtml">Begin Reading</a>
-               </li>
-            </ol>
-         </nav>
-</section>
+<h3 id="leanpub-auto-vpsvps">
+  <a href="chap03.html#vps">VPS</a>
+</h3>
+
+<p><strong>Details on the Metasploit PSExec module</strong><br />
+<a href="https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified">https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified</a> </p>
+
+<p><strong>15 Ways to bypass PowerShell Execution Policy</strong><br />
+<a href="https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/">https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/</a></p>
+
+<p><strong><code>Out-CHM</code> blog post</strong> from <code>nishang</code> author “Nikhil SamratAshok Mittal”<br />
+<a href="http://www.labofapenetrationtester.com/2014_11_01_archive.html">http://www.labofapenetrationtester.com/2014_11_01_archive.html</a></p>
+
+<p><strong>Useful details around the Windows scheduled tasks</strong> used in <a href="chap03.html#Persistence-ps1"><code>Persistence.ps1</code></a><br />
+<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb736357(v=vs.85).aspx">https://msdn.microsoft.com/en-us/library/windows/desktop/bb736357(v=vs.85).aspx</a></p>
+
+<p><strong>Local Linux Enumeration &amp; Privilege Escalation Cheatsheet</strong><br />
+<a href="https://www.rebootuser.com/?p=1623">https://www.rebootuser.com/?p=1623</a></p>
+
+<p id="additional-resources-vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation"><strong>Linux_Exploit_Suggester</strong> uses the Operating System release version, or fine tune by manually providing the Kernel version<br />
+<a href="https://github.com/PenturaLabs/Linux_Exploit_Suggester">https://github.com/PenturaLabs/Linux_Exploit_Suggester</a></p>
+
+<p><strong>Windows-Exploit-Suggester</strong> compares a targets patch levels against the Microsoft vulnerability database in order to detect potential missing patches on the target. It also notifies the user if there are public exploits and Metasploit modules available for the missing bulletins.<br />
+<a href="https://github.com/GDSSecurity/Windows-Exploit-Suggester">https://github.com/GDSSecurity/Windows-Exploit-Suggester</a></p>
+
+<p><strong>Network Information Service</strong> wiki<br />
+<a href="https://en.wikipedia.org/wiki/Network_Information_Service">https://en.wikipedia.org/wiki/Network_Information_Service</a></p>
+
+<p><strong>Linux NIS(YP)/NIS+ HowTo</strong><br />
+<a href="http://www.linux-nis.org/nis-howto/HOWTO/NIS-HOWTO.html">http://www.linux-nis.org/nis-howto/HOWTO/NIS-HOWTO.html</a> </p>
+
+<p><strong>FreeBSD NIS</strong><br />
+<a href="https://www.freebsd.org/doc/handbook/network-nis.html">https://www.freebsd.org/doc/handbook/network-nis.html</a></p>
+
+<p><strong>Distributed Computing Environment / Remote Procedure Call</strong><br />
+<a href="https://en.wikipedia.org/wiki/DCE/RPC">https://en.wikipedia.org/wiki/DCE/RPC</a>.</p>
+
+<p><strong>In most cases you will want to shadow your passwords</strong><br />
+<a href="http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2">http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2</a></p>
+
+<p><strong>SHA scheme for crypt</strong><br />
+<a href="https://www.akkadia.org/drepper/SHA-crypt.txt">https://www.akkadia.org/drepper/SHA-crypt.txt</a></p>
+
+<p><strong>SHA-2</strong><br />
+<a href="https://en.wikipedia.org/wiki/SHA-2">https://en.wikipedia.org/wiki/SHA-2</a></p>
+
+<p><strong>Some details around</strong> <code>/etc/passwd</code> and <code>/etc/shadow</code></p>
+
+<p><strong>For a plethora of information on hardening and using SSH</strong> in creative ways<br />
+<a href="https://blog.binarymist.net/?s=ssh">https://blog.binarymist.net/?s=ssh</a></p>
+
+<p><strong>SSH Connection and Encryption Process</strong><br />
+<a href="https://www.digitalocean.com/community/tutorials/understanding-the-ssh-encryption-and-connection-process">https://www.digitalocean.com/community/tutorials/understanding-the-ssh-encryption-and-connection-process</a></p>
+
+<p>
+  <strong>SSH, The Secure Shell: The Definitive Guide, 2nd Edition</strong>
+</p>
+
+<p><strong>SSH Specification</strong><br />
+<a href="https://tools.ietf.org/html/rfc4253">https://tools.ietf.org/html/rfc4253</a></p>
+
+<p><strong>Notes on Cryptography Ciphers</strong><br />
+<a href="http://rakhesh.com/infrastructure/notes-on-cryptography-ciphers-rsa-dsa-aes-rc4-ecc-ecdsa-sha-and-so-on/">http://rakhesh.com/infrastructure/notes-on-cryptography-ciphers-rsa-dsa-aes-rc4-ecc-ecdsa-sha-and-so-on/</a></p>
+
+<p><strong>An Overview of Cryptography</strong><br />
+<a href="http://www.garykessler.net/library/crypto.html">http://www.garykessler.net/library/crypto.html</a></p>
+
+<p id="additional-resources-vps-locking-down-the-mounting-of-partitions"><strong>Mounting partitions the right way</strong><br />
+<a href="http://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s4.10">http://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s4.10</a></p>
+
+<p><strong>mount man page</strong><br />
+<a href="http://man.he.net/man8/mount">http://man.he.net/man8/mount</a></p>
+
+<p><strong>Securing the mail service</strong><br />
+<a href="http://www.debian.org/doc/manuals/securing-debian-howto/ch-sec-services.en.html#s5.6">http://www.debian.org/doc/manuals/securing-debian-howto/ch-sec-services.en.html#s5.6</a></p>
+
+<p><strong>Disabling daemon services</strong><br />
+<a href="http://www.debian.org/doc/manuals/securing-debian-howto/ch3.en.html#s-disableserv">http://www.debian.org/doc/manuals/securing-debian-howto/ch3.en.html#s-disableserv</a></p>
+
+<p><strong>Run levels</strong><br />
+<a href="https://www.debian.org/doc/debian-policy/ch-opersys.html#s-sysvinit">https://www.debian.org/doc/debian-policy/ch-opersys.html#s-sysvinit</a></p>
+
+<p><strong><code>apt-get --purge remove exim4 exim4-base exim4-config exim4-daemon-light</code></strong><br />
+<a href="http://stackoverflow.com/questions/12061358/how-to-cleanly-remove-exim4-mail-server-on-ubuntu">http://stackoverflow.com/questions/12061358/how-to-cleanly-remove-exim4-mail-server-on-ubuntu</a></p>
+
+<p><strong>Running the minimum number of services required</strong><br />
+<a href="http://www.debian.org/doc/manuals/securing-debian-howto/ch3.en.html#s3.6">http://www.debian.org/doc/manuals/securing-debian-howto/ch3.en.html#s3.6</a></p>
+
+<p><strong>System audit</strong><br />
+<a href="http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html#AUDIT">http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html#AUDIT</a></p>
+
+<p><strong>Securing the services that are left</strong><br />
+<a href="https://www.debian.org/doc/manuals/securing-debian-howto/ch-sec-services.en.html">https://www.debian.org/doc/manuals/securing-debian-howto/ch-sec-services.en.html</a></p>
+
+<p><strong>Which services do we really need</strong><br />
+<a href="http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html">http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html</a></p>
+
+<p><strong>Centralized logging makes everything better</strong><br />
+https://medium.com/starting-up-security/learning-from-a-year-of-security-breaches-ed036ea<br />
+05d9b#41e1</p>
+
+<p><strong>Logging and Alerting</strong>, where and what are the log files?<br />
+<a href="http://www.thegeekstuff.com/2011/08/linux-var-log-files/">http://www.thegeekstuff.com/2011/08/linux-var-log-files/</a></p>
+
+<p id="additional-resources-vps-countermeasures-lack-of-visibility-logging-and-alerting-swatch"><strong>Nagios Log Monitoring with Swatch</strong><br />
+https://assets.nagios.com/downloads/nagiosxi/docs/Log_Monitoring_With_Swatch.pdf#_ga=1
+.228044821.985883814.1472695863</p>
+
+<p><strong>Simple Log Watcher</strong> examples<br />
+<a href="http://www.linux-mag.com/id/7807/">http://www.linux-mag.com/id/7807/</a></p>
+
+<p><strong>Simple Log Watcher</strong> man page<br />
+<a href="http://linux.die.net/man/1/swatch">http://linux.die.net/man/1/swatch</a></p>
+
+<p><strong>Logwatch install, set-up, and using</strong><br />
+<a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-logwatch-log-analyzer-and-reporter-on-a-vps">https://www.digitalocean.com/community/tutorials/how-to-install-and-use-logwatch-log-analyzer-and-reporter-on-a-vps</a></p>
+
+<p><strong>The Debian Manuals have details on how to use and customise logcheck</strong><br />
+<a href="https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-custom-logcheck">https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-custom-logcheck</a> </p>
+
+<p><strong>Fail2ban</strong> source code<br />
+<a href="https://github.com/fail2ban/fail2ban/">https://github.com/fail2ban/fail2ban/</a></p>
+
+<p><strong>Multitail</strong> example<br />
+<a href="https://www.howtoforge.com/monitoring-multiple-log-files-at-a-time-with-multitail-on-debian-lenny">https://www.howtoforge.com/monitoring-multiple-log-files-at-a-time-with-multitail-on-debian-lenny</a></p>
+
+<p><strong>Gentoo rsyslog wiki</strong><br />
+<a href="https://wiki.gentoo.org/wiki/Rsyslog">https://wiki.gentoo.org/wiki/Rsyslog</a></p>
+
+<p><strong>Make sure you have reviewed who can write and read</strong> your logs and make any modifications necessary to the permissions.<br />
+<a href="http://www.tldp.org/HOWTO/Security-HOWTO/secure-prep.html#logs">http://www.tldp.org/HOWTO/Security-HOWTO/secure-prep.html#logs</a></p>
+
+
+<p><strong><code>kill</code>ing processes</strong><br />
+http://www.cyberciti.biz/faq/<br />
+kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/</p>
+
+<p><strong>Unix signals</strong><br />
+<a href="https://en.wikipedia.org/wiki/Unix_signal">https://en.wikipedia.org/wiki/Unix_signal</a></p>
+
+<p><strong>Terse guide of systemd commands</strong> and some other quick start sort of info<br />
+<a href="https://wiki.archlinux.org/index.php/systemd">https://wiki.archlinux.org/index.php/systemd</a></p>
+
+<p><strong>Tripwire tutorial</strong><br />
+<a href="https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps">https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps</a></p>
+
+<p><strong>TLDP Security HowTo</strong><br />
+<a href="http://www.tldp.org/HOWTO/Security-HOWTO/">http://www.tldp.org/HOWTO/Security-HOWTO/</a></p>
+
+<p><strong>TLDP Security Quickstart</strong><br />
+<a href="http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/">http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/</a></p>
+
+<p><strong>Securing Debian Howto</strong><br />
+<a href="http://www.debian.org/doc/manuals/securing-debian-howto/index.en.html">http://www.debian.org/doc/manuals/securing-debian-howto/index.en.html</a> </p>
+
+<p><strong>Debian Security</strong><br />
+<a href="http://www.debianhelp.co.uk/security.htm">http://www.debianhelp.co.uk/security.htm</a></p>
+
+<p id="additional-resources-vps-countermeasures-docker"><strong>Cisecurity</strong><br />
+has an <a href="https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf">excellent resource</a> for hardening docker images which the Docker Security team helped with. This should be consulted in parallel to reading the <a href="chap03.html#vps-countermeasures-docker">Docker Countermeasures</a> section</p>
+
+<p><strong>I also conducted an interview called “<a href="http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/">Docker Security</a>“</strong><br />
+for Software Engineering Radio in which Docker Security Team Lead Diogo Monica appeared as guest and provided some excellent advice, opinions, and food for thought, be sure to listen to it</p>
+
+<p id="additional-resources-vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces"><strong>Network Namespace</strong> source code<br />
+<a href="https://github.com/torvalds/linux/blob/master/net/core/net_namespace.c">https://github.com/torvalds/linux/blob/master/net/core/net_namespace.c</a></p>
+
+<p><strong>IP-NETNS</strong> man page<br />
+<a href="http://man7.org/linux/man-pages/man8/ip-netns.8.html">http://man7.org/linux/man-pages/man8/ip-netns.8.html</a></p>
+
+<p><strong>Introducing Linux Network Namespaces</strong><br />
+<a href="http://blog.scottlowe.org/2013/09/04/introducing-linux-network-namespaces/">http://blog.scottlowe.org/2013/09/04/introducing-linux-network-namespaces/</a></p>
+
+<p><strong>Network namespaces</strong><br />
+<a href="https://blogs.igalia.com/dpino/2016/04/10/network-namespaces/">https://blogs.igalia.com/dpino/2016/04/10/network-namespaces/</a></p>
+
+<p><strong>docker network</strong><br />
+<a href="https://docs.docker.com/engine/reference/commandline/network/">https://docs.docker.com/engine/reference/commandline/network/</a></p>
+
+<p><strong>Namespaces in operation</strong><br />
+<a href="https://lwn.net/Articles/580893/">https://lwn.net/Articles/580893/</a></p>
+
+<p><strong>dockerscan</strong> may be worth keeping an eye on for offensive testing<br />
+<a href="https://github.com/cr0hn/dockerscan">https://github.com/cr0hn/dockerscan</a></p>
+
+<p><strong>Docker SELinux Man Page</strong><br />
+<a href="https://www.mankier.com/8/docker_selinux">https://www.mankier.com/8/docker_selinux</a></p>
+
+<p><strong>Understanding and Hardening Linux Containers</strong><br />
+https://www.nccgroup.trust/globalassets/our-research/us/whitepapers/2016/april/ncc_group<br />
+_understanding_hardening_linux_containers-10pdf/</p>
+
+<p><strong>Increasing Attacker Cost using Immutable Infrastructure</strong><br />
+https://diogomonica.com/2016/11/19/increasing-attacker-cost-using-immutable-infrastructure/</p>
+
+<p><strong>Diogo Monica on Mutual TLS</strong><br />
+<a href="https://www.youtube.com/watch?v=apma_C24W58">https://www.youtube.com/watch?v=apma_C24W58</a></p>
+
+<p>
+  <strong>Diogo Monica on Orchestrating Least Privilege</strong>
+</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=xpGNAiA3XW8">https://www.youtube.com/watch?v=xpGNAiA3XW8</a></li>
+  <li>https://www.slideshare.net/Docker/orchestrating-least-privilege-by-diogo-monica-6718<br />
+6063</li>
+</ul>
+
+<p><strong>Comparison of secrets across orchestrators</strong><br />
+https://medium.com/on-docker/secrets-and-lie-abilities-the-state-of-modern-secret-managem<br />
+ent-2017-c82ec9136a3d#.f6yba66ti</p>
+
+<p><strong>Description of how PKI automatically gets setup in swarm</strong><br />
+<a href="https://docs.docker.com/engine/swarm/how-swarm-mode-works/pki/">https://docs.docker.com/engine/swarm/how-swarm-mode-works/pki/</a></p>
+
+<p><strong>Image signing</strong>, and why it is important<br />
+<a href="https://blog.docker.com/2015/08/content-trust-docker-1-8/">https://blog.docker.com/2015/08/content-trust-docker-1-8/</a></p>
+
+<p><strong>Docker security scanning (content integrity)</strong><br />
+<a href="https://blog.docker.com/2016/05/docker-security-scanning/">https://blog.docker.com/2016/05/docker-security-scanning/</a></p>
+
+<h3 id="leanpub-auto-networknetwork">
+  <a href="chap04.html#network">Network</a>
+</h3>
+
+
+<p><strong>Top 10 Network Security Mistakes - #5: Lack of Segmentation</strong><br />
+<a href="https://www.optiv.com/blog/top-10-network-security-mistakes-5-lack-of-segmentation">https://www.optiv.com/blog/top-10-network-security-mistakes-5-lack-of-segmentation</a></p>
+
+<p><strong>Database security</strong><br />
+<a href="https://www.owasp.org/index.php/Configuration#Database_security">https://www.owasp.org/index.php/Configuration#Database_security</a></p>
+
+
+
+<p><strong>Dropbox Interview of James Cowling</strong><br />
+<a href="http://www.se-radio.net/2017/03/se-radio-episode-285-james-cowling-on-dropboxs-distributed-storage-system/">http://www.se-radio.net/2017/03/se-radio-episode-285-james-cowling-on-dropboxs-distributed-storage-system/</a></p>
+
+<p><strong>DropSmack</strong><br />
+<a href="https://media.blackhat.com/eu-13/briefings/Williams/bh-eu-13-dropsmack-jwilliams-slides.pdf">https://media.blackhat.com/eu-13/briefings/Williams/bh-eu-13-dropsmack-jwilliams-slides.pdf</a></p>
+
+<p><strong>NS1 Using dig +trace</strong><br />
+<a href="https://ns1.com/articles/using-dig-trace">https://ns1.com/articles/using-dig-trace</a></p>
+
+<p><strong>Difference between Authoritative and Recursive DNS Nameservers</strong> by Chris Frost<br />
+<a href="https://umbrella.cisco.com/blog/blog/2014/07/16/difference-authoritative-recursive-dns-nameservers/">https://umbrella.cisco.com/blog/blog/2014/07/16/difference-authoritative-recursive-dns-nameservers/</a></p>
+
+<p><strong>Comparison of DNS Server Types</strong> by Justin Ellingwood<br />
+<a href="https://www.digitalocean.com/community/tutorials/a-comparison-of-dns-server-types-how-to-choose-the-right-dns-configuration">https://www.digitalocean.com/community/tutorials/a-comparison-of-dns-server-types-how-to-choose-the-right-dns-configuration</a></p>
+
+<p><strong>DNS Steps in Detail</strong><br />
+<a href="http://blog.catchpoint.com/2014/07/01/dns-lookup-domain-name-ip-address/">http://blog.catchpoint.com/2014/07/01/dns-lookup-domain-name-ip-address/</a></p>
+
+<p><strong>How long can my SPF record be</strong><br />
+<a href="https://agari.zendesk.com/hc/en-us/articles/202952749-How-long-can-my-SPF-record-be-">https://agari.zendesk.com/hc/en-us/articles/202952749-How-long-can-my-SPF-record-be-</a></p>
+
+<p><strong>Tunneling Data and Commands Over DNS to Bypass Firewalls</strong> by Lenny Zeltser<br />
+<a href="https://zeltser.com/c2-dns-tunneling/">https://zeltser.com/c2-dns-tunneling/</a></p>
+
+
+
+<p id="additional-resources-network-insufficient-logging-internal-network-system-logging"><strong>Insufficient Logging - Internal Network System Logging</strong><br />
+These resources in order were helpful for establishing a strategy for the unreliable and unconfidental transport UDP<br />
+<a href="https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/">https://forums.freenas.org/index.php?threads/freenas-as-syslog-server.13145/</a><br />
+<a href="https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/">https://forums.freenas.org/index.php?threads/syslog-through-tcp-protocol.7112/</a><br />
+<a href="https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog">https://doc.pfsense.org/index.php/Copying_Logs_to_a_Remote_Host_with_Syslog</a></p>
+
+<p><strong>The ELK stack</strong> is also well worth considering<br />
+<a href="https://logz.io/blog/install-elk-stack-amazon-aws/">https://logz.io/blog/install-elk-stack-amazon-aws/</a></p>
+
+
+
+<p><strong>BSidesLV IDS talk</strong><br />
+<a href="https://www.youtube.com/watch?v=iHRwAg8LQtI&amp;feature=youtu.be">https://www.youtube.com/watch?v=iHRwAg8LQtI&amp;feature=youtu.be</a></p>
+
+<p><strong>Top Free Network-Based Intrusion Detection Systems (IDS) for the Enterprise</strong><br />
+<a href="https://www.upguard.com/articles/top-free-network-based-intrusion-detection-systems-ids-for-the-enterprise">https://www.upguard.com/articles/top-free-network-based-intrusion-detection-systems-ids-for-the-enterprise</a></p>
+
+<p><strong>Suricata-vs-snort</strong><br />
+<a href="https://www.aldeid.com/wiki/Suricata-vs-snort">https://www.aldeid.com/wiki/Suricata-vs-snort</a></p>
+
+
+
+<p><strong>Defense and mitigate ARP Spoofing</strong><br />
+<a href="http://www.jaringankita.com/blog/defense-arp-spoofing">http://www.jaringankita.com/blog/defense-arp-spoofing</a></p>
+
+
+<p><strong>FakeDNS</strong><br />
+<a href="https://github.com/Crypt0s/FakeDns">https://github.com/Crypt0s/FakeDns</a></p>
+
+
+
+<p><strong>Open Sender Policy Framework</strong><br />
+<a href="http://www.openspf.org/">http://www.openspf.org/</a></p>
+
+<p><strong>Wikipedia Sender Policy Framework</strong> (SPF)<br />
+<a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">https://en.wikipedia.org/wiki/Sender_Policy_Framework</a></p>
+
+<p><strong>Wikipedia DomainKeys Identified Mail</strong> (DKIM)<br />
+<a href="https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail">https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail</a></p>
+
+
+
+<p><strong>tcp-over-websockets</strong><br />
+<a href="https://github.com/derhuerst/tcp-over-websockets">https://github.com/derhuerst/tcp-over-websockets</a></p>
+
+<p><strong>chisel</strong><br />
+<a href="https://github.com/jpillora/chisel">https://github.com/jpillora/chisel</a></p>
+
+<p><strong>Dnscat documentation</strong><br />
+<a href="https://wiki.skullsecurity.org/Dnscat">https://wiki.skullsecurity.org/Dnscat</a></p>
+
+<p><strong>FakeDns</strong><br />
+<a href="https://github.com/Crypt0s/FakeDns">https://github.com/Crypt0s/FakeDns</a></p>
+
+
+<h3 id="leanpub-auto-cloudcloud">
+  <a href="chap05.html#cloud">Cloud</a>
+</h3>
+
+
+<p><strong>Secrets out of Docker images</strong><br />
+<a href="https://www.ctl.io/developers/blog/post/tutorial-protecting-sensitive-info-docker">https://www.ctl.io/developers/blog/post/tutorial-protecting-sensitive-info-docker</a></p>
+
+
+
+<p><strong>Darkreading: 10 Password Managers For Business Use</strong><br />
+https://www.darkreading.com/endpoint/10-password-managers-for-business-use/d/d-id/<br />
+1322326</p>
+
+
+<p id="additional-resources-cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software"><strong>Using Vault with MySQL</strong><br />
+<a href="https://dzone.com/articles/using-vault-with-mysql">https://dzone.com/articles/using-vault-with-mysql</a></p>
+
+<p><strong>Infrastructure Secret Management Overview</strong><br />
+<a href="https://gist.github.com/binarymist/66206419df712bd738c3d664542157d8">https://gist.github.com/binarymist/66206419df712bd738c3d664542157d8</a><br />
+Forked from maxvt.</p>
+
+
+<h3 id="leanpub-auto-web-applicationsweb-applications">
+  <a href="chap06.html#web-applications">Web Applications</a>
+</h3>
+
+<p><strong>OWASP canonical XSS resource</strong><br />
+https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29</p>
+
+<p><strong>Hashcat rules based</strong> attack<br />
+<a href="http://hashcat.net/wiki/doku.php?id=rule_based_attack">http://hashcat.net/wiki/doku.php?id=rule_based_attack</a></p>
+
+<p><strong>Details that helped setup NodeJS logging</strong>:<br />
+<a href="https://gist.github.com/rtgibbons/7354879">https://gist.github.com/rtgibbons/7354879</a><br />
+<a href="https://thejsf.wordpress.com/2015/01/18/node-js-logging-with-winston/">https://thejsf.wordpress.com/2015/01/18/node-js-logging-with-winston/</a></p>
+
+<p><strong>Application logging to syslog server</strong> on another machine:<br />
+<a href="http://unix.stackexchange.com/questions/67250/where-does-rsyslog-keep-facility-local0">http://unix.stackexchange.com/questions/67250/where-does-rsyslog-keep-facility-local0</a>  </p>
+
+<p><strong>Or the new style configuration</strong><br />
+<a href="http://www.rsyslog.com/doc/v8-stable/configuration/modules/imudp.html">http://www.rsyslog.com/doc/v8-stable/configuration/modules/imudp.html</a></p>
+
+<p><strong>Syslog compatible protocol severities</strong><br />
+<a href="https://wiki.gentoo.org/wiki/Rsyslog#Severity">https://wiki.gentoo.org/wiki/Rsyslog#Severity</a></p>
+
+
+<p><strong>cr0hn nosqlinjection_wordlists</strong><br />
+<a href="https://github.com/cr0hn/nosqlinjection_wordlists">https://github.com/cr0hn/nosqlinjection_wordlists</a></p>
+
+
+
+<p id="additional-resources-web-applications-risks-injection-command-injection"><strong>Avoiding Command Injection in Node.js</strong><br />
+<a href="https://blog.liftsecurity.io/2014/08/19/Avoid-Command-Injection-Node.js/">https://blog.liftsecurity.io/2014/08/19/Avoid-Command-Injection-Node.js/</a></p>
+
+<p><strong>Server-Side JavaScript Injection</strong><br />
+<a href="https://media.blackhat.com/bh-us-11/Sullivan/BH_US_11_Sullivan_Server_Side_WP.pdf">https://media.blackhat.com/bh-us-11/Sullivan/BH_US_11_Sullivan_Server_Side_WP.pdf</a></p>
+
+
+
+<p><strong>statsd source code</strong><br />
+<a href="https://github.com/etsy/statsd/">https://github.com/etsy/statsd/</a></p>
+
+<p><strong>One of the ways we can generate statistics for our statsd daemon</strong> is by using one of the many language specific statsd clients<br />
+<a href="https://github.com/etsy/statsd/wiki#client-implementations">https://github.com/etsy/statsd/wiki#client-implementations</a></p>
+
+<p><strong>First statsd spec for metric types</strong><br />
+<a href="https://github.com/b/statsd_spec/blob/master/README.md">https://github.com/b/statsd_spec/blob/master/README.md</a><br />
+<strong>Current, or at least more recent statsd spec</strong> for metric types<br />
+<a href="https://github.com/etsy/statsd/blob/master/docs/metric_types.md">https://github.com/etsy/statsd/blob/master/docs/metric_types.md</a></p>
+
+<p><strong>Configuring Graphite for StatsD</strong><br />
+<a href="https://github.com/etsy/statsd/blob/master/docs/graphite.md">https://github.com/etsy/statsd/blob/master/docs/graphite.md</a></p>
+
+<p><strong>StatsD, what it is and how it can help you</strong><br />
+<a href="https://www.datadoghq.com/blog/statsd/">https://www.datadoghq.com/blog/statsd/</a></p>
+
+
+<p><strong>Podcast on WebComponents</strong><br />
+<a href="http://webcomponents.org/">http://webcomponents.org/</a></p>
+
+<p><strong>I would recommend NSubstitute</strong> instead if you were looking for a mocking framework for .NET.<br />
+<a href="http://blog.binarymist.net/2013/12/14/evaluation-of-net-mocking-libraries/">http://blog.binarymist.net/2013/12/14/evaluation-of-net-mocking-libraries/</a></p>
+
+<p><strong>Information on how jQuery plugins plugin</strong><br />
+<a href="https://learn.jquery.com/plugins/">https://learn.jquery.com/plugins/</a></p>
+
+<p><strong>jQuery Validation</strong> documentation<br />
+<a href="http://jqueryvalidation.org/documentation/">http://jqueryvalidation.org/documentation/</a></p>
+
+<p>
+  <a href="http://jqueryvalidation.org/validate">http://jqueryvalidation.org/validate</a>
+</p>
+
+<p>
+  <a href="http://jqueryvalidation.org/jQuery.validator.addMethod">http://jqueryvalidation.org/jQuery.validator.addMethod</a>
+</p>
+
+<p>
+  <a href="http://jqueryvalidation.org/rules">http://jqueryvalidation.org/rules</a>
+</p>
+
+<p><strong>express-form</strong><br />
+<a href="https://github.com/freewil/express-form">https://github.com/freewil/express-form</a></p>
+
+<p id="additional-resources-countermeasures-for-csrf"><strong>XSRF/CSRF Prevention in ASP.NET MVC and Web Pages</strong> is good for understanding CSRF<br />
+<a href="https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages">https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages</a></p>
+
+<p><strong>OWASP CSRF</strong><br />
+https://www.owasp.org/index.php/Top_10_2017-A8-Cross-Site_Request_Forgery_(CSRF)</p>
+
+
+<p id="additional-resources-countermeasures-for-xpath-injection"><strong>Hacking XPath 2.0</strong><br />
+<a href="https://media.blackhat.com/bh-eu-12/Siddharth/bh-eu-12-Siddharth-Xpath-WP.pdf">https://media.blackhat.com/bh-eu-12/Siddharth/bh-eu-12-Siddharth-Xpath-WP.pdf</a></p>
+
+
+<p>
+  <strong>Recording and testing user time expenditure</strong>
+</p>
+
+<p>
+  <a href="http://www.smashingmagazine.com/2011/03/in-search-of-the-perfect-captcha/#recording-user-time-expenditure">http://www.smashingmagazine.com/2011/03/in-search-of-the-perfect-captcha/#recording-user-time-expenditure</a>
+</p>
+
+<p>
+  <a href="http://stackoverflow.com/questions/8472/practical-non-image-based-captcha-approaches">http://stackoverflow.com/questions/8472/practical-non-image-based-captcha-approaches</a>
+</p>
+
+<p><strong>Blowfish cipher</strong><br />
+https://en.wikipedia.org/wiki/Blowfish_%28cipher%29</p>
+
+<p><strong>PBKDF2</strong><br />
+<a href="https://en.wikipedia.org/wiki/PBKDF2">https://en.wikipedia.org/wiki/PBKDF2</a></p>
+
+<p><strong>Key Derivation Function</strong><br />
+<a href="https://en.wikipedia.org/wiki/Key_derivation_function">https://en.wikipedia.org/wiki/Key_derivation_function</a> (KDF)</p>
+
+<p><strong>bcrypt</strong><br />
+<a href="https://en.wikipedia.org/wiki/Bcrypt">https://en.wikipedia.org/wiki/Bcrypt</a></p>
+
+<p><strong>Cryptographic hash function</strong><br />
+<a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">https://en.wikipedia.org/wiki/Cryptographic_hash_function</a>: MD5, SHA1, SHA2, etc</p>
+
+<p><strong>Key stretching</strong><br />
+<a href="https://en.wikipedia.org/wiki/Key_stretching">https://en.wikipedia.org/wiki/Key_stretching</a></p>
+
+<p><strong>scrypt</strong><br />
+<a href="https://en.wikipedia.org/wiki/Scrypt">https://en.wikipedia.org/wiki/Scrypt</a></p>
+
+<p><strong>Good Password Hashing Functions</strong><br />
+<a href="http://defencely.com/blog/do-you-rely-on-hashing-know-websec-cryptography-indepth/">http://defencely.com/blog/do-you-rely-on-hashing-know-websec-cryptography-indepth/</a></p>
+
+<p><strong>bcrypt brute-forcing</strong> feasible on certain hardware<br />
+<a href="http://www.openwall.com/presentations/Passwords14-Energy-Efficient-Cracking/">http://www.openwall.com/presentations/Passwords14-Energy-Efficient-Cracking/</a><br />
+http://www.openwall.com/presentations/Password<br />
+s13-Energy-Efficient-Cracking/Passwords13-Energy-Efficient-Cracking.pdf<br />
+<a href="https://www.usenix.org/system/files/conference/woot14/woot14-malvoni.pdf">https://www.usenix.org/system/files/conference/woot14/woot14-malvoni.pdf</a></p>
+
+<p><strong>Cooling the Xeon Phi</strong><br />
+<a href="https://ssrb.github.io/hpc/2015/04/17/cooling-down-the-xeon-phi-sku31S1P/">https://ssrb.github.io/hpc/2015/04/17/cooling-down-the-xeon-phi-sku31S1P/</a></p>
+
+<p><strong>Xeon Phi misconceptions</strong><br />
+<a href="https://www.pugetsystems.com/labs/hpc/Top-5-Xeon-Phi-Misconceptions-508/">https://www.pugetsystems.com/labs/hpc/Top-5-Xeon-Phi-Misconceptions-508/</a></p>
+
+<p><strong>Password Cracking Strategy</strong><br />
+http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cracking<br />
+-strategy-0156491/</p>
+
+<p><strong>Securing Sessions</strong> via cookie attributes<br />
+<a href="https://www.owasp.org/index.php/HttpOnly">https://www.owasp.org/index.php/HttpOnly</a></p>
+
+<p><strong>Justin Searls talk</strong> on consuming all the open source<br />
+<a href="http://blog.testdouble.com/posts/2014-12-02-the-social-coding-contract.html">http://blog.testdouble.com/posts/2014-12-02-the-social-coding-contract.html</a></p>
+
+<p><strong>Effecting Change</strong><br />
+<a href="http://blog.binarymist.net/2013/06/22/ideas-for-more-effective-meetings-and-presentations/">http://blog.binarymist.net/2013/06/22/ideas-for-more-effective-meetings-and-presentations/</a></p>
+
+<p>
+  <strong>Application Intrusion Detection and Response</strong>
+</p>
+
+<p><strong>Appsensor home</strong><br />
+<a href="http://appsensor.org/">http://appsensor.org/</a></p>
+
+<p><strong>Sample Appsensor applications</strong><br />
+<a href="https://github.com/jtmelton/appsensor/tree/master/sample-apps">https://github.com/jtmelton/appsensor/tree/master/sample-apps</a></p>
+
+<p><strong>Slide deck</strong> from John Melton (AppSensor project lead)<br />
+<a href="http://www.slideshare.net/jtmelton/appsensor-near-real-time-event-detection-and-response">http://www.slideshare.net/jtmelton/appsensor-near-real-time-event-detection-and-response</a></p>
+
+<p><strong>Good podcast on OWASP 24/7 soundcloud</strong><br />
+<a href="https://soundcloud.com/owasp-podcast/john-melton-and-the-owasp-appsensor-project">https://soundcloud.com/owasp-podcast/john-melton-and-the-owasp-appsensor-project</a></p>
+
+<p><strong>Gaslighting with Honeypits and Mirages</strong><br />
+at OWASP NZ Day 2017 by Kate Pearce demonstrated a collection of very useful techniques for programmatically wasting your attackers time<br />
+<a href="https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule">https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule</a></p>
+
+<p><strong>W3C Web Crypto API Update</strong> Slides from Ryan Sleevi<br />
+<a href="https://www.ietf.org/proceedings/86/slides/slides-86-saag-5.pdf">https://www.ietf.org/proceedings/86/slides/slides-86-saag-5.pdf</a></p>
+
+<p><strong>What’s wrong with in-browser cryptography</strong> There is some great advice here, but I also don’t agree with some of it.<br />
+<a href="https://tonyarcieri.com/whats-wrong-with-webcrypto">https://tonyarcieri.com/whats-wrong-with-webcrypto</a></p>
+
+<p><strong>Advice from Cryptographer Matt Green</strong> to the W3C on the Web Cryptography APIs failure<br />
+<a href="http://blog.cryptographyengineering.com/2012/12/the-anatomy-of-bad-idea.html">http://blog.cryptographyengineering.com/2012/12/the-anatomy-of-bad-idea.html</a></p>
+
+
+<!-- begin backmatter -->
+
+</div>
 </body>
 </html>
