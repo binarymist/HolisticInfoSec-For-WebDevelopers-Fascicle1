@@ -930,11 +930,7 @@ I tried downloading and <code>I</code>nvoking <code>EX</code>pression from ISE u
 Start your listener using the <code>powershell_msf.rc</code> resource rile:<br />
 <code>msfconsole -r powershell_msf.rc</code></p>
 
-</aside>
 
-<aside>
-   <i class="fa fa-2x fa-bomb sr-icons aside-icon"></i>
-   <h3 id="leanpub-auto-the-play">The Play</h3>
    <p>Now you need to get the <code>doc.chm</code> onto your targets machine or a network share that your target can access/copy from, and persuade your target to run the <code>doc.chm</code>. When they do, as discussed above, <code>EncodedPersistentScript.ps1</code> will be downloaded and invoked, which will write the embedded encoded contents of <code>persistentFetchRunPayload.ps1</code> to the PowerShell profile, and setup a scheduled task. When the task fires, as in the previous attacks, the <code>payload.txt</code> will be downloaded and its expression invoked, which will cause the reverse shell to be executed. The listening Metasploit will catch the shell. If you have the scheduled task configured to run every hour, then you will get a reverse shell every hour. This survives reboots and most other actions any user will take, other than removing the PowerShell profile contents we created or removing the scheduled task.</p>
 
 </aside>
