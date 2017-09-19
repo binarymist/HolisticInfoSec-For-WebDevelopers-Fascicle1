@@ -1,6 +1,6 @@
 # 9. Cloud {#cloud}
 
-![10,000' view of Cloud and In-house Cloud Security](images/10000Cloud.png)
+![10,000' view and lower of Cloud and In-house Cloud Security](images/10000Cloud.png)
 
 If you skipped the [VPS](#vps) chapter, just be aware that it has a lot of similarities due to the fact that in many cases your VPS may be on someone else's hardware and under their control, just as many Cloud Service Providers leverage AWS resources, which ultimately still runs on real hardware. The Cloud is an abstraction (a lie).
 

@@ -1,6 +1,6 @@
 # 7. VPS {#vps}
 
-![10,000' view of VPS Security](images/10000VPS.png)
+![10,000' view and lower of VPS Security](images/10000VPS.png)
 
 If you have the necessary resources, that is knowledge, skill, experience, desire, money, and of course the need for high security which is becomming more and more important all the time, I usually advocate bringing VPS(s) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have more control. Most of my work around VPSs are with GNU/Linux instances. Most of the testing in this chapter was performed on Debian instances, usually, but not allways, web servers. Unless stated otherwise, the following applies to these type of instances.
 

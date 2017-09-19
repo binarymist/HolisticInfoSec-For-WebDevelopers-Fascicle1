@@ -1,6 +1,6 @@
 # 8. Network {#network}
 
-![10,000' view of Network Security](images/10000Network.png)
+![10,000' view and lower of Network Security](images/10000Network.png)
 
 I had the pleasure of interviewing [Haroon Meer](https://twitter.com/haroonmeer) on Software Engineering Radio for a [show on Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/). Do your self a favour and listen to it. We cover most of the topics in this chapter plus more. While you are at it, check out the great Thinkst tools, also discussed near the end of the show:
 

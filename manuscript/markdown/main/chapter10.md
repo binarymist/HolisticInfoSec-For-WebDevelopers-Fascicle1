@@ -1,6 +1,6 @@
 # 10. Web Applications {#web-applications}
 
-![10,000' view of Web Application Security](images/10000WebApp.png)
+![10,000' view and lower of Web Application Security](images/10000WebApp.png)
 
 
 ## 1. SSM Asset Identification
