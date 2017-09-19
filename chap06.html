@@ -3,2130 +3,27 @@
 <head>
   <meta charset="utf-8">
   <title>10. Web Applications</title>
-  <link href="stylesheet.css" rel="stylesheet" />
+  <link href="stylesheet.css" type="text/css" rel="stylesheet" />
+  <link href="external/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="icon" href="images/favicon-128.png" sizes="128x128">
+  <link rel="icon" href="images/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="images/favicon-16.png" sizes="16x16">
 </head>
 <body dir="ltr" class="kramdown">
-<div id="leanpub-toc">
-<h2></h2>
-<ol class="toc">
-<ul class='toc no-parts'>
-  <li>
-    <a href='chap00.html#leanpub-auto-foreword'>Foreword</a>
-  </li>
-  <li>
-    <a href='chap01.html#leanpub-auto-preface'>Preface</a>
-    <ul>
-      <li>
-        <a href='chap01.html#leanpub-auto-description'>Description</a>
-      </li>
-      <li>
-        <a href='chap01.html#leanpub-auto-purpose'>Purpose</a>
-      </li>
-      <li>
-        <a href='chap01.html#leanpub-auto-reason'>Reason</a>
-      </li>
-      <li>
-        <a href='chap01.html#leanpub-auto-acknowledgements'>Acknowledgements</a>
-      </li>
-      <li>
-        <a href='chap01.html#leanpub-auto-influences'>Influences</a>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href='chap02.html#leanpub-auto-introduction'>Introduction</a>
-  </li>
-  <li>
-    <a href='chap03.html#vps'>7. VPS</a>
-    <ul>
-      <li>
-        <a href='chap03.html#vps-asset-identification'>1. SSM Asset Identification</a>
-      </li>
-      <li>
-        <a href='chap03.html#leanpub-auto-ssm-identify-risks'>2. SSM Identify Risks</a>
-        <ul>
-          <li>
-            <a href='chap03.html#vps-identify-risks-forfeit-control-thus-security'>Forfeit Control thus Security</a>
-          </li>
-          <li>
-            <a href='chap03.html#vps-identify-risks-Windows'>Windows</a>
-            <ul>
-              <li>
-                <a href='chap03.html#vps-identify-risks-psexec'>PsExec</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-windows-pth-suite-of-metasploit-modules'>Pass The Hash (PTH) suite of Metasploit Modules</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-powershell'>PowerShell</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-powershell-exploitation-via-executable-psmsf'>PowerShell Exploitation via Executable C/- Psmsf</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#vps-identify-risks-powershell-exploitation-via-executable-psmsf-powershell-payload-creation-details'>PowerShell Payload creation details</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-powershell-exploitation-evolution'>PowerShell Exploitation Evolution</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-powershell-exploitation-via-office-documents-co-nishang'>PowerShell Exploitation via Office Documents C/- Nishang</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-adding-persistence-co-meterpreter'>Adding Persistence C/- Meterpreter</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-adding-persistence-co-powersploit'>Adding Persistence C/- PowerSploit</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-unnecessary-and-vulnerable-services'>Unnecessary and Vulnerable Services</a>
-            <ul>
-              <li>
-                <a href='chap03.html#vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation'>Overly Permissive File Permissions, Ownership and Lack of Segmentation</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-weak-password-strategies'>Weak Password Strategies</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-root-logins'>Root Logins</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-ssh'>SSH</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-to-many-boot-options'>To Many Boot Options</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-unnecessary-and-vulnerable-services-portmap'>Portmap</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-exim'>EXIM</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-unnecessary-and-vulnerable-services-nis'>NIS</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-rpcbind'>Rpcbind</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-unnecessary-and-vulnerable-services-telnet'>Telnet</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-ftp'>FTP</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-nfs'>NFS</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#vps-identify-risks-lack-of-visibility'>Lack of Visibility</a>
-          </li>
-          <li>
-            <a href='chap03.html#vps-identify-risks-docker'>Docker</a>
-            <ul>
-              <li>
-                <a href='chap03.html#leanpub-auto-consumption-from-registrieshttpsdocsdockercomregistry'>Consumption from Registries</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-doppelganger-images'>Doppelganger images</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-identify-risks-docker-the-default-user-is-root'>The Default User is Root</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-docker-host-engine-and-containers'>Docker Host, Engine and Containers</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#vps-identify-risks-docker-docker-host-engine-and-containers-namespaces'>Namespaces</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-control-groups'>Control Groups</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-capabilities'>Capabilities</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-identify-risks-docker-docker-host-engine-and-containers-linux-security-modules'>Linux Security Modules (LSM)</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-identify-risks-docker-docker-engine-and-containers-seccomp'>SecComp</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-read-only-containers'>Read-only Containers</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-application-security'>Application Security</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-using-components-with-known-vulnerabilities'>Using Components with Known Vulnerabilities</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-lack-of-backup'>Lack of Backup</a>
-          </li>
-          <li>
-            <a href='chap03.html#vps-identify-risks-lack-of-firewall'>Lack of Firewall</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap03.html#vps-countermeasures'>3. SSM Countermeasures</a>
-        <ul>
-          <li>
-            <a href='chap03.html#vps-countermeasures-forfeit-control-thus-security'>Forfeit Control thus Security</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-windows'>Windows</a>
-            <ul>
-              <li>
-                <a href='chap03.html#vps-countermeasures-psexec-pth'>PsExec and Pass The Hash (PTH)</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-powershell-exploitation-with-persistence'>PowerShell Exploitation with Persistence</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-minimise-attack-surface-by-installing-only-what-you-need'>Minimise Attack Surface by Installing Only what you Need</a>
-          </li>
-          <li>
-            <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left'>Disable, Remove Services. Harden what is left</a>
-            <ul>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation'>Partitioning on OS Installation</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-apt-proxy-set-up'>Apt Proxy Set-up</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies'>Review Password Strategies</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-considerhttpslistsdebianorgdebian-user201104msg00550html-changing-to-bcrypt'>Consider changing to Bcrypt</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-password-grub'>Password GRUB</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-disable-root-logins-from-all-terminals'>Disable Root Logins from All Terminals</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh'>SSH</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-symmetric-cryptosystems'>Symmetric Cryptosystems</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-asymmetric-cryptosystems'>Asymmetric Cryptosystems</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-hashing'>Hashing</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-ssh-connection-procedure'>SSH Connection Procedure</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint'>Establishing your SSH Servers Key Fingerprint</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-hardening-ssh'>Hardening SSH</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh'>Tunneling SSH</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-disable-boot-options'>Disable Boot Options</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions'>Lock Down the Mounting of Partitions</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpc-portmapper'>Portmap</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-disable-exim'>Disable, Remove Exim</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-remove-nis'>Remove NIS</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind'>Rpcbind</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-telnet'>Remove Telnet</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-ftp'>Remove FTP</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs'>NFS</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#vps-countermeasures-lack-of-visibility'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap03.html#vps-countermeasures-lack-of-visibility-logging-and-alerting'>Logging and Alerting</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-lack-of-visibility-web-server-log-management'>Web Server Log Management</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-system-loggers-reviewed'>System Loggers Reviewed</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-aims'>Aims</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-web-server-log-management-environmental-considerations'>Environmental Considerations</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-web-server-log-management-initial-set-up'>Initial Set-Up</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-web-server-log-management-improving-the-strategy'>Improving the Strategy</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-lack-of-visibility-proactive-monitoring'>Proactive Monitoring</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-evaluation-criteria'>Evaluation Criteria</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-proactive-monitoring-goals'>Goals</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-proactive-monitoring-sysvinit-upstart-systemd-runit'>Sysvinit, Upstart, systemd &amp; Runit</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-proactive-monitoring-forever'>forever</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-pm2httppm2keymetricsio'>PM2</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-proactive-monitoring-supervisor'>Supervisor</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-proactive-monitoring-monit'>Monit</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-proactive-monitoring-passenger'>Passenger</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit'>Getting Started with Monit</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-keep-monit-alive'>Keep Monit Alive</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-proactive-monitoring-keep-nodejs-application-alive'>Keep NodeJS Application Alive</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-lack-of-visibility-statistics-graphing'>Statistics Graphing</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-collectdhttpscollectdorg'>Collectd</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-graphitehttpgraphiteapporg'>Graphite</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-assembling-the-components'>Assembling the Components</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids'>Host Intrusion Detection Systems (HIDS)</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-tripwirehttpspackagesdebianorgstretchtripwire'>Tripwire</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-rkhunterhttpspackagesdebianorgstretchrkhunter'>RkHunter</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-chkrootkithttpspackagesdebianorgstretchchkrootkit'>Chkrootkit</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-unhide'>Unhide</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-ossec'>Ossec</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-stealthhttpsfbb-gitgithubiostealth'>Stealth</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-ossec'>Deeper with Ossec</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth'>Deeper with Stealth</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-outcomes'>Outcomes</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-stealth-up-and-running'>Stealth Up and Running</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#vps-countermeasures-docker'>Docker</a>
-            <ul>
-              <li>
-                <a href='chap03.html#vps-countermeasures-docker-consumption-from-registries'>Consumption from Registries</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-doppelganger-images-1'>Doppelganger images</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-docker-the-default-user-is-root'>The Default User is Root</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-docker-hardening-docker-host-engine-and-containers'>Hardening Docker Host, Engine and Containers</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-haskell-dockerfile-linterhttpsgithubcomlukasmartinellihadolint'>Haskell Dockerfile Linter</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-lynishttpscisofycomdownloads'>Lynis</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-docker-benchhttpsgithubcomdockerdocker-bench-security'>Docker Bench</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-coreos-clairhttpsgithubcomcoreosclair'>CoreOS Clair</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-banyanops-collectorhttpsgithubcombanyanopscollector'>Banyanops collector</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-anchorehttpsanchorecomsolutions'>Anchore</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-twistlock'>TwistLock</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-possible-contenders-to-watch'>Possible contenders to watch</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces'>Namespaces</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups'>Control Groups</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-capabilities'>Capabilities</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-linux-security-modules-lsm'>Linux Security Modules (LSM)</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-seccomp'>Seccomp</a>
-                  </li>
-                  <li>
-                    <a href='chap03.html#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-read-only-containers'>Read-only Containers</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-docker-runc-and-where-it-fits-in'>runC and where it fits in</a>
-                <ul>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-using-runc-standalonehttpsopensourcecomlife168runc-little-container-engine-could'>Using runC Standalone</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap03.html#vps-countermeasures-docker-application-security'>Application Security</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#vps-countermeasures-using-components-with-known-vulnerabilities'>Using Components with Known Vulnerabilities</a>
-          </li>
-          <li>
-            <a href='chap03.html#vps-countermeasures-schedule-backups'>Schedule Backups</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-host-firewall'>Host Firewall</a>
-          </li>
-          <li>
-            <a href='chap03.html#vps-countermeasures-preparation-for-dmz'>Preparation for DMZ</a>
-            <ul>
-              <li>
-                <a href='chap03.html#leanpub-auto-confirm-dmz-has'>Confirm DMZ has</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-additional-web-server-preparation'>Additional Web Server Preparation</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-post-dmz-considerations'>Post DMZ Considerations</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap03.html#vps-risks-that-solution-causes'>4. SSM Risks that Solution Causes</a>
-        <ul>
-          <li>
-            <a href='chap03.html#leanpub-auto-forfeit-control-thus-security'>Forfeit Control thus Security</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-windows-1'>Windows</a>
-            <ul>
-              <li>
-                <a href='chap03.html#leanpub-auto-psexec-and-pass-the-hash-pth'>PsExec and Pass The Hash (PTH)</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-powershell-exploitation-with-persistence'>PowerShell Exploitation with Persistence</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-minimise-attack-surface-by-installing-only-what-you-need-1'>Minimise Attack Surface by Installing Only what you Need</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-disable-remove-services-harden-what-is-left'>Disable, Remove Services. Harden what is left</a>
-            <ul>
-              <li>
-                <a href='chap03.html#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-partitioning-on-os-installation'>Partitioning on OS Installation</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-review-password-strategies'>Review Password Strategies</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-ssh-1'>SSH</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-disable-boot-options-1'>Disable Boot Options</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions'>Mounting of Partitions</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-portmap'>Portmap</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-exim-1'>Exim</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-remove-nis-1'>Remove NIS</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-rpcbind-1'>Rpcbind</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-telnet'>Telnet</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-ftp-1'>FTP</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-nfs-1'>NFS</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-lack-of-visibility'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap03.html#leanpub-auto-logging-and-alerting'>Logging and Alerting</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-web-server-log-management'>Web Server Log Management</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-proactive-monitoring'>Proactive Monitoring</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-statistics-graphing'>Statistics Graphing</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-host-intrusion-detection-systems-hids'>Host Intrusion Detection Systems (HIDS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-docker'>Docker</a>
-            <ul>
-              <li>
-                <span>&#160;</span>
-                <ul>
-                  <li>
-                    <a href='chap03.html#leanpub-auto-linux-security-modules-lsm-1'>Linux Security Modules (LSM)</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-schedule-backups'>Schedule Backups</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-host-firewall-1'>Host Firewall</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap03.html#vps-costs-and-trade-offs'>5. SSM Costs and Trade-offs</a>
-        <ul>
-          <li>
-            <a href='chap03.html#leanpub-auto-forfeit-control-thus-security-1'>Forfeit Control thus Security</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-windows-2'>Windows</a>
-            <ul>
-              <li>
-                <a href='chap03.html#leanpub-auto-psexec-and-pass-the-hash-pth-1'>PsExec and Pass The Hash (PTH)</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-powershell-exploitation-with-persistence-1'>PowerShell Exploitation with Persistence</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-minimise-attack-surface-by-installing-only-what-you-need-2'>Minimise Attack Surface by Installing Only what you Need</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-disable-remove-services-harden-what-is-left-1'>Disable, Remove Services. Harden what is left</a>
-            <ul>
-              <li>
-                <a href='chap03.html#leanpub-auto-partitioning-on-os-installation'>Partitioning on OS Installation</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-review-password-strategies-1'>Review Password Strategies</a>
-              </li>
-              <li>
-                <a href='chap03.html#vps-costs-and-trade-offs-disable-remove-services-harden-what-is-left-ssh'>SSH</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-disable-boot-options-2'>Disable Boot Options</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-mounting-of-partitions'>Mounting of Partitions</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-portmap-1'>Portmap</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-exim-2'>Exim</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-remove-nis-2'>Remove NIS</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-rpcbind-2'>Rpcbind</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-telnet-1'>Telnet</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-ftp-2'>FTP</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-nfs-2'>NFS</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-lack-of-visibility-1'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap03.html#leanpub-auto-logging-and-alerting-1'>Logging and Alerting</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-web-server-log-management-1'>Web Server Log Management</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-proactive-monitoring-1'>Proactive Monitoring</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-statistics-graphing-1'>Statistics Graphing</a>
-              </li>
-              <li>
-                <a href='chap03.html#leanpub-auto-host-intrusion-detection-systems-hids-1'>Host Intrusion Detection Systems (HIDS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-docker-1'>Docker</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-schedule-backups-1'>Schedule Backups</a>
-          </li>
-          <li>
-            <a href='chap03.html#leanpub-auto-host-firewall-2'>Host Firewall</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href='chap04.html#network'>8. Network</a>
-    <ul>
-      <li>
-        <a href='chap04.html#leanpub-auto-ssm-asset-identification'>1. SSM Asset Identification</a>
-      </li>
-      <li>
-        <a href='chap04.html#leanpub-auto-ssm-identify-risks-1'>2. SSM Identify Risks</a>
-        <ul>
-          <li>
-            <a href='chap04.html#network-identify-risks-fortress-mentality'>Fortress Mentality</a>
-          </li>
-          <li>
-            <a href='chap04.html#network-identify-risks-lack-of-segmentation'>Lack of Segmentation</a>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-lack-of-visibility-2'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-insufficient-logging'>Insufficient Logging</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-lack-of-network-intrusion-detection-systems-nids'>Lack of Network Intrusion Detection Systems (NIDS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#network-identify-risks-spoofing'>Spoofing</a>
-            <ul>
-              <li>
-                <a href='chap04.html#network-identify-risks-spoofing-ip'>IP</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-identify-risks-spoofing-arp'>ARP (Address Resolution Protocol)</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-identify-risks-spoofing-dns'>DNS</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-identify-risks-spoofing-referrer'>Referrer</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-identify-risks-spoofing-email-address'>EMail Address</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-identify-risks-spoofing-website'>Website</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#network-identify-risks-data-exfiltration-infiltration'>Data Exfiltration, Infiltration</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-ingress-and-egress-techniques'>Ingress and Egress Techniques</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-identify-risks-data-exfiltration-infiltration-dropbox'>Dropbox</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-physical'>Physical</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-mobile-phone-data'>Mobile Phone Data</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-dns-ssh'>DNS, SSH</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#network-identify-risks-doppelganger-domains'>Doppelganger Domains</a>
-            <ul>
-              <li>
-                <a href='chap04.html#network-identify-risks-doppelganger-domains-websites'>Web-sites</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-identify-risks-doppelganger-domains-smtp'>SMTP</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-identify-risks-doppelganger-domains-ssh'>SSH</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#network-identify-risks-wrongfully-trusting-the-loading-of-untrusted-web-resources'>Wrongfully Trusting the Loading of Untrusted Web Resources</a>
-          </li>
-          <li>
-            <a href='chap04.html#network-identify-risks-tls-downgrade'>TLS Downgrade</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap04.html#network-countermeasures'>3. SSM Countermeasures</a>
-        <ul>
-          <li>
-            <a href='chap04.html#network-countermeasures-fortress-mentality'>Fortress Mentality</a>
-          </li>
-          <li>
-            <a href='chap04.html#network-countermeasures-lack-of-segmentation'>Lack of Segmentation</a>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-lack-of-visibility-3'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap04.html#network-countermeasures-lack-of-visibility-insufficient-logging'>Insufficient Logging</a>
-                <ul>
-                  <li>
-                    <a href='chap04.html#network-countermeasures-fortress-mentality-insufficient-logging-ntp'>Network Time Protocol (NTP)</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-lack-of-visibility-nids'>Lack of Network Intrusion Detection Systems (NIDS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#network-countermeasures-spoofing'>Spoofing</a>
-            <ul>
-              <li>
-                <a href='chap04.html#network-countermeasures-spoofing-ip'>IP</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-spoofing-arp'>ARP (Address Resolution Protocol)</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-spoofing-dns'>DNS</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-spoofing-referrer'>Referrer</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-spoofing-email-address'>EMail Address</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-spoofing-website'>Website</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-data-exfiltration-infiltration'>Data Exfiltration, Infiltration</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-dropbox'>Dropbox</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-physical-1'>Physical</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-mobile-phone-data-1'>Mobile Phone Data</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-dns-ssh-1'>DNS, SSH</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#network-countermeasures-doppelganger-domains'>Doppelganger Domains</a>
-            <ul>
-              <li>
-                <a href='chap04.html#network-countermeasures-doppelganger-domains-websites'>Web-sites</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-doppelganger-domains-smtp'>SMTP</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-doppelganger-domains-ssh'>SSH</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#network-countermeasures-wrongfully-trusting-the-loading-of-untrusted-web-resources'>Wrongfully Trusting the Loading of Untrusted Web Resources</a>
-            <ul>
-              <li>
-                <a href='chap04.html#network-countermeasures-wrongfully-trusting-the-loading-of-untrusted-web-resources-csp'>Content Security Policy (CSP)</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-wrongfully-trusting-the-loading-of-untrusted-web-resources-sri'>Sub-resource Integrity (SRI)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#network-countermeasures-tls-downgrade'>TLS Downgrade</a>
-            <ul>
-              <li>
-                <a href='chap04.html#network-countermeasures-tls-downgrade-hsts'>HTTP Strict Transport Security (HSTS)</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-tls-downgrade-hsts-preload'>HTTP Strict Transport Security (HSTS) Preload</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-countermeasures-tls-downgrade-x509-cert-revocation-evolution'>X.509 Certificate Revocation Evolution</a>
-                <ul>
-                  <li>
-                    <a href='chap04.html#leanpub-auto-initiative-1-certification-revocation-list-crl'>Initiative 1: Certification Revocation List (CRL)</a>
-                  </li>
-                  <li>
-                    <a href='chap04.html#network-countermeasures-tls-downgrade-certificate-revocation-evolution-ocsp'>Initiative 2: Online Certificate Status Protocol (OCSP)</a>
-                  </li>
-                  <li>
-                    <a href='chap04.html#leanpub-auto-one-of-the-big-problems'>One of the Big Problems</a>
-                  </li>
-                  <li>
-                    <a href='chap04.html#leanpub-auto-initiative-3-welcome-to-ocsp-staplinghttpenwikipediaorgwikiocspstapling'>Initiative 3: Welcome to OCSP Stapling</a>
-                  </li>
-                  <li>
-                    <a href='chap04.html#leanpub-auto-ocsp-stapling-problem'>OCSP Stapling Problem</a>
-                  </li>
-                  <li>
-                    <a href='chap04.html#network-countermeasures-tls-downgrade-certificate-revocation-evolution-fix-to-ocsp'>Initiative 4: Fix to the OCSP Stapling Problem</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap04.html#network-risks-that-solution-causes'>4. SSM Risks that Solution Causes</a>
-        <ul>
-          <li>
-            <a href='chap04.html#leanpub-auto-fortress-mentality'>Fortress Mentality</a>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-lack-of-segmentation'>Lack of Segmentation</a>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-lack-of-visibility-4'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-insufficient-logging-1'>Insufficient Logging</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-lack-of-network-intrusion-detection-systems-nids-1'>Lack of Network Intrusion Detection Systems (NIDS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-spoofing'>Spoofing</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-ip'>IP</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-arp-address-resolution-protocol'>ARP (Address Resolution Protocol)</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-dns'>DNS</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-referrer'>Referrer</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-data-exfiltration-infiltration-1'>Data Exfiltration, Infiltration</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-dropbox-1'>Dropbox</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-physical-2'>Physical</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-mobile-phone-data-2'>Mobile Phone Data</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-dns-ssh-2'>DNS, SSH</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-doppelganger-domains'>Doppelganger Domains</a>
-          </li>
-          <li>
-            <a href='chap04.html#network-risks-that-solution-causes-wrongfully-trusting-the-loading-of-untrusted-web-resources'>Wrongfully Trusting the Loading of Untrusted Web Resources</a>
-            <ul>
-              <li>
-                <a href='chap04.html#network-risks-that-solution-causes-wrongfully-trusting-the-loading-of-untrusted-web-resources-csp'>Content Security Policy (CSP)</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-risks-that-solution-causes-wrongfully-trusting-the-loading-of-untrusted-web-resources-sri'>Sub-resource Integrity (SRI)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#network-risks-that-solution-causes-tls-downgrade'>TLS Downgrade</a>
-            <ul>
-              <li>
-                <a href='chap04.html#network-risks-that-solution-causes-tls-downgrade-hsts'>HTTP Strict Transport Security (HSTS)</a>
-              </li>
-              <li>
-                <a href='chap04.html#network-risks-that-solution-causes-tls-downgrade-hsts-preload'>HTTP Strict Transport Security (HSTS) Preload</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap04.html#network-costs-and-trade-offs'>5. SSM Costs and Trade-offs</a>
-        <ul>
-          <li>
-            <a href='chap04.html#leanpub-auto-fortress-mentality-1'>Fortress Mentality</a>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-lack-of-segmentation-1'>Lack of Segmentation</a>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-lack-of-visibility-5'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-insufficient-logging-2'>Insufficient Logging</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-lack-of-network-intrusion-detection-systems-nids-2'>Lack of Network Intrusion Detection Systems (NIDS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-spoofing-1'>Spoofing</a>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-data-exfiltration-infiltration-2'>Data Exfiltration, Infiltration</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-dropbox-2'>Dropbox</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-physical-3'>Physical</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-mobile-phone-data-3'>Mobile Phone Data</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-dns-ssh-3'>DNS, SSH</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-doppelganger-domains-1'>Doppelganger Domains</a>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-wrongfully-trusting-the-loading-of-untrusted-web-resources'>Wrongfully Trusting the Loading of Untrusted Web Resources</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-content-security-policy-csp'>Content Security Policy (CSP)</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-sub-resource-integrity-sri'>Sub-resource Integrity (SRI)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap04.html#leanpub-auto-tls-downgrade'>TLS Downgrade</a>
-            <ul>
-              <li>
-                <a href='chap04.html#leanpub-auto-http-strict-transport-security-hsts'>HTTP Strict Transport Security (HSTS)</a>
-              </li>
-              <li>
-                <a href='chap04.html#leanpub-auto-http-strict-transport-security-hsts-preload'>HTTP Strict Transport Security (HSTS) Preload</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href='chap05.html#cloud'>9. Cloud</a>
-    <ul>
-      <li>
-        <a href='chap05.html#leanpub-auto-ssm-asset-identification-1'>1. SSM Asset Identification</a>
-        <ul>
-          <li>
-            <a href='chap05.html#leanpub-auto-productivity'>Productivity</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-competitive-advantage'>Competitive Advantage</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-control'>Control</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-data'>Data</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap05.html#cloud-identify-risks'>2. SSM Identify Risks</a>
-        <ul>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-shared-responsibility-model'>Shared Responsibility Model</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-csp-responsibility'>CSP Responsibility</a>
-              </li>
-              <li>
-                <a href='chap05.html#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility'>CSP Customer Responsibility</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-csp-evaluation'>CSP Evaluation</a>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-cloud-service-provider-vs-in-house'>Cloud Service Provider vs In-house</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-skills'>Skills</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-eula'>EULA</a>
-              </li>
-              <li>
-                <a href='chap05.html#cloud-identify-risks-cloud-service-provider-vs-in-house-giving-up-secrets'>Giving up Secrets</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-location-of-data'>Location of Data</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-vendor-lock-in'>Vendor lock-in</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-possible-single-points-of-failure'>Possible Single Points of Failure</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-review-other-chapters'>Review Other Chapters</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-people'>People</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-application-security-1'>Application Security</a>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-network-security'>Network Security</a>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-violations-of-least-privilege'>Violations of Least Privilege</a>
-            <ul>
-              <li>
-                <a href='chap05.html#cloud-identify-risks-violations-of-least-privilege-machine-instance-single-user-root'>Machine Instance Single User Root</a>
-              </li>
-              <li>
-                <a href='chap05.html#cloud-identify-risks-violations-of-least-privilege-csp-account-single-user-root'>CSP Account Single User Root</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-storage-of-secrets'>Storage of Secrets</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-private-key-abuse'>Private Key Abuse</a>
-                <ul>
-                  <li>
-                    <a href='chap05.html#cloud-identify-risks-storage-of-secrets-private-key-abuse-ssh'>SSH</a>
-                  </li>
-                  <li>
-                    <a href='chap05.html#cloud-identify-risks-storage-of-secrets-private-key-abuse-tls'>TLS</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap05.html#cloud-identify-risks-storage-of-secrets-credentials-and-other-secrets'>Credentials and Other Secrets</a>
-                <ul>
-                  <li>
-                    <a href='chap05.html#leanpub-auto-entered-by-people-manually'>Entered by People (manually)</a>
-                  </li>
-                  <li>
-                    <a href='chap05.html#leanpub-auto-entered-by-software-automatically'>Entered by Software (automatically)</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-serverless'>Serverless</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-third-party-services'>Third Party Services</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-perimeterless'>Perimeterless</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-functions'>Functions</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-dos-of-lambda-functions'>DoS of Lambda Functions</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-infrastructure-and-configuration-management'>Infrastructure and Configuration Management</a>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-identify-risks-aws'>AWS</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-password-less-sudo'>Password-less sudo</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap05.html#leanpub-auto-ssm-countermeasures'>3. SSM Countermeasures</a>
-        <ul>
-          <li>
-            <a href='chap05.html#leanpub-auto-shared-responsibility-model'>Shared Responsibility Model</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-csp-responsibility-1'>CSP Responsibility</a>
-              </li>
-              <li>
-                <a href='chap05.html#cloud-countermeasures-shared-responsibility-model-csp-customer-responsibility'>CSP Customer Responsibility</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-countermeasures-csp-evaluation'>CSP Evaluation</a>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-countermeasures-cloud-service-provider-vs-in-house'>Cloud Service Provider vs In-house</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-skills-1'>Skills</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-eula-1'>EULA</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-giving-up-secrets'>Giving up Secrets</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-location-of-data-1'>Location of Data</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-vendor-lock-in-1'>Vendor lock-in</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-possible-single-points-of-failure-1'>Possible Single Points of Failure</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-countermeasures-review-other-chapters'>Review Other Chapters</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-people-1'>People</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-application-security-2'>Application Security</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-network-security'>Network Security</a>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-countermeasures-violations-of-least-privilege'>Violations of Least Privilege</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-machine-instance-single-user-root'>Machine Instance Single User Root</a>
-              </li>
-              <li>
-                <a href='chap05.html#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root'>CSP Account Single User Root</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-countermeasures-storage-of-secrets'>Storage of Secrets</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-private-key-abuse-1'>Private Key Abuse</a>
-                <ul>
-                  <li>
-                    <a href='chap05.html#cloud-countermeasures-storage-of-secrets-private-key-abuse-ssh'>SSH</a>
-                  </li>
-                  <li>
-                    <a href='chap05.html#cloud-countermeasures-storage-of-secrets-private-key-abuse-tls'>TLS</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap05.html#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets'>Credentials and Other Secrets</a>
-                <ul>
-                  <li>
-                    <a href='chap05.html#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-people-manually'>Entered by People (manually)</a>
-                  </li>
-                  <li>
-                    <a href='chap05.html#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software'>Entered by Software (automatically)</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-countermeasures-serverless'>Serverless</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-third-party-services-1'>Third Party Services</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-perimeterless-1'>Perimeterless</a>
-              </li>
-              <li>
-                <a href='chap05.html#cloud-countermeasures-serverless-functions'>Functions</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-dos-of-lambda-functions-1'>DoS of Lambda Functions</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-centralised-logging-of-aws-lambdahttpshackernooncomcentralised-logging-for-aws-lambda-b765b7ca9152-functions'>Centralised logging of AWS Lambda Functions</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-frameworks'>Frameworks</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-infrastructure-and-configuration-management'>Infrastructure and Configuration Management</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-aws'>AWS</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-password-less-sudo-1'>Password-less sudo</a>
-              </li>
-              <li>
-                <a href='chap05.html#cloud-countermeasures-aws-additional-tooling'>Additional Tooling</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap05.html#leanpub-auto-ssm-risks-that-solution-causes'>4. SSM Risks that Solution Causes</a>
-        <ul>
-          <li>
-            <a href='chap05.html#leanpub-auto-shared-responsibility-model-1'>Shared Responsibility Model</a>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-risks-that-the-solution-causes-csp-evaluation'>CSP Evaluation</a>
-          </li>
-          <li>
-            <a href='chap05.html#cloud-risks-that-the-solution-causes-cloud-service-provider-vs-in-house'>Cloud Service Provider vs In-house</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-people-2'>People</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-application-security-3'>Application Security</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-network-security-1'>Network Security</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-violations-of-least-privilege'>Violations of Least Privilege</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-storage-of-secrets'>Storage of Secrets</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-private-key-abuse-2'>Private Key Abuse</a>
-                <ul>
-                  <li>
-                    <a href='chap05.html#leanpub-auto-ssh-2'>SSH</a>
-                  </li>
-                  <li>
-                    <a href='chap05.html#leanpub-auto-tls'>TLS</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-credentials-and-other-secrets'>Credentials and Other Secrets</a>
-                <ul>
-                  <li>
-                    <a href='chap05.html#leanpub-auto-entered-by-people-manually-1'>Entered by People (manually)</a>
-                  </li>
-                  <li>
-                    <a href='chap05.html#cloud-risks-that-solution-causes-storage-of-secrets-credentials-and-other-secrets-entered-by-software'>Entered by Software (automatically)</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-serverless'>Serverless</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-functions-1'>Functions</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-dos-of-lambda-functions-2'>DoS of Lambda Functions</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-frameworks-1'>Frameworks</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-infrastructure-and-configuration-management-1'>Infrastructure and Configuration Management</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-aws-1'>AWS</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-additional-tooling'>Additional Tooling</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap05.html#leanpub-auto-ssm-costs-and-trade-offs'>5. SSM Costs and Trade-offs</a>
-        <ul>
-          <li>
-            <a href='chap05.html#leanpub-auto-shared-responsibility-model-2'>Shared Responsibility Model</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-csp-evaluation'>CSP Evaluation</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-cloud-service-provider-vs-in-house'>Cloud Service Provider vs In-house</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-people-3'>People</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-application-security-4'>Application Security</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-network-security-2'>Network Security</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-violations-of-least-privilege-1'>Violations of Least Privilege</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-storage-of-secrets-1'>Storage of Secrets</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-private-key-abuse-3'>Private Key Abuse</a>
-                <ul>
-                  <li>
-                    <a href='chap05.html#leanpub-auto-ssh-3'>SSH</a>
-                  </li>
-                  <li>
-                    <a href='chap05.html#leanpub-auto-tls-1'>TLS</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-credentials-and-other-secrets-1'>Credentials and Other Secrets</a>
-                <ul>
-                  <li>
-                    <a href='chap05.html#leanpub-auto-entered-by-people-manually-2'>Entered by People (manually)</a>
-                  </li>
-                  <li>
-                    <a href='chap05.html#leanpub-auto-entered-by-software-automatically-1'>Entered by Software (automatically)</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-serverless-1'>Serverless</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-functions-2'>Functions</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-dos-of-lambda-functions-3'>DoS of Lambda Functions</a>
-              </li>
-              <li>
-                <a href='chap05.html#leanpub-auto-frameworks-2'>Frameworks</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-infrastructure-and-configuration-management-2'>Infrastructure and Configuration Management</a>
-          </li>
-          <li>
-            <a href='chap05.html#leanpub-auto-aws-2'>AWS</a>
-            <ul>
-              <li>
-                <a href='chap05.html#leanpub-auto-additional-tooling-1'>Additional Tooling</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href='chap06.html#web-applications'>10. Web Applications</a>
-    <ul>
-      <li>
-        <a href='chap06.html#leanpub-auto-ssm-asset-identification-2'>1. SSM Asset Identification</a>
-      </li>
-      <li>
-        <a href='chap06.html#leanpub-auto-ssm-identify-risks-2'>2. SSM Identify Risks</a>
-        <ul>
-          <li>
-            <a href='chap06.html#leanpub-auto-lack-of-visibility-6'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-insufficient-logging-and-monitoring'>Insufficient Logging and Monitoring</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-identify-risks-lack-of-input-validation-and-sanitisation'>Lack of Input Validation, Filtering and Sanitisation</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-generic'>Generic</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation'>What is Validation</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-filtering'>What is Filtering</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation'>What is Sanitisation</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-cross-site-scripting'>Cross-Site Scripting (XSS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf'>Cross-Site Request Forgery (CSRF)</a>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-injection'>Injection</a>
-            <ul>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-sqli'>SQLi</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-nosqli'>NoSQLi</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-command-injection'>Command Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-xml-injection'>XML Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-xslt-injection'>XSLT Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-xpath-injection'>XPath Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-xquery-injection'>XQuery Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-ldap-injection'>LDAP Injection</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-captcha'>Captcha</a>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-identify-risks-management-of-application-secrets'>Management of Application Secrets</a>
-            <ul>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-management-of-application-secrets-data-store-compromise'>Data-store Compromise</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-identify-risks-management-of-application-secrets-cracking'>Cracking</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-identify-risks-lack-of-authentication-authorisation-session-management'>Lack of Authentication, Authorisation and Session Management</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-what-is-authentication'>What is Authentication</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-what-is-authorisation'>What is Authorisation</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-identify-risks-cryptography-on-the-client'>Cryptography on the Client (AKA Untrusted Crypto)</a>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-identify-risks-consuming-free-and-open-source'>Consuming Free and Open Source</a>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-insufficient-attack-protection'>Insufficient Attack Protection</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-lack-of-active-automated-prevention'>Lack of Active Automated Prevention</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap06.html#leanpub-auto-ssm-countermeasures-1'>3. SSM Countermeasures</a>
-        <ul>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-lack-of-visibility'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-lack-of-visibility-insufficient-logging'>Insufficient Logging</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-opening-udp-port'>Opening UDP port</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-using-posix'>Using Posix</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-insufficient-monitoring'>Insufficient Monitoring</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-dark-cockpit'>Dark Cockpit</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#web-applications-countermeasures-lack-of-visibility-insufficient-Monitoring-statistics-graphing'>Statistics Graphing</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation'>Lack of Input Validation, Filtering and Sanitisation</a>
-            <ul>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic'>Generic</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-types-of-escaping'>Types of Escaping:</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-csharp'>Example in JavaScript and C#</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-nodejs'>Example in JavaScript and NodeJS</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about'>Other things to think about</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-cross-site-scripting'>Cross-Site Scripting (XSS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-cross-site-request-forgery-csrf'>Cross-Site Request Forgery (CSRF)</a>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-injection'>Injection</a>
-            <ul>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-sqli'>SQLi</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-nosqli'>NoSQLi</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-command-injection'>Command Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-xml-injection'>XML Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-xslt-injection'>XSLT Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-xpath-injection'>XPath Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-xquery-injection'>XQuery Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-ldap-injection'>LDAP Injection</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-captcha'>Captcha</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-types'>Types</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-offerings'>Offerings</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-alternative-approaches'>Alternative Approaches</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-still-not-cutting-it'>Still Not Cutting it</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-user-time-expenditure'>User Time Expenditure</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-bot-pot'>Bot Pot</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-testing'>Testing</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-management-of-application-secrets'>Management of Application Secrets</a>
-            <ul>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-management-of-application-secrets-store-configuration'>Store Configuration in Configuration files</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-node-config'>node-config</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#web-applications-countermeasures-management-of-application-secrets-store-configuration-windows'>Windows</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-linux'>Linux</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-management-of-application-secrets-least-privilege'>Least Privilege</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-location'>Location</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-data-store-compromise'>Data-store Compromise</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#web-applications-countermeasures-data-store-compromise-which-kdf-to-use'>Which KDF to use?</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-management-of-application-secrets-caching-of-sensitive-data'>Caching of Sensitive Data</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-cracking'>Cracking</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-lack-of-authentication-authorisation-session-management'>Lack of Authentication, Authorisation and Session Management</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-chosen-technologies'>Chosen technologies:</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-technology-and-design-decisions'>Technology and Design Decisions</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-reference-token-vs-json-web-token-jwt'>Reference Token vs JSON Web Token (JWT)</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-identityserver3'>IdentityServer3</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-technology-and-design-decisions-membershipreboot'>MembershipReboot</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-external-identity-providers'>External Identity Providers</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-architecture'>Architecture</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions'>Securing Sessions</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-cryptography-on-the-client'>Cryptography on the Client (AKA Untrusted Crypto)</a>
-            <ul>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api'>Web Cryptography API</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-user-agent'>user agent</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-handle'><code>[[handle]]</code></a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-cryptokey-web-api-interface'><code>CryptoKey</code> (Web API interface)</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-the-other-two-web-crypto-api-interfaces'>The other two Web Crypto API interfaces</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-cryptohttpsdevelopermozillaorgen-usdocswebapicrypto-web-api-interface'>Crypto (Web API interface)</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-subtlecryptohttpsdevelopermozillaorgen-usdocswebapisubtlecrypto-web-api-interface'>SubtleCrypto (Web API interface)</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-cloud-storage'>Cloud Storage</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-protected-data-and-document-exchange'>Protected Data and Document Exchange</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-consuming-free-and-open-source'>Consuming Free and Open Source</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-process'>Process</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-consumption-is-your-responsibility'>Consumption is Your Responsibility</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-keeping-safe'>Keeping Safe</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-wget-curl-etc'>wget, curl, etc</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-npm-install'>npm install</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#web-applications-countermeasures-consuming-free-and-open-source-keeping-safe-doppelganger-packages'>Doppelganger Packages</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-whitelisting-packageshttpsnpmenpmjscomdocsworkflowwhitelistinghtml-via-npm-enterprise'>Whitelisting Packages via npm Enterprise</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-consuming-free-and-open-source-tooling'>Tooling</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-npm-outdatedhttpsdocsnpmjscomclioutdated'>npm-outdated</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-npm-checkhttpswwwnpmjscompackagenpm-check'>npm-check</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-davidhttpsdavid-dmorg'>David</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-retirejshttpsgithubcomretirejsretirejs'>RetireJS</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-requiresafe'>requireSafe</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-bithoundhttpswwwbithoundio'>bithound</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-node-security-platformhttpsnodesecurityio-nsp'>Node Security Platform (NSP)</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-snykhttpssnykio'>Snyk</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-countermeasures-insufficient-attack-protection'>Insufficient Attack Protection</a>
-            <ul>
-              <li>
-                <a href='chap06.html#web-applications-countermeasures-insufficient-attack-protection-waf'>Web Application Firewall (WAF)</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-application-intrusion-detection-and-response'>Application Intrusion Detection and Response</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-active-automated-prevention'>Active Automated Prevention</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap06.html#web-applications-risks-that-solution-causes'>4. SSM Risks that Solution Causes</a>
-        <ul>
-          <li>
-            <a href='chap06.html#leanpub-auto-lack-of-visibility-7'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-insufficient-logging-and-monitoring-1'>Insufficient Logging and Monitoring</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-lack-of-input-validation-filtering-and-sanitisation'>Lack of Input Validation, Filtering and Sanitisation</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-cross-site-scripting-xss'>Cross-Site Scripting (XSS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-cross-site-request-forgery-csrf-1'>Cross-Site Request Forgery (CSRF)</a>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-injection-1'>Injection</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-sqli'>SQLi</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-risks-that-solution-causes-nosqli'>NoSQLi</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-command-injection'>Command Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-xml-injection'>XML Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-xslt-injection'>XSLT Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-xpath-injection'>XPath Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-xquery-injection'>XQuery Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-ldap-injection'>LDAP Injection</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-captcha-1'>Captcha</a>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-management-of-application-secrets'>Management of Application Secrets</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-store-configuration-in-configuration-files'>Store Configuration in Configuration files</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-node-config-1'>node-config</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-windows-3'>Windows:</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-linux-1'>Linux:</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-least-privilege'>Least Privilege</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-location-1'>Location</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-data-store-compromise'>Data-store Compromise</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management'>Lack of Authentication, Authorisation and Session Management</a>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-risks-that-solution-causes-cryptography-on-the-client'>Cryptography on the Client (AKA Untrusted Crypto)</a>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-consuming-free-and-open-source'>Consuming Free and Open Source</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-process-1'>Process</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-tooling'>Tooling</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-insufficient-attack-protection-1'>Insufficient Attack Protection</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href='chap06.html#web-applications-costs-and-trade-offs'>5. SSM Costs and Trade-offs</a>
-        <ul>
-          <li>
-            <a href='chap06.html#leanpub-auto-lack-of-visibility-8'>Lack of Visibility</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-insufficient-logging-and-monitoring-2'>Insufficient Logging and Monitoring</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-lack-of-input-validation-filtering-and-sanitisation-1'>Lack of Input Validation, Filtering and Sanitisation</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-cross-site-scripting-xss-1'>Cross-Site Scripting (XSS)</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-cross-site-request-forgery-csrf-2'>Cross-Site Request Forgery (CSRF)</a>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-injection-2'>Injection</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-sqli-1'>SQLi</a>
-              </li>
-              <li>
-                <a href='chap06.html#web-applications-costs-and-trade-offs-nosqli'>NoSQLi</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-command-injection-1'>Command Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-xml-injection-1'>XML Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-xslt-injection-1'>XSLT Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-xpath-injection-1'>XPath Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-xquery-injection-1'>XQuery Injection</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-ldap-injection-1'>LDAP Injection</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-captcha-2'>Captcha</a>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-management-of-application-secrets-1'>Management of Application Secrets</a>
-            <ul>
-              <li>
-                <a href='chap06.html#leanpub-auto-store-configuration-in-configuration-files-1'>Store Configuration in Configuration files</a>
-                <ul>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-windows-4'>Windows:</a>
-                  </li>
-                  <li>
-                    <a href='chap06.html#leanpub-auto-linux-2'>Linux</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-least-privilege-1'>Least Privilege</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-location-2'>Location</a>
-              </li>
-              <li>
-                <a href='chap06.html#leanpub-auto-data-store-compromise-1'>Data-store Compromise</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-lack-of-authentication-authorisation-and-session-management'>Lack of Authentication, Authorisation and Session Management</a>
-          </li>
-          <li>
-            <a href='chap06.html#web-applications-costs-and-trade-offs-cryptography-on-the-client'>Cryptography on the Client (AKA Untrusted Crypto)</a>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-consuming-free-and-open-source-1'>Consuming Free and Open Source</a>
-          </li>
-          <li>
-            <a href='chap06.html#leanpub-auto-insufficient-attack-protection-2'>Insufficient Attack Protection</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href='chap07.html#additional-resources'>Additional Resources</a>
-    <ul>
-      <li>
-        <a href='chap07.html#leanpub-auto-vpsvps'>VPS</a>
-      </li>
-      <li>
-        <a href='chap07.html#leanpub-auto-networknetwork'>Network</a>
-      </li>
-      <li>
-        <a href='chap07.html#leanpub-auto-cloudcloud'>Cloud</a>
-      </li>
-      <li>
-        <a href='chap07.html#leanpub-auto-web-applicationsweb-applications'>Web Applications</a>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href='chap08.html#leanpub-auto-attributions'>Attributions</a>
-    <ul>
-      <li>
-        <a href='chap08.html#leanpub-auto-introduction-1'>Introduction</a>
-      </li>
-      <li>
-        <a href='chap08.html#leanpub-auto-vpsvps-1'>VPS</a>
-      </li>
-      <li>
-        <a href='chap08.html#leanpub-auto-networknetwork-1'>Network</a>
-      </li>
-      <li>
-        <a href='chap08.html#leanpub-auto-cloudcloud-1'>Cloud</a>
-      </li>
-      <li>
-        <a href='chap08.html#leanpub-auto-web-applicationsweb-applications-1'>Web Applications</a>
-      </li>
-    </ul>
-  </li>
-</ul>
-
-</ol>
-</div>
-<div id="leanpub-main" class="kramdown">
+  <div id="top-bar">
+    <div id="top-bar-content">
+        <b>10. Web Applications</b><br>
+        <a href="toc.html">Table of contents</a><br>
+        Please support this book:
+        <a href="https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications">buy it (PDF, EPUB, MOBI)</a>       
+    </div>
+  </div>
+<div id="page-content" class="kramdown">
 <h2 id="web-applications">10. Web Applications</h2>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/10000WebApp.png" alt="10,000' view of Web Application Security" style="width: 100%;" />
-  <figcaption>10,000’ view of Web Application Security</figcaption>
-</figure>
+<img src="images/10000WebApp.png" alt="10,000' view and lower of Web Application Security"/>
+<figcaption>10,000’ view and lower of Web Application Security</figcaption>
 
 
 <h3 id="leanpub-auto-ssm-asset-identification-2">1. SSM Asset Identification</h3>
@@ -2157,16 +54,9 @@ Some of the following risks will threaten the sanity of these people if the coun
 
 <p>The following is the OWASP Top 10 vulnerabilities for 2003, 2004, 2007, 2010, 2013 and 2017.</p>
 
-<p> </p>
 
+<img src="images/OWASPTop10OverTime.png" alt="OWASP Top 10 Over Time"/>
 
-<figure class="image center" style="width: 395px;">
-  <img src="images/OWASPTop10OverTime.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
-
-
-<p> </p>
 
 <p>As you can see there are some vulnerabilities that we are just not getting better at removing. I’ve listed them in order of most consistent to not quite as consistent:</p>
 
@@ -2190,10 +80,7 @@ Some of the following risks will threaten the sanity of these people if the coun
 <h5 id="leanpub-auto-insufficient-logging-and-monitoring">Insufficient Logging and Monitoring</h5>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----average-widespread-veryeasy-moderate.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----average-widespread-veryeasy-moderate.png"/>
 
 
 <p>Can you tell at any point in time if someone or something is:</p>
@@ -2214,10 +101,7 @@ Some of the following risks will threaten the sanity of these people if the coun
 
 <h4 id="web-applications-identify-risks-lack-of-input-validation-and-sanitisation">Lack of Input Validation, Filtering and Sanitisation</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----average-verywidespread-average-moderage.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----average-verywidespread-average-moderage.png"/>
 
 
 <h5 id="leanpub-auto-generic">Generic</h5>
@@ -2301,10 +185,7 @@ Stored attacks are where the injected code is sent to the server and stored in a
 Reflected attacks use the web application in question as a proxy. When a user makes a request, the injected code travels from another medium through the web application (hence the reflecting) and to the end user. From the browsers perspective, the injected code came form the web application that the user made a request to.</p>
 
 
-<figure id="wdcnz-demo-1" class="image center" style="width: 396px;">
-  <img src="images/HandsOnHack.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img src="images/HandsOnHack.png" alt="Hands On Hack"/>
 
 
 <p>The following attack was the first one of five that I demonstrated at WDCNZ in 2015. The attack after this one was a credential harvest based on a spoofed website that hypothetically was fetched due to a spear phishing attack. That particular attack can be found in the “Spear Phishing” section of the People chapter in <a href="https://leanpub.com/holistic-infosec-for-web-developers">Fascicle 0</a>.</p>
@@ -2324,16 +205,18 @@ One of BeEFs primary reasons to exist is to exploit the fact that many security 
 
 <p>You can find the video of how this attack is played out at <a href="http://youtu.be/92AWyUfJDUw">http://youtu.be/92AWyUfJDUw</a>.</p>
 
-<aside class="information blurb">
-    <h3 id="leanpub-auto-synopsis-7">Synopsis</h3>
+<aside>
+   <i class="fa fa-2x fa-info-circle sr-icons aside-icon"></i>
+   <h3 id="leanpub-auto-synopsis-7">Synopsis</h3>
 
   <p>In this exercise, I have used the Dam Vulnerable Web App (DVWA), as it has the types of XSS vulnerabilities we need in order to demonstrate the power of BeEF. DVWA is included in the OWASP Broken Web Application (<a href="https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project">OWASPBWA</a>) turn-key VM, along with many other useful purposely vulnerable projects.<br />
 We use BeEF to exploit an XSS vulnerability in DVWA and carry out a simple attack in which we coerce the target to enter their credentials for a website and send them to our BeEF communications server unknowingly.</p>
 
 </aside>
 
-<aside class="generic_inbar blurb bomb icon-bomb">
-    <h3 id="leanpub-auto-the-play-5">The Play</h3>
+<aside>
+   <i class="fa fa-2x fa-bomb sr-icons aside-icon"></i>
+   <h3 id="leanpub-auto-the-play-5">The Play</h3>
 
   <p>Make sure you have the OWASPBWA <a href="https://code.google.com/p/owaspbwa/wiki/UserGuide">configured</a> and running in your lab.</p>
 
@@ -2365,9 +248,6 @@ We use BeEF to exploit an XSS vulnerability in DVWA and carry out a simple attac
 
   <p>If you select the victims node and click on the Commands tab in the BeEF web UI, then in the Module Tree under Social Engineering select the “Pretty Theft” node. There are some options to configure, but even selecting the default of Facebook if you know your target is already an avid FB user should work fine. You would of course know this if you have done due diligence in the reconnaissance stage.</p>
 
-</aside>
-
-<aside class="generic_inbar blurb bomb icon-bomb">
     <p>Click on the Execute button and on the next request -&gt; response from the hook.js, the victims browser should pop a “Facebook Session Timed Out” modal. To get rid of this modal, the victim must enter their credentials and Log-in. There is no cancel or ‘x’ button. Once the victim has sent their credentials, they will be visible in the Command results of the BeEF web UI.  </p>
 
 </aside>
@@ -2376,10 +256,7 @@ We use BeEF to exploit an XSS vulnerability in DVWA and carry out a simple attac
   <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#General_Recommendation:_Synchronizer_Token_Pattern">Cross-Site Request Forgery (CSRF)</a>
 </h4>
 
-<figure class="image center" style="width: 395px;">
-  <img src="images/ThreatTags----average-uncommon-easy-moderate.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----average-uncommon-easy-moderate.png"/>
 
 
 <p>This type of attack depends on a fraudulent web resource, be it a website, email, instant message, or program that causes the targets web browser to perform an unintentional action on a website that the target is currently authenticated with.</p>
@@ -2524,10 +401,7 @@ We use BeEF to exploit an XSS vulnerability in DVWA and carry out a simple attac
 
 <h4 id="leanpub-auto-injection">Injection</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----easy-common-average-severe.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----easy-common-average-severe.png"/>
 
 
 <p>injection occurs when untrusted data is sent to an interpreter as part of a command or query. The attacker’s hostile data can cause the interpreter to execute commands that would otherwise not be, or accessing data without proper authorization.</p>
@@ -2541,16 +415,14 @@ We use BeEF to exploit an XSS vulnerability in DVWA and carry out a simple attac
 <h5 id="web-applications-identify-risks-sqli">SQLi</h5>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/HandsOnHack.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/HandsOnHack.png"/>
 
 
 <p>One of the simplest and quickest vulnerabilities to fix is SQL Injection, yet it is still top of the hit lists. I am going to hammer this home some more. Also checkout the <a href="http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/">podcast I hosted</a> with <a href="https://twitter.com/haroonmeer">Haroon Meer</a> as guest on Network Security for Software Engineering Radio. Haroon discussed using SQLi for data exfiltration.</p>
 
-<aside class="information blurb">
-    <h3 id="leanpub-auto-synopsis-8">Synopsis</h3>
+<aside>
+   <i class="fa fa-2x fa-info-circle sr-icons aside-icon"></i>
+   <h3 id="leanpub-auto-synopsis-8">Synopsis</h3>
 
   <p>I have used the Dam Vulnerable Web Application (DVWA) from the OWASP Broken Web Applications <a href="http://sourceforge.net/projects/owaspbwa/files/">VM</a> for this exercise. You can load this VM in a VMware product or add the virtual machine disk to a new VM in VirtualBox. It’s an Ubuntu 64 bit image. Once you have your VM ready to boot, use the Host-only Adapter so it’s sand-boxed from the rest of your network. You really would not want an attacker gaining access to this VM as it is purposely vulnerable and attacks could easily be launched from it.</p>
 
@@ -2558,8 +430,9 @@ We use BeEF to exploit an XSS vulnerability in DVWA and carry out a simple attac
 
 </aside>
 
-<aside class="generic_inbar blurb bomb icon-bomb">
-    <h3 id="leanpub-auto-the-play-6">The Play</h3>
+<aside>
+   <i class="fa fa-2x fa-bomb sr-icons aside-icon"></i>
+   <h3 id="leanpub-auto-the-play-6">The Play</h3>
 
   <p>In your Kali Linux box, run owasp-zap.<br />
 If chromium is not already running, run it and setup foxyproxy for chrome using the burp proxy we set-up in the Tooling Setup chapter of <a href="https://leanpub.com/holistic-infosec-for-web-developers">Fascicle 0</a>. Zap is now recording your browsing.</p>
@@ -2596,9 +469,6 @@ You may also be able to find out about the target organisations naming conventio
 
   <p><code>x' OR user LIKE '%</code>               # This works  </p>
 
-</aside>
-
-<aside class="generic_inbar blurb bomb icon-bomb">
     <p>I thought the query on the server looked something like this:<br />
 <code>SELECT ID, first_name, last_name FROM users WHERE ID = ''</code></p>
 
@@ -2629,9 +499,6 @@ Inject query:<br />
 Create <code>~/hashtocrack.txt</code> and put the hash(s) you want cracked in it. Now usually you would create a profiled wordlist taylored to your target like we did in the Password Profiling section of the People chapter in <a href="https://leanpub.com/holistic-infosec-for-web-developers">Fascicle 0</a>. For this exercise just add the following four words to <code>~/wordlist-to-throw-at-dvwa</code>:<br />
 <code>dogs</code>, <code>cats</code>, <code>admins</code>, <code>admin</code>. Now you can compare the hashed words from the list with the hash in the <code>~/hashtocrack.txt</code></p>
 
-</aside>
-
-<aside class="generic_inbar blurb bomb icon-bomb">
     <ol class="numeric">
     <li>
 <code>hashcat -m 0 ~/hashtocrack.txt ~/wordlist-to-throw-at-dvwa</code><br />
@@ -3054,10 +921,7 @@ Password:<br />
 
 <h4 id="leanpub-auto-captcha">Captcha</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----easy-verywidespread-easy-low.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----easy-verywidespread-easy-low.png"/>
 
 
 <p>Lack of captchas are a risk, but so are captchas themselves…</p>
@@ -3081,10 +945,7 @@ Password:<br />
 
 <h5 id="web-applications-identify-risks-management-of-application-secrets-data-store-compromise">Data-store Compromise</h5>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----difficult-widespread-average-moderate.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----difficult-widespread-average-moderate.png"/>
 
 
 <p>The reason I have tagged this as moderate is because if you take the countermeasures, it doesn’t have to be a disaster.</p>
@@ -3119,10 +980,7 @@ Password:<br />
 
 <h4 id="web-applications-identify-risks-lack-of-authentication-authorisation-session-management">Lack of Authentication, Authorisation and Session Management</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----average-common-average-severe.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----average-common-average-severe.png"/>
 
 
 <p>Also brought to light by the OWASP Top 10 risks “<a href="https://www.owasp.org/index.php/Top_10_2017-A2-Broken_Authentication_and_Session_Management"><em>No. 2 Broken Authentication and Session Management</em></a>”.</p>
@@ -3165,10 +1023,7 @@ Password:<br />
 <h4 id="web-applications-identify-risks-cryptography-on-the-client">Cryptography on the Client (AKA Untrusted Crypto)</h4>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----average-widespread-average-severe.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----average-widespread-average-severe.png"/>
 
 
 <p>The things I see that seem to get many developers into trouble:</p>
@@ -3269,10 +1124,7 @@ Although it’s not a client side library, it’s still worth mentioning, becaus
 
 <h4 id="web-applications-identify-risks-consuming-free-and-open-source">Consuming Free and Open Source</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----average-common-average-moderate.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----average-common-average-moderate.png"/>
 
 
 <p>This is where <a href="https://www.owasp.org/index.php/Top_10_2017-A9-Using_Components_with_Known_Vulnerabilities">A9 (Using Components with Known Vulnerabilities)</a> of the 2017 OWASP Top 10 comes in.</p>
@@ -3294,10 +1146,7 @@ Although it’s not a client side library, it’s still worth mentioning, becaus
 
 <h4 id="leanpub-auto-insufficient-attack-protection">Insufficient Attack Protection</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----easy-common-average-moderate.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----easy-common-average-moderate.png"/>
 
 
 <p>There is a good example of what the Insecure Direct Object References risk looks like in the <a href="https://github.com/OWASP/NodeGoat/">NodeGoat</a> web application. Check out the <a href="https://nodegoat.herokuapp.com/tutorial/a4">tutorial</a>, along with the video of how the attack is played out, along with the sample code and recommendations of how to fix.</p>
@@ -3328,10 +1177,7 @@ Although it’s not a client side library, it’s still worth mentioning, becaus
 
 <h5 id="web-applications-countermeasures-lack-of-visibility-insufficient-logging">Insufficient Logging</h5>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionAVERAGE.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionAVERAGE.png"/>
 
 
 <p>When it comes to logging in NodeJS, you can’t really go past winston. It has a lot of functionality and what it does not have is either provided by extensions, or you can create your own. It is fully featured, reliable and easy to configure like NLog in the .NET world.</p>
@@ -3741,10 +1587,7 @@ local0.* /var/log/yourapp.log
 
 <h5 id="leanpub-auto-insufficient-monitoring">Insufficient Monitoring</h5>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionEASY.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionEASY.png"/>
 
 
 <p>There are a couple of ways of approaching monitoring. You may want to see and be notified of the health of your application only when it is not fine (sometimes called the dark cockpit approach), or whether it is fine or not. Personally I like to have both</p>
@@ -3829,18 +1672,12 @@ So if the statistic is <a href="https://github.com/etsy/statsd/blob/master/docs/
 <p>One of the ways we can generate statistics to send to our listening statsd daemon is by using one of the many language specific <a href="https://github.com/etsy/statsd/wiki#client-implementations">statsd clients</a>, which make it trivially easy to collect and send application statistics via a single routine call.</p>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/statsd-graphite.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img src="images/statsd-graphite.png" alt="statsd graphite"/>
 
 
 <h4 id="web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation">Lack of Input Validation, Filtering and Sanitisation</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionAVERAGE.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionAVERAGE.png"/>
 
 
 <h5 id="web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic">Generic</h5>
@@ -5574,10 +3411,7 @@ This data should not be sent anywhere without taking the necessary steps to dete
 
 <h4 id="leanpub-auto-cross-site-request-forgery-csrf">Cross-Site Request Forgery (CSRF)</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionAVERAGE.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionAVERAGE.png"/>
 
 
 <p>CSRF syncroniser/challenge tokens are one approach commonly used to help defend against CSRF. This approach should also be used with other techniques like Identifying the source origin by checking the Origin and Referer headers, along with other useful techniques that have been well documented by the <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet">OWASP CSRF Prevention Cheat Sheet</a>. Also the <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)">OWASP CSRF</a> page has links to many useful resources, and do not forget to check the <a href="chap07.html#additional-resources-countermeasures-for-csrf">Additional Resources</a> chapter.</p>
@@ -5631,10 +3465,7 @@ This data should not be sent anywhere without taking the necessary steps to dete
   <a href="https://www.owasp.org/index.php/Top_10_2017-A1-Injection">Injection</a>
 </h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionEASY.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionEASY.png"/>
 
 
 <p>Usually the most effective technique for determining if/where your application is vulnerable to injection attacks is to review your code for all calls out to external resources, including interpreters, and determine whether the data you are passing is untrusted.</p>
@@ -5773,10 +3604,7 @@ This data should not be sent anywhere without taking the necessary steps to dete
 
 <h4 id="web-applications-countermeasures-captcha">Captcha</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionVERYEASY.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionVERYEASY.png"/>
 
 
 <h5 id="leanpub-auto-types">Types</h5>
@@ -5835,10 +3663,10 @@ This is obviously not going to work for the visually impaired or for people with
 <a href="https://www.npmjs.com/package/node-captcha">node-captcha</a> Depends on canvas. By the look of the package this is another text recognition in a generated image.</li>
   <li>
 <a href="https://www.npmjs.com/package/re-captcha">re-captcha</a> was one of the first captcha offerings, created at the Carnegie Mellon University by Luis von Ahn, Ben Maurer, Colin McMillen, David Abraham and Manuel Blum who invented the term captcha. Google later acquired it in September 2009. recaptcha is a text recognition captcha that uses scanned text that optical character recognition (OCR) technology has failed to interpret, which has the added benefit of helping to digitise text for The New York Times and Google Books.<br />
-<img src="images/reCaptcha.jpg" alt="" style="width: 325px;" />  </li>
+<img src="images/reCaptcha.jpg" alt="reCaptcha"/>  </li>
   <li>
 <a href="https://www.npmjs.com/package/sweetcaptcha">sweetcaptcha</a> uses the sweetcaptcha cloud service of which you must abide by their terms and conditions, requires another node package, and requires some integration work. sweetcaptcha is an image recognition type of captcha.<br />
-<img src="images/sweetcaptcha.jpg" alt="" style="width: 318px;" />
+<img src="images/sweetcaptcha.jpg" alt="sweetcaptcha"/>
 </li>
   <li>
 <a href="http://textcaptcha.com/">textcaptcha</a> is a logic question captcha relying on an external service for the questions and md5 hashes of the correct lower cased answers. This looks pretty simple to set up, but again expects your users to use their brain on things they should not have to.</li>
@@ -5971,20 +3799,14 @@ This is obviously not going to work for the visually impaired or for people with
 <p>Find out how secret the data that is supposed to be secret that is being sent over the network actually is and consider your internal network just as malicious as the internet. Then you will be starting to get the idea of what defence in depth is about. That way when one defence breaks down, you will still be in good standing.</p>
 
 
-<figure class="image center" style="width: 395px;">
-  <img src="images/DefenceInDepth.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img src="images/DefenceInDepth.png" alt="Defence In Depth"/>
 
 
 <p>You may read in many places that having data-store passwords and other types of secrets in configuration files in clear text is an insecurity that <a href="https://www.owasp.org/index.php/Password_Plaintext_Storage">must be addressed</a>. Then when it comes to mitigation, there seems to be a few techniques for helping, but most of them are based around obscuring the secret rather than securing it. Essentially just making discovery a little more inconvenient like using an alternative port to SSH to other than the default of 22. Maybe surprisingly though, obscurity does significantly reduce the number of opportunistic type attacks from bots and script kiddies.</p>
 
 <h5 id="web-applications-countermeasures-management-of-application-secrets-store-configuration">Store Configuration in Configuration files</h5>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionAVERAGE.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionAVERAGE.png"/>
 
 
 <p>Do not hard code passwords in source files for all developers to see. Doing so also means the code has to be patched when services are breached. At the very least, store them in configuration files and use different configuration files for different deployments and consider keeping them out of source control.</p>
@@ -6239,20 +4061,14 @@ automatically discarding all known and unknown malware, and eliminating the need
 
 <h5 id="web-applications-countermeasures-management-of-application-secrets-least-privilege">Least Privilege</h5>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionEASY.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionEASY.png"/>
 
 
 <p>An application should have the least privileges possible in order to carry out what it needs to do. Consider creating accounts for each trust distinction. For example where you only need to read from a data store, then create that connection with a users credentials that is only allowed to read, and so on for other privileges. This way the attack surface is minimised. Adhering to the principle of least privilege. Also consider removing table access completely from the application and only provide permissions to the application to run stored queries. This way if/when an attacker is able to compromise the machine and retrieve the password for an action on the data-store, they will not be able to do a lot anyway.</p>
 
 <h5 id="leanpub-auto-location">Location</h5>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionEASY.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionEASY.png"/>
 
 
 <p>Put your services like data-stores on network segments that are as <a href="chap04.html#network-countermeasures-lack-of-segmentation">sheltered</a> as possible and only contain similar services.</p>
@@ -6261,10 +4077,7 @@ automatically discarding all known and unknown malware, and eliminating the need
 
 <h5 id="web-applications-countermeasures-data-store-compromise">Data-store Compromise</h5>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionEASY.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionEASY.png"/>
 
 
 <p>As part of your defence in depth strategy, you should expect that your data-store is going to get stolen, but hope that it does not. What assets within the data-store are sensitive? How are you going to stop an attacker that has gained access to the data-store from making sense of the sensitive data?</p>
@@ -6334,10 +4147,7 @@ the <a href="https://tools.ietf.org/html/rfc7914">Salsa20/8</a> core function, w
 
 <h5 id="web-applications-countermeasures-management-of-application-secrets-caching-of-sensitive-data">Caching of Sensitive Data</h5>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionVERYEASY.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionVERYEASY.png"/>
 
 
 <p>Logging out from an application obviously does not clear the browser cache of any sensitive information that might have been stored. Test that any sensitive data responses have <code>Cache-Control</code> and <code>Expires</code> headers set appropriately.</p>
@@ -6380,19 +4190,13 @@ the <a href="https://tools.ietf.org/html/rfc7914">Salsa20/8</a> core function, w
 
 <h4 id="web-applications-countermeasures-lack-of-authentication-authorisation-session-management">Lack of Authentication, Authorisation and Session Management</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionDIFFICULT.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionDIFFICULT.png"/>
 
 
 <p>I’m going to walk you through some of the important parts of what a possible authentication and authorisation solution might look like that will address the points raised in the <a href="chap06.html#web-applications-identify-risks-lack-of-authentication-authorisation-session-management">Identify Risks</a> section from above.</p>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/RelevantAuthStandards.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img src="images/RelevantAuthStandards.png"/>
 
 
 <p>The following code is one example of how we can establish authentication and authorisation of individuals desiring to work with a system comprised of any number of front-ends (web, mobile, etc), a service layer API that provides an abstraction to, and communicates with the underlying back-end micro-services. The example uses the Resource Owner Password Credentials (ROPC) flow which is quite a common flow with todays front-end -&gt; service API -&gt; back-end micro-service architectures.</p>
@@ -6412,10 +4216,7 @@ the <a href="https://tools.ietf.org/html/rfc7914">Salsa20/8</a> core function, w
 <h5 id="leanpub-auto-chosen-technologies">Chosen technologies:</h5>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ChosenAuthTechnologies.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img src="images/ChosenAuthTechnologies.png"/>
 
 
 <p>Getting to grips with and understanding enough to create a solution like this can be quite a steep learning experience. The folks from IdentityServer which do this for the love of it have created an outstanding Open Source Software (OSS) project and in all my dealings with them have always gone out of their way to help. In all the projects I’ve worked on, with all the edge cases, there has always been a way to create the solution that satisfied the requirements.</p>
@@ -6748,10 +4549,7 @@ Password storage (as discussed above under the <a href="chap06.html#web-applicat
 <h5 id="leanpub-auto-architecture">Architecture</h5>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/AuthArchitecture.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img src="images/AuthArchitecture.png" alt="Auth Architecture"/>
 
 
 <figure class="code">
@@ -7108,10 +4906,7 @@ Password storage (as discussed above under the <a href="chap06.html#web-applicat
 Even with the <code>HttpOnly</code> flag set on your cookie, it is possible to compromise the cookie contents if the values of the <code>Domain</code> and/or <code>Path</code> cookie attributes are too permissive. For example if you have the <code>Domain</code> value set to <code>.localtest.me</code>, an attacker can attempt to launch attacks on the cookie token between other hosts with the same domain name. Some of these hosts may contain vulnerabilities, thus increasing the attack surface.</p>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/SecuringSessions.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img src="images/SecuringSessions.png" alt="Securing Sessions"/>
 
 
 <p>Set the <a href="https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Secure_Attribute"><code>Secure</code> attribute</a> on the cookie. This instructs web browsers to only send the cookie over a TLS (HTTPS) connection, thus removing this MItM attack vector.<br />
@@ -7129,10 +4924,7 @@ You can and should test this by inspecting the headers with an HTTP intercepting
 <h4 id="web-applications-countermeasures-cryptography-on-the-client">Cryptography on the Client (AKA Untrusted Crypto)</h4>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionDIFFICULT.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionDIFFICULT.png"/>
 
 
 <p>There are fundamental principles that we need to examine, understand and embrace before we dive into some details.</p>
@@ -7149,7 +4941,7 @@ You can and should test this by inspecting the headers with an HTTP intercepting
 
 <p>
   <a href="http://caniuse.com/cryptography">
-    <img src="images/WebCryptoApi.png" alt="" style="width: 396px;" />
+    <img src="images/WebCryptoApi.png" alt="Web Crypto Api"/>
   </a>
 </p>
 
@@ -7244,10 +5036,7 @@ Removed part of the unsupported versions for Firefox, Chrome and Opera.</p>
 
 <h4 id="web-applications-countermeasures-consuming-free-and-open-source">Consuming Free and Open Source</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionEASY.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionEASY.png"/>
 
 
 <h5 id="leanpub-auto-process">Process</h5>
@@ -7606,10 +5395,7 @@ OWASP <a href="https://www.owasp.org/index.php/OWASP_Dependency_Check">Dependenc
 
 <h4 id="web-applications-countermeasures-insufficient-attack-protection">Insufficient Attack Protection</h4>
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/ThreatTags----PreventionEASY.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img class="threat-tags" src="images/ThreatTags----PreventionEASY.png"/>
 
 
 <p><a href="https://www.owasp.org/index.php/Top_10_2013-A4-Insecure_Direct_Object_References">Insecure Direct Object References</a> was part of the OWASP Top 10 in 2013, which in 2017 was <a href="https://www.owasp.org/index.php/Top_10_2017-Release_Notes">merged</a> into <a href="https://www.owasp.org/index.php/Top_10_2017-A7-Insufficient_Attack_Protection">Insufficient Attack Protection</a>. OWASP has good guidance on this.</p>
@@ -7834,10 +5620,7 @@ Licensed under <a href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative
 <p>The following table shows the Web Crypto API supported algorithms for Chromium (as of version 46) and Mozilla (as of July 2016).</p>
 
 
-<figure class="image center" style="width: 396px;">
-  <img src="images/WebCryptoAPIBrowserSupport.png" alt="" style="width: 100%;" />
-  <figcaption></figcaption>
-</figure>
+<img src="images/WebCryptoAPIBrowserSupport.png" alt="Web Crypto API Browser Support"/>
 
 
 <p>At least both are offering AES-GCM, but now you have to make the decision, and to much choice can bring confusion. The only way for us web developers to know which choices to make, is spend the time researching what to use where and asking your self the questions, why? Question everything.</p>
@@ -8013,8 +5796,9 @@ For example doing everything we can to validate that what we’re downloading is
 
 <p>It will cost you some time to create these type of active defence modules. If you are lucky, by the time you read this, I may already have some. It is on my current todo list.</p>
 
-<!-- begin backmatter -->
-
+  <div class="next-chapter">
+     Next: <a href="chap07.html">Additional Resources</a>
+  </div>
 
 </div>
 </body>
