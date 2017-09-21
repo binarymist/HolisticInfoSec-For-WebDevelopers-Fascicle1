@@ -51,6 +51,11 @@ code {
   font-size: 0.86em;
 }
 
+.threat-tags {
+  margin-top: 1.4em;
+  margin-bottom: 0.2em;
+}
+
 // Book ToC
 // ----------------------
 
@@ -123,10 +128,6 @@ ul.toc > li {
 ul.toc {
     border-bottom: thin solid gray;
 }
-img {
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
 .verso {
     margin-top: 20px;
 }
@@ -134,6 +135,7 @@ img {
     margin-top: 3em;
     border-top: thin solid gray;
     text-align: right;
+    padding-top: 3px;
 }
 
 /* headings */
@@ -201,6 +203,17 @@ body.kramdown h6, body.markua h5.subsubsubsection {
 p {
   text-indent: 0em;
   margin-top: 0.5em;
+}
+
+a {
+    color: purple;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:visited {
+    color: purple;
 }
 
 .hanging-indent p {
