@@ -668,7 +668,7 @@ There are also a collection of IAM specific items that you should review in the 
 
 #### Machine Instance Single User Root
 
-As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS, including [SSH access](#cloud-countermeasures-storage-of-secrets-private-key-abuse-ssh) if this is required (ideally this should be automated). With Docker, I discussed how this is done in the [Dockerfile](#vps-countermeasures-docker-the-dDefault-user-is-root).
+As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS, including [SSH access](#cloud-countermeasures-storage-of-secrets-private-key-abuse-ssh) if this is required (ideally this should be automated). With Docker, I discussed how this is done in the [Dockerfile](#vps-countermeasures-docker-the-default-user-is-root).
 
 Drive a [least privilege policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) around this, configuring a strong [password policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy) for your users, and implement [multi-factor authentication](https://aws.amazon.com/iam/details/mfa/) which will help with poor password selection of users. I discuss this in more depth in the [Storage of Secrets](#cloud-countermeasures-storage-of-secrets) subsection.
 
