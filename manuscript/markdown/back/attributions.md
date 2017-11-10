@@ -1502,6 +1502,9 @@ https://www.programmableweb.com/news/why-exposed-api-keys-and-sensitive-data-are
 **Lack of knowledge, desire and a dysfunctional culture** in the work place  
 [https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/)
 
+**Most of the commands are either deployment** or manual monitoring which should all be automated  
+[https://github.com/binarymist/aws-docker-host](https://github.com/binarymist/aws-docker-host)
+
 **Create a key pair using EC2**  
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-cr  
 eate-your-key-pair  
