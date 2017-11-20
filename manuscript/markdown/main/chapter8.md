@@ -7,7 +7,7 @@ I had the pleasure of interviewing [Haroon Meer](https://twitter.com/haroonmeer)
 * [Canarytokens](https://canarytokens.org/)
 * [Canary Tools](https://canary.tools/)
 
-## 1. Sensible Security Model (SSM) Asset Identification
+## 1. SSM Asset Identification
 Take results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable and add any that are newly discovered.
 
 Here are some possibilities to get you started:
@@ -19,7 +19,7 @@ Here are some possibilities to get you started:
 
 There will almost certainly be many others. Think about your network topology, specifically about information, where it's stored where and over which channels it may pass. If you have decided to hand your precious data over to a Cloud Service Provider (CSP), then you are not going to have much control over this and in most cases, your CSP will not have as much control as you would like either. We address this in the [Cloud](#cloud) chapter. Also think about the areas that may be easier to compromise than others, and take this information into the next step.
 
-## 2. Sensible Security Model (SSM) Identify Risks
+## 2. SSM Identify Risks
 Go through the same process as we did at the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but do so for the network.
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
@@ -531,7 +531,7 @@ Setup the DNS A record value to be the IP address of the attacker's SSH server a
 
 An SSH server needs to be set up to record the user-names and passwords. The OpenSSH code needs to be modified in order to do this.
 
-### Wrongfully Trusting the Loading of Untrusted Web Resources {#network-identify-risks-wrongfully-trusting-the-loading-of-untrusted-web-resources}
+### Wrongful Trust When Loading Untrusted Web Resources {#network-identify-risks-wrongfully-trusting-the-loading-of-untrusted-web-resources}
 ![](images/ThreatTags/average-verywidespread-easy-moderate.png)
 
 By default, the browser allows all resources from all locations to be loaded. What would happen if one of those servers was compromised, or an attacker was tampering with the payload, potentially changing what was expected for something malicious to be executed once loaded? This is a very common technique for attackers wishing to get their malicious scripts into your browser.
@@ -545,7 +545,7 @@ This is a danger for all websites that do not enforce TLS for every page, or bet
 
 [https://httpswatch.nz](https://httpswatch.nz) is an excellent resource for some of the prominent websites in New Zealand, informing them of the issues in regards to HTTPS health.
 
-## 3. Sensible Security Model (SSM) Countermeasures {#network-countermeasures}
+## 3. SSM Countermeasures {#network-countermeasures}
 
 Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
@@ -971,7 +971,7 @@ Set-up your own internal catch-all SMTP server to correct mistyped domains befor
 Do not mistype the domain.  
 Use [key pair authentication](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication) as discussed, so no passwords are exchanged.
 
-### Wrongfully Trusting the Loading of Untrusted Web Resources {#network-countermeasures-wrongfully-trusting-the-loading-of-untrusted-web-resources}
+### Wrongful Trust When Loading Untrusted Web Resources {#network-countermeasures-wrongfully-trusting-the-loading-of-untrusted-web-resources}
 
 Consider the likes of [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source) in the Web Applications chapter.
 
@@ -1111,7 +1111,7 @@ CRLs are generally published daily with a week expiration, you can see this in t
 
 This wasn't such a big deal in the early days of the Internet when there were so few CAs, and in many cases the CRL that your browser had already downloaded was useful for many websites that you would visit.
 
-Conscientious CA's segment their CRLs, so that when you make a request to the CRL distribution point, you get back a small list of serial numbers for revoked certificates.
+Conscientious CAs segment their CRLs, so that when you make a request to the CRL distribution point, you get back a small list of serial numbers for revoked certificates.
 
 ##### Initiative 2: Online Certificate Status Protocol (OCSP) {#network-countermeasures-tls-downgrade-certificate-revocation-evolution-ocsp}
 
@@ -1180,7 +1180,7 @@ There are two ways that "must staple" is being looked at as a solution. The [OCS
 
 As far as I know, Firefox and Chrome are both working toward implementing Must-Staple in certificates, but I haven't seen or heard anything yet for Internet Explorer and Edge.
 
-## 4. Sensible Security Model (SSM) Risks that Solution Causes {#network-risks-that-solution-causes}
+## 4. SSM Risks that Solution Causes {#network-risks-that-solution-causes}
 
 ### Fortress Mentality
 
@@ -1260,7 +1260,7 @@ There may be a legitimate reason for allowing DNS `TXT` records, obviously you w
 
 There are no real risks with acquiring domains, perhaps cost.
 
-### Wrongfully Trusting the Loading of Untrusted Web Resources {#network-risks-that-solution-causes-wrongfully-trusting-the-loading-of-untrusted-web-resources}
+### Wrongful Trust When Loading Untrusted Web Resources {#network-risks-that-solution-causes-wrongfully-trusting-the-loading-of-untrusted-web-resources}
 
 #### Content Security Policy (CSP) {#network-risks-that-solution-causes-wrongfully-trusting-the-loading-of-untrusted-web-resources-csp}
 
@@ -1291,7 +1291,7 @@ Ultimately, if you have done you job correctly, you are trusting the browser to 
 
 If you make sure your web server only ever responds over HTTPS, including the very first response, then the HSTS preload may work for you, just beware that once your domain is in the list, it is only reachable over HTTPS
 
-## 5. Sensible Security Model (SSM) Costs and Trade-offs {#network-costs-and-trade-offs}
+## 5. SSM Costs and Trade-offs {#network-costs-and-trade-offs}
 
 ### Fortress Mentality
 
@@ -1364,7 +1364,7 @@ You could inspect the DNS records, this is where your NIDS comes in.
 
 Determine what your attack surface looks like in terms of doppelganger domains, acquire domains with obvious similarities that users could mistakenly type. Determine when to stop purchasing the doppelganger domains.
 
-### Wrongfully Trusting the Loading of Untrusted Web Resources
+### Wrongful Trust When Loading Untrusted Web Resources
 
 #### Content Security Policy (CSP)
 
