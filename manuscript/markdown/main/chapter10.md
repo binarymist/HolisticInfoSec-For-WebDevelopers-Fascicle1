@@ -2,6 +2,7 @@
 
 ![10,000' view and lower of Web Application Security](images/10000WebApp.png)
 
+I had the pleasure of interviewing [Zane Lackey](https://twitter.com/zanelackey) on Software Engineering Radio for a [show on Application Security](http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/), this is well worth listening to.
 
 ## 1. SSM Asset Identification
 Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable, add any relevant from previous chapters, add any newly discovered. Here are some to get you started:

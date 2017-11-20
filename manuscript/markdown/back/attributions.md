@@ -1683,6 +1683,9 @@ astion-host/
 
 ## [Web Applications](#web-applications)
 
+**Show on Application Security**  
+[http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/](http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/)
+
 **MS Application Threats and Countermeasures**  
 [https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008)
 
