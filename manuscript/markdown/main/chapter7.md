@@ -2,12 +2,12 @@
 
 ![10,000' view and lower of VPS Security](images/10000VPS.png)
 
-If you have the necessary resources, that is knowledge, skill, experience, desire, money, and of course the need for high security which is becomming more and more important all the time, I usually advocate bringing VPS(s) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have more control. Most of my work around VPSs are with GNU/Linux instances. Most of the testing in this chapter was performed on Debian instances, usually, but not allways, web servers. Unless stated otherwise, the following applies to these type of instances.
+When it makes sense, I usually advocate bringing virtual private servers (VPS) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have more control. Most of my work around VPSs are with GNU/Linux instances. Most of the testing in this chapter was performed on Debian instances, and usually, but not allways, web servers. Unless stated otherwise, the following applies to these type of instances.
 
 ## 1. SSM Asset Identification {#vps-asset-identification}
 Take results from higher level Asset Identification found in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered. Here are some to get you started:
 
-* Ownership. At first this may sound strange, but that is because of an assumption you may have that it is a given that you will always own, or at least have control of your server(s). I am going to dispel this myth. When an attacker wants to compromise your server(s), they want to do so for a reason. Possibly it is just for kicks, possibly it is for some more sinister reason. They want an asset that presumably belongs to you, your organisation, or your customers. If they can take control of your server(s) (own it/steal it/what ever you want to call the act), then they have a foot hold to launch further attacks and gain other assets that do not belong to them. With this in mind, you could think of your server(s) as an asset. On the other hand you could think of your it as a liability. Both may be correct. In any case, you need to protect your server(s) and in many cases take it to school and teach it how to protect itself. This is covered under the [SSM Countermeasures](#vps-countermeasures) section with items such as HIDS and Logging and Alerting.
+* Ownership. At first this may sound strange, you likely assume that it is given that you will always own, or at least have control of your server(s). I am going to dispel this myth. When an attacker wants to compromise your server(s), they want to do so for a reason. It may just be for kicks, or it may be for some more sinister reason. They want an asset that presumably belongs to you, your organisation, or your customers. If they can take control of your server(s) (own it, steal it, abuse it, etc.), then they have a foot hold to launch further attacks and gain control or other assets that do not belong to them. With this in mind, you could think of your server(s) as an asset. On the other hand you could think of your server(s) as a liability. Both may be correct. In any case, you need to protect your server(s) and ensure a hardened security posture. This is covered under the [SSM Countermeasures](#vps-countermeasures) section with items such as HIDS, Logging, and Alerting
 * Visibility into and of many things, such as:
   * Disk space
   * Disk IO
@@ -20,46 +20,46 @@ Take results from higher level Asset Identification found in the 30,000' View ch
   * What any user is doing on the system currently
   * Network connections
   * Etc
-* Taking the confidential business and client information from the "Starting with the 30,000' view" chapter, here we can concretise these concepts into forms such as:
-  * Email, Web, Data-store servers and of course the data on them.
-  * You could even stretch this to individuals PCs and other devices which may be carrying this sort of confidential information on them. Mobile devices are a huge risk for example (covered in the Mobile chapter of [Fascicle 2](https://leanpub.com/holistic-infosec-for-web-developers-fascicle2-mobile-iot))
+* Take the confidential business and client information from the "Starting with the 30,000' view" chapter, here we can solidify these concepts into forms such as:
+  * Email, Web, Data-store servers and of course the data on them
+  * You could even convey this to individuals PCs and other devices which may be carrying this sort of confidential information on them. Mobile devices are a huge risk for example (covered in the Mobile chapter of [Fascicle 2](https://leanpub.com/holistic-infosec-for-web-developers-fascicle2-mobile-iot))
 
-This is probably an incomplete list for your domain. I have given you a start. Put your thinking cap on and populate the rest, or come back to it as additional assets enter your mind.
+This is probably an incomplete list for your domain, I have merely given you a start. Put your critical thinking to use and populate the rest, or come back to the process as additional assets enter your mind.
 
 ## 2. SSM Identify Risks
 Go through same process as we did at the top level in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for your VPS(s).
 
 * [MS Host Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007)
-* [MS Securing Your Web Server](https://msdn.microsoft.com/en-us/library/ff648653.aspx) This is Windows specific, but does offer some insight into technology agnostic risks and countermeasures.
+* [MS Securing Your Web Server](https://msdn.microsoft.com/en-us/library/ff648653.aspx) This is Windows specific, but does offer some insight into technology agnostic risks and countermeasures
 * [MS Securing Your Application Server](https://msdn.microsoft.com/en-us/library/ff648657.aspx) As above, Microsoft specific, but does provide some ideas for vendor agnostic concepts
 
 ### Forfeit Control thus Security {#vps-identify-risks-forfeit-control-thus-security}
 ![](images/ThreatTags/average-widespread-average-severe.png)
 
-In terms of security, unless your provider is [Swiss](http://www.computerweekly.com/news/2240187513/Is-Switzerland-turning-into-a-cloud-haven-in-the-wake-of-Prism-scandal), you give up so much when you forfeit your system(s) to an external provider. I cover this in my talk ["Does Your Cloud Solution Look Like a Mushroom"](http://blog.binarymist.net/presentations-publications/#does-your-cloud-solution-look-like-a-mushroom).
+In terms of security, unless your provider is [Swiss](http://www.computerweekly.com/news/2240187513/Is-Switzerland-turning-into-a-cloud-haven-in-the-wake-of-Prism-scandal), you give up so much when you forfeit your system controls to an external provider. I cover this in my talk ["Does Your Cloud Solution Look Like a Mushroom"](http://blog.binarymist.net/presentations-publications/#does-your-cloud-solution-look-like-a-mushroom).
 
-* If you do not own your VPS(s), you will have very limited security, visibility and control over the infrastructure.
-* Limited (at best) visibility into any hardening process your CSP takes. Essentially you "Get what you are given".
-* Cloud and hosting providers are in many cases forced by governments and other agencies to give up your secrets. It is very common place now and you may not even know that it has happened. Swiss providers may be the exception here.
-* What control do you have that if you are data in the cloud has been compromised you actually know about it and can invoke your incident response team(s) and procedures?
-* Cloud and hosting providers are readily giving up your secrets to government organisations and the highest bidders. In many cases you will not know about it.
-* Your provider may go out of business and you may get little notice of this.
-* Providers are outsourcing their outsourced services to several providers deep. They do not even have visibility themselves. Control is lost.
-* \> distribution = > attack surface. Where is your data? Where are your VM images running from? Further distributed on iSCSI targets? Where are the targets?
+* If you do not own your VPS(s), you will have limited visibility and control over the infrastructure
+* Limited (at best) visibility into any hardening process your CSP takes. Essentially, you "Get what you are given"
+* Cloud and hosting providers are, in many cases, forced by governments and other agencies to give up your secrets. It is very common place now, and you may not even know that it has happened. Swiss providers may be the exception here
+* Do you have enough control, such that if your data is in the cloud and has been compromised, you actually know about it, and can invoke your incident response team(s) and procedures?
+* Cloud and hosting providers are readily giving up your secrets to government organisations, and the highest bidders. In many cases you will not know about it
+* Your provider may go out of business, and you may get little notice of this
+* Providers are often outsourcing their services to several providers deep. They do not even have visibility themselves, further control is lost
+* Distribution = attack surface. Where is your data? Where are your VM images running from? Further distributed on iSCSI targets? Where are the targets?
 * Your provider knows little (at best) about your domain, how you operate, or what you have running on their system(s). How are they supposed to protect you if they have no knowledge of your domain?
 
 ### Windows {#vps-identify-risks-Windows}
 
-Windows exploitation is prevalent, easy and fun, because there is what seems to be a never ending source of security defects. I am not going to attempt to cover much, as I would be here for to long, and this book series is more focussed on giving you a broad understanding with examples as we go.
+Windows exploitation is prevalent, easy and fun, because there is what seems to be a never ending source of security defects. I am not going to attempt to cover much, as I would be here for too long, and this book series is more focused on giving you a broad understanding with examples as we go.
 
-The problem is not so much that there is a never ending source of defects in Windows, but rather, that the platform was not designed with openness as a core attribute. Because of its closed nature, hardening the platform in many cases is very difficult and often comes down to applying band-aids over top of the defects rather than being able to remove them.
+The problem is less that there are defects in Windows, but rather, that the platform was not designed with openness as a core attribute. Because of its closed nature, hardening the platform in many cases is very difficult and often comes down to applying band-aids over top of the defects, rather than being able to remove them.
 
-If you want a platform that you can have a decent level of control over its security, do not buy into closed offerings.
+If you want a platform that you can have a decent level of control over its security, do not buy closed offerings.
 
 #### PsExec {#vps-identify-risks-psexec}
 ![](images/ThreatTags/average-common-difficult-severe.png)
 
-PsExec was written by Mark Russinovich as part of the Sysinternals tool suite. PsExec the tool allows you to execute programs on remote Windows systems without having to install anything on the server you want to manage or hack. Also being a [Telnet replacement](https://technet.microsoft.com/en-us/sysinternals/bb897553.aspx).  
+PsExec was written by Mark Russinovich as part of the Sysinternals tool suite. PsExec the tool allows you to execute programs on remote Windows systems without having to install anything on the server you want to manage, or hack. It also serves as a [Telnet replacement](https://technet.microsoft.com/en-us/sysinternals/bb897553.aspx).  
 PsExec [requires](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified) a few things on the target system:
 
 1. The Server Message Block (SMB) service must be available and reachable (not blocked by a fire wall for example)
@@ -68,7 +68,7 @@ PsExec [requires](https://community.rapid7.com/community/metasploit/blog/2013/03
 4. The Admin$ share (which maps to the Windows directory) must be available and accessible, test it first
 5. The credentials supplied to the PsExec utility must have permissions to access the Admin$ share
 
-There are several [behavioural techniques](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified), or [targets](https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/windows/smb/psexec.md#scenarios) as Metasploit calls them for the `psexec` module. In this case we use the Native Upload Target, but using a custom compiled payload (`set exe::custom`), you can see this in The Play below. What happens here is that our payload is embedded into a Windows Service executable within the PsExec executable, which it then deploys to the Admin$ share on the target machine. The DCE/RPC interface is then used over SMB to access the Windows Service Control Manager (SCM) API. PsExec then turns on its Windows Service on the target machine. This service then creates a named pipe which can be used to send commands to the system.
+There are several [behavioural techniques](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified), or [targets](https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/windows/smb/psexec.md#scenarios) as Metasploit calls them, for the `psexec` module. In this case we use the Native Upload Target, but use a custom compiled payload (`set exe::custom`); you can see this in The Play below. Our payload is embedded into a Windows Service executable within the PsExec executable, which it then deploys to the Admin$ share on the target machine. The DCE/RPC interface is then used over SMB to access the Windows Service Control Manager (SCM) API. PsExec then turns on its Windows Service on the target machine. This service then creates a named pipe which can be used to send commands to the system.
 
 The Metasploit [`psxec` module](https://www.rapid7.com/db/modules/exploit/windows/smb/psexec) (`exploit/windows/smb/psexec`) uses basically the same principle. This was the first of the "Pass The Hash" suite of Metasploit modules, [first committed](https://github.com/rapid7/metasploit-framework/commits/master/modules/exploits/windows/smb/psexec.rb?after=Y3Vyc29yOk6%2FV6xQayGnXiF%2FSfDmc6XJLm5lKzEwNA%3D%3D) on 2007-07-03
 
@@ -77,15 +77,15 @@ The Metasploit [`psxec` module](https://www.rapid7.com/db/modules/exploit/window
 
 The following attack was the last of five that I demonstrated at WDCNZ in 2015. The [previous demo](#wdcnz-demo-4) of that series will provide some additional context and it is probably best to look at it first if you have not already.
 
-You can find the video of how it is played out at [http://youtu.be/1EvwwYiMrV4](http://youtu.be/1EvwwYiMrV4).
+You can find the video of this scenario at [http://youtu.be/1EvwwYiMrV4](http://youtu.be/1EvwwYiMrV4).
 
 I> ## Synopsis
 I>
 I> This demo differs from the previous in that we do not rely on any of the targets direct interaction. There is no longer a need for the browser.  
 I> We open a reverse shell from the victim to us using Metasploit.  
-I> We use Veil-Evasion with the help of hyperion to encrypt our payload to evade AV.  
-I> With this attack you will have had to have obtained the targets username and password or [password hash](https://www.offensive-security.com/metasploit-unleashed/psexec-pass-hash/).  
-I> We leverage PsExec which expects your binary to be a windows service.
+I> We use Veil-Evasion, with the help of hyperion, to encrypt our payload to evade AV.  
+I> This attack requires that you obtain the target's username and password, or [password hash](https://www.offensive-security.com/metasploit-unleashed/psexec-pass-hash/).  
+I> We leverage PsExec, which expects your binary to be a windows service.
 I> You can also leverage ARP and DNS spoofing with Ettercap from the previous attack. I have not included these steps in this play though, although the video assumes they have been included.
 
 {icon=bomb}
@@ -130,41 +130,41 @@ G> `set smbuser <target username>`
 G> `set` [`smbpass`](https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/windows/smb/psexec.md#options) <target password or hash>  
 G> `run`
 G>
-G> The IP addresses and ports need to be the same as you specified in the creating of the payload using Veil-Evasion.
+G> The IP addresses and ports need to be the same as you specified when creating the payload using Veil-Evasion.
 
 {icon=bomb}
-G> Now we have got the credentials from a previous exploit. There are many techniques and tools to help capture these, whether you have physical access or not. We just need the username & password or hash which is transmitted across the network for all to see. Also easily obtainable if you have physical access to the machine.
+G> Now we have the credentials from a previous exploit. There are many techniques and tools to help capture these, whether you have physical access or not. We need to acquire the username and password, or hash as they are transmitted across the network for all to see, or easily obtainable if you have physical access to the machine.
 G>
 G> We now run msfconsole with the resource file as parameter:  
 G> `msfconsole -r ~/demo.rc`  
-G> and that is enough to evade AV and get our reverse shell.
+G> This effort is enough to evade AV and obtain our reverse shell.
 G>
 G> `sessions` will show you the active sessions you have.  
 G> To interact with the first one:  
 G> `sessions -i 1`
 G>
-G> From here on in, the [video](https://www.youtube.com/watch?v=1EvwwYiMrV4) demonstrates creating a new file beside the targets hosts file, thus demonstrating full system privileges.
+G> The remainder of this play is seen in the [video](https://www.youtube.com/watch?v=1EvwwYiMrV4) that demonstrates creating a new file next to the target's `hosts` file, thus demonstrating full system privileges.
 
-Just before the Synopsis, I mentioned that there were several behavioural techniques for the `psexec` module. One of the other techniques, called "MOF Upload Target" is to use Managed Object Format (MOF) files which use the C++ syntax. These MOF files must be compiled and are then consumed by Windows Management Instrumentation (WMI). This works quite differently, `psexec` does not execute anything, all it does is upload your executable to `SYSTEM32`, and a MOF file to `SYSTEM32\wbem\mof\`. When windows receives the event for the new MOF file, it compiles and executes it, which tells Windows to run the paylod in `SYSTSEM32`. Metasploits MOF library only works with Windows XP and Server 2003. There is also the same high chance of getting sprung by AV, although you can carry out similar tricks as we did above to get around the AV signatures.
+Just before the Synopsis, I mentioned that there were several behavioural techniques for the `psexec` module. One of the other techniques, called "MOF Upload Target" is to use Managed Object Format (MOF) files, which use C++ syntax. These MOF files must be compiled, and are then consumed by Windows Management Instrumentation (WMI). This works quite differently, `psexec` does not execute anything, all it does is upload your executable to `SYSTEM32`, and a MOF file to `SYSTEM32\wbem\mof\`. When windows receives the event for the new MOF file, it compiles and executes it, which tells Windows to run the payload in `SYSTSEM32`. Metasploit's MOF library only works with Windows XP and Server 2003. There is also the high likelihood of being detected by AV, although you can carry out similar tricks as we did above to get around the AV signatures.
 
-If you are running a penetration test for a client and your targets AV fires, then it could be game over for you. There are better options that exist now that are less likely to ring alarm bells with your target.
+If you are running a penetration test for a client and your target's AV fires, then it could be game over for you. There are better options that exist now that are less likely to ring alarm bells with your target.
 
 #### Pass The Hash (PTH) suite of Metasploit Modules {#vps-identify-risks-windows-pth-suite-of-metasploit-modules}
 ![](images/ThreatTags/average-common-difficult-severe.png)
 
-We have just detailed and demonstrated the first of the Metasploit PTH suite above. Kali Linux also has the "[Pass the Hash toolkit](https://www.kali.org/tutorials/pass-the-hash-toolkit-winexe-updates/)" (with all tools prefixed with "pth-"). The following are the rest of the Metasploit PTH modules in order of when they were introduced. All of the PTH suite except `psexec_ntdsgrab` depend on [CVE-1999-0504](https://www.cvedetails.com/cve/cve-1999-0504). They also all make use of the PsExec utility except the last one `wmi`. You will notice that some of these are exploits and some are technically auxiliary modules, as you read their descriptions, you will understand why.
+We have just detailed and demonstrated the first of the Metasploit PTH suite above. Kali Linux also has the "[Pass the Hash toolkit](https://www.kali.org/tutorials/pass-the-hash-toolkit-winexe-updates/)" (all tools are prefixed with "pth-"). The following are the rest of the Metasploit PTH modules in chronological order of their introduction. All of the PTH suite except `psexec_ntdsgrab` depends on [CVE-1999-0504](https://www.cvedetails.com/cve/cve-1999-0504). They also all make use of the PsExec utility, except the last one `wmi`. You will notice that some of these are exploits, and some are technically auxiliary modules. As you read their descriptions, you will understand why.
 
 1. [`current_user_psexec`](https://www.rapid7.com/db/modules/exploit/windows/local/current_user_psexec)  
 (2012-08-01) `exploit/windows/local/current_user_psexec`  
 "PsExec via Current User Token"  
    
    1. This module uploads an executable file to the victim system, then creates a share containing that executable
-   2. Then creates a remote service on each target system similar to the `psexec` module, using a UNC path to the file on the victim system, this is essentially a pivot, or lateral movement
-   3. Then starts the service(s) on the target hosts which run the executable from step 1. The reason the service(s) on the target(s) can be placed and run, is because we are using the victims legitimate current session's authentication token to pivot to the target(s), we do not need to know the credentials for the target(s)  
+   2. It then creates a remote service on each target system similar to the `psexec` module, using a UNC path to the file on the victim system. This is essentially a pivot, or lateral movement
+   3. It then starts the service(s) on the target hosts which run the executable from step 1. The reason the service(s) on the target(s) can be placed and run, is because we are using the victim's legitimate current session's authentication token to pivot to the target(s), we do not need to know the credentials for the target(s)  
    
-   You are going to want to run ss to find out which system(s) if any, the administrator is connected to, ideally something important like a Domain Controller. From the victim, you can compromise many targets using the same administrators authentication token.  
+   You are going to want to run `ss` to find out which system(s) if any, the administrator is connected to, ideally something important like a Domain Controller. From the victim, you can compromise many targets using the same administrators authentication token.  
    
-   This is a local exploit, it has to be run from an already compromised administrator that you have a Meterpreter session on, a reverse shell for example, against your target, this is where the pivot occurs  
+   This is a local exploit, it has to be run via an already compromised administrator session that you have Meterpreter connectivity to, for example a reverse shell on your target, from which you will pivot  
    
 2. [`psexec_command`](https://www.rapid7.com/db/modules/auxiliary/admin/smb/psexec_command)  
 (2012-11-23) `auxiliary/admin/smb/psexec_command`  
