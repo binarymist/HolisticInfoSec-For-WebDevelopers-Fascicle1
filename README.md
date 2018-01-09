@@ -5,6 +5,8 @@ The contents of fascicle 1 which is content complete and in technical review, ca
 
 The entire book series can be found [here](https://holisticinfosecforwebdevelopers.com/) at [www.holisticinfosecforwebdevelopers.com](https://holisticinfosecforwebdevelopers.com/)
 
+<br>
+
 [![](manuscript/images/title_page.png)](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications)
 
 <br>
