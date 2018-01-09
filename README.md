@@ -1,6 +1,8 @@
 # Holistic InfoSec For Web Developers
 ## Fascicle 1
 
+[f1.holisticinfosecforwebdevelopers.com](https://f1.holisticinfosecforwebdevelopers.com/)
+
 The contents of Fascicle 1 which is content complete and in technical review, can be found at the books [landing page](https://f1.holisticinfosecforwebdevelopers.com/).
 
 The entire book series can be found [here](https://holisticinfosecforwebdevelopers.com/) at [www.holisticinfosecforwebdevelopers.com](https://holisticinfosecforwebdevelopers.com/)
