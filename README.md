@@ -1,18 +1,15 @@
 # Holistic InfoSec For Web Developers
 ## Fascicle 1
-VPS, Network, Cloud and Web Applications
 
-The contents of fascicle 1 that's a WIP is listed below. The actual fascicle can be found [here](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications).
+The contents of fascicle 1 which is content complete and in technical review, can be found at the books [landing page](https://f1.holisticinfosecforwebdevelopers.com/).
 
-If there is something you would like to see included in this fascicle, please [submit an issue](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/issues) for consideration.
-
-Don't forget to check the [release notes](ReleaseNotes.md) for progress.
+The entire book series can be found [here](https://holisticinfosecforwebdevelopers.com/) at [www.holisticinfosecforwebdevelopers.com](https://holisticinfosecforwebdevelopers.com/)
 
 [![](manuscript/images/title_page.png)](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications)
 
 <br>
 
-## Table of Contents
+## Table of Contents (in source)
 
 * [Foreward](manuscript/markdown/front/foreword.md)
 * [Preface](manuscript/markdown/front/preface.md)
