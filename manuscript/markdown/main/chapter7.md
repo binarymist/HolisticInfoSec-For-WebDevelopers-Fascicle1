@@ -761,7 +761,7 @@ If a target file of interest to an attacker is world writeable, user writeable, 
 
 {#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation-mitigations}
 1. The first risk is at the file permission and ownership level
-    1. The first tool to pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which is source hosted on [Github](https://github.com/pentestmonkey/unix-privesc-check) and is shipped with Kali Linux, but only Kali 1.x (`unix-privesc-check` single file). The later version which resides on the master branch (`upc.sh` main file plus many sub files) does a lot more, so consider using both. You just need to pull the shell file(s) from either the `1_x` or `master` branch to your target system and run. Run it as root to allow the testing to be a lot more thorough, for obvious reasons. If I'm testing my own host, I will start with `upc.sh`. I like to test as a non root user first, as that is the most realistic in terms of how an attacker would use it. Simply reading the main file will give you a good idea of the options, or you can just run:  
+    1. The first tool to pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which is source hosted on [GitHub](https://github.com/pentestmonkey/unix-privesc-check) and is shipped with Kali Linux, but only Kali 1.x (`unix-privesc-check` single file). The later version which resides on the master branch (`upc.sh` main file plus many sub files) does a lot more, so consider using both. You just need to pull the shell file(s) from either the `1_x` or `master` branch to your target system and run. Run it as root to allow the testing to be a lot more thorough, for obvious reasons. If I'm testing my own host, I will start with `upc.sh`. I like to test as a non root user first, as that is the most realistic in terms of how an attacker would use it. Simply reading the main file will give you a good idea of the options, or you can just run:  
     `./upc.sh -h`  
         
         
@@ -1085,30 +1085,30 @@ NIS can run on unprivileged ports, which means that any user on the system(s) ca
 
 Provides a command line interface on a remote server via its application layer client-server protocol traditionally to port 23. Telnet was created and launched in 1969, provides no encryption, credentials are sent in plain text. There have been extensions to the Telnet protocol which provide Transport Layer Security (TLS) and Simple Authentication and Security Layer (SASL), many Telnet implementations do not support these though.
 
-Telnet is still provided turned on, on many cheap hardware appliances, which continue to provide an excellent source of ownable resources for those looking to acquire computing devices illegally to launch attacks from. Many of these devices also never have their default credentials changed.
+Telnet is still often enabled by default on many cheap hardware appliances, which continue to provide an excellent source of ownability for those looking to acquire computing devices illegally in order to launch attacks. Many of these devices also never have their default credentials changed.
 
 #### FTP
 ![](images/ThreatTags/easy-widespread-average-moderate.png)
 
-The FTP protocol was [not designed with security in mind](https://archive.fo/KyJUa), it does not use any form of encryption. The credentials you use to authenticate, all of your traffic including any sensitive information you have in the files that you send or receive, to or from the FTP server, will all be on the wire in plain text. Even if you think your files do not contain any sensitive information, often there will be details hiding, for example, if you are `[m]put`ting / `[m]get`ing source files, there could be database credentials or other useful bits of information in config files.
+The FTP protocol was [not designed with security in mind](https://archive.fo/KyJUa), it does not use any form of encryption. The credentials you use to authenticate, all of your traffic, including any sensitive information you have in the files that you send or receive, to or from the FTP server, will all be on the wire in plain text. Even if you think your files do not contain any sensitive information, often there will be details hiding, for example, if you are `[m]put`ting / `[m]get`ing source files, there could be database credentials or other useful bits of information in config files.
 
 Many people have been using FTP for years, in many cases never even considering the fact that FTP adds no privacy to anything it touches.
 
-Most FTP clients also store the users credentials in plain text, completely neglecting to consider defence in depth. It should be considered that your client machine is already compromised. If credentials are stored encrypted, then it is one more challenge that an attacker must conquer. All software created with security in mind realises this, and if they must store credentials, they will be hashed via a best of bread KDF (as discussed in the [Data-store Compromise](#web-applications-countermeasures-data-store-compromise) section of the Web Applications chapter) with the recommended number of iterations (as discussed in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section a little later in this chapter). In regards to FTP, the clients are designed to store multiple credentials, one set for each site, the idea being that you don't have to remember them, so they need to be encrypted, rather than hashed (one way, not reversible), so they can be decrypted.
+Most FTP clients also store the users credentials in plain text, completely neglecting defence in depth. It should be considered that your client machine is already compromised. If credentials are stored encrypted, then it is one more challenge that an attacker must conquer. All software created with security in mind realises this, and, if they must store credentials, they will be hashed via a best of breed KDF (as discussed in the [Data-store Compromise](#web-applications-countermeasures-data-store-compromise) section of the Web Applications chapter) with the recommended number of iterations (as discussed in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section a little later in this chapter). Regarding FTP, clients are designed to store multiple credentials, one set for each site. For the convenience of not having to remember them, they need to be encrypted, rather than hashed (one way, not reversible), so they can be decrypted.
 
 A couple of the most popular clients are:
 
-**FileZilla** (cross platform) FTP client stores your credentials in plain text. Yes, the UI conceals your password from shoulder surfers, but that is the extent of its security, basically none.
+**FileZilla** (cross platform) FTP client stores your credentials in plain text. Yes, the UI conceals your password from shoulder surfers, but that is the extent of its security, equating to none.
 
-**WinSCP** (Windows) is a FTP, [SFTP](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-ftp-sftp) and [SCP](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-ftp-scp) client for Windows. WinSCP has a number of ways in which you can have it deal with passwords. [By default](https://winscp.net/eng/docs/security_credentials), when a user enters their password on the authentication window, it is stored in memory and reused for all subsequent authentications during the same session. This is of course open to exploitation as is, also in-memory data can be swapped to disk, written to crash dump files and accessed by malware.
+**WinSCP** (Windows) is an FTP, [SFTP](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-ftp-sftp) and [SCP](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-ftp-scp) client for Windows. WinSCP includes a number of ways in which you can manage passwords. [By default](https://winscp.net/eng/docs/security_credentials), when a user enters their password in the authentication window, it is stored in memory, and reused for all subsequent authentications during the same session. This subjects credentials to memory enumeration exploitation, in-memory data can be swapped to disk, written to crash dump files and accessed by malware.
 
-Another option is to store passwords along with other site specific configurations to the registry for installed WinSCP, or to an INI file (overridable) for the portable version. These passwords are stored obfuscated, as the documentation puts it "[_stored in a manner that they can easily be recovered_](https://winscp.net/eng/docs/security_credentials)". If you are interested, you can check the `EncryptPassword` function on the WinSCP [github](https://github.com/mirror/winscp/blob/master/source/core/Security.cpp#L34) mirror, in which a short and simple set of bitwise operations are performed on each character of the password and the user and host are concatenated as what looks to be some sort of pseudo-salt. Although this option exists, it is [recommended against](https://winscp.net/eng/docs/faq_password).
+Another option is to store passwords along with other site specific configurations to the registry for installed instances of WinSCP, or to an INI file (can be overridden) for the portable version. These passwords are stored obfuscated, as the documentation puts it "[_stored in a manner that they can easily be recovered_](https://winscp.net/eng/docs/security_credentials)". If you are interested, you can check the `EncryptPassword` function on the WinSCP [GitHub](https://github.com/mirror/winscp/blob/master/source/core/Security.cpp#L34) mirror, in which a short and simple set of bitwise operations are performed on each character of the password, and the user and host are concatenated for what looks to be some sort of pseudo-salt. Although this option exists, it is [not recommended](https://winscp.net/eng/docs/faq_password).
 
-And here is why. The [exploit](https://github.com/rapid7/metasploit-framework/blob/master/lib/rex/parser/winscp.rb#L81) `decrypt_password` consumed by the [`winscp`](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/windows/gather/credentials/winscp.rb#L82) [metasploit module](https://www.rapid7.com/db/modules/post/windows/gather/credentials/winscp). Additional details on the [cosine-security blog](https://cosine-security.blogspot.co.nz/2011/04/stealing-winscp-saved-passwords.html).
+Here is why. The [exploit](https://github.com/rapid7/metasploit-framework/blob/master/lib/rex/parser/winscp.rb#L81) `decrypt_password` is consumed by the [`winscp`](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/windows/gather/credentials/winscp.rb#L82) [metasploit module](https://www.rapid7.com/db/modules/post/windows/gather/credentials/winscp). See additional details on the [cosine-security blog](https://cosine-security.blogspot.co.nz/2011/04/stealing-winscp-saved-passwords.html).
 
-The recommended way to store the site specific passwords is to use a Master Password. This appears to use a [custom implementation](https://github.com/mirror/winscp/blob/master/source/core/Cryptography.cpp) of the AES256 block cipher, with a hard-coded 1000 rounds of SHA1.
+The recommended way to store site-specific passwords is to use a Master Password. This appears to use a [custom implementation](https://github.com/mirror/winscp/blob/master/source/core/Cryptography.cpp) of the AES256 block cipher, with a hard-coded 1000 rounds of SHA1.
 
-WinSCP provides a lot of options, which may or may not be a good thing.
+WinSCP provides a lot of options, if configured properly it can be securely implemented, but it can also be left quite vulnerable.
 
 #### NFS
 ![](images/ThreatTags/average-uncommon-average-moderate.png)
@@ -1126,12 +1126,12 @@ If the `mountd` daemon is listed in the output of the above `rpcinfo` command, t
     Export list for <target hsot>:
     / (anonymous) # If you're lucky as an attacker, anonymous means anyone can mount.
     / * # means all can mount the exported root directory.
-    # Probably because the hosts.allow has ALL:ALL and hosts.deny is blank.
-    # Which means all hosts from all domains are permitted access.
+    # Likely because the hosts.allow has ALL:ALL and hosts.deny is blank.
+    # Which translates to all hosts from all domains are permitted access.
 
-NFS is one of those protocols that you need to have some understanding on in order to achieve a level of security sufficient for your target environment. NFS provides no user authentication, only host based authentication. NFS relies on the AUTH_UNIX method of authentication, the user ID (UID) and group ID (GIDs) that the NFS client passes to the server are implicitly trusted.
+NFS is one of those protocols that you need to have some understanding of in order to achieve a level of security sufficient for your target environment. NFS provides no user authentication, only host based authentication. NFS relies on the AUTH_UNIX method of authentication, the user ID (UID) and group ID (GIDs) that the NFS client passes to the server are implicitly trusted.
 
-{title="Mount nfs export", linenos=off, lang=bash}
+{title="mount nfs export", linenos=off, lang=bash}
     # Make sure local rpcbind service is running:
     service rpcbind status
     # Should yield [ ok ] rpcbind is running.
@@ -1139,7 +1139,7 @@ NFS is one of those protocols that you need to have some understanding on in ord
     service rpcbind start
     mount -t nfs <target host>:/ /mnt
 
-All going well for the attacker, they will now have your VPS's `/` directory mounted to their `/mnt` directory. If you have not setup NFS properly, they will have full access to your entire file system.
+If all goes well for the attacker, they will now have your VPS's `/` directory mounted to their `/mnt` directory. If you have not setup NFS properly, they will have full access to your entire file system.
 
 To establish some persistence, an attacker may be able to add their SSH public key:
 
@@ -1148,65 +1148,65 @@ To establish some persistence, an attacker may be able to add their SSH public k
 
 The NFS daemon always listens on the unprivileged port 2049. An attacker without root privileges on a system can start a trojanised `nfsd` which will be bound to port 2049.
 
-* On a system that does not usually offer NFS, the attacker could then proceed to create a spear phishing attack, in which they lure the target to open a pdf or similar from the exported filesystem, or even using a fake ([pickled](https://github.com/micheloosterhof/cowrie/blob/master/data/fs.pickle)) filesystem. As the export(s) would probably be on an internal network, target trust levels would be very high, or...
-* If they can find a way to stop an existing `nfsd` and run their own, clients may communicate with the trojanised `nfsd` and possibly consume similar exports. By replacing a NFS daemon with a trojanised replica, the attacker would also have access to the resources that the legitimate daemon controls.
+* On a system that does not usually offer NFS, the attacker could then proceed to create a spear phishing attack, in which they convince the target to open a PDF or similar from the exported filesystem, or even use a fake ([pickled](https://github.com/micheloosterhof/cowrie/blob/master/data/fs.pickle)) filesystem. As the export(s) would probably be on an internal network, target trust levels would be very high, or...
+* If they can find a way to stop an existing `nfsd` and run their own daemon, clients may communicate with the trojanised `nfsd` and possibly consume similar exports. By replacing an NFS daemon with a trojanised replica, the attacker would also have access to the resources that the legitimate daemon controls.
 
 The ports that a Linux server will bind its daemons to are listed in `/etc/services`.
 
-As well as various privilege escalation vulnerabilities, NFS has also suffered from various buffer overflow vulnerabilities.
+In addition to various privilege escalation vulnerabilities, NFS has also suffered from various buffer overflow vulnerabilities.
 
 ### Lack of Visibility {#vps-identify-risks-lack-of-visibility}
 ![](images/ThreatTags/average-common-difficult-moderate.png)
 
-As I was writing this section, I realised that visibility is actually an asset, so I went back and added it... actually to several chapters. Without visibility, an attacker can do a lot more damage than they could if you were watching them and able to react, or even if you have good auditing capabilities. It is in fact an asset that attackers often try and remove for this very reason.
+As I was writing this section, I realised that visibility for the defender is itself an asset, so I went back and added it to several chapters. Without the worry of being observed, an attacker can do a lot more damage than they could if you were watching them and able to react, or even if you have good auditing capabilities. It is in fact an asset that attackers try deny defenders of and remove for this very reason.
 
 Any attacker worth their weight will try to [cover their tracks](https://www.win.tue.nl/~aeb/linux/hh/hh-13.html) as they progress. Once an attacker has shell access to a system, they may:
 
-* Check running processes to make sure that they have not left anything they used to enter still running
+* Check running processes to make sure that they have not left anything they used to gain access still running
 * Remove messages in logs related to their break (walk) in
-* Same with the shell history file. Or even:  
+* Alter or remove the shell history file. Or even:  
   `ln /dev/null ~/.bash_history -sf` so that all following history vanishes.
 * They may change time stamps on new files with:  
   `touch -r <referenceFile> <fileThatGetsReferenceFileTimeStampsApplied>`  
-  Or better is to use the original date-time:
+  Or they may use the original date-time:
 
     {linenos=off}
         touch -r <originalFile> <trojanFile>
         mv <trojanFile> <originalFile>
 
 * Make sure any trojan files they drop are the same size as the originals
-* Replace `md5sum` so that it contains sums for the files that were replaced including itself. Although if an administrator ran `rpm -V` or `debsums -c` (Debian, Ubuntu) it would not be affected by a modified `md5sum`.
+* Replace `md5sum` so that it contains sums for the files that were replaced, including `md5sum` itself. However, if an administrator ran `rpm -V` or `debsums -c` (Debian, Ubuntu) it would not be affected by a modified `md5sum`.
 
-If an attacker wants their actions to be invisible, they may try replacing the likes of `ps`, `pstree`, `top`, `ls` and possibly `netstat` or `ss`, and/or many other tools that reveal information about the system, if they are trying to hide network activity from the host.
+If an attacker wants their actions to be invisible, they may try replacing the likes of `ps`, `pstree`, `top`, `ls`, `netstat` or `ss`, and/or many other tools that reveal information about the system, particularly if they are trying to hide network activity from the host.
 
-Taking things further, an attacker may load a kernel module that modifies the `readdir()` call and the `proc` filesystem so that any changes on the file system are untrustworthy, or if going to the length of loading custom modules, everything can be done from kernel space which is invisible until reboot.
+Taking things a step further, an attacker may load a kernel module that modifies the `readdir()` call and the `proc` filesystem so that any changes on the file system are untrustworthy. If they go so far as to load custom modules, everything can be done from kernel space, which is invisible until reboot.
 
-Without visibility, an attacker can access your system(s) and, alter, [copy](https://github.com/m57/dnsteal), modify information without you knowing they did it. Even launch DoS attacks without you noticing anything before it is to late.
+Without defender visibility, an attacker can access your system(s) and, alter, [copy](https://github.com/m57/dnsteal), and/or modify information without you knowing they did so. They may even launch DoS attacks without you noticing anything before it is to late.
 
 ### Docker {#vps-identify-risks-docker}
 
-With the continual push for shorter development cycles, combined with continuous delivery, cloud and virtual based infrastructure, containers have become an important part of the continuous delivery pipeline. Docker has established itself as a top contender in this space.
+With the continual push for shorter development cycles, combined with continuous delivery, as well as cloud and virtual based infrastructure, containers have become an important part of the continuous delivery pipeline. Docker has established itself as a top contender in this space.
 
-Many of Dockers defaults favour ease of use over security, in saying that, Docker's security considerations follow closely. After working with Docker, the research I have performed in writing these sections on Docker security, and in having the chance to [discuss](http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/) many of my concerns and preconceived ideas with the Docker Security team lead Diogo Mónica over this period, it is my belief that by default Docker containers, infrastructure and orchestration provide better security than running your applications in Virtual Machines (VMs). Just be careful when comparing containers with VMs, as this is analogous with comparing apples with oranges.
+Many of Docker's defaults favour ease of use over security, in saying that, Docker's security considerations follow closely. After working with Docker, the research I have performed in writing these sections on Docker security, while having the chance to [discuss](http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/) many of my concerns and ideas with the Docker Security team lead, Diogo Mónica, it is my belief that, by default, Docker containers, infrastructure and orchestration provide better security than running your applications in Virtual Machines (VMs). Just be careful when comparing containers with VMs, as this is analogous with comparing apples to oranges.
 
-The beauty in terms of security that Docker provides is immense configurability to improve the security many times more than the defaults. In order to do this, you will have to invest some time and effort into learning about the possible issues, features and how to configure them. It is this visibility that I have attempted to create in these sections on Docker security.
+Docker security provides immense configurability to improve its security posture many times over better than defaults. In order to do this properly, you will have to invest some time and effort into learning about the possible issues, features, and how to configure them. I have attempted to illuminate this specifically in these sections on Docker security.
 
-Docker security is similar to VPS security, except there is a much larger attack surface, due to running many containers with many different packages, many of which do not receive timely security updates, as noted by [banyan](https://www.banyanops.com/blog/analyzing-docker-hub/) and [the morning paper](https://blog.acolyer.org/2017/04/03/a-study-of-security-vulnerabilities-on-docker-hub/).
+Docker security is similar to VPS security, except there is a much larger attack surface. This is most noteworthy when running many containers with different packages, many of which do not receive timely security updates, as noted by [banyan](https://www.banyanops.com/blog/analyzing-docker-hub/) and [the morning paper](https://blog.acolyer.org/2017/04/03/a-study-of-security-vulnerabilities-on-docker-hub/).
 
-A monolithic kernel such as the Linux kernel, containing tens of millions of lines of code, which are reachable from untrusted applications via all sorts of networking, USB, driver APIs Has a huge attack surface. Adding Docker into the mix has the potential to expose all these vulnerabilities to each and every running container, and its applications within, thus making the attack surface of the kernel grow exponentially.
+A monolithic kernel, such as the Linux kernel, which contains tens of millions of lines of code, and can be reached by untrusted applications via all sorts of networking, USB, and driver APIs, has a huge attack surface. Adding Docker into the mix has the potential to expose all these vulnerabilities to each and every running container, and its applications within, thus making the attack surface of the kernel grow exponentially.
 
-Docker leverage's many features that have been in the Linux kernel for years, which provide a lot of security enhancements out of the box. The Docker Security Team are working hard to add additional tooling and techniques to further harden their components, this has become obvious as I have investigated many of them. You still need to know what all the features, tooling and techniques are, and how to use them, in order to determine whether your container security is adequate for your needs.
+Docker leverage's many features that have been in the Linux kernel for years, which provide many security enhancements out of the box. The Docker Security Team are working hard to add additional tooling and techniques to further harden their components, this has become obvious as I have investigated many of them. You still need to know what all the features, tooling and techniques are, and how to use them, in order to determine whether your container security is adequate for your needs.
 
-From the [Docker overview](https://docs.docker.com/engine/understanding-docker/), it says: “_Docker provides the ability to package and run an application in a loosely isolated environment_”. Later in the same document it says: "_Each container is an isolated and secure application platform, but can be given access to resources running in a different host or container_" leaving the "loosely" out. Then it goes on to say: “_Encapsulate your applications (and supporting components) into Docker containers_”. The meaning of encapsulate is to enclose, but If we are only loosely isolating, then we’re not really enclosing are we? I will address this concern in the following Docker sections and subsections.
+From the [Docker overview](https://docs.docker.com/engine/understanding-docker/), it states: “_Docker provides the ability to package and run an application in a loosely isolated environment_”. Later in the same document it says: "_Each container is an isolated and secure application platform, but can be given access to resources running in a different host or container_" leaving the "loosely" out. It continues to say: “_Encapsulate your applications (and supporting components) into Docker containers_”. The meaning of encapsulate is to enclose, but if we are only loosely isolating, then we're not really enclosing are we? I will address this concern in the following Docker sections and subsections.
 
-To start with, I am going to discuss many areas where we can improve container security, then at the end of this Docker section I will discuss why application security is far more of a concern than container security.
+To start with, I am going to discuss many areas where we can improve container security. At the end of this Docker section I will discuss why application security is of far more concern than container security.
 
 #### Consumption from [Registries](https://docs.docker.com/registry/)
 ![](images/ThreatTags/average-verywidespread-easy-moderate.png)
 
-Similar to [Consuming Free and Open Source](#web-applications-identify-risks-consuming-free-and-open-source) from the Web Applications chapter, many of us trust the images on docker hub without much consideration to the possible defective packages within. There have been quite a few reports with varying numbers of vulnerable images as noted by Banyan and "the morning paper" mentioned above.
+Similar to [Consuming Free and Open Source](#web-applications-identify-risks-consuming-free-and-open-source) from the Web Applications chapter, many of us trust the images on Docker hub without much consideration for the possibly defective packages within. There have been quite a few reports with varying numbers of vulnerable images as noted by Banyan and "the morning paper" mentioned above.
 
-The Docker Registry [project](https://github.com/docker/distribution) is an open-source server side application that lets you store and distribute Docker images. You could run your own registry as part of your organisations Continuous Integration (CI) / Continuous Delivery (CD) pipeline. Some of the public known instances of the registry are:
+The Docker Registry [project](https://github.com/docker/distribution) is an open-source server side application that lets you store and distribute Docker images. You could run your own registry as part of your organisation's Continuous Integration (CI) / Continuous Delivery (CD) pipeline. Some of the public known instances of the registry are:
 
 * [Docker Hub](https://hub.docker.com/explore/)
 * EC2 Container Registry
@@ -1216,7 +1216,7 @@ The Docker Registry [project](https://github.com/docker/distribution) is an open
 #### Doppelganger images
 ![](images/ThreatTags/average-common-average-severe.png)
 
-Beware of doppelganger images that will be available for all to consume, similar to [doppelganger packages](#web-applications-countermeasures-consuming-free-and-open-source-keeping-safe-doppelganger-packages) that we discuss in the Web Applications chapter. These can contain a huge number of packages and code to hide malware in a Docker image.
+Beware of doppelganger images that will be available for all to consume, similar to [doppelganger packages](#web-applications-countermeasures-consuming-free-and-open-source-keeping-safe-doppelganger-packages) that we discuss in the Web Applications chapter. These can contain a huge number of packages and code that can be used to hide malware in a Docker image.
 
 #### The Default User is Root {#vps-identify-risks-docker-the-default-user-is-root}
 ![](images/ThreatTags/easy-common-veryeasy-moderate.png)
@@ -3258,11 +3258,11 @@ I prefer the dark cockpit approach from my monitoring tools. What I mean by that
 
 PM2 also seems to [provide logging](https://github.com/Unitech/pm2#log-facilities). My applications provide their [own logging](#web-applications-countermeasures-lack-of-visibility-insufficient-logging) and we have the [systems logging](#vps-countermeasures-lack-of-visibility-logging-and-alerting) which provides aggregates and singular logs, so again I struggle to see what PM2 is offering here that we do not already have.
 
-As mentioned on the [github](https://github.com/Unitech/pm2) README: “_PM2 is a production process manager for Node.js applications with a built-in load balancer_“. This “Sounds” and at the initial glance looks shiny. Very quickly you should realise there are a few security issues you need to be aware of though.
+As mentioned on the [GitHub](https://github.com/Unitech/pm2) README: “_PM2 is a production process manager for Node.js applications with a built-in load balancer_“. This “Sounds” and at the initial glance looks shiny. Very quickly you should realise there are a few security issues you need to be aware of though.
 
 The word “production” is used but it requires NPM to install globally. We already have a package manager on Debian and all other main-stream Linux distros. As previously mentioned, installing NPM adds unnecessary attack surface area. Unless it is essential and it should not be, we really do not want another application whos sole purpose is to install additional attack surface in the form of extra packages. NPM contains a huge number of packages, that we really do not want access to on a production server facing the internet. We could install PM2 on a development box and then copy to the production server, but it starts to turn the simplicity of a node module into something not as simple, which then, as does forever, makes offerings like [Supervisor](#vps-countermeasures-lack-of-visibility-proactive-monitoring-supervisor), [Monit](#vps-countermeasures-lack-of-visibility-proactive-monitoring-monit) and even [Passenger](#vps-countermeasures-lack-of-visibility-proactive-monitoring-passenger) look even more attractive.
 
-At the time of writing this, PM2 is about four years old with about 440 open issues on github, most quite old, with 29 open pull requests.
+At the time of writing this, PM2 is about four years old with about 440 open issues on GitHub, most quite old, with 29 open pull requests.
 
 Yes, it is very popular currently. That does not tell me it is ready for production though. It tells me the marketing is working.
 
@@ -3272,7 +3272,7 @@ If you have considered the above concerns and can justify adding the additional 
 
 **Features that Stand Out**
 
-They are also listed on the github repository. Just beware of some of the caveats. Like for the [load balancing](https://github.com/Unitech/pm2#load-balancing--0s-reload-downtime): “_we recommend the use of node#0.12.0+ or node#0.11.16+. We do not support node#0.10.*'s cluster module anymore_”. 0.11.16 is unstable, but hang-on, I thought PM2 was a “production” process manager? OK, so were happy to mix unstable in with something we label as production?
+They are also listed on the GitHub repository. Just beware of some of the caveats. Like for the [load balancing](https://github.com/Unitech/pm2#load-balancing--0s-reload-downtime): “_we recommend the use of node#0.12.0+ or node#0.11.16+. We do not support node#0.10.*'s cluster module anymore_”. 0.11.16 is unstable, but hang-on, I thought PM2 was a “production” process manager? OK, so were happy to mix unstable in with something we label as production?
 
 On top of NodeJS, PM2 will run the following scripts: bash, python, ruby, coffee, php, perl.
 
@@ -3887,7 +3887,7 @@ The faster you can respond to an attacker modifying system files, the more likel
 
 ##### Deeper with Ossec {#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-ossec}
 
-You can find the source on [github](https://github.com/ossec/ossec-hids)
+You can find the source on [GitHub](https://github.com/ossec/ossec-hids)
 
 **Who is Behind Ossec?**
 
@@ -3897,7 +3897,7 @@ Many developers, contributors, managers, reviewers, translators. Infact the [OSS
 
 There is Lots of documentation. It is not always the easiest to navigate because you have to understand so much up front. There is lots of buzz on the inter-webs and there are several books.
 
-* The main documentation is on [github](https://ossec.github.io/docs/)
+* The main documentation is on [GitHub](https://ossec.github.io/docs/)
 * Similar docs on [readthedocs.io](https://ossec-docs.readthedocs.io/en/latest/)
 * Mailing list on [google groups](https://groups.google.com/forum/#!forum/ossec-list)
 * Several good looking books
@@ -3964,7 +3964,7 @@ If you are going to be checking many machines, OSSEC will scale.
 
 And why it rose to the top.
 
-You can find the source on [github](https://github.com/fbb-git/stealth)
+You can find the source on [GitHub](https://github.com/fbb-git/stealth)
 
 **Who is Behind Stealth?**
 
@@ -3972,7 +3972,7 @@ Author: Frank B. Brokken. An admirable job for one person. Frank is not a fly-by
 
 **[Documentation](https://fbb-git.github.io/stealth/)**
 
-All hosted on github.
+All hosted on GitHub.
 
 * [4.01.05 (2016-05-14)](https://packages.debian.org/stretch/stealth)
   * [man page](https://fbb-git.github.io/stealth/stealthman.html)
@@ -4032,12 +4032,12 @@ Stealth subscribes to the “dark cockpit” approach. I.E. no mail is sent when
 * The whole idea behind it. Systems being monitored give little appearance that they are being monitored, other than I think the presence of a single SSH login when Stealth first starts in the `auth.log`. This could actually be months ago, as the connection remains active for the life of Stealth. The login could be from a user doing anything on the client. It is very discrete.
 * Unpredictability of Stealth runs is offered through Stealth’s `--random-interval` and `--repeat` options. E.g. `--repeat 60 --random-interval 30` results in new Stealth-runs on average every 75 seconds. It can usually take a couple of minutes to check all the important files on a file system, so you would probably want to make the checks several minutes apart from each other.
 * Subscribes to the Unix philosophy: “do one thing and do it well”
-* Stealth’s author is very approachable and open. After talking with Frank and suggesting some ideas to promote Stealth and its community, Frank started a [discussion list](http://sourceforge.net/p/stealth/discussion/). Now that Stealth is moved to github, issues can be submitted easily. If you use Stealth and have any trouble, Frank is very easy to work with.
+* Stealth’s author is very approachable and open. After talking with Frank and suggesting some ideas to promote Stealth and its community, Frank started a [discussion list](http://sourceforge.net/p/stealth/discussion/). Now that Stealth is moved to GitHub, issues can be submitted easily. If you use Stealth and have any trouble, Frank is very easy to work with.
 
 **What I like less**
 
 * Lack of visible code reviews and testing. Yes it is in Debian, but so was [OpenSSL](http://heartbleed.com/) and [Bash](https://security-tracker.debian.org/tracker/CVE-2014-6271)
-* One man band. Support provided via one person alone via email, although now it is on github, it should be easier if / when the need arises. Comparing with the likes of Ossec which has [quite a few](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-ossec).
+* One man band. Support provided via one person alone via email, although now it is on GitHub, it should be easier if / when the need arises. Comparing with the likes of Ossec which has [quite a few](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-ossec).
 * Lack of use cases. I did not see anyone using / abusing it. Although Frank did send me some contacts of other people that are using it, so again, a very helpful author. There is not much in the way of use cases on the interwebs. The documentation had clear signs that it was written and targeted people already familiar with the tool. This is understandable as the author has been working on this project for many years and could possibly be disconnected with what is involved for someone completely new to the project to dive in and start using it. In saying that, that is what I did and after a bit of struggling it worked out well.
 * Small user base, revealed by the [debian popcon](https://qa.debian.org/popcon.php?package=stealth).
 
@@ -4281,7 +4281,7 @@ is a mature, free and [open source](https://github.com/CISOfy/lynis) auditing to
 
 ##### [Docker Bench](https://github.com/docker/docker-bench-security)
 
-is a shell script, that can be downloaded from github and executed immediately, run from a pre-built container, or using Docker Compose after git cloning. Docker Bench tests many host configurations and Docker containers against the CIS Docker Benchmark.
+is a shell script, that can be downloaded from GitHub and executed immediately, run from a pre-built container, or using Docker Compose after git cloning. Docker Bench tests many host configurations and Docker containers against the CIS Docker Benchmark.
 
 ##### CoreOS [Clair](https://github.com/coreos/clair)
 
