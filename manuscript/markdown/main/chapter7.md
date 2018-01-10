@@ -1589,11 +1589,11 @@ You can think about changing `/opt` (static data) to mount read-only in the futu
 
 If you want to:
 
-1. save on bandwidth
+1. Save on bandwidth
 2. Have a large number of your packages delivered at your network speed rather than your internet speed
-3. Have several Debian based machines on your network
+3. Have several Debian-based machines on your network
 
-I recommend using apt-cacher-ng, installable with an `apt-get`, you will have to set this up on a server, by modifying the `/var/apt-cacher-ng/acng.conf` file to suite your environment. There is ample documentation. Then add the following file to each of your debian based machines.
+I recommend using apt-cacher-ng, installable with an `apt-get`, you will have to set this up on a server, by modifying the `/var/apt-cacher-ng/acng.conf` file to suite your environment. There is ample documentation. Then, add the following file to each of your debian based machines.
 
 `/etc/apt/apt.conf` with the following contents and set its permissions to be the same as your sources.list:
 
@@ -1602,28 +1602,28 @@ I recommend using apt-cacher-ng, installable with an `apt-get`, you will have to
     # Port is the port that your apt-cacher is listening on, usually 3142
     Acquire::http::Proxy “http://[IP]:[Port]”;
 
-Now just replace the apt proxy references in the `/etc/apt/sources.list` of your consuming servers with the internet mirror you want to use, so we contain all the proxy related config in one line in one file. This will allow the requests to be proxied and packages cached via the apt cache on your network when requests are made to the mirror of your choosing.
+Now, just replace the apt proxy references in the `/etc/apt/sources.list` of your consuming servers with the internet mirror you want to use, thus we contain all the proxy related config in one line in one file. This will allow the requests to be proxied and packages cached via the apt cache on your network when requests are made to the mirror of your choosing.
 
-Update the list of packages then upgrade them with the following command line. If you are using sudo, you will need to add that to each command:
+Update the list of packages, then upgrade them with the following command line. If you are using sudo, you will need to add that to each command:
 
 {linenos=off, lang=Bash}
     apt-get update && apt-get upgrade
     # Only run apt-get upgrade if apt-get update is successful (exits with a status of 0).
 
-Now if you're working through an installation, you'll be asked for a mirror to pull packages from. If you have the above apt caching server set-up on your network, this is a good time to make it work for you. You'll just need to enter the caching servers IP address and port.
+Now, if you're working through an installation, you'll be asked for a mirror to pull packages from. If you have the above apt caching server set-up on your network, this is a good time to make it work for you. You'll just need to enter the caching servers IP address and port.
 
-A> The steps you take to harden your server(s) that will have many user accounts will be considerably different to this. Many of the steps I have gone through here will be insufficient for a server with many users. The hardening process is not a one time procedure. It ends when you decommission the server. Be prepared to stay on top of your defences. It is much harder to defend against attacks than it is to exploit a vulnerability.
+A> The steps you take to harden your server(s) that will have many user accounts will be considerably different to this. Many of the steps I have gone through here will be insufficient for a server with many users. The hardening process is not a one-time procedure. It ends when you decommission the server. Be prepared to stay on top of your defences. It is much harder to defend against attacks than it is to exploit a vulnerability.
 
 #### Review Password Strategies {#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies}
 ![](images/ThreatTags/PreventionEASY.png)
 
-A lot of the following you will have to follow along with on your VPS in order to understand what I am saying.
+You will likely have to follow along on your VPS through this next section in order to understand what I am saying.
 
 Make sure passwords are encrypted with an algorithm that will stand up to the types of attacks and hardware you anticipate that your attackers will use. I have provided additional details around which Key Derivation Functions are best suited to which types of hardware in the "[Which KDF to use](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)" section within the Web Applications chapter.
 
 In most cases you will [want to](http://www.tldp.org/HOWTO/Shadow-Password-HOWTO-2.html#ss2.2) shadow your passwords. This should be the default in most, or all recent Linux distributions.
 
-How do you know if you already have the Shadow Suite installed? If you have a `/etc/shadow` file, take a look at the file and you should see your user and any others with an encrypted value following it. There will be a reference to the password from the `/etc/passwd` file, stored as a single `X` (discussed below). If the Shadow Suite is not installed, then your passwords are probably stored in the `/etc/passwd` file.
+How do you know if you already have the Shadow Suite installed? If you have a `/etc/shadow` file, take a look at the file. You should see your user and any others with an encrypted value following it. There will be a reference to the password from the `/etc/passwd` file, stored as a single `X` (discussed below). If the Shadow Suite is not installed, then your passwords are probably stored in the `/etc/passwd` file.
 
 [Crypt](https://en.wikipedia.org/wiki/Crypt_(C)), crypt 3 or crypt(3) is the Unix C library function designed for password authentication. The following table shows which Operating Systems have support out of the box and with which hashing functions or key derivation functions are supported. We discuss this table in a moment, so don't worry just yet if you do not understand it all:
 
@@ -1641,20 +1641,20 @@ It may be worth looking at and modifying the `/etc/shadow` file. Consider changi
 * pam_unix
 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies-default-number-of-rounds}
-Out of the box crypt (glibc) supports MD5, SHA-256 and SHA-512, I wouldn't bother looking at DES, and MD5 is common but weak. You can also use the blowfish cipher via the bcrypt KDF with a little more work (a few minutes). The default of SHA-512 (in debian) enables salted passwords. The SHA family of hashing functions are to fast for password hashing. Crypt applies key stretching to slow brute-force cracking attempts down. The default number of rounds [have not changed](https://access.redhat.com/articles/1519843) in at least 9 years, so it is well worth modifying the number to keep up with hardware advancements. There are some [details](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-technology-and-design-decisions-membershipreboot) to work out what the factor should be, provided by OWASP in the MembershipReboot section in the Web Applications chapter. The [default number of rounds](https://en.wikipedia.org/wiki/Passwd) are as follows:
+Out of the box, crypt (glibc) supports MD5, SHA-256 and SHA-512, I wouldn't bother looking at DES, and MD5 is common but weak. You can also use the blowfish cipher via the bcrypt KDF with a little more work (a few minutes). The default of SHA-512 (in debian) enables salted passwords. The SHA family of hashing functions are too fast for password hashing. Crypt applies key stretching to slow brute-force cracking attempts down. The default number of rounds [have not changed](https://access.redhat.com/articles/1519843) in at least 9 years, so it is well worth modifying the number to keep up with hardware advancements. There are some [details](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-technology-and-design-decisions-membershipreboot) to work out what the factor should be, as provided by OWASP in the MembershipReboot section in the Web Applications chapter. The [default number of rounds](https://en.wikipedia.org/wiki/Passwd) are as follows:
 
 * MD5: 1000 rounds
 * Blowfish: 64 rounds
 * SHA-[256, 512]: 5000 rounds
 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies-owasp-advice}
-The OWASP advice says we should double the rounds every subsequent two years. So for the likes of SHA in 2007 having 5000 rounds, we should be looking at increasing this to `160000` in the year 2017, so if you are still with the default, you are a long way behind and it is time to do some serious key stretching.
+The OWASP advice says we should double the rounds every subsequent two years. So, for the likes of SHA in 2007 having 5000 rounds, we should be looking at increasing this to `160000` in the year 2017, if you are still using the default, you are a long way behind, and it is time to do some serious key stretching.
 
 ![](images/KeyStretching.png)
 
 How can you tell which algorithm you are using, salt size, number of iterations for the computed password, etc? The [crypt 3](http://man7.org/linux/man-pages/man3/crypt.3.html#NOTES) man page explains it all. By default a Debian install will be using SHA-512 which is better than MD5 and the smaller SHA-256. Don't take my word for it though, just have a look at the `/etc/shadow` file. I explain the file format below.
 
-Now by default I did not have a “rounds” option in my `/etc/pam.d/common-password` module-arguments. Having a large iteration count (number of times the encryption algorithm is run (key stretching)) and an attacker not knowing what that number is, will slow down a brute-force attack.
+By default, I did not have a “rounds” option in my `/etc/pam.d/common-password` module-arguments. Having a large iteration count (number of times the encryption algorithm is run (key stretching)) and an attacker not knowing what that number is, will slow down a brute-force attack.
 
 You can increase the `rounds` by overriding the default in `/etc/pam.d/common-passwowrd`. You override the default by adding the rounds field and the value you want to use, as seen below.
 
@@ -1663,13 +1663,13 @@ You can increase the `rounds` by overriding the default in `/etc/pam.d/common-pa
 
 Next time someone changes their password (providing the account is local), `[number of rounds]` number of `rounds` will be used.
 
-I would suggest adding this and re creating your passwords now. Just before you do, it is usually a good idea to be logged in at an extra terminal and possibly a root terminal as well, until you are sure you can log in again. It just makes things easier if for what ever reason you can no longer log in at a new terminal. Now... as your normal user run:
+I would suggest adding this and recreating your passwords now. Just before you do, it is usually a good idea to be logged in at an extra terminal and possibly a root terminal as well, until you are sure you can log in again. It just makes things easier if, for what ever reason, you can no longer log in at a new terminal. Now, as your normal user run:
 
 `passwd`
 
-providing your existing password then your new one twice. You should now be able to see your password in the `/etc/shadow` file with the added `rounds` parameter.
+providing your existing password, then your new one twice. You should now be able to see your password in the `/etc/shadow` file with the added `rounds` parameter.
 
-Also have a check in `/var/log/auth.log`. Reboot and check you can still log in as your normal user. If all good. Do the same with the root account.
+Also, have a check in `/var/log/auth.log`. Reboot and check that you can still log in as your normal user. If all good, do the same with the root account.
 
 Let's have a look at the `passwd` and `shadow` file formats.
 
@@ -1679,7 +1679,7 @@ Let's have a look at the `passwd` and `shadow` file formats.
     you:$id$rounds=<number of rounds, specified in /etc/pam.d/common-password>$[up to 16 character salt]$[computed password]:<rest of string>
 
 1. `you` is the Account username
-2. `$id$salt$hashedpassword` is generally considered to be called the encrypted password, although this is made up of three base fields separated by the `$`. The `id` can be any of the *Scheme id*s that crypt supports, as shown in the above table. How the rest of the substrings in this field are interpreted is [determined](http://man7.org/linux/man-pages/man3/crypt.3.html#NOTES) by what is found in the `id` field. The salt can be up to 16 characters. In saying that, the salt can be [augmented](http://backreference.org/2014/04/19/many-ways-to-encrypt-passwords/) by prepending the `rounds=<number of rounds, sourced from /etc/pam.d/common-password>$` directive.
+2. `$id$salt$hashedpassword` is generally considered to be the encrypted password, although this is made up of three base fields separated by the `$`. The `id` can be any of the *Scheme id*s that crypt supports, as shown in the above table. How the rest of the substrings in this field are interpreted is [determined](http://man7.org/linux/man-pages/man3/crypt.3.html#NOTES) by what is found in the `id` field. The salt can be up to 16 characters. In saying that, the salt can be [augmented](http://backreference.org/2014/04/19/many-ways-to-encrypt-passwords/) by prepending the `rounds=<number of rounds, sourced from /etc/pam.d/common-password>$` directive.
 
 The hashed part of the password string is the actual computed password. The size of this string is fixed as per the below table:
 
@@ -1695,7 +1695,7 @@ The rest of the fields are as per below.
 3. `15980` is the number of days from the Unix "epoch" (1970-1-1) to when the password was changed.
 4. `0` is the minimum password age or number of days that the user will have to wait before they will be allowed to change their password. An empty field or `0` means that there is no minimum.
 5. `99999` is the maximum number of days until the user will be forced to change their password. `99999` or an empty value means that there is no limit to the maximum age that the password should be changed. If the maximum password age is lower than the minimum password age (No. 4) the user can not change their password.
-6. `7` is the password warning period. An empty value or `0` means that there is no warning period.
+6. `7` is the password warning period. An empty value of `0` means that there is no warning period.
 7. The last three fields are:
     1. Password inactivity period, days before the account is made inactive
     2. Account expiration date, expressed in days since Unix "epoch" (1970-1-1)
@@ -1711,13 +1711,13 @@ The format of the `/etc/passwd` file is as follows:
 2. `x` is the placeholder for password information. The password is obtained from the `/etc/shadow` file.
 3. `0` or `1000` is the user Id, the root user always has an Id of `0`.
 4. The second `0` or `1000` is the primary group Id for the user, the root user always has a primary group Id of `0`.
-5. `root` or `you,,,` is the comment field. This field can be used to describe the user or user's function. This could be used for contact details, or maybe what the account is used for.
+5. `root` or `you,,,` is the comment field. This field can be used to describe the user or user's function. This could be used for contact details, or perhaps what the account is used for.
 6. `/root` or `/home/you` is the users home directory. For regular users, this would usually be `/home/[you]`. For root, this is `/root`.
 7. `/bin/bash` is the users default shell.
 
 ##### [Consider](https://lists.debian.org/debian-user/2011/04/msg00550.html) changing to Bcrypt
 
-You should find this fairly straight forward on a Debian server. In order to [use bcrypt](https://serverfault.com/questions/10585/enable-blowfish-based-hash-support-for-crypt/11685) with slowpoke blowfish which is the best (very slow) algorithm available for hashing passwords currently, which is obvious by the number of iterations applied by default as noted above, 64 rounds as opposed to `MD5`s 1000 rounds, and `SHA`s 5000 rounds from 2007.
+You should find this fairly straight forward on a Debian server in order to [use bcrypt](https://serverfault.com/questions/10585/enable-blowfish-based-hash-support-for-crypt/11685) with slowpoke blowfish, which is the best (very slow) algorithm available for hashing passwords currently. This is obvious by the number of iterations applied by default as noted above, 64 rounds as opposed to `MD5`s 1000 rounds, and `SHA`s 5000 rounds from 2007.
 
 1. In Debian you need to install the package libpam-unix2
 2. Then you will have to edit the following files under `/etc/pam.d/`, and change all references to `pam_unix.so` to `pam_unix2.so` in the following files:
@@ -1727,13 +1727,13 @@ You should find this fairly straight forward on a Debian server. In order to [us
 * common-password, also while you are in this one, replace the current cipher (probably `sha512`) with `blowfish`
 * common-session
 
-Passwords that are updated after these modifications are made will be computed using blowfish. Existing shadow passwords are not modified until you change them. So you need to change them immediately (one at a time to start with please. Leave root till last) if you expect them to be using the bcrypt KDF. Do this the same way we did above with the `passwd` command.
+Passwords that are updated after these modifications are made will be computed using blowfish. Existing shadow passwords are not modified until you change them. So you need to change them immediately (one at a time to start with, please, leave root until last) if you expect them to be using the bcrypt KDF. Do this the same way we did above with the `passwd` command.
 
-Something to be aware of: If the version of libpam-unix2 that you just installed does not support the existing crypt scheme used to create an existing users password, that user may not be able to log in. You can get around this by having root create a new password for that user, because `passwd` will not ask root for that users existing password.
+Something to be aware of: if the version of libpam-unix2 that you just installed does not support the existing crypt scheme used to create an existing users password, that user may not be able to log in. You can get around this by having root create a new password for that user, because `passwd` will not ask root for that users existing password.
 
 ##### Password GRUB
 
-Consider setting a password for GRUB, especially if your server is directly on physical hardware. If it is on a hypervisor, an attacker has another layer to go through before they can access the guests boot screen.
+Consider setting a password for GRUB, especially if your server is directly on physical hardware. If it is on a hypervisor, an attacker has another layer to go through before they can access the guest's boot screen.
 
 #### Disable Root Logins from All Terminals
 ![](images/ThreatTags/PreventionVERYEASY.png)
@@ -1741,10 +1741,10 @@ Consider setting a password for GRUB, especially if your server is directly on p
 There are a handful of files to [check and/or modify](https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-restrict-console-login) in terms of disabling root logins.
 
 * `/etc/pam.d/login`  
-This file along with the next one enables the `pam_securetty.so` module. When this file along with the next one is properly configured, when root tries to login on an insecure console (that's one that is not listed in the next file), they will not be prompted for a password and will instead receive a message like the following:  
+This file, along with the next one, enables the `pam_securetty.so` module. When this file and the next one are properly configured, if root tries to login on an insecure console (that's one that is not listed in the next file), they will not be prompted for a password and will instead receive a message such as the following:  
 `pam_securetty(login:auth): access denied: tty '/dev/tty1' is not secure :`  
 `Login incorrect`  
-Review and understand the contents of this file. There are plenty of comments, and read the [pam_securetty](http://linux.die.net/man/8/pam_securetty) man page, which also refers to other applicable man pages. By default, you may not need to change anything in here. Do check and make sure that the following line, which provides the possibility to allow logins with null (blank) passwords, has the `nullok` text removed from it:  
+Review and understand the contents of this file. There are plenty of comments, and read the [pam_securetty](http://linux.die.net/man/8/pam_securetty) man page, which also refers to other applicable man pages. By default, you may not need to change anything in here. Do check and make sure that the following line, which allows the possibility of logins with null (blank) passwords, has the `nullok` text removed from it:  
 `auth       required   pam_unix.so nullok`  
 I generally also like to make sure that the following line does not exist, as it allows root to log into the system from the local terminals listed in `/etc/inittab`. A better practise is to only allow low privilege users access to terminals and then elevate privileges once logged in:  
 `auth     requisite  pam_securetty.so`  
@@ -1756,9 +1756,9 @@ This file contains a list of the virtual consoles / tty devices you have.
 * `/etc/security/access.conf`  
 An [alternative](https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-pam-rootaccess) to the previous method is to enable the `pam_access` module and make modifications to this file. Currently everything is commented out by default. Enabling this module and configuring it, allows for finer grained access control, but log messages are lacking. I usually don't touch this module.
 
-Now test that you are unable to log into any of the text terminals (TeleTYpewriter, tty) listed in `/etc/inittab`. Usually these can be accessed by [Ctrl]+[Alt]+[F[1, 2, 3, ...]] if you are dealing with a physical machine. If you are dealing with a hypervisor, attempt to log-in to the guests console via the hypervisor management UI as root, in the case of VMware ESX(i) vSphere. You should no longer be able to.
+Now test that you are unable to log into any of the text terminals (TeleTYpewriter, tty) listed in `/etc/inittab`. Usually these can be accessed by [Ctrl]+[Alt]+[F[1, 2, 3, ...]] if you are dealing with a physical machine. If you are dealing with a hypervisor, attempt to log in to the guest's console via the hypervisor management UI as root, in the case of VMware ESX(i) vSphere. You should no longer be able to do so.
 
-Make sure that if your server is not physical hardware, but is a VM, then the hosts password is long and consists of a random mix of upper case, lower case, numbers, and special characters.
+Make sure that if your server is not physical hardware and is a VM that the host's password is long and consists of a random mix of upper case, lower case, numbers, and special characters.
 
 #### SSH {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh}
 ![](images/ThreatTags/PreventionVERYEASY.png)
@@ -1781,13 +1781,13 @@ First of all, make sure you are using SSH version 2. Version 1 and its progressi
 
 ##### Symmetric Cryptosystems
 
-Often refereed to as "secret key" or "shared secret" encryption. In the case of Symmetrical encryption, typically only a single key is required for both ends of the communication, or a pair of keys in which a simple transformation is required to establish the relationship between them (not to be confused with how Diffie-Hellman (asymmetric) parties establish their secret keys). The single key should be kept secret by the parties involved in the conversation. This key can be used to both encrypt and decrypt messages.
+Often referred to as "secret key" or "shared secret" encryption. In the case of symmetrical encryption, typically only a single key is required for both ends of the communication, or a pair of keys in which a simple transformation is required to establish the relationship between them (not to be confused with how Diffie-Hellman (asymmetric) parties establish their secret keys). The single key should be kept secret by the parties involved in the conversation. This key can be used to both encrypt and decrypt messages.
 
 Some of the commonly used and well known ciphers used for this purpose are the following:
 
 * AES (Advanced Encryption Standard block cipher with either key sizes of 128, 192 or 256 bits, considered highly secure, succeeded DES during the program National Institute of Standards Technology (NIST) began in 1997 for that purpose, which took five years. Approved in December 2001)
 * 3DES (block cipher variant of DES. Increases its security by increasing the key length)
-* ARCFOUR (or RC4 is a stream cipher, used to be an unpatented trade-secret, until the source code was posted on-line anonymously, RC4 is very fast, but less studied than other algorithms. It is considered secure, providing the caveat of never reusing a key is observed.)
+* ARCFOUR (or RC4 as a stream cipher, used to be an unpatented trade-secret, until the source code was posted on-line anonymously, RC4 is very fast, but less studied than other algorithms. It is considered secure, providing the caveat of never reusing a key is observed.)
 * CAST-128/256 (block cipher described in [Request for Comments (RFC) 2144](http://www.rfc-editor.org/rfc/rfc2144.txt), as a DES-like substitution-permutation crypto algorithm, designed in the early 1990s by Carlisle Adams and Stafford Tavares, available on a worldwide royalty-free basis)
 * Blowfish (block cipher invented by Bruce Schneier in 1993, key lengths can vary from 32 to 448 bits. It is much faster than DES and IDEA, though not as fast as ARCFOUR. It has no patents and is intended to be free for all to use. Has received a fair amount of cryptanalytic scrutiny and has proved impervious to attack so far)
 * Twofish (block cipher invented by Bruce Schneier, with the help from a few others, submitted in 1998 to the NIST as a candidate for the AES, to replace DES. It was one of the five finalists in the AES selection process out of 15 submissions. Twofish has no patents and is free for all uses. Key lengths can be 128, 192 or 256 bits. Twofish is also designed to be more flexible than Blowfish.)
@@ -1808,9 +1808,9 @@ Also known as public-key or key-pair encryption, utilises a pair of keys, one wh
 
 Also known as message digests and one-way encryption algorithms. Hash functions create a fixed-length hash value based on the plain-text. Hash functions are often used to determine the integrity of a file, message, or any other data.
 
-If a given hash function is run on a given message twice, the resulting hash value should be identical. Modifying any part of the message has a very high chance of creating an entirely different hash value.
+If a given hash function is run on a message twice, the resulting hash value should be identical. Modifying any part of the message has a very high chance of creating an entirely different hash value.
 
-Any given message should not be able to be re-created from the hash of it.
+Any given message should not be able to be re-created from its hash.
 
 When the symmetric encryption negotiation is being carried out, a Message Authentication Code (MAC) algorithm is selected from the clients default list of MAC's, the first one that is supported on the server is used. You can see the default list by entering `man ssh_config` into a terminal.
 
@@ -1838,22 +1838,22 @@ The SSH client is responsible for initiating the TCP handshake with the server. 
 
 This record is added on first connection to the server, as detailed in the section ["Establishing your SSH Servers Key Fingerprint"](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) below.
 
-At this stage, a session key is negotiated between the client and server using Diffie-Hellman (DH) as an ephemeral (asymmetric) key exchange algorithm, each combining their own private data with public data from the other party, which allows both parties to arrive at the identical secret symmetric session key. The public and private key pairs used to create the shared secret key in this stage have nothing to do with the client authenticating to the server.
+At this stage, a session key is negotiated between the client and server using Diffie-Hellman (DH) as an ephemeral (asymmetric) key exchange algorithm, each combining their own private data with public data from the other party. This allows both parties to arrive at the identical secret symmetric session key. The public and private key pairs used to create the shared secret key in this stage have nothing to do with the client authenticating to the server.
 
 Now in a little more detail, the Diffie-Hellman key agreement works like this:
 
-1. Both client and server come to agreement on a seed value, that is a large prime number.
+1. Both client and server come to agreement on a seed value, commonly a large prime number
 2. Both client and server agree on a symmetric cipher, so that they are both encrypting/decrypting with the same block cipher, usually AES
 3. Each party then creates another prime number of their own to be used as a private key for this ephemeral DH interaction
-4. Each party then create a public key which they exchange with the other party. These public keys are created using the symmetric cipher from step 2, the shared prime number from step 1, and derived from the private key from step 3.
-5. The party receiving the other parties public key, uses this, along with their own private key, and the shared prime number from step 1 to compute their own secret key. Because each party does the same, they both arrive at the same (shared/symmetric/secret) key.
-6. All communications from here on are encrypted with the same shared secret key, the connection from here on is known as the *binary packet protocol*. Each party can use their own shared secret key to encrypt and decrypt, messages from the other party.
+4. Each party then create a public key which they exchange with the other party. These public keys are created using the symmetric cipher from step 2, the shared prime number from step 1, and derived from the private key from step 3
+5. The party receiving the other party's public key, uses this, along with their own private key, and the shared prime number from step 1 to compute their own secret key. Because each party does the same, they both arrive at the same (shared/symmetric/secret) key
+6. All communications from here on are encrypted with the same shared secret key, the connection from here on is known as the *binary packet protocol*. Each party can use their own shared secret key to encrypt and decrypt, messages from the other party
 
 **Authenticate the client to the server**
 
 The second stage is to authenticate the client, establishing whether they should be communicating with the server. There are several methods for doing this, the two most common are passwords and key-pair. SSH defaults to passwords, as the lowest common denominator, plus it often helps to have password authentication set-up in order to set-up key-pair authentication, especially if you don't have physical access to the server(s).
 
-SSH key pairs are asymmetric. The server holds the clients public key and is used by the server to encrypt messages that it uses to authenticate the client. The client in turn receives the messages from the server and decrypts them with the private key. If the public key falls into the wrong hands, it's no big deal, because the private key can not be deduced from the public key, and all the authentication public key is used for is verifying that the client holds the private key for it.
+SSH key pairs are asymmetric. The server holds the client's public key and is used by the server to encrypt messages that it uses to authenticate the client. The client in turn receives the messages from the server and decrypts them with the private key. If the public key falls into the wrong hands, it's no big deal, because the private key cannot be deduced from the public key, and the authentication public key is used only for verifying that the client holds the private key for it.
 
 The authentication stage continues directly after the encryption has been established from the previous step.  
 
@@ -1866,11 +1866,11 @@ The authentication stage continues directly after the encryption has been establ
 7. The client then sends the hash back in response to the server.
 8. The server then does the same as the client did in step 6 with the number that it generated, combining it with the shared session key and obtaining the MD5 hash from it. The server then compares this hash with the hash that the client sent it. If they match, then the server communicates to the client that it is successfully authenticated.
 
-Below in the [Key-pair Authentication](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication) section, we work through manually (hands on) setting up Key-pair authentication.
+Below in the [Key-pair Authentication](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication) section, we work through manually (hands on) setting up key-pair authentication.
 
 ##### Establishing your SSH Servers Key Fingerprint {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint}
 
-When you connect to a remote host via SSH that you have not established a trust relationship with before, you are going to be told that the authenticity of the host your attempting to connect to can not be established.
+When you connect to a remote host via SSH that you have not established a trust relationship with before, you are going to be told that the authenticity of the host your attempting to connect to cannot be established.
 
 {linenos=off, lang=Bash}
     you@yourbox ~ $ ssh you@your_server
@@ -1878,7 +1878,7 @@ When you connect to a remote host via SSH that you have not established a trust 
     RSA key fingerprint is 23:d9:43:34:9c:b3:23:da:94:cb:39:f8:6a:95:c6:bc.
     Are you sure you want to continue connecting (yes/no)?
 
-Do you type yes to continue without actually knowing that it is the host you think it is? Well, if you do, you should be more careful. The fingerprint that is being put in front of you could be from a Man In the Middle (MItM). You can query the target (from “its” shell of course) for the fingerprint of its key easily. On Debian you will find the keys in `/etc/ssh/`
+Do you type yes to continue without actually knowing that it is the host you think it is? Well, if you do, you should be more careful. The fingerprint that is being put in front of you could be from a Man In the Middle (MItM). You can query the target (from "its" shell of course) for the fingerprint of its key easily. On Debian you will find the keys in `/etc/ssh/`
 
 When you enter the following:
 
@@ -1894,9 +1894,9 @@ For example if SSH is using dsa:
 
 `ssh-keygen -lf ssh_host_dsa_key.pub`
 
-If you try the command on either the private or publick key you will be given the public keys fingerprint, which is exactly what you need for verifying the authenticity from the client side.
+If you try the command on either the private or public key you will be given the public key's fingerprint, which is exactly what you need for verifying the authenticity from the client side.
 
-Sometimes you may need to force the output of the fingerprint_hash algorithm, as ssh-keygen may be displaying it in a different form than it is shown when you try to SSH for the first time. The default when using ssh-keygen to show the key fingerprint is sha256, unless it is an old version, but in order to compare apples with apples you may need to specify md5 if that is what is being shown when you attempt to login. You would do that by issuing the following command:
+Sometimes you may need to force the output of the fingerprint_hash algorithm, as ssh-keygen may be displaying it in a different form than it is shown when you try to SSH for the first time. The default when using ssh-keygen to show the key fingerprint is sha256, unless it is an old version, but in order to compare apples with apples, you may need to specify md5 if that is what is being shown when you attempt to login. You would do that by issuing the following command:
 
 `ssh-keygen -lE md5 -f ssh_host_dsa_key.pub`
 
@@ -1910,18 +1910,18 @@ Alternatively this can be specified in the clients `~/.ssh/config` file as per t
     Host <your_server>
         FingerprintHash md5
 
-Prior to [OpenSSH 6.8](http://www.openssh.com/txt/release-6.8) The fingerprint was provided as a hexadecimal md5 hash. Now it is displayed as base64 sha256 by default. You can check which version of SSH you are using with:
+Prior to [OpenSSH 6.8](http://www.openssh.com/txt/release-6.8) the fingerprint was provided as a hexadecimal md5 hash. Now it is displayed as base64 sha256 by default. You can check which version of SSH you are using with:
 
 {linenos=off, lang=Bash}
     sshd -v
 
 You can find additional details on the man pages for the options, both ssh-keygen and ssh.
 
-Do not connect remotely and then run the above command, as the machine you are connected to is still untrusted. The command could be dishing you up any string replacement if it is an attackers machine. You need to run the command on the physical box or get someone you trust (your network admin) to do this and hand you the fingerprint.
+Do not connect remotely and then run the above command, as the machine you are connected to is still untrusted. The command could be serving you any string replacement if it is an attackers machine. You need to run the command on the physical box, or get someone you trust (your network admin) to do this and hand you the fingerprint.
 
-Now when you try to establish your SSH connection for the first time, you can check that the remote host is actually the host you think it is by comparing the output of one of the previous commands with what SSH on your client is telling you the remote hosts fingerprint is. If it is different, it is time to start tracking down the origin of the host masquerading as the address your trying to log in to.
+Now when you try to establish your SSH connection for the first time, you can check that the remote host is actually the host you think it is by comparing the output of one of the previous commands with what SSH on your client is telling you the remote host's fingerprint is. If it is different, it is time to start tracking down the origin of the host masquerading as the address your trying to log in to.
 
-Now, when you get the following message when attempting to SSH to your server, due to something or somebody changing the hosts key fingerprint:
+If you get the following message when attempting to SSH to your server, due to something or somebody changing the host's key fingerprint:
 
 {linenos=off, lang=Bash}
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1939,15 +1939,15 @@ Now, when you get the following message when attempting to SSH to your server, d
     RSA host key for your_server has changed and you have requested strict checking.
     Host key verification failed.
 
-The same applies. Check that the fingerprint is indeed the intended target hosts key fingerprint. If it is, you can continue to log in.
+then the same applies. Check that the fingerprint is indeed the intended target host's key fingerprint. If it is, you can continue to log in.
 
-Now when you type `yes`, the fingerprint is added to your clients:  
+Now, when you type `yes`, the fingerprint is added to your clients:  
 `/home/you/.ssh/known_hosts` file,  
 so that next time you try and login via SSH, your client will already know your server.
 
 ##### Hardening SSH {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-hardening-ssh}
 
-There are a bunch of things you can do to minimise SSH being used as an attack vector. Let us walk through some now.
+There are a bunch of things you can do to minimise SSH being used as an attack vector. Let's walk through some now.
 
 After any changes, restart SSH daemon as root (using sudo) to apply the changes.
 
@@ -1972,7 +1972,7 @@ If you wanted to allow access to the SSH daemon from `1.1.1.x` and `10.0.0.5`, b
 {title="/etc/hosts.deny", linenos=off, lang=Bash}
     ALL: ALL
 
-If you wanted to deny all only to SSH, so that users not listed in `hosts.allow` could potentially log into other services. you would set the `hosts.deny` up like the following:
+If you wanted to deny all only to SSH, so that users not listed in `hosts.allow` could potentially log into other services, you would set the `hosts.deny` up as follows:
 
 {title="/etc/hosts.deny", linenos=off, lang=Bash}
     sshd: ALL
@@ -1982,9 +1982,9 @@ There are also commented examples in the above files and check the man page for 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-sshd_config}
 **Changes to the servers `/etc/ssh/sshd_config` file**
 
-To tighten security up considerably Make the necessary changes to your servers:  
+To tighten security up considerably, make the necessary changes to your servers:  
 `/etc/ssh/sshd_config` file.  
-Start with the changes I list here. When you change things like setting up `AllowUsers` or any other potential changes that could lock you out of the server. It is a good idea to be logged in via one shell when you exit another and test it. This way if you have locked yourself out, you will still be logged in on one shell to adjust the changes you have made. Unless you have a need for multiple users, you can lock it down to a single user. You can even lock it down to a single user from a specific host.
+Start with the changes I list here. When you change things such as setting up `AllowUsers`, or any other potential changes that could lock you out of the server, it is a good idea to be logged in via one shell when you exit another and test it. This way if you have locked yourself out, you will still be logged in on one shell to adjust the changes you have made. Unless you have a need for multiple users, you can lock it down to a single user. You can even lock it down to a single user from a specific host.
 
 {title="/etc/ssh/sshd_config", linenos=off, lang=Bash}
     # If specified, login is allowed only for users that match one of the patterns.
@@ -2013,7 +2013,7 @@ Start with the changes I list here. When you change things like setting up `Allo
     # noise if your web server is open to the internet, as many automated scanns target port 22.
     Port 202
 
-As you can see, these changes are very simple, but so many do not do it. Every positive security change you make to the low hanging fruit lifts it that little bit higher for the attacker to reach, making it less economical for them.
+As you can see, these changes are very simple, but so many do not do it. Every positive security change you make to low hanging fruit elevates it that much higher for the attacker to reach, making it less economical for them.
 
 You can also consider installing and configuring [denyhosts](https://www.digitalocean.com/community/articles/how-to-install-denyhosts-on-ubuntu-12-04)
 
@@ -2031,18 +2031,18 @@ If you want to see successful logins, enter the following:
     # Or list the last logged in users from /var/log/wtmp unless modified by an attacker.
     last -ad
 
-If you are sending your logs off-site in real-time, it will not matter to much if the attacker tries to cover their tracks by modifying these types of files. If you are checking the integrity of your system files frequently with one of the Host Intrusion Detection Systems ([HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids)) we discuss a little further on in this chapter, then you will know you are under attack and will be able to take measures quickly, providing you have someone engaged watching out for these attacks, as discussed in the People chapter of Fascicle 0. If your HIDS is on the same machine that is under attack, then it is quite likely that any decent attacker is going to find it before they start modifying files and some-how render it ineffective. That is where [Stealth](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth) shines, as it is so much harder to find where it is operating from, if the attacker even knows it is.
+If you are sending your logs off-site in real-time, it will not matter too much if the attacker tries to cover their tracks by modifying these types of files. If you are checking the integrity of your system files frequently with one of the Host Intrusion Detection Systems ([HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids)) we discuss a little further on in this chapter, then you will know you are under attack, and will be able to take measures quickly, provided that you have someone engaged watching out for these attacks, as discussed in the People chapter of Fascicle 0. If your HIDS is on the same machine that is under attack, then it is quite likely that any decent attacker is going to find it before they start modifying files and somehow render it ineffective. That is where [Stealth](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth) shines, as it is so much harder to find where it is operating from, assuming the attacker even knows it is.
 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication}
 **Key-pair Authentication**
 
-The details around how the client authenticates to the server are above in part 2 of the [SSH Connection Procedure](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-ssh-connection-procedure) section. This section shows you how to set-up key-pair authentication, as opposed to password authentication.
+The details around how the client authenticates to the server are above in Part 2 of the [SSH Connection Procedure](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-ssh-connection-procedure) section. This section shows you how to set-up key-pair authentication, as opposed to password authentication.
 
-Make sure you use a long pass-phrase (this is your second factor of authentication) for your key-pair, that you store in a password vault with all your other passwords. You are using a decent password vault right? If your pass-phrase and private key is compromised, your hardening effort will be softened or compromised.
+Make sure you use a long passphrase (this is your second factor of authentication) for your key-pair, that you store in a password vault with all your other passwords. You are using a decent password vault right? If your passphrase and private key is compromised, your hardening effort will be softened or compromised.
 
-My feeling after a lot of reading is that currently RSA with large keys (The default RSA size is 2048 bits) is a good option for key-pair authentication. Personally I like to go for 4096 these days.
+My feeling after a lot of reading is that currently RSA with large keys (The default RSA size is 2048 bits) is a good option for key-pair authentication. Personally, I like to go for 4096 these days.
 
-Create your key-pair if you have not already and set-up key-pair authentication. Key-pair auth is more secure and allows you to log in without a password. Your pass-phrase should be stored in your keyring. You will just need to provide your local password once (each time you log into your local machine) when the keyring prompts for it.
+Create your key-pair if you have not already and set-up key-pair authentication. Key-pair auth is more secure and allows you to log in without a password. Your passphrase should be stored in your keyring. You will just need to provide your local password once (each time you log into your local machine) when the keyring prompts for it.
 
 On your client machine that you want to create the key-pair and store them:
 
@@ -2058,7 +2058,7 @@ Optionally, the new private key can be added to `id_rsa.keystore` if it hasn't b
 {linenos=off, lang=Bash}
     ssh-add id_rsa
 
-Then enter your pass-phrase.
+Then enter your passphrase.
 
 Now we need to get the public key we have just created (`~/.ssh/id_rsa.pub`) from our client machine into our servers `~/.ssh/` directory.  
 You can `scp` it, but this means also logging into the server and creating the:  
@@ -2068,9 +2068,9 @@ and appending (`>>`) the contents of id_rsa.pub to `~/.ssh/authorized_keys`. The
 {linenos=off, lang=Bash}
     ssh-copy-id "you@your_server -p [your non default port]"
 
-This will copy the public key straight into the `~/.ssh/authorized_keys` file on your_server. You may be prompted to type `yes` if it is the first time you have connected to the server, that the authenticity of the server you are trying to connect to can not be established and you want to continue. Remember I mentioned this above in the [Establishing your SSH Servers Key Fingerprint](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) section? Make sure you check the servers Key Fingerprint and do not just blindly accept it, this is where our security solutions break down... due to human defects.
+This will copy the public key straight into the `~/.ssh/authorized_keys` file on your_server. You may be prompted to type `yes` if it is the first time you have connected to the server, that the authenticity of the server you are trying to connect to cannot be established and you want to continue. I mentioned this above in the [Establishing your SSH Servers Key Fingerprint](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) section. Make sure you check the servers Key Fingerprint and do not just blindly accept it, this is where our security solutions break down due to human defects.
 
-Also make sure the following permissions and ownership on the server are correct:
+Also, make sure the following permissions and ownership on the server are correct:
 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication-ssh-perms}
 {linenos=off, lang=Bash}
@@ -2088,12 +2088,12 @@ You may need to tunnel SSH once the server is placed into the DMZ. Usually this 
     # The -A option is useful for hopping from your network internal server to other servers.
     ssh your_webserver_account@your_routers_wan_interface -A -p [router wan non default port] 
 
-If you are wanting to SSH from your LAN host to your DMZ web server:
+If you want to SSH from your LAN host to your DMZ web server:
 
 {linenos=off, lang=Bash}
     ssh your_webserver_account@your_routers_lan_interface -p [router wan non default port] 
 
-Before you try that though, you will need to set-up the port forwards and add the WAN and/or LAN rule to your router. How you do this will depend on what you are using for a router.
+Before you try that though, you will need to set up the port forwards and add the WAN and/or LAN rule to your router. How you do this will depend on what you are using for a router.
 
 I have blogged extensively over the years on SSH. The Additional Resources chapter has links to my resources for a plethora of information on configuring and using SSH in many different ways.
 
@@ -2106,17 +2106,17 @@ I just thought I would throw sshuttle in here as well, it has nothing to do with
     # -v: verbosity, -r: remote
     # 0/0: forwards all local traffic over the SSH channel.
     sshuttle --dns -vvr your_shell_account@your_ssh_shell 0/0
-    # That is it, now all comms go over your SSH tunnel. So simple. Actually easier than a VPN
+    # That is it, now all comms go over your SSH tunnel. So simple. Actually easier than a VPN.
 
-As opposed to manually specifying socks and then having to tell your browser to proxy through `localhost` and use the same port you defined after the socks (`-D`) option, and then having to do the same for any other programmes that want to use the same tunnel:
+It's a pain to manually specify socks and then tell your browser to proxy through `localhost`, and use the same port you defined after the socks (`-D`) option, and then do the same for any other programmes that want to use the same tunnel:
    
 {linenos=off, lang=Bash}
     ssh -D [any spare port] your_shell_account@your_ssh_shell
-    # Now go set-up proxies for all consumers. What a pain!
+    # Now go set up proxies for all consumers. What a pain!
     # On top of that, DNS queries are not forced through the tunnel,
     # So censorship can still bite you.
 
-Dnscrypt can help conceal DNS queries, but that would be more work. Another offering I've used is the [bitmask](https://bitmask.net/) VPN [client](https://dl.bitmask.net/linux/) which does a lot more than traditional VPN clients, bitmask starts an egress firewall that rewrites all DNS packets to use the VPN. bitmask is sponsored by the [LEAP Encryption Access Project](https://leap.se/) and looks very good, I've used this, and the chaps on the #riseup IRC channel on the indymedia server are really helpful to. Bitmask is working on Debian, Ubuntu, and Mint 17, but not so well on Mint 18 when I tried it, but this will probably change.
+Dnscrypt can help conceal DNS queries, but that would be more work. Another offering I've used is the [bitmask](https://bitmask.net/) VPN [client](https://dl.bitmask.net/linux/) which does a lot more than traditional VPN clients. Bitmask starts an egress firewall that rewrites all DNS packets to use the VPN. Bitmask is sponsored by the [LEAP Encryption Access Project](https://leap.se/) and looks very good, I've used it, and the chaps on the #riseup IRC channel on the indymedia server are really helpful to. Bitmask works on Debian, Ubuntu, and Mint 17, but not so well on Mint 18 when I tried it, but this will probably change.
 
 #### Disable Boot Options
 ![](images/ThreatTags/PreventionVERYEASY.png)
@@ -2125,45 +2125,45 @@ All the major hypervisors should provide a way to disable all boot options other
 
 While you are at it, [set](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1004129) a BIOS password.
 
-#### Lock Down the Mounting of Partitions {#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions}
+#### Lock Down Partition Mounting {#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
 **File Permission and Ownership Level**
 
 Addressing the [first risk](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation-mitigations) as discussed in the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section of the Identify Risks section:
 
-The first thing to do is locate the files with overly permissive permissions and ownership. Running the suggested tools is a good place to start. From there, following your nose to find any others is a good idea. Then tighten them up so that they conform to the least amount of privilege and ownership necessary in order for the legitimate services/activities to run. Also consider removing any `suid` bits on executables `chmod u-s <yourfile>`. We also address applying `nosuid` to our mounted file systems below which provide a nice safety net.
+Locate the files with overly permissive permissions and ownership. Run the suggested tools as a good place to start. From there, follow your instincts to find any others. Then tighten up permissions so that they conform to the least amount of privilege and ownership necessary in order for the legitimate services/activities to run. Also consider removing any `suid` bits on executables `chmod u-s <yourfile>`. We also address applying `nosuid` to our mounted file systems below, which provides a nice safety net.
 
 **Mount Point of the File Systems**
 
 Addressing the [second risk](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation-mitigations) as discussed in the "[Overly Permissive File Permissions, Ownership and Lack of Segmentation](#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation)" section of the Identify Risks section:
 
-Let us get started with your `fstab`.
+Start with your `fstab`.
 
-Make a backup of your `/etc/fstab` file before you make changes, this is really important, it is often really useful to just swap the modified `fstab` with the original as you are progressing through your modifications. Read the man page for fstab and also the options section in the mount man page. The Linux File System Hierarchy ([FSH](http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html)) documentation is worth consulting also for directory usages. The following was my work-flow:
+Make a backup of your `/etc/fstab` file before you make changes, this is really important. It is often really useful to just swap the modified `fstab` with the original as you are progressing through your modifications. Read the man page for fstab and also the options section in the mount man page. The Linux File System Hierarchy ([FSH](http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html)) documentation is worth consulting as well specific to directory usage. The following is my work-flow:
 
-Before you modify and remount `/tmp`, view what its currently mounted options look like with:
+Before you modify and remount `/tmp`, view what its currently mounted options are with:
 
 {linenos=off, lang=Bash}
     mount | grep ' /tmp'
 
 Add the `noexec` mount option to `/tmp` but not `/var` because executable shell scripts such as `*pre[inst, rm]` and `*post[inst, rm]` reside within `/var/lib/dpkg/info`. You can also add the `nodev,nosuid` options to `/tmp`.
 
-So you should have the following line in `/etc/fstab` now looking like this:
+You should have the following line in `/etc/fstab`:
 
 {title="/etc/fstab", linenos=off, lang=Bash}
     UUID=<block device ID goes here> /tmp ext4 defaults,noexec,nodev,nosuid 0 2
 
-Then to apply the new options from `/etc/fstab`:
+Then apply the new options from `/etc/fstab`:
 
 {linenos=off, lang=Bash}
     sudo mount -o remount /tmp
 
-Then by issuing the `sudo mount | grep ' /tmp'` command again, you'll see your new options applied.
+Issue the `sudo mount | grep ' /tmp'` command again, you'll see your new options applied.
 
-You can add the `nodev` option to `/home`, `/opt`, `/usr` and `/var` also. You can also add the `nosuid` option to `/home`. You can add `ro` to `/usr`
+You can add the `nodev` option to `/home`, `/opt`, `/usr` and `/var` as well. You can also add the `nosuid` option to `/home` and `ro` to `/usr`
 
-So you should have the following lines, as well as the above `/tmp` in `/etc/fstab` now looking like this:
+You should now have the following lines, as well as the above `/tmp` in `/etc/fstab`:
 
 {title="/etc/fstab", linenos=off, lang=Bash}
     UUID=<block device ID goes here> /home ext4 defaults,nodev,nosuid 0 2
@@ -2201,7 +2201,7 @@ Before you remount the above changes, you can view the options for the current m
 {linenos=off, lang=Bash}
     mount
 
-Then remount the above immediately, thus taking effect before a reboot, which is the safest way, as if you get the mounts incorrect, your system may fail to boot in some cases, which means you will have to boot a live CD to modify the `/etc/fstab`, execute the following commands:
+Then remount the above immediately, thus taking effect before a reboot. This is the safest way, as if you get the mounts incorrect, your system may fail to boot in some cases, which means you will have to boot a live CD to modify the `/etc/fstab`. Execute the following commands:
 
 {linenos=off, lang=Bash}
     sudo mount --bind /var/tmp /var/tmp
@@ -2214,7 +2214,7 @@ Then to pick up the new options from `/etc/fstab`:
     sudo mount -o remount /var/log
     sudo mount -o remount /usr/share
 
-Now have a look at the changed options applied to your mounts:
+Now have a look at the changed options applied to your mounts.
 
 For further details consult the remount option of the mount man page.
 
@@ -2225,7 +2225,7 @@ At any point you can check the options that you have your directories mounted as
 
 &nbsp;
 
-As mentioned above, I had some troubles adding these mounts to existing directories, I was not able to get all options applied, so I decided to take another backup of the VM (I would highly advise you to do the same if you are following along) and run the machine from a live CD (Knoppix in my case). I Ran Disk Usage Analyzer to work out which sub directories of `/var` and `/usr` were using how much disk space, to work out how much to reduce the sizes of partitions that `/var` and `/usr` were mounted on, in order to provide that space to sub directories (`/var/tmp`, `/var/log` and `/usr/share`) on new partitions.  
+As mentioned above, I had some troubles adding these mounts to existing directories, I was not able to get all options applied, so I decided to take another backup of the VM (I would highly advise you to do the same if you are following along) and run the machine from a live CD (Knoppix in my case). I ran Disk Usage Analyzer to work out which sub directories of `/var` and `/usr` were using how much disk space and to work out how much to reduce the sizes of partitions that `/var` and `/usr` were mounted on in order to provide that space to sub directories (`/var/tmp`, `/var/log` and `/usr/share`) on new partitions.  
 Run gparted and unmount the relevant directory from its partition (`/var` from `/dev/sda5`, and `/usr` from `/dev/sda8` in this case). Reduce the size of the partitions, by the size of the new partitions you want taken from it. Locate the unallocated partition of the size that you just reduced the partition you were working on, and select new from the context menu. Set the File system type to `ext4` and click Add -> Apply All Operations -> Apply. You should now have the new partition.
 
 Now you will need to mount the original partition that you resized and the new partition. Open a terminal with an extra tab. In the left terminal go to where you mounted the original partition (`/media/sda5/tmp/` for example), in the right terminal go to where you mounted the new partition (`/media/sda11/` for example).
@@ -2299,7 +2299,7 @@ Test your `noexec` by putting the following script in `/var`, and changing the p
     # Make sure execute bits are on.
     sudo chmod 755 /var/kimsTest
 
-Copying it to `/var/tmp`, and `/var/log`, Then try running each of them. You should only be able to run the one that is in the directory mounted without the `noexec` option. My file “kimsTest” looks like this:
+Copy it to `/var/tmp`, and `/var/log`, then try running each of them. You should only be able to run the one that is in the directory mounted without the `noexec` option. My file, `kimsTest`, looks like this:
 
 {title="kimsTest", linenos=off, lang=Bash}
     #!/bin/sh
@@ -2315,7 +2315,7 @@ Try running them:
     you@your_server:/var$ ./log/kimsTest
     -bash: ./tmp/kimsTest: Permission denied
 
-If you set `/tmp` with `noexec` and / or `/usr` with read-only (`ro`), then you will also need to modify or create if it does not exist, the file `/etc/apt/apt.conf` and also the referenced directory that apt will write to. The file could look something like the following:
+If you set `/tmp` with `noexec` and / or `/usr` with read-only (`ro`), you will also need to modify or create `/etc/apt/apt.conf` if it does not exist, and also the referenced directory that apt will write to. The file could look something like the following:
 
 {title="/etc/apt/apt.conf", linenos=off, lang=Bash}
     # IP is the address of your apt-cacher server
@@ -2347,11 +2347,11 @@ If you set `/tmp` with `noexec` and / or `/usr` with read-only (`ro`), then you 
        };
     };
 
-You can spend quite a bit of time experimenting with your mounts and testing. It is well worth locking these down as tightly as you can, make sure you test properly before you reboot, unless you are happy modifying things further via a live CD. This set-up will almost certainly not be perfect for you, there are many options you can apply, some may work for you, some may not. Be prepared to keep adjusting these as time goes on, you will probably find that something can not execute where it is supposed to, or some other option you have applied is causing some trouble. In which case you may have to relax some options, or consider tightening them up more. Good security is always an iterative approach. You can not know today, what you are about to learn tomorrow. 
+You can spend quite a bit of time experimenting with and testing your mounts. It is well worth locking these down as tightly as you can, make sure you test properly before you reboot, unless you are happy modifying things further via a Live CD. This setup will almost certainly be imperfect, there are many options you can apply, some may work for you, some may not. Be prepared to keep adjusting these as time goes on, you will probably find that something can not execute where it is supposed to, or some other option you have applied is causing some trouble. In this case, you may have to relax some options, or consider tightening them up more. Good security is always an iterative process. You can not know today, what you are about to learn tomorrow. 
 
-You can also look at enabling a [read-only `/` mount](https://wiki.debian.org/ReadonlyRoot#Enable_readonly_root)
+Consider enabling a [read-only `/` mount](https://wiki.debian.org/ReadonlyRoot#Enable_readonly_root)
 
-Also consider the pros and cons of [increasing](http://www.cyberciti.biz/tips/what-is-devshm-and-its-practical-usage.html) your shared memory (via `/run/shm`) vs not increasing it.
+Also review the pros and cons of [increasing](http://www.cyberciti.biz/tips/what-is-devshm-and-its-practical-usage.html) your shared memory (via `/run/shm`) vs not doing so.
 
 Check out the [Additional Resources](#additional-resources-vps-locking-down-the-mounting-of-partitions) chapter for extra resources in working with your mounts.
 
@@ -2364,7 +2364,7 @@ Check out the [Additional Resources](#additional-resources-vps-locking-down-the-
 
 If port mapper is not installed (default on debian web server), we do not need to remove it. Recent versions of Debian will use the `portmap` replacement of `rpcbind` instead. If you find port mapper is installed, you do not need it on a web server, and if you are hardening a file server, you may require `rpcbind`. For example there are two packages required if you want to support NFS on your server: nfs-kernel-server and nfs-common, the latter has a [dependency on `rpcbind`](https://packages.debian.org/stretch/nfs-common).
 
-The `portmap` service (version 2 of the port mapper protocol) would [convert](http://www.linux-nis.org/nis-howto/HOWTO/portmapper.html) RPC program numbers into TCP/IP (or UDP/IP) protocol port numbers. When an RPC server (such as NFS prior to v4) was started, it would instruct the port mapper which port number it was listening on, and which RPC program numbers it is prepared to serve. When clients wanted to make an RPC call to a given program number, the client would first contact the `portmap` service on the server to enquire of which port number its RPC packets should be sent. [`Rpcbind`](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) which uses version 3 and 4 of the port mapper protocol (called the rpcbind protocol) does things a little differently.
+The `portmap` service (version 2 of the port mapper protocol) [converts](http://www.linux-nis.org/nis-howto/HOWTO/portmapper.html) RPC program numbers into TCP/IP (or UDP/IP) protocol port numbers. When an RPC server (such as NFS prior to v4) is started, it instructs the port mapper which port number it is listening on, and which RPC program numbers it is prepared to serve. When clients want to make an RPC call to a given program number, the client first contacts the `portmap` service on the server to enquire of which port number its RPC packets should be sent. [`Rpcbind`](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) which uses version 3 and 4 of the port mapper protocol (called the rpcbind protocol) does things a little differently.
 
 You can also stop `portmap` responses by modifying the two below hosts files like so: 
 
@@ -2374,11 +2374,11 @@ You can also stop `portmap` responses by modifying the two below hosts files lik
 {title="/etc/hosts.deny", linenos=off, lang=Bash}
     portmap : ALL
 
-but ideally, if you do need the port mapper running, consider upgrading to `rpcbind` for starters, then check the [`rpcbind` section](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) below for countermeasures, 
+but ideally, if you do need the port mapper running, consider upgrading to `rpcbind`, then check the [`rpcbind` section](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) below for countermeasures, 
 
-The above changes to the two hosts files would be effective immediately. A restart of the port mapper is not required in this case.
+The above changes to the two hosts files are effective immediately. A restart of the port mapper is not required in this case.
 
-There are further details around the `/etc/hosts.[deny & allow]` in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs)
+There are further details specific to the `/etc/hosts.[deny & allow]` in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs)
 
 #### Disable, Remove Exim {#vps-countermeasures-disable-remove-services-harden-what-is-left-disable-exim}
 ![](images/ThreatTags/PreventionEASY.png)
