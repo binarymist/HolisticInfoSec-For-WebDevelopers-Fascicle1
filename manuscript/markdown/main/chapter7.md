@@ -1221,54 +1221,54 @@ Beware of doppelganger images that will be available for all to consume, similar
 #### The Default User is Root {#vps-identify-risks-docker-the-default-user-is-root}
 ![](images/ThreatTags/easy-common-veryeasy-moderate.png)
 
-What is worse, dockers default is to run containers, and all commands / processes within a container as root. This can be seen by running the following command from the [CIS_Docker_1.13.0_Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf):
+What is worse, Docker's default is to run containers, and all commands / processes within a container as root. This can be seen by running the following command from the [CIS_Docker_1.13.0_Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf):
 
 {title="Query User running containers", linenos=off, lang=Bash}
     docker ps --quiet | xargs docker inspect --format '{{ .Id }}: User={{ .Config.User }}'
 
-If you have two containers running and the user has not been specified you will see something like the below, which means your two containers are running as root.
+If you have two containers running, and the user has not been specified, you will see something like the below, which means your two containers are running as root.
 
 {title="Result of user running containers output", linenos=off, lang=Bash}
     <container n Id>: User=
     <container n+1 Id>: User=
 
-Images derived from other images inherit the same user defined in the parent image explicitly or implicitly, so unless the image creator has specifically defined a non root user, the user will default to root. That means, all processes within the container will run as root.
+Images derived from other images inherit the same user defined in the parent image explicitly or implicitly, so unless the image creator has specifically defined a non-root user, the user will default to root. That means all processes within the container will run as root.
 
 #### Docker Host, Engine and Containers
 ![](images/ThreatTags/difficult-uncommon-average-moderate.png)
 
-Considering these processes run as root, and have [indirect access](https://theinvisiblethings.blogspot.co.nz/2012/09/how-is-qubes-os-different-from.html) to most of the Linux Kernel (20+ million lines of code written by humans) APIs such as networking, USB, storage stacks, and others via System calls, the situation may look bleak.
+Considering that these processes run as root, and have [indirect access](https://theinvisiblethings.blogspot.co.nz/2012/09/how-is-qubes-os-different-from.html) to most of the Linux Kernel (20+ million lines of code written by humans) APIs, such as networking, USB, storage stacks, and others via System calls, the situation may look bleak.
 
 ![](images/HypervisorVsContainers.png)
 
-[System calls](http://man7.org/linux/man-pages/man2/syscalls.2.html) are how programmes access the kernel to perform tasks. This attack surface is huge, and all before any security is added on top in the form of LXC, or libcontainer (now [opencontainers/runc](https://github.com/opencontainers/runc)), or [Linux Security Modules (LSM)](#vps-identify-risks-docker-docker-host-engine-and-containers-linux-security-modules) such as AppArmor or SELinux, which are often seen as an annoyance and just disabled like many other forms of security.
+[System calls](http://man7.org/linux/man-pages/man2/syscalls.2.html) are how programmes access the kernel to perform tasks. This attack surface is huge, and all before any security is added on top in the form of LXC, libcontainer (now [opencontainers/runc](https://github.com/opencontainers/runc)), or [Linux Security Modules (LSM)](#vps-identify-risks-docker-docker-host-engine-and-containers-linux-security-modules) such as AppArmor or SELinux. These are often seen as an annoyance and just disabled like many other forms of security.
 
-If you run a container, you may have to install `kmod`, then run `lsmod` in the container and also on the host system, you will see that the same modules are loaded, this is because as mentioned, the container shares the host kernel, so there is not a lot between processes within the container and the host kernel, and considering as mentioned above, the processes within the container may be running as root also, it will pay for you to get a good understanding of the security features Docker provides and how to employ them.
+If you run a container, you may have to install `kmod`, then run `lsmod` in the container, and also on the host system. You will see that the same modules are loaded, this is because as mentioned, the container shares the host kernel, so there is not a lot between processes within the container and the host kernel. As mentioned above, the processes within the container may be running as root as well, it pays for you to have a good understanding of the security features Docker provides, and how to employ them.
 
-The [Seccomp section below](#vps-identify-risks-docker-docker-engine-and-containers-seccomp) discusses Dockers attempt to put a stop to some System calls accessing the kernel APIs. There are also many other features that Docker has added or leveraged in terms of mitigating a lot of this potential abuse. So although the situation initially looks bad, Docker has done a lot to improve it.
+The [Seccomp section below](#vps-identify-risks-docker-docker-engine-and-containers-seccomp) discusses Docker's attempt to put a stop to some System calls accessing the kernel APIs. There are also many other features that Docker has added or leveraged in terms of mitigating a lot of this potential abuse. Although the situation initially looks bad, Docker has done a lot to improve it.
 
 As you can see in the above image, the host kernel is open to receiving potential abuse from containers. Make sure you keep it patched. We will now walk though many areas of potential abuse. The [countermeasures](#vps-countermeasures-docker) sections offer information, advice, and techniques for further improving Docker security.
 
 ##### Namespaces {#vps-identify-risks-docker-docker-host-engine-and-containers-namespaces}
 
-The first place to read for solid background on Linux kernel namespaces is the [man-page](http://man7.org/linux/man-pages/man7/namespaces.7.html), otherwise I would just have to repeat what is there. A lot of what is to follow around namespaces requires some knowledge from the namespaces man-page, so do your self a favour and read it first.
+The first place to read for solid background on Linux kernel namespaces is the [man-page](http://man7.org/linux/man-pages/man7/namespaces.7.html), otherwise I'd just be repeating what is there. A lot of what follows about namespaces requires some knowledge from the namespaces man-page, so do yourself a favour and read it first.
 
-Linux kernel namespaces started to be added between 2.6.15 (January 2006) and 2.6.26 (July 2008)
+Linux kernel namespaces were first added between 2.6.15 (January 2006) and 2.6.26 (July 2008).
 
-According to the namespaces man page, IPC, network and UTS namespace support was available from kernel version 3.0, mount, PID and user namespace support was available from kernel version 3.8 (February 2013), cgroup namespace support was available from kernel version 4.6 (May 2016).
+According to the namespaces man page, IPC, network and UTS namespace support was available from kernel version 3.0, while mount, PID and user namespace support was available from kernel version 3.8 (February 2013), and cgroup namespace support was available from kernel version 4.6 (May 2016).
 
 Each aspect of a container runs in a separate namespace and its access is limited to that namespace.
 
-Docker leverage's the Linux (kernel) namespaces which provide an isolated workspace which wraps a global system resource abstraction that makes it appear to the processes within the namespace that they have their own isolated instance of the global resource. When a container is run, Docker creates a set of namespaces for that container, providing a layer of isolation between containers:
+Docker leverages the Linux (kernel) namespaces which provide an isolated workspace wrapped with a global system resource abstraction. This makes it appear to the processes within the namespace that they have their own isolated instance of the global resource. When a container is run, Docker creates a set of namespaces for that container, providing a layer of isolation between containers:
 
 1. `mnt`: (Mount) Provides filesystem isolation by managing filesystems and mount points. The `mnt` namespace allows a container to have its own isolated set of mounted filesystems, the propagation modes can be one of the following: [`r`]`shared`, [`r`]`slave` or [`r`]`private`. The `r` means recursive.
     
-    If you run the following command, then the hosts mounted `host-path` is [shared](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) with all others that mount `host-path`. Any changes made to the mounted data will be propagated to those that use the `shared` mode propagation. Using `slave` means only the master (`host-path`) is able to propagate changes, not vice-versa. Using `private` which is the default, will ensure no changes can be propagated.
+    If you run the following command, then the host's mounted `host-path` is [shared](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) with all others that mount `host-path`. Any changes made to the mounted data will be propagated to those that use the `shared` mode propagation. Using `slave` means only the master (`host-path`) is able to propagate changes, not vice-versa. Using `private` which is the default, will ensure no changes can be propagated.
     
     {title="Mounting volumes in shared mode propagation", linenos=off, lang=bash}
         docker run <run arguments> --volume=[host-path:]<container-path>:[z][r]shared <container image name or id> <command> <args...>
     
-    If you omit the `host-path` you can [see the host path](https://docs.docker.com/engine/tutorials/dockervolumes/#locating-a-volume) that was mounted by running the following command:
+    If you omit the `host-path` you can [see the host path](https://docs.docker.com/engine/tutorials/dockervolumes/#locating-a-volume) that was mounted when running the following command:
     
     {title="Query", linenos=off, lang=bash}
         docker inspect <name or id of container>
@@ -1289,7 +1289,7 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
         ]
         ...
     
-    An empty string for Mode means it is set to its default of read-write. This means for example that a container can mount sensitive host system directories such as `/`, `/boot`, `/etc` (as seen in [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies)), `/lib`, `/proc`, `/sys`, along with the rest discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section, if that advice was not followed, if it was you have some defence in depth working for you, and although Docker may have mounted a directory as read-write, the underlying mount may be read-only, thus stopping the container from being able to modify files in these locations on the host system. If the host does not have the above directories mounted with constrained permissions, then we are relying on the user that runs any given Docker container mounting a sensitive host volume to mount it as read-only. For example, after the following command has been run, users within the container can modify files in the hosts `/etc` directory:
+    An empty string for Mode means that it is set to its read-write default. For example, a container can mount sensitive host system directories such as `/`, `/boot`, `/etc` (as seen in [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies)), `/lib`, `/proc`, `/sys`, along with the rest as discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section, particularly if that advice was not followed. If it was followed, you have some defence in depth working for you, and although Docker may have mounted a directory as read-write, the underlying mount may be read-only, thus stopping the container from being able to modify files in these locations on the host system. If the host does not have the above directories mounted with constrained permissions, then we are relying on the user running any given Docker container that mounts a sensitive host volume to mount it as read-only. For example, after the following command has been run, users within the container can modify files in the hosts `/etc` directory:
     
     {title="Vulnerable mount", linenos=off, lang=bash}
         docker run -it --rm -v /etc:/hosts-etc --name=lets-mount-etc ubuntu
@@ -1309,10 +1309,10 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
           }
         ]
     
-    Also keep in mind that by default the user in the container unless otherwise specified is root, and that is the same root user that is on the host system.
+    Also keep in mind that, by default, the user in the container, unless otherwise specified, is root, the same root user as on the host system.
     
     {#vps-identify-risks-docker-docker-host-engine-and-containers-namespaces-mnt-labelling}
-    Labelling systems such as [Linux Security Modules (LSM)](#vps-identify-risks-docker-docker-host-engine-and-containers-linux-security-modules) require that the contents of a volume mounted into a container be [labelled](https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels). This can be done by adding the `z` (as seen in above example) or `Z` suffix to the volume mount. The `z` suffix instructs Docker that you intend to share the mounted volume with other containers, and in doing so, Docker applies a shared content label. Alternatively if you provide the `Z` suffix, Docker applies a private unshared label, which means only the current container can use the mounted volume. Further details can be found at the [dockervolumes documentation](https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels). This is something to keep in mind if you are using LSM and have a process inside your container that is unable to use the mounted data.  
+    Labelling systems such as [Linux Security Modules (LSM)](#vps-identify-risks-docker-docker-host-engine-and-containers-linux-security-modules) require that the contents of a volume mounted into a container be [labelled](https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels). This can be done by adding the `z` (as seen in above example) or `Z` suffix to the volume mount. The `z` suffix instructs Docker to share the mounted volume with other containers, and in so doing, Docker applies a shared content label. Alternatively, if you provide the `Z` suffix, Docker applies a private unshared label, which means only the current container can use the mounted volume. Further details can be found at the [dockervolumes documentation](https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels). This is something to keep in mind if you are using LSM, and have a process inside your container that is unable to use the mounted data.  
     `--volumes-from` allows you to specify a data volume from another container.
     
     You can also [mount](https://linux.die.net/man/8/mount) your Docker container mounts on the host by doing the following:
@@ -1326,11 +1326,11 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
     
     `PID` namespaces are [hierarchically nested](https://lwn.net/Articles/531419/) in ancestor-descendant relationships to a depth of up to 32 levels. All `PID` namespaces have a parent namespace, other than the initial root `PID` namespace of the host system. That parent namespace is the `PID` namespace of the process that created the child namespace.
     
-    Within a `PID` namespace, it is possible to access (make system calls to specific `PID`s) all other processes in the same namespace, as well as all processes of descendant namespaces, however processes in a child `PID` namespace cannot see processes that exist in the parent `PID` namespace or further removed ancestor namespaces. The direction any process can access another process in an ancestor/descendant `PID` namespace is one way.
+    Within a `PID` namespace, it is possible to access (make system calls to specific `PID`s) all other processes in the same namespace, as well as all processes of descendant namespaces. However, processes in a child `PID` namespace cannot see processes that exist in the parent `PID` namespace or further removed ancestor namespaces. The direction any process can access another process in an ancestor/descendant `PID` namespace is one way.
     
     Processes in different `PID` namespaces can have the same `PID`, because the `PID` namespace isolates the `PID` number space from other `PID` namespaces.
     
-    Docker takes advantage of `PID` namespaces. Just as you would expect, a Docker container can not access the host system processes, and process ids that are used in the host system can be reused in the container, including `PID` 1, by being reassigned to a process started within the container. The host system can however access all processes within its containers, because as stated above, `PID` namespaces are hierarchically nested in parent-child relationships, so processes in the hosts `PID` namespace can access all processes in their own namespace down to the `PID` namespace that was responsible for starting the process, that is the process within the container in our case.
+    Docker takes advantage of `PID` namespaces. Just as you would expect, a Docker container can not access the host system processes, and process Ids that are used in the host system can be reused in the container, including `PID` 1, by being reassigned to a process started within the container. The host system can however access all processes within its containers, because as stated above, `PID` namespaces are hierarchically nested in parent-child relationships. Processes in the hosts `PID` namespace can access all processes in their own namespace down to the `PID` namespace that was responsible for starting the process, such as the process within the container in our case.
     
     The default behaviour can however be overridden to allow a container to be able to access processes within a sibling container, or the hosts `PID` namespace. [Example](https://docs.docker.com/engine/reference/run/#pid-settings---pid):
     
@@ -1355,13 +1355,13 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
         docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]
         docker container unpause myContainer [mySecondContainer...]
     
-3. `net`: (Networking) Provides network isolation by managing the network stack and interfaces. Also essential to allow containers to communicate with the host system and other containers. Network namespaces were introduced into the kernel in 2.6.24, January 2008, with an additional year of development they were considered largely done. The only real concern here is understanding the Docker network modes and communication between containers. This is discussed in the Countermeasures.  
+3. `net`: (Networking) Provides network isolation by managing the network stack and interfaces. It's also essential to allow containers to communicate with the host system and other containers. Network namespaces were introduced into the kernel in 2.6.24, January 2008, with an additional year of development they were considered largely done. The only real concern here is understanding the Docker network modes and communication between containers. This is discussed in the Countermeasures.  
       
 4. `UTS`: (Unix Timesharing System) Provides isolation of kernel and version identifiers.  
     
     UTS is the sharing of a computing resource with many users, a concept introduced in the 1960s/1970s.
     
-    A UTS namespace is the set of identifiers [returned by `uname`](http://man7.org/linux/man-pages/man2/clone.2.html), which include the hostname and the [NIS](#vps-identify-risks-unnecessary-and-vulnerable-services-nis) domainname. Any processes which are not children of the process that requested the clone will not be able to see any changes made to the identifiers of the UTS namespace.
+    A UTS namespace is the set of identifiers [returned by `uname`](http://man7.org/linux/man-pages/man2/clone.2.html), which include the hostname and the [NIS](#vps-identify-risks-unnecessary-and-vulnerable-services-nis) domain name. Any processes which are not children of the process that requested the clone will not be able to see any changes made to the identifiers of the UTS namespace.
     
     If the `CLONE_NEWUTS` constant is set, then the process being created will be created in a new UTS namespace with the hostname and NIS domain name copied and able to be modified independently from the UTS namespace of the calling process.
     
@@ -1377,7 +1377,7 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
     
     Although sharing memory segments between processes provide Inter-Process Communications at memory speed, rather than through pipes or worse, the network stack, this produces a significant security concern.
     
-    By default a container does not share the hosts or any other containers IPC namespace. This behaviour can be overridden to allow a (any) container to reuse another containers or the hosts message queues, semaphores, and shared memory via their IPC namespace. [Example](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc):
+    By default a container does not share the host's or any other container's IPC namespace. This behaviour can be overridden to allow a (any) container to reuse another container's or the host's message queues, semaphores, and shared memory via their IPC namespace. [Example](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc):
     
     {title="Syntax", linenos=off, lang=bash}
         # Allows a container to reuse another container's IPC namespace.
@@ -1401,7 +1401,7 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
         609d193403032a49481099b1fc53037fb5352ae148c58c362ab0a020f473c040
         d68ecd6ce69b89253f7ab14de23c9335acaca64d210280590731ce1fcf7a7556
     
-    Now you can see using the command supplied from the [CIS_Docker_1.13.0_Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) that `container-consumer` is using the IPC namespace of `container-producer`:
+    You can see from using the command supplied by the [CIS_Docker_1.13.0_Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) that `container-consumer` is using the IPC namespace of `container-producer`:
     
     {title="Query", linenos=off, lang=bash}
         docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: IpcMode={{ .HostConfig.IpcMode }}'
@@ -1412,89 +1412,86 @@ Docker leverage's the Linux (kernel) namespaces which provide an isolated worksp
     
     When the last process in an IPC namespace terminates, the namespace will be destroyed along with all IPC objects in the namespace.  
     
-6. `user`: Not enabled by default. Allows a process within a container to have a unique range of user and group Ids within the container, known as the subordinate user and group Id feature in the Linux kernel, that do not map to the same user and group Ids of the host, container users to host users are remapped. So for example, if a user within a container is root, which it is by default unless a specific user is defined in the image hierarchy, it will be mapped to a non-privileged user on the host system.  
+6. `user`: Not enabled by default. Allows a process within a container to have a unique range of user and group Ids within the container, known as the subordinate user and group Id feature in the Linux kernel. These do not map to the same user and group Ids of the host, container users to host users are remapped. For example, if a user within a container is root, which it is by default unless a specific user is defined in the image hierarchy, it will be mapped to a non-privileged user on the host system.  
 Docker considers user namespaces to be an advanced feature. There are currently some Docker features that are [incompatible](https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions) with using user namespaces, and according to the [CIS Docker 1.13.0 Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf), functionalities that are broken if user namespaces are used. the [Docker engine reference](https://docs.docker.com/engine/reference/commandline/dockerd/#/user-namespace-known-restrictions) provides additional details around known restrictions of user namespaces.  
-If your containers have a predefined non root user, then currently user namespaces should not be enabled, due to possible unpredictable issues and complexities according to "2.8 Enable user namespace support" of the [CIS Docker Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf).  
-The main problem, is that these mappings are performed on the Docker daemon rather than at a per-container level, so it is an all or nothing approach, this may change in the future though.  
+If your containers have a predefined non-root user, then, currently, user namespaces should not be enabled, due to possible unpredictable issues and complexities, according to "2.8 Enable user namespace support" of the [CIS Docker Benchmark](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf).  
+The problem is that these mappings are performed on the Docker daemon rather than at a per-container level, so it is an all or nothing approach. This may change in the future though.  
 As mentioned, user namespace support is available, but not enabled by default in the Docker daemon.
 
 ##### Control Groups
 
-When a container is started with `docker run` without specifying a cgroup parent, as well as creating the namespaces discussed above, Docker also creates a Control Group (or cgroup) with a set of system resource hierarchies, nested under the default parent `docker` cgroup, also created at container runtime if not already present. You can see how this hierarchy looks in the `/sys/fs/cgroup` pseudo-filesystem in the [Countermeasures](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups-sys-fs-cgroup) section. Cgroups have been available in the Linux kernel since [January 2008 (2.6.24)](https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3), and have continued to be improved. Cgroups track, provide the ability to monitor, and configure fine-grained limitations on how much of any resource a set of processes, or in the case of Docker or pure LXC, any given container can use, such as CPU, memory, disk I/O, and network. Many aspects of these resources can be controlled, but by default, any given container can use all of the systems resources, allowing potential DoS.
+When a container is started with `docker run` without specifying a cgroup parent, as well as creating the namespaces discussed above, Docker also creates a Control Group (or cgroup) with a set of system resource hierarchies, nested under the default parent `docker` cgroup, also created at container runtime, if not already present. You can see how this hierarchy looks in the `/sys/fs/cgroup` pseudo-filesystem in the [Countermeasures](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups-sys-fs-cgroup) section. Cgroups have been available in the Linux kernel since [January 2008 (2.6.24)](https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3), and continue to improve. Cgroups track, provide the ability to monitor, and configure, fine-grained limitations on how much of any resource a set of processes, or in the case of Docker or pure LXC, any given container can use, such as CPU, memory, disk I/O, and network. Many aspects of these resources can be controlled, but by default, any given container can use all of the system's resources, allowing potential DoS.
 
 **Fork Bomb from Container**
 
-If an attacker gains access to a container or in a multi-tenanted scenario where being able to run a container by an arbitrary entity is expected, by default, there is nothing stopping a fork bomb  
+If an attacker gains access to a container, or, in a multi-tenanted scenario where being able to run a container by an arbitrary entity is expected, by default, there is nothing stopping a fork bomb  
 `:(){:|:&};:`  
-launched in a container from bringing the host system down. This is because by default there is no limit to the number of processes a container can run.
+launched in a container from bringing the host system down. This is because, by default, there is no limit to the number of processes a container can run.
 
 ##### Capabilities
 
-According to the Linux [man page for capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html), "_Linux divides the privileges traditionally associated with superuser into distinct units, known as capabilities, which can be independently enabled and disabled_" this is on a per thread basis. So root with all capabilities has privileges to do everything. According to the man page, there are currently 38 capabilities.
+According to the Linux [man page for capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html), "_Linux divides the privileges traditionally associated with superuser into distinct units, known as capabilities, which can be independently enabled and disabled_". This is on a per thread basis. Root, with all capabilities, has privileges to do everything. According to the man page, there are currently 38 capabilities.
 
-By default, the following capabilities are available to the default user of root within a container, check the man page for the full descriptions of the capabilities. The very knowledgeable Dan Walsh who is one of the experts when it comes to applying least privilege to containers, also [discusses these](http://rhelblog.redhat.com/2016/10/17/secure-your-containers-with-this-one-weird-trick/): `chown`, `dac_override`, `fowner`, `fsetid`, `kill`, `setgid`, `setuid`, `setpcap`, `net_bind_service`, `net_raw`, `sys_chroot`, `mknod`, `audit_write`, `setfcap`. `net_bind_service` for example allows the superuser to bind a socket to a privileged port <1024 if enabled. The Open Container Initiative (OCI) [runC specification](https://github.com/opencontainers/runc/tree/6c22e77604689db8725fa866f0f2ec0b3e8c3a07#running-containers) is considerably more restrictive only enabling three capabilities: `audit_write`, `kill`, `net_bind_service`
+By default, the following capabilities are available to the default user of root within a container, check the man page for the full descriptions of the capabilities. The very knowledgeable Dan Walsh, who is one of the experts when it comes to applying least privilege to containers, also [discusses these](http://rhelblog.redhat.com/2016/10/17/secure-your-containers-with-this-one-weird-trick/): `chown`, `dac_override`, `fowner`, `fsetid`, `kill`, `setgid`, `setuid`, `setpcap`, `net_bind_service`, `net_raw`, `sys_chroot`, `mknod`, `audit_write`, `setfcap`. `net_bind_service` for example allows the superuser to bind a socket to a privileged port <1024 if enabled. The Open Container Initiative (OCI) [runC specification](https://github.com/opencontainers/runc/tree/6c22e77604689db8725fa866f0f2ec0b3e8c3a07#running-containers) is considerably more restrictive, only enabling three capabilities: `audit_write`, `kill`, `net_bind_service`
 
 As stated on the Docker Engine [security page](https://docs.docker.com/engine/security/security/): "_One primary risk with running Docker containers is that the default set of capabilities and mounts given to a container may provide incomplete isolation, either independently, or when used in combination with kernel vulnerabilities._"
 
 ##### Linux Security Modules (LSM) {#vps-identify-risks-docker-docker-host-engine-and-containers-linux-security-modules}
 
-A little history to start with: In the early 1990s, Linux was developed as a clone of the Unix Operating system. The core Unix security model which is a form of [Discretionary Access Control](https://en.wikipedia.org/wiki/Discretionary_access_control) (DAC) was inherited by Linux. I have provided a glimpse of some of the Linux kernel security features that have been developed since the inception of Linux. The Unix DAC remains at the core of Linux. The Unix DAC allows a subject and/or group of an identity to set the security policy for a specific object, the canonical example being a file, and having a user set the different permissions on who can do what with it. The Unix DAC was [designed in 1969](https://www.linux.com/learn/overview-linux-kernel-security-features), and a lot has changed since then.
+A little history to start with: In the early 1990s, Linux was developed as a clone of the Unix Operating system. The core Unix security model, which is a form of [Discretionary Access Control](https://en.wikipedia.org/wiki/Discretionary_access_control) (DAC), was inherited by Linux. I have provided a glimpse of some of the Linux kernel security features that have been developed since the inception of Linux. The Unix DAC remains at the core of Linux. The Unix DAC allows a subject and/or the group of an identity to set the security policy for a specific object. The canonical example is a file, and having a user set the different permissions on who can do what with it. The Unix DAC was [designed in 1969](https://www.linux.com/learn/overview-linux-kernel-security-features), and a lot has changed since then.
  
-Capabilities may or not be to course grained, get an understanding of both capabilities and Linux Security Modules (LSMs). Many of the DACs can be circumvented by users. Finer grained control is often required along with Mandatory Access Control (MAC).
+Capabilities vary in granularity, attain an understanding of both capabilities and Linux Security Modules (LSMs). Many of the DACs can be circumvented by users. Finer grained control is often required along with Mandatory Access Control (MAC).
 
 ##### SecComp {#vps-identify-risks-docker-docker-engine-and-containers-seccomp}
 
-Secure Computing Mode (SecComp) is a security facility that reduces the attack surface of the Linux kernel by reducing the number of System calls that can be made by a process. Any System calls made by the process outside of the defined set will cause the kernel to terminate the process with `SIGKILL`. By doing this, the SecComp facility stops a process from accessing the kernel APIs via System calls.
+Secure Computing Mode (SecComp) is a security facility that reduces the attack surface of the Linux kernel by reducing the number of System calls that can be made by a process. Any System calls made by the process, outside of the defined set, will cause the kernel to terminate the process with `SIGKILL`. In so doing, the SecComp facility stops a process from accessing the kernel APIs via System calls.
 
-The first version of SecComp was merged into the Linux kernel mainline in [version 2.6.12 (March 8 2005)](https://git.kernel.org/cgit/linux/kernel/git/tglx/history.git/commit/?id=d949d0ec9c601f2b148bed3cdb5f87c052968554). If enabled for a given process, only four System calls could be made: `read()`, `write()`, `exit()`, and `sigreturn()`, thus significantly reducing the kernels attack surface.
+The first version of SecComp was merged into the Linux kernel mainline in [version 2.6.12 (March 8 2005)](https://git.kernel.org/cgit/linux/kernel/git/tglx/history.git/commit/?id=d949d0ec9c601f2b148bed3cdb5f87c052968554). If enabled for a given process, only four System calls could be made: `read()`, `write()`, `exit()`, and `sigreturn()`, thus significantly reducing the kernel's attack surface.
 
 In order to enable SecComp for a given process, [you would write](https://lwn.net/Articles/656307/) a `1` to `/proc/<PID>/seccomp`. This would cause the one-way transition into the restrictive state.
 
-There has been a few revisions, since 2005, like with the "seccomp filter mode" being added, which allowed processes to specify which System calls were allowed. Then the addition of the `seccomp()` System call in 2014 to the kernel version 3.17. [Along with popular applications](https://en.wikipedia.org/wiki/Seccomp) such as Chrome/Chromium, OpenSSH, Docker uses SecComp to reduce the attack surface on the kernel APIs.
+There have been a few revisions since 2005, such as the addition of "seccomp filter mode", which allowed processes to specify which System calls are allowed. There was also the addition of the `seccomp()` System call in 2014 to kernel version 3.17. [Like other popular applications](https://en.wikipedia.org/wiki/Seccomp) such as Chrome/Chromium and OpenSSH, Docker uses SecComp to reduce the attack surface on the kernel APIs.
 
-Docker has [disabled about 44 system calls](https://docs.docker.com/engine/security/seccomp/) in its default (seccomp) container profile ([default.json](https://github.com/docker/docker/blob/master/profiles/seccomp/default.json)) out of well over 300 available in the Linux kernel. Docker calls this "_moderately protective while providing wide application compatibility_". It appears that ease of use is the first priority. Again, plenty of opportunity here for reducing the attack surface on the kernel APIs, for example the `keyctl` System call was removed from the default Docker container profile after vulnerability [CVE-2016-0728](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2016-0728) was discovered, which allows privilege escalation or denial of service. [CVE-2014-3153](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-3153) is another vulnerability accessible from the `futex` System call which is white listed in the default Docker profile.
+Docker has [disabled about 44 system calls](https://docs.docker.com/engine/security/seccomp/) in its default (seccomp) container profile ([default.json](https://github.com/docker/docker/blob/master/profiles/seccomp/default.json)) out of well over 300 available in the Linux kernel. Docker calls this "_moderately protective while providing wide application compatibility_". It appears that ease of use is the first priority. Again, plenty of opportunity here for reducing the attack surface on the kernel APIs. For example, the `keyctl` System call was removed from the default Docker container profile after vulnerability [CVE-2016-0728](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2016-0728) was discovered, which allows privilege escalation or denial of service. [CVE-2014-3153](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-3153) is another vulnerability accessible from the `futex` System call which is white listed in the default Docker profile.
 
-If you are looking to attack the Linux kernel via its APIs from a Docker container, you have still got plenty of surface area here to play with.
+If you are looking to attack the Linux kernel via its APIs from a Docker container, you still have plenty of surface area here to play with.
 
 ##### Read-only Containers
 
-In order to set-up read-only hosts, physical or VM, there is a lot of work to be done, and in some cases, it becomes challenging to stop an Operating System writing to some files. Remember back to how much work was involved in [Partitioning on OS Installation](#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation) and [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions). In contrast, running Docker containers as read-only is trivial. Check the [Countermeasures](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-read-only-containers) section.
+In order to set up read-only hosts, physical or virtual, there is a lot of work to be done, and in some cases, it becomes challenging to stop an Operating System writing to some files. Recall how much work was involved in [Partitioning on OS Installation](#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation) and [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions). In contrast, running Docker containers as read-only is trivial. Check the [Countermeasures](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-read-only-containers) section.
 
 #### Application Security
 ![](images/ThreatTags/easy-common-easy-moderate.png)
 
-Application security is still our biggest weakness. I cover this in many other places, and especially in the [Web Applications](#web-applications) chapter.
+Application security is still our biggest weakness. I cover this in many other places, especially in the [Web Applications](#web-applications) chapter.
 
 ### Using Components with Known Vulnerabilities
 ![](images/ThreatTags/average-widespread-difficult-moderate.png)
 
-This is exactly what your attackers rely on you doing. Not upgrading out of date software. This is the same concept as discussed in the Web Applications chapter under "[Consuming Free and Open Source](#web-applications-identify-risks-consuming-free-and-open-source)". Just do not do it. Stay patched.
+This is exactly what your attackers rely on you doing: not upgrading out of date software. This is the same concept as discussed in the Web Applications chapter under "[Consuming Free and Open Source](#web-applications-identify-risks-consuming-free-and-open-source)". Just do not do it: stay patched!
 
 ### Lack of Backup
 ![](images/ThreatTags/difficult-common-veryeasy-moderate.png)
 
-There is not a lot to say here, other than make sure you do this. I have personally seen so many disasters that could have been avoided if timely / regular backups had of been implemented and tested routinely. I have seen many situations where backup schedules were in place, but they had not been tested for a period of time, and when it came time to use them, they were not available for various reasons. When your infrastructure gets owned, don't be the one that can not roll back to a good known state.
+There is not a lot to say here, other than make sure you do this. I have personally seen so many disasters that could have been avoided if timely / regular backups had been implemented and tested routinely. I have seen many situations where backup schedules were in place, but they had not been tested for a period of time, and when it came time to use them, they were not available for various reasons. When your infrastructure gets owned, don't be the one that can not roll back to a good known state.
 
 ### Lack of Firewall {#vps-identify-risks-lack-of-firewall}
 ![](images/ThreatTags/average-uncommon-veryeasy-moderate.png)
 
-Now this is addressed, because so many rely on firewalls to hide many weak areas of defence. The lack of a firewall if your services and communications between them are hardened does not have to be an issue, in-fact I see it as a goal many of us should have, as it forces us to build better layers of defence.
+So many rely on firewalls to hide many weak areas of defence. The lack of a firewall does not have to be an issue if your services and communications between them are hardened. In fact, I see it as a goal many of us should have, as it forces us to build better layers of defence.
 
 ## 3. SSM Countermeasures {#vps-countermeasures}
-
-Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
-
-The following resources are also worth reviewing:
 
 * MS Host Threats and Countermeasures:  
 [https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007)
 * MS Securing Your Web Server: [https://msdn.microsoft.com/en-us/library/ff648653.aspx](https://msdn.microsoft.com/en-us/library/ff648653.aspx) This is Microsoft specific, but does offer some insight into technology agnostic risks and countermeasures
-* MS Securing Your Application Server: [https://msdn.microsoft.com/en-us/library/ff648657.aspx](https://msdn.microsoft.com/en-us/library/ff648657.aspx) As above, Microsoft specific, but does provide some ideas for vendor agnostic concepts
+* MS Securing Your Application Server:  
+[https://msdn.microsoft.com/en-us/library/ff648657.aspx](https://msdn.microsoft.com/en-us/library/ff648657.aspx) As above, Microsoft specific, but does provide some ideas for vendor agnostic concepts
 
 ### Forfeit Control thus Security {#vps-countermeasures-forfeit-control-thus-security}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Bringing your VPS(s) in-house provides all the flexibility/power required to mitigate just about all the risks due to outsourcing to a cloud or hosting provider. How easy this will be is determined by how much you already have invested. Cloud offerings are often more expensive in monetary terms for medium to large environments, so as you grow, the cost benefits you may have gained due to quick development up-front will often become an anchor holding you back. Because you may have bought into their proprietary way of doing things, it now becomes costly to migrate, and your younger competitors which can turn quicker, out manoeuvre you. Platform as a Service and serverless technologies often appear even more attractive, but everything comes at a cost, cloud platforms may look good to start with, but often they are to good, and the costs will catch up with you. All that glitters is not gold.
+Bringing your VPS(s) in-house provides all the flexibility/power required to mitigate just about all the risks due to outsourcing to a cloud or hosting provider. How easy this will be is determined by how much you already have invested. Cloud offerings are often more expensive in monetary terms for medium to large environments, so as you grow, the cost benefits you may have gained due to quick development up-front will often become an anchor holding you back. Because you may have bought into a cloud or hosting provider's proprietary way of doing things, it now becomes costly to migrate, and your younger competitors, who can turn more quickly, out manoeuvre you. Platform as a Service (PaaS) and [serverless technologies](#cloud-identify-risks-serverless) (as discussed in the Cloud chapter) often appear even more attractive, but everything comes at a cost. Cloud platforms may look good to start with, but often they are too good, and the costs will catch up with you. All that glitters is not gold.
 
 ### Windows
 
@@ -1503,39 +1500,39 @@ Bringing your VPS(s) in-house provides all the flexibility/power required to mit
 
 Defence in depth will help here, the attacker should not be in possession of your admin passwords or hashes. If this has already happened, how did it happen? Take the necessary steps to make sure it does not happen again.
 
-Samba is not usually installed on Linux by default, but as we are dealing with Windows here, you do not have the option of whether SMB is installed and running on your machines.
+Samba is not usually installed on Linux by default, but as we are dealing with Windows here, SMB is installed and running on your machines.
 
 * Port scan your target machines
 * Close the SMB related ports 445 TCP, earlier OS's used 137, 138, 139
 * Port scan again to verify
 * Turn off public folder sharing
 
-Check the list of requirements for PsExec and turn of / disable what you can.
+Check the list of requirements for PsExec and turn off / disable what you can.
 
 Try and re-exploit with the provided directions in the [Identify Risks](#vps-identify-risks-psexec) section.
 
-Restrict administrative accounts as much as possible, especially network administrator accounts. All users should have the least amount of privilege necessary in order to do their jobs and elevate only when needed. This is why most Linux distributions use sudo.
+Restrict administrative accounts as much as possible, especially network administrator accounts. All users should have the least amount of privilege necessary in order to do their jobs, and elevate only when needed. This is why most Linux distributions use sudo.
 
 Consider multi-factor authentication methods for administrators.
 
-How exposed are administrators machines? Can they be put on a less exposed network segment? 
+How exposed are administrator's machines? Can they be put on a less exposed network segment? 
 
-In a Windows network, those that are the most likely to be exploited are administrators. Pay special attention to them and their machines. For example, if an attacker uses the `current_user_psexec` module, then once they have access to an administrators machine, traversal to other machines like Domain Controllers is trivial if the administrators current login context allows them to access the Domain Controller. Make sure the administrators are aware of this and that they only elevate privileges when it is required and not on their own machines.
+In a Windows network, those who are the most likely to be exploited are administrators. Pay special attention to them and their machines. For example, if an attacker uses the `current_user_psexec` module, then once they have access to an administrator's machine, traversal to other machines like Domain Controllers is trivial if the administrator's current login context allows them to access the Domain Controller. Make sure administrators are aware of this, and that they only elevate privileges when it is required, and not on their own machines.
 
-Network Intrusion Detection Systems ([NIDS](#network-countermeasures-lack-of-visibility-nids)) will more than likely not be able to detect the actual passing of the administrators credentials to the target system, because that is how the legitimate SysInternals PsExec behaves, but what a NIDS can be configured to watch for is what happens when the attackers payload executes, for example, it is not normally legitimate behaviour for reverse shells to be sent over the network. Host Intrusion Detection Systems ([HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids)) can of course detect the presence of additional and modified files, although these are less commonly run on desktop computers.
+Network Intrusion Detection Systems ([NIDS](#network-countermeasures-lack-of-visibility-nids)) will not be able to detect the actual passing of the administrator's credentials to the target system due to legitimate SysInternals PsExec behaviour, but a NIDS can be configured to watch for what happens when the attackers payload executes. For example, it is not normally legitimate behaviour for reverse shells to be sent over the network. Host Intrusion Detection Systems ([HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids)) can, of course, detect the presence of additional and modified files, although these are less commonly run on desktop computers.
 
 #### PowerShell Exploitation with Persistence {#vps-countermeasures-powershell-exploitation-with-persistence}
 ![](images/ThreatTags/PreventionDIFFICULT.png)
 
 Upgrade PowerShell to the latest version.
 
-As above, **NIDS can help** here, Often these attacks do not leave any files on the disk. Next Generation AV products are slowly coming to the market, such as those that use machine learning. Most of the products I have seen so far are very expensive though, this should change in time.
+As above, **NIDS can help** here. Often these attacks do not leave any files on the disk. Next-generation AV products are slowly coming to the market, such as those that use machine learning. Most of the products I have seen so far are very expensive though, this should change in time.
 
-**Deep Script Block Logging** can be enabled from PowerShell v5 onwards. This option tells PowerShell to record the content of all script blocks that it processes, we rely heavily on script blocks with PowerShell attacks. Script Block Logging includes recording of dynamic code generation and provides insight into all the script-based activity on the system, including scripts that are encoded to evade Anti-Virus, and understanding of observation from human eyes. Applies to any application that hosts PowerShell engine, CLI, ISE.
+**Deep Script Block Logging** can be enabled from PowerShell v5 onwards. This option tells PowerShell to record the content of all script blocks that it processes, we rely heavily on script blocks with PowerShell attacks. Script Block Logging includes recording of dynamic code generation and provides insight into all the script-based activity on the system, including scripts that are encoded to evade antimalware, and understanding of observation with human eyes. This applies to any application that hosts PowerShell engine, CLI, or ISE.
 
 [Script Block Logging records](https://www.fireeye.com/blog/threat-research/2016/02/greater_visibilityt.html) and logs the original obfuscated (XOR, Base64, encryption, etc) script, transcripts, and de-obfuscated code.
 
-Run gpedit.msc -> opens Local Group Policy Editor -> Administrative Templates -> Windows Components -> Windows PowerShell -> Turn On PowerShell Script Block Logging -> Check the "Enabled box". By default, each script block is only logged the first time it is run. You can also check the "Log script block invocation start / stop events" check box if you want to log start and stop events for every time any script block is invoked. The second option can produce very large amounts of log events though.
+Run gpedit.msc -> open Local Group Policy Editor -> Administrative Templates -> Windows Components -> Windows PowerShell -> Turn On PowerShell Script Block Logging -> Check the "Enabled box". By default, each script block is only logged the first time it is run. You can also check the "Log script block invocation start / stop events" check box if you want to log start and stop events for every time any script block is invoked. The second option can produce very large amounts of log events though.
 
 This setting may also be accessible from the registry:
 
@@ -1548,22 +1545,22 @@ or
 ### Minimise Attack Surface by Installing Only what you Need
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
-I am hoping this goes without saying, unless you are setting up a Windows server with "all the stuff" that you have little control over its hardening process, which is why I favour UNIX based servers. I/You have all the control, if anything goes wrong, it will usually be our own fault for missing or neglecting something. The less you have on your servers, the fewer servers you have, the smaller the network you have, the less employees you have, basically the smaller and lesser of everything you have, the less there is to compromise by an attacker and the quicker you can move.
+I am hoping this goes without saying, unless you are setting up a Windows server with "all the stuff", and you have little control over its hardening process. This is why I favour UNIX-based servers. I/You have all the control, if anything goes wrong, it will usually be our own fault for missing or neglecting something. The less exposure you have on your servers, the fewer servers you have, the smaller the network you have, the fewer employees you have (the less you have of everything), the less there is for an attacker to compromise, and the quicker you can move.
 
 ### Disable, Remove Services. Harden what is left {#vps-countermeasures-disable-remove-services-harden-what-is-left}
 
-Much of this section came from a web server I set-up, from install and through the hardening process.
+Much of this section came from a web server I set-up, from install through the hardening process.
 
-There are often a few services you can disable even on a bare bones Debian install and some that are just easier to remove. Then go through the process of hardening what is left. Make sure you test before and after each service you disable, remove or harden, watch the port being opened/closed, etc. Remember, the less you have, the less there is to be exploited.
+There are often a few services you can disable, even on a bare bones Debian install, and some that are just easier to remove. Then go through the process of hardening what is left. Make sure you test before and after each service you disable, remove or harden, watch the port being opened/closed, etc. Remember, the less you have, the less there is to be exploited.
 
 #### Partitioning on OS Installation {#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-By creating many partitions and applying the least privileges necessary to each in order to be useful, you are making it difficult for an attacker to carry out many malicious activities that they would otherwise be able to.
+By creating many partitions, and applying the least privileges necessary to each in order to be useful, you are making it difficult for an attacker to carry out many malicious activities that they would otherwise be able to.
 
-This is a similar concept to tightly constraining input fields to only be able to accept structured data (names (alpha only), dates, social security numbers, zip codes, email addresses, etc) rather than just leaving the input wide open to be able to enter any text as discussed in the Web Applications chapter under [What is Validation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation).
+This is a similar concept to tightly constraining input fields to only be able to accept structured data (names (alpha only), dates, social security numbers, zip codes, email addresses, etc) rather than leaving input wide open to the entry of any text, as discussed in the Web Applications chapter under [What is Validation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation).
 
-The way I'd usually set-up a web servers partitions is as follows. Delete all the current partitions and add the following. `/` was added to the start and the rest to the end, in the following order: `/`, `/var/log` (optional, but recommended), `/var/tmp` (optional, but recommended), `/var`, `/tmp`, `/opt`, `/usr/share` (optional, but recommended), `/usr`, `/home`, `swap`.
+The way I'd usually set-up a web server's partitions is as follows. Delete all the current partitions and add the following. `/` was added to the start and the rest to the end, in the following order: `/`, `/var/log` (optional, but recommended), `/var/tmp` (optional, but recommended), `/var`, `/tmp`, `/opt`, `/usr/share` (optional, but recommended), `/usr`, `/home`, `swap`.
 
 You will notice in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section, that I ended up adding additional partitions (mentioned in the previous paragraph) to apply finer grained control on directories often targeted by attackers. It is easier to add those partitions here, we will add options to them in the Lock Down section.
 
@@ -1584,7 +1581,7 @@ If you add the "optional, but recommended" partitions, then they may look more l
     /dev/sda11       95M  1.6M   87M   2% /var/tmp
     /dev/sda12      186M   39M  134M  23% /var/log
 
-The sizes should be set-up according to your needs. If you have plenty of RAM, make your `swap` small, if you have minimal RAM (barely (if) sufficient), you could double the RAM size for your `swap`. It is usually a good idea to think about what mount options you want to use for your specific directories. This may shape how you set-up your partitions. For example, you may want to have options `nosuid`,`noexec` on `/var` but you can’t because there are shell scripts in `/var/lib/dpkg/info` so you could set-up four partitions. `/var` without `nosuid`,`noexec` and `/var/tmp`, `/var/log`, `/var/account` with `nosuid`,`noexec`. Look ahead to the [Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section for more details, or just wait until you get to it.
+Partition sizes should be set-up according to your needs. If you have plenty of RAM, make your `swap` small, if you have minimal RAM (barely (if) sufficient), you could double the RAM size for your `swap`. It is usually a good idea to think about what mount options you want to use for your specific directories. This may shape how you set up your partitions. For example, you may want to have options `nosuid`,`noexec` on `/var` but you cannot because there are shell scripts in `/var/lib/dpkg/info`, so you could set-up four partitions: `/var` without `nosuid`,`noexec` and `/var/tmp`, `/var/log`, `/var/account` with `nosuid`,`noexec`. Look ahead to the [Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section for more details, or just wait until you get to it.
 
 You can think about changing `/opt` (static data) to mount read-only in the future as another security measure if you like.
 
@@ -4545,7 +4542,7 @@ As mentioned in the CIS\_Docker\_1.13.0\_Benchmark "_Sharing the UTS namespace w
         <existinguser>:100000:65536
         dockremap:165536:65536
     
-    There are rules around providing multiple range segments in the `/etc/subuid`, `/etc/subgid` files, but that is beyond the scope of what I am providing here. For those advanced scenario details, check out the [Docker engine reference](https://docs.docker.com/engine/reference/commandline/dockerd/#detailed-information-on-subuidsubgid-ranges). The simple scenario is that we use a single contiguous range like you see in the above example, this will cause Docker to map the hosts user and group ids to the container process using as much of the `165536:65536` range as necessary. So for example the hosts root user would be mapped to `165536`, the next host user would be mapped to container user `165537`, and so on until the 65536 possible ids are all mapped. Processes run as root inside the container are owned by the subordinate uid outside of the container.
+    There are rules around providing multiple range segments in the `/etc/subuid`, `/etc/subgid` files, but that is beyond the scope of what I am providing here. For those advanced scenario details, check out the [Docker engine reference](https://docs.docker.com/engine/reference/commandline/dockerd/#detailed-information-on-subuidsubgid-ranges). The simple scenario is that we use a single contiguous range like you see in the above example, this will cause Docker to map the hosts user and group Ids to the container process using as much of the `165536:65536` range as necessary. So for example the hosts root user would be mapped to `165536`, the next host user would be mapped to container user `165537`, and so on until the 65536 possible Ids are all mapped. Processes run as root inside the container are owned by the subordinate uid outside of the container.
     
     **Disabling user namespace for specific containers**
     
