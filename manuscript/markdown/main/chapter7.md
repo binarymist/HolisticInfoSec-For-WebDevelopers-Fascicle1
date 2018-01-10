@@ -2386,23 +2386,23 @@ There are further details specific to the `/etc/hosts.[deny & allow]` in the [NF
 {linenos=off, lang=Bash}
     dpkg-query -l '*exim*'
 
-This will probably show that Exim4 is currently installed.
+This will probably confirm that Exim4 is currently installed.
 
 If so, before exim4 is disabled, a `netstat -tlpn` will produce output similar to the following:
 
 ![](images/NetstatBeforeEximDisabled.png)
 
-Which shows that exim4 is listening on localhost and it is not publicly accessible. Nmap confirms this, but we do not need it, so lets disable it. You could also use the more modern ss program too. You may also notice `monit` and `nodejs` listening in these results. Both [`monit`](#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit) and our [`nodejs`](#vps-countermeasures-lack-of-visibility-proactive-monitoring-keep-nodejs-application-alive) application is set-up under the Proactive Monitoring section later in this chapter.
+This shows that exim4 is listening on localhost and it is not publicly accessible. Nmap confirms this, but we do not need it, so let's disable it. You could also use the more modern `ss` program too. You may also notice `monit` and `nodejs` listening in these results. Both [`monit`](#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit) and our [`nodejs`](#vps-countermeasures-lack-of-visibility-proactive-monitoring-keep-nodejs-application-alive) application is set up under the Proactive Monitoring section later in this chapter.
 
-When a [run level](https://www.debian-administration.org/article/212/An_introduction_to_run-levels) is entered, `init` executes the target files that start with `K`, with a single argument of stop, followed with the files that start with `S` with a single argument of start. So by renaming `/etc/rc2.d/S15exim4` to `/etc/rc2.d/K15exim4` you are causing `init` to run the service with the stop argument when it moves to run level 2. Just out of interest sake, the scripts at the end of the links with the lower numbers are executed before scripts at the end of links with the higher two digit numbers. Now go ahead and check the directories for run levels 3-5 as well, and do the same. You will notice that all the links in `/etc/rc0.d/` (which are the links executed on system halt) start with `K`. Is it making sense?
+When a [run level](https://www.debian-administration.org/article/212/An_introduction_to_run-levels) is entered, `init` executes the target files that start with `K`, with a single argument of stop, followed with the files that start with `S` with a single argument of start. By renaming `/etc/rc2.d/S15exim4` to `/etc/rc2.d/K15exim4` you are causing `init` to run the service with the stop argument when it moves to run level 2. The scripts at the end of the links with the lower numbers are executed before scripts at the end of links with the higher two digit numbers. Go ahead and check the directories for run levels 3-5 as well, and do the same. You will notice that all the links in `/etc/rc0.d/` (which are the links executed on system halt) start with `K`. Make sense?
 
 Follow up with another `sudo netstat -tlpn`:
 
 ![](images/NetstatAfterEximDisabled.png)
 
-And that is all we should see. If you don't have monit or node running, you won't see them either of course.
+This is all we should see. If you don't have monit or node running, you won't obviously see them either.
 
-Later on I started receiving errors from `apt-get update && upgrade`:
+Later, I received errors from `apt-get update && upgrade`:
 
 {linenos=off, lang=Bash}
     Setting up exim4-config (4.86.2-1) ...
@@ -2424,7 +2424,7 @@ Removing the following packages will solve that:
 #### Remove NIS
 ![](images/ThreatTags/PreventionEASY.png)
 
-If Network Information Service (NIS) or the replacement NIS+ is installed, ideally you will want to remove it. If you needed centralised authentication for multiple machines, you could set-up an LDAP server and configure PAM on your machines in order to contact the LDAP server for user authentication. If you are in the cloud, you could look at using the platforms directly service, such as [AWS Directory Service](https://aws.amazon.com/directoryservice/). We may have no need for distributed authentication on our web server at this stage.
+If Network Information Service (NIS), or its replacement NIS+ is installed, you will want to remove it. If you need centralised authentication for multiple machines, set up an LDAP server and configure PAM on your machines in order to contact the LDAP server for user authentication. If you are in the cloud, you could use the platform's directory service, such as [AWS Directory Service](https://aws.amazon.com/directoryservice/). We may have no need for distributed authentication on our web server at this stage.
 
 Check to see if NIS is installed by running the following command:
 
@@ -2433,12 +2433,12 @@ Check to see if NIS is installed by running the following command:
 
 Nis is not installed by default on a Debian web server, so in this case, we do not need to remove it.
 
-If the host you were hardening had the role of a file server and was running NFS, and you need directory services, then you may need something like Kerberos and/or LDAP. There is plenty of documentation and tutorials on Kerberos and LDAP and replacing NIS with them.
+If the host you are hardening is a file server, running NFS, and you need directory services, then you may need Kerberos and/or LDAP. There is plenty of documentation and tutorials on Kerberos and LDAP and replacing NIS with them.
 
 #### Rpcbind {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind}
 ![](images/ThreatTags/PreventionEASY.png)
 
-One of the [differences](https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.halx001/portmap.htm) between the now deprecated [`portmap`](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpc-portmapper) service and `rpcbind` is that `portmap` returns port numbers of the server programs and rpcbind returns universal addresses. This contact detail is then used by the RPC client to know where to send its packets. In the case of a web server we have no need for this.
+One of the [differences](https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.halx001/portmap.htm) between the now deprecated [`portmap`](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpc-portmapper) service and `rpcbind` is that `portmap` returns port numbers of the server programs while rpcbind returns universal addresses. This contact detail is then used by the RPC client to know where to send its packets. In the case of a web server we have no need for this.
 
 Spin up Nmap:
 
@@ -2447,7 +2447,7 @@ Spin up Nmap:
 
 ![](images/RemoveRpcBind.png)
 
-Because I was using a non default port for SSH, nmap does not announce it correctly, although as shown in the Process and Practises chapter in the Penetration Testing section of Fascicle 0, using service fingerprinting techniques, it is usually easy to find out what is bound to the port. Tools like [Unhide](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-unhide) will also show you hidden processes bound to hidden ports.
+Because I was using a non-default port for SSH, nmap didn't announce it correctly, although as shown in the Process and Practises chapter in the Penetration Testing section of Fascicle 0, using service fingerprinting techniques, it is usually easy to find out what is bound to the port. Tools such as [Unhide](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-unhide) will also show you hidden processes bound to hidden ports.
 
 To obtain a list of currently running servers (determined by `LISTEN`) on our web server.
 
@@ -2459,17 +2459,17 @@ or
 {linenos=off, lang=Bash}
     sudo netstat -tlpn
 
-As per the previous netstat outputs, we see that `sunrpc` is listening on a port and was started by `rpcbind` with the PID of `1498`. Now Sun Remote Procedure Call is running on port `111` (The same port that `portmap` used to listen on). Netstat can tell you the port, but we have confirmed it with the nmap scan above. Rpcbind is used by NFS (as mentioned above, `rpcbind` is a dependency of nfs-common) and as we do not need or want our web server to be a NFS file server, we can get rid of the `rpcbind` package. If for what ever reason you do actually need the port mapper, then make sure you lock down which hosts/networks it will respond to by modifying the `/etc/hosts.deny` and `/etc/hosts.allow` as seen in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs).
+As per the previous netstat outputs, we see that `sunrpc` is listening on a port and was started by `rpcbind` with the PID of `1498`. Sun Remote Procedure Call is running on port `111` (the same port that `portmap` used to listen on). Netstat can tell you the port, but we have confirmed it with the nmap scan above. Rpcbind is used by NFS (as mentioned above, `rpcbind` is a dependency of nfs-common) and as we do not need or want our web server to be a NFS file server, we can remove the `rpcbind` package. If, for what ever reason you do actually need the port mapper, then make sure you lock down which hosts/networks it will respond to by modifying the `/etc/hosts.deny` and `/etc/hosts.allow` as seen in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs).
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*rpc*'
 
-Shows us that `rpcbind` is installed and gives us other details. Now if you have been following along with me and have made the `/usr` mount read only, some stuff will be left behind when we try to purge:
+This shows us that `rpcbind` is installed, and gives us other details. If you have been following along and have made the `/usr` mount read-only, some stuff will be left behind when we try to purge:
 
 {linenos=off, lang=Bash}
     sudo apt-get purge rpcbind
 
-Following are the outputs of interest. Now if you have your mounts set-up correctly, you will not see the following errors, if how ever you do see them, then you will need to spend some more time modifying your `/etc/fstab` as discussed above:
+Following are the outputs of interest. If you have your mounts set up correctly, you will not see the following errors, if however you do see them, then you will need to spend some more time modifying your `/etc/fstab` as discussed above:
 
 {linenos=off, lang=Bash}
     The following packages will be REMOVED:
@@ -2494,9 +2494,9 @@ If you received the above errors, ran the following command again:
 {linenos=off, lang=Bash}
     dpkg-query -l '*rpc*'
 
-Which would yield a result of `pH`, that is a desired action of (p)urge and a package status of (H)alf-installed, and want to continue the removal of `rpcbind`, try the `purge`, `dpkg-query` and `netstat` command again to make sure `rpcbind` is gone and of course no longer listening.
+This yields a result of `pH`, that is a desired action of (p)urge and a package status of (H)alf-installed, continue the removal of `rpcbind`, try the `purge`, `dpkg-query` and `netstat` command again to make sure `rpcbind` is gone and of course no longer listening.
 
-Also you can remove unused dependencies now, after you get the following message:
+You can also remove unused dependencies now, after you receive the following message:
 
 {linenos=off, lang=Bash}
     The following packages were automatically installed and are no longer required:
@@ -2508,11 +2508,11 @@ Also you can remove unused dependencies now, after you get the following message
  {linenos=off, lang=Bash}
     sudo apt-get -s autoremove
 
-Because I want to simulate what is going to be removed because I am paranoid and have made stupid mistakes with autoremove years ago, and that pain has stuck with me ever since. I auto-removed a meta-package which depended on many other packages. A subsequent autoremove for packages that had a sole dependency on the meta-package meant they would be removed. Yes it was a painful experience. `/var/log/apt/history.log` has your recent apt history. I used this to piece back together my system.
+I always want to simulate what is going to be removed because I am paranoid and have made stupid mistakes with autoremove years ago, and that pain has stuck with me ever since. I once auto-removed a meta-package which depended on many other packages. A subsequent autoremove for packages that had a sole dependency on the meta-package meant they would be removed. Yes, it was a painful experience. `/var/log/apt/history.log` has your recent apt history. I used this to piece back together my system.
 
-Then follow up with the real thing… Just remove the `-s` and run it again. Just remember, the less packages your system has the less code there is for an attacker to exploit.
+Then follow up with the real thing: remove the `-s` and run it again. Just remember, the less packages your system has, the less code there is for an attacker to exploit.
 
-The port mapper should never be visible from a hostile network, especially the internet. The same goes for all RPC servers due to reflected and often amplified DoS attacks.
+The port mapper should never be visible from a hostile network, especially the Internet. The same goes for all RPC servers due to reflected and often amplified DoS attacks.
 
 You can also stop `rpcbind` responses by modifying the two below hosts files like so: 
 
@@ -2522,9 +2522,9 @@ You can also stop `rpcbind` responses by modifying the two below hosts files lik
 {title="/etc/hosts.deny", linenos=off, lang=Bash}
     rpcbind : ALL
 
-The above changes to the two hosts files would be effective immediately. A restart of the port mapper would not be required in this case.
+The above changes to the two hosts files are effective immediately. A restart of the port mapper would not be required in this case.
 
-There are further details around the `/etc/hosts.[deny & allow]` files in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs) that will help you fine tune which hosts and networks should be permitted to query and receive response from the port mapper. Be sure to check them out if you are going to retain the port mapper, so you do not become a victim of a reflected amplified DoS attack, and that you keep any RPC servers that you may need exposed to your internal clients. You can test this by running the same command that we did in the [Identify Risks](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap-rpcinfo-t) section.
+There are further details specific to the `/etc/hosts.[deny & allow]` files in the [NFS section](#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs) that will help you fine tune which hosts and networks should be permitted to query and receive response from the port mapper. Be sure to check them out if you are going to retain the port mapper, so you do not become a victim of a reflected amplified DoS attack, while keeping any RPC servers that you may need exposed to your internal clients. You can test this by running the same command that we did in the [Identify Risks](#vps-identify-risks-unnecessary-and-vulnerable-services-portmap-rpcinfo-t) section.
 
 {title="rpcinfo", linenos=off, lang=bash}
     rpcinfo -T udp <target host> 
@@ -2544,7 +2544,7 @@ You will notice in the response as recorded by Wireshark, that the length is now
 #### Remove Telnet {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-telnet}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Do not use Telnet for your own systems, SSH provides encrypted shell access and was designed to replace Telnet. Use it instead, there are also many ways you can [harden SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-hardening-ssh).
+Do not use Telnet for your systems, SSH provides encrypted shell access and was designed to replace Telnet. Use SSH instead, there are also many ways you can [harden SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-hardening-ssh).
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*telnet*'
@@ -2562,7 +2562,7 @@ Telnet gone?
 #### Remove FTP {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-ftp}
 ![](images/ThreatTags/PreventionEASY.png)
 
-I do not believe there is any place to use FTP, even on a network that you think is safe. The first problem here, if you are still thinking like this, is that the network you think may be safe is a perfect place for someone to exploit, this stems from the Fortress Mentality, as discussed in the Physical and Network chapters.
+There is no place for FTP, even on a secure network. The problem is that the network you think may be safe remains a perfect place for exploitation, per the Fortress Mentality, as discussed in the Physical and Network chapters.
 
 {linenos=off, lang=Bash}
     dpkg-query -l '*ftp*'
@@ -2577,57 +2577,57 @@ Ftp gone?
 {linenos=off, lang=Bash}
     dpkg-query -l '*ftp*'
 
-Let us take a look at FTPS, SFTP and SCP
+Let's take a look at FTPS, SFTP and SCP
 
 **FTPS is FTP over TLS with some issues**
 
-There were two separate methods to invoke FTPS client security, defined by which port they initiate communications with:
+There are two separate methods to invoke FTPS client security, defined by which port they initiate communications with:
 
 1. Implicit   
    The client is expected to immediately challenge the FTPS server with a TLS `ClientHello` message before any other FTP commands are sent by the client. If the FTPS server does not receive the initial TLS `ClientHello` message first, the server should drop the connection.  
    
    Implicit also requires that all communications of the FTP session be encrypted.  
    
-   In order to maintain compatibility with existing FTP clients, implicit FTPS was expected to also listen on the command / control channel using port 990/TCP, and the data channel using port 989/TCP. This left port 21/TCP for legacy no encryption communication. Using port 990 implicitly implied encryption was mandatory.  
+   In order to maintain compatibility with existing FTP clients, implicit FTPS is expected to also listen on the command / control channel using port 990/TCP, and the data channel using port 989/TCP. This leaves port 21/TCP for legacy unencrypted communication. Using port 990 implicitly implies encryption is mandatory.  
    
-   This is the earlier and mostly considered deprecated method.  
+   This is the earliest implementation and considered deprecated.  
    
 2. Explicit  
-   The client starts a conversation with the FTPS server on port 21/TCP and can then request to upgrade to using a mutually agreed encryption method. The FTPS server can also decide to allow the client to continue an unencrypted conversation or not. The client has to actually ask for the security upgrade.  
+   The client starts a conversation with the FTPS server on port 21/TCP and then requests an upgrade to a mutually agreed encryption method. The FTPS server can also decide to allow the client to continue an unencrypted conversation or not. The client has to ask for the security upgrade.  
    
    This method also allows the FTPS client to decide whether they want to encrypt nothing, encrypt just the command channel (which the credentials are sent over), or encrypt everything.
 
-So as you can see, it is quite conceivable that a user may become confused as to whether encryption is on, is not on, which channel it is applied to and not applied to. The user has to understand the differences between the two methods of invoking security, not invoking it at all, or only on one of the channels.
+As you can see, it is quite conceivable that a user may become confused as to whether encryption is on, is not on, which channel it is applied to, and not applied to. The user has to understand the differences between the two methods of invoking security, not invoking it at all, or only on one of the channels.
 
-One thing that you really do not want when it comes to privacy, is confusion. When it comes to SFTP or any protocol over SSH, everything is encrypted, simple as that.
+One thing that you really do not want, when it comes to privacy, is confusion. When it comes to SFTP or any protocol over SSH, everything is encrypted, simple as that.
 
-Similar to a web server serving HTTPS with a public key certificate, an FTPS server will also respond with its public key certificate (keeping its private key private). The public key certificate it responds with needs to be generated from a Certificate Authority (CA), whether it is one the server administrator has created (self signed) or a public "trusted" CA (often paid for), the CA (root) certificate must be copied and/or reside locally to the FTPS client. The checksum of the CA (root) certificate will need to be verified also.
+Similar to a web server serving HTTPS with a public key certificate, an FTPS server will also respond with its public key certificate (keeping its private key private). The public key certificate it responds with needs to be generated from a Certificate Authority (CA), whether it is one the server administrator has created (self signed), or a public "trusted" CA (often paid for). The CA (root) certificate must be copied and/or reside locally to the FTPS client. The checksum of the CA (root) certificate will need to be verified as well.
 
 If the FTPS client does not already have the CA (root) certificate when the user initiates a connection, the FTPS client should generate a warning due to the fact that the CA (root) certificate is not yet trusted.
 
-This process is quite complicated and convoluted as opposed to how FTP over SSH works.
+This process is quite complicated and convoluted, as opposed to FTP over SSH.
 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-ftp-sftp}
 **SFTP is FTP over SSH**
 
-As I have already detailed in the section [SSH Connection Procedure](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-ssh-connection-procedure), the SSH channel is first set-up, thus the client is already authenticated, and their identity is available to the FTP protocol or any protocol wishing to use the encrypted channel. The public key is securely copied from the client to the server out-of-band. If the configuration of SSH is carried out correctly and hardened as I detailed throughout the [SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) countermeasures section, the SFTP and any protocol for that matter over SSH has the potential for greater security than those using the Trusted Third Party (TTP) model, which X.509 certificates (utilised in FTPS, HTTPS, OpenVPN, not the [less secure IPSec](http://louwrentius.com/why-you-should-not-use-ipsec-for-vpn-connectivity.html)) rely on.
+As I have already detailed in the section [SSH Connection Procedure](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-ssh-connection-procedure), when the SSH channel is first set up, thus the client is already authenticated, and their identity is available to the FTP protocol or any protocol wishing to use the encrypted channel. The public key is securely copied from the client to the server out-of-band. If the configuration of SSH is carried out correctly and hardened as I detailed throughout the [SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) countermeasures section, the SFTP, and any protocol for that matter, over SSH has the potential for greater security than those using the Trusted Third Party (TTP) model, which X.509 certificates (utilised in FTPS, HTTPS, OpenVPN, not the [less secure IPSec](http://louwrentius.com/why-you-should-not-use-ipsec-for-vpn-connectivity.html)) rely on.
 
 Why is SSH capable of a higher level of security?
 
-With SSH, you copy the public key that you created on your client using `ssh-copy-id` to the server. There are no other parties involved. Even if the public key gets compromised, unless the attacker has the private key, which never leaves the client, they can not be authenticated to the server and they can not MItM your SSH session, as that would issue a warning due to the key fingerprint of the MItM no longer matching that in your `known_hosts` file. Even if an attacker managed to get near your private key, SSH will not run if the permissions of the `~/.ssh/` directory and files within are to permissive, so the user knows immediately anyway. Even then, if somehow the private key was compromised, the attacker still needs the pass-phrase. SSH is a perfect example of defence in depth.
+With SSH, you copy the public key that you created on your client using `ssh-copy-id` to the server. There are no other parties involved. Even if the public key is compromised, unless the attacker has the private key, which never leaves the client, they can not be authenticated to the server and they can not MItM your SSH session. A MItM attack would lead to a warning due to the key fingerprint of the MItM failing to match that in your `known_hosts` file. Even if an attacker managed to get close to your private key, SSH will not run if the permissions of the `~/.ssh/` directory, and files within, are set to permissive. Even then, if somehow the private key was compromised, the attacker still needs the passphrase. SSH is a perfect example of defence in depth.
 
-with X.509 certificates, you rely (trust) on the third party (the CA). When the third party is compromised (as this happens frequently), many things can go wrong, some of which are discussed in the [X.509 Certificate Revocation Evolution](#network-countermeasures-tls-downgrade-x509-cert-revocation-evolution) section of the Network chapter. The compromised CA can start issuing certificates to malicious entities. All that may be necessary at this point is for your attacker to [poison your ARP cache](#network-identify-risks-spoofing-arp) if you are relying on IP addresses, or do the same plus poison your DNS. This attack is detailed under the [Spoofing Website](#network-identify-risks-spoofing-website) section in the Network chapter, was demoed at WDCNZ 2015, and also links to a video.
+With X.509 certificates, you rely (trust) on the third party (the CA). When the third party is compromised (as happens frequently), many things can go wrong, some of which are discussed in the [X.509 Certificate Revocation Evolution](#network-countermeasures-tls-downgrade-x509-cert-revocation-evolution) section of the Network chapter. The compromised CA can start issuing certificates to malicious entities. All that may be necessary at this point is for your attacker to [poison your ARP cache](#network-identify-risks-spoofing-arp) if you are relying on IP addresses, or add DNS poisoning. This attack is detailed under the [Spoofing Website](#network-identify-risks-spoofing-website) section in the Network chapter, was demoed at WDCNZ 2015, and has video available.
 
-The CA root certificate must be removed from all clients and you will need to go through the process of creating / obtaining a new certificate with a (hopefully) non compromised CA. With SSH, you only have to trust yourself, and I have detailed what you need to know to make good decisions in the SSH section.
+The CA root certificate must be removed from all clients, and you will need to go through the process of creating/obtaining a new certificate with a CA that isn't compromised. With SSH, you only have to trust yourself, and I have detailed what you need to know to make good decisions in the SSH section.
 
 SSH not only offers excellent security, but is also extremely versatile.
 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-ftp-scp}
-[**SCP**](https://blog.binarymist.net/2012/03/25/copying-with-scp/) or Secure Copy leverage's the security of SSH, and provides simple copy to and from, so once you have SSH set-up and hardened, you are in good stead to be pulling and pushing files around your networks securely with SSH. The SFTP protocol provides remote file system like capabilities, such as remote file deletion, directory listings, resuming of interrupted transfers. If you do not require the additional features of (S)FTP, SCP may be a good option for you. Like SSH, SCP does not have native platform support on Windows, although Windows support is available, and easy enough to set-up, as I [have done many times](https://blog.binarymist.net/2011/12/27/openssh-from-linux-to-windows-7-via-tunneled-rdp/).
+[**SCP**](https://blog.binarymist.net/2012/03/25/copying-with-scp/), or Secure Copy, leverages the security of SSH, and provides simple copy to and from. Once you have SSH set-up and hardened, you are safe to pull and push files around your networks securely with SSH. The SFTP protocol provides remote file system capabilities, such as remote file deletion, directory listings, and resumption of interrupted transfers. If you do not require the additional features of (S)FTP, SCP may be a good option for you. Like SSH, SCP does not have native platform support on Windows, although Windows support is available, and easy enough to set up, as I [have done many times](https://blog.binarymist.net/2011/12/27/openssh-from-linux-to-windows-7-via-tunneled-rdp/).
 
-Any features that you may think missing by using SCP rather than SFTP are more than made up for simply by using SSH which in itself provides a complete remote Secure SHell and is very flexible as to how you can use it.
+Any features that you may think missing when using SCP rather than SFTP are more than made up for simply by using SSH, which in itself provides a complete remote Secure Shell, and is very flexible as to how you can use it.
 
-Another example is using [**Rsync over SSH**](https://blog.binarymist.net/2011/03/06/rsync-over-ssh-from-linux-workstation-to-freenas/), which is an excellent way to sync files between machines. Rsync will only copy the files that have been changed since the last sync, so this can be extremely quick
+Another example is the use of [**Rsync over SSH**](https://blog.binarymist.net/2011/03/06/rsync-over-ssh-from-linux-workstation-to-freenas/), which is an excellent way to sync files between machines. Rsync will only copy the files that have been changed since the last sync, so this can be extremely quick.
 
 {linenos=off, lang=Bash}
     # -a, --archive  is archive mode which actually includes -rlptgoD (no -H,-A,-X)
@@ -2641,12 +2641,12 @@ For Windows machines, I also run all of my **RDP sessions over SSH**, see my blo
     ssh -v -f -L 3391:localhost:3389 -N MyUserName@MyWindowsBox
     # Once the SSH channel is up, Your local RDP client just needs to talk to localhost:3391    
 
-So there is no reason to not have all of your inter-machine communications encrypted, whether they be on the internet, or on what you think is a trusted LAN. This is why firewalls are just another layer of defence and [nothing more](#vps-identify-risks-lack-of-firewall).
+There is no reason to not have all of your inter-machine communications encrypted, whether they be on the Internet, or on what you think is a trusted LAN. Remember, firewalls are just another layer of defence and [nothing more](#vps-identify-risks-lack-of-firewall).
 
 #### NFS {#vps-countermeasures-disable-remove-services-harden-what-is-left-nfs}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-You should not need NFS running on a web server. The packages required for the NFS server to be running are nfs-kernel-server, which has a dependency on nfs-common (common to server and clients), which also has a dependency of rpcbind.
+You should not need NFS running on a web server. The packages required for the NFS server are nfs-kernel-server, which has a dependency on nfs-common (common to server and clients), which also has a dependency of rpcbind.
 
 NFSv4 (December 2000) no longer requires the [portmap](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpc-portmapper) service. Rpcbind is the replacement.
 
@@ -2655,12 +2655,12 @@ Issue the following command to confirm that the NFS server is not installed:
 {linenos=off, lang=Bash}
     dpkg-query -l '*nfs*'
 
-This may show you that you have nfs-common installed, but ideally you do not want nfs-kernel-server installed. If it is you can just:
+This may show you that you have nfs-common installed, but ideally you do not want nfs-kernel-server installed. If it is, you can just:
 
 {linenos=off, lang=Bash}
     apt-get remove nfs-kernel-server
 
-If you do need NFS running for a file server, the usual files that will need some configuration will be the following:
+If you do need NFS running for a file server, the files that need configuration will be the following:
 
 * `/etc/exports` (Only file required to actually export your shares)
 * `/etc/hosts.allow`
@@ -2672,34 +2672,34 @@ The above `hosts.[allow | deny]` provide the accessibility options. You really n
 
 The [exports](https://linux.die.net/man/5/exports) man page has all the details (and some examples) you need, but I will cover some options here.
 
-In the below example `/dir/you/want/to/export` is the directory (and sub directories) that you want to share, this could also be an entire volume, but keeping these as small as possible is a good start.
+In the below example `/dir/you/want/to/export` is the directory (and sub directories) that you want to share. These could also be an entire volume, but keeping things as small as possible is a good start.
 
 {title="/etc/exports", linenos=off, lang=Bash}
     </dir/you/want/to/export>   machine1(option1,optionn) machine2(option1,optionn) machinen(option1,optionn)
 
-`machine1`, `machine2`, `machinen` are the machines that you want to have access to the spescified exported share. These can be specified as their DNS names or IP addresses, using IP addresses can be a little more secure and reliable than using DNS addresses. If using DNS, make sure the names are fully qualified domain names.
+`machine1`, `machine2`, `machinen` are the machines that you want to have access to the specified exported share. These can be specified as their DNS names or IP addresses, using IP addresses can be a little more secure and reliable than using DNS addresses. If using DNS, make sure the names are fully qualified domain names.
 
 Some of the more important options are:
 
 * `ro`: The client will not be able to write to the exported share (this is the default), and I do not use `rw` which allows the client to also write.
-* `root_squash`: This prevents remote root users that are connected from also having root privileges, assigning them the user ID of the `nfsnobody`, thus effectively "squashing" the power of the remote user to the lowest privileges possible on the server. Or even better, use `all_squash`.
+* `root_squash`: This prevents remote root users who are connected from also having root privileges, assigning them the user ID of the `nfsnobody`, thus effectively "squashing" the power of the remote user to the lowest privileges possible on the server. Even better, use `all_squash`.
 * From 1.1.0 of `nfs-utils` onwards, `no_subtree_check` is a default. `subtree_check` was the previous default, which would cause a routine to verify that files requested by the client were in the appropriate part of the volume. The `subtree_check` caused more issues than it solved.
 * `fsid`: is used to specify the file system that is exported, this could be a UUID, or the device number. NFSv4 clients have the ability to see all of the exports served by the NFSv4 server as a single file system. This is called the NFSv4 pseudo-file system. This pseudo-file system is identified as a [single, real file system](https://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-nfs-server-config-exports.html#id3077674), identified at export with the `fsid=0` option.
 * `anonuid` and `anongid` explicitly set the uid and gid of the anonymous account. This option makes all requests look like they come from a specific user. By default the uid and gid of 65534 is used by exportfs for squashed access. These two options allow us to override the uid and gid values.
 
-The following is one of the configs I have used on several occasions: 
+Following is one of the configs I have used on several occasions: 
 
 {title="/etc/exports", linenos=off, lang=Bash}
     # Allow read only access to all hosts within subnet to the /dir/you/want/to/export directory
     # as user nfsnobody.
     </dir/you/want/to/export>   10.10.0.0/24(ro,fsid=0,sync,root_squash,no_subtree_check,anonuid=65534,anongid=65534)
 
-Then on top of this sort of configuration, you need to make sure that the local server mounts are as restrictive as we set-up in the ["Lock Down the Mounting of Partitions"](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section, and also the file permissions for other, at the exported level recursively, are as restrictive as practical for you. Now we are starting to achieve a little defence in depth.
+In addition to this sort of configuration, you need to make sure that the local server mounts are as restrictive as we set up in the ["Lock Down the Mounting of Partitions"](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section. The file permissions for other, at the exported level recursively, should also be as restrictive as practical for you. Now we start to achieve a little defence in depth.
 
-Now if you have been following along with the NFS configuration because you are working on a file server rather than a web server, lets just take this a little further with some changes to `/etc/hosts.deny` and `/etc/hosts.allow`.  
-The access control language used in these two files is the same as each other, just that `hosts.deny` is consulted for which entities to deny to which services, and `hosts.allow` for which to allow for the same.
+If you have been following along with the NFS configuration, because you are working on a file server rather than a web server, let's take this further with some changes to `/etc/hosts.deny` and `/etc/hosts.allow`.  
+The access control language used in these two files is the same as each other, just that `hosts.deny` is consulted to deny access to services, and `hosts.allow` defines allows for the same.
 
-Each line of these two files specifies (in the simplest form) a single service or process and a set of hosts in numeric form (not DNS). In the more complex forms, _daemon@host_ and _user@host_.
+Each line of these two files specifies (in the simplest form) a single service or process and a set of hosts in numeric form (not DNS). In the more complex forms, you'll see _daemon@host_ and _user@host_.
 
 You can add `ALL:ALL` to your `hosts.deny`, but if you install a new service that uses these files, then you will be left wondering why it is not working. I prefer to be more explicit, but it is up to you.
 
@@ -2756,16 +2756,16 @@ Then run another `showmount` to audit your exports:
 
 &nbsp;
 
-A client communicates with the servers mount daemon. If the client is authorised, the mount daemon then provides the root file handle of the exported filesystem to the client, at which point the client can send packets referencing the file handle. Making correct guesses of valid file handles can often be easy. The file handles consist of:
+A client communicates with the server's mount daemon. If the client is authorised, the mount daemon then provides the root file handle of the exported filesystem to the client, at which point the client can send packets referencing the file handle. Making correct guesses of valid file handles can often be easy. The file handles consist of:
 
 1. A filesystem Id (visible in `/etc/fstab` usually world readable, or by running `blkid`).
 2. An inode number. For example, the `/` directory on the standard Unix filesystem has the inode number of 2, `/proc` is 1. You can see these with `ls -id <target dir>`
-3. A generation count, this value can be a little more fluid, although many inodes such as the `/` are not deleted very often, so the count remains small and reasonably guessable. Using a tool `istat` can provide these details if you want to have a play.
+3. A generation count, this value can be a little more fluid, although many inodes such as the `/` are not deleted very often, so the count remains small and reasonably guessable. Using a tool `istat` can provide these details if you want to have a go at it.
 
 Thus allowing a spoofing type of attack, which has been made more difficult by the following measures:
 
-1. Prior to NFS version 4, UDP could be used, making spoofed requests easier, which allowed an attacker to perform Create, Read, Update, Delete (CRUD) operations on the exported file system(s)
-2. By default `exportfs` is run with the `secure` option, requiring that requests originate from a privileged port (<1024). We can see with the following commands that this is the case, so whoever attempts to mount an export must be root.
+1. Prior to NFS version 4, UDP could be used (making spoofed requests easier) which allowed an attacker to perform Create, Read, Update, Delete (CRUD) operations on the exported file system(s)
+2. By default `exportfs` is run with the `secure` option, requiring that requests originate from a privileged port (<1024). We can see, with the following commands, that this is the case, so whoever attempts to mount an export must be root.
 
 {linenos=off, lang=bash}
     # From a client:
@@ -2781,11 +2781,11 @@ Or with the newer Socket Statistics:
     # Produces:
     tcp ESTAB 0 0 <nfs client host>:702 <nfs host>:2049
 
-Prior to this spoofing type vulnerability largely being mitigated, one option that was used was to randomise the generation number of every inode on the filesystem using a tool `fsirand`, which was available for some versions of Unix, although not Linux. This made guessing the generation number harder, thus mitigating these spoofing type of attacks. This would usually be scheduled to run say once a month.
+Prior to mitigations for this spoofing vulnerability, one option was to randomise the generation number of every inode on the filesystem using a tool `fsirand`, which was available for some versions of Unix, although not Linux. This made guessing the generation number harder, thus mitigating spoofing attacks. This would usually be scheduled to run once a month.
 
-`fsirand` would be run on the `/` directory while in single-user mode  
+Run `fsirand` on the `/` directory while in single-user mode  
 or  
-on un-mounted filesystems, run `fsck`, and if no errors were produced, run `fsirand`
+on un-mounted filesystems, run `fsck`, and if no errors are produced, run `fsirand`
 
 {linenos=off, lang=bash}
     umount <filesystem> # /dev/sda1 for example
