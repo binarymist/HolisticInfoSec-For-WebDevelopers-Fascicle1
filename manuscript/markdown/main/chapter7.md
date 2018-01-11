@@ -5038,7 +5038,7 @@ You may find some stage later on that a component that you removed is actually n
 
 #### Partitioning on OS Installation {#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-partitioning-on-os-installation}
 
-This process can sometimes lock things down to tightly. I would much rather go to far here and have to back things off a little, or get creative with a script to unmount, remount with less restrictions applied, perform the action you need, then mount again according to the `/etc/fstab`. This is similar to the [Mounting of Partitions](#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions) section below
+This process can sometimes lock things down too tightly. I would much rather go too far here and have to back things off a little. Perhaps you can get creative with a script to unmount, remount with less restrictions applied, perform the action you need, then mount again according to the `/etc/fstab`. This is similar to the [Mounting of Partitions](#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions) section below.
 
 #### Review Password Strategies
 
@@ -5052,7 +5052,7 @@ When you make configuration changes to SSH, it often pays to either have physica
 
 #### Disable Boot Options
 
-If you have to boot from an alternative medium such as a rescue CD, you may wonder why this does not work.
+If you have to boot from an alternative medium such as a rescue CD, you may wonder why this doesn't work.
 
 #### Mounting of Partitions {#vps-risks-that-solution-causes-disable-remove-services-harden-what-is-left-mounting-of-partitions}
 
@@ -5072,7 +5072,7 @@ You may be using NIS+. Make sure you are not before you disable it.
 
 #### Rpcbind
 
-As discussed in the [Countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) section, just make sure you have no need for Rpcbind before you remove it. Taking the slightly safer approach of just denying rpcbind responses in the `/etc/hosts.deny` is also an option.
+As discussed in the [Countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-rpcbind) section, just make sure you have no need for rpcbind before you remove it. Taking the slightly safer approach of just denying rpcbind responses in the `/etc/hosts.deny` is also an option.
 
 #### Telnet
 
@@ -5090,28 +5090,28 @@ Possible misconfiguration, make sure you test your configuration thoroughly afte
 
 Possibly false confidence in the tools that are supposed to provide visibility. Using a collecting of similar tools can be a good idea. The attacker only needs to miss one then.
 
-Of course any of the visibility providing tools can be replaced with trojanised replicas, unless you have a [Host Intrusion Detection System (HIDS)](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) running from a location that the attacker is not aware of, continually checking for the existence and validity of the core system components.
+Of course any of the visibility providing tools can be replaced with trojanised replicas, unless you have a [Host Intrusion Detection System (HIDS)](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) running from a location that the attacker is not aware of, and are continually checking for the existence and validity of the core system components.
 
 #### Logging and Alerting
 
 There are lots of options to choose from in this space.
 
-Logging and Alerting is never going to be a complete solution. There is risk that people think that one or two tools mean they are covered from every type of attack, this is never the case. A large array of diverse countermeasures is always going to be required to produce good visibility of your system(s). Even using multiple tools that do similar jobs but take different strategies on how they execute and in-fact from where they run.
+Logging and alerting is never going to be a complete solution. There is risk that people think that one or two tools mean they are covered from every type of attack, this is never the case. A large array of diverse countermeasures is always going to be required to produce good visibility of your system(s). You can even using multiple tools that do similar jobs but take different strategies on how they execute and from where they run.
 
 #### Web Server Log Management
 
-There are some complexities that you need to understand in order to create a water-tight and reliable off-site logging system. I discuss these in the Countermeasures section along with testing and verifying your logs are being transferred privately.
+There are some complexities that you need to understand in order to create a watertight and reliable off-site logging system. I discuss these in the Countermeasures section along with testing and verifying your logs are being transferred privately.
 
 #### Proactive Monitoring
 
-Over confidence in monitoring tools. For example an attacker could try and replace the configuration files for Monit or the Monit daemon itself, so the following sorts of tests would either not run or return tampered with results:
+There is the risk of over confidence in monitoring tools. For example, an attacker could try and replace the configuration files for Monit or the Monit daemon itself, so the following sorts of tests would either not run or return tampered results:
 
   * File checksum testing
   * File size testing
   * File content testing
   * Filesystem flags testing
 
-In saying that, if you have an agentless (running from somewhere else) file integrity checker or even several of them running on different machines and as part of their scope are checking Monit, then the attacker is going to have to find the agentless file integrity checker(s) and disable them also without being noticed. Especially as I disguised in regards to Stealth, that the recommendation was that the Monitor not accept any incoming connections, and be in a physically safe location. This is increasing the level of difficulty for an attacker significantly.
+In saying that, if you have an agentless (running from somewhere else) file integrity checker or even several of them running on different machines and as part of their scope are checking Monit, then the attacker is going to have to find the agentless file integrity checker(s) and disable them without being noticed. Especially as discussed in regards to Stealth, the recommendation is that the Monitor not accept any incoming connections, and be in a physically safe location. This is increasing the level of difficulty for an attacker significantly.
 
 You could and should also have NIDs running on your network which makes this even more likely that an attacker is going to step on a land mine.
 
@@ -5123,9 +5123,9 @@ There are new components introduced, which increases attack surface.
 
 The benefits far outweigh any risks here.
 
-Using a system like Stealth as your file integrity checker that resides on a server(s) [somewhere else](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth-what-i-like) that run against the target server, means an attacker will very often not realise that they are under observation if they can not see the observer running on the machine that they are on.
+Using a system like Stealth as your file integrity checker that resides on a server(s) [somewhere else](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth-what-i-like) that runs against the target server, means an attacker will very often not realise that they are under observation if they can not see the observer running on the machine that they have access to.
 
-This sort of strategy provides a false sense of self security for the attacker. In a way a similar concept to the honey pot. They may know about a tool operating on the server they are on and even have disabled it, but if you keep the defence in depth mentality, there is no reason that you can not have the upper hand without the attacker being aware of it.
+This sort of strategy provides a false sense of security for the attacker. In a way it's a similar concept to a honey pot. They may know about a tool operating on the server they are on and even have disabled it, but if you keep the defence in depth mentality, there is no reason that you can not have the upper hand without the attacker being aware of it.
 
 You can also take things further with honey pits and mirages, these are modules in code that actively produce answers designed to confuse and confound poking and prodding attackers. This can create perfect ambush and burn up the attackers time. Attackers have budgets too. The longer it takes an attacker to compromise your system(s), the more likely they are to start making mistakes and get caught.
 
@@ -5141,11 +5141,11 @@ Employing a LSM and learning its intricacies and how to configure it is a bit of
 
 ### Schedule Backups
 
-Relying on scheduled backups that do not exist or have in some way failed. Make sure you test your backups routinely. What you use to backup will obviously depend on where you are operating and what you are trying to backup. For example, if you are backing up Docker containers, just get those Dockerfiles in source control. If you are backing up VPSs locally, use your preferred infrastructure management tool, such as [Terraform](http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/). If you are in the cloud, your provider will almost certainly have a tool for this.
+There is risk in relying on scheduled backups that do not exist or have in some way failed. Make sure you test your backups routinely. What you use to backup will obviously depend on where you are operating and what you are trying to backup. For example, if you are backing up Docker containers, just get those Dockerfiles in source control. If you are backing up VPSs locally, use your preferred infrastructure management tool, such as [Terraform](http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/). If you are in the Cloud, your provider will almost certainly have a tool for this.
 
 ### Host Firewall
 
-Personally I prefer not to rely on firewalls, once you have removed any surplus services and hardened what is left, firewalls do not provide a lot of benefit. I recommend not relying on them, but instead making your system(s) hard enough so that you do not require a firewall. Then if you decide to add one, they will be just another layer of defence. Dependence on firewalls often produce a single point of failure and a false sense of security, as to much trust is placed in them to protect weak and vulnerable services and communications that should instead be hardened themselves.
+Personally, I prefer not to rely on firewalls, once you have removed any surplus services and hardened what is left, firewalls do not provide a lot of benefit. I recommend not relying on them, but instead making your system(s) hard enough so that you do not require a firewall. Then if you decide to add one, they will be just another layer of defence. Dependence on firewalls often produce a single point of failure and a false sense of security, as too much trust is placed in them to protect weak and vulnerable services and communications that should instead be hardened.
 
 ## 5. SSM Costs and Trade-offs {#vps-costs-and-trade-offs}
 
@@ -5159,14 +5159,14 @@ If you choose to go the default way now and rely on others for your compute, the
   * Platform as a Service (PaaS)
   * Serverless Technologies
   * Is it even possible to move to an on-premise solution?
-* What happens when your provider goes down, looses your data? Can you or your business survive without them or without the data they are hosting?
-* Do you have a strategy in place for the event that your provider(s) discontinue their service. How quickly can you migrate? Where would you migrate to? Will you be able to retrieve your data? Do you actually own your data?
+* What happens when your provider goes down, or loses your data? Can you or your business survive without them or without the data they are hosting?
+* Do you have a strategy in place for the event that your provider(s) discontinue their service? How quickly can you migrate? Where would you migrate to? Will you be able to retrieve your data? Do you actually own your data? I discuss these issues in the Cloud chapter in more depth
 * Do your providers have Service Level Agreements (SLAs) and have you tested them?
-* Fault tolerance, capacity management and scalability is often (not always) better with cloud providers
-* Do you back up your data and have you tested the restoration of it, or do you also out-source this? If so, have your tested the out-sourced providers data secrecy and recoverability? You will also have to do this regularly, just because a provider passes once, does not mean it always will. Providers consist of people to, and people make mistakes
-* Do you test your disaster recovery plan regularly? If you own your own infrastructure, you can get hands-on access, in the cloud this is usually impossible
+* Fault tolerance, capacity management and scalability is often (not always) better with Cloud providers
+* Do you back up your data and have you tested the restoration of it, or do you also out-source this? If so, have your tested the out-sourced providers data secrecy and recoverability? You will also have to do this regularly, just because a provider passes once, does not mean it always will. Providers consist of people too, and people make mistakes
+* Do you test your disaster recovery plan regularly? If you own your own infrastructure, you can get hands-on access, in the Cloud this is usually impossible
 * Do you have a strategy in place for when your accounts with your providers are locked out or hijacked by a malicious actor? Have you tested it? If you own your own infrastructure, you have far more control with this
-* Do you have security solutions in the cloud also, what happens if they become unavailable?
+* Do you have security solutions in the Cloud, and if so, what happens if they become unavailable?
 
 ### Windows
 
@@ -5176,7 +5176,7 @@ Work through the collection of [Countermeasure items](#vps-countermeasures-psexe
 
 #### PowerShell Exploitation with Persistence
 
-Personally I think the cost of next generation AV with machine learning is worth the investment.
+Personally, I think the cost of next generation AV with machine learning is worth the investment.
 
 You could consider not turning on "enabling Log script block invocation start / stop events", I would sooner have it on and consider getting your logs off-site as we discussed in the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section, with a well configured logrotate schedule.
 
@@ -5186,11 +5186,11 @@ When you find out you need something, research it along with alternatives. Work 
 
 ### Disable, Remove Services. Harden what is left
 
-Do your home work up front and decide what is actually required to stay and what is not. In most cases re-enabling or re-adding will only cost you time.
+Do your homework up front and decide what is actually required and what is not. In most cases re-enabling or re-adding will only cost you time.
 
 #### Partitioning on OS Installation
 
-Often a little trial and error is required to get the optimal configuration for your needs.
+Often, a little trial and error is required to get the optimal configuration for your needs.
 
 #### Review Password Strategies
 
@@ -5202,7 +5202,7 @@ If you use Docker and do not run as root, then you have another layer that any a
 
 SSH is secure by definition, in saying that, you can still use it insecurely. I have seen some organisations store their private keys on their developer wiki so that all the developers within the company can easily access the private key and copy it locally. Do not do this, there are so many things wrong with this.
 
-Make sure you use a pass phrase unless you have a good reason not to, and can in some other way safeguard your SSH access, like using [ssh-cron](https://fbb-git.github.io/ssh-cron/ssh-cron.1.html) for example.
+Make sure you use a passphrase unless you have a good reason not to, and can in some other way safeguard your SSH access, such as the use of [ssh-cron](https://fbb-git.github.io/ssh-cron/ssh-cron.1.html).
 
 #### Disable Boot Options
 
@@ -5216,11 +5216,11 @@ This is also a place where Docker containers shine, by using the [`--read-only`]
 
 #### Portmap
 
-Portmap is simple to disable, go ahead.
+Portmap is simple to disable, go ahead and do so.
 
 #### Exim
 
-If you are not using Exim, it only takes a few minutes to disable, so go ahead.
+If you are not using Exim, it only takes a few minutes to disable.
 
 #### Remove NIS
 
@@ -5236,7 +5236,7 @@ If someone legitimate is still relying on telnet, send them to the [Risks](#vps-
 
 #### FTP
 
-If you can convince your staff to read and understand the issues with FTP, and FTPS including the possible confusion around how to use FTPS securely, what can go wrong, and mandate a more secure file transfer protocol such as the recommended SFTP or SCP, then you just need to make sure SSH is not being [used incorrectly](#vps-costs-and-trade-offs-disable-remove-services-harden-what-is-left-ssh)
+If you can convince your staff to read and understand the issues with FTP, and FTPS, including the possible confusion around how to use FTPS securely, what can go wrong, and mandate a more secure file transfer protocol such as the recommended SFTP or SCP, then you just need to make sure SSH is not being [used incorrectly](#vps-costs-and-trade-offs-disable-remove-services-harden-what-is-left-ssh)
 
 #### NFS
 
@@ -5260,11 +5260,11 @@ There was quite a bit of time spent in the Countermeasures section, but most of 
 
 #### Statistics Graphing
 
-I have found these tools to be well worth the investment when you are dealing with hosts. We also cover [statsd](#web-applications-countermeasures-lack-of-visibility-insufficient-Monitoring-statistics-graphing) in the Web Applications chapter which performs a similar role for the application itself, which if you are using Docker containers, the lowest hanging fruit in terms of security from an external attackers perspective defiantly falls on your application code.
+I have found these tools to be well worth the investment when you are dealing with hosts. We also cover [statsd](#web-applications-countermeasures-lack-of-visibility-insufficient-Monitoring-statistics-graphing) in the Web Applications chapter, which performs a similar role for the application itself. If you are using Docker containers, the lowest hanging fruit in terms of security from an external attackers perspective definitely falls on your application code.
 
 #### Host Intrusion Detection Systems (HIDS)
 
-HIDS are one of the must haves on your systems, they also need to be set-up as early as possible, ideally before the server has been exposed to the internet, or any network that has the potential for an attacker to gain access and plant malware.
+HIDS are one of the must haves on your systems, they also need to be set up as early as possible, ideally before the server has been exposed to the internet, or any network that has the potential for an attacker to gain access and plant malware.
 
 ### Docker
 
@@ -5276,7 +5276,7 @@ There are many ways to do this. If you are a one man band, really simple techniq
 
 Work out what you need, count the costs of that data being lost, measure the cost of the potential solutions, and compare.
 
-I have used rsync in many shapes and forms for many years and it has been good. Check your backup logs to make sure what you think is happening is. When you are setting up your backup scripts, dry-run test them, to make sure you do not over-write something or some place that was not intended.
+I have used rsync in many shapes and forms for many years and it has been good. Check your backup logs to make sure what you think is happening is. When you are setting up your backup scripts, test them to make sure you do not overwrite something or some place that was not intended.
 
 You can run scripts manually if you are disciplined and they are very easy, otherwise it usually pays to automate them. Cron does what it says it will do on the box.
 
