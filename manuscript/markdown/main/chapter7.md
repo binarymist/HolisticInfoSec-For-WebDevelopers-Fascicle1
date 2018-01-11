@@ -2815,49 +2815,49 @@ Check the most recent login of all users, or of a given user. `lastlog` sources 
 
 %% This section is also linked to from the "Insufficient Logging and Monitoring" section in web applications.
 
-I recently performed an [in-depth evaluation](#vps-countermeasures-lack-of-visibility-web-server-log-management) of a small collection of logging and alerting offerings, the choice of which candidates to bring into the in-depth evaluation came from an [initial evaluation](#vps-countermeasures-lack-of-visibility-logging-and-alerting-initial-evaluation).
+I recently performed an [in-depth evaluation](#vps-countermeasures-lack-of-visibility-web-server-log-management) of a small collection of logging and alerting offerings. I chose candidates for the in-depth evaluation from an [initial evaluation](#vps-countermeasures-lack-of-visibility-logging-and-alerting-initial-evaluation).
 
-It is very important to make sure you have reliable and all-encompassing logging to an off-site location. This way attackers will have to also compromise that location in order to effectively [cover their tracks](http://www.win.tue.nl/~aeb/linux/hh/hh-13.html).
+It is very important to make sure you have reliable and all-encompassing logging shipped to an offsite location. This way attackers will have to also compromise the offsite location in order to effectively [cover their tracks](http://www.win.tue.nl/~aeb/linux/hh/hh-13.html).
 
-You can often see in logs when access has been granted to an entity, when files have been modified or removed. Become familiar with what your logs look like and which events create which messages. A good sys-admin can sight logs and quickly see anomalies. If you keep your log aggregator open at least when ever you are working on the servers that generate the events, you will quickly get used to recognising which events cause which log entries.
+You can often see in logs when access has been granted to an entity, and when files have been modified or removed. Become familiar with what your logs look like and which events create which messages. A good sysadmin can review logs and quickly see anomalies. If you keep your log aggregator open, at least whenever you're working on servers that generate events, you will quickly get used to recognising which events cause which log entries.
 
-Alerting events should also be set-up for expected, unexpected actions and a dead man's snitch.
+Alerting events should also be set up for expected and unexpected actions, along with a dead man's snitch.
 
 Make sure you have reviewed who can [write and read](http://www.tldp.org/HOWTO/Security-HOWTO/secure-prep.html#logs) your logs, especially those created by the `auth` facility, and make any modifications necessary to the permissions.
 
-In order to have logs that provide the information you need, you need to make sure the logging level is set to produce the required amount of verbosity. That time stamps are synchronised across your network. That you archive the logs for long enough to be able to diagnose malicious activity and movements across the network.
+In order to have logs that provide the information you need, you need to make sure the logging level is set to produce the required amount of verbosity and that time stamps are synchronised across your network. You must also archive logs for long enough to be able to diagnose malicious activity and movements across the network.
 
-Being able to rely on the times of events on different network nodes is essential to making sense of tracking an attackers movements through your network. I discuss setting up Network Time Protocol (NTP) on your networked machines in the [Network](#network-countermeasures-fortress-mentality-insufficient-logging-ntp) chapter.
+The ability to rely on the times of events on different network nodes is essential to making sense of tracking an attacker's movements through your network. I discuss setting up Network Time Protocol (NTP) on your networked machines in the [Network](#network-countermeasures-fortress-mentality-insufficient-logging-ntp) chapter.
 
 {#vps-countermeasures-lack-of-visibility-logging-and-alerting-initial-evaluation}
 * [Simple Log Watcher](https://sourceforge.net/projects/swatch/)  
-Or as it used to be called before being asked to change its name from Swatch (Simple Watchdog), by the Swiss watch company, is a pearl script that monitors “a” log file for each instance you run (or schedule), matches your defined regular expression patterns based on the configuration file which defaults to `~/.swatchrc` and performs any action you can script. You can define different message types with different font styles and colours. Simple Log Watcher can tail the log file, so your actions will be performed in real-time.  
+It used to be called Swatch (Simple Watchdog) before being asked to change its name by the Swiss watch company of the same name. It's a Perl script that monitors a log file for each instance you run (or schedule), matches your defined regular expression patterns based on the configuration file which defaults to `~/.swatchrc`, and performs any action you can script. You can define different message types with different font styles and colours. Simple Log Watcher can tail the log file, so your actions will be performed in real-time.  
   
-Each log file you want to monitor, you need a separate `swatchrc` file and a separate instance of Simple Log Watcher, as it only takes one file argument. If you want to monitor a lot of log files without aggregating them, this could get messy.  
+For each log file you want to monitor, you need a separate `swatchrc` file and a separate instance of Simple Log Watcher, as it only takes one file argument. If you want to monitor a lot of log files without aggregating them, this could get messy.  
   
 See the [Additional Resources](#additional-resources-vps-countermeasures-lack-of-visibility-logging-and-alerting-swatch) chapter.  
   
 * [Logcheck](https://packages.debian.org/stretch/logcheck)  
-Monitors system log files, and emails anomalies to an administrator. Once [installed](https://linuxtechme.wordpress.com/2012/01/31/install-logcheck/) it needs to be set-up to run periodically with cron, so it is not a real-time monitor, which may significantly reduce its usefulness in catching an intruder before they obtain their goal, or get a chance to modify the logs that logcheck would review. The Debian Manuals have [details](https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-custom-logcheck) on how to use and customise logcheck. Most of the configuration is stored in `/etc/logcheck/logcheck.conf`. You can specify which log files to review within the `/etc/logcheck/logcheck.logfiles`. Logcheck is easy to install and configure.  
+Logcheck monitors system log files, and emails anomalies to an administrator. Once [installed](https://linuxtechme.wordpress.com/2012/01/31/install-logcheck/) it needs to be set-up to run periodically with cron. It is not a real-time monitor, which may significantly reduce its usefulness in catching an intruder before they obtain their goal, or get a chance to modify the logs that logcheck would review. The Debian Manuals have [details](https://www.debian.org/doc/manuals/securing-debian-howto/ch4.en.html#s-custom-logcheck) on how to use and customise logcheck. Most of the configuration is stored in `/etc/logcheck/logcheck.conf`. You can specify which log files to review within the `/etc/logcheck/logcheck.logfiles`. Logcheck is easy to install and configure.  
   
 * [Logwatch](https://packages.debian.org/stretch/logwatch)  
-Similar to Logcheck, monitors system logs, not continuously, so they could be open to modification before Logwatch reviews them, thus rendering Logwatch infective. Logwatch targets a similar space to Simple Log Watcher and Logcheck from above, it can review all logs within a certain directory, all logs from a specified collection of services, and single log files. Logwatch creates a report of what it finds based on your level of paranoia and can email to the sys-admin. It is easy to set-up and get started though. Logwatch is available in the debian repositories and the [source](https://sourceforge.net/p/logwatch/git/ci/master/tree/) is available on SourceForge.  
+Logwatch is similar to Logcheck, it monitors system logs but not continuously, so they could be open to modification before Logwatch reviews them, thus rendering Logwatch ineffective. Logwatch targets a similar user base to Simple Log Watcher and Logcheck from above, it can review all logs within a certain directory, all logs from a specified collection of services, and single log files. Logwatch creates a report of what it finds based on your level of paranoia, and can email to the sysadmin. It is easy to set-up and get started though. Logwatch is available in the debian repositories and the [source](https://sourceforge.net/p/logwatch/git/ci/master/tree/) is available on SourceForge.  
   
 * [Logrotate](https://packages.debian.org/stretch/logrotate)  
 Use [logrotate](http://www.rackspace.com/knowledge_center/article/understanding-logrotate-utility) to make sure your logs will be around long enough to examine them. There are some usage examples  
-here: [http://www.thegeekstuff.com/2010/07/logrotate-examples/](http://www.thegeekstuff.com/2010/07/logrotate-examples/). Ships with Debian. It is just a matter of reviewing the default configuration and applying any extra config that you require specifically.  
+here: [http://www.thegeekstuff.com/2010/07/logrotate-examples/](http://www.thegeekstuff.com/2010/07/logrotate-examples/). Logrotate ships with Debian, it's just a matter of reviewing the default configuration and applying any extra configuration that you require specifically.  
   
 * [Logstash](https://www.elastic.co/products/logstash)  
-Targets a similar problem to logrotate, but goes a lot further in that it routes and has the ability to translate between protocols. Logstash has a rich plugin ecosystem, with integrations provided by both the creators (Elastic) and the open source community. As per the above offerings, Logstash is FOSS. One of the main disadvantages I see is that Java is a dependency.  
+Logstash targets a similar problem as logrotate, but goes a lot further in that it routes, and has the ability to translate between protocols. Logstash has a rich plugin ecosystem, with integrations provided by both the creators (Elastic) and the open source community. As with the above offerings, Logstash is free and open source (FOSS). I consider Logstash's Java dependency a major disadvantage.  
   
 * [Fail2ban](http://www.fail2ban.org/wiki/index.php/Main_Page)  
-Ban hosts that cause multiple authentication errors, or just email events. Of course you need to think about false positives here also. An attacker can spoof many IP addresses potentially causing them all to be banned, thus creating a DoS. Fail2ban has been around for at least 12 years, is actively maintained and written in [Python](https://github.com/fail2ban/fail2ban/). There is also a web UI written in NodeJS called [fail2web](https://github.com/Sean-Der/fail2web).  
+Fail2ban bans hosts that cause multiple authentication errors, or just email events. You need to be conscious of false positives here. An attacker can spoof many IP addresses, potentially causing them all to be banned, thus creating a DoS. Fail2ban has been around for at least 12 years, is actively maintained, and is written in [Python](https://github.com/fail2ban/fail2ban/). There is also a web UI written in NodeJS called [fail2web](https://github.com/Sean-Der/fail2web).  
   
 * [Multitail](https://packages.debian.org/stretch/multitail)  
-Does what its name says. Tails multiple log files at once and shows them in a terminal. Provides real-time multi log file monitoring. Great for seeing strange happenings before an intruder has time to modify logs, if you are watching them that is. Good for a single or small number of systems if you have spare screens to fix to the wall.  
+Multitail does exactly what its name says, it tails multiple log files at once and shows them in a terminal while providing real-time multi-log file monitoring. It's great for seeing strange happenings before an intruder has time to modify logs, assuming you are keeping watch. Multitail is good for a single system or small number of systems if you have spare screens available.  
   
-* [PaperTrail](https://papertrailapp.com/)  
-Targets a similar problem to MultiTail, except that it collects logs from as many servers as you want, and streams them off-site to PaperTrails service, then aggregates them into a single easily searchable web interface, allowing you to set-up alerts on any log text. PaperTrail has a free plan providing 100MB per month, which is enough for some purposes. The plans are reasonably cheap for the features it provides, and can scale as you grow. I have used this in production environments (as discussed soon), and have found it to be a tool that does not try to do to much, and does what it does well.
+* [Papertrail](https://papertrailapp.com/)  
+Papertrail is similar to MultiTail, except that it collects logs from as many servers as you want, and streams them offsite to the Papertrail service, then aggregates them into a single, easily searchable web interface, allowing you to set up alerts on any log text. Papertrail has a free plan providing 100MB per month, which is enough for some purposes. The plans are reasonably cheap for the features it provides, and can scale as you grow. I have used this in production environments (as discussed soon), and have found it to be a tool that does not try to do too much, and does what it does well.
 
 #### Web Server Log Management {#vps-countermeasures-lack-of-visibility-web-server-log-management}
 ![](images/ThreatTags/PreventionAVERAGE.png)
@@ -2866,54 +2866,54 @@ Targets a similar problem to MultiTail, except that it collects logs from as man
 
 **GNU syslogd**
 
-Which I am unsure of whether it is being actively developed. Most GNU/Linux distributions no longer ship with this. Only supports UDP. It is also lacking in features. From what I gather is single-threaded. I did not spend long looking at this as there was not much point. The following two offerings are the main players currently.
+I am not sure if GNU syslogd remains under active development, most GNU/Linux distributions no longer ship with it. It only supports UDP and lacks features. From what I gather it's single-threaded. I did not spend long looking at it as there was not much point in doing so. The following two offerings are the current players in the space.
 
 **Rsyslog**
 
-Which ships with Debian and most other GNU/Linux distributions now. I like to do as little as possible to achieve goals, and rsyslog fits this description for me. The [rsyslog documentation](http://www.rsyslog.com/doc/master/index.html) is good. Rainer Gerhards wrote rsyslog and his [blog](http://blog.gerhards.net/2007/08/why-does-world-need-another-syslogd.html) provides many good insights into all things system logging. Rsyslog Supports UDP, TCP, TLS. There is also the Reliable Event Logging Protocol (RELP) which Rainer created. Rsyslog is great at gathering, transporting, storing log messages and includes some really neat functionality for dividing the logs. It is not designed to alert on logs. That is where the likes of Simple Event Correlator ([SEC](http://www.gossamer-threads.com/lists/rsyslog/users/6044)) comes in, as discussed [below](#vps-countermeasures-lack-of-visibility-web-server-log-management-improving-the-strategy). Rainer Gerhards discusses why TCP is not as reliable as many [think](http://blog.gerhards.net/2008/04/on-unreliability-of-plain-tcp-syslog.html).
+Rsyslog ships with Debian and most other GNU/Linux distributions now. I like to do as little as possible to achieve goals, and rsyslog fits this description for me. The [rsyslog documentation](http://www.rsyslog.com/doc/master/index.html) is good. Rainer Gerhards wrote rsyslog and his [blog](http://blog.gerhards.net/2007/08/why-does-world-need-another-syslogd.html) provides many good insights into all things system logging. Rsyslog supports UDP, TCP, and TLS. There is also the Reliable Event Logging Protocol (RELP), which Rainer created. Rsyslog is great at gathering, transporting, storing log messages and includes some really neat functionality for dividing the logs. It is not designed to alert on logs. That is where the likes of Simple Event Correlator ([SEC](http://www.gossamer-threads.com/lists/rsyslog/users/6044)) comes in, as discussed [below](#vps-countermeasures-lack-of-visibility-web-server-log-management-improving-the-strategy). Rainer Gerhards discusses why TCP is not as reliable as many [think](http://blog.gerhards.net/2008/04/on-unreliability-of-plain-tcp-syslog.html).
 
 **Syslog-ng**
 
-I did not spend to long here, as I did not see any features that I needed that were better than the default of rsyslog. Syslog-ng can correlate log messages, both real-time and off-line, supports reliable and encrypted transport using TCP and TLS. message filtering, sorting, pre-processing, log normalisation.
+I did not spend too long here, as I did not see any features that I needed that were better than default rsyslog. Syslog-ng can correlate log messages, both real-time and offline, and supports reliable and encrypted transport using TCP and TLS. It also provides message filtering, sorting, pre-processing, log normalisation.
 
-##### Aims
+##### Goals
 
 * Record events and have them securely transferred to another syslog server in real-time, or as close to it as possible, so that potential attackers do not have time to modify them on the local system before they are replicated to another location
-* Reliability: Resilience / ability to recover connectivity. No messages lost.
-* Privacy: Log messages should not be able to be read in transit.
-* Integrity: Log messages should not be able to be tampered with / modified in transit. Integrity on the file-system is covered in other places in this chapter, such as in sections "[Partitioning on OS Installation](#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation)" and "[Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions)"
-* Extensibility: ability to add more machines and be able to aggregate events from many sources on [many machines](#network-countermeasures-lack-of-visibility-insufficient-logging).
-* Receive notifications from the upstream syslog server of specific events. No [Host Intrusion Detection System (HIDS)](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) is going to remove the need to reinstall your system if you are not notified in time and an attacker plants and activates their root-kit.
-* Receive notifications from the upstream syslog server of lack of events. If you expect certain events to usually occur, but they have stopped, and you want to know about it.
+* Reliability: resilience / ability to recover connectivity. No messages lost
+* Privacy: log messages should not be able to be read in transit
+* Integrity: log messages should not be able to be tampered with or modified in transit. Integrity on the file-system is covered in other places in this chapter, such as in sections "[Partitioning on OS Installation](#vps-countermeasures-disable-remove-services-harden-what-is-left-partitioning-on-os-installation)" and "[Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions)"
+* Extensibility: ability to add more machines and be able to aggregate events from many sources on [many machines](#network-countermeasures-lack-of-visibility-insufficient-logging)
+* Receive notifications from the upstream syslog server of specific events. No [Host Intrusion Detection System (HIDS)](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids) is going to negate the need to rebuild your system if you are not notified in time, and an attacker plants and activates their rootkit
+* Receive notifications from the upstream syslog server of a lack of events. If you expect certain events to usually occur, but they have stopped, you want to know about it
 
 ##### Environmental Considerations {#vps-countermeasures-lack-of-visibility-web-server-log-management-environmental-considerations}
 
-You may have devices in your network topology such as routers, switches, access points (APs) that do not have functionality to send their system logs via TCP, opting to rely on an unreliable transport such as UDP, often also not supporting any form of confidentiality. As this is not directly related to VPS, I will defer this portion to the [Insufficient Logging](#network-countermeasures-lack-of-visibility-insufficient-logging) countermeasures section within the Network chapter.
+You may have devices in your network topology such as routers, switches, and access points (APs) that do not have functionality to send their system logs via TCP, opting to use an unreliable transport such as UDP, without any form of confidentiality. As this is not directly related to VPS, I will defer this portion to the [Insufficient Logging](#network-countermeasures-lack-of-visibility-insufficient-logging) countermeasures section within the Network chapter.
 
-##### Initial Set-Up {#vps-countermeasures-lack-of-visibility-web-server-log-management-initial-set-up}
+##### Initial Setup {#vps-countermeasures-lack-of-visibility-web-server-log-management-initial-set-up}
 
 %% This section is also linked to from the "Insufficient Logging and Monitoring" section in web applications.
 
-Rsyslog using TCP, local queuing over TLS to papertrail for your syslog collection, aggregating and reporting server. Papertrail does not support RELP, but say that is because their clients have not seen any issues with reliability in using plain TCP over TLS with local queuing. I must have been the first then. Maybe I am the only one that actually compares what is being sent against what is being received.
+Configure rsyslog to use TCP, with local queuing over TLS to Papertrail for your syslog collection, aggregation and reporting. Papertrail does not support RELP, but say that is because their clients have not seen issues with reliability in TCP over TLS for local queuing. My personal experience is that the comparison of what is being sent to Papertrail in regards to what is being received does not always match.
 
-As I was setting this up and watching both ends. We had an internet outage of just over an hour. At that stage we had very few events being generated, so it was trivial to verify both ends after the outage. I noticed that once the ISPs router was back on-line and the events from the queue moved to papertrail, that there was in fact one missing.
+As I was setting this up and watching both ends of the transaction we had an internet outage of just over an hour. At that stage we had very few events being generated, so it was trivial to verify both ends after the outage. I noticed that, once the ISP's router was back online, and the events from the queue moved to Papertrail, there was, in fact, one missing.
 
-Why did Rainer Gerhards create RELP if TCP with queues was good enough? That was a question that was playing on me for a while. In the end, it was obvious that TCP without RELP is not good enough if you want your logs to have the quality of integrity. At this stage it looks like the queues may loose messages. Rainer Gerhards [said](http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsyslog_reliable_forwarding.html) “_In rsyslog, every action runs on its own queue and each queue can be set to buffer data if the action is not ready. Of course, you must be able to detect that the action is not ready, which means the remote server is off-line. This can be detected with plain TCP syslog and RELP_“, so it can be detected without RELP.
+Why did Rainer Gerhards create RELP if TCP with queues was good enough? That was a question on my mind for a while. In the end, it was obvious that TCP without RELP is not good enough if you want your logs to maintain integrity. Simply, it appears that queues may lose messages. Rainer Gerhards [said](http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/rsyslog-3.19.8/doc/rsyslog_reliable_forwarding.html) that “_In rsyslog, every action runs on its own queue and each queue can be set to buffer data if the action is not ready. Of course, you must be able to detect that the action is not ready, which means the remote server is off-line. This can be detected with plain TCP syslog and RELP_“, thus it can be detected without RELP.
 
-You can [aggregate](http://help.papertrailapp.com/kb/configuration/advanced-unix-logging-tips/#rsyslog_aggregate_log_files) log files with rsyslog or by using papertrails `remote_syslog` daemon.
+You can [aggregate](http://help.papertrailapp.com/kb/configuration/advanced-unix-logging-tips/#rsyslog_aggregate_log_files) log files with rsyslog, or by using Papertrail's `remote_syslog` daemon.
 
 Alerting is available, including for [inactivity of events](http://help.papertrailapp.com/kb/how-it-works/alerts/#inactivity).
 
-Papertrails documentation is good and support is reasonable. Due to the huge amounts of traffic they have to deal with, they are unable to trouble-shoot any issues you may have. If you still want to go down the papertrail path, to get started, work through ([https://papertrailapp.com/systems/setup](https://papertrailapp.com/systems/setup)) which sets up your rsyslog to use UDP (specified in the `/etc/rsyslog.conf` by a single ampersand in front of the target syslog server). I wanted something more reliable than that, so I use two ampersands, which specifies TCP.
+Papertrail's documentation is good and support is reasonable. Due to the huge amounts of traffic they have to deal with, they are unable to troubleshoot any issues you may have. If you still want to go down the Papertrail path, to get started, work through ([https://papertrailapp.com/systems/setup](https://papertrailapp.com/systems/setup)) which sets up your rsyslog to use UDP (specified in the `/etc/rsyslog.conf` by a single ampersand in front of the target syslog server). I wanted something more reliable than that, so I use two ampersands, which specifies TCP.
 
-As we are going to be sending our logs over the internet for now, we need TLS, check papertrails "[Encrypting with TLS](http://help.papertrailapp.com/kb/configuration/encrypting-remote-syslog-with-tls-ssl/#rsyslog)" docs. Check papertrails CA server bundle for integrity:
+As we are sending logs over the Internet and need TLS, check Papertrail "[Encrypting with TLS](http://help.papertrailapp.com/kb/configuration/encrypting-remote-syslog-with-tls-ssl/#rsyslog)" docs. Check Papertrail's CA server bundle for integrity:
 
 {linenos=off, lang=bash}
     curl https://papertrailapp.com/tools/papertrail-bundle.pem | md5sum
 
-Should result in what ever it says on papertrails "Encrypting with TLS" page. First problem here: the above mentioned page that lists the MD5 checksum is being served unencrypted, even if you force the use of `https` I get an invalid certificate error. My advice would be to contact papertrail directly and ask them what the MD5 checksum should be. Make sure it is the same as what the above command produces.
+This should match with Papertrail's "Encrypting with TLS" page. First problem here: the above mentioned page that lists the MD5 checksum is being served unencrypted, even if you force the use of `https` the result is an invalid certificate error. My advice would be to contact Papertrail directly and ask them what the MD5 checksum should be. Make sure it is the same as what the above command produces.
 
-If it is, put the contents of that URL into a file called `papertrail-bundle.pem`, then [`scp`](https://blog.binarymist.net/2012/03/25/copying-with-scp/) the `papertrail-bundle.pem` into the web servers `/etc` dir. The command for that will depend on whether you are already on the web server and you want to pull, or whether you are somewhere else and want to push. Then make sure the ownership is correct on the pem file.
+If it is, put the contents of that URL into a file called `papertrail-bundle.pem`, then [`scp`](https://blog.binarymist.net/2012/03/25/copying-with-scp/) the `papertrail-bundle.pem` to the web server's `/etc` directory. The command will depend on whether you are already on the web server and you want to pull, or whether you are somewhere else and want to push. Make sure the ownership is correct on the pem file.
 
 {linenos=off, lang=bash}
     chown root:root papertrail-bundle.pem
@@ -2932,7 +2932,7 @@ Add the TLS config:
     $ActionSendStreamDriverAuthMode x509/name # authenticate by host-name
     $ActionSendStreamDriverPermittedPeer *.papertrailapp.com
 
-to your `/etc/rsyslog.conf`. Create egress rule for your router to let traffic out to destination port `39871`.
+to your `/etc/rsyslog.conf`. Create an egress rule for your router to let traffic out to destination port `39871`.
 
 {linenos=off, lang=bash}
     sudo service rsyslog restart
@@ -2942,17 +2942,17 @@ To generate a log message that uses your system syslogd config `/etc/rsyslog.con
 {linenos=off, lang=bash}
     logger "hi"
 
-Should log “`hi`” to `/var/log/messages` and also to [https://papertrailapp.com/events](https://papertrailapp.com/events), but it was not.
+This should have logged `hi` to `/var/log/messages` and to [https://papertrailapp.com/events](https://papertrailapp.com/events), but it did not.
 
-**Time to Trouble-shoot**
+**Time to Troubleshoot**
 
-Let us keep an eye on `/var/log/messages`, where our log messages should be written to for starters. In one terminal run the following:
+Keep an eye on `/var/log/messages`, where our log messages should be written to for starters. In one terminal run the following:
 
 {linenos=off, lang=bash}
     # Show a live update of the last 10 lines (by default) of /var/log/messages
     sudo tail -f [-n <number of lines to tail>] /var/log/messages
 
-OK, so lets run rsyslog in config checking mode:
+Let's run rsyslog in config checking mode:
 
 {linenos=off, lang=bash}
     /usr/sbin/rsyslogd -f /etc/rsyslog.conf -N1
@@ -2963,14 +2963,14 @@ If the config is OK, the output will look like:
     rsyslogd: version <the version number>, config validation run (level 1), master config /etc/rsyslog.conf
     rsyslogd: End of config validation run. Bye.
 
-Some of the trouble-shooting resources I found were:
+Some of the troubleshooting resources I found were:
 
 1. [https://www.loggly.com/docs/troubleshooting-rsyslog/](https://www.loggly.com/docs/troubleshooting-rsyslog/)
 2. [http://help.papertrailapp.com/](http://help.papertrailapp.com/)
 3. [http://help.papertrailapp.com/kb/configuration/troubleshooting-remote-syslog-reachability/](http://help.papertrailapp.com/kb/configuration/troubleshooting-remote-syslog-reachability/)
 4. `/usr/sbin/rsyslogd -version` will provide the installed version and supported features.
 
-The papertrail help was not that helpful, as we do not, and should not have telnet installed, we removed it [remember](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-telnet)? I can not ping from the DMZ as ICMP egress is not white-listed and I am not going to install tcpdump or strace on a production server. The more you have running, the more surface area you have, the greater the opportunities for exploitation, good for attackers, bad for defenders.
+The Papertrail help was not that helpful, as we do not, and should not have Telnet installed, we removed it, [remember](#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-telnet)? I cannot ping from the DMZ as ICMP egress is not whitelisted and I am not going to install tcpdump or strace on a production server. The more you have running, the more surface area you have, the greater the opportunities for exploitation; good for attackers, bad for defenders.
 
 So how do we tell if rsyslogd is actually running if it does not appear to be doing anything useful?
 
@@ -2986,28 +2986,28 @@ Showing which files rsyslogd has open can be useful:
     # or just combine the results of pidof rsyslogd:
     sudo lsof -p $(pidof rsyslogd)
 
-To start with, produced output like:
+To start with, this produced output such as:
 
 {linenos=off, lang=bash}
     rsyslogd 3426 root 8u IPv4 9636 0t0 TCP <your server IP>:<sending port>->logs2.papertrailapp.com:39871 (SYN_SENT)
 
-Which obviously showed rsyslogds `SYN` packets were not getting through. I had some discussion with Troy from papertrail support around the reliability of plain TCP over TLS without RELP. I think if the server is business critical, then [Improving the Strategy](#vps-countermeasures-lack-of-visibility-web-server-log-management-improving-the-strategy) maybe required. Troy assured me that they had never had any issues with logs being lost due to lack of reliability with out RELP. Troy also pointed me to their recommended [local queue options](http://help.papertrailapp.com/kb/configuration/advanced-unix-logging-tips/#rsyslog_queue). After adding the queue tweaks and a rsyslogd restart, the above command now produced output like:
+This obviously showed rsyslogds `SYN` packets were not getting through. I had some discussion with Troy from Papertrail support about the reliability of TCP over TLS without RELP. I think if the server is business critical, then [Improving the Strategy](#vps-countermeasures-lack-of-visibility-web-server-log-management-improving-the-strategy) maybe required. Troy assured me that they had never had any issues with logs being lost due to the absence of RELP. Troy also pointed me to their recommended [local queue options](http://help.papertrailapp.com/kb/configuration/advanced-unix-logging-tips/#rsyslog_queue). After adding the queue tweaks and a rsyslogd restart, the above command now produced output such:
 
 {linenos=off, lang=bash}
     rsyslogd 3615 root 8u IPv4 9766 0t0 TCP <your server IP>:<sending port>->logs2.papertrailapp.com:39871 (ESTABLISHED)
 
-I could now see events in the papertrail web UI in real-time.
+I could now see events in the Papertrail web UI in real-time.
 
 Socket Statistics (`ss`) (the better `netstat`) should also show the established connection.
 
-By default papertrail accepts TCP over TLS (TLS encryption check-box on, Plain text check-box off) and UDP. So if your TLS is not set-up properly, your events will not be accepted by papertrail. This is how I confirmed this to be true:
+By default, Papertrail accepts TCP over TLS (TLS encryption checkbox on, plain text checkbox off) and UDP. If your TLS is not set up properly, your events will not be accepted by Papertrail. Following is how I confirmed this to be true:
 
 {#confirm-that-our-logs-are-commuting-over-tls}
 **Confirm that our Logs are Commuting over TLS**
 
-Now without installing anything on the web server or router, or physically touching the server sending packets to papertrail, or the router. Using a switch (ubiquitous) rather than a hub. No wire tap or multi-network interfaced computer. No switch monitoring port available on expensive enterprise grade switches (along with the much needed access). I was basically down to two approaches I could think of, and I like to achieve as much as possible with as little amount of effort as possible, so could not be bothered getting out of my chair and walking to the server rack.
+We can do this without installing anything on the web server or router, or physically touching the server sending packets to Papertrail, or the router. Use a switch (ubiquitous) rather than a hub, and no tap or multi-network interfaced computer. Commonly there is no switch monitoring port available on expensive enterprise grade switches (along with the much needed access). I was down to two approaches here that I could think of, and I like to achieve as much as possible with the least amount of work, as such I could not be bothered getting out of my chair and walking to the server rack.
 
-1. MAC flooding with the help of [macof](http://linux.die.net/man/8/macof) which is a utility from the dsniff suite. This essentially causes your switch to go into a “failopen mode” where it acts like a hub and broadcasts its packets to every port.  
+1. MAC flooding with the help of [macof](http://linux.die.net/man/8/macof), which is a utility from the dsniff suite. This essentially causes your switch to go into a fail open mode where it acts like a hub and broadcasts its packets to every port.  
     
     ![](images/MItMMACFlod.png)  
     
@@ -3015,13 +3015,13 @@ Now without installing anything on the web server or router, or physically touch
     
     ![](images/MItMARPSpoof.png)
 
-On our MItM box, I set a static `IP`: `address`, `netmask`, `gateway` in `/etc/network/interfaces` and add `domain`, `search` and `nameservers` to the `/etc/resolv.conf`.
+On our MItM box, I set a static `IP`: `address`, `netmask`, `gateway` in `/etc/network/interfaces` and added `domain`, `search` and `nameservers` to the `/etc/resolv.conf`.
 
 Follow that up with a `service network-manager restart`.
 
 On the web server, run: `ifconfig -a` to get MAC: `<your server MAC>`.
 
-On MItM box, run the same command, to get MAC: `<MItM box MAC>`.
+On the MItM box, run the same command, to get MAC: `<MItM box MAC>`.
 
 On web server, run: `ip neighbour` to find MAC addresses associated with IP addresses (the local ARP table). Router will be: `<router MAC>`.
 
@@ -3035,7 +3035,7 @@ Now you need to turn your MItM box into a router temporarily. On the MItM box ru
 {linenos=off, lang=bash}
     cat /proc/sys/net/ipv4/ip_forward
 
-If forwarding is on, You will see a `1`. If it is not, add a `1` into the file:
+If forwarding is on, you will see a `1`. If it is not, add a `1` into the file:
 
 {linenos=off, lang=bash}
     echo 1 > /proc/sys/net/ipv4/ip_forward
@@ -3052,38 +3052,38 @@ This will continue to notify `<your server IP>` that our MItM box MAC address be
     <MItM box IP> dev eth0 lladdr <MItM box MAC> STALE
     <router IP> dev eth0 lladdr <MItM box MAC> REACHABLE
 
-Now on our MItM box, while our `arpspoof` continues to run, we [start Wireshark](https://blog.binarymist.net/2013/04/13/running-wireshark-as-non-root-user/) listening on our `eth0` interface or what ever interface you are bound to, and you can see that all packets that the web server is sending, we are intercepting and forwarding (routing) on to the gateway.
+Now on our MItM box, while our `arpspoof` continues to run, we [start Wireshark](https://blog.binarymist.net/2013/04/13/running-wireshark-as-non-root-user/) listening on our `eth0` interface or what ever interface you are bound to. You can see that all packets that the web server is sending, we are intercepting and forwarding (routing) on to the gateway.
 
-Now Wireshark clearly showed that the data was encrypted. I commented out the five TLS config lines in the `/etc/rsyslog.conf` file -> saved -> restarted rsyslog -> turned on “Plain text” in papertrail and could now see the messages in clear text. Now when I turned off “Plain text”, papertrail would no longer accept syslog events. Excellent!
+Wireshark clearly showed that the data was encrypted. I commented out the five TLS config lines in the `/etc/rsyslog.conf` file then saved and restarted rsyslog. I turned on plain text in Papertrail and could now see the messages in clear text. When I turned off Plain text, Papertrail would no longer accept syslog events. Excellent!
 
 One of the nice things about `arpspoof` is that it re-applies the original ARP mappings once it is done.
 
-You can also tell `arpspoof` to poison the routers ARP table. This way any traffic going to the web server via the router, not originating from the web server will be routed through our MItM box also.
+You can also tell `arpspoof` to poison the router's ARP table. This way any traffic going to the web server via the router, not originating from the web server, will be routed through our MItM box.
 
 Do not forget to revert the change to `/proc/sys/net/ipv4/ip_forward`.
 
 **Exporting Wireshark Capture**
 
-You can use the File->Save As… option here for a collection of output types, or the way I usually do it is:
+You can use the File->Save As... option here for a collection of output types. The way I usually do it is:
 
 1. First completely expand all the frames you want visible in your capture file
-2. File -> Export Packet Dissections -> as “Plain Text” file
-3. Check the “All packets” check-box
-4. Check the “Packet summary line” check-box
-5. Check the “Packet details:” check-box and the “As displayed”
+2. File -> Export Packet Dissections -> as a plain text file
+3. Check the All packets checkbox
+4. Check the Packet summary line checkbox
+5. Check the Packet details checkbox and the As displayed
 6. OK
 
-**Trouble-shooting Messages that papertrail Never Shows**
+**Trouble-shooting Messages that Papertrail Never Shows**
 
 A> To run rsyslogd in [debug](http://www.rsyslog.com/doc/v5-stable/troubleshooting/troubleshoot.html#debug-log)
 
-Check to see which arguments get passed into rsyslogd to run as a daemon in `/etc/init.d/rsyslog` and `/etc/default/rsyslog`. You will probably see a `RSYSLOGD_OPTIONS=""`. There may be some arguments between the quotes.
+Check to see which arguments get passed into rsyslogd to run as a daemon in `/etc/init.d/rsyslog` and `/etc/default/rsyslog`. You will probably see `RSYSLOGD_OPTIONS=""`. There may be some arguments between the quotes.
 
 {linenos=off, lang=bash}
     sudo service rsyslog stop
     sudo /usr/sbin/rsyslogd [your options here] -dn >> ~/rsyslog-debug.log
 
-The debug log can be quite useful for trouble-shooting. Also keep your eye on the stderr as you can see if it is writing anything out (most system start-up scripts throw this away). Once you have finished collecting log: [CTRL]+[C]
+The debug log can be quite useful for troubleshooting. Also keep your eye on the stderr as you can see if it is writing anything out (most system startup scripts throw this away). Once you have finished collecting the log: [CTRL]+[C]
 
 {linenos=off, lang=bash}
     sudo service rsyslog start
@@ -3110,12 +3110,12 @@ The stats it produces show when you run into errors with an output, and also the
     log.file="/var/log/rsyslog-stats.log")
     # End turn on some internal counters to trouble-shoot missing messages
 
-Now if you get an error like:
+Now if you get an error such as:
 
 {linenos=off, lang=bash}
     rsyslogd-2039: Could not open output pipe '/dev/xconsole': No such file or directory [try http://www.rsyslog.com/e/2039 ]
 
-You can just change the `/dev/xconsole` to `/dev/console`. Xconsole is still in the config file for legacy reasons, it has not been cleaned up by the package maintainers.
+you can just change the `/dev/xconsole` to `/dev/console`. Xconsole is still in the config file for legacy reasons, it has not been cleaned up by the package maintainers.
 
 A> GnuTLS error in rsyslog-debug.log
 
@@ -3131,109 +3131,109 @@ Standard Error when running rsyslogd manually produces:
 
 With some help from the GnuTLS mailing list:
 
-“_That means that send() returned -1 for some reason._” You can enable more output by adding an environment variable `GNUTLS_DEBUG_LEVEL=9` prior to running the application, and that should at least provide you with the `errno`. This does not provide any more detail to stderr. However, [thanks to Rainer](https://github.com/rsyslog/rsyslog/issues/219) we do now have [debug.gnutls parameter](https://github.com/jgerhards/rsyslog/commit/9125ddf99d0e5b1ea3a15a730fc409dd27df3fd9) in the rsyslog code, that if you specify this global variable in the `rsyslog.conf` and assign it a value between 0-10 you will have gnutls debug output going to rsyslog’s debug log.
+“_That means that send() returned -1 for some reason._” You can enable more output by adding an environment variable `GNUTLS_DEBUG_LEVEL=9` prior to running the application, and that should at least provide you with the `errno`. This does not provide any more detail to stderr. However, [thanks to Rainer](https://github.com/rsyslog/rsyslog/issues/219) we do now have the [debug.gnutls parameter](https://github.com/jgerhards/rsyslog/commit/9125ddf99d0e5b1ea3a15a730fc409dd27df3fd9) in the rsyslog code. If you specify this global variable in the `rsyslog.conf` and assign it a value between 0-10 you will have gnutls debug output going to rsyslog's debug log.
 
 ##### Improving the Strategy {#vps-countermeasures-lack-of-visibility-web-server-log-management-improving-the-strategy}
 
-With the above strategy, I had issues where messages were getting lost between rsyslog and papertrail, I spent over a week trying to find the cause. As the sender, you have no insight into what papertrail is doing. The support team could not provide much insight into their service when I had to trouble-shoot things. They were as helpful as they could be though.
+With the above strategy, I had issues where messages were getting lost between rsyslog and Papertrail and I spent over a week trying to find the cause. As the sender, you have no insight into what Papertrail is doing. The support team could not provide much insight into their service when I had to troubleshoot things. They were as helpful as they could be though.
 
-Reliability can be significantly improved by using RELP. Papertrail does not support RELP, so a next step could be to replace papertrail with a local network instance of an rsyslogd collector and Simple Event Correlator ([SEC](https://simple-evcorr.github.io/)). Notification for inactivity of events could be performed by cron and SEC. Then for all your graphical event correlation, you could use [LogAnalyzer](http://loganalyzer.adiscon.com/), also created by Rainer Gerhards (rsyslog author). This would be more work to set-up than an on-line service you do not have to set-up. In saying that. You would have greater control and security which for me is the big win here.
+Reliability can be significantly improved using RELP. Papertrail does not support RELP, so a next step could be to replace Papertrail with a local network instance of an rsyslogd collector and Simple Event Correlator ([SEC](https://simple-evcorr.github.io/)). Notification for inactivity of events could be performed by cron and SEC. Then, for all your graphical event correlation, you could use [LogAnalyzer](http://loganalyzer.adiscon.com/), also created by Rainer Gerhards (rsyslog author). This would be more work to set up than an online service you do not have to set up. In saying that, you would have greater control and security which for me is the big win here.
 [Normalisation](http://www.liblognorm.com/) also from Rainer could be useful.
 
-Another option instead of going through all the work of having to set-up and configure a local network instance of an rsyslogd collector, SEC and perhaps LogAnalyzer, would be to just deploy the SyslogAppliance which is a turn-key VM already configured with all the tools you would need to collect, aggregate, report and alert, as discussed in the Network chapter under Countermeasures, [Insufficient Logging](#network-countermeasures-lack-of-visibility-insufficient-logging).
+Another option, instead of going through all the work of having to setup and configure a local network instance of an rsyslogd collector, SEC and perhaps LogAnalyzer, would be to just deploy the SyslogAppliance which is a turnkey VM already configured with all the tools you would need to collect, aggregate, report and alert, as discussed in the Network chapter under Countermeasures, [Insufficient Logging](#network-countermeasures-lack-of-visibility-insufficient-logging).
 
 What I found, is that after several upgrades to rsyslog, the reliability issues seemed to improve, making me think that changes to rsyslog were possibly and probably responsible.
 
 #### Proactive Monitoring {#vps-countermeasures-lack-of-visibility-proactive-monitoring}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-I recently performed an in-depth evaluation of a collection of tools, that one of their responsibilities was monitoring and performing actions on your processes and applications based on some other event(s). Some of these tools are very useful for security focussed tasks as well as generic dev-ops.
+I recently performed an indepth evaluation of a collection of tools, whose functionality was monitoring and performing actions on processes and applications. Some of these tools are very useful for security focused tasks as well as generic DevOps.
 
 **New Relic**
 
-New Relic is a Software as a Service (SaaS) provider that offers many products, primarily in the performance monitoring space, rather than security. Their offerings cost money, but may come into their own in larger deployments. I have used New Relic, it has been quick to start getting useful performance statistics on servers and helped my team isolate resource constraints.
+New Relic is a Software as a Service (SaaS) provider that offers many products, primarily in the performance monitoring space, rather than security. Their offerings aren't free, but may come into their own in larger deployments. I have used New Relic, it has been quick to provide useful performance statistics on servers, and helped my team isolate resource constraints.
 
 **Advanced Web Statistics ([AWStats](http://www.awstats.org/))**
 
-Unlike NewRelic which is SaaS, AWStats is FOSS. It kind of fits a similar market space as NewRelic though. You can find the documentation  
+Unlike NewRelic which is SaaS, AWStats is FOSS. It fits a similar market space as NewRelic though. You can find the documentation  
 here: [http://www.awstats.org/docs/index.html](http://www.awstats.org/docs/index.html).
 
 **Pingdom**
 
-Similar to New Relic but not as feature rich. As discussed below, [Monit](http://slides.com/tildeslash/monit#/7) is a better alternative.
+Pingdom is similar to New Relic but not as feature rich. As discussed below, [Monit](http://slides.com/tildeslash/monit#/7) is a better alternative.
 
 &nbsp;
 
-All the following offerings that I have evaluated, target different scenarios. I have listed the pros and cons for each of them and where I think they fit into a potential solution to monitor your web applications (I am leaning toward NodeJS) and make sure they keep running in a healthy state. I have listed the [goals](#vps-countermeasures-lack-of-visibility-proactive-monitoring-goals) I was looking to satisfy.
+All the following offerings that I evaluated target different scenarios. I have listed the pros and cons for each of them and where I think they fit as a potential solution to monitor your web applications (I am leaning toward NodeJS) and make sure they run in a healthy state. I have listed the [goals](#vps-countermeasures-lack-of-visibility-proactive-monitoring-goals) I was looking to satisfy.
 
-For me I have to have a good knowledge of the landscape before I commit to a decision and stand behind it. I like to know I have made the best decision based on all the facts that are publicly available. Therefore, as always, it is my responsibility to make sure I have done my research in order to make an informed and ideally best decision possible. I am pretty sure my evaluation was un-biased, as I had not used any of the offerings other than [forever](#vps-countermeasures-lack-of-visibility-proactive-monitoring-forever) before.
+I have to have good knowledge of the landscape before I commit to a decision and stand behind it. I like to know that I have made the best decision based on all the facts that are publicly available. Therefore, as always, it is my responsibility to make sure I have done my research in order to make an informed and sound decision. I believe my evaluation was unbiased as I had not used any of the offerings other than [forever](#vps-countermeasures-lack-of-visibility-proactive-monitoring-forever) before.
 
-I looked at quite a few more than what I have detailed below, but the following candidates I felt were worth spending some time on.
+I looked at quite a few more than what I have detailed below, but these I felt were worth spending some time on.
 
-Keep in mind, that everyones requirements will be different, so rather than tell you which to use because I do not know your situation, I have listed the attributes (positive, negative and neutral) that I think are worth considering when making this choice. After the evaluation we make some decisions and start the [configuration](#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit) of the chosen offerings.
+Keep in mind, that everyone's requirements will be different, so rather than tell you which to use as I do not know your situation, I have listed the attributes (positive, negative and neutral) that I think are worth considering when making this choice. After the evaluation, we make some decisions and start the [configuration](#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit) of the chosen offerings.
 
 ##### Evaluation Criteria
 
-1. Who is the creator. I favour teams rather than individuals, because the strength, ability to be side-tracked, and affected by external influences is greater on individuals as compared to a team. If an individual moves on, where does that leave the product? With that in mind, there are some very passionate and motivated individuals running very successful projects.
+1. Who is the creator? I favour teams rather than individuals. Teams are less likely to be side-tracked and affected by external influences. If an individual abandons a project, where does that leave the product? With that in mind, there are some very passionate and motivated individuals running very successful projects.
 2. Does it do what we need it to do? [Goals](#vps-countermeasures-lack-of-visibility-proactive-monitoring-goals) address this.
 3. Do I foresee any integration problems with other required components, and how difficult are the relationships likely to be?
-4. Cost in money. Is it free, as in free beer? I usually gravitate toward free software. It is usually an easier sell to clients and management. Are there catches once you get further down the road? Usually open source projects are marketed as is, so although it costs you nothing up front, what is it likely to cost in maintenance? Do you have the resources to support it?
-5. Cost in time. Is the set-up painful?
+4. Cost (financial). Is it free? I usually gravitate toward free software. It is typically an easier sell to clients and management. Are there catches once you get further down the road? Usually open source projects are marketed as is, so although it costs you nothing up front, what is it likely to cost in maintenance? Do you have the resources to support it?
+5. Cost (time). Is the setup painful?
 6. How well does it appear to be supported? What do the users say?
-7. Documentation. Is there any / much? What is its quality? Is the User Experience so good, that little documentation is required?
+7. Documentation. Is there any/much? What is its quality? Is the user experience so good that little documentation is required?
 8. Community. Does it have an active one? Are the users getting their questions answered satisfactorily? Why are the unhappy users unhappy (do they have a valid reason)?
 9. Release schedule. How often are releases being made? When was the last release? Is the product mature, does it need any work?
-10. Gut feeling, Intuition. How does it feel. If you have experience in making these sorts of choices, lean on it. Believe it or not, this may be the most important criteria for you.
+10. Gut feeling, intuition. How does it feel? If you have experience in making these sorts of choices, lean on it. Believe it or not, this may be the most important criteria for you.
 
-The following tools were my choice based on the above criterion.
+The following tools were my choices based on the above criterion.
 
 ##### Goals {#vps-countermeasures-lack-of-visibility-proactive-monitoring-goals}
 
 1. Application should start automatically on system boot
-2. Application should be re-started if it dies or becomes unresponsive
-3. The person responsible for the application should know if a troganised version of your application is swapped in, or even if your file time-stamps have changed
+2. Application should restart if it dies or becomes unresponsive
+3. The person responsible for the application should know if a trojanised version of the application is swapped in, or even if your file timestamps have changed
 4. Ability to add the following later without having to swap the chosen offering:
     1. Reverse proxy (Nginx, node-http-proxy, Tinyproxy, Squid, Varnish, etc)
-    2. Clustering and providing load balancing for your single threaded application
-    3. Visibility of [application statistics](#vps-countermeasures-lack-of-visibility-statistics-graphing) as we discuss a little later.
+    2. Clustering and providing load balancing for a single threaded application
+    3. Visibility to [application statistics](#vps-countermeasures-lack-of-visibility-statistics-graphing) as we discuss a little later.
 5. Enough documentation to feel comfortable consuming the offering
-6. The offering should be production ready. This means: mature with a security conscious architecture and features, rather than some attempt of security retrofitted somewhere down the track. Do the developers think and live security, thus bake the concept in from the start?
+6. The offering should be production ready. This means that it is mature with a security conscious architecture and features, rather than some attempt at retrofitted security after the fact. Do the developers think and live security, and thus bake it in from the start?
 
 ##### Sysvinit, [Upstart](http://upstart.ubuntu.com/), [systemd](https://freedesktop.org/wiki/Software/systemd/) & [Runit](http://smarden.org/runit/) {#vps-countermeasures-lack-of-visibility-proactive-monitoring-sysvinit-upstart-systemd-runit}
 
-You will have one of these running on your standard GNU/Linux box.
+You will have one of these running on a standard GNU/Linux system.
 
-These are system and service managers for Linux. Upstart and the later systemd were developed as replacements for the traditional init daemon (Sysvinit), which all depend on init. Init is an essential package that pulls in the default init system. In Debian, starting with Jessie, [systemd](https://wiki.debian.org/systemd) is your default system and service manager.
+These are system and service managers for Linux. Upstart, and the later systemd were developed as replacements for the traditional init daemon (Sysvinit), which all depend on init. Init is an essential package that pulls in the default init system. In Debian, starting with Jessie, [systemd](https://wiki.debian.org/systemd) is your default system and service manager.
 
-There is some helpful info on the [differences](https://doc.opensuse.org/documentation/html/openSUSE_122/opensuse-reference/cha.systemd.html) between Sysvinit and systemd, links in the attributions chapter.
+There is helpful info on the [differences](https://doc.opensuse.org/documentation/html/openSUSE_122/opensuse-reference/cha.systemd.html) between Sysvinit and systemd, and links in the attributions chapter.
 
 {#vps-countermeasures-lack-of-visibility-proactive-monitoring-sysvinit-upstart-systemd-runit-systemd}
 **systemd**  
 
-As I have systemd installed out of the box on my test machine (Debian Stretch), I will be using this for my set-up.
+As I have systemd installed out of the box on my test system (Debian Stretch), I will be using this for my setup.
 
 **Documentation**
 
-There is a well written [comparison](http://www.tuicool.com/articles/qy2EJz3) with Upstart, systemd, Runit and even Supervisor.
+There is a well written [comparison](http://www.tuicool.com/articles/qy2EJz3) of Upstart, systemd, Runit, and Supervisor.
 
-Running the likes of the below commands will provide some good details on how these packages interact with each other:
+The below commands will provide good details on how these packages interact with each other:
 
 {linenos=off, lang=bash}
     aptitude show sysvinit
     aptitude show systemd
     # and any others you think of
 
-These system and service managers all run as `PID 1` and start the rest of your system. Your Linux system will more than likely be using one of these to start tasks and services during boot, stop them during shutdown and supervise them while the system is running. Ideally you are going to want to use something higher level to look after your NodeJS application(s). See the following candidates.
+These system and service managers all run as `PID 1` and start the rest of your system. Your Linux system will more than likely be using one of these to start tasks and services during boot, stop them during shutdown, and supervise them while the system is running. Ideally, you are going to want to use something higher level to look after your NodeJS application(s). See the following candidates.
 
 ##### [forever](https://github.com/foreverjs/forever) {#vps-countermeasures-lack-of-visibility-proactive-monitoring-forever}
 
-and its [web UI](https://github.com/FGRibreau/forever-webui) can run any kind of script continuously (whether it is written in NodeJS or not). This was not always the case though. It was originally targeted toward keeping NodeJS applications running.
+forever and its [web UI](https://github.com/FGRibreau/forever-webui) can run any kind of script continuously (whether it is written in NodeJS or not). This was not always the case though. It was originally targeted toward keeping NodeJS applications running.
 
-Requires NPM to [install globally](https://www.npmjs.com/package/forever). We already have a package manager on Debian and all other main-stream Linux distros. Even Windows has package managers. Installing NPM just adds more attack surface area. Unless it is essential, I would rather do without NPM on a production server where we are actively working to [reduce the installed package count](#vps-countermeasures-disable-remove-services-harden-what-is-left) and [disable](#vps-countermeasures-disable-remove-services-harden-what-is-left-disable-exim) everything else we can. We could install forever on a development box and then copy to the production server, but it starts to turn the simplicity of a node module into something not as simple, which then makes native offerings such as [Supervisor](#vps-countermeasures-lack-of-visibility-proactive-monitoring-supervisor), [Monit](#vps-countermeasures-lack-of-visibility-proactive-monitoring-monit) and even [Passenger](#vps-countermeasures-lack-of-visibility-proactive-monitoring-passenger) look even more attractive.
+forever requires NPM to [install globally](https://www.npmjs.com/package/forever). We already have a package manager on Debian, and all other mainstream Linux distros. Even Windows has package managers. Installing NPM just adds more attack surface area. Unless it is essential, I would rather do without NPM on a production server where we are actively working to [reduce the installed package count](#vps-countermeasures-disable-remove-services-harden-what-is-left) and [disable](#vps-countermeasures-disable-remove-services-harden-what-is-left-disable-exim) everything else we can. We could install forever on a development box and then copy to the production server, but it starts to turn the simplicity of a node module into something not as simple. This then makes native offerings such as [Supervisor](#vps-countermeasures-lack-of-visibility-proactive-monitoring-supervisor), [Monit](#vps-countermeasures-lack-of-visibility-proactive-monitoring-monit) and [Passenger](#vps-countermeasures-lack-of-visibility-proactive-monitoring-passenger) look even more attractive.
 
-**[Does it Meet Our Goals](#vps-countermeasures-lack-of-visibility-proactive-monitoring-goals)**
+**[Does it Meet Our Goals?](#vps-countermeasures-lack-of-visibility-proactive-monitoring-goals)**
 
-1. Not without an extra script. Crontab or similar
+1. Not without an extra script such as crontab or similar
 2. The application will be re-started if it dies, but if its response times go up, forever is not going to help. It has no way of knowing.
 3. forever provides no file integrity or times-tamp checking, so there is nothing stopping your application files being swapped for trojanised counterfeits with forever
 4. Ability to add the following later without having to swap the chosen offering:
