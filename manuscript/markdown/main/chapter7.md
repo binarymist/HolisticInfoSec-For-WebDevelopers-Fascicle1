@@ -3816,109 +3816,109 @@ I also looked into [Raygun](https://raygun.com/), which provides visibility into
 #### Host Intrusion Detection Systems (HIDS) {#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-I recently performed an in-depth evaluation of a couple of great HIDS available. The choice of which candidates to take into the second round came from an initial evaluation of a larger collection of HIDS. First I will briefly discuss the full collection I looked at, as these also have some compelling features and reasons as to why you may want to use them in your own VPSs. I will then discuss the two that I was the most impressed with, and dive into some more details around the winner, why, and how I had it configured and running in my lab.
+I recently performed an indepth evaluation of a couple of great HIDS available. My final candidates for the second round came from an initial evaluation of a larger collection of HIDS. First, I will briefly discuss the full collection I looked at, as these also have some compelling features and reasons as to why you may want to use them in your own VPSs. I will then discuss the two that I was the most impressed with, and dive into some more details around the winner, as well as why and how I had it configured and running in my lab.
 
-The best time to install a HIDS is on a fresh installed system before you open the host up to the internet or even your LAN, especially if it is corporate. Of course if you do not have that luxury, there are a bunch of tools that can help you determine if you are already owned. Be sure to run one or more over your target system(s) before your HIDS bench-marks it, otherwise you could be bench-marking an already compromised system.
+The best time to install a HIDS is on a freshly installed system, before you open the host up to the internet or even your LAN, especially if it is a corporate system. If you do not have that luxury, there are a bunch of tools that can help you determine if you are already owned. Be sure to run one or more over your target system(s) before your HIDS benchmarks it, otherwise you could be benchmarking an already compromised system.
 
 ##### [Tripwire](https://packages.debian.org/stretch/tripwire)
 
-Is a HIDS that stores a good known state of vital system files of your choosing and can be set-up to notify an administrator upon change in the files. Tripwire stores cryptographic hashes (deltas) in a database and compares them with the files it has been configured to monitor changes on. DigitalOcean had a [tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps) on setting Tripwire up. Most of what you will find around Tripwire now are the commercial offerings.
+Tripwire stores a known good state of vital system files of your choosing, and can be set up to notify an administrator upon change in the files. Tripwire stores cryptographic hashes (deltas) in a database and compares them with the files it has been configured to monitor changes for. DigitalOcean has a [tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps) on setting Tripwire up. Most of what you will find specific to Tripwire are commercial offerings.
 
 ##### [RkHunter](https://packages.debian.org/stretch/rkhunter)
 
-Is a similar [offering](http://rkhunter.sourceforge.net/) to Tripwire for POSIX compliant systems. RkHunter scans for rootkits, backdoors, checks on the network interfaces and local exploits by testing for:
+RkHunter is a similar [offering](http://rkhunter.sourceforge.net/) to Tripwire for POSIX compliant systems. RkHunter scans for rootkits, backdoors, checks on network interfaces and local exploits by testing for:
 
 * MD5 hash changes
-* Files commonly created by root-kits
-* Wrong file permissions for binaries
+* Files commonly created by rootkits
+* Erroneous file permissions for binaries
 * Suspicious strings in kernel modules
 * Hidden files in system directories
-* Optionally scan within plain-text and binary files
+* Optionally, scan within plaintext and binary files
 
-Version 1.4.2 (24/02/2014) now checks the `ssh`, `sshd` and `telent`, although you should not have telnet installed. This could be useful for mitigating non-root users running a trojanised sshd on a 1025-65535 port. You can run ad-hoc scans, then set them up to be run with cron. Debian Jessie has this release in its repository. Any Debian distro before Jessie is on 1.4.0-1 or earlier.
+Version 1.4.2 (24/02/2014) now checks `ssh`, `sshd` and `telent`, although you should not have telnet installed in the first place. This could be useful for mitigating non-root users running a trojanised sshd on a 1025-65535 port. You can run adhoc scans, then set them up to be run with cron. Debian Jessie has this release in its repository. Any Debian distro before Jessie is on 1.4.0-1 or earlier.
 
 The latest version you can install for Linux Mint Rosa (17.3) within the repositories is 1.4.0-3 (01/05/2012). Linux Mint Sarah (18) within the repositories is 1.4.2-5
 
 ##### [Chkrootkit](https://packages.debian.org/stretch/chkrootkit)
 
-It is a good idea to run a couple of these types of scanners. Hopefully what one misses the other will not. Chkrootkit scans for many system programs, some of which are cron, crontab, date, echo, find, grep, su, ifconfig, init, login, ls, netstat, sshd, top and many more. All the usual targets for attackers to modify. You can specify if you do not want them all scanned. Chkrootkit runs tests such as:
+It is a good idea to run a couple of these types of scanners. Hopefully, what one misses the other will not. Chkrootkit scans for many system programs, some of which are cron, crontab, date, echo, find, grep, su, ifconfig, init, login, ls, netstat, sshd, top and many more, all the usual targets for attackers to modify. You can specify if you do not want them all scanned. Chkrootkit runs tests such as:
 
 * System binaries for rootkit modification
 * If the network interface is in promiscuous mode
 * lastlog deletions
 * wtmp and utmp deletions (logins, logouts)
 * Signs of LKM trojans
-* Quick and dirty strings replacement
+* Quick and dirty strings replacements
 
 {#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-unhide}
 ##### [Unhide](http://www.unhide-forensics.info/)
 
-While not strictly a HIDS, Unhide is quite a useful forensics tool for working with your system if you suspect it may have been compromised.
+While not strictly a HIDS, Unhide is quite a useful forensics tool for determining if your system has been compromised.
 
-Unhide is a forensic tool to find hidden processes and TCP/UDP ports by rootkits / LKMs or by another hidden technique. Unhide runs on Unix/Linux and Windows Systems. It implements six main techniques.
+Unhide is a forensic tool to find hidden processes and TCP/UDP ports by rootkits / LKMs or by another hidden technique. Unhide runs on Unix/Linux and Windows systems. It implements six main techniques.
 
 1. Compare `/proc` vs `/bin/ps` output
-2. Compare info gathered from `/bin/ps` with info gathered by walking through the `procfs` (ONLY for unhide-linux version).
-3. Compare info gathered from `/bin/ps` with info gathered from `syscalls` (syscall scanning)
+2. Compare information gathered from `/bin/ps` with information gathered by walking through the `procfs` (ONLY for unhide-linux version).
+3. Compare information gathered from `/bin/ps` with information gathered from `syscalls` (syscall scanning)
 4. Full PIDs space occupation (PIDs brute-forcing) (ONLY for unhide-linux version).
 5. Compare `/bin/ps` output vs `/proc`, `procfs` walking and `syscall` (ONLY for unhide-linux version). Reverse search, verify that all threads seen by `ps` are also seen in the `kernel`.
 6. Quick compare `/proc`, `procfs` walking and `syscall` vs `/bin/ps` output (ONLY for unhide-linux version). This technique is about 20 times faster than tests 1+2+3 but may give more false positives.
 
 Unhide includes two utilities: unhide and unhide-tcp.
 
-unhide-tcp identifies TCP/UDP ports that are listening but are not listed in /bin/netstat through brute forcing of all TCP/UDP ports available.
+unhide-tcp identifies TCP/UDP ports that are listening but are not listed in /bin/netstat by bruteforcing all TCP/UDP ports available.
 
-Can also be used by rkhunter in its daily scans. Unhide was number one in the top 10 toolswatch.org security tools pole
+Unhide can also be used by RkHunter in its daily scans. Unhide was #1 in the Top 10 toolswatch.org Security Tools Poll.
 
 ##### Ossec
 
-Is a HIDS that also has some preventative features. This is a pretty comprehensive offering with a lot of great features.
+OSSEC is a HIDS that also has some preventative features. This is a pretty comprehensive offering with a lot of great features.
 
 ##### [Stealth](https://fbb-git.github.io/stealth/)
 
-The idea of Stealth is to do a similar job as the above file integrity checkers, but to leave almost no sediments on the tested computer (called the client). A potential attacker therefore does not necessarily know that Stealth is in fact checking the integrity of its clients files. Stealth is installed on a different machine (called the controller) and scans over SSH.
+Stealth does a similar job as the above file integrity checkers, but leaves almost no sediment on the tested computer (client). A potential attacker therefore does not necessarily know that Stealth is, in fact, checking the integrity of its client's files. Stealth is installed on a different machine (controller), and scans over SSH.
 
-The faster you can respond to an attacker modifying system files, the more likely you are to circumvent their attempts. Ossec provides real-time cheacking. Stealth provides agent-less (runs from another machine) checking, using the checksum programme of your choice that it copies to the controller on first run, ideally before it is exposed in your DMZ.
+The faster you can respond to an attacker modifying system files, the more likely you are to prevent their attempts. Ossec provides real-time checking. Stealth provides agent-less (runs from another machine) checking, using the checksum programme of your choice that it copies to the controller on first run, ideally before it is exposed in your DMZ.
 
-##### Deeper with Ossec {#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-ossec}
+##### Deeper with OSSEC {#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-ossec}
 
 You can find the source on [GitHub](https://github.com/ossec/ossec-hids)
 
-**Who is Behind Ossec?**
+**Who is Behind OSSEC?**
 
-Many developers, contributors, managers, reviewers, translators. Infact the [OSSEC team](https://ossec.github.io/about.html#ossec-team) looks almost as large as the [Stealth user base](https://qa.debian.org/popcon.php?package=stealth), well, that is a slight exaggeration.
+Many developers, contributors, managers, reviewers, and translators produce OSSEC. In fact, the [OSSEC team](https://ossec.github.io/about.html#ossec-team) looks almost as large as the [Stealth user base](https://qa.debian.org/popcon.php?package=stealth), a slight exaggeration :-).
 
 **Documentation**
 
-There is Lots of documentation. It is not always the easiest to navigate because you have to understand so much up front. There is lots of buzz on the inter-webs and there are several books.
+There is a great deal of documentation. It is not always the easiest to navigate because you have to understand so much of it up front. There is lots of buzz about OSSEC on the Internet and there are several books.
 
 * The main documentation is on [GitHub](https://ossec.github.io/docs/)
 * Similar docs on [readthedocs.io](https://ossec-docs.readthedocs.io/en/latest/)
 * Mailing list on [google groups](https://groups.google.com/forum/#!forum/ossec-list)
-* Several good looking books
-  1. Book one ([Instant OSSEC Host-based Intrusion Detection System](https://www.amazon.com/Instant-Host-based-Intrusion-Detection-System/dp/1782167641/))
-  2. Book two ([OSSEC Host-Based Intrusion Detection Guide](https://www.amazon.com/OSSEC-Host-Based-Intrusion-Detection-Guide/dp/159749240X))
-  3. Book three ([OSSEC How-To – The Quick And Dirty Way](https://blog.savoirfairelinux.com/en/tutorials/free-ebook-ossec-how-to-the-quick-and-dirty-way/))
+* Several good books
+  1. [Instant OSSEC Host-based Intrusion Detection System](https://www.amazon.com/Instant-Host-based-Intrusion-Detection-System/dp/1782167641/)
+  2. [OSSEC Host-Based Intrusion Detection Guide](https://www.amazon.com/OSSEC-Host-Based-Intrusion-Detection-Guide/dp/159749240X)
+  3. [OSSEC How-To – The Quick And Dirty Way](https://blog.savoirfairelinux.com/en/tutorials/free-ebook-ossec-how-to-the-quick-and-dirty-way/)
 * [Commercial Support](https://ossec.github.io/blog/posts/2014-05-12-OSSEC-Commercial-Support-Contracts.markdown.html)
 * [FAQ](https://ossec-docs.readthedocs.io/en/latest/faq/index.html)
 * [Package meta-data](http://ossec.alienvault.com/repos/apt/debian/dists/jessie/main/binary-amd64/Packages)
 
 **Community / Communication**
 
-IRC channel #ossec on irc.freenode.org Although it is not very active.
+There is an IRC channel, #ossec on irc.freenode.org, although it is not very active.
 
 **Components**
 
-* [Manager](https://ossec-docs.readthedocs.io/en/latest/manual/ossec-architecture.html#manager-or-server) (sometimes called server): does most of the work monitoring the Agents. It stores the file integrity checking databases, the logs, events and system auditing entries, rules, decoders, major configuration options.
+* [Manager](https://ossec-docs.readthedocs.io/en/latest/manual/ossec-architecture.html#manager-or-server) (sometimes called server): does most of the work monitoring the agents. It stores the file integrity checking databases, the logs, events and system auditing entries, rules, decoders, and major configuration options.
 * [Agents](https://ossec-docs.readthedocs.io/en/latest/manual/agent/index.html): small collections of programs installed on the machines we are interested in monitoring. Agents collect information and forward it to the manager for analysis and correlation.
 
-There are quite a few other ancillary components also.
+There are also quite a few other ancillary components.
 
 **[Architecture](https://ossec-docs.readthedocs.io/en/latest/manual/ossec-architecture.html)**
 
 You can also go the [agent-less](https://ossec-docs.readthedocs.io/en/latest/manual/agent/agentless-monitoring.html) route which may allow the Manager to perform file integrity checks using [agent-less scripts](http://ossec-docs.readthedocs.org/en/latest/manual/agent/agentless-scripts.html). As with Stealth, you have still got the issue of needing to be root in order to read some of the files.
 
-Agents can be installed on VMware ESX but from what I have read it is quite a bit of work.
+Agents can be installed on VMware ESX, but from what I have read, it is quite a bit of work.
 
 **[Features](https://ossec.github.io/docs/manual/non-technical-overview.html?page_id=165) in a nut-shell**
 
@@ -3926,48 +3926,48 @@ Agents can be installed on VMware ESX but from what I have read it is quite a bi
 * Rootkit detection
 * Real-time log file monitoring and analysis (you may already have something else doing this)
 * Intrusion Prevention System (IPS) features as well: blocking attacks in real-time
-* Alerts can go to a databases MySQL or PostgreSQL or other types of [outputs](https://ossec-docs.readthedocs.io/en/latest/manual/output/index.html)
-* There is a PHP web UI that runs on Apache if you would rather look at pretty outputs vs log files.
+* Alerts can go to a database such as MySQL or PostgreSQL, or other types of [outputs](https://ossec-docs.readthedocs.io/en/latest/manual/output/index.html)
+* There is a PHP web UI that runs on Apache if you would rather look at pretty outputs versus log files.
 
 **What I like**
 
-To me, the ability to scan in real-time off-sets the fact that the agents in most cases have binaries installed. This hinders the attacker from [covering their tracks](#vps-identify-risks-lack-of-visibility).
+The ability to scan in real-time offsets the fact that the agents, in most cases, require installed binaries. This hinders the attacker from [covering their tracks](#vps-identify-risks-lack-of-visibility).
 
-Can be configured to scan systems in [real](https://ossec-docs.readthedocs.io/en/latest/manual/syscheck/index.html#realtime-options)–[time](https://ossec-docs.readthedocs.io/en/latest/manual/syscheck/index.html#real-time-monitoring) based on [inotify](https://en.wikipedia.org/wiki/Inotify) events.
+OSSEC can be configured to scan systems in [real](https://ossec-docs.readthedocs.io/en/latest/manual/syscheck/index.html#realtime-options)–[time](https://ossec-docs.readthedocs.io/en/latest/manual/syscheck/index.html#real-time-monitoring) based on [inotify](https://en.wikipedia.org/wiki/Inotify) events.
 
-Backed by a large company Trend Micro.
+It's backed by a large company: Trend Micro.
 
-Options: Install options for starters. You have the options of:
+Options: Install options for starters. These include:
 
 * Agent-less installation as described above
 * Local installation: Used to secure and protect a single host
 * Agent installation: Used to secure and protect hosts while reporting back to a central OSSEC server
 * Server installation: Used to aggregate information
 
-Can install a web UI on the manager, so you need Apache, PHP, MySQL.
+You can install a web UI on the manager, so you need Apache, PHP, MySQL.
 
 If you are going to be checking many machines, OSSEC will scale.
 
 **What I like less**
 
-* Unlike Stealth, The fact that something usually has to be installed on the agents
-* The packages are not in the standard repositories. The downloads, PGP keys and directions are here: [https://ossec.github.io/downloads.html](https://ossec.github.io/downloads.html).
-* I think Ossec may be doing to much and if you do not like the way it does one thing, you may be stuck with it. Personally I really like the idea of a tool doing one thing, doing it well and providing plenty of configuration options to change the way it does its one thing. This provides huge flexibility and minimises your dependency on a suite of tools and/or libraries
-* Information overload. There seems to be a lot to get your head around to get it set-up. There are a lot of install options documented (books, inter-webs, official docs). It takes a bit to workout exactly the best procedure for your environment, in saying that it does have scalability on its side.
+* Unlike Stealth, the fact is that something usually has to be installed on the agents
+* The packages are not in the standard repositories. The downloads, PGP keys, and directions are here: [https://ossec.github.io/downloads.html](https://ossec.github.io/downloads.html).
+* I think OSSEC may be doing too much, and if you do not like the way it does one thing, you may be stuck with it. Personally, I really like the idea of a tool doing one thing, doing it well, and providing plenty of configuration options to change the way it does its one thing. This provides huge flexibility, and minimises your dependency on a suite of tools and/or libraries
+* Information overload. There seems to be a lot to get your head wrapped around in order to get it set up. There are a lot of install options documented (books, Internet, official docs). It takes a bit to work out exactly the best procedure for your environment, in saying that, it does have scalability on its side
 
 ##### Deeper with Stealth {#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth}
 
-And why it rose to the top.
+Stealth rose to the top, here's why.
 
 You can find the source on [GitHub](https://github.com/fbb-git/stealth)
 
 **Who is Behind Stealth?**
 
-Author: Frank B. Brokken. An admirable job for one person. Frank is not a fly-by-nighter though. Stealth was first presented to Congress in 2003. It is still actively maintained and used by a few. It is one of GNU/Linux’s dirty little secrets I think. It is a great idea implemented, makes a tricky job simple and does it in an elegant way.
+Author: Frank B. Brokken. This is an admirable job for one person. Frank is not a fly-by-nighter though. Stealth was first presented to Congress in 2003. It is still actively maintained. It is one of GNU/Linux's dirty little secrets I think. It is a great idea implemented, makes a tricky job simple, and does it in an elegant way.
 
 **[Documentation](https://fbb-git.github.io/stealth/)**
 
-All hosted on GitHub.
+All documentation is hosted on GitHub.
 
 * [4.01.05 (2016-05-14)](https://packages.debian.org/stretch/stealth)
   * [man page](https://fbb-git.github.io/stealth/stealthman.html)
@@ -3980,15 +3980,15 @@ Once you install Stealth, all the documentation can be found by `sudo updatedb &
 
 **Binaries**
 
-Debian Stretch: has [4.01.05-1](https://packages.debian.org/stretch/stealth)
+Debian Stretch: [4.01.05-1](https://packages.debian.org/stretch/stealth)
 
-Linux Mint 18 (Sarah) has [4.01.04-1](https://community.linuxmint.com/software/view/stealth)
+Linux Mint 18 (Sarah) [4.01.04-1](https://community.linuxmint.com/software/view/stealth)
 
-Last time I installed Stealth I had to either go out of band to get a recent version or go with a much older version. These repositories now have very recent releases though.
+Last time I installed Stealth, I had to either go out-of-band to get a recent version, or go with a much older version. These repositories now have very recent releases though.
 
 **Community / Communication**
 
-There is no community really. I see it as one of the dirty little secretes that I am surprised many diligent sys-admins have not jumped on. The author is happy to answer emails. The author is more focussed on maintaining a solid product than marketing.
+There is no community really. I am surprised that many diligent sysadmins have not jumped on the Stealth bandwagon. The author is happy to answer emails and is more focussed on maintaining a solid product than marketing.
 
 **Components**
 
@@ -4003,48 +4003,48 @@ There is no community really. I see it as one of the dirty little secretes that 
     4. Physically secure location
     5. Sensitive information of the clients are stored on the Monitor
     6. Password-less access to the clients for anyone who gains Monitor root access, unless either:
-        * You are happy to enter a pass-phrase when ever your Monitor is booted so that Stealth can use SSH to access the client(s). The Monitor could stay running for years, so this may not pose a problem. I suggest using some low powered computer like a Raspberry Pie as your monitoring device, hooked up to a UPS. Also keep in mind that if you wan to monitor files on Client(s) with root permissions, you will have to SSH in as root (which is why it is recommended that the Monitor not accept any incoming connections, and be in a physically safe location). An alternative to having the Monitor log in as root is to have something like Monit take care of integrity checking the Client files with root permissions and have Stealth monitor the non root files and Monit.
+        * You are happy to enter a passphrase when ever your Monitor is booted so that Stealth can use SSH to access the client(s). The Monitor could stay running for years, so this may not pose a problem. I suggest using some low powered computer such as a Raspberry Pie as your monitoring device, hooked up to a UPS. Also keep in mind that if you want to monitor files on Client(s) with root permissions, you will have to SSH in as root (which is why it is recommended that the Monitor not accept any incoming connections, and be in a physically safe location). An alternative to having the Monitor log in as root is to have something like Monit take care of integrity checking the Client files with root permissions, and have Stealth monitor the non-root files and Monit.
         * [ssh-cron](https://fbb-git.github.io/ssh-cron/) is used  
 	  
-2. **Client** The computer(s) being monitored. I do not see any reason why a Stealth solution could not be set-up to look after many clients.
+2. **Client** The computer(s) being monitored. I do not see any reason why a Stealth solution could not be set up to look after many clients.
 
 **Architecture**
 
-The Monitor stores one to many policy files. Each of which is specific to a single client and contains `USE` directives and commands. Its recommended policy to take copies of the client utilities such as the hashing programme `sha1sum`, `find` and others that are used extensively during the integrity scans and copy them to the Monitor to take bench-mark hashes. Subsequent runs will do the same to compare with the initial hashes stored before the client utilities are trusted.
+The Monitor stores one-to-many policy files, each of which is specific to a single client and contains `USE` directives and commands. It's recommended policy to take copies of the client utilities such as the hashing programme `sha1sum`, `find` and others that are used extensively during the integrity scans, and copy them to the Monitor to take benchmark hashes. Subsequent runs will do the same to compare with the initial hashes stored before the client utilities are trusted.
 
 **Features in a nut-shell**
 
-File integrity tests leaving virtually no sediments on the tested client.
+File integrity tests leaving virtually no sediment on the tested client.
 
-Stealth subscribes to the “dark cockpit” approach. I.E. no mail is sent when no changes are detected. If you have a MTA, Stealth can be configured to send emails on changes it finds.
+Stealth adheres to the dark cockpit approach, i.e. no mail is sent when no changes are detected. If you have an MTA, Stealth can be configured to send emails on changes it finds.
 
 {#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth-what-i-like}
 **What I like**
 
-* Its simplicity. There is one package to install on the Monitor. Nothing to install on the client machines. The Client just needs to have the Monitors SSH public key. You will need a Mail Transfer Agent on your Monitor if you do not already have one. My test machine (Linux Mint) did not have one.
-* Rather than just modifying the likes of `sha1sum` on the clients that Stealth uses to perform its integrity checks, Stealth would somehow have to be fooled into thinking that the changed hash of the `sha1sum` it has just copied to the Monitor is the same as the previously recorded hash that it did the same with. If the previously recorded hash is removed or does not match the current hash, then Stealth will fire an alert off.
+* Its simplicity. There is one package to install on the Monitor and nothing to install on the client machines. The Client just needs to have the Monitor's SSH public key. You will need a Mail Transfer Agent on your Monitor if you do not already have one
+* Rather than just modifying the likes of `sha1sum` on the clients, which Stealth uses to perform its integrity checks, Stealth detection would have to be manipulated to seeing the changed hash of the `sha1sum`  just copied to the Monitor as the same as that of the previously recorded hash. If the previously recorded hash is removed or does not match the current hash, then Stealth will fire an alert off.
 * It is in the Debian repositories
-* The whole idea behind it. Systems being monitored give little appearance that they are being monitored, other than I think the presence of a single SSH login when Stealth first starts in the `auth.log`. This could actually be months ago, as the connection remains active for the life of Stealth. The login could be from a user doing anything on the client. It is very discrete.
-* Unpredictability of Stealth runs is offered through Stealth’s `--random-interval` and `--repeat` options. E.g. `--repeat 60 --random-interval 30` results in new Stealth-runs on average every 75 seconds. It can usually take a couple of minutes to check all the important files on a file system, so you would probably want to make the checks several minutes apart from each other.
+* The whole idea behind it. Systems being monitored with Stealth give little appearance that they are being monitored, other than the presence of a single SSH login when Stealth first starts in the `auth.log`. This will age quickly as the connection remains active for the life of Stealth. The login could be from a user doing anything on the client, it is very discrete.
+* Unpredictability: Stealth offers `--random-interval` and `--repeat` options. `--repeat 60 --random-interval 30` results in new Stealth runs on an average of every 75 seconds. It can usually take a couple of minutes to check all the important files on a file system, so you would probably want to make the checks several minutes apart from each other.
 * Subscribes to the Unix philosophy: “do one thing and do it well”
-* Stealth’s author is very approachable and open. After talking with Frank and suggesting some ideas to promote Stealth and its community, Frank started a [discussion list](http://sourceforge.net/p/stealth/discussion/). Now that Stealth is moved to GitHub, issues can be submitted easily. If you use Stealth and have any trouble, Frank is very easy to work with.
+* Stealth's author is very approachable and open. After talking with Frank and suggesting some ideas to promote Stealth and its community, Frank started a [discussion list](http://sourceforge.net/p/stealth/discussion/). Now that Stealth has moved to GitHub, issues can be submitted easily. If you use Stealth and have any trouble, Frank is very easy to work with.
 
 **What I like less**
 
-* Lack of visible code reviews and testing. Yes it is in Debian, but so was [OpenSSL](http://heartbleed.com/) and [Bash](https://security-tracker.debian.org/tracker/CVE-2014-6271)
-* One man band. Support provided via one person alone via email, although now it is on GitHub, it should be easier if / when the need arises. Comparing with the likes of Ossec which has [quite a few](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-ossec).
-* Lack of use cases. I did not see anyone using / abusing it. Although Frank did send me some contacts of other people that are using it, so again, a very helpful author. There is not much in the way of use cases on the interwebs. The documentation had clear signs that it was written and targeted people already familiar with the tool. This is understandable as the author has been working on this project for many years and could possibly be disconnected with what is involved for someone completely new to the project to dive in and start using it. In saying that, that is what I did and after a bit of struggling it worked out well.
-* Small user base, revealed by the [debian popcon](https://qa.debian.org/popcon.php?package=stealth).
+* Lack of visible code reviews and testing. Yes, it is in Debian, but so was [OpenSSL](http://heartbleed.com/) and [Bash](https://security-tracker.debian.org/tracker/CVE-2014-6271)
+* One man band. Support is provided by one person alone via email, although now it is on GitHub, it should be easier if and when the need arises
+* Lack of use cases. I did not see anyone using or abusing it, although Frank did send me some contacts of other people who are using it, so again, a very helpful author. There are not many use cases on the Internet. The documentation had clear signs that it was written and targeted people already familiar with the tool. This is understandable as the author has been working on this project for many years and could possibly be disconnected with what is involved for someone completely new to the project to dive in and start using it. That is what I had to do, and after a bit of struggling, it worked out well. This is compared with the likes of OSSEC which has [quite a few use cases](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-ossec)
+* Small user base, revealed by the [debian popcon](https://qa.debian.org/popcon.php?package=stealth)
 
 ##### Outcomes
 
-In making all of my considerations, I changed my mind quite a few times on which offerings were most suited to which environments. I think this is actually a good thing, as I think it means my evaluations were based on the real merits of each offering rather than any biases.
+In making my considerations, I changed my mind quite a few times on which offerings were most suited to which environments. I think this is actually a good thing, as I think it means my evaluations were based on the real merits of each offering rather than any biases.
 
-The simplicity of Stealth, flatter learning curve and its over-all philosophy is what won me over. Although, I think if you have to monitor many Agents / Clients, then Ossec would be an excellent option, as I think it would scale well.
+The simplicity of Stealth, flat learning curve, and its overall philosophy is what won me over. Although, I think if you have to monitor many Agents and Clients, then OSSEC would be an excellent option, as it scales well.
 
 ##### Stealth Up and Running
 
-I installed stealth and stealth-doc via synaptic package manager. Then just did a `locate` for stealth to find the docs and other example files. The following are the files I used for documentation, how I used them and the tab order that made sense to me:
+I installed stealth and stealth-doc via the Synaptic package manager, then I just did a `locate` for stealth to find the docs and other example files. Following are the files I used for documentation, how I used them, and the tab order that made sense to me:
 
 1. The main documentation index:  
 [file:///usr/share/doc/stealth-doc/manual/html/stealth.html](file:///usr/share/doc/stealth-doc/manual/html/stealth.html)
@@ -4077,22 +4077,22 @@ Files I used for reference to build up the policy file:
 * `/usr/share/doc/stealth/examples/localhost.pol.gz`
 * `/usr/share/doc/stealth/examples/simple.pol.gz`
 
-As mentioned above, providing you have a working MTA, then Stealth will just do its thing when you run it. The next step is to schedule its runs. This can be also (as mentioned above) with a pseudo random interval.
+As mentioned above, providing you have a working MTA, Stealth will just do its thing when you run it. The next step is to schedule its runs. This can be conducted, as mentioned above, with a pseudo-random interval.
 
 ### Docker {#vps-countermeasures-docker}
 
-It is my intention to provide a high level over view of the concepts you will need to know in order to establish a somewhat secure environment around the core Docker components and your containers. There are many resources available, and the Docker security team is hard at work constantly trying to make the task of improving security around Docker easier.
+It is my intent to provide a high level over view of the concepts you will need to know in order to create a secure environment for the core Docker components, and your containers. There are many resources available, and the Docker security team is hard at work constantly trying to make the task of improving security around Docker easier.
 
-Do not forget to check the [Additional Resources](#additional-resources-vps-countermeasures-docker) section for material to be consumed in parallel with the Docker Countermeasures, such as the excellent CIS Docker Benchmark and an [interview](http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/) of the Docker Security Team Lead I carried out with Diogo Mónica.
+Do not forget to check the [Additional Resources](#additional-resources-vps-countermeasures-docker) section for material to be consumed in parallel with the Docker Countermeasures, such as the excellent CIS Docker Benchmark, and an [interview](http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/) I conducted with the Docker Security Team Lead Diogo Mónica.
 
-Cisecurity has an [excellent resource](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) for hardening docker images which the Docker Security team helped with.
+CISecurity has an [excellent resource](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) for hardening docker images, which the Docker Security team helped with.
 
 #### Consumption from Registries {#vps-countermeasures-docker-consumption-from-registries}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-"_Docker Security Scanning is available as an add-on to Docker hosted private repositories on both Docker Cloud and Docker Hub._", you also have to [opt in](https://docs.docker.com/docker-cloud/builds/image-scan/#/opt-in-to-docker-security-scanning) and pay for it. Docker Security Scanning is also now available on the new [Enterprise Edition](https://blog.docker.com/2017/03/docker-enterprise-edition/). The scan compares the SHA of each component in the image with those in an up to date CVE database for known vulnerabilities. This is a good start, but not free and does not do enough. Images are scanned on push and the results indexed so that when new CVE databases are available, comparisons can continue to be made.
+"_Docker Security Scanning is available as an add-on to Docker hosted private repositories on both Docker Cloud and Docker Hub._". You also have to [opt in](https://docs.docker.com/docker-cloud/builds/image-scan/#/opt-in-to-docker-security-scanning) and pay for it. Docker Security Scanning is also now available on the new [Enterprise Edition](https://blog.docker.com/2017/03/docker-enterprise-edition/). The scan compares the SHA of each component in the image with those in an up to date CVE database for known vulnerabilities. This is a good start, but not free and does not do enough. Images are scanned on push and the results indexed so that when new CVE databases are available, comparisons can continue to be made.
 
-It’s up to the person consuming images from docker hub to assess whether or not they have vulnerabilities in them. Whether un-official or [official](https://github.com/docker-library/official-images), it is your responsibility. Check the [Hardening Docker Host, Engine and Containers](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers) section for tooling to assist with finding vulnerabilities in your Docker hosts and images.
+It's up to the person consuming images from docker hub to assess whether or not they have vulnerabilities. Whether unofficial or [official](https://github.com/docker-library/official-images), it is your responsibility. Check the [Hardening Docker Host, Engine and Containers](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers) section for tooling to assist with finding vulnerabilities in your Docker hosts and images.
 
 Your priority before you start testing images for vulnerable contents, is to understand the following:
 
@@ -4100,7 +4100,7 @@ Your priority before you start testing images for vulnerable contents, is to und
 2. Who created it
 3. Image provenance: Is Docker fetching the [image](https://docs.docker.com/engine/docker-overview/#docker-objects) we think it is?
     1. Identification: How Docker uses secure hashes, or digests.  
-    Image layers (deltas) are created during the image build process, and also when commands within the container are run which produce new or modified files and/or directories.  
+    Image layers (deltas) are created during the image build process, and also when commands within the container are run, which produce new or modified files and/or directories.  
     Layers are now identified by a digest which looks like:
     `sha256:<the-hash>`  
     The above hash element is created by applying the SHA256 hashing algorithm to the layers content.  
@@ -4108,9 +4108,9 @@ Your priority before you start testing images for vulnerable contents, is to und
     2. Integrity: How do you know that your image has not been tampered with?  
     This is where secure signing comes in with the [Docker Content Trust](https://blog.docker.com/2015/08/content-trust-docker-1-8/) feature. Docker Content Trust is enabled through an integration of [Notary](https://github.com/docker/notary) into the Docker Engine. Both the Docker image producing party and image consuming party need to opt-in to use Docker Content Trust. By default, it is disabled. In order to do that, Notary must be downloaded and setup by both parties, and the `DOCKER_CONTENT_TRUST` environment variable [must be set](https://docs.docker.com/engine/security/trust/content_trust/#/enable-and-disable-content-trust-per-shell-or-per-invocation) to `1`, and the `DOCKER_CONTENT_TRUST_SERVER` must be [set to the URL](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) of the Notary server you setup.  
     
-        Now the producer can sign their image, but first, they need to [generate a key pair](https://docs.docker.com/engine/security/trust/trust_delegation/). Once they have done that, when the image is pushed to the registry, it is signed with their private (tagging) key.
+        Now the producer can sign their image, but first, they need to [generate a key pair](https://docs.docker.com/engine/security/trust/trust_delegation/). Once they have done so, when the image is pushed to the registry, it is signed with their private (tagging) key.
         
-        When the image consumer pulls the signed image, Docker Engine uses the publishers public (tagging) key to verify that the image you are about to run is cryptographically identical to the image the publisher pushed.
+        When the image consumer pulls the signed image, Docker Engine uses the publisher's public (tagging) key to verify that the image you are about to run is cryptographically identical to the image the publisher pushed.
         
         Docker Content Trust also uses the Timestamp key when publishing the image, this makes sure that the consumer is getting the most recent image on pull.
         
@@ -4121,12 +4121,12 @@ Your priority before you start testing images for vulnerable contents, is to und
 #### Doppelganger images
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-If you are already doing the last step from above, then fetching an image with a very similar name becomes highly unlikely.
+If you are already performing the last step from above, then fetching an image with a very similar name becomes highly unlikely.
 
 #### The Default User is Root {#vps-countermeasures-docker-the-default-user-is-root}
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
-In order to run containers as a non-root user, the user needs to be added in the (preferably base) image (`Dockerfile`) if it is under your control, and set before any commands you want run as a non-root user. Here is an example of the [NodeGoat](https://github.com/owasp/nodegoat) image:
+In order to run containers as a non-root user, the user needs to be added in the base image (`Dockerfile`) if it is under your control, and set before any commands you want run as a non-root user. Here is an example of the [NodeGoat](https://github.com/owasp/nodegoat) image:
 
 {title="NodeGoat Dockerfile", linenos=on}
     FROM node:4.4
@@ -4162,7 +4162,7 @@ In order to run containers as a non-root user, the user needs to be added in the
 
 As you can see on line 4 we create our `nodegoat_docker` user.  
 On line 8 we add our non-root user to the image with no ability to login.  
-On line 15 we change the ownership of the `$workdir` so our non-root user has access to do the things that we normally have permissions to do without root, such as installing npm packages and copying files, as we see on line 20 and 21, but first we need to switch to our non-root user on line 18. On lines 25 and 26 we need to reapply ownership and permissions due to the fact that docker does not `COPY` according to the user you are set to run commands as.
+On line 15 we change the ownership of the `$workdir` so our non-root user has access to do the things that we normally have permissions to do without root, such as installing npm packages and copying files, as we see on line 20 and 21. But first we need to switch to our non-root user on line 18. On lines 25 and 26 we need to reapply ownership and permissions due to the fact that docker does not `COPY` according to the user you are set to run commands as.
 
 Without reapplying the ownership and permissions of the non-root user as seen above on lines 25 and 26, the container directory listings would look like this:
 
@@ -4234,7 +4234,7 @@ With reapplication of the ownership and permissions of the non-root user, as the
     11 drwxr-xr-x 34 root            root            4.0K Sep 13 08:51 ..
     13 drwxr-x--- 21 nodegoat_docker nodegoat_docker 4.0K Sep 13 08:51 app
 
-An alternative to setting the non-root user in the `Dockerfile`, is to set it in the `docker-compose.yml`, providing the non-root user has been added to the image in the `Dockerfile`. In the case of NodeGoat, the mongo `Dockerfile` is maintained by DockerHub, and it adds a user called `mongodb`. Then in the NodeGoat projects `docker-compose.yml`, we just need to set the user, as seen on line 13 below:
+An alternative to setting the non-root user in the `Dockerfile` is to set it in the `docker-compose.yml`, provided that the non-root user has been added to the image in the `Dockerfile`. In the case of NodeGoat, the mongo `Dockerfile` is maintained by DockerHub, and it adds a user called `mongodb`. In the NodeGoat projects `docker-compose.yml`, we just need to set the user, as seen on line 13 below:
 
 {id="nodegoat-docker-compose.yml", title="NodeGoat docker-compose.yml", linenos=on}
     version: "2.0"
@@ -4264,7 +4264,7 @@ Make sure you keep your host kernel well patched, as it is a huge attack surface
 
 The space for tooling to help find vulnerabilities in code, packages, etc within your Docker images has been noted, and [tools provided](https://community.alfresco.com/community/ecm/blog/2015/12/03/docker-security-tools-audit-and-vulnerability-assessment/). The following is a sorted list of what feels like does the least and is the simplest in terms of security/hardening features to what does the most, not understating tools that do a little, but do it well.
 
-These tools should form a part of your secure and trusted build pipeline / [software supply-chain](https://blog.acolyer.org/2017/04/03/a-study-of-security-vulnerabilities-on-docker-hub/).
+These tools should form a part of your secure and trusted build pipeline, or [software supply-chain](https://blog.acolyer.org/2017/04/03/a-study-of-security-vulnerabilities-on-docker-hub/).
 
 ##### [Haskell Dockerfile Linter](https://github.com/lukasmartinelli/hadolint)
 
@@ -4272,32 +4272,32 @@ These tools should form a part of your secure and trusted build pipeline / [soft
 
 ##### [Lynis](https://cisofy.com/downloads/)
 
-is a mature, free and [open source](https://github.com/CISOfy/lynis) auditing tool for Linux/Unix based systems. There is a [Docker plugin](https://cisofy.com/lynis/plugins/docker-containers/) available which allows one to audit Docker, its configuration and containers, but an enterprise license is required, although it is very cheap.
+Lynis is a mature, free and [open source](https://github.com/CISOfy/lynis) auditing tool for Linux/Unix based systems. There is a [Docker plugin](https://cisofy.com/lynis/plugins/docker-containers/) available which allows one to audit Docker, its configuration and containers, but an enterprise license is required, although it is inexpensive.
 
 ##### [Docker Bench](https://github.com/docker/docker-bench-security)
 
-is a shell script, that can be downloaded from GitHub and executed immediately, run from a pre-built container, or using Docker Compose after git cloning. Docker Bench tests many host configurations and Docker containers against the CIS Docker Benchmark.
+Docker Bench is a shell script that can be downloaded from GitHub and executed immediately, run from a pre-built container, or using Docker Compose after Git cloning. Docker Bench tests many host configurations and Docker containers against the CIS Docker Benchmark.
 
 ##### CoreOS [Clair](https://github.com/coreos/clair)
 
-is an open source project that appears to do a similar job to Docker Security Scanning, but it is free. You can use it on any image you pull, to compare the hashes of the packages from every container layer within, with hashes of the [CVE data sources](https://github.com/coreos/clair/tree/f66103c7732c9a62ba1d3afc26437ae54953dc01#default-data-sources). You could also use Clair on your CI/CD build to stop images being deployed if they have packages with hashes that match those of the CVE data sources. quay.io was the first container registry to integrate with Clair.
+CoreOS is an open source project that appears to do a similar job to Docker Security Scanning, but it is free. You can use it on any image you pull, to compare the hashes of the packages from every container layer within, with hashes of the [CVE data sources](https://github.com/coreos/clair/tree/f66103c7732c9a62ba1d3afc26437ae54953dc01#default-data-sources). You could also use Clair on your CI/CD build to stop images being deployed if they have packages with hashes that match those of the CVE data sources. quay.io was the first container registry to integrate with Clair.
 
 ##### Banyanops [collector](https://github.com/banyanops/collector)
 
-is a free and open source framework for static analysis of Docker images. It does more than Clair, it can optionally communicate with Docker registries, private or Docker Hub, to obtain image hashes, it can then tell Docker Daemon to pull the images locally. Collector then `docker run`'s each container in turn to be inspected. Each container runs a banyan or user-specified script which outputs the results to stdout. Collector collates the containers output, and can send this to Banyan Analyser for further analysis. Collector has a [pluggable, extensible architecture](https://github.com/banyanops/collector/blob/master/docs/CollectorDetails.md). Collector can also: Enforce policies, such as no unauthorised user accounts, etc. Make sure components are in their correct location. Banyanops was the organisation that [blogged](https://www.banyanops.com/blog/analyzing-docker-hub/) about the high number of vulnerable packages on Docker Hub. They have really put their money where their mouth was now.
+Banyanops is a free and open source framework for static analysis of Docker images. It does more than Clair, it can optionally communicate with Docker registries, private or Docker Hub, to obtain image hashes, and it can then tell Docker Daemon to pull the images locally. Collector then `docker run`'s each container in turn to be inspected. Each container runs a banyan or user-specified script which outputs the results to stdout. Collector collates the containers output, and can send this to Banyan Analyser for further analysis. Collector has a [pluggable, extensible architecture](https://github.com/banyanops/collector/blob/master/docs/CollectorDetails.md). Collector can also: enforce policies, such as no unauthorised user accounts, etc. Make sure components are in their correct location. Banyanops was the organisation that [blogged](https://www.banyanops.com/blog/analyzing-docker-hub/) about the high number of vulnerable packages on Docker Hub. They have really put their money where their mouth was now.
 
 ##### [Anchore](https://anchore.com/solutions/)
 
-is a set of non-free tools providing visibility, control, analytics, compliance and governance for containers in the cloud or on-prem.  
+Anchore is a set of tools that provide visibility, control, analytics, compliance and governance for containers in the cloud or on-prem for a fee.  
 There are two main parts, a hosted web service, and a set of open source CLI query tools.  
 The hosted service selects and analyses popular container images from Docker Hub and other registries. The metadata it creates is provided as a service to the on-premise CLI tools.  
-It performs a similar job to that of Clair, but does not look as simple. Also looks for source code secrets, API keys, passwords, etc in images.
+It performs a similar job to that of Clair, but does not look as simple. It also looks for source code secrets, API keys, passwords, etc. in images.
 
-Designed to integrate into your CI/CD pipeline. Integrates with Kubernetes, Docker, Jenkins, CoreOS, Mesos
+It's designed to integrate into your CI/CD pipeline and integrates with Kubernetes, Docker, Jenkins, CoreOS, Mesos
 
 ##### [TwistLock](https://www.twistlock.com/) {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-twistlock}
 
-is a fairly comprehensive and complete non open source offering with a free developer edition. The following details were taken from TwistLock marketing pages:
+TwistLock is a fairly comprehensive and complete proprietary offering with a free developer edition. The following details were taken from TwistLock marketing pages:
 
 Features of Trust:
 
@@ -4324,7 +4324,7 @@ Features of Runtime:
 
 ##### Namespaces {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces}
 
-1. `mnt`: Keep with the default propagation mode of `private` unless you have a very good reason to change it. If you do need to change it, think about defence in depth and employ other defence strategies.  
+1. `mnt`: Keep the default propagation mode of `private` unless you have a very good reason to change it. If you do need to change it, think about defence in depth and employ other defence strategies.  
     
     If you have control over the Docker host, lock down the mounting of the host systems partitions as discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section.
     
@@ -4358,9 +4358,9 @@ Features of Runtime:
     
 3. `net`: A network namespace is a virtualisation of the network stack, with its own network devices, IP routing tables, firewall rules and ports.  
 When a network namespace is created the only network interface that is created is the loopback interface, which is down until brought up.  
-Each network interface whether physical or virtual, can only reside in one namespace, but can be moved between namespaces.  
+Each network interface, whether physical or virtual, can only reside in one namespace, but can be moved between namespaces.  
     
-    When the last process in a network namespace terminates, the namespace will be destroyed and destroy any virtual interfaces within it and move any physical network devices back to the initial network namespace, not the process parent.
+    When the last process in a network namespace terminates, the namespace will be destroyed, destroy any virtual interfaces within it, and move any physical network devices back to the initial network namespace, not the process parent.
 
     **Docker and Network Namespaces**
     
@@ -4374,7 +4374,7 @@ Each network interface whether physical or virtual, can only reside in one names
         fe179428ccd4  host              host     local
         a81e8669bda7  none              null     local
     
-    When you run a container, if you want to override the default network of `bridge`, you can specify which network you want to run the container in with the `--network` flag as the following:  
+    When you run a container, if you want to override the default network of `bridge`, you can specify which network in which you want to run the container with the `--network` flag as the following:  
     `docker run --network=<network>`
     
     The bridge can be seen by running `ifconfig` on the host:
@@ -4386,7 +4386,7 @@ Each network interface whether physical or virtual, can only reside in one names
     
     When the Docker engine (CLI) client or API tells the Docker daemon to run a container, part of the process allocates a bridged interface, unless specified otherwise, that allows processes within the container to communicate to the system host via the virtual Ethernet bridge.
     
-    Virtual Ethernet interfaces when created are always created as a pair. You can think of them as one interface on each side of a namespace wall with a tube through the wall connecting them. Packets come in one interface and pop out the other, and visa versa.
+    Virtual Ethernet interfaces, when created, are always created as a pair. You can think of them as one interface on each side of a namespace wall with a tube through the wall connecting them. Packets come in one interface and exit the other, and vice versa.
     
     **Creating and Listing Network NameSpaces**
     
@@ -4400,7 +4400,7 @@ Each network interface whether physical or virtual, can only reside in one names
     {title="Example", linenos=off, lang=bash}
         ip netns add testnamespace
     
-    This ip command adds a bind mount point for the `testnamespace` namespace to `/var/run/netns/`. When the `testnamespace` namespace is created, the resulting file descriptor keeps the network namespace alive/persisted. This allows system administrators to apply configuration to the network namespace without fear that it will disappear when no processes are within it.
+    This ip command adds a bind mount point for the `testnamespace` namespace to `/var/run/netns/`. When the `testnamespace` namespace is created, the resulting file descriptor keeps the network namespace alive and persisted. This allows system administrators to apply configuration to the network namespace without fear that it will disappear when no processes are within it.
     
     {title="Verify it was added", linenos=off, lang=bash}
         ip netns list
@@ -4408,7 +4408,7 @@ Each network interface whether physical or virtual, can only reside in one names
     {title="Result", linenos=off, lang=bash}
         testnamespace
     
-    A network namespace added in this way however can not be used for a docker container. In order to create a [Docker network](https://docs.docker.com/engine/userguide/networking/) called `kimsdockernet` run the following command:
+    However, a network namespace added in this way cannot be used for a Docker container. In order to create a [Docker network](https://docs.docker.com/engine/userguide/networking/) called `kimsdockernet` run the following command:
     
     {linenos=off, lang=bash}
         # bridge is the default driver, so not required to be specified
@@ -4416,23 +4416,23 @@ Each network interface whether physical or virtual, can only reside in one names
     
     You can then follow this with a  
     `docker network ls`  
-    to confirm that the network was added. You can base your network on one of the existing [network drivers](https://docs.docker.com/engine/reference/run/#network-settings) created by docker, the bridge driver is used by default.
+    to confirm that the network was added. You can base your network on one of the existing [network drivers](https://docs.docker.com/engine/reference/run/#network-settings) created by Docker, the bridge driver is used by default.
     
     [`bridge`](https://docs.docker.com/engine/reference/run/#network-bridge): As seen above with the `ifconfig` listing on the host system, an interface is created called docker0 when Docker is installed. A pair of veth (Virtual Ethernet) interfaces are created when the container is run with this `--network` option. The `veth` on the outside of the container will be attached to the bridge, the other `veth` is put inside the container's namespace, along with the existing loopback interface.  
     [`none`](https://docs.docker.com/engine/reference/run/#network-none): There will be no networking in the container other than the loopback interface which was created when the network namespace was created, and has no routes to external traffic.  
-    [`host`](https://docs.docker.com/engine/reference/run/#network-host): Use the network stack that the host system uses inside the container. The `host` mode is more performant than the `bridge` mode due to using the hosts native network stack, but also less secure.  
+    [`host`](https://docs.docker.com/engine/reference/run/#network-host): Uses the network stack that the host system uses inside the container. The `host` mode is more performant than the `bridge` mode due to using the hosts native network stack, but also less secure.  
     [`container`](https://docs.docker.com/engine/reference/run/#network-container): Allows you to specify another container to use its network stack.
     
-    By running  
+    When running  
     `docker network inspect kimsdockernet`  
-    before starting the container and then again after, you will see the new container added to the `kimsdockernet` network.
+    before starting the container, and then again after, you will see the new container added to the `kimsdockernet` network.
     
     Now you can run your container using your new network:
     
     {linenos=off, lang=bash}
         docker run -it --network kimsdockernet --rm --name=container0 ubuntu
     
-    When one or more processes (Docker containers in this case) use the `kimsdockernet` network, it can also be seen opened by the presence of its file descriptor at:
+    When one or more processes, Docker containers in this case, uses the `kimsdockernet` network, it can also be seen opened by the presence of its file descriptor at:
     
     `/var/run/docker/netns/<filedescriptor>`
     
@@ -4491,7 +4491,7 @@ Each network interface whether physical or virtual, can only reside in one names
     `Error response from daemon: network kimsdockernet has active endpoints`  
     Stop your container and try again.
     
-    It would pay to also [understand container communication](https://docs.docker.com/engine/userguide/networking/default_network/container-communication/) with each other.
+    It also pays to [understand container communication](https://docs.docker.com/engine/userguide/networking/default_network/container-communication/) with each other.
     
     Also checkout the [Additional Resources](#additional-resources-vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces).  
     
@@ -4524,11 +4524,11 @@ As mentioned in the CIS\_Docker\_1.13.0\_Benchmark "_Sharing the UTS namespace w
     * `username`
     * `username:groupname`  
     
-    The username must exist in the `/etc/passwd` file, the `sbin/nologin` users are [valid also](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine). Subordinate user Id and group Id ranges need to be specified in `/etc/subuid` and `/etc/subuid` respectively.
+    The username must exist in the `/etc/passwd` file, the `sbin/nologin` users are [also valid](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine). Subordinate user Id and group Id ranges need to be specified in `/etc/subuid` and `/etc/subuid` respectively.
     
     "_The UID/GID we want to remap to [does not need to match](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine) the UID/GID of the username in `/etc/passwd`_". It is the entity in the `/etc/subuid` that will be the owner of the Docker daemon and the containers it runs. The value you supply to `--userns-remap` if numeric Ids, will be translated back to the valid user or group names of `/etc/passwd` and `/etc/group` which must exist, if username, groupname, they must match the entities in `/etc/passwd`, `/etc/subuid`, and `/etc/subgid`.
     
-    Alternatively if you do not want to specify your own user and/or user:group, you can provide the `default` value to `--userns-remap`, and a default user of `dockremap` along with subordinate uid and gid ranges will be created in `/etc/passwd` and `/etc/group` if it does not already exist. Then the `/etc/subuid` and `/etc/subgid` files will be [populated](https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled) with a contiguous 65536 length range of subordinate user and group Ids respectively, starting at the offset of the existing entries in those files.
+    Alternatively, if you do not want to specify your own user and/or user:group, you can provide the `default` value to `--userns-remap`, and a default user of `dockremap` along with subordinate uid and gid ranges that will be created in `/etc/passwd` and `/etc/group` if it does not already exist. Then the `/etc/subuid` and `/etc/subgid` files will be [populated](https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled) with a contiguous 65536 length range of subordinate user and group Ids respectively, starting at the offset of the existing entries in those files.
     
     {linenos=off, lang=Bash}
         # As root, run:
@@ -4540,15 +4540,15 @@ As mentioned in the CIS\_Docker\_1.13.0\_Benchmark "_Sharing the UTS namespace w
         <existinguser>:100000:65536
         dockremap:165536:65536
     
-    There are rules around providing multiple range segments in the `/etc/subuid`, `/etc/subgid` files, but that is beyond the scope of what I am providing here. For those advanced scenario details, check out the [Docker engine reference](https://docs.docker.com/engine/reference/commandline/dockerd/#detailed-information-on-subuidsubgid-ranges). The simple scenario is that we use a single contiguous range like you see in the above example, this will cause Docker to map the hosts user and group Ids to the container process using as much of the `165536:65536` range as necessary. So for example the hosts root user would be mapped to `165536`, the next host user would be mapped to container user `165537`, and so on until the 65536 possible Ids are all mapped. Processes run as root inside the container are owned by the subordinate uid outside of the container.
+    There are rules about providing multiple range segments in the `/etc/subuid`, `/etc/subgid` files, but that is beyond the scope of what I am providing here. For those advanced scenario details, check out the [Docker engine reference](https://docs.docker.com/engine/reference/commandline/dockerd/#detailed-information-on-subuidsubgid-ranges). The simplest scenario is to use a single contiguous range as seen in the above example, this will cause Docker to map the hosts user and group Ids to the container process using as much of the `165536:65536` range as necessary. For example, the host's root user would be mapped to `165536`, the next host user would be mapped to container user `165537`, and so on until the 65536 possible Ids are all mapped. Processes run as root inside the container are owned by the subordinate uid outside of the container.
     
     **Disabling user namespace for specific containers**
     
-    In order to disable user namespace mapping on a per container basis once enabled for the Docker daemon, you could supply the `--userns=host` value to either of the `run`, `exec` or `create` Docker commands. This would mean the default user within the container was mapped to the hosts root.
+    In order to disable user namespace mapping, on a per container basis, once enabled for the Docker daemon, you could supply the `--userns=host` value to either of the `run`, `exec` or `create` Docker commands. This would mean the default user within the container was mapped to the host's root.
 
 ##### [Control Groups](http://man7.org/linux/man-pages/man7/cgroups.7.html) {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups}
 
-Use cgroups to limit, track and monitor the resources available to each container at each nested level. Docker makes applying resource constraints very easy. Check the [Runtime constraints on resources](https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources) Docker engine run reference documentation, which covers applying constraints such as:
+Use cgroups to limit, track and monitor the resources available to each container at each nested level. Docker makes applying resource constraints very easy. Check the [runtime constraints on resources](https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources) Docker engine run reference documentation, which covers applying constraints such as:
 
 * User memory
 * Kernel memory
@@ -4559,7 +4559,7 @@ Use cgroups to limit, track and monitor the resources available to each containe
 * CPU quota
 * Block IO bandwidth (Blkio)
 
-For additional details on setting these types of resource limits, also refer to the [Limit a container's resources](https://docs.docker.com/engine/admin/resource_constraints/) Admin Guide for Docker Engine. Basically when you `run` a container, you simply provide any number of the runtime configuration flags that control the underlying cgroup system resources. Cgroup resources can not be set if a process is not running, that is why we optionally pass the flag(s) at run-time or alternatively manually change the cgroup settings once a process (or Docker container in our case) is running. We can make manual changes on the fly by directly modifying the cgroup resource files. These files are stored in the containers cgroup directories shown in the output of the [`/sys/fs/cgroup   find -name "4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24"`](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups-sys-fs-cgroup) command below. These files are ephemeral for the life of the process (Docker container in our case).
+For additional details on setting these types of resource limits, also refer to the [Limit a container's resources](https://docs.docker.com/engine/admin/resource_constraints/) Admin Guide for Docker Engine. Basically, when you `run` a container, you simply provide any number of the runtime configuration flags that control the underlying cgroup system resources. Cgroup resources cannot be set if a process is not running, that is why we optionally pass the flag(s) at runtime or alternatively, manually change the cgroup settings once a process (or Docker container in our case) is running. We can make manual changes on the fly by directly modifying the cgroup resource files. These files are stored in the container's cgroup directories shown in the output of the [`/sys/fs/cgroup   find -name "4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24"`](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups-sys-fs-cgroup) command below. These files are ephemeral for the life of the process (Docker container in our case).
 
 By [default](https://docs.docker.com/engine/reference/commandline/dockerd/#options-for-the-runtime) Docker uses the cgroupfs cgroup driver to interface with the Linux kernel's cgroups. You can see this by running `docker info`. The Linux kernel's cgroup interface is provided through the cgroupfs pseudo-filesystem `/sys/fs/cgroup` on the host filesystem of recent Linux distributions. The `/proc/cgroups` file contains the information about the systems controllers compiled into the kernel. This file on my test system looks like the following:
 
@@ -4585,7 +4585,7 @@ The fields represent the following:
 * `num_cgroups`: The number of cgroups in the specific hierarchy using this controller
 * `enabled`: 1 == enabled, 0 == disabled 
 
-If you run a container like the following:
+If you run a container as follows:
 
 {linenos=off, lang=bash}
     docker run -it --rm --name=cgroup-test ubuntu
@@ -4611,14 +4611,14 @@ Docker also keeps track of the cgroups in
 `/sys/fs/cgroup/[resource]/docker/[containerId]`  
 You will notice that Docker creates cgroups using the container Id.
 
-If you want to manually create a cgroup and have your containers hierarchically nested within it, you just need to `mkdir` within:  
+If you want to manually create a cgroup, and have your containers hierarchically nested within it, you just need to `mkdir` within:  
 `/sys/fs/cgroup/`  
-you will probably need to be root for this.
+You will likely need to be root for this.
 
 {linenos=off, lang=bash}
     /sys/fs/cgroup mkdir cg1
 
-Which makes and populates the directory and also sets up the cgroup like the following:
+This makes and populates the directory, and also sets up the cgroup like the following:
 
 {linenos=off, lang=bash}
     /sys/fs/cgroup   find -name "cg1"
@@ -4657,7 +4657,7 @@ Now that Docker has your container named `cgroup-test1` running, you will be abl
     ./perf_event/cg1/810095d517027737a0ba4619e108903c5cc74517907b883306b90961ee528903
     ./systemd/system.slice/docker.service/cg1/810095d517027737a0ba4619e108903c5cc74517907b883306b90961ee528903
 
-You can also run containers nested below already running containers cgroups, let us take the container named `cgroup-test` for example:
+You can also run containers nested below already running containers cgroups, let's take the container named `cgroup-test` for example:
 
 {linenos=off, lang=bash}
     /sys/fs/cgroup/cpu/docker/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24
@@ -4687,7 +4687,7 @@ directories shown here:
 You should see the same result if you have a look in the running container's  
 `/proc/self/cgroup` file.
 
-Within each cgroup resides a collection of files specific to the controlled resource, some of which are used to limit aspects of the resource, some of which are used for monitoring aspects of the resource. They should be fairly obvious what they are, based on their names. You can not exceed the resource limits of the cgroup that your cgroup is nested within. There are ways in which you can get visibility into any containers resource usage. One quick and simple way is with the:  
+Within each cgroup resides a collection of files specific to the controlled resource, some of which are used to limit aspects of the resource, and some of which are used for monitoring aspects of the resource. They should be fairly obvious what they are based on their names. You can not exceed the resource limits of the cgroup that your cgroup is nested within. There are ways in which you can get visibility into any containers resource usage. One quick and simple way is with the:  
 [`docker stats`](https://docs.docker.com/engine/reference/commandline/stats/)` [containerId]`  
 command, which will give you a line with your containers CPU usage, Memory usage and Limit, Net I/O, Block I/O, Number of PIDs. There are so many other sources of container resource usage. Check the [Docker engine runtime metrics](https://docs.docker.com/engine/admin/runmetrics/) documentation for additional details.
 
@@ -4708,9 +4708,9 @@ The `/proc/[pid]/cgroup` file provides a description of the cgroups that the pro
     2:perf_event:/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24/93cb84d30291201a84d5676545015220696dbcc72a65a12a0c96cda01dd1d270
     1:name=systemd:/system.slice/docker.service/4f1f200ce13f2a7a180730f964c6c56d25218d6dd40b027c7b5ee1e551f4eb24/93cb84d30291201a84d5676545015220696dbcc72a65a12a0c96cda01dd1d270
 
-Each row of the above file depicts one of the cgroup hierarchies that the process, or Docker container in our case is a member of. The row consists of three fields separated by colon, in the form:  
+Each row of the above file depicts one of the cgroup hierarchies that the process, or Docker container in our case, is a member of. The row consists of three fields separated by colon, in the form:  
 `hierarchy-Id:list-of-controllers-bound-to-hierarchy:cgroup-path`  
-If you remember back to where we looked at the `/proc/cgroups` file above, you will notice that the:
+If you remember back to our review of the `/proc/cgroups` file above, you will notice that the:
 
 1. hierarchy unique Id is represented here as the `hierarchy-Id`
 2. subsys_name is represented here in the comma separated list-of-controllers-bound-to-hierarchy
@@ -4742,7 +4742,7 @@ Run the containers with `--pids-limit` (kernel version 4.3+) and set a sensible 
 
 ##### Capabilities {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-capabilities}
 
-There are several ways you can [minimise your set of capabilities](http://rhelblog.redhat.com/2016/10/17/secure-your-containers-with-this-one-weird-trick/) that the root user of the container will run. `pscap` is a useful command from the `libcap-ng-utils` package in Debian and some other distributions. Once installed you can check which capabilities your container built from the `<amazing>` image runs with, by:
+There are several ways you can [minimise your set of capabilities](http://rhelblog.redhat.com/2016/10/17/secure-your-containers-with-this-one-weird-trick/) that the root user of the container will run. `pscap` is a useful command from the `libcap-ng-utils` package in Debian and some other distributions. Once installed, you can check which capabilities your container built from the `<amazing>` image runs with, by:
 
 {linenos=off, lang=Bash}
     docker run -d <amazing> sleep 5 >/dev/null; pscap | grep sleep
