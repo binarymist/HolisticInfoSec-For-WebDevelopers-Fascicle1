@@ -4774,13 +4774,13 @@ Alternatively you can modify the container manifest directly. See the [runC sect
 
 Linux Security Modules (LSM) is a framework that has been part of the Linux kernel since 2.6, that supports security models implementing Mandatory Access Control (MAC). The currently accepted modules are AppArmor, SELinux, Smack and TOMOYO Linux.
 
-At the [first Linux kernel summit](https://lwn.net/2001/features/KernelSummit/) in 2001, "_Peter Loscocco from the National Security Agency (NSA) presented the design of the mandatory access control system in its SE Linux distribution._" SE Linux had implemented: Many check points where authorization to perform a particular task was controlled, and a security manager process which implements the actual authorization policy. "_The separation of the checks and the policy mechanism is an important aspect of the system - different sites can implement very different access policies using the same system._" The aim of this separation is to make it harder for the user to not adjust or override policies.
+At the [first Linux kernel summit](https://lwn.net/2001/features/KernelSummit/) in 2001, "_Peter Loscocco from the National Security Agency (NSA) presented the design of the mandatory access control system in its SE Linux distribution._" SE Linux had implemented many check points where authorization to perform a particular task was controlled, and a security manager process which implements the actual authorization policy. "_The separation of the checks and the policy mechanism is an important aspect of the system - different sites can implement very different access policies using the same system._" The aim of this separation is to make it harder for the user to not adjust or override policies.
 
 It was realised that there were several security related projects trying to solve the same problem. It was decided to [have the developers](http://www.hep.by/gnu/kernel/lsm/) interested in security [create a](https://lwn.net/Articles/180194/) "_generic interface which could be used by any security policy. The result was the Linux Security Modules (LSM)_" API/framework, which provides many hooks at [security critical points](https://www.linux.com/learn/overview-linux-kernel-security-features) within the kernel.
 
 ![](images/LSMFrameworkDesign.png)
 
-LSMs can register with the API and receive callbacks from these hooks when the Unix Discretionary Access Control (DAC) checks succeed, allowing the LSMs Mandatory Access Control (MAC) code to run. The LSMs are not loadable kernel modules, but instead [selectable at build-time](https://www.kernel.org/doc/Documentation/security/LSM.txt) via `CONFIG_DEFAULT_SECURITY` which takes a comma separated list of LSM names. Commonly multiple LSMs are built into a given kernel and can be overridden at boot-time via the [`security=...` kernel command line argument](https://debian-handbook.info/browse/stable/sect.selinux.html#sect.selinux-setup), also taking a comma separated list of LSM names.
+LSMs can register with the API and receive callbacks from these hooks when the Unix Discretionary Access Control (DAC) checks succeed, allowing the LSMs Mandatory Access Control (MAC) code to run. The LSMs are not loadable kernel modules, but are instead [selectable at build-time](https://www.kernel.org/doc/Documentation/security/LSM.txt) via `CONFIG_DEFAULT_SECURITY` which takes a comma separated list of LSM names. Commonly multiple LSMs are built into a given kernel and can be overridden at boot time via the [`security=...` kernel command line argument](https://debian-handbook.info/browse/stable/sect.selinux.html#sect.selinux-setup), while also taking a comma separated list of LSM names.
 
 If no specific LSMs are built into the kernel, the default LSM will be the [Linux capabilities](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-capabilities). "_Most LSMs choose to [extend the capabilities](https://www.kernel.org/doc/Documentation/security/LSM.txt) system, building their checks on top of the defined capability hooks._" A comma separated list of the active security modules can be found in `/sys/kernel/security/lsm`. The list reflects the order in which checks are made, the capability module will always be present and be the first in the list.
 
@@ -4789,7 +4789,7 @@ If no specific LSMs are built into the kernel, the default LSM will be the [Linu
 If you intend to use [AppArmor](http://wiki.apparmor.net/index.php/QuickProfileLanguage), make sure it is installed, and you have a policy loaded (`apparmor_parser -r [/path/to/your_policy]`) and enforced (`aa-enforce`).
 AppArmor policy's are created using the [profile language](http://wiki.apparmor.net/index.php/ProfileLanguage). Docker will automatically generate and load a default AppArmor policy `docker-default` when you run a container. If you want to override the policy, you do this with the `--security-opt` flag, like:  
 `docker run --security-opt apparmor=your_policy [container-name]`  
-providing your policy is loaded as mentioned above. There are further details available on the [apparmor page](https://docs.docker.com/engine/security/apparmor/) of Dockers Secure Engine.
+provided that your policy is loaded as mentioned above. There are further details available on the [apparmor page](https://docs.docker.com/engine/security/apparmor/) of Dockers Secure Engine.
 
 **SELinux LSM in Docker**
 
@@ -4805,7 +4805,7 @@ Docker daemon options can also be set within the daemon [configuration file](htt
 `/etc/docker/daemon.json`  
 by default or by specifying an alternative location with the `--config-file` flag.
 
-label confinement for the container can be configured using [`--security-opt`](https://github.com/GDSSecurity/Docker-Secure-Deployment-Guidelines) to load SELinux or AppArmor policies as shown in the Docker `run` example below:
+Label confinement for the container can be configured using [`--security-opt`](https://github.com/GDSSecurity/Docker-Secure-Deployment-Guidelines) to load SELinux or AppArmor policies as shown in the Docker `run` example below:
 
 [SELinux Labels for Docker](https://www.projectatomic.io/docs/docker-and-selinux/) consist of four parts:
 
@@ -4830,7 +4830,7 @@ SELinux can operate in [one of three modes](https://www.centos.org/docs/5/html/5
 2. `permissive` or `0`: SELinux is running and logging, but not controlling/enforcing permissions
 3. `enforcing` or `1`: SELinux is running and enforcing policy
 
-To change at run-time: Use the `setenforce [0|1]` command to change between `permissive` and `enforcing`. Test this, set to `enforcing` before persisting it at boot.  
+To change at runtime: Use the `setenforce [0|1]` command to change between `permissive` and `enforcing`. Test this, set to `enforcing` before persisting it at boot.  
 To persist on boot: [In Debian](https://debian-handbook.info/browse/stable/sect.selinux.html#sect.selinux-setup), set `enforcing=1` in the kernel command line  
 `GRUB_CMDLINE_LINUX` in `/etc/default/grub`  
 and run `update-grub`  
@@ -4843,7 +4843,7 @@ To audit what LSM options you currently have applied to your containers, run the
 
 ##### Seccomp {#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-seccomp}
 
-First you need to make sure your Docker instance was built with Seccomp. Using the recommended command from the CIS Docker Benchmark:
+First, you need to make sure your Docker instance was built with Seccomp. Using the recommended command from the CIS Docker Benchmark:
 
 {linenos=off, lang=Bash}
     docker ps --quiet | xargs docker inspect --format '{{ .Id }}: SecurityOpt={{ .HostConfig.SecurityOpt }}'
@@ -4852,14 +4852,14 @@ First you need to make sure your Docker instance was built with Seccomp. Using t
     # no restrictions on System calls.
     # Which means the container is running without any seccomp profile.
 
-and your kernel is [configured with `CONFIG_SECCOMP`](https://docs.docker.com/engine/security/seccomp/):
+Confirm that your kernel is [configured with `CONFIG_SECCOMP`](https://docs.docker.com/engine/security/seccomp/):
 
 {linenos=off, lang=Bash}
     cat /boot/config-`uname -r` | grep CONFIG_SECCOMP=
     # Should return the following if it is:
     CONFIG_SECCOMP=y
 
-To add System calls to the list of syscalls you want to block for your container, take a copy of the default seccomp profile for containers ([`default.json`](https://github.com/docker/docker/blob/master/profiles/seccomp/default.json)) which contains a whitelist of the allowed System calls, and remove the System calls you want blocked, then run your container with the `--security-opt` option to override the default profile with a copy that you have modified: 
+To add system calls to the list of syscalls you want to block for your container, take a copy of the default seccomp profile for containers ([`default.json`](https://github.com/docker/docker/blob/master/profiles/seccomp/default.json)) which contains a whitelist of the allowed system calls, and remove the system calls you want blocked. Then, run your container with the `--security-opt` option to override the default profile with a copy that you have modified: 
 
 {linenos=off, lang=Bash}
     docker run --rm -it --security-opt seccomp=/path/to/seccomp/profile.json hello-world
@@ -4868,9 +4868,9 @@ To add System calls to the list of syscalls you want to block for your container
 
 Running a container with the `--read-only` flag stops writes to the container.
 
-This can sometimes be a little to constraining, as your application may need to write some temporary data locally. You could volume mount a host directory into your container, but this would obviously expose that temporary data to the host, and also other containers that may mount the same host directory. To stop other containers sharing your mounted volume, you would have to employ [labelling](#vps-identify-risks-docker-docker-host-engine-and-containers-namespaces-mnt-labelling) with the likes of LSM and apply the `Z` suffix at volume mount time.
+This can sometimes be a little to constraining, as your application may need to write some temporary data locally. You could volume mount a host directory into your container, but this would obviously expose that temporary data to the host, and also other containers that may mount the same host directory. To stop other containers sharing your mounted volume, you would have to employ [labeling](#vps-identify-risks-docker-docker-host-engine-and-containers-namespaces-mnt-labelling) with the likes of LSM and apply the `Z` suffix at volume mount time.
 
-A better, easier and simpler solution would be to apply the [`--tmpfs`](https://docs.docker.com/engine/reference/commandline/run/#mount-tmpfs---tmpfs) flag to one or more directories. `--tmpfs` allows the setting up of tmpfs (appearing as a mounted file system, but stored in volatile memory) mounts on any local directory, solving the problem of not being able to write at all to read-only containers.
+A better, easier and simpler solution would be to apply the [`--tmpfs`](https://docs.docker.com/engine/reference/commandline/run/#mount-tmpfs---tmpfs) flag to one or more directories. `--tmpfs` allows the creation of tmpfs (appearing as a mounted file system, but stored in volatile memory) mounts on any local directory, which solves the problem of not being able to write to read-only containers.
 
 If an existing directory is specified with the `--tmpfs` option, you will experience similar behaviour to that of mounting an empty directory onto an existing one. The directory is initially empty, any additions or modifications to the directories contents will not persist past container stop.
 
@@ -4887,7 +4887,7 @@ The default mount flags with `--tmpfs` are the same as the Linux default `mount`
 **Docker engine** is now built on containerd and runC. Engine creates the image indirectly via containerd -> runC using [libcontainer](https://github.com/opencontainers/runc/tree/master/libcontainer) -> and passes it to containerd.
 
 [**containerd**](https://containerd.io/) (daemon for Linux or Windows):  
-is based on the Docker engine's core container runtime. It manages the complete container life-cycle, managing primitives on Linux and Windows hosts such as the following, whether directly or indirectly:
+containerd is based on the Docker engine's core container runtime. It manages the complete container life-cycle, managing primitives on Linux and Windows hosts such as the following, whether directly or indirectly:
 
 * Image transfer and storage
 * Container execution and supervision
@@ -4896,11 +4896,11 @@ is based on the Docker engine's core container runtime. It manages the complete 
 * Native plumbing level API
 * Full Open Container Initiative (OCI) support: image and runtime (runC) specification  
 
-[`containerd`](https://github.com/containerd/containerd) calls `containerd-shim` which uses runC to run the container. `containerd-shim` allows the runtime, which is `docker-runc` in Dockers case to exit once it has started the container, thus allowing the container to run without a daemon. You can see this if you run  
+[`containerd`](https://github.com/containerd/containerd) calls `containerd-shim` which uses runC to run the container. `containerd-shim` allows the runtime, which is `docker-runc` in Docker's case, to exit once it has started the container, thus allowing the container to run without a daemon. You can see this if you run  
 `ps aux | grep docker`  
 In fact, if you run this command you will see how all the components hang together. Viewing this output along with the diagram below, will help solidify your understanding of the relationships between the components.
 
-[**runC**](https://runc.io/): is the container runtime that runs containers (think, run Container) according to the OCI specification, runC is a small standalone command line tool (CLI) built on and providing interface to libcontainer, which does most of the work. runC provides interface with:
+[**runC**](https://runc.io/) is the container runtime that runs containers (think, run Container) according to the OCI specification, runC is a small standalone command line tool (CLI) built on and providing interface to libcontainer, which does most of the work. runC provides interface with:
 
 * Linux Kernel Namespaces
 * Cgroups
@@ -4908,17 +4908,17 @@ In fact, if you run this command you will see how all the components hang togeth
 * Capabilities
 * Seccomp
 
-These features have been integrated into the low level, light weight, portable, container runtime CLI called runC, libcontainer is doing most of the work. It has no dependency on the rest of the Docker platform, and has all the code required by Docker to interact with the container specific system features. More correctly, libcontainer is the library that interfaces with the above mentioned kernel features. runC leverage's libcontainer directly, without the Docker engine being required in the middle.
+These features have been integrated into the low level, light weight, portable, container runtime CLI called runC, with libcontainer doing the heavy lifting. It has no dependency on the rest of the Docker platform, and has all the code required by Docker to interact with the container specific system features. More correctly, libcontainer is the library that interfaces with the above mentioned kernel features. runC leverages libcontainer directly, without the Docker engine being required in the middle.
 
-[runC](https://github.com/opencontainers/runc) was created by the OCI, whos goal is to have an industry standard for container runtimes and formats, attempting to ensure that containers built for one engine can run on other engines.
+[runC](https://github.com/opencontainers/runc) was created by the OCI, whose goal is to have an industry standard for container runtimes and formats, attempting to ensure that containers built for one engine can run on other engines.
 
 ![](images/DockerArchitecture.png)
 
 ##### [Using runC Standalone](https://opensource.com/life/16/8/runc-little-container-engine-could)
 
-runC can be [installed](https://docker-saigon.github.io/post/Docker-Internals/#runc:cb6baf67dddd3a71c07abfd705dc7d4b) separately, but it does come with Docker (in the form of `docker-runc`) as well. just run it to see the available commands and options.
+runC can be [installed](https://docker-saigon.github.io/post/Docker-Internals/#runc:cb6baf67dddd3a71c07abfd705dc7d4b) separately, but it does come with Docker in the form of `docker-runc` as well. Just run it to see the available commands and options.
 
-runC allows us to configure and debug many of the above mentioned points we have discussed. If you want, or need to get to a lower level with your containers, using `runC` (or if you have Docker installed, `docker-runc`), directly can be a useful technique to interact with your containers. It does require additional work that `docker run` commands already do for us. First you will need to create an OCI bundle, which includes providing configuration in the host independent `config.json` and host specific `runtime.json` [files](https://github.com/containerd/containerd/blob/0.0.5/docs/bundle.md#configs). You must also construct or [export a root filesystem](https://github.com/opencontainers/runc#creating-an-oci-bundle), which if you have Docker installed you can export an existing containers root filesystem with `docker export`. 
+runC allows us to configure and debug many of the above mentioned points we have discussed. If you want, or need to get to a lower level with your containers, using `runC` (or if you have Docker installed, `docker-runc`), directly can be a useful technique to interact with your containers. It does require additional work that `docker run` commands already do for us. First, you will need to create an OCI bundle, which includes providing configuration for the host independent `config.json` and host specific `runtime.json` [files](https://github.com/containerd/containerd/blob/0.0.5/docs/bundle.md#configs). You must also construct or [export a root filesystem](https://github.com/opencontainers/runc#creating-an-oci-bundle), which if you have Docker installed you can export an existing containers root filesystem with `docker export`. 
 
 A container manifest (`config.json`) can be created by running:  
 `runc spec`  
@@ -4927,17 +4927,17 @@ which creates a manifest according to the Open Container Initiative (OCI)/runc s
 #### Application Security {#vps-countermeasures-docker-application-security}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-Yes container security is important, but in most cases, it is not the lowest hanging fruit for an attacker.
+Yes, container security is important, but in most cases, it is not the lowest hanging fruit for an attacker.
 
-Application security is still the weakest point for compromise. It is usually much easier to attack an application running in a container or anywhere for that matter than it is to break container isolation or any security offered by containers or their infrastructure. Once an attacker has exploited any one of the commonly exploited vulnerabilities (such as any of the OWASP Top 10 for starters) still being introduced and found in our applications on a daily basis, and subsequently performed a remote code execution for example, and ex-filled the database, no amount of container security is going to mitigate this.   
+Application security is still the weakest point for compromise. It is usually much easier to attack an application running in a container, or anywhere for that matter, than it is to break container isolation or any security offered by containers and their infrastructure. Once an attacker has exploited any one of the commonly exploited vulnerabilities, such as any of the OWASP Top 10, still being introduced and found in our applications on a daily basis, and subsequently performs remote code execution, then exfils the database, no amount of container security is going to mitigate this.   
 
-During and before my [interview](http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/) of Diogo Mónica on Docker Security for the Software Engineering Radio show, we discussed Isolation concepts, many of which I have covered above. Diogo mentioned: "why does isolation even matter when an attacker already has access to your internal network?" There are very few attacks that require escaping from a container or VM in order to succeed, there are just so many easier approaches to compromise. Yes, this may be an issue for the cloud providers that are hosting containers and VMs, but for most businesses, the most common attack vectors are still attacks focussing on our weakest areas, such as people, password stealing, spear phishing, uploading and execution of web shells, compromising social media accounts, weaponised documents, and ultimately application security, as I have [mentioned many times](https://blog.binarymist.net/presentations-publications/#nzjs-2017-the-art-of-exploitation) before.
+During and before my [interview](http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/) of Diogo Mónica on Docker Security for the Software Engineering Radio show, we discussed isolation concepts, many of which I have covered above. Diogo mentioned: "why does isolation even matter when an attacker already has access to your internal network?" There are very few attacks that require escaping from a container or VM in order to succeed, there are just so many easier approaches to compromise. Yes, this may be an issue for the cloud providers that are hosting containers and VMs, but for most businesses, the most common attack vectors are still attacks focussing on our weakest areas, such as people, password stealing, spear phishing, uploading and execution of web shells, compromising social media accounts, weaponised documents, and ultimately application security, as I have [mentioned many times](https://blog.binarymist.net/presentations-publications/#nzjs-2017-the-art-of-exploitation) before.
 
-Diogo and myself also had a [discussion](http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/) about the number of container vs VM vulnerabilities, and it is pretty clear that there are far more vulnerabilities [affecting VMs](https://xenbits.xen.org/xsa/) than there are [affecting containers](https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=docker).
+Diogo and I also had a [discussion](http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/) about the number of container vs VM vulnerabilities, and it is pretty clear that there are far more vulnerabilities [affecting VMs](https://xenbits.xen.org/xsa/) than there are [affecting containers](https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=docker).
 
 VMs have memory isolation, but many of the bugs listed in the [Xen CVEs](https://xenbits.xen.org/xsa/) alone circumvent memory isolation benefits that VMs may have provided.
 
-Another point that Diogo raised was the ability to monitor/inspect and control the behaviour of applications within containers. In VMs there is so much activity that is unrelated to your applications, so although you can monitor activity within VMs, the noise to signal ratio is just to high to get accurate indications of what is happening in and around your application that actually matters to you. VMs also provide very little ability to control the resources associated with your running application(s). Inside of a container, you have your application and hopefully little else. With the likes of [Control Groups](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups) you have many points at which you can monitor and control aspects of the application environment.
+Another point that Diogo raised was the ability to monitor, inspect, and control the behaviour of applications within containers. In VMs there is so much activity that is unrelated to your applications, so although you can monitor activity within VMs, the noise to signal ratio is just too high to get accurate indications of what is happening in and around your application that actually matters to you. VMs also provide very little ability to control the resources associated with your running application(s). Inside of a container, you have your application and hopefully little else. With the likes of [Control Groups](#vps-countermeasures-docker-hardening-docker-host-engine-and-containers-control-groups) you have many points at which you can monitor and control aspects of the application environment.
 
 As mentioned above, Docker containers are immutable, and can be run read-only.
 
@@ -4948,33 +4948,33 @@ Also be sure to check the [Additional Resources](#additional-resources-vps-count
 ### Using Components with Known Vulnerabilities {#vps-countermeasures-using-components-with-known-vulnerabilities}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Just do not do this. Either stay disciplined and upgrade your servers manually or automate it. Start out the way you intend to go. Work out your strategy for keeping your system(s) up to date and patched. There are many options here. If you go auto, make sure you test on a staging environment before upgrading live.
+Do not do this. Stay disciplined and upgrade your servers manually, or automate it. Work out your strategy for keeping your system(s) up to date and patched. There are many options here. If you go auto, make sure you test on a staging environment before upgrading live.
 
 ### Schedule Backups {#vps-countermeasures-schedule-backups}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Make sure all your data and VM images are backed up routinely. Make sure you test that restoring your backups work. Backup or source control system files, deployment scripts and what ever else is important to you. Make sure you have backups of your backups and source control. There are plenty of [tools](http://www.debianhelp.co.uk/backuptools.htm) available to help. Also make sure you are backing up the entire VM if your machine is a virtual guest by export/import OVF files. I also like to backup all the VM files. Disk space is cheap. Is there such a thing as being too prepared for a disaster? I don't think I have seen it yet. It is just a matter of time before you will be calling on your backups.
+Make sure all your data and VM images are backed up routinely. Make sure you test that restoring your backups work. Backup or source control system files, deployment scripts, and what ever else is important to you. Make sure you have backups of your backups and source control. There are plenty of [tools](http://www.debianhelp.co.uk/backuptools.htm) available to help. Also make sure you are backing up the entire VM if your machine is a virtual guest by export/import of OVF files. I also like to backup all the VM files. Disk space is cheap. Is there such a thing as being too prepared for a disaster? I don't think so. It is just a matter of time before you will be calling on your backups.
 
 ### Host Firewall
 ![](images/ThreatTags/PreventionEASY.png)
 
-This is one of the last things you should look at. In fact, it is not really needed if you have taken the time to remove unnecessary services and harden what is left. If you use a host firewall keep your set of rules to a minimum to reduce confusion and increase legibility. Maintain both ingress & egress.
+This is one of the last things you should look at. In fact, it is not really needed if you have taken the time to remove unnecessary services and harden what is left. If you use a host firewall keep your set of rules to a minimum to reduce confusion and increase legibility. Maintain both ingress and egress.
 
 ### Preparation for DMZ {#vps-countermeasures-preparation-for-dmz}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-The following is a final type of check-list that I like to use before opening a hardened web server to the world. You will probably have additional items you can add.
+The following is a final checklist that I like to use before opening a hardened web server to the world. You will probably have additional items you can add.
 
 #### Confirm DMZ has
 
-1. [Network Intrustion Dettection System (NIDS)](#network-countermeasures-lack-of-visibility-nids), Network Intrusion Prevention System (NIPS) installed and configured correctly. Snort is a good place to start for the NIDS part, although with some work Snort can help with the [Prevention](https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/august_8_2012_12_01_pm6?lang=en) also.
+1. [Network Intrustion Dettection System (NIDS)](#network-countermeasures-lack-of-visibility-nids), Network Intrusion Prevention System (NIPS) installed and configured correctly. Snort is a good place to start for the NIDS part, although with some work, Snort can also help with [Prevention](https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/august_8_2012_12_01_pm6?lang=en).
 2. Incoming access from your LAN or where ever you plan on administering it from.
 3. Rules for outgoing and incoming access to/from LAN, WAN tightly filtered.
 
 #### Additional Web Server Preparation
 
-1. Set-up and configure your soft web server
-2. Set-up and configure caching proxy. Ex:
+1. Set up and configure your web server
+2. Set up and configure caching proxy. Ex:
   * node-http-proxy
   * TinyProxy
   * Varnish
@@ -4988,7 +4988,7 @@ The following is a final type of check-list that I like to use before opening a 
 4. Hopefully you have been baking security into your web application right from the start. This is an essential part of defence in depth. Rather than having your application completely rely on other security layers to protect it, it should also be standing up for itself and understanding when it is under attack and actually [fighting back](#web-applications-countermeasures-insufficient-attack-protection), as we discuss in the Web Applications chapter under "Lack of Active Automated Prevention".
 5. Set static IP address
 6. Double check that the only open ports on the web server are 80 and what ever you have chosen for SSH.
-7. Set-up [SSH tunnel](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh), so you can access your server from your LAN or where ever it is that you will be administering it from.
+7. Set up [SSH tunnel](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh), so you can access your server from your LAN or where ever it is that you will be administering it from.
 8. Decide on, document VM [backup strategy](#vps-countermeasures-schedule-backups), set it up, and make sure your team knows all about it. Do not be that single point of failure.
 
 ### Post DMZ Considerations
@@ -4997,20 +4997,20 @@ The following is a final type of check-list that I like to use before opening a 
 1. Set-up your `CNAME` or what ever type of `DNS` record you are using
 2. Now remember, keeping any machine on (not just the internet, but any) a network requires constant consideration and effort in keeping the system as secure as possible.
 3. [Work through](https://www.debian.org/doc/manuals/securing-debian-howto/ch-automatic-harden.en.html#s6.1) using the likes of [harden](https://packages.debian.org/wheezy/harden) and [Lynis](https://cisofy.com/lynis/) for your server and [harden-surveillance](https://packages.debian.org/wheezy/harden-surveillance) for monitoring your network.
-4. Consider combining “Port Scan Attack Detector” ([psad](https://packages.debian.org/stretch/psad)) with [fwsnort](https://packages.debian.org/stretch/fwsnort) and Snort.
-5. Hack your own server and find the holes before someone else does. If you are not already familiar with the tricks of how systems on the internet get attacked, read up on the “[Attacks and Threats](http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/appendix.html#THREATS)”, Run [OpenVAS](https://blog.binarymist.net/2014/03/29/up-and-running-with-kali-linux-and-friends/#vulnerability-scanners), Run [Web Vulnerability Scanners](https://blog.binarymist.net/2014/03/29/up-and-running-with-kali-linux-and-friends/#web-vulnerability-scanners) 
+4. Consider combining Port Scan Attack Detector ([PSAD](https://packages.debian.org/stretch/psad)) with [fwsnort](https://packages.debian.org/stretch/fwsnort) and Snort
+5. Hack your own server and find the holes before someone else does. If you are not already familiar with attacks against systems on the Internet, read up on [Attacks and Threats](http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/appendix.html#THREATS), run [OpenVAS](https://blog.binarymist.net/2014/03/29/up-and-running-with-kali-linux-and-friends/#vulnerability-scanners), run [Web Vulnerability Scanners](https://blog.binarymist.net/2014/03/29/up-and-running-with-kali-linux-and-friends/#web-vulnerability-scanners) 
 
 ## 4. SSM Risks that Solution Causes {#vps-risks-that-solution-causes}
 > Are there any? If so what are they?
 
-* Just beware that if you are intending to break the infrastructure or even what is running on your VPS(s) if they are hosted on someone else's infrastructure, that you make sure you have all the tests you intend to carry out documented, including what could possibly go wrong, accepted and signed by your provider. Good luck with this. That is why self hosting is often easier
-* Keep in mind: that if you do not break your system(s), someone else will
+* Just beware that, if you are intending to break infrastructure, or even what is running on your VPS(s) if they are hosted on someone else's infrastructure, that you make sure you have all the tests you intend to carry out documented, including what could possibly go wrong, accepted and signed by your provider. Good luck with this. That is why self hosting is often easier
+* Keep in mind that if you do not break your system(s), someone else will
 * Possible time constraints: It takes time to find skilled workers, gain expertise, set-up and configure
-* Many of the points I have raised around VPS hardening require maintenance, you can not just set-up once and forget about it
+* Many of the points I have raised around VPS hardening require maintenance, you can not just set up once and forget about it
 
 ### Forfeit Control thus Security
 
-Bringing your VPS(s) in-house can provide certainty and reduce risks of vendor lock-in, but the side-effect to this, is that you may not get your solution to market quick enough, and someone else beats you, which may mean the end of business for you. Many of the larger cloud providers are getting better at security and provide many tools and techniques for hardening the resources you hire.
+Bringing your VPS(s) in-house can provide certainty and reduce risks of vendor lock-in, but the side-effect to this, is that you may not get your solution to market quickly enough. If someone else beats you to market, this could mean the end of business for you. Many of the larger cloud providers are getting better at security and provide many tools and techniques for hardening.
 
 ### Windows
 
@@ -5020,7 +5020,7 @@ Often SMB services are required, so turning them off may not be an option.
 
 Some of the [countermeasures](#vps-countermeasures-psexec-pth) may introduce some inconvenience.
 
-There is the somewhat obvious aspect that applying the countermeasures will take some research to work out what can be done and the length of time it will take to do it.
+There is the somewhat obvious aspect that applying the countermeasures will take some research to work out what needs to be done, and the length of time it will take to do it.
 
 #### PowerShell Exploitation with Persistence
 
