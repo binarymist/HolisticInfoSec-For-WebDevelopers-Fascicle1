@@ -9,7 +9,7 @@ The entire book series can be found [here](https://holisticinfosecforwebdevelope
 
 <br>
 
-[![](manuscript/images/title_page.png)](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications)
+[![Holistic Info-Sec For Web Developers](manuscript/images/title_page.png)](https://f1.holisticinfosecforwebdevelopers.com)
 
 <br>
 
