@@ -221,7 +221,7 @@ PEC.md
 [http://man7.org/linux/man-pages/man7/namespaces.7.html](http://man7.org/linux/man-pages/man7/namespaces.7.html)
 
 **This behaviour can be overridden** to allow a (any) container to reuse another containers or the hosts message queues, semaphores, and shared memory via their IPC namespace  
-[https://docs.docker.com/engine/reference/run/#ipc-settings---ipc](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc)
+[https://docs.docker.com/engine/reference/run/#ipc-settings-ipc](https://docs.docker.com/engine/reference/run/#ipc-settings-ipc)
 
 **You can see using the command** supplied from the CIS_Docker_1.13.0_Benchmark  
 [https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf)
