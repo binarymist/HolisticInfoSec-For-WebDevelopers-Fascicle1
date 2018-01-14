@@ -193,13 +193,13 @@ and the morning paper
 [https://docs.docker.com/engine/tutorials/dockervolumes/#locating-a-volume](https://docs.docker.com/engine/tutorials/dockervolumes/#locating-a-volume) 
 
 **Further details can be found** at the dockervolumes documentation  
-[https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels](https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels)
+[https://docs.docker.com/engine/admin/volumes/volumes/](https://docs.docker.com/engine/admin/volumes/volumes/)
 
 **`PID` namespaces are hierarchically nested** in ancestor-descendant relationships to a depth of up to 32 levels  
 [https://lwn.net/Articles/531419/](https://lwn.net/Articles/531419/) 
 
 **The default behaviour can however be overridden** to allow a container to be able to access processes within a sibling container, or the hosts `PID` namespace  
-[https://docs.docker.com/engine/reference/run/#pid-settings---pid](https://docs.docker.com/engine/reference/run/#pid-settings---pid)
+[https://docs.docker.com/engine/reference/run/#pid-settings-pid](https://docs.docker.com/engine/reference/run/#pid-settings-pid)
 
 **As an aside, `PID` namespaces give us the functionality** of "_suspending/resuming the set of processes in the container and migrating the container to a new host while the processes inside the container maintain the same PIDs._"  
 [http://man7.org/linux/man-pages/man7/pid_namespaces.7.html](http://man7.org/linux/man-pages/man7/pid_namespaces.7.html)  
@@ -215,7 +215,7 @@ https://github.com/docker/libcontainer/blob/83a102cc68a09d890cce3b6c2e5c14c49e63
 PEC.md
 
 **When a container is created** with `--uts="host"` a UTS namespace is inherited from the host  
-[https://docs.docker.com/engine/reference/run/#uts-settings---uts](https://docs.docker.com/engine/reference/run/#uts-settings---uts)
+[https://docs.docker.com/engine/reference/run/#uts-settings-uts](https://docs.docker.com/engine/reference/run/#uts-settings-uts)
 
 **According to the namespaces man page** "_Objects created in an IPC namespace are visible to all other processes that are members of that namespace, but are not visible to processes in other IPC namespaces._"  
 [http://man7.org/linux/man-pages/man7/namespaces.7.html](http://man7.org/linux/man-pages/man7/namespaces.7.html)
@@ -227,10 +227,10 @@ PEC.md
 [https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf)
 
 **There are currently some Docker features** that are incompatible with using user namespaces  
-[https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions](https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions) 
+[https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-user-namespace-options](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-user-namespace-options) 
 
 **Docker engine reference** provides additional details around known restrictions of user namespaces  
-[https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions](https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions)
+[https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-user-namespace-options](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-user-namespace-options)
 
 **Cgroups have been available** in the Linux kernel since January 2008 (2.6.24)  
 [https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3](https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3)
@@ -273,7 +273,7 @@ d3cdb5f87c052968554
 [https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-3153](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-3153)
 
 
-
+%% End Identify Risks Docker
 
 
 
@@ -822,11 +822,10 @@ it-and-vulnerability-assessment/
 [https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine)
 
 **Files will be populated** with a contiguous 65536 length range of subordinate user and group Ids respectively  
-[https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled](https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled)
+[https://docs.docker.com/engine/security/userns-remap/](https://docs.docker.com/engine/security/userns-remap/)
 
 **Check out the Docker engine reference**  
-https://docs.docker.com/engine/reference/commandline/dockerd/#detailed-information-on-su  
-buidsubgid-ranges
+Updated URL: https://github.com/jquast/docker/blob/2fd674a00f98469caa1ceb572e5ae92a68b52f44/docs/reference/commandline/dockerd.md#detailed-information-on-subuidsubgid-ranges
 
 **Check the Runtime constraints on resources**  
 [https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources](https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources)
