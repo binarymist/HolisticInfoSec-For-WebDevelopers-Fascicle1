@@ -1430,12 +1430,11 @@ tual-machines/
 **Enable Multi Factor Authentication**  
 [https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users)
 
-**AWS DelegateManagementofMFA_policydocument template**  
-https://s3.amazonaws.com/awsiammedia/public/sample/Delegat  
-eManagementofMFA/DelegateManagementofMFA_policydocument_060115.txt
+**Enable Your Users to Configure Their Own Credentials and MFA Settings**  
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html)
 
-**AWS has documentation on the process**  
-[https://aws.amazon.com/blogs/security/how-to-delegate-management-of-multi-factor-authentication-to-aws-iam-users/](https://aws.amazon.com/blogs/security/how-to-delegate-management-of-multi-factor-authentication-to-aws-iam-users/) 
+**Scott Piper pointed the above out to me**  
+[https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies-for-mfa](https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies-for-mfa)
 
 **The Access Advisor** tab  
 [https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/)
