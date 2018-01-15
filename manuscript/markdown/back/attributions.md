@@ -1428,13 +1428,16 @@ tual-machines/
 [https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html)
 
 **Enable Multi Factor Authentication**  
-[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users)
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-  
+privileged-users
 
 **Enable Your Users to Configure Their Own Credentials and MFA Settings**  
-[https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html)
+https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and  
+-creds.html
 
 **Scott Piper pointed the above out to me**  
-[https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies-for-mfa](https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies-for-mfa)
+https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies  
+-for-mfa
 
 **The Access Advisor** tab  
 [https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/)
