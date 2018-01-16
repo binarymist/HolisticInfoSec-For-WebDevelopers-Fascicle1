@@ -408,7 +408,15 @@ https://www.darkreading.com/endpoint/10-password-managers-for-business-use/d/d-i
 [https://gist.github.com/binarymist/66206419df712bd738c3d664542157d8](https://gist.github.com/binarymist/66206419df712bd738c3d664542157d8)  
 Forked from maxvt.
 
+**Secrets Management** show on Software Engineering Radio  
+[http://www.se-radio.net/2017/12/se-radio-episode-311-armon-dadgar-on-secrets-management/](http://www.se-radio.net/2017/12/se-radio-episode-311-armon-dadgar-on-secrets-management/)
+
 %% End Countermeasures, Storage of Secrets, Credentials and Other Secrets, Entered by Software (manually)
+
+**flaws.cloud** AWS CTF by Scott Piper  
+[http://flaws.cloud/](http://flaws.cloud/)
+
+
 
 
 

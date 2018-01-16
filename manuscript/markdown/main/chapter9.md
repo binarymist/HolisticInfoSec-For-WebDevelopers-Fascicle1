@@ -647,7 +647,7 @@ This is the recommended sequence for granting least privilege in AWS, other CSPs
 Regularly review all of the IAM policies you are using, making sure only the required permissions (Services, Access Levels, and Resources) are available to the users and/or groups attached to the specific policies.
 
 Enable [Multi Factor Authentication](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users) (MFA) on the root user, and all IAM users with console access, especially privileged users at a minimum. AWS provides the ability to mandate that users use MFA, you can do this by creating a new managed policy based on the AWS guidance to [Enable Your Users to Configure Their Own Credentials and MFA Settings](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html). Attach the new policy to a group that you have created and add users that must use MFA to that group.  
-This process was pointed out to me by Scott Piper during our [Cloud Security interview](todo) by way of his [blog post](https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies-for-mfa) and generous Github pull request.
+This process was pointed out to me by Scott Piper during our [Cloud Security interview](http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/) by way of his [blog post](https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies-for-mfa) and generous Github pull request.
 
 The [Access Advisor](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/) tab, which is visible on the IAM console details page for Users, Groups, Roles, or Policies after you select a list item, provides information about which services are accessible for any of your users, groups, or roles. This can be helpful for auditing permissions that should not be available to any of your users who are part of the group, role or policy you selected.
 
@@ -864,7 +864,7 @@ AWS offers **[Parameter Store](https://aws.amazon.com/ec2/systems-manager/parame
 * Centralised store on AWS to manage configuration data, plain text, or encrypted secrets via AWS KMS
 * All calls to the parameter store are recorded with AWS CloudTrail, supports access controls.
 
-Also see the [additional resources](#additional-resources-cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software) for other similar tools.
+Also see the [Additional Resources](#additional-resources-cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-software) section for other similar tools and resources.
 
 ### [Serverless](https://github.com/anaibol/awesome-serverless) {#cloud-countermeasures-serverless}
 

@@ -1439,6 +1439,12 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-
 https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies  
 -for-mfa
 
+**Cloud Security** interview for Software Engineering Radio  
+with Scott Piper and Kim Carter  
+[http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/](http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/)
+
+
+
 **The Access Advisor** tab  
 [https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/)
 
