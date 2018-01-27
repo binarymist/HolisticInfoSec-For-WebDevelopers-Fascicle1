@@ -1,5 +1,23 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+## 2018-01-11
+
+### VPS
+
+Status: Technical edited, ready for general review.
+
+### Network
+
+Status: Technical edited, ready for general review.
+
+### Cloud
+
+Status: Technical edited, ready for general review.
+
+### Web Applications
+
+Status: WIP general review. After that, it goes to technical edit.
+
 ## 2017-09-11
 
 Fascicle 1 is now content complete  

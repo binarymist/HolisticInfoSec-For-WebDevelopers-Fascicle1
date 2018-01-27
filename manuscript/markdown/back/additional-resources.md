@@ -208,7 +208,7 @@ kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/
 
 {#additional-resources-vps-countermeasures-docker}
 **Cisecurity**  
-has an [excellent resource](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) for hardening docker images which the Docker Security team helped with. This should be consulted in parallel to reading the [Docker Countermeasures](#vps-countermeasures-docker) section
+has an [excellent resource](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf) for hardening docker images, which the Docker Security team helped with. This should be consulted in parallel to reading the [Docker Countermeasures](#vps-countermeasures-docker) section
 
 **I also conducted an interview called "[Docker Security](http://www.se-radio.net/2017/05/se-radio-episode-290-diogo-monica-on-docker-security/)"**  
 for Software Engineering Radio in which Docker Security Team Lead Diogo Monica appeared as guest and provided some excellent advice, opinions, and food for thought, be sure to listen to it
@@ -408,7 +408,15 @@ https://www.darkreading.com/endpoint/10-password-managers-for-business-use/d/d-i
 [https://gist.github.com/binarymist/66206419df712bd738c3d664542157d8](https://gist.github.com/binarymist/66206419df712bd738c3d664542157d8)  
 Forked from maxvt.
 
+**Secrets Management** show on Software Engineering Radio  
+[http://www.se-radio.net/2017/12/se-radio-episode-311-armon-dadgar-on-secrets-management/](http://www.se-radio.net/2017/12/se-radio-episode-311-armon-dadgar-on-secrets-management/)
+
 %% End Countermeasures, Storage of Secrets, Credentials and Other Secrets, Entered by Software (manually)
+
+**flaws.cloud** AWS CTF by Scott Piper  
+[http://flaws.cloud/](http://flaws.cloud/)
+
+
 
 
 

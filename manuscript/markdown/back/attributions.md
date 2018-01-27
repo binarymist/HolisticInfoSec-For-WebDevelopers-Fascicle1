@@ -193,13 +193,13 @@ and the morning paper
 [https://docs.docker.com/engine/tutorials/dockervolumes/#locating-a-volume](https://docs.docker.com/engine/tutorials/dockervolumes/#locating-a-volume) 
 
 **Further details can be found** at the dockervolumes documentation  
-[https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels](https://docs.docker.com/engine/tutorials/dockervolumes/#volume-labels)
+[https://docs.docker.com/engine/admin/volumes/volumes/](https://docs.docker.com/engine/admin/volumes/volumes/)
 
 **`PID` namespaces are hierarchically nested** in ancestor-descendant relationships to a depth of up to 32 levels  
 [https://lwn.net/Articles/531419/](https://lwn.net/Articles/531419/) 
 
 **The default behaviour can however be overridden** to allow a container to be able to access processes within a sibling container, or the hosts `PID` namespace  
-[https://docs.docker.com/engine/reference/run/#pid-settings---pid](https://docs.docker.com/engine/reference/run/#pid-settings---pid)
+[https://docs.docker.com/engine/reference/run/#pid-settings-pid](https://docs.docker.com/engine/reference/run/#pid-settings-pid)
 
 **As an aside, `PID` namespaces give us the functionality** of "_suspending/resuming the set of processes in the container and migrating the container to a new host while the processes inside the container maintain the same PIDs._"  
 [http://man7.org/linux/man-pages/man7/pid_namespaces.7.html](http://man7.org/linux/man-pages/man7/pid_namespaces.7.html)  
@@ -215,22 +215,22 @@ https://github.com/docker/libcontainer/blob/83a102cc68a09d890cce3b6c2e5c14c49e63
 PEC.md
 
 **When a container is created** with `--uts="host"` a UTS namespace is inherited from the host  
-[https://docs.docker.com/engine/reference/run/#uts-settings---uts](https://docs.docker.com/engine/reference/run/#uts-settings---uts)
+[https://docs.docker.com/engine/reference/run/#uts-settings-uts](https://docs.docker.com/engine/reference/run/#uts-settings-uts)
 
 **According to the namespaces man page** "_Objects created in an IPC namespace are visible to all other processes that are members of that namespace, but are not visible to processes in other IPC namespaces._"  
 [http://man7.org/linux/man-pages/man7/namespaces.7.html](http://man7.org/linux/man-pages/man7/namespaces.7.html)
 
 **This behaviour can be overridden** to allow a (any) container to reuse another containers or the hosts message queues, semaphores, and shared memory via their IPC namespace  
-[https://docs.docker.com/engine/reference/run/#ipc-settings---ipc](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc)
+[https://docs.docker.com/engine/reference/run/#ipc-settings-ipc](https://docs.docker.com/engine/reference/run/#ipc-settings-ipc)
 
 **You can see using the command** supplied from the CIS_Docker_1.13.0_Benchmark  
 [https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf](https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf)
 
 **There are currently some Docker features** that are incompatible with using user namespaces  
-[https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions](https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions) 
+[https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-user-namespace-options](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-user-namespace-options) 
 
 **Docker engine reference** provides additional details around known restrictions of user namespaces  
-[https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions](https://docs.docker.com/engine/reference/commandline/dockerd/#user-namespace-known-restrictions)
+[https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-user-namespace-options](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-user-namespace-options)
 
 **Cgroups have been available** in the Linux kernel since January 2008 (2.6.24)  
 [https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3](https://kernelnewbies.org/Linux_2_6_24#head-5b7511c1e918963d347abc8ed4b75215877d3aa3)
@@ -273,7 +273,7 @@ d3cdb5f87c052968554
 [https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-3153](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-3153)
 
 
-
+%% End Identify Risks Docker
 
 
 
@@ -822,11 +822,10 @@ it-and-vulnerability-assessment/
 [https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine)
 
 **Files will be populated** with a contiguous 65536 length range of subordinate user and group Ids respectively  
-[https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled](https://docs.docker.com/engine/reference/commandline/dockerd/#starting-the-daemon-with-user-namespaces-enabled)
+[https://docs.docker.com/engine/security/userns-remap/](https://docs.docker.com/engine/security/userns-remap/)
 
 **Check out the Docker engine reference**  
-https://docs.docker.com/engine/reference/commandline/dockerd/#detailed-information-on-su  
-buidsubgid-ranges
+Updated URL: https://github.com/jquast/docker/blob/2fd674a00f98469caa1ceb572e5ae92a68b52f44/docs/reference/commandline/dockerd.md#detailed-information-on-subuidsubgid-ranges
 
 **Check the Runtime constraints on resources**  
 [https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources](https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources)
@@ -1429,14 +1428,22 @@ tual-machines/
 [https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html)
 
 **Enable Multi Factor Authentication**  
-[https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users)
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-  
+privileged-users
 
-**AWS DelegateManagementofMFA_policydocument template**  
-https://s3.amazonaws.com/awsiammedia/public/sample/Delegat  
-eManagementofMFA/DelegateManagementofMFA_policydocument_060115.txt
+**Enable Your Users to Configure Their Own Credentials and MFA Settings**  
+https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and  
+-creds.html
 
-**AWS has documentation on the process**  
-[https://aws.amazon.com/blogs/security/how-to-delegate-management-of-multi-factor-authentication-to-aws-iam-users/](https://aws.amazon.com/blogs/security/how-to-delegate-management-of-multi-factor-authentication-to-aws-iam-users/) 
+**Scott Piper pointed the above out to me**  
+https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies  
+-for-mfa
+
+**Cloud Security** interview for Software Engineering Radio  
+with Scott Piper and Kim Carter  
+[http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/](http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/)
+
+
 
 **The Access Advisor** tab  
 [https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/)
@@ -1501,6 +1508,9 @@ https://www.programmableweb.com/news/why-exposed-api-keys-and-sensitive-data-are
 
 **Lack of knowledge, desire and a dysfunctional culture** in the work place  
 [https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/)
+
+**Most of the commands are either deployment** or manual monitoring which should all be automated  
+[https://github.com/binarymist/aws-docker-host](https://github.com/binarymist/aws-docker-host)
 
 **Create a key pair using EC2**  
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-cr  
@@ -1679,6 +1689,9 @@ astion-host/
 [https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/#effecting-change](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/#effecting-change)
 
 ## [Web Applications](#web-applications)
+
+**Show on Application Security**  
+[http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/](http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/)
 
 **MS Application Threats and Countermeasures**  
 [https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008)
