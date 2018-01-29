@@ -5,11 +5,11 @@
 I had the pleasure of interviewing [Zane Lackey](https://twitter.com/zanelackey) on Software Engineering Radio for a [show on Application Security](http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/), this is well worth listening to.
 
 ## 1. SSM Asset Identification
-Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable, add any relevant from previous chapters, add any newly discovered. Here are some to get you started:
+Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable, add any that are relevant from previous chapters, and add any newly discovered. Here are some to get you started:
 
 {#web-applications-asset-identification-ownership}
-* Ownership. Similarly as addressed in the VPS chapter, Do not assume that ownership, or at least control of your server(s) is something you will always have. Ownership is often one of the first assets an attacker will attempt to take from a target in order to execute further exploits. At first this may sound strange, but that is because of an assumption you may have that you will always own (have control of) your web application. Hopefully I dispelled this myth in the VPS chapter. If an attacker can take control of your web application (own it/steal it/what ever you want to call the act), then they have a foot hold to launch further attacks and gain other assets of greater value. The web application itself will often just be a stepping stone to other assets that you assume are safe. With this in mind, your web application is an asset. On the other hand you could think of it as a liability. Both may be correct. In any case, you need to protect your web application and in many cases take it to school and teach it how to protect itself. I cover that under the [Insufficient Attack Protection](#web-applications-countermeasures-insufficient-attack-protection) section
-* Similarly to the [Asset Identification](#vps-asset-identification) section in the VPS chapter, Visibility is an asset that is up for grabs
+* Ownership (as addressed in the VPS chapter), does not assume that you will always have ownership, or at least have control of your server(s). An attacker will often attempt to target ownership as one of the first assets in order to execute further exploits. This may sound strange, but that is because of the assumption you may have, that you will always own (have control of) your web application. Hopefully, I have dispelled this myth in the VPS chapter. If an attacker can take control of your web application (own it/steal it/what ever you want to call the act), then they have a foot hold to launch further attacks and can gain access to other assets of greater value. The web application itself can be a stepping stone for the attacker to other assets that you assumed were safe. With this in mind, your web application is an asset or you could think of it as a liability, both may be correct. Whichever way, you need to protect your web application and in many cases take it to school and teach it how to protect itself. I have covered this under the [Insufficient Attack Protection](#web-applications-countermeasures-insufficient-attack-protection) section
+* Similarly to the [Asset Identification](#vps-asset-identification) section in the VPS chapter, visibility is an asset that is also up for grabs
 * Intellectual property or sensitive information within the code or configuration files such as email addresses and account credentials for the likes of data-stores, syslog servers, monitoring services. We address this in [Management of Application Secrets](#web-applications-identify-risks-management-of-application-secrets)
 * Sensitive Client/Customer data.
 * Sanity and peace of mind of people within your organisation. Those that are:
@@ -33,7 +33,7 @@ The following is the OWASP Top 10 vulnerabilities for 2003, 2004, 2007, 2010, 20
 
 &nbsp;
 
-As you can see there are some vulnerabilities that we are just not getting better at removing. I've listed them in order of most consistent to not quite as consistent:
+As you can see there are some vulnerabilities that we are just not getting better at removing. I have listed each of them in order of the most consistent to the not quite as consistent:
 
 1. Injection (and the easiest to fix)
 2. Broken Authentication and Session Management
@@ -42,19 +42,19 @@ As you can see there are some vulnerabilities that we are just not getting bette
 5. Missing Function Level Access Control
 6. We have gotten a little better at reducing CSRF with using the likes of the synchroniser token pattern, and possibly using LocalStorage more than cookies
 
-"Using Components with Known Vulnerabilities" is one that I think we are going to see get worse before it gets better, due to the fact that we are consuming a far greater amount of free and open source. With the increase of free and open source package repositories, such as NPM, NuGet and various others, we are now consuming a far greater number of packages without vetting them before including them in our projects. This is why I've devoted a set of sections ("Consuming Free and Open Source") within this chapter to this problem. There are also sections devoted to this topic in the VPS and Network chapters titled "Using Components with Known Vulnerabilities". It's not just a problem with software. We are trying to achieve more, with less of our own work, so in many cases we are blindly trusting other sources. From the attackers perspective, this is an excellent vector to compromise for maximum exploitation.
+I think we are going to see that "Using Components with Known Vulnerabilities" is going to get worse before it gets better, due to the fact that we are now consuming a far greater amount of free and open source packages and repositories. With the increased consumption of these packages and repositories, such as NPM, NuGet and various others, we are now consuming them without vetting them before including them in our projects. We are trying to achieve more, with less of our own work, it's more to do with how in many cases we are blindly trusting other sources. From the attackers perspective, this is an excellent vector to compromise for maximum exploitation. This is why I've devoted a set of sections within this chapter to this problem, called "Consuming Free and Open Source". There are also other sections devoted to this topic in the VPS and Network chapters titled "Using Components with Known Vulnerabilities".
 
 ### Lack of Visibility
 
-I see this as an indirect risk to the asset of [web application ownership](#web-applications-asset-identification-ownership). The same sections in the VPS and Network chapters may also be worth reading if you have not already, as there is some crossover.
+With the lack of visibility, I see this as an indirect risk to the asset of [web application ownership](#web-applications-asset-identification-ownership). The same sections in the VPS and Network chapters may also be worth reading if you have not already, as there is some crossover.
 
-Not being able to introspect your application at any given time or being able to know how the health status is, is not a comfortable place to be in and there is no reason you should be there.
+Not being able to introspect your application at any given time or being able to know what the health status is, is not a comfortable place to be in and there is no reason you should be there.
 
 #### Insufficient Logging and Monitoring
 
 ![](images/ThreatTags/average-widespread-veryeasy-moderate.png)
 
-Can you tell at any point in time if someone or something is:
+Can you at any point in time tell if someone or something is:
 
 * Using your application in a way that it was not intended to be used
 * Violating policy. For example circumventing client side input sanitisation.
@@ -73,23 +73,21 @@ How easy is it for you to notice:
 
 The risks here are around accepting untrusted data and parsing it, rendering it, executing it or storing it verbatim to have the same performed on it at a later stage. 
 
-Untrusted territory is usually a location that is not close to your back-end executing code. If your back-end is in the cloud that you do not control, I.E. not your hardware, not your staff running it, then you have serious potential issues there as well that you may want to address. I've discussed in depth what these issues are in the previous chapters and how to mitigate the risks. Anywhere outside of your local network is untrusted. Inside your local network is semi-trusted. The amount of trust you afford depends on the relationships you have with your staff, how large your staff base is, how large your network is, how APs are managed and many of the other issues I have discussed in the previous chapters, especially Network, and Physical and People from [Fascicle0](https://leanpub.com/holistic-infosec-for-web-developers). The closer data gets to the executing back-end code, the less untrustworthy the territory should be. Of course there are many exceptions to this rule as well.
+Untrusted territory is usually a location that is not close to your back-end executing code. If your back-end is in the cloud that you do not control, i.e. not your hardware or staff running it, then you may have serious potential issues there as well that you may want to address. I've discussed in depth what these issues are in previous chapters, and how to mitigate these risks. Basically, anywhere outside of your local network is untrusted. Inside your local network is semi-trusted. The amount of trust you afford depends on the relationships you have with your staff, and/or how large your staff base is. Also how large your network is, and how APs are managed and many of the other issues I have discussed in the previous chapters, especially Network, Physical and People from [Fascicle0](https://leanpub.com/holistic-infosec-for-web-developers). The closer data gets to the executing back-end code, the less untrustworthy the territory should be. Of course there are many exceptions to this rule as well.
 
-So I could say, just do not trust anyone or anything, but there comes a time and a place that you have to afford trust. Just keep it as close to the back-end executing code as possible.
+I could say, just don't trust anyone or anything, but there comes a time and a place that you have to afford trust. Just keep it as close to the back-end executing code as possible.
 
-If you parse, render or execute data that you can not trust, that is data accepted by an unknown user, whether it be through a browser, intercepting communications somewhere along untrusted territory.
+Today the web stack is very complicated, we have URLs, CSS, JavaScript, XML and its derivatives, templating languages and frameworks. Most of these languages have their own encoding, quoting, commenting, escaping, where most of which can be nested inside of each other. This makes the web browser a very treacherous place in terms of security. Browsers have made their living out of being insanely convoluted at interpreting all of this. All scripts have the same level of privilege within the browser.
 
-The web stack today is very complicated. We have URLs, CSS, JavaScript, XML and its derivatives, templating languages and frameworks. Most of these languages have their own encoding, quoting, commenting, escaping, and most of which can be nested inside of each other. Making the web browser a very treacherous place in terms of security. Browsers have made their living out of being insanely convoluted at interpreting all of this. All scripts have the same level of privilege within the browser.
+This overly complex environment leads to confusion and becomes a perfect haven for hiding malicious code chunks.
 
-This overly complex environment leads to confusion and a perfect haven for hiding malicious code chunks.
-
-Below are a few techniques widely accepted that we need to use on any untrusted data before it makes its travels through your system to be stored or hydrated.
+Below are a few techniques that are widely accepted which we should use on any untrusted data before it makes its travels through your system to be stored or hydrated.
 
 ##### What is Validation {#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation}
 
 &nbsp;
 
-Decide what input is valid by way of a white list (list of input characters that are allowed to be received). Often each input field will have a different white list. Validation is binary, the data is either allowed to be received or not allowed. If it is not allowed, then it is rejected. This is usually not to complicated to work out what is good, what is not and thus rejected. There are a few strategies to use for white listing, such as the actual collection of characters or using regular expressions.
+Decide what input is valid by way of a white list (list of input characters that are allowed to be received). Often each input field will have a different white list. Validation is binary, the data is either allowed to be received or not. If it is not allowed, then it is rejected. This is usually not to complicated to work out what is good, what is not and thus rejected. There are a few strategies to use for white listing, such as the actual collection of characters or using regular expressions.
 
 There are other criteria that you can validate against as well, such as:
 
@@ -119,13 +117,13 @@ There are other criteria that you can validate against as well, such as:
 
 &nbsp;
 
-When some data can pass through (be received) and some is captured by the filter element (thou shalt not pass). OWASP has the RSnake donated seminal [XSS cheat sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) which has many tests you can use to check your vulnerability stance to XSS exploitation. This is highly recommended.
+When some of the data can pass through (be received) or is captured by the filter element (thou shalt not pass). OWASP has the RSnake donated seminal [XSS cheat sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) which has many tests on it that you can use to check your vulnerability stance to XSS exploitation. This is highly recommended.
 
 ##### What is Sanitisation {#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation}
 
 &nbsp;
 
-Sanitisation of input data is where the input data whether it is in your white list or not is accepted and transformed into a medium that is no longer dangerous. Now it will probably go through validation first. The reason you sanitise character signatures (may be more than single characters, character combinations) not in your white list is a defence in depth strategy. The white list may change in the future due to a change in business requirements and the developer may forget to revise the sanitisation routines. Always think of any security measure as standing on its own when you create it, but standing alongside many other security measures once done.
+Sanitisation of input data is where the input data (whether it is in your white list or not) is accepted and transformed into a medium that is no longer dangerous. This will probably go through validation first. The reason you sanitise character signatures (may be more than single characters, character combinations) not in your white list is a defence in depth strategy. The white list may change in the future due to a change in business requirements and the developer may forget to revise the sanitisation routines. Always think of any security measure as standing on its own when you create it, but standing alongside many other security measures once done.
 
 You need to know which contexts your input data will pass through in order to sanitise correctly for all potential execution contexts. This requires lateral thinking and following all execution paths. Both into and out of your application (once rehydrated), being pushed back to the client. We cover this in depth below in the ["Example in JavaScript and C#"](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-csharp) section in the countermeasures.
 
@@ -138,9 +136,9 @@ The data in question is executed by the browser, usually JavaScript, HTML or Fla
 
 One way this can be carried out trivially is to simply buy an add and have that injected into the end users browser. The malicious code can be easily hidden by simply changing additional scripts that are fetched once live. Even fetching a script that fetches a different script under the attackers control.
 
-The main two different types of XSS are Stored/Persistent or Type I and Reflected/Non-Persistent or Type II.  
+The two main different types of XSS are Stored/Persistent or Type I and Reflected/Non-Persistent or Type II.  
 Stored attacks are where the injected code is sent to the server and stored in a medium that the web application uses to retrieve it again to send to another user.  
-Reflected attacks use the web application in question as a proxy. When a user makes a request, the injected code travels from another medium through the web application (hence the reflecting) and to the end user. From the browsers perspective, the injected code came form the web application that the user made a request to.
+Reflected attacks use the web application in question as a proxy. When the user makes a request, the injected code travels from another medium through the web application (hence the reflecting) to the end user. From the browsers perspective, the injected code came from the web application the user made a request to.
 
 {#wdcnz-demo-1}
 ![](images/HandsOnHack.png)
@@ -155,14 +153,14 @@ Theoretically in order to get to the point where you carry out this attack, you 
 
 If you are working within a development team you may have found out some other way that your project was vulnerable to XSS.
 
-How ever you got to this point, you are going to want to exhibit the fault. One of the most effective ways to do this is by using BeEF. BeEF clearly shows what is possible when you have an XSS vulnerability in scope and is an excellent tool for effortlessly demonstrating the severity of the fault to all team members and stakeholders.  
-One of BeEFs primary reasons to exist is to exploit the fact that many security philosophies seem to forget how easy it is to go straight through hardened network perimeters and attack the soft mushy insides of a sub network as discussed in the Fortress Mentality section of the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Exposing XSS faults is one of BeEFs attributes. 
+How ever you got to this point, you are going to want to exhibit the fault. One of the most effective ways to do this, is by using BeEF. BeEF clearly shows what is possible when you have an XSS vulnerability in scope and is an excellent tool for effortlessly demonstrating the severity of the fault to all of your team members and stakeholders.  
+One of BeEFs primary reasons to exist is to exploit the fact that many security philosophies seem to forget, is how easy it is to go straight through hardened network perimeters and attack the soft mushy insides of a sub network, as discussed in the Fortress Mentality section of the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Exposing XSS faults is one of BeEFs attributes. 
 
 You can find the video of how this attack is played out at [http://youtu.be/92AWyUfJDUw](http://youtu.be/92AWyUfJDUw).
 
 I> ## Synopsis
 I>
-I> In this exercise, I have used the Dam Vulnerable Web App (DVWA), as it has the types of XSS vulnerabilities we need in order to demonstrate the power of BeEF. DVWA is included in the OWASP Broken Web Application ([OWASPBWA](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project)) turn-key VM, along with many other useful purposely vulnerable projects.  
+I> In this exercise, I used the Dam Vulnerable Web App (DVWA), as it has the types of XSS vulnerabilities we need in order to demonstrate the power of BeEF. DVWA is included in the OWASP Broken Web Application ([OWASPBWA](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project)) turn-key VM, along with many other useful purposely vulnerable projects.  
 I> We use BeEF to exploit an XSS vulnerability in DVWA and carry out a simple attack in which we coerce the target to enter their credentials for a website and send them to our BeEF communications server unknowingly.
 
 {icon=bomb}
@@ -204,9 +202,9 @@ G> Click on the Execute button and on the next request -> response from the hook
 ### [Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#General_Recommendation:_Synchronizer_Token_Pattern) {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf}
 ![](images/ThreatTags/average-uncommon-easy-moderate.png)
 
-This type of attack depends on a fraudulent web resource, be it a website, email, instant message, or program that causes the targets web browser to perform an unintentional action on a website that the target is currently authenticated with.
+This type of attack depends on a fraudulent web resource; it could be a website, email, instant message, or program that causes the targets web browser to perform an unintentional action on a website that the target is currently authenticated with.
 
-CSRF attacks target functionality that change state on the server (`POST`, `PUT`, `DELETE`) that the target is currently authenticated with, requests such as changing the targets credentials, making a purchase, moving money at their bank. Forcing the target to retrieve data does not help the attacker.
+CSRF attacks target functionality that change state on the server (`POST`, `PUT`, `DELETE`) that the target is currently authenticated with. Such as requests like changing the targets credentials, making a purchase, moving money at their bank, forcing the target to retrieve data does not help the attacker.
 
 If you are using cookies (authentication that the browser automatically sends from the client) for storage of client-side session artefacts, CSRF is your main concern, but XSS is also a possible attack vector. 
 
@@ -328,23 +326,23 @@ Some misnomers:
 ### Injection
 ![](images/ThreatTags/easy-common-average-severe.png)
 
-injection occurs when untrusted data is sent to an interpreter as part of a command or query. The attacker’s hostile data can cause the interpreter to execute commands that would otherwise not be, or accessing data without proper authorization.
+Injection occurs when untrusted data is sent to an interpreter as part of a command or query. The attacker’s hostile data can cause the interpreter to execute commands that would otherwise not be, or accessing data without the correct authorization.
 
 In order for injection attacks to be successful, untrusted data must be unsuccessfully validated, filtered and sanitised before it reaches the interpreter.
 
 Injection defects are often easy to discover simply by examining the code that deals with untrusted data, including internal data. These same defects are often harder to discover when black-box testing, either manually or via fuzzers. Defects [can range](https://www.owasp.org/index.php/Injection_Flaws) from trivial to complete system compromise.
 
-As part of the discovery stage, the attacker can test their queries and start to build up what they think the underlying structure looks like that they are attacking with any number of useful on-line query test tools, such as [freeformatter.com](http://www.freeformatter.com/). This allows the attacker to make as little noise to signal ratio as possible.
+As part of the discovery stage, the attacker can test their queries to start building up what they think the underlying structure looks like. Then with any number of useful on-line query test tools, such as [freeformatter.com](http://www.freeformatter.com/), the attacker can make as little noise to signal ratio as possible.
 
 #### SQLi {#web-applications-identify-risks-sqli}
 
 ![](images/HandsOnHack.png)
 
-One of the simplest and quickest vulnerabilities to fix is SQL Injection, yet it is still top of the hit lists. I am going to hammer this home some more. Also checkout the [podcast I hosted](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) with [Haroon Meer](https://twitter.com/haroonmeer) as guest on Network Security for Software Engineering Radio. Haroon discussed using SQLi for data exfiltration.
+One of the simplest and quickest vulnerabilities to fix is SQL Injection, yet it is still at the top of the hit lists. I am going to hammer this home some more. Also checkout the [podcast I hosted](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) with [Haroon Meer](https://twitter.com/haroonmeer) as guest on Network Security for Software Engineering Radio, where Haroon discussed using SQLi for data exfiltration.
 
 I> ## Synopsis
 I>
-I> I have used the Dam Vulnerable Web Application (DVWA) from the OWASP Broken Web Applications [VM](http://sourceforge.net/projects/owaspbwa/files/) for this exercise. You can load this VM in a VMware product or add the virtual machine disk to a new VM in VirtualBox. It's an Ubuntu 64 bit image. Once you have your VM ready to boot, use the Host-only Adapter so it's sand-boxed from the rest of your network. You really would not want an attacker gaining access to this VM as it is purposely vulnerable and attacks could easily be launched from it.
+I> I have used the Dam Vulnerable Web Application (DVWA) from the OWASP Broken Web Applications [VM](http://sourceforge.net/projects/owaspbwa/files/) for this exercise. You can load this VM in a VMware product or add the virtual machine disk to a new VM in VirtualBox. It's an Ubuntu 64 bit image. Once you have your VM ready to boot, use the Host-only Adapter so it's sand-boxed from the rest of your network. You really don't want an attacker gaining access to this VM as it is purposely vulnerable and attacks could easily be launched from it.
 I>
 I> Start the machine.
 
@@ -411,9 +409,9 @@ G> `SELECT first_name, last_name FROM users WHERE user_id = '1' UNION SELECT fir
 G> Inject query:  
 G> `1' UNION SELECT first_name, password FROM users WHERE first_name LIKE '%`
 G>
-G> Lets determine the hash type with hash-identifier. Just run it and throw the hash at it and it will tell you that it is most likely a simple MD5. which is a one-way hashing function with no Key derivation. So very quick to crack.
+G> Let's determine the hash type with hash-identifier. Just run it and throw the hash at it and it will tell you that it is most likely a simple MD5. which is a one-way hashing function with no Key derivation. It is so very quick to crack.
 G>
-G> So take your pick of the following three commands:  
+G> Then take your pick of the following three commands:  
 G> Create `~/hashtocrack.txt` and put the hash(s) you want cracked in it. Now usually you would create a profiled wordlist taylored to your target like we did in the Password Profiling section of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). For this exercise just add the following four words to `~/wordlist-to-throw-at-dvwa`:  
 G> `dogs`, `cats`, `admins`, `admin`. Now you can compare the hashed words from the list with the hash in the `~/hashtocrack.txt`
 
@@ -425,9 +423,9 @@ G>    `findmyhash [algorithm] -h <hash_value>`
 G>    `findmyhash` is a cracker that queries online lists.  
 G> 3. `john --format=raw-MD5 ~/hashtocrack.txt ~/wordlist-to-throw-at-dvwa --show`
 G>
-G> This gives us the super secure password of "admin"  
+G> This gives us the "super secure" password of "admin"  
 G>
-G> In order to get login, we actually need the username. In this case they were the same, but for some other users they were not. So our last query.  
+G> In order to login, we need the username. In this case they were the same, but for some other users they were not. So our last query.  
 G> Full server query guess:  
 G> `SELECT first_name, last_name FROM users WHERE user_id = '1' UNION SELECT user, password FROM users WHERE first_name LIKE '%'`  
 G> Inject query:  
@@ -445,13 +443,13 @@ There are two main problems here.
 
 NoSQL Injection is semantically very similar to SQL Injection and Command Injection with JavaScript running on the server. The main differences are in the syntax of the attack.
 
-NoSQL data stores often provide greater performance and scaling benefits, but in terms of security, are disadvantaged due to far fewer relational and consistency checks.
+NoSQL data stores often provide greater performance and scaling benefits, but in terms of security, they are disadvantaged due to far fewer relational and consistency checks.
 
 There are currently [over 225 types of NoSQL](http://nosql-database.org/) data stores, and each one does things differently. This of course means that if all we considered was the number of systems compared to SQL, then the likelihood of confusion around what a safe query looks like in any given NoSQL engine has increased dramatically. There is also more room for an attacker to move within NoSQL queries than with SQL due to being heavily dependent on JavaScript which is a dynamic loosely typed general purpose language rather than the far more tightly constrained declarative SQL.
 
 Because there are so many types of NoSQL data store, crafting the attacks is often implementation specific, and because of that, the countermeasures are also implementation specific, making it even more work to provide a somewhat secure environment for your untrusted data to pass through. It often feels like there is no safe passage.
 
-The data store queries are usually written in the programming language of the application, or buried within an API of the same language, often the ubiquitous JavaScript is used, which can be executed in the Web UI, the server side code if it is JavaScirpt, and then the particular type of NoSQL data store, so there are many more execution contexts that can be attacked.
+The data store queries are usually written in the programming language of the application, or buried within an API of the same language. Often the ubiquitous JavaScript is used, which can be executed in the Web UI, the server side code if it is JavaScirpt, and then the particular type of NoSQL data store. Therefore, there are many more execution contexts that can be attacked.
 
 I can not possibly cover all of the types of NoSQL data store, so the below is an example of some mongodb. 
 
@@ -488,7 +486,7 @@ The MongoDB [`$gt` comparison operator](https://docs.mongodb.com/manual/referenc
 
 #### Command Injection {#web-applications-identify-risks-command-injection}
 
-The following examples target JavaScript running on the server. If your application on the server is written in some other language, then the attacker just needs to supply code of that language to be executed.
+The following examples target JavaScript running on the server. If your application on the server is written in some other language, then the attacker just needs to supply code of that language for it to be executed.
 
 The following functions are easily exploited by an attacker by simply supplying the code they want to execute as a string of text input:
 
@@ -537,13 +535,15 @@ XML injection techniques usually consist of a discovery stage followed by full e
 
 and witnessing how the parser deals with the data.
 
-There are a number of XML attack categories exploitable via injection that target weaknesses such as the following that Adam Bell presented at the [OWASP New Zealand Day](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule) conference in 2017 that I helped to run. Adams talk was called: "XML Still Considered Dangerous:
+There are a number of XML attack categories exploitable via injection that target weaknesses.
+
+At the 2017 [OWASP New Zealand Day](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule) conference, Adam Bell did a presentation called "XML Still Considered Dangerous" covering the following:
 
 * Parameter expansion
 * XML External Entities (XXE)
 * URL Invocation
 
-Check out Adams [slide-deck](https://www.owasp.org/images/4/48/2017-04-20-OWASPNZ-XMLDangerous.pdf) at the OWASP NZ Day wiki for some interesting examples.
+Check out Adam's [slide-deck](https://www.owasp.org/images/4/48/2017-04-20-OWASPNZ-XMLDangerous.pdf) on the OWASP NZ Day wiki for some interesting examples.
 
 #### [XSLT Injection](https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf) {#web-applications-identify-risks-xslt-injection}
 
@@ -559,7 +559,7 @@ There is a lot that can go wrong in XSLT, the following is a collection of some 
 
 #### XPath Injection {#web-applications-identify-risks-xpath-injection}
 
-Similarly to generic injection, when XPath incorporates untrusted data that has not been validated, filtered and sanitised based on the execution context in question, this is discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks, the intended logic of the query can be modified. This allows an attacker to inject purposely malformed data into a website, then by making educated guesses based on what is returned, including the returned data and any error messages, the attacker can build a picture of how the XML structure looks. Similar to XML Injection, the attacker will usually carry out this discovery stage followed by full exploitation if successful.
+Similarly to generic injection when XPath incorporates untrusted data that has not been validated, filtered and sanitised based on the execution context in question. This is discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks. The intended logic of the query can be modified which allows an attacker to inject purposely malformed data into a website. This allows them to make educated guesses based on what is returned, the data and any error messages, then the attacker can build a picture of how the XML structure looks. Similar to XML Injection, the attacker will usually carry out this discovery stage followed by full exploitation if successful.
 
 Although this attack technique is similar to SQLi, XPath has no provision for [commenting](https://www.owasp.org/index.php/Comment_Injection_Attack#Examples) out tails of expressions:
 
@@ -569,9 +569,9 @@ Although this attack technique is similar to SQLi, XPath has no provision for [c
 
 XPath is a standards based language, unlike SQL, its syntax is implementation independent, this allows attacks to be automated across many targets that use user input to query XML documents.
 
-Unlike SQL where specific commands and queries are run as specific users, and thus the principle of least privilege can be applied to any given command or query based on the user running it, with XPath there is no notion of Access Control Lists (ACLs), this means that a query can [access every part](https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary) of the XML document. So for example, if user credentials are being stored in an XML document, they can be retrieved and allow the attacker to elevate their privileges to those of other users, perhaps administrators if the administrators credentials are stored in the XML document.
+Unlike SQL where certain commands and queries are run as specific users, allowing the principle of least privilege to be applied to any given command or query based on the user running it. With XPath, there is no notion of Access Control Lists (ACLs), this means that a query can [access every part](https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary) of the XML document. For example, if user credentials are being stored in an XML document, they can be retrieved and allow the attacker to elevate their privileges to those of other users, perhaps even to an administrator if the administrators credentials are stored in the XML document.
 
-Let us use the following XML document for examples:
+Use the following XML document for examples:
 
 {title="users.xml", linenos=off, lang="XML"}
     <?xml version="1.0" encoding="UTF-8"?>
@@ -592,7 +592,7 @@ Let us use the following XML document for examples:
        </User>
     </Users>
 
-[Blind injection](https://www.owasp.org/index.php/Blind_XPath_Injection) is a technique used in many types of injection. A blind injection attack is used where the attacker does not know what the underlying query, or in the case of XPath, XML document looks like, and/or the feedback from the application reveals little detail in terms of data or error messages. Often booleanised queries and/or XML Crawling are used to facilitate blind injection attacks.
+[Blind injection](https://www.owasp.org/index.php/Blind_XPath_Injection) is a technique that is used in many types of injection. A blind injection attack is used where the attacker does not know what the underlying query is, or in the case of XPath, XML document looks like, and/or when the feedback from the application reveals little detail in terms of data or error messages. Often booleanised queries and/or XML Crawling are used to facilitate the blind injection attacks.
 
 **Booleanised Queries** are those that return very granular true/false information based on very small amounts of data supplied by the attacker.
 
@@ -625,9 +625,9 @@ The following query can be used to confirm that the first character of the fourt
 
 Checkout the OWASP [XML Crawling](https://www.owasp.org/index.php/Blind_XPath_Injection#XML_Crawling) documentation for further details. The queries at the OWASP documentation did not work for me, hence why I have supplied ones that do.
 
-Using booleanised queries can be very good for automated attacks, usually many of these granular tests will need to be performed, but because they are so small, an attacker can aggregate them, making them very versatile.
+Using booleanised queries can be very good for automated attacks, usually because many of these granular tests need to be performed. Because they are so small, an attacker can aggregate them, making them very versatile.
 
-Continuing on: If our target application contains logic to retrieve the account type so long as the user provides their username and password, that logic may look similar to the following, once the legitimate administrator has entered their credentials:
+Continuing on: If our target application contains logic to retrieve the account type, once the user provides their username and password and the legitimate administrator has entered their credentials, that logic may look similar to the following:
 
 {linenos=off, lang="XQuery"}
     string(//User[UserName/text()='jdeer' and Password/text()='3xp10it3d']/Type/text())
@@ -644,11 +644,11 @@ Then the above query will look more like the following:
 {linenos=off, lang="XQuery"}
     string(//User[UserName/text()='' or '1'='1' and Password/text()='' or '1'='1']/Type/text())
 
-Which although the attacker has not supplied a valid `UserName` or `Password`, according to the XPath query, they are still authenticated, because the query will always evaluate to true. This is called authentication bypass for obvious reasons. You may notice that this attack looks very similar to many SQLi attacks.
+Which although the attacker has not supplied a valid `UserName` or `Password`, according to the XPath query, they are still authenticated, because the query will always evaluate to true. This is called an authentication bypass for obvious reasons. You may notice that this attack looks very similar to many other SQLi attacks.
 
 The available XPath functions and XSLT specific additions to XPath are [documented](https://developer.mozilla.org/en-US/docs/Web/XPath/Functions) at Mozilla Developer Network (MDN)
 
-Technically, XPath is used to select parts of an XML document, it has no provision for updating, in saying that, command injection can be used to modify data that XPath returns. Standard language libraries usually provide functionality for modifying XML documents, along with the XML Data Modification Language ([DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)) that we will discuss soon in the next section.
+Technically, XPath is used to select parts of an XML document, it has no provision for updating. In saying that the command injection can be used to modify data that XPath returns. Standard language libraries usually provide functionality for modifying XML documents, along with the XML Data Modification Language ([DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)) that we will discuss soon in the next section.
 
 #### XQuery Injection {#web-applications-identify-risks-xquery-injection}
 
@@ -698,19 +698,19 @@ which would form the following query:
 
 which upon execution would yield all of the `user`s.
 
-Something else to keep in mind is that XQuery also [has an extension](https://www.mssqltips.com/sqlservertip/2738/examples-of-using-xquery-to-update-xml-data-in-sql-server/) called the XML Data Modification Language ([DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)), which is commonly used to update (`insert`, `delete` and `replace value of`) XML documents.
+Also, keep in mind that XQuery [has an extension](https://www.mssqltips.com/sqlservertip/2738/examples-of-using-xquery-to-update-xml-data-in-sql-server/) called the XML Data Modification Language ([DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)), which is commonly used to update (`insert`, `delete` and `replace value of`) XML documents.
 
 #### LDAP Injection {#web-applications-identify-risks-ldap-injection}
 
 The same generic injection information is applicable to LDAP
 
-[Successful LDAP injection](https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction) attacks could result in the granting of permissions to unauthorised queries and/or adding, deleting or modifying of entries in the LDAP tree. Because LDAP is used extensively for user authentication, this is a particularly viable area for attackers.
+[Successful LDAP injection](https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction) attacks could result in granting permissions to unauthorised queries and/or adding, deleting or modifying of entries in the LDAP tree. Because LDAP is used extensively for user authentication, this is a particularly viable area for attackers.
 
-As we discussed the usage of metacharacters in [XML Injection](#web-applications-identify-risks-xml-injection), LDAP search filter metacharacters [can be injected](https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary) into the dynamic parts of the queries and thus executed by the application. 
+As we have discussed, the usage of metacharacters in [XML Injection](#web-applications-identify-risks-xml-injection), LDAP search filter metacharacters [can be injected](https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary) into the dynamic parts of the queries and thus executed by the application. 
 
-LDAP uses [Polish notation](https://en.wikipedia.org/wiki/Polish_notation) (PN), or normal Polish notation (NPN), or simply prefix notation, which has the distinguishing feature of placing operators to the left of their operands
+LDAP uses [Polish notation](https://en.wikipedia.org/wiki/Polish_notation) (PN), or normal Polish notation (NPN), or simply prefix notation, which has the distinguishing feature of placing operators to the left of their operands.
 
-One of the canonical examples, is a web application that takes the users credentials and verifies their authenticity, if successful, the user is authenticated and granted access to specific resources.
+One of the canonical examples, is when a web application takes the users credentials and verifies their authenticity. If successful, the user is then authenticated and granted access to specific resources.
 
 The LDAP filter used to check whether the supplied username and password of a user is correct, might look similar to the following:
 
@@ -741,11 +741,9 @@ Lack of captchas are a risk, but so are captchas themselves...
 
 What is the problem here? What are we trying to stop?
 
-Bots submitting. What ever it is, whether advertising, creating an unfair advantage over real humans, link creation in attempt to increase SEO, malicious code insertion, you are more than likely not interested in accepting it.
+Bots submitting. Whatever it is, whether it's advertising, creating an unfair advantage over real humans, link creation in attempt to increase SEO, malicious code insertion, you are more than likely not interested in accepting it.
 
-What do we not want to block?
-
-People submitting genuinely innocent input. If a person is prepared to fill out a form manually, even if it is spam, then a person can view the submission and very quickly delete the validated, filtered and possibly sanitised message.
+We do not want to block people submitting genuinely innocent input. If a person is prepared to fill out a form manually, even if it is spam, then a person can view the submission and very quickly delete the validated, filtered and possibly sanitised message.
 
 ### Management of Application Secrets {#web-applications-identify-risks-management-of-application-secrets}
 
@@ -759,9 +757,9 @@ Also consider reviewing the [Storage of Secrets](#cloud-identify-risks-storage-o
 
 The reason I have tagged this as moderate is because if you take the countermeasures, it doesn't have to be a disaster.
 
-The New Zealand Intelligence Service recently [told](http://www.stuff.co.nz/national/politics/73704551/homegrown-threats-more-serious-says-spy-boss-rebecca-kitteridge) Prime Minister John Key that this was one of the 6 top threats facing New Zealand. "_Cyber attack or loss of information and data, which poses financial and reputational risks._"
+The New Zealand Intelligence Service [told](http://www.stuff.co.nz/national/politics/73704551/homegrown-threats-more-serious-says-spy-boss-rebecca-kitteridge) New Zealand's previous Prime Minister John Key, that one of the 6 top threats facing New Zealand is a "_Cyber attack or loss of information and data, which poses financial and reputational risks._"
 
-There are many examples of data-store compromise happening on a daily basis. If organisations took the advice I outline in the countermeasures section the millions of users would not have their identifies stolen. Sadly the advice is rarely followed. The Ashley Madison debacle is a good example. Ashley Madisons entire business relied on its commitment to keep its clients (37 million of them) data secret, provide discretion and anonymity. 
+There are numerous examples of data-store compromise that happen on a daily basis. If only organisations put in place what I outlined in the countermeasures section, then millions of users would not have their identifies stolen. Sadly the advice security expets suggest is rarely followed. What happened in the Ashley Madison debacle is a very good example, as Ashley Madison's entire business relied on its commitment to keep its clients (37 million of them) data secret, and provide their clients discretion and anonymity. 
 
 "_Before the breach, the company boasted about airtight data security but ironically, still proudly displays a graphic with the phrase “trusted security award” on its homepage_"
 
@@ -771,26 +769,26 @@ There are many examples of data-store compromise happening on a daily basis. If 
 
 > Dark Reading
 
-Other notable data-store compromises were [LinkedIn](https://en.wikipedia.org/wiki/2012_LinkedIn_hack) with 6.5 million user accounts compromised and 95% of the users passwords cracked in days. Why so fast? Because they used simple hashing, specifically SHA-1. [EBay](http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-employee-credentials-/d/d-id/1269093) with 145 million active buyers. Many others coming to light regularly. 
+Another notable data-store compromise is [LinkedIn](https://en.wikipedia.org/wiki/2012_LinkedIn_hack) where 6.5 million user accounts where compromised and 95% of the users passwords cracked within days. Why so fast? Because they used simple hashing, specifically SHA-1. Also when [EBay](http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-employee-credentials-/d/d-id/1269093) got hacked affecting their 145 million active buyers. Many others coming to light regularly.
 
-Are you using well salted and quality strong key derivation functions (KDFs) for all of your sensitive data? Are you making sure you are notifying your customers about using high quality passwords? Are you informing them what a high quality password is? Consider checking new user credentials against a list of the most frequently used and insecure passwords collected. I discussed Password Lists in the Tooling Setup chapter. You could also use wordlists targeting the most commonly used passwords, or create an algorithm that works out what an easy to guess password looks like, and inform the user that it would be easy to guess by an attacker.
+Are you using well salted and quality strong key derivation functions (KDFs) for all of your sensitive data? Are you making sure you are notifying your customers about using high quality passwords? Are you informing them what a high quality password is? Consider checking new user credentials against a list of the most frequently used and insecure passwords collected. I have discussed Password Lists in the Tooling Setup chapter. You could also use wordlists targeting the most commonly used passwords, or create an algorithm that works out what an easy to guess password looks like, and inform the user that their password would be easy to guess by an attacker.
 
 #### Cracking {#web-applications-identify-risks-management-of-application-secrets-cracking}
 
-Remember we covered Password Profiling in the People chapter where we essentially made good guesses, both manually and with the use of profiling tools, around the end users passwords, and then feed the short-list to a brute forcing tool. Here we already have the password hashes. We just need to find the source passwords that created the hashes. This is where cracking comes in.
+Password profiling was covered in the People chapter where we talked about how we essentially make good guesses, both manually and by using profiling tools around the end users passwords, and then feed the short-list to a brute forcing tool. Here we already have the password hashes, we just need to find the source passwords that created the hashes. This is where cracking comes in.
 
-When an attacker acquires a data-store or domain controller dump of hashed passwords, they need to crack the hashes in order to get the passwords. How this works, is the attacker will find or create a suitable password list of possible passwords. The tool used will attempt to create a hash of each of these words based on the hashing algorithm used on the dump of hashes. Then compare each dumped hash with the hashes just created. When a match is found, we know that the word in our wordlist used to create the hash that matches the dumped hash is in fact a legitimate password.
+When an attacker acquires a data-store or domain controller dump of hashed passwords, they will need to crack the hashes in order to get the passwords. This works when an attacker finds or creates a suitable wordlist of possible passwords. The tool used in attempting to create a hash of each of these passwords, is based on the hashing algorithm used on the dump of hashes. Then compare each dumped hash with the hashes just created and when a match is found, we know that the password in our wordlist was used to create the hash and what matches the dumped hash is in fact a legitimate password.
 
-A smaller wordlist is going to take less time to create the hashes. As this is often an off-line attack, a larger wordlist is often preferred over a smaller one because the number of generated hashes will be greater, which when compared to the dump of hashes means the likelihood of a greater number of matches is increased.
+A smaller wordlist takes less time to create the hashes, as this is often an off-line attack. A larger wordlist is often preferred over the smaller one, as a greater number of hashes is generated, increasing the likelihood of a greater number of matches.
 
-As part of the hands on hack in the [SQLi](#web-applications-identify-risks-sqli) section, we obtained the password hashes via SQL injection from the target web application DVWA (part of the OWASP Broken Web Application suite (VM)). We witnessed how an attacker could obtain the passwords from the hashed values retrieved from the database.
+As part of the hands on hack in the [SQLi](#web-applications-identify-risks-sqli) section, we obtained password hashes via SQL injection from the target web application DVWA (part of the OWASP Broken Web Application suite (VM)). We witnessed how an attacker could obtain the passwords from the hashed values retrieved from the database.
 
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-identify-risks-lack-of-authentication-authorisation-session-management}
 ![](images/ThreatTags/average-common-average-severe.png)
 
-Also brought to light by the OWASP Top 10 risks "[_No. 2 Broken Authentication and Session Management_](https://www.owasp.org/index.php/Top_10_2017-A2-Broken_Authentication_and_Session_Management)".
+This is also brought to light by the OWASP Top 10 risks "[_No. 2 Broken Authentication and Session Management_](https://www.owasp.org/index.php/Top_10_2017-A2-Broken_Authentication_and_Session_Management)".
 
-With this category of attacks, your attacker could be either someone you do or do not know. Possibly someone already with an account, an insider maybe, looking to take the next step which could be privilege escalation or even just alteration so that they have access to different resources by way of acquiring other accounts. Some possible attack vectors could be:
+In this category of attacks, your attacker could be someone known by you, or someone you do not know. Possibly somebody already with an account; an insider maybe looking to take the next step which could be a privilege escalation or just an alteration so that they can have access to different resources by way of acquiring other accounts. Some possible attack vectors could be:
 
 * Password acquisition: by way of data-store theft (off-line attack) or poor password hashing strategies (susceptible to off-line and on-line attacks), discussed in the Countermeasures section but in more depth in the Management of Application Secrets sections
 * Passwords or sessionIds travelling over unsecured channels susceptible to Man In the Middle (MItM) attacks, discussed in the Countermeasures section but also refer to the TLS Downgrade sections of the Network chapter
@@ -801,7 +799,7 @@ With this category of attacks, your attacker could be either someone you do or d
 * Secret questions
 * Updating account details
 
-In the Countermeasures section I go through some mature and well tested libraries and other technologies, and details around making them fit into a specific business architecture.
+In the Countermeasures section I will go through some mature and well tested libraries, plus other technologies, and details around making them fit into a specific business architecture.
 
 Consider what data could be exposed from any of the accounts and how this could be used to gain a foot hold to launch further alternative attacks. Each step allowing the attacker to move closer to their ultimate target, the ultimate target being something hopefully discussed during the Asset Identification phase or taking another iteration of it as you learn and think of additional possible targeted assets.
 
@@ -809,45 +807,45 @@ Often the line between the following two concepts gets blurred, sometimes becaus
 
 #### What is Authentication
 
-The process of determining whether an entity (be it person or something else) is who or what it claims to be.
+Authentication is the process of determining whether an entity (be it person or something else) is who or what it claims to be.
 
 Being authenticated, means the entity is known to be who or what it/he/she claims to be.
 
 #### What is Authorisation
 
-The process of verifying that an entity (usually requesting)(be it person or something else) has the right to a resource or to carry out an action, then granting permission requested.
+Authorisation is the process of verifying that an entity (usually requesting - be it person or something else) has the right to a particular resource or to carry out an action, before granting the permission requested.
 
 Being authorised, means the entity has the power or right to certain privileges.
 
 &nbsp;
 
-**Don't build your own** authentication, authorisation or session management system unless it's your core business. It's too easy to get things wrong and you only need one defect in order to be compromised. Leave it to those that have already done it or do it as part of their core business and have already worked through the defects.
+**Don't build your own** authentication, authorisation or session management system unless it's your core business. It is too easy to get things wrong, as it only takes one defect to become compromised. Leave it to those who are experienced or have it as part of their core business and have already worked through the defects.
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-identify-risks-cryptography-on-the-client}
 
 ![](images/ThreatTags/average-widespread-average-severe.png)
 
-The things I see that seem to get many developers into trouble:
+I see things that developers would get into trouble through:
 
 1. Lack of understanding of what the tool is, where and how it should be used
-2. Use of low-level primitives with no to little knowledge of which are most suitable for which purposes. How to make them work together. How to use and configure them, so as to not introduce security defects, usually due to not understanding how the given primitive is designed and its purpose of use
+2. Use of low-level primitives with no to little knowledge of which are the most suitable for what purposes. How to make them work together. How to use and configure them, so as to not introduce security defects, usually due to not understanding how the given primitive is designed and its purpose of use
 3. Many libraries have either:
-    1. To many options which just helps to create confusion for developers as to what to use for which purpose. The options they do have are not the best for their intended purpose
+    1. To many options which creates confusion for the developers, as what to use for which purpose. Where the options they do have, are not the best for their intended purpose
     2. The creators may be developers, but are not cryptographers
 
-There are so many use cases with the wider cryptography topic. There is no substitute for learning about your options, which to use in any given situation and how to use them.
+There are so many use cases within the wider cryptography topic. There is no substitute for learning about your options, which to use in any given situation and how to use them.
 
 JavaScript crypto is wrought with problems.
 
 For example, there is nothing safe about having JavaScript in the browser store, read or manage an entropy pool. This gets a little better with the Web Cryptography APIs (discussed in the [Countermeasures](#web-applications-countermeasures-cryptography-on-the-client) section) `window.crypto.getRandomValues()`. 
 
-Little trust should be placed in the browser and how it generally fails to manage attacks due to the complexities discussed in both [Risks](#web-applications-identify-risks-lack-of-input-validation-and-sanitisation) and [Countermeasures](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) sections of "Lack of Input Validation, Filtering and Sanitisation". The browser has enough trouble getting all the technologies to work together and inside of each other, let-a-lone stopping malicious code fragments that do work from working. As most web developers have worked out, the browser is purposely designed to make even syntactically incorrect code work correctly.
+Little trust should be placed in the browser, as it generally fails to manage attacks due to the complexities discussed in both the [Risks](#web-applications-identify-risks-lack-of-input-validation-and-sanitisation) and [Countermeasures](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) sections of "Lack of Input Validation, Filtering and Sanitisation". The browser has enough trouble getting all the technologies to work together and inside of each other, let alone stopping malicious code fragments that do work from working. As most web developers have worked out, the browser is purposely designed to make even syntactically incorrect code work correctly.
 
-The browser was designed to download and run potentially malicious, untrusted code from arbitrary locations on the fly. The browser in most cases doesn't know what malicious code is, and often the first payload is not malicious, but simply fetches other code that may fetch other code that eventually will be malicious.
+The browser was designed to download and run potentially malicious, untrusted code from arbitrary locations on the fly. The browser in most cases doesn't know what malicious code is, and often the first payload is not malicious, but simply fetches other code that may fetch other code that may become malicious.
 
-The JavaScript engines are constantly changing, meaning that the developers expectations of relying on implementation details of the execution environments to stay somewhat stable, will be constantly let down.
+JavaScript engines are constantly changing, though developers who are still expecting and relying on the implementation details of the execution environments to stay somewhat stable, will be constantly let down.
 
-Web development is hard. Web security is harder still.
+Web development is hard, though web security is harder still.
 
 The following is a list of the best JavaScript crypto libraries we have available to us. I purposely left many out, as I don't want to muddy the waters and add more lower quality options:
 
@@ -857,20 +855,20 @@ The following is a list of the best JavaScript crypto libraries we have availabl
   * Source Code: [https://github.com/bitwiseshiftleft/sjcl/](https://github.com/bitwiseshiftleft/sjcl/)
   * NPM package: [https://www.npmjs.com/package/sjcl](https://www.npmjs.com/package/sjcl). Yes the download count is way less than Forge, but SJCL is first in my list for a reason. SJCL provides minimal options of algorithms and cipher modes, etc. Just the best, to help ease the burden of having to research many algorithms and cipher modes to find out which are now broken.  
     
-  What's also really good to see is SJCL pushing consumers down the right path and issuing warnings around primitives that have issues. For example the [warning](https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers) against using CBC. I discuss this further in the [risks that solution causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
+  What is also really good to see is how SJCL is pushing consumers down the right path and issuing warnings around primitives that have issues. For example the [warning](https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers) against using CBC. I discuss this further in the [risks that solution causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
   
-  Other than the [countermeasure](#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api), This is probably the best offering we have for crypto in the browser. It has sensible defaults, good warnings, not to many options to understand in order to make good choices. This is one of those libraries that guides the developer down the right path.
+  Other than the [countermeasure](#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api), this is probably the best offering we have for crypto in the browser. It has sensible defaults, good warnings, not too many options to understand in order to make good choices. This is one of those libraries that guides the developer down the right path.
   
   Encrypts your plain text using the AES block cypher with a choice of cipher modes CCM or OCB2. AES is the industry-standard block-cipher for this purpose, one of the better choices for crypto in the browser if it must be done. AES comes in three forms. 128 bit (very efficient), 192 bit and 256 bit. The modes of operation that SJCL have provided for use with AES are the following two [Authenticated Encryption with Associated Data (AEAD)](https://en.wikipedia.org/wiki/Authenticated_encryption) ciphers:
   
   1. AES-CCM. Counter with CBC-MAC (CCM) is a mode of operation for cryptographic block ciphers of 128 bits in length. It is an authenticated encryption algorithm designed to provide both authentication and confidentiality
-  2. AES-OCB2. [Offset CodeBook (OCB)](https://en.wikipedia.org/wiki/OCB_mode) is also a mode of operation for cryptographic block ciphers of 128 bits in length. OCB2 is an authenticated encryption algorithm designed to provide both authentication and confidentiality. OCB1 didn't allow associated data to be included with the message. Integrity verification is now part of the decryption step with OCB2. GCM is similar to OCB, but GCM and CCM don't have any patents. Although exemptions have been granted so that OCB can be used in software licensed under the GNU General Public License  
+  2. AES-OCB2. [Offset CodeBook (OCB)](https://en.wikipedia.org/wiki/OCB_mode) is also a mode of operation for cryptographic block ciphers of 128 bits in length. OCB2 is an authenticated encryption algorithm designed to provide both authentication and confidentiality. OCB1 didn't allow associated data to be included with the message. Integrity verification is now part of the decryption step with OCB2. GCM is similar to OCB, but GCM and CCM doesn't have any patents. Although exemptions have been granted, so that OCB can be used in software licensed under the GNU General Public License  
   
   * Uses PBKDF2 for One way hashing of passwords. More details around password hashing in the [Data-store Compromise](#web-applications-countermeasures-data-store-compromise) section.
 * **Forge**
   * Source Code: [https://github.com/digitalbazaar/forge](https://github.com/digitalbazaar/forge)
   * NPM package: [https://www.npmjs.com/package/node-forge](https://www.npmjs.com/package/node-forge)  
-  * Forge is a JavaScript library that provides a native implementation of TLS and a large toolbox containing utilities and implementations (although many considered insecure now) for:
+  * Forge is a JavaScript library that provides a native implementation of TLS and is a large toolbox containing utilities and implementations (although many considered insecure now) for:
     * Transports: TLS, HTTP, SSH, XHR, Sockets
     * Ciphers: AES, 3DES, DES and RC2
     * Cipher Modes:  GCM, ECB, CBC, CFB, OFB, and CTR
@@ -881,7 +879,7 @@ The following is a list of the best JavaScript crypto libraries we have availabl
   * Home page: [https://openpgpjs.org/](https://openpgpjs.org/)
   * Source Code: [https://github.com/openpgpjs/openpgpjs](https://github.com/openpgpjs/openpgpjs)
 * **SecurityDriven.Inferno**  
-  Although it's not a client side library, it's still worth mentioning, because it's opinionated and from the looks of it, Stan Drapkin is making good decisions and focussing on the best of bread components.
+  Although it is not a client side library, it is still worth mentioning, because it's opinionated and from the looks of it, Stan Drapkin is making good decisions and focussing on the best of bread components.
   * Source Code: [https://github.com/sdrapkin/SecurityDriven.Inferno](https://github.com/sdrapkin/SecurityDriven.Inferno)
   * Documentaion: [http://securitydriven.net/inferno/](http://securitydriven.net/inferno/)
   * NuGet package: [https://www.nuget.org/packages/Inferno/](https://www.nuget.org/packages/Inferno/)
@@ -891,37 +889,37 @@ The following is a list of the best JavaScript crypto libraries we have availabl
 
 This is where [A9 (Using Components with Known Vulnerabilities)](https://www.owasp.org/index.php/Top_10_2017-A9-Using_Components_with_Known_Vulnerabilities) of the 2017 OWASP Top 10 comes in.
 
-We are consuming far more free and open source libraries than we have ever before. Much of the code we are pulling into our projects is never intentionally used, but is still adding surface area for attack. Much of it:
+We are consuming far more free and open source libraries than we ever have before. Most of the code we are pulling into our projects is never intentionally used, but is still adding a surface area for attack. Most of it:
 
-* Is not thoroughly tested for what it should do and what it should not do. We are often relying on developers we do not know a lot about to have not introduced defects. As I discussed in the "Code Review" section of the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), most developers are more focused on building than breaking, they do not even see the defects they are introducing.
-* Is not reviewed evaluated. That is right, many of the packages we are consuming are created by solo developers with a single focus of creating and little to no focus of how their creations can be exploited. Even some teams with a security champion are not doing a lot better.
-* Is created by amateurs that could and do include vulnerabilities. Anyone can write code and publish to an open source repository. Much of this code ends up in our package management repositories which we consume.
-* Does not undergo the same requirement analysis, defining the scope, acceptance criteria, test conditions and sign off by a development team and product owner that our commercial software does.
+* Is not thoroughly tested for what it should and should not do. We are often relying on developers we do not know a lot about, not to introduce defects. As I have discussed in the "Code Review" section of the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), where most developers focus more on building than breaking, and do not see the defects they are introducing
+* Is not reviewed evaluated. That's right, many of the packages we consume are created by solo developers who just focus on creating and have little focus on how their creations can be exploited. Even some teams who have a security champion in them, are not doing a lot better
+* Is created by amateurs that could and do include vulnerabilities. Anyone can write code and publish to an open source repository. A lot of this code ends up in our package management repositories which we consume
+* Does not undergo the same requirement analysis, defining the scope, acceptance criteria, test conditions and sign off by a development team and product owner that our commercial software does
 
-There are some very sobering statistics, also detailed in "[the morning paper](https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/)" by Adrian Colyer, on how many defective libraries we are depending on. We are all trying to get things done faster, and that in many cases means consuming someone else's work rather than writing our own code.
+There are some very sobering statistics, which Adrian Colyer also details in his blog post "[the morning paper](https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/)", on how many defective libraries we are depending on. We are all trying to get things done faster, where in many cases means consuming someone else's work rather than writing our own code.
 
-Many vulnerabilities can hide in these external dependencies. It is not just one attack vector any more, it provides the opportunity for many vulnerabilities to be sitting waiting to be exploited. If you do not find and deal with them, I can assure you, someone else will.
+Many vulnerabilities can hide in these external dependencies. It is not just one attack vector any more, it now provides the opportunity for many vulnerabilities to be sitting there waiting to be exploited. If you do not find and deal with them, I can assure you, someone else will.
 
-Running any type of scripts from non local sources without first downloading and inspecting them, and checking for known vulnerabilities, has the potential to cause massive damage, for example, destroy or modify your systems and any other that may be reachable, send sensitive information to an attacker, or many other types of other malicious activity.
+Running any type of scripts from non local sources without first downloading and inspecting them, and checking for known vulnerabilities, has the potential to cause massive damage. For example, it can destroy or modify your systems and any other that may be reachable, send sensitive information to an attacker, or many other types of other malicious activity.
 
 ### Insufficient Attack Protection
 ![](images/ThreatTags/easy-common-average-moderate.png)
 
-There is a good example of what the Insecure Direct Object References risk looks like in the [NodeGoat](https://github.com/OWASP/NodeGoat/) web application. Check out the [tutorial](https://nodegoat.herokuapp.com/tutorial/a4), along with the video of how the attack is played out, along with the sample code and recommendations of how to fix.
+There is a good example of what the Insecure Direct Object References risk looks like in the [NodeGoat](https://github.com/OWASP/NodeGoat/) web application. Check out the [tutorial](https://nodegoat.herokuapp.com/tutorial/a4), along with the video of how the attack is played out, also the sample code and recommendations on how to fix.
 
 #### Lack of Active Automated Prevention
 
-The web application is being attacked with unusual requests.
+The web application is being attacked with some unusual requests.
 
-Attackers probe for many types of weaknesses within the application, when they think they find a flaw, they attempt to learn from this and refine their attack technique.
+Attackers probe for many types of weaknesses within the application, when they think they have found a flaw, they attempt to learn from this and refine their attack technique.
 
-Attackers have budgets just like application developers/defenders. As they get closer to depleting their budget without gaining a foothold, they become more impulsive, start making more noise, and mistakes creep into their techniques, which makes it even more obvious that their probes are of a malicious nature.
+Attackers have budgets just like application developers/defenders. As they get closer to depleting their budget without gaining a foothold, the more impulsive they get, and start making more noise. Mistakes then creep into their techniques, which makes it even more obvious that their probes are of a malicious nature.
 
 ## 3. SSM Countermeasures
 
-Every decision made in a project needs to factor in security. Just as with other non functional requirements, retrofitting means undoing what you've already done and rebuilding. Maintaining the mindset of going back later and bolting on security doesn't work.
+Every decision made throughout a project needs to factor in security. Just as with other non functional requirements, retrofitting means undoing what you've already done and rebuilding. Maintaining the mindset of going back later and bolting on security does not work.
 
-Often I'll hear people say "well we haven't been hacked so far". This shows a lack of understanding. I usually respond with "That you are aware of". Many of the most successful attacks go unnoticed. Even if you or your organisation haven't been compromised, business's are changing all the time, along with the attack surface and your assets. It's more so a matter of when, than if.
+Often I hear people say "well ... we haven't been hacked so far". This shows a lack of understanding. My response usually is: "Not that you're aware of". Many of the most successful attacks go unnoticed. Even if you or your organisation haven't been compromised, business's are changing all the time, along with the attack surface and your assets. It's more so a matter of when, than if.
 
 One of the additional resources useful at this stage is the [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008).
 
@@ -931,7 +929,7 @@ Also refer to the ["Lack of Visibility"](#vps-countermeasures-lack-of-visibility
 
 As Bruce Schneier said: "_Detection works where prevention fails and detection is of no use without response_". This leads us to application logging.
 
-With good visibility we should be able to see anticipated and unanticipated exploitation of vulnerabilities as they occur and also be able to go back and review/audit the events. Of course you're still going to need someone engaged enough (discussed in the People chapter of Fascicle 0) to be reviewing logs and alerts.
+With good visibility we can see both anticipated and unanticipated exploitation of vulnerabilities as they occur and should be able to go back and review/audit the events. Though, you are still going to need someone engaged enough (discussed in the People chapter of Fascicle 0) to be reviewing logs and alerts.
 
 #### Insufficient Logging {#web-applications-countermeasures-lack-of-visibility-insufficient-logging}
 ![](images/ThreatTags/PreventionAVERAGE.png)
@@ -939,7 +937,7 @@ With good visibility we should be able to see anticipated and unanticipated expl
 
 When it comes to logging in NodeJS, you can't really go past winston. It has a lot of functionality and what it does not have is either provided by extensions, or you can create your own. It is fully featured, reliable and easy to configure like NLog in the .NET world.
 
-I also looked at `express-winston`, but could not see why it needed to exist.
+I have also looked at `express-winston`, but could not see why it needed to exist.
 
 {title="package.json", linenos=off, lang=JavaScript}
     {
@@ -964,9 +962,9 @@ I also looked at `express-winston`, but could not see why it needed to exist.
 
 ##### Opening UDP port
 
-with [`winston-syslog`](https://www.npmjs.com/package/winston-syslog), it seems to be what a lot of people are using. I think it may be due to the fact that `winston-syslog` is the first package that works well for winston and syslog.
+A lot of people seem to be using [`winston-syslog`](https://www.npmjs.com/package/winston-syslog), due to the fact that `winston-syslog` is the first package that works well for winston and syslog.
 
-If going this route, you will need the following in your `/etc/rsyslog.conf`:
+If going down this route, you will need the following in your `/etc/rsyslog.conf`:
 
 {title="/etc/rsyslog.conf", linenos=off, lang=Bash}
     $ModLoad imudp
@@ -981,9 +979,9 @@ If going this route, you will need the following in your `/etc/rsyslog.conf`:
     # Logging for your app.
     local0.* /var/log/yourapp.log
 
-I Also looked at `winston-rsyslog2` and `winston-syslogudp`, but they did not measure up for me.
+I also looked at both `winston-rsyslog2` and `winston-syslogudp`, but they did not measure up for me.
 
-If you do not need to push syslog events to another machine, and I don't mean pushing logs, then it does not make much sense to push through a local network interface when you can use your posix syscalls as they are faster and safer. Line 7 below shows the open port.
+If you do not need to push syslog events to another machine (I don't mean pushing logs), then it does not make much sense to push through a local network interface when you can use your posix syscalls as they are faster and safer. Line 7 below shows the open port.
 
 {title="nmap with winston-syslog", linenos=on}
     root@kali:~# nmap -p514 -sU -sV <target IP> --reason
@@ -999,7 +997,7 @@ If you do not need to push syslog events to another machine, and I don't mean pu
 
 The [`winston-syslog-posix`](https://www.npmjs.com/package/winston-syslog-posix) package was inspired by [blargh](http://tmont.com/blargh/2013/12/writing-to-the-syslog-with-winston). `winston-syslog-posix` uses [`node-posix`](https://www.npmjs.com/package/posix).
 
-If going this route, you will need the following in your `/etc/rsyslog.conf` instead of the above, you will still be able to push logs off-site, as discussed in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section in Countermeasures:
+If going down this route, you will need the following in your `/etc/rsyslog.conf` instead of the above. You will still be able to push logs off-site, as discussed in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section in Countermeasures:
 
 {title="/etc/rsyslog.conf", linenos=off, lang=Bash}    
     # Logging for your app.
@@ -1099,9 +1097,9 @@ In development I have chosen here to not use syslog. You can see this on line 3 
        }
     }
 
-In production we log to syslog and because of that we do not need the file transport you can see configured starting on line 30 above in the `default.js` configuration file, so we set it to null as seen on line 6 below in the `prodbox-production.js` file.
+In production we log to syslog and because of this we do not need the file transport you can see the configured starting on line 30 above in the `default.js` configuration file, so we set it to null as seen on line 6 below in the `prodbox-production.js` file.
 
-I have gone into more depth about how we handle syslogs in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section, where all of our logs including these ones get streamed to an off-site syslog server. Thus providing easy aggregation of all system logs into one user interface that DevOpps can watch on their monitoring panels in real-time and also easily go back in time to visit past events. This provides excellent visibility as one layer of defence.
+I go into more depth about how we handle syslogs in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section, where all of our logs including these ones get streamed to an off-site syslog server. Whereby, providing easy aggregation of all system logs into one user interface that DevOpps can watch on their monitoring panels in real-time and can easily go back in time to visit past events. This provides excellent visibility as one layer of defence.
 
 There were also some other [options](http://help.papertrailapp.com/kb/configuration/configuring-centralized-logging-from-nodejs-apps/) for those using Papertrail as their off-site syslog and aggregation PaaS, but the solutions were not as clean as simply logging to local syslog from your applications and then sending off-site from there. Again this is discussed in more depth in the "Logging and Alerting" section in the VPS chapter.
 
@@ -1283,21 +1281,21 @@ As an architectural concern, also consider hiding cross cutting concerns like lo
 #### Insufficient Monitoring
 ![](images/ThreatTags/PreventionEASY.png)
 
-There are a couple of ways of approaching monitoring. You may want to see and be notified of the health of your application only when it is not fine (sometimes called the dark cockpit approach), or whether it is fine or not. Personally I like to have both
+There are a couple of ways of approaching monitoring: a) only when you want to see and be notified of the health of your application when it is not fine (sometimes called the dark cockpit approach), b) or whether it is fine or not. Personally I like to have both options.
 
 ##### Dark Cockpit
 
-As discussed in the VPS chapter, Monit is an excellent tool for the dark cockpit approach. It's easy to configure. Monit Has excellent easy to read, short [documentation](https://mmonit.com/monit/documentation/monit.html) which is easy to understand, the configuration file has lots of examples commented out ready for you to take as is and modify to suite your environment. Remember I provided examples of monitoring a VPS and [NodeJS web application](#vps-countermeasures-lack-of-visibility-proactive-monitoring-keep-nodejs-application-alive) in the VPS chapter. I've personally had excellent success with Monit. Check the VPS chapter [Monitoring section](#vps-countermeasures-lack-of-visibility-proactive-monitoring-monit) for a refresher. Monit doesn't just give you monitoring, it can also perform pre-defined actions based on current states of many VPS resources and their applications.
+As discussed in the VPS chapter, Monit is an excellent tool to use for the dark cockpit approach, as it is easy to configure. Monit has short [documentation](https://mmonit.com/monit/documentation/monit.html) which is easy to read and simple to understand. Their configuration file has lots of examples commented out ready for you to take and modify to suite your environment. I provided examples of monitoring a VPS and [NodeJS web application](#vps-countermeasures-lack-of-visibility-proactive-monitoring-keep-nodejs-application-alive) in the VPS chapter. When I have used Monit myself I have had excellent success with it. Go back to the VPS chapter [Monitoring section](#vps-countermeasures-lack-of-visibility-proactive-monitoring-monit) for a refresher as Monit doesn't just give you monitoring, it can also perform pre-defined actions based on current states of many VPS resources and their applications.
 
 ##### Statistics Graphing {#web-applications-countermeasures-lack-of-visibility-insufficient-Monitoring-statistics-graphing}
 
-Continuing on with the [Statistics Graphing](#vps-countermeasures-lack-of-visibility-statistics-graphing) section in the VPS chapter, we look at adding [statsd](https://github.com/etsy/statsd/) as application instrumentation to our existing collectd -> graphite set-up.
+Continuing on with the [Statistics Graphing](#vps-countermeasures-lack-of-visibility-statistics-graphing) section in the VPS chapter, we look at adding [statsd](https://github.com/etsy/statsd/) as the application instrumentation to our existing collectd -> graphite set-up.
 
-Just as collectd can collect and send data to graphite directly if collectd agent and server are on the same machine, or indirectly via a collectd server on another machine to provide continual system visibility, statsd can play a similar role as collectd agent/server but for our applications. 
+Just as collectd can collect and send data to graphite directly if the collectd agent and server are on the same machine, or indirectly via a collectd server on another machine to provide continual system visibility, statsd can play a similar role as collectd agent/server but for our applications. 
 
 
 
-Statsd is a lightweight NodeJS daemon that collects and stores the statistics sent to it for a configurable amount of time (10 seconds by default) by listening for UDP packets containing them. Statsd then aggregates the statistics and flushes a single value for each statistic to its [`backends`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L125) (graphite in our case) using a TCP connection. The [`flushInterval`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L50) needs to be the same as the `retentions` interval in the Carbon [`/etc/carbon/storage-schemas.conf`](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf) file. This is how statsd [gets around](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#anatomy-of-statsd-data-metrics) the Carbon limitation of only accepting a single value per interval. The protocol that statsd expects to receive looks like the following, expecting a type in the third position instead of the timestamp that [Carbon expects](#vps-countermeasures-lack-of-visibility-statistics-graphing-assembling-the-components-after):
+Statsd is a lightweight NodeJS daemon that collects and stores the statistics sent to it for a configurable amount of time (10 seconds by default). It does this by listening for UDP packets containing the statistics. Statsd then aggregates the statistics and flushes a single value for each statistic to its [`backends`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L125) (graphite in our case) using a TCP connection. The [`flushInterval`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L50) needs to be the same as the `retentions` interval in the Carbon [`/etc/carbon/storage-schemas.conf`](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf) file. This is how statsd [gets around](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#anatomy-of-statsd-data-metrics) the Carbon limitation of only accepting a single value per interval. The protocol that statsd expects to receive looks like the following, expecting a type in the third position instead of the timestamp that [Carbon expects](#vps-countermeasures-lack-of-visibility-statistics-graphing-assembling-the-components-after):
 
 {title="statsd receiving protocol (syntax)", linenos=off}
     <metric-name>:<actual-value>|<type>
@@ -1307,7 +1305,7 @@ Where `<type>` is one of the following:
 {title="Count", linenos=off}
     c
 
-This tells statsd to add up all of these values that it receives for a particular statistic during the flush interval and send the total on flush. A sample rate can also be provided from the statsd client as a decimal of the number of samples per event count:  
+This tells statsd to add up all the values it receives for a particular statistic during the flush interval and sends the total on flush. A sample rate can also be provided from the statsd client as a decimal of the number of samples per event count:  
 `<metric-name>:<actual-value>|c[|@<sample-rate>]`  
 So if the statistic is [only being sampled 1/10th of the time](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sampling):  
 `<metric-name>:<actual-value>|c|@0.1`  
@@ -1315,7 +1313,7 @@ So if the statistic is [only being sampled 1/10th of the time](https://github.co
 {title="Timing", linenos=off}
     ms
 
-This value needs to be the timespan in milliseconds between a start and end time. This could be for example, the timespan that it took to hash a piece of data to be stored such as a password, or how long it took to pre-render an isomorphic web view. Just as with the count type, you can also provide a sample rate for timing as well. Statsd does quite a lot of work with timing data, it [works out](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#timing) percentiles, mean, standard deviation, sum, lower and upper bounds for the flush interval. This can be very useful for when you are making changes to your application and want to know if those changes are [slowing it down](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#timers).
+This value needs to be the timespan in milliseconds between a start and end time. This could be for example, the timespan that it took to hash a piece of data to be stored such as a password, or how long it took to pre-render an isomorphic web view. Just as with the count type, you can also provide a sample rate for timing as well. Statsd does quite a lot of work with timing data, it [works out](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#timing) percentiles, mean, standard deviation, sum, lower and upper bounds for the flush interval. This can be very useful for when you are making changes to your application and want to know if any changes are [slowing it down](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#timers).
 
 {title="Gauges", linenos=off}
     g
@@ -1325,16 +1323,16 @@ A gauge is a snap-shot of a reading in your application code, like your [cars fu
 {title="Sets", linenos=off}
     s
 
-[Sets](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#sets) allow you to send the number of [unique occurrences](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sets) of events between flushes, so for example you could send the source address of every request to your web application and statsd would workout the number of unique source requests per flush interval.
+[Sets](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#sets) allows you to send the number of [unique occurrences](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sets) of events between flushes. Therefore, you could send the source address of every request to your web application and statsd would work out the number of unique source requests per flush interval.
 
-So for example if you have statsd running on a server called graphing-server with the default port, you can test sending a count metric with the following command:
+So for example, if you have statsd running on a server called graphing-server with the default port, you can test this by sending a count metric with the following command:
 
 {title="statsd receiving protocol (example)", linenos=off}
     echo "<meteric-name>:<actual-value>|c" | nc -u -w0 graphing-server 8125
 
-The server and port are specified in the config file that you create for yourself. You can create this from the [`exampleConfig.js`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js) as a starting point. In `exampleConfig.js` you will see the server and port properties. The current options for server are tcp or udp, with udp being the default. The server file must exist in the [`./servers/`](https://github.com/etsy/statsd/tree/master/servers) directory.
+The server and port are specified in the config file that you create for yourself. This can be created from the [`exampleConfig.js`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js) as a starting point. In `exampleConfig.js` you will see the server and port properties. The current options for server are tcp or udp, with udp being the default. The server file must exist in the [`./servers/`](https://github.com/etsy/statsd/tree/master/servers) directory.
 
-One of the ways we can generate statistics to send to our listening statsd daemon is by using one of the many language specific [statsd clients](https://github.com/etsy/statsd/wiki#client-implementations), which make it trivially easy to collect and send application statistics via a single routine call.
+One of the ways we can generate statistics to send to our listening statsd daemon is by using one of the many language specific [statsd clients](https://github.com/etsy/statsd/wiki#client-implementations), which makes it trivially easy to collect and send application statistics via a single routine call.
 
 ![](images/statsd-graphite.png)
 
@@ -1343,16 +1341,16 @@ One of the ways we can generate statistics to send to our listening statsd daemo
 
 #### Generic {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic}
 
-What ever you can do to help establish clean lines of separation of concerns in terms of both domain and technology, and keep as much as possible as simple as possible, the harder it will be for defects and malicious code to hide.
+Do what ever you can to help establish clean lines of separation of concerns in terms of both domain and technology, and keep everything as simple as possible. Then it will be harder for defects and malicious code to hide.
 
-Your staple practises when it comes to defending against potentially dangerous input are validation and filtering. There are cases though when the business requires that input must be accepted that is dangerous yet still valid. This is where you will need to implement sanitisation. There is a lot more research and thought involved when you need to perform sanitisation, so the first cause of action should be to confirm that the specific dangerous yet valid input is in-fact essential.
+Your staple practises when it comes to defending against potentially dangerous input should be validation and filtering. There will be cases though when the business requires that input must be accepted, is dangerous yet still valid. At this point, this is when you will need to implement sanitisation. There is a lot more research and thought involved when you need to perform sanitisation. Therefore, the first cause of action should be to confirm that the specific dangerous yet valid input is in-fact essential.
 
 **Recommendations:**
 
 Research:
 
 * Libraries
-* The [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) that your data will flow through and / or be placed in
+* The [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) that your data will flow through and/or be placed in
 * Which character signatures need to be sanitised
 
 Attempt to use well tested, battle hardened language specific libraries that know how to validate, filter and sanitise.
@@ -1392,9 +1390,9 @@ Create enough "Evil Test Conditions" as discussed in the Process and Practises c
 
 ##### Types of Escaping: {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-types-of-escaping}
 
-Escaping is a technique used to sanitise. Escaped data will still render in the browser properly. Escaping simply lets the interpreter know that the data is not intended to be executed and thus prevents the attack.
+Escaping is a technique used to sanitise. Escaped data will still render in the browser properly. Escaping simply lets the interpreter know that the data is not intended to be executed, preventing the attack.
 
-There are a number of types of escaping you need to know about depending on where you may be intending on inserting untrusted data. Work through the following set of rules in order:
+There are numerous types of escaping you may need to know about depending on where you intend on inserting untrusted data. Work through the following set of rules in this order:
 
 1. HTML Escape
 2. Attribute Escape
@@ -1405,7 +1403,7 @@ There are a number of types of escaping you need to know about depending on wher
 6. Sanitise HTML
 7. Prevent DOM-based XSS
 
-All of the above points are covered in depth in the OWASP [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#XSS_Prevention_Rules). **Familiarise yourself with the rules before completing any custom sanitisation work**.
+The OWASP [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#XSS_Prevention_Rules) covers these points in more depth. **Familiarise yourself with the rules before completing any custom sanitisation work**.
 
 ##### Example in JavaScript and C\# {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-csharp}
 
@@ -1413,11 +1411,11 @@ A>
 A> When out of the box libraries do not cover all of your sanitisation needs.
 A>
 
-The following example was taken from a project I worked on a few years ago.
+The following example is taken from a project I worked on a few years ago.
 
-Client side validation, filtering and sanitisation is more about UX (User Experience) helping the honest user by saving round trip communications to the server than stopping an attacker, as an attacker will simply by-pass any client side defences.
+Client side validation, filtering and sanitisation is more about UX (User Experience), helping the honest user by saving round trip communications to the server than stopping an attacker. As an attacker will simply by-pass any client side defences.
 
-We needed to apply a white list to all characters being entered into the `value` attribute of `input` elements of `type="text"` and also `textarea` elements. The requirement was that the end user could not insert invalid characters into one of these fields and by insert we mean:
+We needed to apply a white list to all characters being entered into the `value` attribute of `input` elements of `type="text"` also `textarea` elements. The requirement was that the end user could not insert invalid characters into one of these fields, by insert we mean:
 
 1. type the characters in
 2. [ctrl]+[v] a clipboard full of characters in
@@ -1560,7 +1558,7 @@ Now what we do here is extend the `String` prototype with a function called `htm
        };
     }());
 
-Just before any user input was sent back to the server, we would check each of the fields that we were receiving input from by doing the following:
+Just before any user input was sent back to the server, we checked each of the fields that were receiving input from by doing the following:
 
 {linenos=off, lang=JavaScript}
     element.value.htmlEscape();
@@ -1577,9 +1575,9 @@ For us, this would be enough, as we would be `HTML` escaping our `textarea` elem
 
 The escaping rules discussed [above](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-types-of-escaping) detail this. Check out the [OWASP resource](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#Why_Can.27t_I_Just_HTML_Entity_Encode_Untrusted_Data.3F) for full details.
 
-Rule #2 of the OWASP XSS Prevention Cheat Sheet discusses attribute escaping. Now because we were only using `value` attributes and we had the luxury of being able to control the fact that we would always be using properly quoted attributes, we didn't have to take this extra step of escaping all (other than alphanumeric) ASCII characters that is values less than 256 with the `&#xHH` format to prevent switching out of the attribute context.
+Rule #2 of the OWASP XSS Prevention Cheat Sheet discusses attribute escaping. Since we were only using `value` attributes, we had the luxury of being able to control the fact that we would always be using properly quoted attributes. We didn't have to take this extra step of escaping all (other than alphanumeric) ASCII characters; that is values less than 256 with the `&#xHH` format to prevent switching out of the attribute context.
 
-Because I wanted to be sure about not being able to escape out of the attributes context if it was properly quoted I tested it. I created a collection of injection attacks, none of which worked. If you enter something like the following into the attribute `value` of an `input` element where `type="text"`, then the first double quote will be interpreted as the corresponding quote and the end double quote will be interpreted as the end quote of the `onmouseover` attribute value.
+I wanted to be certain about not being able to escape out of the attributes context if it was properly quoted when I tested it. To do this, I created a collection of injection attacks, none of which worked. If you enter something like the following into the attribute `value` of an `input` element where `type="text"`, then the first double quote will be interpreted as the corresponding quote and the end double quote will be interpreted as the end quote of the `onmouseover` attribute value.
 
 {linenos=off, lang=JavaScript}
     " onmouseover="alert(2)
@@ -1589,7 +1587,7 @@ All the legitimate double quotes are interpreted as the double quote `HTML` enti
 {linenos=off, lang=JavaScript}
     value=" &quot; onmouseover=&quot;alert(2)"
 
-Now in regards to the code comments in the block of code above titled "Sanitisation using escaping", I mentioned having to double escape character references. We were using `XSL` for the `HTML` because we needed to perform transformations before delivering to the browser. Because we were sending the strings to the browser, it was easiest to single decode the double encoded `HTML` on the service side only. Now because we were still focused on the client side sanitisation and we would soon be shifting our focus to making sure we cover the server side, we knew we were going to have to create some sanitisation routines for our .NET service. Because the routines are quite likely going to be static and we were pretty much just dealing with strings, we created an extensions class in a new project in a common library we already had. This would provide the widest use from our sanitisation routines. It also allowed us to wrap any existing libraries or parts of them that we wanted to get use of.
+Now in regards to the code comments in the block of code above titled "Sanitisation using escaping", I mentioned having to double escape character references. We were using `XSL` for the `HTML` because we needed to perform transformations before delivering to the browser. Because we were sending the strings to the browser, it was easier to single decode the double encoded `HTML` on the service side only. Since we were still focused on the client side sanitisation and will soon be shifting our focus in making sure that we cover the server side, we knew we were going to have to create some sanitisation routines for our .NET service. Because the routines are likely to be static, we were pretty much just dealing with strings, where we created an extensions class in a new project in a common library we already had. This provided the widest use from our sanitisation routines, while allowing us to wrap any existing libraries or parts of them that we wanted to get use of.
 
 {title="Common.Security.Encoding.Extensions.SingleDecodeDoubleEncodedHtml", linenos=off, lang=C#}
     namespace Common.Security.Encoding {
@@ -1612,17 +1610,17 @@ Now in regards to the code comments in the block of code above titled "Sanitisat
        }
     }
 
-Now when we ran our `xslt` transformation on the service, we chain our new extension method on the end. Which gives us back a single encoded string that the browser is happy to display as the decoded value.
+Now when we ran our `xslt` transformation on the service, we chain our new extension method on the end. This gives us back a single encoded string that the browser is happy to display as the decoded value.
 
 {linenos=off, lang=C#}
     return Transform().SingleDecodeDoubleEncodedHtml();
 
-Now turning our attention to the server side... Untrusted data (data entered by a user), should always be treated as though it may contain attack code.
+We now turn our attention to the server side... Untrusted data (data entered by a user), should always be treated as though it may contain attack code.
 This data should not be sent anywhere without taking the necessary steps to detect and neutralise the malicious code depending on which [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) it will pass through.
 
-With applications becoming more interconnected, attacks being buried in user input and decoded and/or executed by a downstream interpreter is common. Input validation, that is restricting user input to allow only certain white listed characters and restricting field lengths are only two forms of defence. Any decent attacker can get around client side validation, so you need to employ defence in depth. If you need to validate, filter and sanitise, at the very least, it needs to be done on the server side.
+With applications becoming more interconnected, attacks are being buried in user input and decoded and/or executed by a downstream interpreter is common. Input validation that is restricting user input to allow only certain white listed characters and restricting field lengths are only two forms of defence. Any decent attacker can get around client side validation, so you will need to employ defence in depth. If you need to validate, filter and sanitise, at the very least, it will need to be done on the server side.
 
-I found `System.Net.WebUtility` from the `System.Web.dll` assembly to do most of what we needed other than provide us with fine grained information of what had been tampered with. So I took it and extended it slightly. We had not employed AOP at this stage, so there was some copy past modifying.
+I found `System.Net.WebUtility` from the `System.Web.dll` assembly to do most of what we needed other than provide us with fine grained information of what had been tampered with. So I took it and extended it slightly. We had not employed AOP at this stage, so there was some copy paste modifying done.
 
 First up, the exceptions we used:
 
@@ -2282,7 +2280,7 @@ Now the code that satisfies the above executable specifications, and more:
        }
     }
 
-To drive the development of the `Sanitisation` API, we wrote the following tests. We created a `MockedOperationContext`, code not included here. We also used RhinoMocks as our mocking framework which is no longer being maintained. I would recommend NSubstitute instead if you were looking for a mocking framework for .NET. We also used NLog and wrapped it in `Common.Wrapper.Log`
+To drive the development of the `Sanitisation` API, we wrote the following tests and created a `MockedOperationContext`, code that is not included here. We also used RhinoMocks as our mocking framework which is no longer being maintained. I would recommend NSubstitute instead, if you were looking for a mocking framework for .NET. We also used NLog and wrapped it in `Common.Wrapper.Log`
 
 {title="Drive sanitisation API development", linenos=off, lang=C#}
     using System;
@@ -2679,7 +2677,7 @@ A>
 A> Without sanitisation, things are a lot simpler.
 A>
 
-For the next example we use a single page app. Switching to `jQuery.validator` on the client side and `express-form` on the server side. Our example is a simple contact form. I have only shown the parts relevant to validation and filtering.
+For the next example, we use a single page app. Switching to `jQuery.validator` on the client side and `express-form` on the server side. Our example is a simple contact form. I have only shown the parts relevant to validation and filtering.
 
 Once the jQuery plugin (which is a module) `validate` is loaded, jQuery is passed to it. The plugin extends the jQuery prototype with its `validate` method. Our contact.js script then loads in the browser. We then call `ContactForm.initContactForm();`. ContactForm is immediately invoked and returns an object, of which we call `initContactForm()` on.
 
@@ -2930,7 +2928,7 @@ Now our entry point into the application. We load routes on line 30.
 As I mentioned previously in the ["What is Validation"](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) section, some of the libraries seem confused about the differences between the practises of validation, filtering and sanitisation. For example `express-form` has sanitisation functions that are under their ["Filter API"](https://github.com/freewil/express-form#filter-api). 
 `entityEncode`, `entityDecode`, even the Type Coercion functions are actually sanitisation rather than filtering.
 
-Maybe it is semantics, but `toFloat`, `toInt`, ... `ifNull` are sanitisation functions.
+Maybe it is semantics, but `toFloat`, `toInt`, ... `ifNull` are actually sanitisation functions.
 
 `trim`, ... is filtering, but `toLower`, ... is sanitisation again. These functions listed in the documentation under the Filter API should be in their specific sections.
 
@@ -2938,8 +2936,8 @@ Refer to the section [above](#web-applications-identify-risks-lack-of-input-vali
 
 ##### Other things to think about {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about}
 
-* Try and make all of your specific input fields conform to well structured semantic types. Like dates, social security numbers, zip codes, email addresses, etc. This way the developer should be able to define a very strong validation, filtering and sanitisation (if needed) specification for each one. Thus making the task of assuring all input is safe before it reaches any execution contexts easier.
-* If the input field comes from a fixed set of options, like a drop down list or radio buttons, then the input needs to match exactly one of the values offered to the user in the first place.
+* Try and make all of your specific input fields conform to well structured semantic types. Like dates, social security numbers, zip codes, email addresses, etc. This way the developer should be able to define a very strong validation, filtering and sanitisation (if needed) specification for each one. Thus making the task of assuring all input is safe before it reaches any execution contexts easier
+* If the input field comes from a fixed set of options, like a drop down list or radio buttons, then the input needs to match exactly one of the values offered to the user in the first place
 * Database accounts (in fact all accounts) should use [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege)
 * Well structured data, like dates, social security numbers, zip codes, email addresses, etc. then the developer should be able to define a very strong validation pattern
 
@@ -2950,7 +2948,7 @@ This is a place holder section. The countermeasures are covered in the [Lack of 
 ### Cross-Site Request Forgery (CSRF)
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-CSRF syncroniser/challenge tokens are one approach commonly used to help defend against CSRF. This approach should also be used with other techniques like Identifying the source origin by checking the Origin and Referer headers, along with other useful techniques that have been well documented by the [OWASP CSRF Prevention Cheat Sheet](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet). Also the [OWASP CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) page has links to many useful resources, and do not forget to check the [Additional Resources](#additional-resources-countermeasures-for-csrf) chapter.
+CSRF syncroniser/challenge tokens are one approach commonly used to help defend against CSRF. This approach should also be used with other techniques like Identifying the source origin by checking the Origin and Referer headers, along with other useful techniques that have been well documented in the [OWASP CSRF Prevention Cheat Sheet](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet). Also the [OWASP CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) page has links to many useful resources, also check the [Additional Resources](#additional-resources-countermeasures-for-csrf) chapter.
 
 With the CSRF syncroniser/challenge token pattern, a token (often called the CSRF syncroniser/challenge token) is sent as part of a response to a legitimate request from a client browser. The application on the client side holds this syncroniser/challenge token and sends it on subsequent requests to the legitimate website.
 
@@ -2958,7 +2956,7 @@ The specific server side web application is responsible for generating a unique 
 
 When an attacker tricks a target into issuing a fraudulent request to the same website, the request has no knowledge of the syncroniser/challenge token, so it is not sent.
 
-The legitimate website will only regard a request as being legitimate if the request also carries the valid matching syncroniser/challenge token as is contained in the targets session on the server.
+The legitimate website will only regard a request as being legitimate if the request also carries the valid matching syncroniser/challenge token as it is contained in the targets session on the server.
 
 For the examples from the [Identify Risks](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf) section:
 
@@ -2987,22 +2985,22 @@ You can see and play with all this at [https://nodegoat.herokuapp.com/tutorial/]
 
 Also check the "[Securing Sessions](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions)" countermeasures section along with the "[Lack of Authentication, Authorisation and Session Management](#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management)" Risks that Solution Causes section for pertinent information. 
 
-Other techniques such as requiring the user to reauthenticate, or even providing [CAPTCHA](#web-applications-countermeasures-captcha)'s are often used, although I am not a fan of those techniques. I fail to see why we as developers should make our problem the users. We just need to make sure we make it hard enough for the attackers that the end user is not affected.
+Other techniques such as requiring the user to reauthenticate, or even providing [CAPTCHA](#web-applications-countermeasures-captcha)'s are often used, although I am not a fan of such techniques. I fail to see why we as developers should make our problems the users. We need to make sure we make it hard enough for the attackers that the end user is not affected.
 
-As an end user, if you make sure you invalidate your authentication by logging out or deleting your session cookies when you finish working with a website that requires authentication or move away from the browser, then the browser will be unable to send authentication as part of a CSRF attack.
+As an end user, make sure you invalidate your authentication by logging out or deleting your session cookies when you finish working with a website that requires authentication or move away from the browser, then the browser will be unable to send authentication as part of a CSRF attack.
 
 ### [Injection](https://www.owasp.org/index.php/Top_10_2017-A1-Injection) {#web-applications-countermeasures-injection}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Usually the most effective technique for determining if/where your application is vulnerable to injection attacks is to review your code for all calls out to external resources, including interpreters, and determine whether the data you are passing is untrusted.
+Usually the most effective technique for determining if/where your application is vulnerable to injection attacks, is to review your code for all calls out to external resources, including interpreters, and determine whether the data you are passing is untrusted.
 
 If you can avoid external interpreters altogether, then they can no longer be tricked into executing untrusted data, whether directly or indirectly from untrusted actors or even stored.
 
 Use a parametrised API for the specific technology you are working with, whether it be SQL, NoSQL, execution of Operating System commands, XML, XPath, XSLT, XQuery, LDAP, etc. 
 
-Similarly to the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) section, validation, filtering, sanitisation, and [constraining](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about) all untrusted data to well structured semantic types is also necessary. Granularly isolating and semantic typing each piece of untrusted data from the command or query allows you to tightly define constraints on what you expect each specific piece of data to conform to.
+Similarly to the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) section, validation, filtering, sanitisation, and [constraining](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about) all untrusted data to well structured semantic types is also necessary. Granularly isolating and semantic typing each piece of untrusted data from the command or query allows you to tightly define constraints on what you expect each specific piece of data to conform too.
 
-Keep the principle of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) in mind and implementation. When any attacks are successful, how much damage can they currently do? By enforcing the least amount of privileges possible for the given operation, you are minimising the possible risk.
+Keep the principle of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) in mind during implementation. When any attacks are successful, how much damage can they currently do? By enforcing the least amount of privileges possible for the given operation, you are minimising the possible risk.
 
 Make sure the feedback and error messages that are provided on invalid input only provide the necessary detail that the user needs in order to provide correct input. Don't provide unnecessary details on internal workings: exceptions, stack traces, etc. Make sure you capture and handle internal errors in software, rather than letting them bubble to the user interface.
 
@@ -3013,26 +3011,26 @@ There are a few options here:
 * Use prepared statements and/or parameterised queries with bind variables to take untrusted data if you have to deal with dynamic queries. Using bind variables not only help to diffuse SQL injection, but also improve performance by [20 to 30 percent](https://www.ibm.com/developerworks/library/se-bindvariables/) by allowing the same execution plan to be used even though the arguments supplied may be different.
 * Consider using parameterised Stored Procedures, but also review the code within to ensure that the parameters are being handled with semantic typing at a minimum. Concatenating parameters and the use of `exec()` within stored procedures can be prone to SQLi exploitation
 * Read up on the [OWASP SQLi Prevention Cheat Sheet](https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet)
-* And even before any of these points above, make sure you have the generic input [Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic) that we have already discussed covered, so all user input is validated, filtered and sanitised, both client and server side, before it gets anywhere near your queries
+* Even before doing any of these points above, make sure you have the generic input [Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic) that we have already covered. So all user input is validated, filtered and sanitised, both the client and server side, before it gets anywhere near your queries
 * ORMs, such as Hibernate with its Query Language (HQL) is not safe unless you use named parameters
 
-There are plenty of easy to find and understand resources on the inter-webs around SQLi mitigations and the countermeasures are generally very easy to implement. So now you have no excuse.
+There are plenty of resources around that are easy to find and understand on the Internet for SQLi mitigations and countermeasures which are generally very easy to implement.
 
 #### NoSQLi {#web-applications-countermeasures-nosqli}
 
 Take the advice from the generic [Injection](#web-applications-countermeasures-injection) section.
 
-For any dynamic queries, rather than piecing together strings with unvalidated user input, use prepared statements with strongly defined semantic types allowing you to use as short as possible white list of allowed characters, then follow up with filtering and sanitisation of any characters that must be allowed through.
+For any dynamic queries, rather than piecing together strings with unvalidated user input, use prepared statements with strongly defined semantic types allowing you to use as short as possible white list of allowed characters. Then follow up with filtering and sanitisation of any characters that must be allowed through.
 
-Queries can be formatted in many different types of conventions depending on the type of NoSQL data store, such as [XML, JSON, LINQ, etc](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary). As well as these execution contexts, there will also be the execution contexts of the application itself before the untrusted data reaches the particular type of NoSQL data store API. This means, as discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks, you must validate, filter and sanitise based on **all** of the execution contexts that the untrusted data may pass through. With NoSQL this is usually far more tedious.
+Queries can be formatted in many different types of conventions depending on the type of NoSQL data store, such as [XML, JSON, LINQ, etc](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary). As well as these execution contexts, there will also be the execution contexts of the application itself before the untrusted data reaches the particular type of NoSQL data store API. This means, as discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section on the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks, you must validate, filter and sanitise based on **all** of the execution contexts that the untrusted data may pass through. With NoSQL this is usually far more tedious.
 
 Countermeasures will need to be carefully thought about once the type of NoSQL data store syntax, data model, and programming language(s) used throughout the application are thoroughly understood.
 
-Ideally the NoSQL client library you decide to use will provide the logic to perform validation on characters that are dangerous in the execution context of the NoSQL library, it may also provide some filtering, but you will often have to provide some configuration to help it know what you want. Ideally the NoSQL client library will also provide sanitisation for its own execution context. As discussed above, you will still need to define your own semantic types, white lists for the semantic types, filtering and sanitisation for your application specific execution contexts that the NoSQL client library has no knowledge of. 
+Ideally the NoSQL client library you decide to use will provide the logic to perform validation on characters that are potentially dangerous in the execution context of the NoSQL library. It may also provide some filtering, but you will often have to provide some configuration to help it know what you want. Ideally the NoSQL client library will also provide sanitisation for its own execution context. As discussed above, you will still need to define your own semantic types, white lists for the semantic types, filtering and sanitisation for your application specific execution contexts that the NoSQL client library has no knowledge of. 
 
 In regards to **MongoDB** (one of the 225 + types of NoSQL data stores):
 
-Server-side execution of JavaScript can be disabled by passing the `--noscripting` option on the command line or setting [`security.javascriptEnabled`](https://docs.mongodb.com/manual/reference/configuration-options/#security.javascriptEnabled) to `false` in the configuration file, which stops you executing legitimate JavaScript operations, these are not defaults, so you must read the documentation of the type of NoSQL data store you are working with. Turning JavaScript off in this manner may be quite debilitating.
+Server-side execution of JavaScript can be disabled by passing the `--noscripting` option on the command line or setting [`security.javascriptEnabled`](https://docs.mongodb.com/manual/reference/configuration-options/#security.javascriptEnabled) to `false` in the configuration file, which stops you executing legitimate JavaScript operations. These are not defaults, so you must read the documentation of the type of NoSQL data store you are working with. Turning JavaScript off in this manner may be quite debilitating.
 
 MongoDB attempts to [address injection](https://docs.mongodb.com/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection) by using Binary JSON ([BSON](http://bsonspec.org/))
 
@@ -3075,7 +3073,7 @@ Follow the precautions discussed in the generic [Injection](#web-applications-co
 
 By performing some simple validation, the attacker is no longer able to escape the quotes and modify the intended logic of the query.
 
-Try to use a language library that supports parameterised queries. If the language you are coding in does not have any support or libraries available that have a parameterised XPath interface, you will need to sanitise the untrusted data being inserted to any dynamically constructed queries. What ever type of quote you are using to delimit the untrusted input, you need to sanitise the same type of quote with the XML encoded derivative, I discussed this in the [Sanitisation using escaping](#sanitisation-using-escaping) code sample in the Types of Escaping section of Countermeasures. The OWASP [XPath Injection Defences](https://www.owasp.org/index.php/XPATH_Injection#XPath_Injection_Defenses) also provides some coverage on this.
+Try to use a language library that supports parameterised queries. If the language you code in does not have support or libraries available with a parameterised XPath interface, you will need to sanitise the untrusted data being inserted to any dynamically constructed queries. What ever type of quote you are using to delimit the untrusted input, you need to sanitise the same type of quote with the XML encoded derivative. I discussed this in the [Sanitisation using escaping](#sanitisation-using-escaping) code sample in the Types of Escaping section of Countermeasures. The OWASP [XPath Injection Defences](https://www.owasp.org/index.php/XPATH_Injection#XPath_Injection_Defenses) also goes over this.
 
 Also check the [Additional Resources](#additional-resources-countermeasures-for-xpath-injection) chapter for both identifying risks and countermeasures in regards to XPath injection.
 
@@ -3085,9 +3083,9 @@ Because XQuery is a superset of XPath with the SQL-like FLWOR expression abiliti
 
 #### LDAP Injection {#web-applications-countermeasures-ldap-injection}
 
-The same [generic injection countermeasures](#web-applications-countermeasures-injection) as well as many of the more specific that we have already discussed, are applicable to LDAP also.
+The same [generic injection countermeasures](#web-applications-countermeasures-injection) as well as many of the more specific countermeasures that we have already discussed, are applicable to LDAP also.
 
-As part of your validation, define your semantic types for each dynamic section, this will help you define what is accepted as the white list of allowed characters for each untrusted section. If you can tightly constrain what is an allowable character for your given semantic types, then this alone in many cases (such as a username where you would only allow alphanumeric characters for example) will stop any potential characters being able to break out of the intended context and change the logic of the LDAP query. This is why we always put the validation -> filtering -> sanitisation in this order, because often the first step will catch everything.
+As part of your validation, define your semantic types for each dynamic section, this will help you define what is accepted as the white list of allowed characters for each untrusted section. If you can constrain what is an allowable character for your given semantic types, then this as in many cases (such as where a username is only allowed alphanumeric characters for example) will stop any potential characters being able to break out of the intended context and change the logic of the LDAP query. This is why we always put the validation -> filtering -> sanitisation in this order, because often the first step will catch everything.
 
 For each semantic type of untrusted data, for any characters that pass the white list validation, define filters, and sanitise all of the following [validated characters](http://www.rlmueller.net/CharactersEscaped.htm):
 
@@ -3124,7 +3122,7 @@ recaptcha uses this technique. See below for details.
 
 **Image Recognition**
 
-Uses images which users have to perform certain operations on, like dragging them to another image. For example: "Please drag all cat images to the cat mat.", or "Please select all images of things that dogs eat." sweetcaptcha is an example of this type of captcha. This type completely rules out the visually impaired users.
+Uses images where users have to perform certain operations on, such as dragging images to another corresponding image. For example: "Please drag all cat images to the cat mat.", or "Please select all images of things that dogs eat." sweetcaptcha is an example of this type of captcha. This type completely rules out the visually impaired users.
 
 **Friend Recognition**
 
@@ -3132,15 +3130,15 @@ Pioneered by... you guessed it. Facebook. This type of captcha focusses on human
 
 "_Instead of showing you a traditional captcha on Facebook, one of the ways we may help verify your identity is through social authentication. We will show you a few pictures of your friends and ask you to name the person in those photos. Hackers halfway across the world might know your password, but they don't know who your friends are._"
 
-I disagree with that statement. A determined hacker will usually be able to find out who your friends are. There is another problem, do you know who all of your friends are? Every acquaintance? I am terrible with names and so are many people. This is supposed to be used to authenticate you. So you have to be able to answer the questions before you can log in.
+I disagree with this statement, as a determined hacker will usually be able to find out who your friends are. This also poses another problem; do you know who all of your friends are? Every acquaintance? I am terrible with names and so are many other people. This is supposed to be used to authenticate you, by getting you to answer the questions before you can log in.
 
 **Logic Questions**
 
-This is what textcaptcha uses. Simple logic questions designed for the intelligence of a seven year old child. These are more accessible than image and textual image recognition, but they can take longer than image recognition to answer, unless the user is visually impared. The questions are usually language specific also, usually targeting the English language.
+Textcaptcha uses simple logic questions which is designed for the intelligence of a seven year old child. These are more accessible than image and textual image recognition, but can take longer than image recognition to answer. Unless the user is visually impaired, the questions are usually language specific, targeting the English language.
 
 **User Interaction**
 
-This is a little like image recognition. Users have to perform actions that virtual intelligence can not work out... yet. Like dragging a slider a certain number of notches.  
+This is similar to image recognition, where users have to perform actions that virtual intelligence can not work out... yet. Users are required to drag a slider to a certain number of notches.  
 If an offering gets popular, creating some code to perform the action may not be that hard and would definitely be worth the effort for bot creators.  
 This is obviously not going to work for the visually impaired or for people with handicapped motor skills.
 
@@ -3150,13 +3148,13 @@ In NPM land, as usual there are many options to choose from. The following were 
 
 #### Offerings
 
-* total-captcha. Depends on node-canvas. Have to install cairo first, but why? No explanation. Very little of anything here. Move on. How does this work? Do not know. What type is it? Presume text recognition.
+* [total-captcha](https://www.npmjs.com/package/total-captcha) depends on node-canvas. Have to install cairo first, but why? No explanation. Very little of anything here. Move on. How does this work? Do not know. What type is it? Presume text recognition.
 * [easy-captcha](https://www.npmjs.com/package/easy-captcha) is a text recognition offering generating images
 * [simple-captcha](https://www.npmjs.com/package/simple-captcha) looks like another text recognition offering. I really do not want to be writing image files to my server.
-* [node-captcha](https://www.npmjs.com/package/node-captcha) Depends on canvas. By the look of the package this is another text recognition in a generated image.
+* [node-captcha](https://www.npmjs.com/package/node-captcha) depends on canvas. By the look of the package this is another text recognition in a generated image.
 * [re-captcha](https://www.npmjs.com/package/re-captcha) was one of the first captcha offerings, created at the Carnegie Mellon University by Luis von Ahn, Ben Maurer, Colin McMillen, David Abraham and Manuel Blum who invented the term captcha. Google later acquired it in September 2009. recaptcha is a text recognition captcha that uses scanned text that optical character recognition (OCR) technology has failed to interpret, which has the added benefit of helping to digitise text for The New York Times and Google Books.  
 ![](images/reCaptcha.jpg)  
-* [sweetcaptcha](https://www.npmjs.com/package/sweetcaptcha) uses the sweetcaptcha cloud service of which you must abide by their terms and conditions, requires another node package, and requires some integration work. sweetcaptcha is an image recognition type of captcha.  
+* [sweetcaptcha](https://www.npmjs.com/package/sweetcaptcha) uses the sweetcaptcha cloud service where you must abide by their terms and conditions, requires another node package, and requires some integration work. sweetcaptcha is an image recognition type of captcha.  
 ![](images/sweetcaptcha.jpg)
 * [textcaptcha](http://textcaptcha.com/) is a logic question captcha relying on an external service for the questions and md5 hashes of the correct lower cased answers. This looks pretty simple to set up, but again expects your users to use their brain on things they should not have to.
 
@@ -3168,8 +3166,8 @@ Some other considerations I had. Ideally I wanted a simple solution requiring fe
 
 #### Alternative Approaches
 
-* Services like Disqus can be good for commenting. Obviously the comments are all stored somewhere in the cloud out of your control and this is an external dependency. For simple text input, this is probably not what you want. Similar services such as all the social media authentication services can take things a bit too far I think. They remove freedoms from your users. Why should your users be disadvantaged by leaving a comment or posting a message on your web application? Disqus tracks users activities from hosting website to website whether you have an account, are logged in or not. Any information they collect such as IP address, web browser details, installed add-ons, referring pages and exit links may be disclosed to any third party. When this data is aggregated it is useful for de-anonymising users. If users choose to block the Disqus script, the comments are not visible. Disqus has also published its registered users entire commenting histories, along with a list of connected blogs and services on publicly viewable user profile pages. Disqus also engage in add targeting and blackhat SEO techniques from the websites in which their script is installed.
-* Services like Akismet and Mollom which take user input and analyse for spam signatures. Mollom sometimes presents a captcha if it is unsure. These two services learn from their mistakes if they mark something as spam and you unmark it, but of course you are going to have to be watching for that. Matt Mullenweg created Akismet so that his mother could blog in safety. "_His first attempt was a JavaScript plugin which modified the comment form and hid fields, but within hours of launching it, spammers downloaded it, figured out how it worked, and bypassed it. This is a common pitfall for anti-spam plugins: once they get traction_". My advice to this is not to use a common plugin, but to create something custom. I discuss this soon.
+* Services like Disqus can be good for commenting. Obviously, all comments are stored somewhere in the cloud out of your control, which is an external dependency. For simple text input, this is probably not what you want. Similar services that use social media authentication services, can take things a bit too far I think. They remove all freedoms from your users. Why should your users be disadvantaged by leaving a comment or posting a message on your web application? Disqus tracks users activities from hosting website to website whether you have an account, are logged in or not. Any information they collect such as IP address, web browser details, installed add-ons, referring pages and exit links may be disclosed to any third party. When this data is aggregated it is useful for de-anonymising users. If users choose to block the Disqus script, the comments are not visible. Disqus has also published its registered users entire commenting histories, along with a list of connected blogs and services on publicly viewable user profile pages. Disqus also engage in add targeting and blackhat SEO techniques from the websites in which their script is installed.
+* Services like Akismet and Mollom take user input and analyse for spam signatures. Mollom sometimes presents a captcha if it is unsure. These two services learn from their mistakes if they mark something as spam and you unmark it, but of course you are going to have to be watching for that. Matt Mullenweg created Akismet so that his mother could blog in safety. "_His first attempt was a JavaScript plugin which modified the comment form and hid fields, but within hours of launching it, spammers downloaded it, figured out how it worked, and bypassed it. This is a common pitfall for anti-spam plugins: once they get traction_". My advice would be not to use a common plugin, but to create something custom. I will discuss this soon.
 
 The above solutions are excellent targets for creating exploits that will have a large pay off due to the fact that so many websites are using them. There are exploits discovered for these services regularly.
 
@@ -3185,11 +3183,11 @@ The above solutions are excellent targets for creating exploits that will have a
 
 #### User Time Expenditure
 
-Recording how long it takes from fetch to submit. This is another technique, in which the time is measured from fetch to submit. For example if the time span is under five seconds it is more than likely a bot, so handle the message accordingly.
+Recording how long it takes from fetch to submit, is another technique, where time is measured from fetch to submit. For example if the time span is under five seconds it is more than likely a bot, so handle the message accordingly.
 
 #### Bot Pot
 
-Spamming bots operating on custom mechanisms will in most cases just try, then move on. If you decide to use one of the common offerings from above, exploits will be more common, depending on how wide spread the offering is. This is one of the cases where going custom is a better option. Worse case is you get some spam and you can modify your technique, but you get to keep things simple, tailored to your web application, your users needs, no external dependencies and no monthly fees. This is also the simplest technique and requires very little work to implement.
+Spamming bots operating on custom mechanisms will in most cases just try, then move on. If you decide to use one of the common offerings from above, exploits will be more common, depending on how wide spread the offering is. This is one of the cases where going custom is a better option. Worst case is that you get some spam and you can modify your technique, but you also get to keep things simple. It is tailored to your web application, your users needs, no external dependencies and no monthly fees. This is also the simplest technique and requires very little work to implement.
 
 Spam bots:
 
@@ -3255,13 +3253,13 @@ So as you can see, a very simple solution. You could even consider combining the
 
 &nbsp;
 
-Check out the "Testing for Captcha (OWASP-AT-008" in v3 of the OWASP Testing Guide for summary and description of the issue and testing examples. The Offensive Web Testing Framework (OWTF) also has a [plugin](https://github.com/owtf/owtf/wiki/Listing-Plugins) for it.
+Check out the "Testing for Captcha (OWASP-AT-008" in v3 of the OWASP Testing Guide for a summary and description of the issue and for testing examples. The Offensive Web Testing Framework (OWTF) also has a [plugin](https://github.com/owtf/owtf/wiki/Listing-Plugins) for it.
 
 ### Management of Application Secrets {#web-applications-countermeasures-management-of-application-secrets}
 
 Secure password management within applications is a case of doing what you can, often relying on obscurity and leaning on other layers of defence to make it harder for compromise. Like many of the layers already discussed in the previous chapters. Review the [Storage of Secrets](#cloud-countermeasures-storage-of-secrets) subsections in the Cloud chapter for some ideas and tooling options to help with this.
 
-Find out how secret the data that is supposed to be secret that is being sent over the network actually is and consider your internal network just as malicious as the internet. Then you will be starting to get the idea of what defence in depth is about. That way when one defence breaks down, you will still be in good standing.
+Find out how secret the data that is supposed to be secret that is being sent over the network actually is. Consider your internal network just as malicious as the internet. Then you will be starting to get the idea of what defence in depth is about. That way when one defence breaks down, you will still be in good standing.
 
 ![](images/DefenceInDepth.png)
 
@@ -3429,16 +3427,16 @@ An attacker generally only needs the hash. Trusted tools like psexec (as we [dis
 **Encrypt sections** of a web, executable, machine-level, application-level configuration files with `aspnet_regiis.exe` with the `-pe` option and name of the configuration element to encrypt and the configuration provider you want to use. Either `DataProtectionConfigurationProvider` (uses DPAPI) or `RSAProtectedConfigurationProvider` (uses RSA). the `-pd` switch is used to decrypt or programatically:  
 `string connStr = ConfigurationManager.ConnectionString["MyDbConn1"].ToString();`
 
-Of course there is a problem with this also. DPAPI uses LSASS, which again an attacker can extract the hash from its memory. If the `RSAProtectedConfigurationProvider` has been used, a key container is required. Mimikatz will force an export from the key container to a `.pvk` file.
+There is also a problem with this, as DPAPI uses LSASS, whereby, an attacker can extract the hash from its memory. If the `RSAProtectedConfigurationProvider` has been used, a key container is required. Mimikatz will force an export from the key container to a `.pvk` file.
 Which can then be [read](http://stackoverflow.com/questions/7332722/export-snk-from-non-exportable-key-container) using OpenSSL or tools from the `Mono.Security` assembly.
 
 &nbsp;
 
-I have looked at a few other ways using `PSCredential` and `SecureString`. They all seem to rely on DPAPI which as mentioned uses LSASS which is open for exploitation.
+I have explored other ways using `PSCredential` and `SecureString` where they too seem to rely on DPAPI, as mentioned use LSASS which is open for exploitation.
 
 &nbsp;
 
-[**Credential Guard**](https://technet.microsoft.com/en-us/library/mt483740) and Device Guard leverage virtualisation-based security. By the look of it still using LSASS. Bromium have partnered with Microsoft and coined it Micro-virtualization. The idea is that every user task is isolated into its own micro-VM. There seems to be some confusion as to how this is any better. Tasks still need to communicate outside of their VM, so what is to stop malicious code doing the same? I have seen lots of questions but no compelling answers yet. Credential Guard must run on physical hardware directly. Can not run on virtual machines. This alone rules out many deployments.
+[**Credential Guard**](https://technet.microsoft.com/en-us/library/mt483740) and Device Guard leverage virtualisation-based security, by the look of it are still using LSASS. Bromium have partnered with Microsoft and have coined it Micro-virtualization. The idea is that every user task is isolated into its own micro-VM. There seems to be some confusion as to how this is any better. Tasks still need to communicate outside of their VM, so what is to stop malicious code doing the same? I have seen lots of questions about this, but no compelling answers yet. Credential Guard must run on physical hardware directly. You can not run it on virtual machines. This alone rules out many deployments.
 
 "_Bromium vSentry transforms information and infrastructure protection with a revolutionary new architecture that isolates and defeats advanced threats targeting the endpoint through web, email and documents_"
 
@@ -3459,20 +3457,20 @@ This is marketing talk. Please don't take this literally.
 
 These seem like bold claims.
 
-Also worth considering is that Microsofts new virtualization-based security also relies on UEFI Secure Boot, which has been proven [insecure](http://www.itworld.com/article/2707547/endpoint-protection/researchers-demo-exploits-that-bypass-windows-8-secure-boot.html).
+Also worth considering is how Microsofts new virtualization-based security also relies on UEFI Secure Boot, which has been proven [insecure](http://www.itworld.com/article/2707547/endpoint-protection/researchers-demo-exploits-that-bypass-windows-8-secure-boot.html).
 
 ##### Linux
 
-**Containers** also help to provide some form of isolation. Allowing you to only have the user accounts to do what is necessary for the application.
+**Containers** help to provide some form of isolation which allows you to only have the user accounts do what is necessary for the application.
 
-I usually use a **deployment tool that also changes the permissions** and ownership of the files involved with the running web application to a single system user, so unprivileged users can not access the web applications files at all. The [deployment script](https://github.com/binarymist/DeploymentTool) is executed over SSH in a remote shell. Only specific commands on the server are allowed to run and a very limited set of users have any sort of access to the machine. If you are using Linux or Docker Containers then you can reduce this even more if it is not already.
+I usually use a **deployment tool that also changes the permissions** and ownership of the files involved with the running web application to a single system user, so unprivileged users can not access the web applications files at all. The [deployment script](https://github.com/binarymist/DeploymentTool) is executed over SSH in a remote shell, enabling only specific commands on the server to run and a very limited set of users have access to the machine. If you are using Linux or Docker Containers then you can reduce this even more if it has not already.
 
-One of the beauties of GNU/Linux is that you can have as much or little security as you decide. No one has made that decision for you already and locked you out of the source. You are not feed lies like all of the closed source OS vendors trying to pimp their latest money spinning product. GNU/Linux is a dirty little secrete that requires no marketing hype. It just provides complete control if you want it. If you do not know what you want, then someone else will probably take that control from you. It is just a matter of time if it hasn't happened already.
+One of the beauties of GNU/Linux is that you can have as much or little security as you decide. No one has made that decision for you already and locked you out of the source. You are not feed lies like all of the closed source OS vendors who are trying to pimp their latest money spinning products. GNU/Linux is a dirty little secret that requires no marketing hype. It provides complete control if you want it. If you do not know what you want, then someone else will probably take that control from you. It is just a matter of time if it hasn't happened already.
 
 #### Least Privilege {#web-applications-countermeasures-management-of-application-secrets-least-privilege}
 ![](images/ThreatTags/PreventionEASY.png)
 
-An application should have the least privileges possible in order to carry out what it needs to do. Consider creating accounts for each trust distinction. For example where you only need to read from a data store, then create that connection with a users credentials that is only allowed to read, and so on for other privileges. This way the attack surface is minimised. Adhering to the principle of least privilege. Also consider removing table access completely from the application and only provide permissions to the application to run stored queries. This way if/when an attacker is able to compromise the machine and retrieve the password for an action on the data-store, they will not be able to do a lot anyway.
+An application should have the least privileges possible in order to carry out what it needs to do. Consider creating accounts for each trust distinction. For example, where you only need to read from a data store, create that connection with a users credentials that is only allowed to read, do the same for other privileges. This way the attack surface is minimised. Adhering to the principle of least privilege, also consider removing table access completely from the application and only provide permissions to the application to run stored queries. This way if/when an attacker is able to compromise the machine and retrieve the password for an action on the data-store, they will not be able to do a lot anyway.
 
 #### Location
 ![](images/ThreatTags/PreventionEASY.png)
@@ -3484,23 +3482,23 @@ Maintain as few user accounts on the servers in question as possible and with th
 #### Data-store Compromise {#web-applications-countermeasures-data-store-compromise}
 ![](images/ThreatTags/PreventionEASY.png)
 
-As part of your defence in depth strategy, you should expect that your data-store is going to get stolen, but hope that it does not. What assets within the data-store are sensitive? How are you going to stop an attacker that has gained access to the data-store from making sense of the sensitive data?
+As part of your defence in depth strategy, you should expect that your data-store is going to get stolen, but hope that it does not. You should be thinking about what assets within the data-store are sensitive? How are you going to stop an attacker that has gained access to the data-store make sense of the sensitive data?
 
-As part of developing the application that uses the data-store, a strategy also needs to be developed and implemented to carry on business as usual when this happens. For example, when your detection mechanisms realise that someone unauthorised has been on the machine(s) that host your data-store, as well as the usual alerts being fired off to the people that are going to investigate and audit, your application should take some automatic measures like:
+As part of developing the application that uses the data-store, a strategy needs to be developed and implemented so business can carry on as usual when this happens. For example, when your detection mechanisms realise that someone unauthorised has been on the machine(s) that hosts your data-store, as well as the usual alerts being fired off to the people that are going to investigate and audit, your application should take some automatic measures like:
 
 * All following logins should be instructed to change passwords
 
 If you follow the recommendations below, data-store theft alone will be an inconvenience, but not a disaster.
 
-Consider what sensitive information you really need to store. Consider using the following key derivation functions (KDFs) for all sensitive data. Not just passwords. Also continue to [remind your customers](https://speakerdeck.com/binarymist/passwords-lol) to always use unique passwords that are made up of alphanumeric, upper-case, lower-case and special characters. It is also worth considering pushing the use of high quality password vaults. Do not limit password lengths. Encourage long passwords.
+Consider what sensitive information you really need to store, also consider using the following key derivation functions (KDFs) for all sensitive data, not just passwords. It is good to continue to [remind your customers](https://speakerdeck.com/binarymist/passwords-lol) to always use unique passwords. Passwords that are made up with a combination of alphanumeric, upper-case, lower-case and special characters. It is also worth considering pushing the use of high quality password vaults. Do not limit password lengths. Encourage the use of long passwords.
 
-PBKDF2, bcrypt and [scrypt](http://www.tarsnap.com/scrypt.html) are KDFs that are designed to be slow. Used in a process commonly known as key stretching. The process of key stretching in terms of how long it takes can be tuned by increasing or decreasing the number of cycles used. Often 1000 cycles or more for passwords. "_The function used to protect stored credentials should balance attacker and defender verification. The defender needs an acceptable response time for verification of users’ credentials during peak use. However, the time required to map_ `<credential> -> <protected form>` _must remain beyond threats’ hardware (GPU, FPGA) and technique (dictionary-based, brute force, etc) capabilities._"
+PBKDF2, bcrypt and [scrypt](http://www.tarsnap.com/scrypt.html), are KDFs that are designed to be slow. Used in a process commonly known as key stretching. The process of key stretching in terms of how long it takes can be tuned by increasing or decreasing the number of cycles used. Often 1000 cycles or more for passwords. "_The function used to protect stored credentials should balance attacker and defender verification. The defender needs an acceptable response time for verification of users’ credentials during peak use. However, the time required to map_ `<credential> -> <protected form>` _must remain beyond threats’ hardware (GPU, FPGA) and technique (dictionary-based, brute force, etc) capabilities._"
 
 > OWASP Password Storage
 
 PBKDF2, bcrypt and the newer scrypt, apply a Pseudorandom Function (PRF) such as a cryptographic hash, cipher or keyed-Hash Message Authentication Code (HMAC) to the data being received along with a unique salt. The salt should be stored with the hashed data.
 
-Do not use MD5, SHA-1 or the SHA-2 family of cryptographic one-way hashing functions by themselves for cryptographic purposes like hashing your sensitive data. In-fact do not use hashing functions at all for this unless they are leveraged with one of the mentioned KDFs. Why? Because they were not designed for passwords (to be slow), the hashing speed can not be slowed as hardware continues to get faster. Many organisations that have had their data-stores stolen and continue to on a weekly basis could avoid their secrets being compromised simply by using a decent KDF with salt and a decent number of iterations.
+Do not use MD5, SHA-1 or the SHA-2 family of cryptographic one-way hashing functions by themselves for cryptographic purposes like hashing your sensitive data. In-fact do not use hashing functions at all for this unless they are leveraged with one of the mentioned KDFs. Why? This is because they were not designed for passwords (to be slow), the hashing speed can not be slowed as hardware continues to get faster. Many organisations that have had their data-stores stolen and continue to on a weekly basis could avoid their secrets being compromised simply by using a decent KDF with salt and a decent number of iterations.
 "_Using four AMD Radeon HD6990 graphics cards, I am able to make about 15.5 billion guesses per second using the SHA-1 algorithm._"
 
 > Per Thorsheim
@@ -3509,17 +3507,17 @@ In saying that, PBKDF2 can use MD5, SHA-1 and the SHA-2 family of hashing functi
 
 ##### Which KDF to use? {#web-applications-countermeasures-data-store-compromise-which-kdf-to-use}
 
-This depends on many considerations. I am not going to tell you which is best, because there is no best. Which to use depends on many things. You should gain understanding into at least all three of the following best of breed KDFs often used for password hashing.
+You have to consider many things to determine which KDF to use. I can't tell you which is the best one to use. Which one to use depends on many things. You should gain your own understanding of at least all three of the following best of breed KDFs often used for password hashing.
 
-**PBKDF2** is the oldest so it is the most battle tested, but there has also been lessons learnt from it that have been taken to the latter two, like the fact that its utilised hashing functions (MD5, SHA) are CPU intensive only and easily parallelised on GPUs and Application Specific Integrated Circuts, using very little RAM, we see this in crypto-currency mining.
+**PBKDF2** is the oldest KDF, so it is the most battle tested, but there has been lessons learnt from it that have been taken to the latter two. Such as, the fact that its utilised hashing functions (MD5, SHA) are CPU intensive only and easily parallelised on GPUs and Application Specific Integrated Circuts, where it uses very little RAM. We see this in crypto-currency mining.
 
-The next oldest is **bcrypt** which uses the Eksblowfish cipher, which was designed specifically for bcrypt from the blowfish cipher, to be very slow to initiate thus boosting protection against dictionary attacks which were often run on custom Application-specific Integrated Circuits (ASICs) with low gate counts, often found in GPUs of the day (1999).  
-The hashing functions that PBKDF2 uses were a lot easier to get speed increases on GPUs due to ease of parallelisation as opposed to the Eksblowfish cipher attributes such as:
+The next oldest is **bcrypt** which uses the Eksblowfish cipher. This was designed specifically for bcrypt from the blowfish cipher, to be very slow to initiate thus boosting protection against dictionary attacks which were often run on custom Application-specific Integrated Circuits (ASICs) with low gate counts, often found in GPUs of the day (1999).  
+The hashing functions that PBKDF2 uses were a lot easier to get speed increases on GPUs due to the ease of parallelisation as opposed to the Eksblowfish cipher attributes such as:
 
 1. Far greater memory required for each hash
 2. Small and frequent pseudo-random memory accesses and modifications, making it harder to cache the data into faster memory and breaking parallelisation on GPUs.
 
-GPUs are good at carrying out the exact same instruction set concurrently, but when a branch in the logic occurs (which is how the blowfish algorithm works) on one of the sets, all others stop thus destroying parallelisation on GPUs.
+GPUs are good at carrying out the exact same instruction set concurrently, but when a branch in the logic occurs (which is how the blowfish algorithm works) on one of the sets, all others stop which destroys parallelisation on GPUs.
 
 The Arithmetic Logic Units (ALUs), or shaders of a GPU are partitioned into groups, and each group of ALUs shares management, so members of the group cannot be made to work on separate tasks. They can either all work on nearly identical variations of one single task, in perfect sync with one another, or nothing at all.
 
@@ -3531,7 +3529,7 @@ Now with hardware utilising large Field-programmable Gate Arrays (FPGAs), bcrypt
 * [Haswell](http://www.theplatform.net/2015/06/02/intel-finishes-haswell-xeon-e5-rollout-launches-broadwell-e3/)
 
 **Scrypt** uses PBKDF2-HMAC-SHA-256 (PBKDF2 of HMAC-SHA256) as its PRF, and 
-the [Salsa20/8](https://tools.ietf.org/html/rfc7914) core function, which is not a cryptographic hash function as it is not collision resistant, to help make pseudo-random writes to RAM, then repeatedly read them in a pseudo-random sequence, FPGAs do not generally have a lot of RAM, so this makes leveraging both FPGAs and GPUs a lot less feasible, thus narrowing down the field of potential hardware cracking options to many core multi-purpose CPUs, such as the Xeon Phi, ZedBoard, Haswell and others. 
+the [Salsa20/8](https://tools.ietf.org/html/rfc7914) core function, which is not a cryptographic hash function as it is not collision resistant to help make pseudo-random writes to RAM, then repeatedly reads them in a pseudo-random sequence. FPGAs do not generally have a lot of RAM, so this makes leveraging both FPGAs and GPUs a lot less feasible, therefore, narrowing down the field of potential hardware cracking options to many core multi-purpose CPUs, such as the Xeon Phi, ZedBoard, Haswell and others. 
 
 &nbsp;
 
@@ -3542,7 +3540,7 @@ Possibly also worth considering if you like the bleeding edge, is the new Argon2
 #### Caching of Sensitive Data {#web-applications-countermeasures-management-of-application-secrets-caching-of-sensitive-data}
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
-Logging out from an application obviously does not clear the browser cache of any sensitive information that might have been stored. Test that any sensitive data responses have `Cache-Control` and `Expires` headers set appropriately.
+Logging out from an application obviously does not clear the browser cache of any sensitive information that might have been stored. It is good to test that any sensitive data responses have `Cache-Control` and `Expires` headers set appropriately.
 
 Use an HTTP intercepting proxy such as ZAP, Burp, etc, to search through the server responses that belong to the session, checking that the server instructed the browser not to cache any data for all responses containing sensitive information.
 
@@ -3572,18 +3570,18 @@ Don't forget to plug all your changes into your Zap Regression Test suite as dis
 
 #### Cracking
 
-Slowing down and rendering cracking infeasible is addressed by the type of KDF and number of rounds you configure. We dealt with this in the "[Which KDF to use](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)" section.
+Slowing down and rendering cracking infeasible is addressed by the type of KDF and number of rounds you configure. We did this in the "[Which KDF to use](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)" section.
 
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management}
 ![](images/ThreatTags/PreventionDIFFICULT.png)
 
-I'm going to walk you through some of the important parts of what a possible authentication and authorisation solution might look like that will address the points raised in the [Identify Risks](#web-applications-identify-risks-lack-of-authentication-authorisation-session-management) section from above.
+I'm going to walk you through some of the important parts of what a possible authentication and authorisation solution might look like. This will address the points raised in the [Identify Risks](#web-applications-identify-risks-lack-of-authentication-authorisation-session-management) section from above.
 
 ![](images/RelevantAuthStandards.png)
 
 The following code is one example of how we can establish authentication and authorisation of individuals desiring to work with a system comprised of any number of front-ends (web, mobile, etc), a service layer API that provides an abstraction to, and communicates with the underlying back-end micro-services. The example uses the Resource Owner Password Credentials (ROPC) flow which is quite a common flow with todays front-end -> service API -> back-end micro-service architectures.
 
-It's also worth checking out the following sections in the OAuth 2.0 specification around the ROPC flow:
+It is also worth checking out the following sections in the OAuth 2.0 specification around the ROPC flow:
 
 * [Resource Owner Password Credentials](http://tools.ietf.org/html/rfc6749#section-1.3.3)
 * [Resource Owner Password Credentials Grant](http://tools.ietf.org/html/rfc6749#section-4.3)
@@ -3591,13 +3589,13 @@ It's also worth checking out the following sections in the OAuth 2.0 specificati
 
 All the flows are detailed in the [OAuth 2.0](http://tools.ietf.org/html/rfc6749) and [OpenID Connect](http://openid.net/specs/openid-connect-core-1_0.html) specifications.
 
-We'll also discuss integrating external identity providers (The Facebooks, Twitters and Googles) of our world. 
+We will also discuss integrating external identity providers (The Facebooks, Twitters and Googles) of our world. 
 
 #### Chosen technologies:
 
 ![](images/ChosenAuthTechnologies.png)
 
-Getting to grips with and understanding enough to create a solution like this can be quite a steep learning experience. The folks from IdentityServer which do this for the love of it have created an outstanding Open Source Software (OSS) project and in all my dealings with them have always gone out of their way to help. In all the projects I've worked on, with all the edge cases, there has always been a way to create the solution that satisfied the requirements.
+Getting to grips with and understanding enough to create a solution like this can be quite a steep learning experience. The folks from IdentityServer which do this for the love of it, have created an outstanding Open Source Software (OSS) project and in all my dealings with them they have always gone out of their way to help. In all the projects I've worked on, with all the edge cases, there has always been a way to create the solution that satisfied the requirements.
 
 #### Technology and Design Decisions
 
@@ -3605,9 +3603,9 @@ Getting to grips with and understanding enough to create a solution like this ca
 
 Ideally reference access tokens should be used between front-end(s) and the service layer, which they are in this case. Then JWT, which contains a signed list of the users claims, from the service layer to the back-end micro-services.
 
-JWTs can not be revoked as they are self contained (contain everything about a user that is necessary to make a decision about what the user should be authorised to access)
+JWTs can not be revoked as they are self contained (contain everything about a user that is necessary to make a decision about what the user should be authorised to access).
 
-Reference tokens on the other hand simply contain a reference to the user account which is managed by identity server via MembershipReboot in this case. Thus enabling revocation (logging out of the user for example).
+Reference tokens on the other hand simply contain a reference to the user account which is managed by an identity server via MembershipReboot in this case. Thus enabling revocation (logging out of the user for example).
 
 Identity server does not currently support both types of token at once, being able to switch between one or the other (reference for front-end, JWT for back-end), although it is [on the road map](https://github.com/IdentityServer/IdentityServer3/issues/1725). Until this configuration is supported, the service layer can get the users claims by using the reference token. One of those claims being the user GUID. The claims could then be propagated to the micro-services.
 
@@ -3621,9 +3619,9 @@ IdentityServer3 is a C#.NET library that focusses on both authentication and aut
 
 Is a user identity management library with a similar name to the ASP.NET Membership Provider, inspired by it due to [frustrations](http://brockallen.com/2012/09/02/think-twice-about-using-membershipprovider-and-simplemembership/) that Brock Allen (MembershipReboot creator) had from it such as:  
 
-1. A misguided false perception of security, which I agree with
-2. A leaky abstraction due to the 27 abstract methods that may or may not be pertinent to your applications needs. Any custom provider you build will need to implement all of these methods whether they are useful to your application or not, otherwise consumers of your custom provider will receive a NotImplementedException. If you choose to only implement the methods that make sense for your application, then the consumers need to know to much about your custom providers internals. Hence encapsulation has broken down and abstraction is leaking.
-3. The lockout feature, where as when a certain number of incorrect login attempts occurred, the account would be locked, preventing any further attempts. Also preventing the legitimate account owner from logging in, thus a denial of service (DoS), as there is no ability to unlock the account after a certain period of time. With MembershipReboot we have the `AccountLockoutFailedLoginAttempts` and the much needed `AccountLockoutDuration` on the `MembershipRebootConfiguration` class which does what you expect it to do.
+1. A misguided false perception of security, to which I agree with
+2. A leaky abstraction due to the 27 abstract methods that may or may not be pertinent to your applications needs. Any custom provider you build will need to implement all of these methods whether they are useful to your application or not, otherwise consumers of your custom provider will receive a NotImplementedException. If you choose to only implement the methods that make sense for your application, then the consumers need to know to much about your custom providers internals. Hence encapsulation has broken down and abstraction is leaking
+3. The lockout feature, where as when a certain number of incorrect login attempts occurred, the account would be locked, preventing any further attempts. Also preventing the legitimate account owner from logging in, thus a denial of service (DoS), as there is no ability to unlock the account after a certain period of time. With MembershipReboot we have the `AccountLockoutFailedLoginAttempts` and the much needed `AccountLockoutDuration` on the `MembershipRebootConfiguration` class which does what you expect it to do
 4. Others
  
 Some note worthy benefits I've found with MembershipReboot are:
@@ -4226,15 +4224,15 @@ MembershipReboot supports adding secret questions and answers along with the abi
 
 In the above example we (were constrained by a business requirement) chose to use cookies to carry the access token. Alternatively the access token could be transported within the end users HTTP response and request bodies and stored in local storage.
 
-Using local storage means there is less to be concerned about in terms of protecting the token than with using cookies. LocalStorag is only concerned with XSS, where as cookies are susceptible to both CSRF and XSS attacks (although XSS to a lesser degree). If you decided to use local storage, You're anti XSS strategy needs to be water-tight.  
-Even with the `HttpOnly` flag set on your cookie, it is possible to compromise the cookie contents if the values of the `Domain` and/or `Path` cookie attributes are too permissive. For example if you have the `Domain` value set to `.localtest.me`, an attacker can attempt to launch attacks on the cookie token between other hosts with the same domain name. Some of these hosts may contain vulnerabilities, thus increasing the attack surface.
+Using local storage means that there is less to be concerned about in terms of protecting the token than with using cookies. LocalStorag is only concerned with XSS, whereas cookies are susceptible to both CSRF and XSS attacks (although XSS to a lesser degree). If you decided to use local storage, Your anti XSS strategy needs to be water-tight.  
+Even with the `HttpOnly` flag set on your cookie, it is possible to compromise the cookie contents if the values of the `Domain` and/or `Path` cookie attributes are too permissive. For example if you have the `Domain` value set to `.localtest.me`, an attacker can attempt to launch attacks on the cookie token between other hosts with the same domain name. Some of these hosts may contain vulnerabilities, thereby increasing the attack surface.
 
 ![](images/SecuringSessions.png)
 
-Set the [`Secure` attribute](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Secure_Attribute) on the cookie. This instructs web browsers to only send the cookie over a TLS (HTTPS) connection, thus removing this MItM attack vector.  
+Set the [`Secure` attribute](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Secure_Attribute) on the cookie. This instructs web browsers to only send the cookie over a TLS (HTTPS) connection, whereby removing the MItM attack vector.  
 You can and should test this by inspecting the headers with an HTTP intercepting proxy. While you're at it, you may as well add this as a test to your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
-Turn the `HttpOnly` cookie flag on. This instructs web browser to not allow access to the cookie via JavaScript. The `Secure` flag must also be enabled as mentioned above, in order to mitigate Session Id theft.
+Turn the `HttpOnly` cookie flag on. This instructs the web browser not to allow access to the cookie via JavaScript. The `Secure` flag must also be enabled as mentioned above, in order to mitigate Session Id theft.
 
 CSRF is the most common attack used to leverage cookies containing authentication details. In order to mitigate this attack vector, the use of the synchroniser token pattern is recommended. Each server side technology will implement this type of protection differently. CSRF is discussed in more depth in the Cross-Site Request Forgery (CSRF) sections.
 
@@ -4249,9 +4247,9 @@ The OWASP [Session Management Cheat Sheet](https://www.owasp.org/index.php/Sessi
 
 There are fundamental principles that we need to examine, understand and embrace before we dive into some details.
 
-The attackers will always target the easiest to compromise point of any given encryption protocol.
+The attackers will always target the easiest point to compromise of any given encryption protocol.
 
-Cryptography is one small ingredient that may go into creating a system that is aiming to be secure to a degree. Usually it's just easier to step around or by-pass any crypto. So think of crypto as one defence. Unless all of your other areas of security are better than your crypto solutions, then an attacker will more than likely be targeting the other weaker areas.
+Cryptography is one small ingredient that may go into creating a system which is aiming to be secure to a degree. Usually it is just easier to step around or by-pass any crypto. So think of crypto as just one defence. Unless all of your other areas of security are better than your crypto solutions, then an attacker will more than likely be targeting the other weaker areas.
 
 #### [Web Cryptography API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API) {#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api}
 
@@ -4263,7 +4261,7 @@ Has been implemented across browser vendors now.
 > Licensed under [CC by 4.0](https://creativecommons.org/licenses/by/4.0/)  
 Removed part of the unsupported versions for Firefox, Chrome and Opera.
 
-For those browsers still not playing ball, you can use a polyfill, Although those are dropping off due to all good browsers now supporting the Web Crypto API. Plus the whole point of the Web Crypto API was to remove JavaScript crypto, so that the underlying key(s) are not accessible to JavaScript.
+For those browsers still not playing ball, you can use a polyfill. Although those are dropping off due to better browsers now supporting the Web Crypto API. Plus the whole point of the Web Crypto API was to remove JavaScript crypto, so that the underlying key(s) weren't accessible to JavaScript.
 
 The browser is insecure and should never be trusted. HTML5 has added a lot of extra attack surface without adding much in the way of security.
 
@@ -4276,7 +4274,7 @@ For starters:
 * The key is the only thing that needs to be, and should be secret and trustworthy. Everything else should be public
 * If the key is managed by something that is untrusted (from the servers perspective), then the Web Crypto API is untrusted (from the servers perspective). Therefore crypto in the browser can not be trusted by the server, that is, if the server needs to trust it. 
 
-The usual perspective in client/server relationships is that the server holds the single source of truth (the key). Where crypto in the browser comes into the picture is that the client holds the single source of truth. If the key is accessible to the JavaScript application environment, which it is if you are using your own JavaScript crypto or someone else's crypto libraries, then we're on very shaky ground. If however we can hide this key away from the JavaScript application environment and have the browser expose an API, then we have a little more privacy.  
+The usual perspective in client/server relationships is that the server holds the single source of truth (the key). Where crypto in the browser comes into the picture is that the client holds the single source of truth. If the key is accessible to the JavaScript application environment (which it is if you are using your own JavaScript crypto or someone else's crypto libraries), then we're on very shaky ground. If however we can hide this key away from the JavaScript application environment and have the browser expose an API, then we have a little more privacy.  
 
 Relying on the Web Cryptography API as opposed to using low-level primitives provides a slightly better and more secure starting point. Why it's only slightly better is discussed in the [Risks that Solution Causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
 
@@ -4305,7 +4303,7 @@ Check the [specification](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec
 
 ##### [`Crypto`](https://developer.mozilla.org/en-US/docs/Web/API/Crypto) (Web API interface)
 
-The `Crypto` interface was implemented in some browsers without it being well defined or cryptographically sound. Browsers implementing the Web Crypto API have removed the `Crypto` methods and properties other than `Crypto.subtle` which provides access to the below `SubtleCrypto` interface, which provides all of the Web Crypto API methods.
+The `Crypto` interface was implemented in some browsers without being well defined or cryptographically sound. Browsers implementing the Web Crypto API have removed the `Crypto` methods and properties other than `Crypto.subtle` which provides access to the below `SubtleCrypto` interface, which provides all of the Web Crypto API methods.
 
 Check the [specification](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#crypto-interface) for further details.
 
@@ -4321,20 +4319,20 @@ Cryptography on the client does have its place. Use it in its designated place a
 
 #### Cloud Storage
 
-Is one use case. In this scenario, the server doesn't need to trust the client. It receives data from the client, stores it and returns it. The user is exchanging their data with themselves in the future. So long as the server never attempts to parse or execute it and the only browser that it may end up in is from the client that sent it to start with. The client is responsible for the key. The data is usually encrypted on the client, sent to the server encrypted, then fetched back to the client and then finally decrypted again with the key that the client is responsible for.
+Is one use case. In this scenario, the server doesn't need to trust the client. It receives data from the client, stores it and returns it. The user is exchanging their own data with themselves in the future. So long as the server never attempts to parse or execute it and the only browser that it may end up in is from the client that sent it to start with. The client is responsible for the key. The data is usually encrypted on the client, sent to the server encrypted, then fetched back to the client and then finally decrypted again with the key that the client is responsible for.
 
 #### Protected Data and Document Exchange
 
 which uses a similar concept as the cloud storage, but the data doesn't necessarily have to ever touch the server. A couple of offerings that come to mind are:
 
-1. Chris Campbells [DeadDrop](https://deaddrop.jadeworld.com/) which has been lovingly crafted and offered free of charge.
+1. Chris Campbell's [DeadDrop](https://deaddrop.jadeworld.com/) which has been lovingly crafted and offered free of charge.
 2. [Tresorit](https://tresorit.com) which has a large price tag.
 
 &nbsp;
 
 Basically client centric applications.
 
-My preference is still to prefer any crypto to be performed on the server where you have more control, less attack surface and greater visibility.
+My preference is still for any crypto to be performed on the server where you have more control, less attack surface and greater visibility.
 
 ### Consuming Free and Open Source {#web-applications-countermeasures-consuming-free-and-open-source}
 ![](images/ThreatTags/PreventionEASY.png)
@@ -4347,13 +4345,13 @@ Dibbe Edwards [discusses](https://soundcloud.com/owasp-podcast/dibbe-edwards-dev
 * Legal review: checking licenses
 * Scanning the code for vulnerabilities, manual and automated code review
 * Maintain a list containing all the libraries that have been approved for use.  
-If not on the list, make request and it should go through the same process.
-* Once the libraries are in your product they should become as part of your own code so that they get the same rigour over them as any of your other code written in-house
-* There needs to be automated process that runs over the code base to check that nothing that is not on the approved list is included
+If not on the list, make a request and it should go through the same process
+* Once the libraries are in your product they should become a part of your own code so that they get the same rigour over them as any of your other in-house written code
+* There needs to be an automated process that runs over the code base to check that nothing that is not on the approved list is included
 * Consider automating some of the suggested tooling options below
 
 There is an excellent paper by the SANS Institute on [Security Concerns in Using Open Source Software
-for Enterprise Requirements](http://www.sans.org/reading-room/whitepapers/awareness/security-concerns-open-source-software-enterprise-requirements-1305) that is well worth a read. It confirms what the likes of IBM are doing in regards to their consumption of free and open source libraries.
+for Enterprise Requirements](http://www.sans.org/reading-room/whitepapers/awareness/security-concerns-open-source-software-enterprise-requirements-1305) which is well worth a read. It confirms what the likes of IBM are doing in regards to their consumption of free and open source libraries.
 
 #### Consumption is Your Responsibility
 
@@ -4388,7 +4386,7 @@ A>
 
 ##### wget, curl, etc
 
-Please do not `wget`, `curl` or fetch in any way and pipe what you think is an installer or any script to your shell without first verifying that what you are about to run is not malicious. Do not download and run in the same command.
+Please do not `wget`, `curl` or fetch in any way and pipe what you think is an installer or any script to your shell without first verifying what you are about to run is not malicious. Do not download and run in the same command.
 
 The better option is to:
 
@@ -4404,7 +4402,7 @@ As part of an `npm install`, package creators, maintainers (or even a malicious 
 
 Recommended procedure:
 
-1. Verify the source that you are about to download, if all good
+1. Verify the source that you are about to download, if it is good:
 2. `npm show [module-you-want-to-install] scripts`
 3. Download the module without installing it and inspect it. You can download it from `http://registry.npmjs.org/[module-you-want-to-install]/-/[module-you-want-to-install]-VERSION.tgz`
 
@@ -4412,7 +4410,7 @@ The most important step here is downloading and inspecting before you run.
 
 ##### Doppelganger Packages {#web-applications-countermeasures-consuming-free-and-open-source-keeping-safe-doppelganger-packages}
 
-Similarly to [Doppelganger Domains](#network-identify-risks-doppelganger-domains), People often miss-type what they want to install. If you were someone that wanted to do something malicious like have consumers of your package destroy or modify their systems, send sensitive information to you, or any number of other malicious activities (ideally identified in the [Identify Risks](#web-applications-identify-risks-consuming-free-and-open-source) section. If not already, add), doppelganger packages are an excellent avenue for raising the likelihood that someone will install your malicious package by miss typing the name of it with the name of another package that has a very similar name. I covered this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation, with demos.
+Similarly to [Doppelganger Domains](#network-identify-risks-doppelganger-domains), people often miss-type what they want to install. If you were someone that wanted to do something malicious like have consumers of your package destroy or modify their systems, send sensitive information to you, or any number of other malicious activities (ideally identified in the [Identify Risks](#web-applications-identify-risks-consuming-free-and-open-source) section. If not already, add), doppelganger packages are an excellent avenue for raising the likelihood that someone will install your malicious package by miss typing the name of it with the name of another package that has a very similar name. I covered this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation, with demos.
 
 Make sure you are typing the correct package name. Copy -> Pasting works.
 
@@ -4427,7 +4425,7 @@ Whitelisted packages are those that are added to the Enterprise instance with:
 
 For **NodeJS developers**: Keep your eye on the [nodesecurity advisories](https://nodesecurity.io/advisories). Identified security issues can be posted to [NodeSecurity report](https://nodesecurity.io/report).
 
-Tooling for JavaScript package security defects is moving quickly, so although the below was correct at the time of writing, things may have progressed further.
+Tooling for JavaScript package security defects is moving quickly, although the below was correct at the time of writing, things may have progressed further.
 
 ##### [npm-outdated](https://docs.npmjs.com/cli/outdated)
 
@@ -4458,11 +4456,11 @@ May produce output like the following:
 
 ##### [npm-check](https://www.npmjs.com/package/npm-check)
 
-Is a similar tool to npm-outdated, but provides more information and an API useful for using in a CI tool-chain. npm-check can also inform you of missing or packages that are not currently being used.
+Is a similar tool to npm-outdated, but provides more information and an API is useful for using in a CI tool-chain. npm-check can also inform you of missing or packages that are not currently being used.
 
 ##### [David](https://david-dm.org/)
 
-Uses your `package.json` file in your NodeJS project to check whether your dependencies are up to date and no known vulnerabilities are found. You embed a badge on your Github page giving immediate feedback, which links to a page with details of any issues for your dependencies.
+Uses your `package.json` file in your NodeJS project to check whether your dependencies are up to date and that no known vulnerabilities are found. You embed a badge on your Github page giving immediate feedback, which links to a page with details of any issues for your dependencies.
 
 ##### [RetireJS](https://github.com/RetireJS/retire.js)
 
@@ -4569,7 +4567,7 @@ Analysis of opensource projects are free.
 
 ##### [Node Security Platform](https://nodesecurity.io/) (NSP)
 
-NSP at the time of writing is quite popular. It provides Github pull request integration, Has a Code Climate Node Security Engine. Code Climate was discussed briefly in the "Linting, Static Analysis" section of "Code Review" in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Also has a CLI, so is CI friendly.
+NSP at the time of writing is quite popular. It provides Github pull request integration, it has a Code Climate Node Security Engine. Code Climate was discussed briefly in the "Linting, Static Analysis" section of "Code Review" in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Also has a CLI, so is CI friendly.
 
 You can install the NSP CLI like:  
 `npm install -g nsp`  
@@ -4581,8 +4579,8 @@ Any known vulnerabilities present will be printed.
 
 There is also a:
 
-1. gulp plugin (`gulp-nsp`) which you can use to check all dependencies listed in your `package.json` or `shrinkwrap.json`.
-2. Visual Studio Code plugin that will run the NSP audit from within the editor. To install, open a command prompt with `Ctrl+Shift+C` and run the following command:  
+1. gulp plugin (`gulp-nsp`) which can be used to check all dependencies listed in your `package.json` or `shrinkwrap.json`.
+2. Visual Studio Code plugin can run the NSP audit from within the editor. To install, open a command prompt with `Ctrl+Shift+C` and run the following command:  
 `ext install vscode-nsp`
 
 ##### [Snyk](https://snyk.io)
@@ -4605,7 +4603,7 @@ You could of course just list all of your projects and global packages and check
 &nbsp;
 
 For **.Net developers**, there is the likes of [OWASP **SafeNuGet**](https://github.com/OWASP/SafeNuGet).  
-OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) also notifies of known, publicly disclosed vulnerabilities in Java and .Net, with experimental support for Ruby, Node.js and Python. I haven't used DependencyCheck, it produces [false positives and false negatives](https://jeremylong.github.io/DependencyCheck/).
+OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) also notifies of known publicly disclosed vulnerabilities in Java and .Net, with experimental support for Ruby, Node.js and Python. I haven't used DependencyCheck, as it produces [false positives and false negatives](https://jeremylong.github.io/DependencyCheck/).
 
 ### Insufficient Attack Protection {#web-applications-countermeasures-insufficient-attack-protection}
 ![](images/ThreatTags/PreventionEASY.png)
@@ -4614,17 +4612,17 @@ OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) 
 
 #### Web Application Firewall (WAF) {#web-applications-countermeasures-insufficient-attack-protection-waf}
 
-[WAFs](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#wafs) are similar to Intrusion Prevention Systems (IPS) except they operate at the [Application Layer](http://en.wikipedia.org/wiki/Application_layer)(HTTP), Layer 7 of the [OSI model](http://en.wikipedia.org/wiki/OSI_model). So they understand the concerns of your web application at a technical level. WAFs protect your application against a large number of attacks, like XSS, CSRF, SQLi, [Local File Inclusion (LFI)](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion), session hijacking, invalid requests (requests to things that do not exist (think 404)). WAFs sit in-line between a gateway and the web application. They run as a proxy. Either on the physical web server or on another network node, but only the traffic directed to the web application is inspected, where as an IDS/IPS inspects all network traffic passed through its interfaces. WAFs use signatures that look like specific vulnerabilities to compare the network traffic targeting the web application and apply the associated rule(s) when matches are detected. Although not only limited to dealing with known signatures, some WAFs can detect and prevent attacks they have not seen before like responses containing larger than specified payloads. The source code of the web application does not have to be modified.
+[WAFs](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#wafs) are similar to Intrusion Prevention Systems (IPS) except they operate at the [Application Layer](http://en.wikipedia.org/wiki/Application_layer)(HTTP), Layer 7 of the [OSI model](http://en.wikipedia.org/wiki/OSI_model). They understand the concerns of your web application at a technical level. WAFs protect your application against a large number of attacks, such as XSS, CSRF, SQLi, [Local File Inclusion (LFI)](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion), session hijacking, invalid requests (requests to things that do not exist (think 404)). WAFs sit in-line between a gateway and the web application. They run as a proxy, either on the physical web server or on another network node, but only the traffic directed to the web application is inspected. Where as an IDS/IPS inspects all network traffic passed through its interfaces. WAFs use signatures that look like specific vulnerabilities to compare the network traffic targeting the web application and apply the associated rule(s) when matches are detected. Although not only limited to dealing with known signatures, some WAFs can detect and prevent attacks that they have not seen before like responses containing larger than specified payloads. The source code of the web application does not have to be modified.
 
-1. [Fusker](https://www.npmjs.com/package/fusker). Not sure if this is still actively maintained. At this point, there has not been any recent commits since 2012, but it does look like the best offering we have at this stage for NodeJS. So if your looking to help a security project out...
-2. [express-waf](https://www.npmjs.com/package/express-waf) was last commited to in 2015, there was only a single developer working on it when I checked
-3. Many cloud providers also have offerings, such as [AWS WAF](https://aws.amazon.com/waf/), which can provide some assistance in mitigating generic injection, XSS, DoS type attacks. Also providing an API useful for the automation, creation and deployment of web security rules
+1. [Fusker](https://www.npmjs.com/package/fusker). I am not sure if this is still actively maintained. At this point, there has not been any recent commits since 2012, but it does look like the best offering we have at this stage is for NodeJS. So if your looking to help a security project out...
+2. [express-waf](https://www.npmjs.com/package/express-waf) was last committed to in 2015. There was only one developer working on it when I checked
+3. Many cloud providers also have other offerings, such as [AWS WAF](https://aws.amazon.com/waf/). They can provide some assistance in mitigating generic injection, XSS, DoS type attacks and provide an API useful for the automation, creation and deployment of web security rules
 
 #### Application Intrusion Detection and Response
 
 You can think of this as taking a WAF one step closer to your application. In fact integrating it with your application. Augmenting your application with logic to detect and respond to threats.
 
-[AppSensor](http://appsensor.org/) brings detection -> prevention to your domain level. Most applications today just take attacks & fall over. I have heard so many times we want our applications to fail securely when they get bad input. We do not want our applications being bullied and failing securely.
+[AppSensor](http://appsensor.org/) brings detection -> prevention to your domain level. Most applications today just take attacks & fall over. I have heard so many times that we want our applications to fail securely when they get bad input, though we do not want our applications being bullied and failing securely.
 We want them to not fail at all in production, but rather defend themselves.
 
 Technically AppSensor is not a WAF because the concepts are used to shape your application logic.
@@ -4637,37 +4635,37 @@ AppSensor provides > 50 (signature based) detection points. Provides guidance on
 * locking the account or notifying an administrator
 * more than a dozen response actions are described.
 
-At the time of writing the sample code is only in Java. The documentation is well worth checking out though. Resources in [Additional Resources]() chapter.
+At the time of writing the sample code is only in Java. The documentation is well worth checking out though, which I have added in the [Additional Resources](#additional-resources-countermeasures-insufficient-attack-protection-application-intrusion-detection-and-response) chapter.
 
 #### Active Automated Prevention
 
 The application should recognise unusual requests. Automated scanning should be distinguishable from normal traffic.
 
-By creating custom behaviour that responds to specific out of the ordinary requests with misleading feedback and/or behaviour that builds the attackers confidence and ultimately wastes their time, you as the application administrator can have the upper hand when it comes to actively defending against your attackers.
+You as the application administrator can have the upper hand when it comes to actively defending against your attackers. This can be done by creating custom behaviour that responds to specific out of the ordinary requests with misleading feedback and/or behaviour that builds the attackers confidence and ultimately wastes their time.
 
-By spending the attackers budget for them, you are ultimately depleting their resources, which will cause them to make silly mistakes and be caught and/or just run out of time.
+By spending the attackers budget for them, you are ultimately depleting their resources, which causes them to make silly mistakes, be caught and/or just run out of time.
 
 ## 4. SSM Risks that Solution Causes {#web-applications-risks-that-solution-causes}
 
-Often with increased security comes increased confidence. Increased confidence is a weakness in itself, along with the fact that it brings with it other vulnerabilities. The more you know, the more you should be aware of how vulnerable you are.
+More than often, when there is an increase of security, this causes an increase of confidence. Increased confidence is a weakness in itself, along with the fact that it brings with it other vulnerabilities. The more you know, the more you need to be aware of how vulnerable you are.
 
 ### Lack of Visibility
 
-With the added visibility, you will have to make decisions based on the new found information you now have. There will be no more blissful ignorance if there was before.
+With added visibility, you will have to make decisions based on the new found information you now have. There will be no more blissful ignorance that there was before.
 
 #### Insufficient Logging and Monitoring
 
-There will be learning and work to be done to become familiar with libraries and tooling. Code will have to be written around logging as in wrapping libraries, initialising and adding logging statements or hiding them using AOP.
+There will be increased learning and work to be done to become familiar with libraries and tooling. Code will have to be written around logging as in wrapping libraries, initialising and adding logging statements or hiding them using AOP.
 
 Instrumentation will have to be placed in your code. Again another excellent candidate for AOP.
 
 ### Lack of Input Validation, Filtering and Sanitisation
 
-You may have to invest considerable time yourself to gain good understanding into what can go wrong, where, how and how to mitigate it happening. Be inquisitive and experiment.
+You may have to invest a considerable amount of time yourself to gain good understanding into what can go wrong. Where, how and how to mitigate it happening. Be inquisitive and experiment.
 
-There will be more code in your systems. More code is more code that can have faults.
+There will be more code in your systems. The more code there is, the more likely the code will have faults.
 
-Be very careful with sanitisation. Try first to use well tested and battle hardened libraries. Resist going out on your own to modify or create sanitisation routines. They are very easy to miss edge cases and small spots that your untrusted data may end up in that you did not anticipate, thus leaving you susceptible to attack.
+Be very careful with sanitisation. Try first to use well tested and battle hardened libraries. Resist going out on your own to modify or create sanitisation routines. They are very easy to miss edge cases and small spots that your untrusted data may end up in, that you did not anticipate. This will leave you susceptible to an attack.
 
 #### Cross-Site Scripting (XSS)
 
@@ -4679,17 +4677,17 @@ Catering for CSRF can be a daunting task and it is difficult to cover every poss
 
 ### Injection
 
-As with all code review, it can be costly, you need to weigh the cost of review with the cost of you and your customers being exploited, I.E. loosing the assets we have discussed.
+As with all code review, it can be costly, therefore, you need to weigh the cost of reviewing the code, verses the cost of you and your customers being exploited, I.E. losing the assets we have discussed.
 
-Avoiding the use of external interpreters means you will have to do the interpreting yourself, or you will have to be more thorough in performing the other countermeasures.
+Avoiding the use of external interpreters means you will have to do the interpreting yourself, or you will have to be more thorough in performing other countermeasures.
 
 Occasionally finding a parametrised API for your use case can be a challenge.
 
-Going through the process of defining your semantic types can take some time and it often causes the stake holders to think about things they may have glossed over. Working through validation, filtering and sanitisation can be time consuming.
+Going through the process of defining your semantic types can take some time, which often causes the stake holders to think about things they may have glossed over. Working through validation, filtering and sanitisation can be time consuming.
 
-Making sure you embrace least privilege will probably take you some time, again, this cost needs to be weighed up.
+Making sure you embrace least privilege will also more than likely take you some time. Again, this cost needs to be weighed up.
 
-Making sure that the system is not revealing unnecessary information that could aid an attacker in their understanding of your systems internals will mean some testing and probably code review will be necessary. This will take time.
+Making sure that the system is not revealing unnecessary information that could aid an attacker in their understanding of your systems internals will mean some testing and probably doing a code review will be necessary. This will take time.
 
 #### SQLi
 
@@ -4697,7 +4695,7 @@ If you have a legacy system with SQLi issues, then you will need to invest the t
 
 #### NoSQLi {#web-applications-risks-that-solution-causes-nosqli}
 
-One risk that I see happening here all to often, is developers not understanding the particular NoSQL data store they are using, as I have mentioned, the 225 + data stores all like to do things differently, you will need to understand their APIs, what they do well and do not do well. Read the documentation, if the documentation is poor, consider using something else, if that is out of the question, dive into the implementation and work out what you need to do from that
+One potential risk that I see happening here all too often is that developers are not understanding the particular NoSQL data store they are using. As I mentioned, the 225 + data stores all like to do things differently, you will need to understand their APIs, what they do well and do not do well. Read the documentation, if the documentation is poor, consider using something else, if that is out of the question, dive into the implementation and work out what you need to do from that
 
 #### Command Injection
 
@@ -4735,7 +4733,7 @@ If you decide to go with one of the captcha options, there is the risk of:
 
 ### Management of Application Secrets
 
-Reliance on adjacent layers of defence means those layers have to actually be up to scratch. There is a possibility that they will not be.
+Reliance on adjacent layers of defence means those layers have to be up to scratch. There is a possibility that they will not be.
 
 Possibility of missing secrets being sent over the wire.
 
@@ -4745,15 +4743,15 @@ Possible reliance on obscurity with many of the strategies I have seen proposed.
 
 With moving any secrets from source code to configuration files, there is a possibility that the secrets will not be changed at the same time. If they are not changed, then you have not really helped much, as the secrets are still in source control.
 
-With good configuration tools like node-config, you are provided with plenty of options of splitting up meta-data, creating overrides, storing different parts in different places, etc. There is a risk that you do not use the potential power and flexibility to your best advantage. Learn the ins and outs of what ever system it is you are using and leverage its features to do the best at obscuring your secrets and if possible securing them.
+With good configuration tools such as node-config, you are provided with plenty of options of splitting up meta-data, creating overrides, storing different parts in different places, etc. Though there is a risk that you do not use the potential power and flexibility to your best advantage. Learn the ins and outs of what ever system it is you are using and leverage its features to do the best at obscuring your secrets and if possible securing them.
 
 ##### node-config
 
-is an excellent configuration package with lots of great features. There is no security provided with node-config, just some potential obscurity. Just be aware of that, and as discussed previously, make sure surrounding layers have beefed up security.
+is an excellent configuration package with lots of great features. There is no security provided with node-config, just some potential obscurity. Just be aware of that, and as discussed previously, make sure surrounding layers have beefed up the security.
 
 ##### Windows:
 
-As is often the case with Microsoft solutions, their marketing often leads people to believe that they have secure solutions to problems when that is not the case. As discussed previously, there are plenty of ways to get around the Microsoft so called security features. As anything else in this space, they may provide some obscurity, but do not depend on them being secure.
+As is often the case with Microsoft solutions, their marketing often leads people to believe that they have secure solutions to problems, when that is not the case. As discussed previously, there are plenty of ways to get around the Microsoft so called security features. As anything else in this space, they may provide some obscurity, but do not depend on them being secure.
 
 Statements like the following have the potential for producing over confidence:
 
@@ -4776,19 +4774,19 @@ Locking file permissions and ownership down is good, but that alone will not sav
 
 #### Least Privilege
 
-Applying least privilege to everything can take quite a bit of work. Yes, it is probably not that hard to do, but does require a breadth of thought and time. Some of the areas discussed could be missed. Having more than one person working on the task is often effective as each person can bounce ideas off of each other and the other person is likely to notice areas that you may have missed and visa-versa.
+Applying least privilege to everything can take quite a bit of work. Yes, it is probably not that hard to do, but does require a breadth of thought and time. Some of the areas discussed could be missed. Having more than one person working on the task is often effective as each person can bounce ideas off each other and the other person is likely to notice areas that you may have missed and visa-versa.
 
 #### Location
 
-Segmentation is useful, and a common technique to helping to build resistance against attacks. It does introduce some complexity though. With complexity comes the added likely-hood of introducing a fault. 
+Segmentation is useful, and a common technique in helping to build resistance against attacks. It does introduce some complexity though. With complexity comes the added likely-hood of introducing a fault. 
 
 #### Data-store Compromise
 
-If you follow the advice in the [countermeasures](#web-applications-countermeasures-data-store-compromise) section, you will be doing more than most other organisations in this area. It is not hard, but if implemented could increase complacency/over confidence. Always be on your guard. Always expect that although you have done a lot to increase your security stance, a determined and experienced attacker is going to push buttons you may have never realised you had. If they want something enough and have the resources and determination to get it, they probably will. This is where you need strategies in place to deal with post compromise. Create process (ideally partly automated) to deal with theft.
+If you follow the advice in the [countermeasures](#web-applications-countermeasures-data-store-compromise) section, you will be doing more than most other organisations in this area. It is not hard, but if implemented it could increase complacency/over confidence. Always be on your guard. Always expect that although you have done a lot to increase your security stance, a determined and experienced attacker is going to push buttons you may have never realised you had. If they want something enough and have the resources and determination to get it, they probably will. This is where you need to put strategies in place to deal with post compromise. Create processes (ideally partly automated) to deal with theft.
 
 Also consider that once an attacker has made off with your data-store, even if it is currently infeasible to brute-force the secrets, there may be other ways around obtaining the missing pieces of information they need. Think about the paper shredders as discussed in the Physical chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) and the associated [competitions](http://archive.darpa.mil/shredderchallenge/). With patience, most puzzles can be cracked. If the compromise is an opportunistic type of attack, they will most likely just give up and seek an easier target. If it is a targeted attack by determined and experienced attackers, they will probably try other attack vectors until they get what they want.
 
-Do not let over confidence be your weakness. An attacker will search out the weak link. Do your best to remove weak links.
+Do not let over confidence be your weakness. An attacker will search out the weakest link. Do your best to remove weak links.
 
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management}
 
@@ -4816,28 +4814,28 @@ The Web Cryptography API specification provides [algorithm recommendations](http
 > Some of the above content was used from [https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)  
 > Licensed under [CC by 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License)
 
-There is no normative guidance in the specification as to which primitives have better qualities than others. For example the symmetric block cipher AES-GCM is good, but all of the other symmetric block ciphers listed are not [authenticated encryption modes](https://en.wikipedia.org/wiki/Authenticated_encryption). Thus they don't provide assurance that the data has not been modified. With a specification that is lacking normative advice to browser vendors, it's likely that the Web Crypto API will fail to serve the purpose it was created for, or at best provide the right primitives, but provide the dangerous ones also, and by looking at where chrome and firefox is heading, that looks to be the case.
+There is no normative guidance in the specification as to which primitives have better qualities than others. For example the symmetric block cipher AES-GCM is good, but all of the other symmetric block ciphers listed are not [authenticated encryption modes](https://en.wikipedia.org/wiki/Authenticated_encryption). Whereby, they don't provide assurance that the data has not been modified. With a specification that is lacking normative advice to browser vendors, it is likely that the Web Crypto API will fail to serve the purpose that it was created for, or at best, provide the right primitives, but provide the dangerous ones also, and by looking at where chrome and firefox is heading, that looks to be the case.
 
 The following table shows the Web Crypto API supported algorithms for Chromium (as of version 46) and Mozilla (as of July 2016).
 
 ![](images/WebCryptoAPIBrowserSupport.png)
 
-At least both are offering AES-GCM, but now you have to make the decision, and to much choice can bring confusion. The only way for us web developers to know which choices to make, is spend the time researching what to use where and asking your self the questions, why? Question everything.
+At least both are offering AES-GCM, but now you have to make the decision, and too much choice can bring confusion. The only way for us web developers to know which choices to make, is to spend the time researching what to use where and by asking your self the questions, why? Question everything.
 
 As usual, the [OWASP guidance](https://www.owasp.org/index.php/Cryptographic_Storage_Cheat_Sheet#Rule_-_Use_strong_approved_Authenticated_Encryption) (Cryptographic Storage Cheat Sheet) is excellent.
 
-There are many stack-overflow questions and answers where many think they have the answers but really don't and even accepted answers are completely incorrect and miss leading. Learn who the experts are, find out what they have to say and test their answers against what other experts have to say and for your self. All the information is available, you do have to take the time to absorb it though. There are few short-cuts that will put you in a good place for working out the optimal solution for your project.
+There are many stack-overflow questions and answers where many people think they have the answers but really don't. Even accepted answers are completely incorrect and miss leading. Learn who the experts are, find out what they have to say and test their answers against what other experts have to say for your self. All the information is available, though you do have to take the time to absorb it though. There are few short-cuts that can put you in a good place for working out the optimal solution for your project.
 
 ### Consuming Free and Open Source
 
-Adding process and tooling as discussed is a really good start, but it's not a complete solution alone to take care of the consumption of free and open source packages.  
-Some of the packages we consume may have good test coverage, be up to date, and have no known vulnerabilities. Are the tests testing the right things though? Are the tests testing that something bad can "not" happen, as we discussed in the creation of "Evil Test Conditions" in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)? This is where we really need something extra on top of a good process, static analysis and dependency checking tools. This is really where you need to leverage the likes of security regression testing, as I discussed in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+Adding process and tooling as discussed is a really good start. However, it's not a complete solution alone to take care of the consumption of free and open source packages.  
+Some of these packages we consume may have good test coverage, be up-to-date, and have no known vulnerabilities. Are their tests testing the right things though? Are the tests testing that something bad can "not" happen, as we discussed in the creation of "Evil Test Conditions" in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)? This is where we really need something extra on top of having good process, static analysis and dependency checking tools. This is really where you need to leverage the likes of security regression testing, as I discussed in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
 #### Process
 
-There is a danger of implementing to much manual process thus slowing development down more than necessary. The way the process is implemented will have a lot to do with its level of success. For example automating as much as possible, so developers don't have to think about as much as possible is going to make for more productive, focused and [happier](https://en.wikipedia.org/wiki/Kaizen) developers.
+There is a danger of implementing too many manual processes which slows down development more than necessary. The way the process is implemented will have a lot to do with its level of success. For example automating as much as possible, so developers don't have to think about too much, is going to make them more productive, focused and [happier](https://en.wikipedia.org/wiki/Kaizen) developers.
 
-For example, when a Development Team needs to pull a library into their project, which often happens in the middle of working on a product backlog item, not necessarily planned at the beginning of the Sprint. If they have to context switch while a legal review and/or manual code review takes place, then this will cause friction and reduce the teams performance even though it may be out of their hands.  
+For example, when a Development Team needs to pull a library into their project, which often happens in the middle of working on a product backlog item, not necessarily planned at the beginning of the Sprint. When programmers have to context switch while a legal review and/or manual code review takes place, this can cause friction and reduce the teams performance even though it may be out of their hands.  
 In this case, the Development Team really needs a dedicated resource to perform the legal review. The manual review could be done by another team member or even themselves with perhaps another team member having a quicker review after the fact. These sorts of decisions need to be made by the Development Team, not mandated by someone outside of the team that doesn't have skin in the game or does not have the localised understanding that the people working on the project do.
 
 Maintaining a list of the approved libraries really needs to be a process that does not take a lot of human interaction. How ever you work out your process, make sure it does not require a lot of extra developer effort on an ongoing basis. Some effort up front to automate as much as possible will facilitate this.
@@ -4878,21 +4876,21 @@ Covered above.
 
 ### Cross-Site Request Forgery (CSRF)
 
-As mentioned in the "Risks that Solution Causes", I will generally favour storing session identifiers in localstorage and concentrating on Input Validation, Filtering and Sanitisation.
+As mentioned in the "Risks that Solution Causes", I generally favour storing session identifiers in localstorage and concentrating on Input Validation, Filtering and Sanitisation.
 
 ### Injection
 
 You have a responsibility to your organisation and your customers to keep them safe. When you have weighed the costs of reviewing your code and if it is honestly more expensive than the cost of you and your customers being exploited, I.E. loosing your assets, then and only then, should you neglect this.
 
-Writing interpreters will more than likely be very costly, and in most cases this will not be necessary. Find one that takes the risks discussed seriously and provides the correct countermeasures as discussed, or make sure you take care of the validation, filtering and sanitisation properly yourself.
+Writing interpreters will more than likely be very costly, and in most cases this will not be necessary. Find one that takes the risks we discussed seriously and provides the correct countermeasures as discussed, or make sure you take care of the validation, filtering and sanitisation properly yourself.
 
-If you can not find a parametrised API for your use case, you will need to consider doing this your self, as in wrapping what ever the best is that is available and providing your own parametrisation.
+If you can not find a parametrised API for your use case, you will need to consider doing this your self. As in wrapping what ever the best is that is available and providing your own parametrisation.
 
 Creating semantic types forces you and your stake holders to think about your business requirements, anything that makes us think about these are usually helpful in making sure we are building the right thing. There is not really any alternatives to actually thinking the semantic types, validation, filtering and sanitisation through and making sure you are doing it properly, this is crucial to catching malicious sequences of untrusted data. The only other alternative is to just not process untrusted data.
 
 Making sure your accounts and everything that can execute untrusted data have only the privileges assigned to them to do what they must do and no more.
 
-If you do try and cut costs here, then you are providing the information that your attacker requires to understand how your systems internals are structured. If you reveal the systems weaknesses, they will be exploited.
+If you do try and cut costs here, then you are providing them the information your attacker needs to understand how your systems internals are structured. If you reveal the systems weaknesses, they will be exploited.
 
 #### SQLi
 
@@ -4904,7 +4902,7 @@ Similar to SQLi
 
 #### Command Injection
 
-Exactly how much it will cost you will depend on how poorly the code is written, and how much has to be refactored.
+Exactly how much will it cost you will depend on how poorly the code is written, and how much has to be refactored.
 
 #### XML Injection
 
@@ -4928,9 +4926,9 @@ Similar costs to that of what we have already covered, just different technology
 
 ### Captcha
 
-The proposed solution costs very little time to implement, is simple, has no external dependencies, is not circumvented if JavaScript is disabled, in fact is not dependant on the browser or what is in it at all. Humans are not disadvantaged.
+The proposed solution costs very little time to implement, is simple, has no external dependencies, is not circumvented if JavaScript is disabled. In fact is not dependant on the browser or what is in it at all. Also, humans are not disadvantaged.
 
-It does mean that any spam submitted by a real human will have to be moderated by a real human, although this usually takes less time than the human submitting the spam. For me, this is a trade-off worth taking to provide an optimal user experience for my customers/clients.
+It means that any spam submitted by a real human will have to be moderated by a real human, although this usually takes less time than the human submitting the spam. For me, this is a trade-off worth taking to provide an optimal user experience for my customers/clients.
 
 ### Management of Application Secrets
 
@@ -4958,19 +4956,19 @@ Segmenting of resources is a common and effective measure to take for at least s
 
 #### Data-store Compromise
 
-The countermeasures discussed here go without saying, although many organisations do not do them well if at all. It is up to you whether you want to be one of the statistics that has all of their secrets revealed. Following the countermeasures here is something that just needs to be done if you have any data that is sensitive in your data-store(s). 
+The countermeasures discussed here go without saying, although many organisations do not do them well, if at all. It is up to you whether you want to be one of the statistics that has all of their secrets revealed. Following the countermeasures here is something that just needs to be done if you have any data that is sensitive in your data-store(s). 
 
 ### Lack of Authentication, Authorisation and Session Management
 
-The cost of performing enough research and creating Proof of Concepts (PoC) is significant, even more so when your project is micro-service based, as you will have multiple technology environments that cross cutting concerns such as authentication, authorisation and session management affect (server side, client side, mobile, IoT, etc). I've found that if your project has the luxury of being green-fields, then reducing the technologies used to the lowest common denominator can reduce a lot of effort. What I mean by this, is that if you can use the same technologies in all environments, or as many as possible, this will reduce the amount of Research and Development (R&D) that the team will need to do in order to prove a working solution. The lowest common denominator in terms of technology stacks that work in all environments is JavaScript. In case you hadn't noticed, JavaScript is creeping into all environments because of this very reason. Embrace it, and you'll likely save a lot of money.
+The cost of performing enough research and creating Proof of Concepts (PoC) is significant, even more so when your project is micro-service based, as you will have multiple technology environments that cross cutting concerns such as authentication, authorisation and session management affect (server side, client side, mobile, IoT, etc). I've found that if your project has the luxury of being green-fields, then reducing the technologies used to the lowest common denominator can reduce a lot of effort. What I mean by this, is that if you can use the same technologies in all environments, or as many as possible, this will reduce the amount of Research and Development (R&D) that the team will need to do in order to prove a working solution. The lowest common denominator in terms of technology stacks that work in all environments is JavaScript. In case you hadn't noticed, JavaScript is creeping into all environments because of this very reason. Embrace it, and you will likely save a lot of money.
 
-I've heard many times "but we just can't find enough people with solid JavaScript skills and experience". Now it doesn't matter what the specific speciality is, I've personally struggled with this type of comment. If you think back to the Countermeasures section of the People chapter of Fascicle 0, specifically "Morale, Productivity and Engagement Killers" onwards, there is quite a bit of information around how to treat people with the respect they deserve. Exceptionally talented technical workers have paid a high price to become what and who they are. If you learn to always respect them and build strong meaningful relationships with these highly talented people, when you need the talent, it'll be easy to find, they'll be your friends. This has been my experience anyway. You can find these individuals always attending (if not leading) after work tech meetups, tech conferences and other events. They will also often be the last to leave the office each day, as they struggle to tear themselves away from their work due to a high level of engagement. They are always pushing their own technical limits and increasing their knowledge and experience. They are not hard to find if you follow this advice.
+I've heard this said many times "but we just can't find enough people with solid JavaScript skills and experience". Now it doesn't matter what the specific speciality is, I've personally struggled with this type of comment. If you think back to the Countermeasures section of the People chapter of Fascicle 0, specifically "Morale, Productivity and Engagement Killers" onwards, there is quite a bit of information around how to treat people with the respect they deserve. Exceptionally talented technical workers have paid a high price to become what and who they are. If you learn to always respect them and build strong meaningful relationships with these highly talented people, when you need the talent, it'll be easy to find, they will be your friends. This has been my experience anyway. You can find these individuals always attending (if not leading) after work tech meetups, tech conferences and other events. They will also often be the last to leave the office each day, as they struggle to tear themselves away from their work due to a high level of engagement. They are always pushing their own technical limits and increasing their knowledge and experience. They are not hard to find if you follow this advice.
 
 If you still struggle, reach out to me, and I'll do my best to help.
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-costs-and-trade-offs-cryptography-on-the-client}
 
-I've covered many technologies in this chapter and also in others, such as in the Network chapter under Countermeasures:
+I have covered many technologies in this chapter and also in others, such as in the Network chapter under Countermeasures:
 
 * "Wrongfully Trusting the Loading of Untrusted Web Resources"  
   For example doing everything we can to validate that what we're downloading is in-fact what we think it is:
@@ -4984,7 +4982,7 @@ That if adopted and practised properly, along with selecting the right low level
 
 The process has to be streamlined so that it does not get in the developers way. A good way to do this is to ask the developers how it should be done. They know what will get in their way. In order for the process to be a success, the person(s) mandating it will need to get solid buy-in from the people using it (the developers).
 
-The idea of setting up a process that notifies at least the Development Team if a library they want to use has known security defects, needs to be pitched to all stakeholders (developers, product owner, even external stakeholders) the right way. It needs to provide obvious benefit and not make anyones life harder than it already is. Everyone has their own agendas. Rather than fighting against them, include consideration for them in your pitch. I think this sort of a pitch is actually reasonably easy if you keep these factors in mind.
+The idea of setting up a process that notifies at least the Development Team if a library they want to use has known security defects, needs to be pitched to all stakeholders (developers, product owner, even external stakeholders) the right way. It needs to provide obvious benefit and not make anyone's life harder than it already is. Everyone has their own agendas. Rather than fighting against them, include consideration for them in your pitch. I think this sort of a pitch is actually reasonably easy if you keep these factors in mind.
 
 ### Insufficient Attack Protection
 

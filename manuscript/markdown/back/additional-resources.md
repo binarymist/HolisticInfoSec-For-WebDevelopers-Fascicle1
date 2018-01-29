@@ -579,6 +579,7 @@ http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cra
 
 
 **Application Intrusion Detection and Response**
+{#additional-resources-countermeasures-insufficient-attack-protection-application-intrusion-detection-and-response}
 
 **Appsensor home**  
 [http://appsensor.org/](http://appsensor.org/)
