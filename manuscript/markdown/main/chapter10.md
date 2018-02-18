@@ -4305,13 +4305,13 @@ Check the [specification](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec
 
 The `Crypto` interface was implemented in some browsers without being well defined or cryptographically sound. Browsers implementing the Web Crypto API have removed the `Crypto` methods and properties other than `Crypto.subtle` which provides access to the below `SubtleCrypto` interface, which provides all of the Web Crypto API methods.
 
-Check the [specification](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#crypto-interface) for further details.
+Check the [specification](https://w3c.github.io/webcrypto/Overview.html#crypto-interface) for further details.
 
 ##### [`SubtleCrypto`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) (Web API interface)
 
 `SubtleCrypto` provides all the methods to work with the Web Crypto API.
 
-Check the [specification](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#subtlecrypto-interface) for further details.
+Check the [specification](https://w3c.github.io/webcrypto/Overview.html#subtlecrypto-interface) for further details.
 
 &nbsp;
 
