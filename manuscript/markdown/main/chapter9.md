@@ -988,6 +988,7 @@ We have covered the technical aspects of password strategies in the [Review Pass
   * [Conformity Monkey](https://github.com/Netflix/SimianArmy/wiki/Conformity-Home)
 * [CloudSploit](https://cloudsploit.com/): Aims to solve the problem of misconfigured AWS accounts with background scanning through hundreds of resources, settings, and activity logs looking for potential issues. Their blog also has some good resources on it. Scan reports include in-depth remediation steps. Has a free and paid hosted tiers. Auto scanning scheduling for the paid plans. Is open source on [github](https://github.com/cloudsploit/scans)
 * [Amazon Inspector](https://console.aws.amazon.com/inspector/): At this time only targets EC2 instances. Inspector agent needs to be installed on all target EC2 instances
+* [CloudMapper](https://github.com/duo-labs/cloudmapper) by Scott Piper for visualising your AWS environments. Along with his blog post at [duo.com](https://duo.com/blog/introducing-cloudmapper-an-aws-visualization-tool)
 * [Awesome AWS](https://github.com/donnemartin/awesome-aws) has many useful resources
 
 ## 4. SSM Risks that Solution Causes
