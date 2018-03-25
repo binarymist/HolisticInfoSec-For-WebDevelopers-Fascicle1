@@ -1273,6 +1273,9 @@ and also the specification
 [http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me](http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me)  
 [https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information](https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information)
 
+**The NZ Herald** covered a story  
+[http://www.nzherald.co.nz/business/news/article.cfm?c_id=3&objectid=11422509](http://www.nzherald.co.nz/business/news/article.cfm?c_id=3&objectid=11422509)
+
 **The attack and demise of Code Spaces**  
 https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aws-the-b  
 est-practices-to-avoid-it/

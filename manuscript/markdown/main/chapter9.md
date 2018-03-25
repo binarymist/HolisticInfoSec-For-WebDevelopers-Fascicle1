@@ -2,39 +2,39 @@
 
 ![10,000' view and lower of Cloud and In-house Cloud Security](images/10000Cloud.png)
 
-If you skipped the [VPS](#vps) chapter, just be aware that there are many similarities here. The fact is, that in many cases, your VPS may be on someone else's hardware and under their control, just as many Cloud Service Providers leverage cloud resources, which ultimately still runs on real hardware. The Cloud is an abstraction layer.
+In case you skipped the [VPS](#vps) chapter, there are many similarities here mentioned in this chapter. The fact is: your VPS may be on someone else's hardware and under their control. There are many Cloud Service Providers that leverage cloud resources; which ultimately still runs on real hardware. The Cloud is an abstraction layer.
 
 ## 1. SSM Asset Identification
 
-Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable and add any newly discovered.
+Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), remove any that are not applicable and add any newly discovered ones.
 
 ### Productivity
 
-Using IaaS, and even more so PaaS, can provide great productivity gains, but everything comes at a cost. You don't gain productivity for free. You will be sacrificing something, and usually that something is security; you no longer have control of your data.
+Using IaaS, and even more with PaaS, can provide great productivity gains. However, everything comes at a cost, as you can not gain productivity for free. Something will be scarified, usually that will be your security; which means you will no longer have control of your data.
 
-Using cloud services can be a good thing especially for smaller businesses and start ups, but before the decision is made as to whether to use an external cloud provider or create your own, there are some very important considerations to be made. We will discuss these in the Identify Risks and Countermeasures subsections.
+Using cloud services can be a good thing especially for smaller businesses and startups. However, first of off decisions need to be made whether to use an external cloud provider or to create your own, as there are some very important considerations to be made. We will discuss these in the Identify Risks and Countermeasures subsections.
 
 ### Competitive Advantage
 
-If you are a start up, be aware that the speed you initially enjoy with PaaS may not continue as your product moves from proof of concept to something that customers start to use. You may decide to be more careful on your customer's behalf and your own intellectual property (IP) by bringing it in-house, or you may entrust it to a provider that takes security seriously, rather than just saying they do. We will be investigating these options through the Identify Risks subsection.
+If you are a startup, be aware that the speed you initially enjoy with PaaS may not continue as your product moves from proof of concept to when the customers start to use your product or service. You may decide to be more cautious on your customer's behalf and your own intellectual property (IP) by bringing it in-house, or you may entrust it to a provider that takes security seriously, rather than just saying they do. We will be investigating these options through the Identify Risks subsection.
 
 ### Control
 
-With regard to control of our environments, we are blindly trusting huge amounts of IP to Cloud Service Providers (CSPs). In fact, I have worked for many customers who insist on putting everything in the Cloud without much thought. Some have even said that they are not concerned with security. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to market as their progress and plans are intercepted. Bruce Schneier's Data and Goliath is the best book I have read to date that reveals the problem of blindly yielding everything. It's an eye-opening canon of the sad reality of our risky habits and what results they will yield.
+With regards to control of our own environments, we are blindly trusting huge amounts of IP to Cloud Service Providers (CSPs). In many instances, I have worked with customers who insist on putting everything in the Cloud without putting any thought into the security aspects of using the Cloud. Some have even commented how they are not concerned with the security risk. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to the market, and how their progress and plans have been intercepted. Bruce Schneier's book, "Data and Goliath" is the best book I have read to date that reveals the problems of blindly yielding everything. It's an eye-opening canon of the sad reality of our risky habits and the results they will yield.
 
-Whenever you see that word "trust", you are yielding control to the party you are trusting. When you trust an entity with your assets, you are giving them control. Are your assets their primary concern, or is it maximising their profits by using you and/or your data as their asset?
+Whenever you see the word "trust", you are yielding all control to the party you are trusting. When you trust another entity with your assets, you are giving them the power to control. Step back and think: Are your assets their primary concern, or is it maximising their profits by using you and/or your data as their asset?
 
-If you decide to use an external cloud provider, you need to be aware that what ever goes into the Cloud is almost completely out of your control, you may not be able to remove it once it is there, as you may not have visibility into whether or not the existing data is really removed from the Cloud.
+If you decide to use an external cloud provider, you need to be aware that whatever goes into the Cloud is almost completely out of your control. You may not be able to remove your data once it is in there, and have visibility into whether or not the existing data has really removed from the Cloud.
 
 ### Data
 
-If you deal with sensitive customer data, then you have an ethical and legal responsibility for it. If you are putting sensitive data in the Cloud then you could very well be shirking your responsibility. You may not even retain legal ownership of it.
+If you are dealing with sensitive customer data, then you as the developer have an ethical and legal responsibility for it. Also, if you are putting sensitive data in the Cloud, then you could very well be shirking your responsibility. You may not even retain the legal ownership of it.
 
 We will keep these assets in mind as we work through the rest of this chapter.
 
 ## 2. SSM Identify Risks {#cloud-identify-risks}
 
-Some of the the processes we described at the top level in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) may be worth revisiting.
+Some of the processes we described at the top level in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) may be worth revisiting.
 
 ### Shared Responsibility Model {#cloud-identify-risks-shared-responsibility-model}
 
@@ -42,18 +42,18 @@ The shared responsibility model is one that many have not grasped or understood 
 
 #### CSP Responsibility
 
-The CSP takes care of the infrastructure, not the customer specific configuration of it. Due to the sheer scale of what they are building, the CSP is often able to build in good security controls, in contrast to the average system administrator, who just does not have the resources or ability to focus on security to the same degree.
+The CSP takes care of the infrastructure, not the customer specific configuration of it. Due to the sheer scale of what they are building, the CSP is often able to build in good security controls, in contrast to the average system administrator, who has limited resources or ability to focus on security to the same degree.
 
-Due again to sheer scale, the average CSP has a concentrated group of good security professionals versus a business who's core focus is often not security related. CSPs provide good security mechanisms, but the customer has to know and care enough to use them.
+Again, due to sheer scale, the average CSP has a concentrated group of good security professionals versus a business who's core focus is often not security related. CSPs provide good security mechanisms, but the customer has to know and care enough to use them.
 
-CSPs who architect infrastructure, build components, frameworks, hardware, and platform software are, in most cases, taking security seriously and doing a reasonable job.
+CSPs who architect infrastructure, build components, frameworks, hardware, and platform software in most cases take security seriously and are doing a reasonable job.
 
 #### CSP Customer Responsibility {#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility}
 
-CSP customers are expected to responsible for their own security as it pertains to:
+CSP customers are expected to be responsible for their own security as it pertains to:
 
 1. Their people working with the technology
-2. [Application security](#web-applications), specific to shortcomings in people: lack of skill, experience, engagement, etc.
+2. [Application security](#web-applications), specific to shortcomings in people: lack of skills, experience, engagement, etc.
 3. Configuring the infrastructure and/or platform components, again referencing people defects
 
 All too often the customer's responsibility is neglected, which renders the Cloud no better for the customer in terms of security.
@@ -70,12 +70,12 @@ The following are a set of questions (verbatim) I have been asked recently, and 
 
 ### CSP Evaluation {#cloud-identify-risks-csp-evaluation}
 
-CSPs are constantly changing their terms and conditions, as well as many components and aspects of what they offer. I've compiled a set of must-answer questions to quiz your CSP with as part of your threat modelling before (or even after) you sign their service agreement.  
-Most of these questions were already part of my [Cloud vs In-house talk](http://blog.binarymist.net/presentations-publications/#does-your-cloud-solution-look-like-a-mushroom) at the Saturn Architects conference. I recommend using these as a basis for identifying risks that are important for you to consider. You should then be well armed to come up with countermeasures and think of additional risks.
+CSPs are constantly changing their terms and conditions, as well as many other components and aspects of what they offer. I have compiled a set of must-answer questions to quiz your CSP with as part of your threat modelling before (or even after) you sign their service agreement.  
+Most of these questions were already part of my [Cloud vs In-house talk](http://blog.binarymist.net/presentations-publications/#does-your-cloud-solution-look-like-a-mushroom) at the Saturn Architects conference I spoke at. I recommend using these as a basis for identifying risks that are important for you to consider. This should make you well armed to come up with countermeasures and think of any additional risks.
 
 1. Do you keep a signed audit log of what actions users performed, and when, via UIs and APIs?  
    
-   Both authorised and unauthorised users are more careful about the actions they take, or do not take, when they know that their actions are recorded and have the potential to be watched  
+   Both authorised and unauthorised users are more careful about the actions they take, or do not take, when they know their actions are being recorded and are potentially being watched.  
    
 2. How do you enact the shared responsibility model between CSPs and their customers? Please explain your role and my role in the protection of my and my customers data.  
    
@@ -86,51 +86,51 @@ Most of these questions were already part of my [Cloud vs In-house talk](http://
    
 3. Do you encrypt all communications between servers within your data centres as well as your service providers?  
    
-   How is your data encrypted in transit (as discussed in the Management of Application Secrets subsections of the Web Applications chapter)? In reality, you have no idea what paths it will take once in your CSP's possession, and could very well be intercepted without your knowledge.  
+   How is your data encrypted in transit (as discussed in the Management of Application Secrets subsections of the Web Applications chapter)? In reality, you have no idea what paths it will take once in your CSPs possession, and could very well be intercepted without your knowledge.  
    
-   * You have little to no control over the network path that the data you provide will travel on
-   * There are more parties involved in your CSPs infrastructure than on your own network  
+   * You have little to no control over the network path that the data you provide will travel on.
+   * There are more parties involved in your CSPs infrastructure than on your own network.
    
 4. Do you provide access to logs, if so, what sort of access, and to what sort of logs?  
    
-   Hopefully you will have easy access to any and all logs, just as you would if it was your own network. That includes hosts, routing, firewall, and any other service logs  
+   Hopefully you will have easy access to any and all logs, just as you would if it was your own network. That includes hosts, routing, firewall, and any other service logs.  
    
 5. What is your process around terminating my contract with you and/or moving to another CSP?  
    
-   No CSP is going to last forever, termination or migration is inevitable, it is just a matter of when  
+   No CSP is going to last forever, termination or migration is inevitable, it is just a matter of when. 
    
 6. Where do your servers, processes and data reside physically?  
    
-   As we discuss a little later in the Cloud Services Provider vs In-house subsection of Countermeasures, your data is governed by different people and jurisdictions depending on where it physically resides. CSPs have data centres in different countries and jurisdictions, each having different data security laws
+   As we discuss a little later in the Cloud Services Provider vs In-house subsection of Countermeasures, your data is governed by different people and jurisdictions depending on where it physically resides. CSPs have data centres in different countries and jurisdictions, each having different data security laws.
 
 
 7. Who can view the data I store in the Cloud?  
    
-   Who has access to view this data? What checks and controls are in place to make sure that this data can not be exfiltrated?  
+   Who has access to view this data? What checks and controls are in place to make sure that this data cannot be exfiltrated?  
    
 8. What is your Service Level Agreement (SLA) for uptime?  
    
    Make sure you are aware of what the uptime promises mean in terms of real time. Some CSPs will allow 99.95% uptime if you are running on a single availability zone, but closer to 100% if you run on multiple availability zones. Some CSPs do not have a SLA at all.  
    
-   CSPs will often provide credits for the downtime, but these credits in many cases may not cover the losses you encounter during high traffic events  
+   CSPs will often provide credits for the downtime, but these credits in many cases may not cover the losses you encounter during high traffic events.  
    
 9. Are you ISO/IEC 27001:2013 Certified? If so, what is within its scope?  
    
-   If the CSP can answer this with a "everything" and prove it, they have done a lot of work to make this possible, this shows a certain level of commitment to security posture. Just be aware, as with any certification, it is just that, it doesn't necessarily prove sound security  
+   If the CSP can answer this with a "everything" and prove it, they have done a lot of work to make this possible. This shows a certain level of commitment to their security posture. Just be aware, as with any certification, it is just that, it doesn't necessarily prove sound security.  
    
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, and allow the network to be in-scope?  
     
-    CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness, if their networks stand up to penetration tests, then they obviously take security seriously. Ideally, this is what you are looking for. CSPs that do not permit penetration testing of their environments are usually trying to hide something. It may be the fact that they know they have major insecurities, or a skills shortage in terms of security professionals. Worse, they may be unaware of where their security stature lies and are not willing to have their faults demonstrated  
+    CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness. If their networks stand up to penetration tests they obviously take security seriously. Ideally, this is what you are looking for. CSPs that do not permit penetration testing of their environments are usually trying to hide something. It may be that they know they have major insecurities, or a skills shortage in terms of security professionals. Worse, they may be unaware of where their security stature lies and are not willing to have their faults demonstrated.  
    
 11. Do you have bug bounty programmes running, if so, what do they look like?  
     
-    This is another example if the programme is run well, it conveys that the CSP is open and transparent about their security faults and are willing to mitigate them as soon as possible
+    This is another example if their programme is run well, it conveys that the CSP is open and transparent about their security faults and are willing to mitigate them as soon as possible.
 
 ### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom) {#cloud-identify-risks-cloud-service-provider-vs-in-house}
 
-A question that I hear frequently: "What is more secure, building and maintaining your own cloud, or trusting a CSP to take care of security for you?". That is a defective question, as discussed in the [Shared Responsibility Model ](#cloud-identify-risks-shared-responsibility-model) subsections. There are [some aspects](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) of security that the CSP has no knowledge of, and only you as the CSP customer can better secure those areas.
+A question that I hear frequently is: "What is more secure, building and maintaining your own cloud, or trusting a CSP to take care of your security for you?". That is a defective question, as discussed in the [Shared Responsibility Model ](#cloud-identify-risks-shared-responsibility-model) subsections. There are [some aspects](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) of security that the CSP has no knowledge of, and only you as the CSP customer can better secure those areas.
 
-Choosing a CSP means that you are depending on their security professionals to design, build, and maintain the infrastructure, frameworks, hardware and platforms. Usually large CSPs will do a decent job of this. If you choose to design, build, and maintain your own in-house cloud, then you will also be subject to the skills of your engineers who have created the Cloud components you decide to use. You will ultimately be responsible for the following, along with many aspects of how these components fit together and interact with each other:
+Choosing a CSP means that you are depending on their security professionals to design, build, and maintain the infrastructure, frameworks, hardware and platforms. Usually large CSPs will do a decent job of this. Though, if you choose to design, build, and maintain your own in-house cloud, you will be subject to the skills of your own engineers who have created the Cloud components you decide to use. You will ultimately be responsible for the following, along other aspects of how these components fit together and interact with each other:
 
 * General infrastructure
 * Hardware
@@ -143,13 +143,13 @@ Choosing a CSP means that you are depending on their security professionals to d
 * Regular penetration testing
 * Many other aspects covered in the VPS and Network chapters
 
-In general, your engineers are going to have to be as good or better than those of any given CSP you are comparing capabilities with in order to achieve similar levels of security at the infrastructure level.
+In general, your engineers are going to have to be as good or better than those of any given CSP that you are comparing capabilities with, in order to achieve a similar level of security at the infrastructure level.
 
-Trust is an issue with the Cloud, you do not have control of your data or the people that create and administer the Cloud environment you decide to use.
+Trust is an issue with the Cloud since you do not have control of your data or the people that create and administer the Cloud environment you decide to use.
 
 #### Skills
 
-In many cases smaller CSPs suffer from the same resourcing issues that many businesses do with regards to having solid security skills and engagement in order for their workers to apply security in-house. To benefit from the Shared Responsibility Model of the CSP, it often pays to go with the larger CSPs.
+In many cases smaller CSPs suffer from the same resourcing issues that many businesses do, with regards to having solid security skills and engagement in order for their workers to apply security in-house. To benefit from the Shared Responsibility Model of the CSP, it often pays to go with the larger CSPs.
 
 #### EULA
 
@@ -158,23 +158,23 @@ CSPs have the right to change their End User License Agreements (EULA) at any ti
 #### Giving up Secrets {#cloud-identify-risks-cloud-service-provider-vs-in-house-giving-up-secrets}
 
 Hosting providers can be, and in many cases are [forced](http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me) by governing authorities to [give up](https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information) your secrets and those of your customers. These are very unfortunate yet common scenarios, you may not even know it has happened.  
-The NZ Herald [covered a story](http://www.nzherald.co.nz/nz/news/article.cfm?c_id=1&objectid=11481516) in which senior lawyers and the Privacy Commissioner told the Herald of concerns about the practise which sees companies coerced into giving up information to the police. Instead of seeking a legal order, police have asked companies to hand over information to assist with the "maintenance of the law", threatened them with prosecution if they tell the person about whom they are interested, and accept data with no record keeping to show how often requests are made. The request from police carries no legal force at all yet is regularly complied with.
+A New Zealand (NZ) media outlet, The NZ Herald [covered a story](http://www.nzherald.co.nz/business/news/article.cfm?c_id=3&objectid=11422509) where senior lawyers and the Privacy Commissioner told the Herald of their concerns of the practise which see companies coerced into giving up information to the police. Instead of seeking a legal order, police asked companies to hand over information to assist with the "maintenance of the law". They threaten them with prosecution if they told the person whom they are interested in, and accept the data with no record keeping to show how often requests are made. The request from the police carries no legal force at all, it yet is regularly complied with.
 
 #### Location of Data
 
-As touched on in the CSP Evaluation questions, in many cases CSPs are outsourcing services to several providers. They often do not even have visibility themselves. Sometimes data is hosted in other jurisdictions and further control is lost.
+As touched on in the CSP Evaluation questions, CSPs are outsourcing services to several providers. They often don't have visibility themselves and sometimes the data is hosted in other jurisdictions where further control is lost.
 
 #### Vendor lock-in
 
-This does not just apply to the Cloud versus In-house, it also applies to open technologies in the Cloud versus closed/proprietary offerings.
+This not only applies to the Cloud versus In-house, it also applies to open technologies in the Cloud versus closed/proprietary offerings.
 
-There is a certain reliance on vendor guarantees, these are not usually an issue though. The issue is more commonly our lack of understanding fully what part we play in the shared responsibility model.
+There is a certain reliance on vendor guarantees, which are not usually an issue. However, the issue is more commonly our lack of fully understanding what part we play in the shared responsibility model.
 
-What happens when you need to move from your current CSP? How much do you have invested in proprietary services such as [serverless](#cloud-identify-risks-serverless) offerings? What would it cost your organisation to port to another CSP's environment? Are you getting so much benefit that it just does not matter? If you are thinking like this, then you could very well be missing many of the steps that you should be taking as your part of the shared responsibility model. We discuss these throughout this chapter. Serverless technologies really look great until you [measure](#cloud-identify-risks-serverless) the costs of [securing everything](#cloud-countermeasures-serverless). Weigh the costs and benefits. 
+What happens when you need to move from your current CSP? How much do you have invested in proprietary services such as [serverless](#cloud-identify-risks-serverless) offerings? What would it cost for your organisation to port to another CSP's environment? Are you getting so much benefit that it doesn't really matter? If you are thinking this way, then you could be missing many of the steps you should be taking as your part of the shared responsibility model. We investigate this further throughout this chapter. Serverless technologies really look great until you [measure](#cloud-identify-risks-serverless) the costs of [securing everything](#cloud-countermeasures-serverless). Weigh both the costs and benefits. 
 
 #### Possible Single Points of Failure
 
-There are plenty of single points of failure in the Cloud
+There are plenty of single points of failure in the Cloud, such as:
 
 * Machine instance dies
 * Docker container dies
@@ -185,9 +185,9 @@ There are plenty of single points of failure in the Cloud
 
 ### Review Other Chapters {#cloud-identify-risks-review-other-chapters}
 
-There is a lot in common with the topic of Cloud security in the other chapters of this fascicle and Fascicle 0. Had I not already provided coverage, I would be doing so again now.
+There is a lot in common on the topic of Cloud security in the other chapters of this fascicle and Fascicle 0. 
 
-This is a good time to orient / reorient yourself with the related topics / concepts from the other chapters. From here on in, I will be assuming you can apply the knowledge from the other chapters to the topic of Cloud security without me having to revisit large sections of it, specifically:
+This point in the chapter, is a good time to orient / reorient yourself with the related topics / concepts from the other chapters. From here on in, I will assume that you can apply the knowledge from the other chapters to the topic of Cloud security without me having to revisit large sections of it, specifically:
 
 **[Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)**:
 
@@ -222,7 +222,7 @@ People chapter
 
 ### People
 
-You might ask what people have to do with cloud security. My experience working as a consulting Architect, Engineer, and Security Professional for many organisations and their teams has shown me, that in the majority of security incidents, reviews, tests and redesigns, the root cause of failures stems back to people defects. This is recognised as the number one issue of the [CSP Customer Responsibility](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) in the Shared Responsibility Model. As people, we are our own worst enemies. We can be the weakest and the strongest links in the security chain. The responsibility falls squarely in our own laps.
+You might ask what people have to do with cloud security. From my experience working as a consulting Architect, Engineer, and Security Professional for many organisations and their teams. This has shown me, that in the majority of security incidents, reviews, tests and redesigns, the root cause of failures stems back to people defects. This is recognised as the number one issue of the [CSP Customer Responsibility](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) in the Shared Responsibility Model. As people, we are our own worst enemies. We can be the weakest and the strongest links in the security chain. The responsibility falls squarely in our own laps.
 
 You will notice that most of the defects addressed in this chapter come down to people:
 
@@ -232,7 +232,7 @@ You will notice that most of the defects addressed in this chapter come down to 
 
 ### Application Security
 
-The interview I hosted for Software Engineering Radio with Zane Lackey on [Application Security](http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/) is worth listening to.
+On the Software Engineering Radio show, I hosted an interview with Zane Lackey on [Application Security](http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/), it is well worth listening to.
 
 With the shift to the Cloud, AppSec has become more important than it used to be, recognised and discussed:
 
@@ -244,7 +244,7 @@ In general, as discussed in the [Shared Responsibility Model](#cloud-identify-ri
 
 ### Network Security {#cloud-identify-risks-network-security}
 
-The network between the components you decide to use in the Cloud will almost certainly no longer be administered by your network administrator(s), but rather by you as a Software Engineer. Networks are now [expressed as code](#cloud-identify-risks-infrastructure-and-configuration-management), and because coding is part of your responsibility as a Software Engineer, the network will more than likely be left to you to design and code for. You better have a good understanding of [Network Security](#network).
+The network between the components you decide to use in the Cloud will almost certainly no longer be administered by your network administrator(s), but rather by you as a Software Engineer. Networks are now [expressed as code](#cloud-identify-risks-infrastructure-and-configuration-management), and because coding is your responsibility as a Software Engineer, the network will more than likely be left to you to design and code for. You will need to have a good understanding of [Network Security](#network).
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) {#cloud-identify-risks-violations-of-least-privilege}
 
@@ -252,26 +252,26 @@ The principle of Least Privilege is an essential aspect of defence in depth, sto
 
 The attack and demise of [Code Spaces](https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aws-the-best-practices-to-avoid-it/) is a good example of what happens when least privilege is not kept up with. An unauthorised attacker gained access to the Code Spaces AWS console and deleted everything attached to their account. Code Spaces was no more, they could not recover.
 
-In most organisations I work for as an architect or engineer, I see many cases of least privilege violations. We discuss this principle in many places through this entire book series. It is a concept that needs to become part of your very instinct. The principle of least privilege asserts that no actor should be given more privileges than is necessary to do their job.
+In most organisations I have worked for as an architect or engineer, I have seen many cases of least privilege violations. We discuss this principle in many places through this entire book series. It is a concept that needs to become part of your very instinct. The principle of least privilege asserts that no actor should be given more privileges than is necessary to do their job.
 
 Here are some examples of violating least privilege:
 
 **[Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)**:
 
-* Physical chapter: Someone has access to a facility that they do not need access to in order to do their job, a cleaner for example having access to a server room, or any room where they could possibly exfiltrate or infiltrate anything
-* People chapter: In a phishing attack, the attacker may have access to an email address to use for a FROM address, thus making an attack appear more legitimate. The attacker should not have access to an email address of an associate of their target, this violates least privilege
+* Physical chapter: Someone has access to a facility that they do not need access to in order to do their job. For example, a cleaner having access to a server room, or any room where they could possibly exfiltrate or infiltrate anything
+* People chapter: In a phishing attack, the attacker may have access to an email address to use for a FROM address, making an attack appear more legitimate. The attacker should not have access to an email address of an associate of their target, this violates least privilege
 
 **This Fascicle**:
 
 * VPS chapter: We discussed privilege escalation. This is a direct violation of least privilege, because after escalation, attackers now have additional privileges
-* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio. This for example could allow an attacker who managed to gain control of a network to have unhindered access to all of an organisation's assets. This is often due to a monolithic network segment rather than having assets on alternative network segments with firewalls between them
+* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio. This for example could allow an attacker to gain control of a network to have unhindered access to all of an organisation's assets. This is often due to a monolithic network segment rather than having assets on alternative network segments with firewalls between them
 * Web Applications chapter: We discuss setting up data-store accounts that only have privileges to query the stored procedures necessary for a given application, thus reducing the power that any possible SQL injection attack may have to carry out arbitrary commands. [Haroon Meer](https://twitter.com/haroonmeer) also discussed this as a technique for exfiltration of data in the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) podcast
 
-Hopefully you are getting clarity on least privilege, and its propensity to break down in a cloud environment. Some examples:
+Hopefully you are getting more clarity on least privilege, and its propensity to break down in a cloud environment. Some examples:
 
-* **Running services as root**: A perfect example of this is running a docker container that does not specify a non-root user in its image. Docker will default to root if not configured otherwise, as discussed in the [Docker](#vps-identify-risks-docker-the-default-user-is-root) subsection of the VPS chapter
-* **Configuration Settings Changed Ad Hoc**: Because there are so many features and configurations that can be easily modified, developers and administrators will modify them. For example, someone needs immediate access, and we are in the middle of something else, so we quickly modify a permissions setting without realising we have just modified that permission for a group of other people as well. Because it is so easy to make ad hoc changes, they will be made
-* **Machine Instance Access To Open**: Is an attacker permitted to access your machine instances from anywhere? If so, this is additional attack surface
+* **Running services as root**: A perfect example of this is running a docker container that does not specify a non-root user in its image. Docker will default to root if not configured otherwise, as discussed in the [Docker](#vps-identify-risks-docker-the-default-user-is-root) subsection of the VPS chapter.
+* **Configuration Settings Changed Ad Hoc**: Because there are so many features and configurations that can be easily modified, developers and administrators will modify them. For example, someone needs immediate access when we are in the middle of something else, that we quickly modify a permissions setting without realising we have just modified that permission for a group of other people as well. It is so easy to make ad hoc changes, they will be made.
+* **Machine Instance Access To Open**: Is an attacker permitted to access your machine instances from anywhere? If so, this is an additional attack surface.
 
 #### Machine Instance Single User Root {#cloud-identify-risks-violations-of-least-privilege-machine-instance-single-user-root}
 
@@ -283,26 +283,26 @@ Sharing, and using the root user unnecessarily, as I discuss in the [Credentials
 
 ### Storage of Secrets {#cloud-identify-risks-storage-of-secrets}
 
-As a Consultant / contract Architect, Engineer, I see a lot of mishandling of sensitive information. The following are some examples.
+I have seen a lot of mishandling of sensitive information, some examples as follows.
 
 #### Private Key Abuse
 
-Below are some of the ways I've see private keys mishandled.
+Below are some of the ways I have see private keys mishandled.
 
 ##### SSH {#cloud-identify-risks-storage-of-secrets-private-key-abuse-ssh}
 
-[SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) key-pair auth is no better than password auth if it is abused in the following way, in-fact it may even be worse. I have seen some organisations store a single private key with no pass-phrase for all of their EC2 instances in their developer wiki. All or many developers have access to this, with the idea being that they just copy the key from the wiki to their local `~/.ssh/`. There are a number of things wrong with this. 
+[SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) key-pair auth is no better than password auth if it is abused in the following way, in-fact it may even be worse. I have seen some organisations who store a single private key with no pass-phrase for all of their EC2 instances in their developer wiki. All or many of the developers have access to this, with the idea being that they just copy the key from the wiki to their local `~/.ssh/`. There are a number of things wrong with this. 
 
 * Private key is not private if it is shared amongst the team
 * No pass-phrase, means no second factor of authentication
 * Because there is only one user (single key-pair) being used on the VPSs, there is also no audit trail
-* The weakest link is the weakest wiki password of all the developers, and we all know how weak that is likely to be, with a bit of reconnaissance, probably guessable in a few attempts without any password profiling tools. I discussed this and demonstrated a collection of password profiling tools in the "Weak Password Strategies" subsection of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). Once the attacker has the weakest password, then they own all of the EC2 (if on AWS) instances, or any resource that is using key-pair authentication. If the organisation is failing this badly, then they almost certainly will not have any password complexity constraints on their wiki either
+* The weakest link is the weakest wiki password of all the developers, and we all know how weak that is likely to be, with a bit of reconnaissance, probably guessable in a few attempts without any password profiling tools. I have discussed this and demonstrated a collection of password profiling tools in the "Weak Password Strategies" subsection of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). Once the attacker has the weakest password, then they own all of the EC2 (if on AWS) instances, or any resource that is using key-pair authentication. If the organisation is failing this badly, then they almost certainly will not have any password complexity constraints on their wiki either
 
-Most developers will also blindly accept what they think are the server key fingerprints without verifying them, thus opening themselves up to a MItM attack, as discussed in the VPS chapter under the [SSH subsection](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint). This very quickly moves from just a technical issue to a cultural one. People are trained to just accept that the server is who it says it is, the fact that they have to verify the fingerprint is essentially a step that gets in their way.
+Most developers will also blindly accept what they think are the server key fingerprints without verifying them, which opens them up to a MItM attack, as discussed in the VPS chapter under the [SSH subsection](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint). This quickly moves from just being a technical issue to a cultural one, where people are trained to accept that the server is who it says it is. The fact that they have to verify the fingerprint is essentially a step that gets in their way.
 
 ##### TLS {#cloud-identify-risks-storage-of-secrets-private-key-abuse-tls}
 
-When Docker reads the instructions in the following `Dockerfile`, an image is created that copies your certificate, private key, and any other secrets you have declared, and adds them to an additional layer, forming the resulting image. Both `COPY` and `ADD` will bake what ever you are copying or adding into an additional layer or delta, as discussed in the [Consumption from Registries](#vps-countermeasures-docker-consumption-from-registries) Docker subsection in the VPS chapter. Who ever can access this image from a public or less public registry now has access to your certificate and even worse your private key.
+When Docker reads the instructions in the following `Dockerfile`, an image is created that copies your certificate, private key, and any other secrets you have declared, and adds them to an additional layer and forms the resulting image. Both `COPY` and `ADD` will bake what ever you are copying or adding into an additional layer or delta, as discussed in the [Consumption from Registries](#vps-countermeasures-docker-consumption-from-registries) Docker subsection in the VPS chapter. Whoever can access this image from a public or less public registry now has access to your certificate and even worse your private key.
 
 Anyone can see how these images were built using these tools:
 
@@ -323,15 +323,15 @@ The `ENV` command similarly adds the `dirty little secret` value as the `mySecre
 
 #### Credentials and Other Secrets {#cloud-identify-risks-storage-of-secrets-credentials-and-other-secrets}
 
-Sharing accounts, especially super-user accounts on the likes of [machine instances](#cloud-identify-risks-violations-of-least-privilege-machine-instance-single-user-root) and even worse, your CSP IAM account(s), and worse still, the account [root user](#cloud-identify-risks-violations-of-least-privilege-csp-account-single-user-root). I have worked for organisations that had only the single default AWS account [root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html) you are given when you first sign up to AWS, shared amongst several teams of Developers and managers, on the organisations wiki, which in itself is a big security risk. Subsequently, one such organisation had one of the business owners go rogue, and change the single password and lock everyone else out.
+Sharing accounts, especially super-user accounts on the likes of [machine instances](#cloud-identify-risks-violations-of-least-privilege-machine-instance-single-user-root) and worse, your CSP IAM account(s), and even worse still, the account [root user](#cloud-identify-risks-violations-of-least-privilege-csp-account-single-user-root). I have seen organisations where they only had the single default AWS account [root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html) (you are given when you first sign up to AWS), shared amongst several teams of Developers and managers, and on the organisations wiki, which in itself is a big security risk. Subsequently, one such organisation had one of the business owners go rogue, and change the single password and locked everyone else out.
 
 ##### Entered by People (manually)
 
-Developers and others putting user-names and passwords in company wikis, source control, or anywhere where there is a reasonably good chance that an unauthorised person will be able to view them with a little to moderate amount of persistence. This was discussed above in the [SSH](#cloud-identify-risks-storage-of-secrets-private-key-abuse-ssh) section. When you have a team of developers sharing passwords, the weakest link is usually very weak, and that is only if you are considering outsiders to be a risk. According to the study I discussed in the [Fortress Mentality](#network-identify-risks-fortress-mentality) subsection of the network chapter, this would be a mistake, with about half of the security incidents being carried out from inside of an organisation.
+Developers and others putting user-names and passwords into company wikis, source control, or anywhere where there is a reasonably good chance that an unauthorised person will be able to view them with a little to moderate amount of persistence. This was discussed above in the [SSH](#cloud-identify-risks-storage-of-secrets-private-key-abuse-ssh) section. When you have a team of developers sharing passwords, the weakest link is usually very weak, and that is only if you are considering outsiders to be a risk. According to the study I discussed in the [Fortress Mentality](#network-identify-risks-fortress-mentality) subsection of the network chapter, this would be a mistake, with about half of the security incidents being carried out from inside of an organisation.
 
 ##### Entered by Software (automatically)
 
-What ever you use to get work done in the Cloud programmatically, you are going to need to authenticate the process at some point. I see a lot of passwords in configuration files, stored in:
+Whatever you use to get work done in the Cloud programmatically, you are going to need to authenticate the process at some point. I see a lot of passwords in configuration files, stored in:
 
 * Source control
 * [Dropbox](#network-identify-risks-data-exfiltration-infiltration-dropbox)
@@ -359,7 +359,7 @@ Any perimeters that you used to, or at least thought you had, are gone. We discu
 
 Azure has [Functions](https://azure.microsoft.com/en-us/services/functions/).
 
-AWS's complexity alone causes a lot of Developers to just "get it working" if they are lucky, then push it to production. As an adverse side effect, security is, in most cases, overlooked. With AWS Lambda, you need to first:
+AWS's complexity alone causes a lot of Developers to just "get it working" if they are lucky, then push it through to production. Then as an adverse side effect, security is, in most cases, overlooked. With AWS Lambda, you need to first:
 
 1. Pick your function from a huge collection
 2. Pick the trigger (event) from one of the many AWS services available
@@ -382,7 +382,7 @@ Rich Jones demonstrated what can happen if you fail at the above three points in
 
 #### DoS of Lambda Functions
 
-The compute executing the functions you supply is short lived. With AWS, [containers are used](https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html) and reused providing your function runs at least once approximately every four minutes and thirty seconds, according to Rich Jones talk. The idea of hardware DoS is less likely, but [billing DoS](https://thenewstack.io/zombie-toasters-eat-startup/) is a [real issue](https://sourcebox.be/blog/2017/08/07/serverless-a-lesson-learned-the-hard-way/).
+The compute executing the functions you supply is short lived. With AWS, [containers are used](https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html) and reused providing your function runs at least once approximately every four minutes and thirty seconds, according to Rich Jones' talk. The idea of hardware DoS is less likely, but [billing DoS](https://thenewstack.io/zombie-toasters-eat-startup/) is a [real issue](https://sourcebox.be/blog/2017/08/07/serverless-a-lesson-learned-the-hard-way/).
 
 AWS Lambda will, by default allow any given function a [concurrent execution limit](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#concurrent-execution-safety-limit) of 1000 per region. 
 
@@ -390,15 +390,15 @@ AWS Lambda will, by default allow any given function a [concurrent execution lim
 
 The glaringly obvious risks with the management of configuration and infrastructure as code is the management of secrets, and most other forms of information security. "Huh?" I hear you say. Let me try and unpack that statement.
 
-When you create and configure infrastructure as code, you are essentially combining many technical aspects: machine instances (addressed in the VPS chapter), networking (addressed in the Network chapter), the Cloud, and your applications (addressed in the Web Applications chapter), and bake them all into code to be executed. If you create security defects as part of the configuration or infrastructure, then lock them up in code, you will have the same consistent security defects each time that code is run. Hence,  Software Engineers now need to understand much more than they used to about security. We are now responsible for so much more than we used to be.
+When you create and configure infrastructure as code, you are essentially combining many technical aspects: machine instances (addressed in the VPS chapter), networking (as addressed in the Network chapter), the Cloud, and your applications (as addressed in the Web Applications chapter), and bake them all into code to be executed. If you create security defects as part of the configuration or infrastructure, then lock them up in code, you will have the same consistent security defects each time that code is run. Hence,  Software Engineers now need to understand much more than they used to about security. We are now responsible for so much more than we used to be.
 
 Now we will focus on a collection of the largest providers.
 
 ### AWS {#cloud-identify-risks-aws}
 
-The AWS section is intended as overflow for items that have not been covered elsewhere in this chapter, but require some attention.
+The AWS section is intended as overflow for items that have not been covered elsewhere in this chapter, and requires some attention.
 
-The [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf) is very useful in coming to understand some of the risks in AWS, as well as auditing options to determine if they exist currently. This document also includes countermeasures, including clear direction on how to apply them. This is well worth following along with as you read through this chapter.
+The [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf) is very useful in understanding some of the risks in AWS, as well as auditing options to determine if they exist currently. This document also includes countermeasures, including clear direction on how to apply them. This is well worth following along with as you read through this chapter.
 
 AWS is continually announcing and releasing new products, features and configuration options. The attack surface just keeps expanding. AWS does an incredible job of providing security features and options for its customers, but,  just as the [AWS Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/) states, "_security in the Cloud is the responsibility of the customer_". AWS provides the security, you have to decide to use it and educate yourself on doing so. Obviously if you are reading this, you are already well down this path. If you fail to use, and configure correctly, what AWS has provided, your attackers will at the very minimum use your resources for evil, and you will foot the bill. Even more likely, they will attack and steal your business assets, and bring your organisation to its knees. 
 
@@ -418,7 +418,7 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
-As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are excellent tokens you can drop anywhere on your infrastructure. When an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones are being added every so often. These tokens are very quick and free to generate, and can be dropped wherever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio near the end of the episode.
+As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are excellent tokens you can drop anywhere on your infrastructure. When an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides an early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones are being added every so often. These tokens are very quick and free to generate, and can be dropped wherever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio near the end of the episode.
 
 ### Shared Responsibility Model
 
@@ -440,11 +440,11 @@ The following is in response to the set of frequently asked questions under the 
 
 * **(Q)**: _As a software engineer, do I really care about physical network security and network logging?_  
    
-   **(A)**: In the past, many aspects of [network security](#cloud-identify-risks-network-security) were the responsibility of the Network Administrators, but with the move to the Cloud, this has, to large degree, changed. The networks established (intentionally or not) between the components we are leveraging and creating in the Cloud are a result of Infrastructure and Configuration Management, often (and rightly so) expressed as code, or specifically Infrastructure as Code (IaC). As discussed in the [Network Security](#cloud-identify-risks-network-security) subsection, this is now the responsibility of the Software Engineer  
+   **(A)**: In the past, many aspects of [network security](#cloud-identify-risks-network-security) were the responsibility of the Network Administrators, but with the move to the Cloud, this has, to a large degree changed. The networks established (intentionally or not) between the components that we are leveraging and creating in the Cloud are a result of Infrastructure and Configuration Management, often (and rightly so) expressed as code, or specifically Infrastructure as Code (IaC). As discussed in the [Network Security](#cloud-identify-risks-network-security) subsection, this is now the responsibility of the Software Engineer  
    
 * **(Q)**: _Surely "as a software engineer", I can just use TLS and that is the end of it?_  
    
-   **(A)**: TLS is one very small area of network security. Its implementation as HTTPS and the PKI model is effectively [broken](#network-identify-risks-tls-downgrade). If TLS is your only saviour, putting it bluntly, you are without hope. The [Network Chapter](#network) covers the tip of the network security ice berg, network security is a huge topic, and one that has many books written about it, along with other resources. These provide more in-depth coverage than I can provide as part of a holistic view of security for Software Engineers. Software Engineers must come to grips with the fact that they need to implement defence in depth  
+   **(A)**: TLS is one very small area of network security. Its implementation as HTTPS and the PKI model is effectively [broken](#network-identify-risks-tls-downgrade). If TLS is your only saviour, putting it bluntly, you are without hope. The [Network Chapter](#network) covers the tip of the network security ice berg, as network security is a huge topic, one that has many books written about it, along with other resources. These provide more in-depth coverage than I can provide as part of a holistic view of security for Software Engineers. Software Engineers must come to grips with the fact that they need to implement defence in depth  
    
 * **(Q)**: _If the machine is compromised, then we give up on security, we aren't responsible for the network_  
    
@@ -465,29 +465,29 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
 
 1. Do you keep a signed audit log on which users performed which actions and when, via UIs and APIs?  
    
-   On AWS you can enable [CloudTrail](https://aws.amazon.com/cloudtrail/) to log all of your API calls, command line tools, SDKs, and Console interactions. This will provide a good amount of visibility to who has been accessing the AWS resources and Identities
+   On AWS you can enable [CloudTrail](https://aws.amazon.com/cloudtrail/) to log all of your API calls, command line tools, SDKs, and Console interactions. This will provide a good amount of visibility of who has been accessing the AWS resources and Identities
    
-2. There is this thing called the shared responsibility model I have heard about between CSPs and their customers. Please explain what your role and my role is in the protection of my and my customers data?  
+2. There is this thing called the shared responsibility model I have heard about between CSPs and their customers. Please explain what your role and my role is in the protection of mine and my customers data?  
    
-   Make sure you are completely clear on who is responsible for which data, where and when. It is not a matter of if your data will be stolen, but more a matter of when. Know your responsibilities. As discussed in the Web Applications chapter under the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) subsection, Data-store Compromise is one of the 6 top threats facing New Zealand, and these types of breaches are happening daily.  
+   Make sure you are completely clear on who is responsible for which data, where and when. It is not a matter of if your data will be stolen, but more a matter of when. Know what your responsibilities are. As discussed in the Web Applications chapter under the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) subsection, Data-store Compromise is one of the 6 top threats facing New Zealand, and these types of breaches are happening daily.  
    
    Also consider data security insurance  
    
 3. Do you encrypt all communications between servers within your data centres?  
    
-   I have discussed in many places that we should be aiming to have all communications on any given network encrypted. This is usually not too onerous to establish on your own network, but may in some cases not be possible on a CSPs network, especially if you are using proprietary/serverless technologies. If you are using usual machine instances, then in most cases, the CSPs infrastructure is logically not really any different than an in-house network, wherein you can encrypt your own communications.  
+   I have discussed in many places that we should aim to have all communications on any given network encrypted. This should not be too onerous to establish on your own network, but in some cases it may not be possible on a CSPs network, especially if you are using proprietary/serverless technologies. If you are using usual machine instances, then in most cases, the CSPs infrastructure is logically not really any different than an in-house network, where you can encrypt your own communications.  
    
    AWS also provides [Virtual Private Cloud](https://aws.amazon.com/vpc/) (VPC), which you can build your networks within, including [Serverless](https://aws.amazon.com/serverless/) technologies. This allows for segmentation and isolation.  
    
    AWS also offers four different types of [VPN connections](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html) to your VPC  
    
-4. Do you provide access to logs, if so what sort of access to what sort of logs?  
+4. Do you provide access to logs, if so what sort of access and to what sort of logs?  
    
-   If you do not have access to logs, then you are flying blind, you have no idea what is happening around you. How much does the CSP strip out of the logs before they allow you to view them? It is really important to weigh what you will have visibility to, and what you will not have visibility to, in order to work out where you may be vulnerable.  
+   If you do not have access to logs, then you are flying blind, you have no idea what is happening around you. How much does the CSP strip out of the logs before they allow you to view them? It is really important to weigh up what you will have visibility to, and what you will not have visibility to, in order to work out where you may be vulnerable.  
    
-   Can the CSP provide guarantees that they take care of those vulnerable areas? Make sure you are comfortable with the amount of visibility you will and will not have up front. Unless you make sure blind spots are covered, you could be unnecessarily opening yourself up to attack. Some of the CSPs log aggregators could be [flaky for example](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f).   
+   Can the CSP provide guarantees that they are taking care of those vulnerable areas? Make sure you are comfortable with the amount of visibility that you will and/or not have up front. Unless you make sure blind spots are covered, you could be unnecessarily opening yourself up to attack. Some of the CSPs log aggregators could be [flaky for example](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f).   
    
-   With the likes of machine instances and network components, you should be taking the same responsibilities as you would if you were self hosting. I addressed these in the VPS and Network chapters under the Lack of Visibility subsections.  
+   With the likes of machine instances and network components, you should be taking the same responsibilities that you would if you were self hosting. I addressed these in the VPS and Network chapters under the Lack of Visibility subsections.  
    
    In terms of visibility into the Cloud infrastructure, most decent CSPs provide the tooling, you just need to use it.  
    
@@ -499,15 +499,15 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
 5. What is your process around terminating my contract with you and/or moving to another CSP?  
    
-   Make sure you have an [exit and/or migration](http://blog.sysfore.com/do-you-have-your-cloud-exit-plan-ready/) strategy planned as part of entering into an agreement with your chosen CSP. Make sure it is incorporated as part of your contract with your chosen CSP.  
+   Make sure you have an [exit and/or migration](http://blog.sysfore.com/do-you-have-your-cloud-exit-plan-ready/) strategy planned as part of entering into an agreement with your chosen CSP. Make sure it is incorporated as part of the contract with your chosen CSP.  
    
-   * What is the CSP is going to do to assist in terminating and/or migrating your data and services from the CSP. Consider how long it may take you to move your data at slow internet speeds if you have large amounts stored. Will you be able to use the CSPs proprietary [API based technique](http://searchcloudstorage.techtarget.com/opinion/The-need-for-a-cloud-exit-strategy-and-what-we-can-learn-from-Nirvanix) for migrating your data from the current CSP to a new CSP? If your current CSP goes out of business, you may only have two weeks to move everything and set-up shop on another cloud, as was the case with [Nirvanix](http://searchcloudstorage.techtarget.com/news/2240205813/Nirvanix-cloud-customers-face-worse-nightmares). The tighter you integrate with your current CSP and leverage their proprietary services, the more work it will be to move, but at the same time, the less you depend on your CSPs proprietary services, the [less benefit](http://www.theserverside.com/feature/Getting-out-is-harder-than-getting-in-The-importance-of-a-cloud-exit-strategy) you will be getting from them. This is why threat modelling is an essential part of discovering a strategy that works for your organisations requirements
-   * How does the CSP deal with your data and services when your contract is terminated, does it lie around somewhere for some time? Ideally, be certain that it is completely purged so that it is not available on their network at all. If it remains for a duration, is it discoverable by an attacker? Will they let you test this? If not, they are probably trying to hide something. Remember, often a greater number of attacks [come from within](#network-identify-risks-fortress-mentality) the organisation than from external
+   * What is the CSP is going to do to assist in terminating and/or migrating your data and services from the CSP. Consider how long it may take you to move your data at slow internet speeds if you have large amounts stored. Will you be able to use the CSPs proprietary [API based technique](http://searchcloudstorage.techtarget.com/opinion/The-need-for-a-cloud-exit-strategy-and-what-we-can-learn-from-Nirvanix) for migrating your data from the current CSP to a new CSP? If your current CSP goes out of business, you may only have two weeks to move everything and set-up shop with another cloud, as was the case with [Nirvanix](http://searchcloudstorage.techtarget.com/news/2240205813/Nirvanix-cloud-customers-face-worse-nightmares). The tighter you integrate your current CSP and leverage their proprietary services, the more work it will be to move. At the same time, the less you depend on your CSPs proprietary services, the [less benefit](http://www.theserverside.com/feature/Getting-out-is-harder-than-getting-in-The-importance-of-a-cloud-exit-strategy) you will get from them. This is why threat modelling is an essential part of discovering a strategy that works for your organisations requirements
+   * How does the CSP deal with your data and services when your contract is terminated, does it lie around somewhere for some time? Ideally, be certain that it is completely purged so that it is not available on their network at all. If it remains there for a duration, is it discoverable by an attacker? Will they let you test this? If not, they are probably trying to hide something. Remember, often a greater number of attacks [come from within](#network-identify-risks-fortress-mentality) the organisation rather than from external
    * Does the CSP have third parties that audit, test and certify the completeness of the termination/migration procedure  
    
 6. Where do your servers, processes and data reside physically?  
    
-   Do not assume that your data in the Cloud in another country is governed by the same laws as it is in your country. Make sure you are aware of the laws that apply to your data, depending on where it is  
+   Do not assume that your data in the Cloud in another country is governed by the same laws as it is in your country. Make sure you are aware of the laws that apply to your data, depending on where it is held 
    
 7. Who can view the data I store in the Cloud?  
    
@@ -515,10 +515,10 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
    
    * There are many ways for an attacker to get at your data illegally, and again, that does not exclude insiders, as we discuss throughout this chapter. Just as if your data was discovered in your own in-house network, if you fail to take the precautions discussed throughout this chapter, especially around least privilege, then, as in the [attack on Code Spaces](#cloud-identify-risks-violations-of-least-privilege) we discussed in the Violations of Least Privilege subsection, you may be equally open to exploitation
    * In many cases you will not know if your data has been released to authorities, we discussed this in the [Giving up Secrets](#cloud-identify-risks-cloud-service-provider-vs-in-house-giving-up-secrets) countermeasures subsection
-   * Defence in depth, tells us, just as we discussed in the Web Applications chapter under Data-store Compromise, that we need to [encrypt our data at rest](#web-applications-countermeasures-data-store-compromise), and in transit (as discussed in VPS, Network and Web Application chapters) at a minimum. With this taken care of, when our data does fall into the hands of those we do not want to have it, it will be of little to no use to them in its encrypted form  
+   * Defence in depth, tells us (as we discussed in the Web Applications chapter under Data-store Compromise), that we need to [encrypt our data at rest](#web-applications-countermeasures-data-store-compromise), and in transit (as discussed in VPS, Network and Web Application chapters) at a minimum. With this taken care of, when our data does fall into the hands of those we do not want to have it, it will be of little to no use to them in its encrypted form  
      * **At rest**: For starters, do not neglect what is discussed in the Web Applications chapter around protecting sensitive information at the application level (in code that is). AWS for example provides [EC2 Instance Store Encryption](https://aws.amazon.com/blogs/security/how-to-protect-data-at-rest-with-amazon-ec2-instance-store-encryption/), which provides disk and file system encryption, encryption for EBS volumes, S3 buckets, and RDS. AWS also provides Elastic File System [(EFS)encryption](https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-efs-now-supports-encryption-of-data-at-rest/). As usual, it is your responsibility to use these offerings
      * **In transit**: Most decent CSPs will provide options for TLS, and you should also be leveraging TLS in your applications
-     * **In use**: This is still an area of research, some progress is being made though. [Ben Humphreys spoke](https://2016.chcon.nz/talks.html#1245) about this at CHCon, one of the conferences I co-founded in New Zealand   
+     * **In use**: This is still an area of research, some progress is being made though. [Ben Humphreys spoke](https://2016.chcon.nz/talks.html#1245) about this at New Zealand's hacker conference in Christchurch CHCon. A conference I helped co-found here in my home town  
    
 8. What is your Service Level Agreement (SLA) for uptime?  
    
@@ -536,7 +536,7 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
     
     **[GCP](https://cloud.google.com/security/)** does not require penetration testers to contact them before beginning testing of their GCP hosted services, so long as they abide by the Acceptable Use Policy and the Terms of Service.  
     
-    **[Heroku](https://devcenter.heroku.com/articles/pentest-instructions)** are happy for you to penetration test your applications running on their PaaS. If you are performing automated security scans, you will need to give them two business days notice before you begin testing.  
+    **[Heroku](https://devcenter.heroku.com/articles/pentest-instructions)** are happy for you to penetration test your own applications running on their PaaS. If you are performing automated security scans, you will need to give them two business days notice before you begin your testing.  
     
     **[Azure](https://blogs.msdn.microsoft.com/azuresecurity/2016/08/29/pen-testing-from-azure-virtual-machines/)** allows penetration testing of your applications and services running in Azure, you just need to fill out their form. In order to use Azure to perform penetration testing on other targets, you do not need permission providing you are not DDoS testing.   
    
@@ -554,20 +554,20 @@ Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risk
 
 ### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom) {#cloud-countermeasures-cloud-service-provider-vs-in-house}
 
-It depends on the CSP, and many things about your organisation. Each CSP does things differently, has strengths and weaknesses in different areas of the shared responsibility model, has different specialities, is governed by different people and jurisdictions (USA vs Sweden for example), and some are less security conscious than others. The largest factor in this question is your organisation. How security conscious and capable of implementing a secure cloud environment are your workers.
+It depends on the CSP, and other things about your organisation. Each CSP does things differently, it has strengths and weaknesses in different areas of the shared responsibility model, and has different specialities. It is governed by different people and jurisdictions (USA vs Sweden for example), and some are less security conscious than others. The largest factor in this question is your organisation. How security conscious and capable of implementing a secure cloud environment are your workers.
 
 You can have a more secure cloud environment than any CSP if you decide to do so and have the necessary resources to build it. If you don't decide to and/or don't have the necessary resources, then most well known CSPs will probably be doing a better job than your organisation.
 
-You need to consider what you are using the given CSPs services for. If you are creating and deploying applications, then your applications will be a weaker link in the security chain, this is a very common case and one that is often overlooked. To attempt to address application security, I wrote the [Web Applications](#web-applications) chapter.
+You need to consider what are your objectives for using the given CSPs services for. If you are creating and deploying applications, then your applications will be a weaker link in the security chain, this is a very common case and one that is often overlooked. To attempt to address application security, I wrote about this in the [Web Applications](#web-applications) chapter.
 
-Your attackers will attack your weakest area first, in most cases this is not your CSP, but your organisation's people due to lack of knowledge, passion, engagement, or a combination of each. If you have a physical premises, this can also be an easy target. Usually application security follows closely after people security. This is why I include the Physical and People chapters in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) of this book series, they are the most commonly overlooked. I added the Web Applications chapter last in this fascicle in order to first help you build a solid foundation of security in other overlooked areas before we addressed application security. I also wanted it to be what sticks in your mind once you have read this fascicle.
+Your attackers will attack your weakest area first. In most cases this is not your CSP, but directed at your organisation's people due to lack of knowledge, passion, engagement, or a combination of each. If you have a physical premises, this can also be an easy target. Usually application security follows closely after people security. This is why I include the Physical and People chapters in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) of this book series, they are the most commonly overlooked. I added the Web Applications chapter last in this fascicle in order to first help you build a solid foundation of security in other overlooked areas before we addressed application security. I also wanted it to be what sticks in your mind once you have read this fascicle.
 
 Based on the threat modelling I hope you have done through each chapter, as first introduced in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), you should be starting to work out where cloud security rates on your list of risks to your assets. By the end of this chapter, you should have an even better idea.
 
 #### Skills
 
 The fate of your data and that of your customers is in your hands. If you have the resources to provide the necessary security then you are better off with an In-house cloud, if not, the opposite is true.  
-If you go with an In-house cloud, you should have tighter control over the people creating and administering it, this is good if they have the necessary skills and experience, if not, then the opposite is true again.
+If you go with an In-house cloud, you should have tighter control over the people creating and administering it. This is good if they have the necessary skills and experience, if not, then the opposite is true again.
 
 #### EULA
 
@@ -583,15 +583,15 @@ If you use an In-house cloud, you decide where services & data reside.
 
 #### Vendor lock-in
 
-You have to weigh vendor benefits and possible cost savings versus how hard and/or costly it is to move away from them when you need to.
+You have to weigh the vendor benefits and possible cost savings versus how hard and/or costly it is to move away from them when you need to.
 
-Many projects are locked into technology decisions, offerings, libraries, and services from the design stage, and are unable to swap these at a later stage without incurring significant cost. If the offering that was chosen is proprietary, then it makes it all the more difficult to make a change if and when it makes sense to do so.
+Many projects are locked into technology decisions, offerings, libraries, and services from the design stage, as they are unable to swap these at a later stage without incurring significant costs. If the offering that was chosen is proprietary, then it makes it all the more difficult to make a change if and when it makes sense to do so.
 
 Some times it can cost more up front to go with an open (non-proprietary) offering because the proprietary offering has streamlined the development, deployment, and maintainability, that is the whole point of a proprietary offerings, right? Yet, sometimes the open offering can actually be the cheaper option, due to proprietary offerings incurring an additional learning or skills development cost for the teams and people involved.
 
-Often technology choices are chosen because they are the "new shiny", everyone else using it, or there is a lot of buzz or hype around it.
+Often technology choices are chosen because they are the "new shiny", as everyone else using is it, or there is a lot of buzz or hype around it.
 
-**An analogy**: Do Software Developers write untestable code because it is cheaper to write? Many development shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascile 0](https://leanpub.com/holistic-infosec-for-web-developers/). I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and offered workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing untestable code is a short sighted approach. Code is read, revised, and extended many times more than it is written initially.
+**An analogy**: Do Software Developers write code that is untestable because it is cheaper to write? Many development shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascile 0](https://leanpub.com/holistic-infosec-for-web-developers/). I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and offered workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing untestable code is a short sighted approach. Code is read, revised, and extended many times more than it is written initially.
 
 If you are putting all your cost savings in the initial code writing phase, and failing to consider all the times that modification will be attempted, then you are missing huge cost savings. Taking an initial hit up front to write testable code, specifically, code that has the properties of maintainability and extensibility defined by the [Liskov Substitution Principle](https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/), will set you up so that the interface is not coupled to the implementation.
 
@@ -649,18 +649,18 @@ Regularly review all of the IAM policies you are using, making sure only the req
 Enable [Multi Factor Authentication](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users) (MFA) on the root user, and all IAM users with console access, especially privileged users at a minimum. AWS provides the ability to mandate that users use MFA, you can do this by creating a new managed policy based on the AWS guidance to [Enable Your Users to Configure Their Own Credentials and MFA Settings](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html). Attach the new policy to a group that you have created and add users that must use MFA to that group.  
 This process was pointed out to me by Scott Piper during our [Cloud Security interview](http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/) by way of his [blog post](https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies-for-mfa) and generous Github pull request.
 
-The [Access Advisor](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/) tab, which is visible on the IAM console details page for Users, Groups, Roles, or Policies after you select a list item, provides information about which services are accessible for any of your users, groups, or roles. This can be helpful for auditing permissions that should not be available to any of your users who are part of the group, role or policy you selected.
+The [Access Advisor](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/) tab, is visible on the IAM console details page for Users, Groups, Roles, or Policies after you select a list item. This provides information about which services are accessible for any of your users, groups, or roles. This can also be helpful for auditing permissions that should not be available to any of your users who are part of the group, role or policy you selected.
 
-The [IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html), which is accessible from the IAM console, is also good for granular reporting on the permissions of your specific Users, Groups and Roles, filtered by service and actions.
+The [IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) is accessible from the IAM console This is good for granular reporting on the permissions of your specific Users, Groups and Roles, filtered by service and actions.
 
 [AWS Trusted Advisor](https://aws.amazon.com/premiumsupport/trustedadvisor/) should be run periodically to check for security issues. It is accessible from the [Console](https://console.aws.amazon.com/trustedadvisor/), CLI and API. Trusted Advisor has a collection of core checks and recommendations which are free to use. These include security groups, specific ports unrestricted, IAM use, MFA on root user, EBS and RDS public snapshots.
 
 * **Running services as root**: Make sure that Docker containers are not running under the root account. There are full details in [The Default User is Root](#vps-countermeasures-docker-the-default-user-is-root) Countermeasures subsection of the VPS chapter
 * **Configuration Settings Changed Ad Hoc**: One option is to have solid change control in place. [AWS Config](https://aws.amazon.com/config/) can assist with this. [AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/) continuously monitors and records how the AWS resources were configured and how they have changed, including how they are related to each other. This enables you to assess, audit, and evaluate the configurations of your AWS resources, and have notifications sent to you when AWS Config detects a violation, including created, modified or deleted rules changes.  
    
-   AWS Config records IAM policies assigned to users, groups, or roles, and EC2 security groups, including port rules. Changes to your configuration settings can trigger Amazon Simple Notification Service (SNS) notifications, which you can have sent to personnel tasked with controlling changes to your configurations.  
+   AWS Config records IAM policies assigned to users, groups, or roles, and EC2 security groups, including port rules. Changes to your configuration settings can trigger Amazon Simple Notification Service (SNS) notifications, which you can have sent to your personnel tasked with controlling changes to your configurations.  
    
-   Your custom rules can be codified and thus source controlled. AWS calls this Compliance as Code. I discussed AWS CloudTrail briefly in item 1 of the [CSP Evaluation](#cloud-countermeasures-csp-evaluation) countermeasures subsection. AWS Config is integrated with CloudTrail, which captures all API calls from AWS Config console or API, SDKs, CLI tools, and other AWS services. The information collected by CloudTrail provides insight on what request was made, from which IP address, by who, and when  
+   Your custom rules can be codified and therefore source controlled. AWS calls this Compliance as Code. I discussed AWS CloudTrail briefly in item 1 of the [CSP Evaluation](#cloud-countermeasures-csp-evaluation) countermeasures subsection. AWS Config is integrated with CloudTrail, which captures all API calls from AWS Config console or API, SDKs, CLI tools, and other AWS services. The information collected by CloudTrail provides insight on what request was made, from which IP address, by who, and when  
 * **Machine Instance Access To Open**: Reduce your attack surface by disabling access to your machine instances from *any* source IP address
 
 There are also a collection of IAM specific items that you should review in the Identity and Access Management subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf).
@@ -708,11 +708,11 @@ Following are techniques to better handle private keys.
 
 There are many ways to harden SSH as we discussed in the [SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) subsection of the VPS chapter. Usually the issue will be specific to lack of knowledge, desire and a dysfunctional [culture](https://blog.binarymist.net/2014/04/26/culture-in-the-work-place/) in the work place. You will need to address the people issues before looking at basic SSH hardening techniques.
 
-Ideally, SSH access should be reduced to a select few. Most of the work we do now by SSHing should be automated. If you review the commands in history on most VPSs, the majority of the commands are either deployment or monitoring which should all be [automated](https://github.com/binarymist/aws-docker-host).
+Ideally, SSH access should be reduced to a selected few. Most of the work we do now by SSHing should be automated. If you review the commands in history on most VPSs, the majority of the commands are either deployment or monitoring which should all be [automated](https://github.com/binarymist/aws-docker-host).
 
 When you create an AWS EC2 instance you can create a key pair [using EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair) or you can [provide your own](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws). Either way, to be able to log-in to your instance, you need to have provided EC2 with the public key of your key pair and specified it by name. 
 
-Every user should have their [own key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html), the private part should always be private, kept in the users local `~/.ssh/` directory (not the server) with permissions `600` or more restrictive, and not shared on your developer wiki, or anywhere else for that matter. The public part can be put on every server that the user needs access to. There is no excuse for users to not have their own key pair, you can have up to five thousand key pairs per AWS region. AWS has [clear directions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) on how to create additional users and provide SSH access with their own key pairs.
+Every user should have their [own key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html), the private part should always be private, kept in the users local `~/.ssh/` directory (not the server) with permissions `600` or more restrictive, and not shared on your developer wiki, or anywhere else for that matter. The public part can be put on every server that the user needs access to. There is no excuse for users not to have their own key pair, you can have up to five thousand key pairs per AWS region. AWS has [clear directions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) on how to create additional users and provide SSH access with their own key pairs.
 
 For generic confirmation of the host's SSH key fingerprint when prompted before establishing the SSH connection, follow the procedure I laid out for [Establishing your SSH Servers Key Fingerprint](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint) in the VPS chapter, and make it organisational policy. We should never blindly accept key fingerprints. The key fingerprints should be stored in a relatively secure place, so that only trusted parties can modify them. I would like to see, as part of the server creation process, the entity (probably the wiki) that specifies the key fingerprints is automatically updated by something on the VPS that keeps watch of the key fingerprints. Something like [Monit](#vps-countermeasures-lack-of-visibility-proactive-monitoring-getting-started-with-monit) as discussed in the VPS chapter, would be capable of the monitoring and executing a script to do this.
 
@@ -770,7 +770,7 @@ Create and enforce password policies, discussed below.
 
 Oddly enough, in the AWS account root user story I mentioned in the [Risks](#cloud-identify-risks-storage-of-secrets-credentials-and-other-secrets) subsection, I had created a report detailing this as one of the most critical issues that needed addressing, several weeks before all but one person lost access.
 
-If your business is in the Cloud, the account root user is one of your most valuable assets, do not share it with anyone, and only use it when essential.
+If your business is in the Cloud, the account root user is one of your most valuable assets, do not share it with anyone, and only use it when its essential.
 
 ##### Entered by People (manually) {#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-people-manually}
 
@@ -868,13 +868,13 @@ Also see the [Additional Resources](#additional-resources-cloud-countermeasures-
 
 ### [Serverless](https://github.com/anaibol/awesome-serverless) {#cloud-countermeasures-serverless}
 
-Serverless is another form of separation of concerns, or decoupling. Serverless is yet another attempt to coerce Software Developers into abiding by the Object Oriented (OO) [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) principles that the vast majority of Developers never quite understood. Serverless forces the microservice way of thinking.
+Serverless is another form of separation of concerns, or decoupling. Serverless is yet another attempt to coerce Software Developers into abiding by the Object Oriented (OO) [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) principles that the vast majority of Developers never quite understood. Serverless forces a microservice way of thinking.
 
 Serverless mandates the reactive, event driven approach that insists that our code features stand alone without the tight coupling of many services that we often use. Serverless forces us to split our databases from our business logic. Serverless goes a long way to forcing us to write [testable code](https://blog.binarymist.net/2012/12/01/moving-to-tdd/), and as I have said so many times, testable code is good code, code that is easy to maintain and extend, thus abiding by the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).
 
 Serverless raises the bar in terms of abstraction, but at the same time allows you to focus on the code, which as a Developer, is preferred.
 
-With AWS Lambda, you only pay when your code executes, as opposed to paying for machine instances, or as with Heroku, the entire time your application is running on their compute stack, even if the application code is not executing. AWS Lambda and similar offerings allow granular costing, thus passing on cost savings due to many customers all using the same hardware.
+With AWS Lambda, you only pay when your code executes, as opposed to paying for machine instances, or as with Heroku, the entire time your application is running on their compute stack, even if the application code is not executing. AWS Lambda and similar offerings allow granular costing, passing on cost savings due to many customers all using the same hardware.
 
 AWS Lambda and similar offerings allow us to avoid thinking about machine/OS and language environment patching, compute resource capacity, or scaling. You are now trusting your CSP to do these things. There are [no maintenance windows](https://aws.amazon.com/lambda/faqs/#scalability) or scheduled downtimes. Lambda is also currently free for up to one million requests per month, and does not expire after twelve months. This in itself is quite compelling.
 
@@ -892,11 +892,11 @@ With AWS Lambda, in addition to getting your application security right, you als
 
 1. **[Application Security](#web-applications)**: No matter where your code is executing, you must have a good grasp on application security, no amount of sand-boxing, Dockerising, application firewalling, or anything else will protect you from poorly written applications if they are running.  
    
-   With regard to help with consuming all the free and open source offerings, review the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source) countermeasures subsection of the Web Applications chapter. Snyk has a [Serverless](https://snyk.io/serverless) offering also. Every function you add increases attack surface and all the risks that come with integrating with other services. Keep your inventory control tight with your functions and consumed dependencies. Know which packages you are consuming and which known defects they have, know how many and which functions are in production, as discussed in the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source).  
+   With regards to help with consuming all the free and open source offerings, review the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source) countermeasures subsection of the Web Applications chapter. Snyk has a [Serverless](https://snyk.io/serverless) offering also. Every function you add increases attack surface and all the risks that come with integrating with other services. Keep your inventory control tight with your functions and consumed dependencies. Know which packages you are consuming and which known defects they have, know how many and which functions are in production, as discussed in the [Consuming Free and Open Source](#web-applications-countermeasures-consuming-free-and-open-source).  
    
    Test removing permissions and see if everything still works. If it does, your permissions were too open, reduce them  
    
-2. **IAM**: In regards to AWS Lambda, although it should be similar with the other large CSPs, make sure you apply only privileges required, this way you will not be [violating the principle](#cloud-countermeasures-violations-of-least-privilege) of Least Privilege
+2. **IAM**: In regards to AWS Lambda, although it should be similar with other large CSPs, make sure you apply only privileges required, this way you will not be [violating the principle](#cloud-countermeasures-violations-of-least-privilege) of Least Privilege
     * AWS Lambda function [access to other AWS resources](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role):
       * Create an [IAM execution role](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html) of type `AWS Service Roles`, grant the AWS Lambda service permissions to assume your role by choosing `AWS Lambda`
       * Attach the policy to the role as discussed in step 3 under [Violations of Least Privilege](#cloud-countermeasures-violations-of-least-privilege). Make sure to tightly constrain the `Resource`'s of the chosen policy. Use `AWSLambdaBasicExecuteRole` if your Lambda function only needs to write logs to CloudWatch, `AWSLambdaKinesisExecutionRoleAWS` if your Lambda function also needs to access Kinesis Streams actions, `AWSLambdaDynamoDBExecutionRole` if your Lambda function needs to access DynamoDB streams actions along with CloudWatch, and `AWSLambdaVPCAccessExecutionRole` if your Lambda function needs to access AWS EC2 actions along with CloudWatch
@@ -909,7 +909,7 @@ With AWS Lambda, in addition to getting your application security right, you als
 
 #### DoS of Lambda Functions
 
-AWS Lambda allows you to [throttle](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#concurrent-execution-safety-limit) the concurrent execution count. AWS Lambda functions being invoked asynchronously can handle bursts for approximately 15-30 minutes. Essentially, if the default is not right for you, then you need to define the policy, that is, set reasonable limits. Make sure you do this!
+AWS Lambda allows you to [throttle](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#concurrent-execution-safety-limit) the concurrent execution count. AWS Lambda functions being invoked asynchronously can handle bursts for approximately 15-30 minutes. Essentially, if the default is not right for you, then you need to define the policy, that is, set the reasonable limits. Make sure you do this!
 
 Set [Cloudwatch alarms](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html) on [duration and invocations](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metrics.html). These can even be sent to Slack.
 
@@ -926,13 +926,13 @@ Set up billing alerts.
 
 Be careful not to create direct or indirect recursive function calls.
 
-Use an application firewall as I discuss in the Web Application chapter under the "[Insufficient Attack Protection](#web-applications-countermeasures-insufficient-attack-protection-waf)" subsection. This may provide some protection if your rules are adequate.
+Use an application firewall as I discussed in the Web Application chapter under the "[Insufficient Attack Protection](#web-applications-countermeasures-insufficient-attack-protection-waf)" subsection. This may provide some protection if your rules are adequate.
 
-Consider how important it is to scale compute to service requests. If it is more important to you to have a fixed price, knowing how much you are going to be charged each month, consider fixed price machine instances.
+Consider how important it is to scale compute to service requests. If it is more important to you to have a monthly fixed price, consider fixed price machine instances, then you know the costs upfront.
 
 #### [Centralised logging of AWS Lambda](https://hackernoon.com/centralised-logging-for-aws-lambda-b765b7ca9152) Functions
 
-You should also be sending your logs to an aggregator and not in your execution time. Whatever your function writes to stdout is captured by Lambda and sent to Cloudwatch Logs asynchronously, that means consumers of the function will not take a latency hit and you will not take a cost hit. Cloudwatch Logs can then be streamed to AWS Elasticsearch which may or may not be [stable enough](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f) for you. Other than that, there are not that many good options on AWS yet, beside sending to Lambda, which, of course, could also end up costing you compute and being another DoS vector. 
+You should also be sending your logs to an aggregator and not in your execution time. Whatever your function writes to stdout is captured by Lambda and sent to Cloudwatch Logs asynchronously. This means that consumers of the function will not take a latency hit and you will not take a cost hit. Cloudwatch Logs can then be streamed to AWS Elasticsearch which may or may not be [stable enough](https://read.acloud.guru/things-you-should-know-before-using-awss-elasticsearch-service-7cd70c9afb4f) for you. Other than that, there are not too many good options on AWS yet, beside sending to Lambda, which, of course, could also end up costing you compute and being another DoS vector. 
 
 #### Frameworks
 
@@ -955,17 +955,17 @@ The Serverless framework currently has the following provider APIs:
 
 ### Infrastructure and Configuration Management
 
-Storing infrastructure and configuration as code is an effective measure for many mundane tasks that people may still be performing that are prone to human error. This means we can sequence specific processes, debug them, source control them, and achieve repeatable processes that are far less likely to have security defects in them, providied that the automation is written by people who are sufficiently skilled and knowledgeable of the security topics involved. This also has the positive side effect of speeding processes up.
+Storing infrastructure and configuration as code is an effective measure for many mundane tasks that people may still be performing that are prone to human error. This means we can sequence specific processes, debug them, source control them, and achieve repeatable processes that are far less likely to have security defects in them. This is provided that the automation is written by people who are sufficiently skilled and knowledgeable of the security topics involved. This also has the positive side effect of speeding processes up.
 
-When an artifact is deployed, how do you know that it will perform the same in production that it did in development? That is what a staging environment is for. A staging environment will never be exactly the same as production unless your infrastructure is codified, this is another place where containers can help. Using containers, you can test the new software anywhere and it will run the same, providing its environment is identical to what you ship.
+When an artefact is deployed, how do you know that it will perform the same in production when it did in development? This is what a staging environment is for. A staging environment will never be exactly the same as production unless your infrastructure is codified. This is another place where containers can help. With using containers, you can test the new software anywhere and it will run the same, providing its environment is identical to what you ship.
 
-The container goes from the developer's machine once tested, to the staging environment, then to production. The staging environment in this case is less important than it used to be, and is just responsible for testing your infrastructure, which should all be built from source controlled infrastructure as code, so it is guaranteed to be repeatable.
+The container goes from the developer's machine once tested, to the staging environment, then to production. The staging environment in this case is less important than it used to be, and is just as responsible for testing your infrastructure. All of this should of been built from source controlled infrastructure as code, so it is guaranteed to be repeatable.
 
 1. Pick off repetitious, boring, prone-to-human-error and easily automatable tasks that your team(s) have been doing. Script and source control them
-    * **Configuration management**: One of the grass root types of tooling options required here is a configuration management tool. I have found Ansible to be excellent. If you use Docker containers, most of the configuration management is already taken care of in the [`Dockerfile`](#vps-countermeasures-docker-the-dDefault-user-is-root). The [`docker-compose.yml`](#nodegoat-docker-compose.yml) file, orchestration platforms and tooling take us to "infrastructure as code"
+    * **Configuration management**: One of the grassroot types of tooling options required here is a configuration management tool. I have found Ansible to be excellent. If you use Docker containers, most of the configuration management is already taken care of in the [`Dockerfile`](#vps-countermeasures-docker-the-dDefault-user-is-root). The [`docker-compose.yml`](#nodegoat-docker-compose.yml) file, orchestration platforms and tooling take us to "infrastructure as code"
     * **Infrastructure management**: Terraform is one of the tools that can act as a simple version control for cloud infrastructure. One of my co-hosts (lead host Robert Blumen) on Software Engineering Radio ran an excellent [podcast on Terraform](http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/)
-    * Ultimately we want to achieve the maturity where we can have an entire front-end and back-end (if Web) deployment automated. There are many things this depends on. A deployment must come from a specific source branch that is production-ready. A production-ready branch is labeled as such because another branch leading into it has passed all the quality checks mentioned in the Agile Development and Practises subsection in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), as well as [continuous integration](https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/)
-2. Once a few of the above tasks are done, start stringing them together in pipelines
+    * Ultimately we want to achieve the maturity where we can have an entire front-end and back-end (if Web) deployment automated. There are many things this depends on. A deployment must come from a specific source branch that is production-ready. A production-ready branch is labelled as such because another branch leading into it has passed all the quality checks mentioned in the Agile Development and Practises subsection in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), as well as [continuous integration](https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/)
+2. Once a few of the above tasks are done, you can start stringing them together in pipelines
 3. Schedule execution of any/all of the above
 
 ### AWS
@@ -974,7 +974,7 @@ As mentioned in the [risks subsection](#cloud-identify-risks-aws) for AWS, the [
 
 #### Password-less sudo
 
-Add password to the default user.
+Add the password to the default user.
 
 We have covered the people aspects, along with exploitation techniques of Weak Password Strategies, in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
 
@@ -994,15 +994,15 @@ We have covered the technical aspects of password strategies in the [Review Pass
 
 ### Shared Responsibility Model
 
-The risk is simply lack of knowledge, the speed at which technological solutions are changing, and the fact that you must keep up with it.
+The risk is simply a lack of knowledge mainly from the speed at which technological solutions are changing, and the fact that you must keep up with it.
 
 ### CSP Evaluation {#cloud-risks-that-the-solution-causes-csp-evaluation}
 
-There shouldn't be any risks when simply asking questions and analysing the responses. This is all part of helping you to build a better picture of where your current or prospective CSP is at on the security maturity model, thus helping you ascertain whether you should stick with them, select them as your CSP, and/or what your responsibility is to achieve the security maturity you require.
+There shouldn't be any risks when simply asking questions and analysing the responses. This is all part of helping you to build a better picture of where your current or prospective CSP is at on the security maturity model. Therefore, helping you to ascertain whether you should stick with them, select them as your CSP, and/or what your responsibility is to achieve the security maturity you require.
 
 ### Cloud Service Provider vs In-house {#cloud-risks-that-the-solution-causes-cloud-service-provider-vs-in-house}
 
-In the [Countermeasures](#cloud-countermeasures-cloud-service-provider-vs-in-house) section I provided a good number of points to consider, rather than outright solutions. These mostly depend on the specifics of your organisation, which you will have to weigh. There is no one answer for all here. Consider all options and make the decision based on what suites your organisation the best.
+In the [Countermeasures](#cloud-countermeasures-cloud-service-provider-vs-in-house) section I provided you a good number of points to consider, rather than outright solutions. These mostly depend on the specifics of your organisation, which you will have to weigh up. There is no one answer for all, you need to consider all options and make decisions based on what suites your organisation the best.
 
 ### People
 
@@ -1020,19 +1020,19 @@ Refer to the [Risks that Solution Causes](#network-risks-that-solution-causes) s
 
 Granting the minimum permissions required takes more work because you have to actually work out what is required.
 
-* **Running services as root**: Removing permissions, once a service has been running as root, may cause errors
-* **Configuration Settings Changed Ad Hoc**: Because features, and settings will be changed on an ad hoc basis, and change control, like security, is often seen as an annoyance. If it can be bypassed, it will be, and those changes will be forgotten.  
+* **Running services as root**: Removing permissions once a service has been running as root, may cause errors
+* **Configuration Settings Changed Ad Hoc**: Because features and settings will be changed on an ad hoc basis, and change control, like security, is often seen as an annoyance. If it can be bypassed, it will be, and those changes will be forgotten.  
    
    AWS as many other CSPs provide many great tools to help us harden our configuration and infrastructure. If we decide not to take [our part](#cloud-countermeasures-shared-responsibility-model-csp-customer-responsibility) of the shared responsibility model seriously, then it is just time before we are compromised
 * **Machine Instance Access To Open**: Locking the source IP address down to just one address that people can administer your machine instances from will make it difficult for workers outside a single office to connect to your machine instances
 
 ### Storage of Secrets
 
-This involves a good sense of smell to sniff out all the possible leaking secrets. This sense may need to be developed.
+This involves a good sense of "smell" to sniff out all the possible leaking secrets. This sense may need to be developed.
 
 #### Private Key Abuse
 
-The biggest issue I see in these situations is company culture. This needs to be attacked from both bottom up and top down.
+The biggest issue I see in these situations is company culture. This needs to be addressed from both bottom up and top down.
 
 ##### SSH
 
@@ -1050,7 +1050,7 @@ It could be slightly inconvenient to maintain multiple users, rather than all us
 
 Password databases/managers can provide a huge improvement over resorting to storing secrets in insecure places such as unencrypted files, on post-it notes, and using the same or similar passwords across many accounts. If a password database is used correctly, all passwords will be unique and unable to be memorised.
 
-There is risk to using a password database but not changing habits such as above, you may improve your security only slightly at best. You must change the way you think about passwords and other secrets you enter manually.
+There is risk to using a password database but not changing habits such as above, you may improve your security only slightly at the best. You must change the way you think about passwords and other secrets you enter manually.
 
 There are [tools](https://github.com/denandz/KeeFarce) that can break password databases too. Understand how they do this and make sure you do not do what they require to succeed. The shorter the duration you have the password database running, the less likely an attack will be successful. Also configure the duration that a secret is in memory to the minimum possible.
 
@@ -1060,13 +1060,13 @@ In order for an application or service to access the secrets provided by one of 
 
 ### Serverless
 
-Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities that require understanding in order to secure the integration of the components. There is a real danger that developers will fail to understand and implement all the security countermeasures required to achieve a similar security stand point they enjoyed when having their components less distributed and running in long-lived processes.
+Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities that require understanding in order to secure the integration of the components. There is a real danger that developers will fail to understand and implement all the security countermeasures required to achieve a similar security stand point they enjoyed when having their components in a less distributed and running in long-lived processes.
 
 #### Functions
 
 API keys are great, but not so great when they reside in untrusted territory, which in the case of the web, is any time your users need access to your API. Anyone permitted to become a user has permission to send requests to your API.
 
-Do not depend on client side API keys for security, this is a very thin layer of defence. You can not protect API keys sent to a client over the Internet. Yes, we have TLS, but that will not stop an end user masquerading as someone else.
+Do not depend on the client side API keys for security, this is a very thin layer of defence. You can not protect API keys sent to a client over the Internet. Yes, we have TLS, but that will not stop an end user masquerading as someone else.
 
 Also consider anything you put in source control, even if not public, already compromised. Your source control is only as strong as the weakest password of any given team member at best. You also have build pipelines that are often leaking, along with other leaky mediums such as people.
 
@@ -1080,7 +1080,7 @@ Some trial and error is probably necessary here, just make sure you err on the s
 
 #### Frameworks
 
-These frameworks may lead the developer to think that the framework does everything for them, it does not, so although using a framework will abstract some operations, it is another thing to learn.
+These frameworks may lead the developer to think that the framework does everything for them, it does not. Although using a framework will abstract some operations, it is also another thing to learn.
 
 ### Infrastructure and Configuration Management
 
@@ -1096,11 +1096,11 @@ Relying on tooling alone to provide visibility on errors and defects is a risk.
 
 ### Shared Responsibility Model
 
-My hope is that I have provided enough visibility to your responsibility throughout this chapter that you will have a good understanding of what you need to do to keep your environments as secure as is required for your particular business model.
+My hope is that I have provided you enough visibility of your responsibility throughout this chapter and that you will have a good understanding of what you need to do to keep your environments as secure as is required for your particular business model.
 
 ### CSP Evaluation
 
-There is quite a bit to be done here, but it all depends on the answers you receive. I have provided scenarios and many points to consider in the [Countermeasures](#cloud-countermeasures-csp-evaluation) section. You can evaluate these now if you have not already.
+There is quite a bit to be done here, but it all depends on the answers you receive from your CSP. I have provided scenarios and given many points to consider in the [Countermeasures](#cloud-countermeasures-csp-evaluation) section. You can evaluate these now if you have not already.
 
 ### Cloud Service Provider vs In-house
 
@@ -1131,11 +1131,11 @@ It is worth investing the effort to make sure only the required user permissions
    
    Your bastion host will be hardened as discussed throughout the VPS chapter. All authorised workers can VPN to the bastion host and SSH from there, or just SSH tunnel from wherever they are through the bastion host via port forwarding to any given machine instances.  
    
-   If you have Windows boxes you need to reach, you can tunnel RDP through your SSH tunnel as I have [blogged about](https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/).  
+   If you have Windows boxes you need to reach, you can tunnel RDP through your SSH tunnel, see my[blog post about this](https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/).  
    
-   A second option with SSH (using the `-A` option) is to, rather than tunneling, hop from the bastion host to your machine instances by forwarding the private key, which does include the risk that someone could gain access to your forwarded SSH agent connection, thus being able to use your private key while you have an SSH connection established. `ssh-add -c` can provide some protection with this.  
+   Rather than tunnelling, another option SSH gives us (using the `-A` option) is to hop from the bastion host to your machine instances by forwarding the private key. This does include the risk that someone could gain access to your forwarded SSH agent connection, thus being able to use your private key while you have an SSH connection established. `ssh-add -c` can provide some protection with this.  
    
-   If you do decide to use the `-A` option, then you are essentially considering your bastion host as a trusted machine. I commented on the `-A` option in the [Tunneling SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh) subsection of the VPS chapter. There is plenty of good [documentation](https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/) on setting up the bastion host in AWS. AWS provides some [Best Practices](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices) for security on bastion hosts, and also [discusses](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/) recording the SSH sessions that your users establish through a bastion host for auditing purposes
+   If you do decide to use the `-A` option, then you are essentially considering your bastion host as a trusted machine. I commented on the `-A` option in the [Tunnelling SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh) subsection of the VPS chapter. There is plenty of good [documentation](https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/) on setting up the bastion host in AWS. AWS provides some [Best Practices](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#best-practices) for security on bastion hosts, and also [discusses](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/) recording the SSH sessions that your users establish through a bastion host for auditing purposes
 
 ### Storage of Secrets
 
@@ -1153,10 +1153,10 @@ Have you heard the argument that "the quickest way to introduce a new approach i
 
 A level of immediate compliance may be achieved, but the commitment will not necessarily be achieved (Fearless Change 2010).
 
-If you want to bring change, the most effective way is from the bottom up. In saying that, bottom-up takes longer and is harder. No pain, no gain, or as my wife puts it, it's the difference between instant coffee and espresso.
+If you want to bring change, the most effective way is from the bottom up. In saying that, bottom-up takes longer and it is harder. No pain, no gain, or as my wife puts it, it's the difference between making an instant coffee and making an espresso.
 
 Top-down change is imposed on people, and tries to make change occur quickly and deals with problems such as rejection and rebellion only if necessary.
-Bottom-up change triggered from a personal level focused on first obtaining trust, loyalty, and respect from serving in servant leadership approach, earning the right to speak (have you served your time, done the hard yards)?
+Bottom-up change triggered from a personal level focused by first obtaining trust, loyalty, and respect from serving in a servant leadership approach, earning the right to speak (have you served your time, done the hard yards)?
 
 Because the personal relationship and involvement is not usually present with top-down, people will appear to be doing what you mandated, but secretly, still doing things the way they always have done.
 
@@ -1164,7 +1164,7 @@ The most effective way to bring change is on a local and personal level once you
 
 ##### SSH
 
-By automating the work usually done manually by a developer with SSH access, you are investing a little time in order to do a mundane job that, once automated, can be done many times without requiring the concentration and time of a human. This can represent a huge cost savings, as well as increasing your security.
+By automating the work that is usually done manually by a developer with SSH access, you are investing a little time in order to do a mundane job that once automated, can be done many times without requiring the concentration and time of a human. This can represent a huge cost savings, as well as increasing your security.
 
 ##### TLS
 
@@ -1176,19 +1176,19 @@ It may may cost you a little to set-up and maintain additional accounts. This is
 
 ##### Entered by People (manually)
 
-It costs little to do research on the most suitable team password database for you, and to implement it. I provided a good selection of factors to consider when reviewing and making your selection in the [Countermeasures](#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-people-manually) subsection.
+It costs little to do research on the most suitable team password database for you, and to implement it. I provided you a good selection of factors to consider when reviewing and making your selection in the [Countermeasures](#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-people-manually) subsection.
 
 ##### Entered by Software (automatically)
 
-Security is, in part, a deception. By embracing defence in depth, we make it harder to break into systems, which just means it takes longer, and someone may have to think a little harder. There is no totally secure system. You decide how much it is worth investing to slow your attackers down. If your attacker is 100% determined and well resourced, they will likley compromise you eventually, no matter what you do.
+Security is, in part, a deception. By embracing defence in depth, we make it harder to break into systems, which just means it takes longer, and someone may have to think a little harder. There is no totally secure system. You decide how much it is worth investing to slow your attackers down. If your attacker is 100% determined and well resourced, they will likely compromise you eventually, no matter what you do.
 
 ### Serverless
 
-Securing Serverless currently is hard because the interactions between components are all in the open and on different platforms, requiring different sets of users and privileges. Trust boundaries are disparate.
+Securing Serverless is currently hard because the interactions between components are all in the open and on different platforms, which requires different sets of users and privileges. Trust boundaries are disparate.
 
 At the same time, Serverless does push the developer into creating more testable components.
 
-If you are going to go Serverless, which I admit does include some very compelling reasons to do so, make sure you invest heavily into implementing the [Countermeasures](#cloud-countermeasures-serverless) I discussed.
+If you are going to go Serverless, which I admit does include some very compelling reasons to do so, make sure you invest heavily into implementing the [Countermeasures](#cloud-countermeasures-serverless) I have discussed.
 
 #### Functions
 
@@ -1204,7 +1204,7 @@ If you have time to learn another framework then do so, this may take some trial
 
 ### Infrastructure and Configuration Management
 
-You will need to weigh the life of your project/product against the cost of codifying parts of your infrastructure and configuration. In most cases projects will benefit from some initial outlay in this, the pay off will usually be realised reasonably quickly.
+You will need to weigh up the life of your project/product against the cost of codifying parts of your infrastructure and configuration. In most cases projects will benefit from some initial outlay in this, the pay off will usually be realised reasonably quickly.
 
 ### AWS
 
