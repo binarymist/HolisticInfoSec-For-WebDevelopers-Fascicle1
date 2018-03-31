@@ -957,9 +957,9 @@ The Serverless framework currently has the following provider APIs:
 
 Storing infrastructure and configuration as code is an effective measure for many mundane tasks that people may still be performing that are prone to human error. This means we can sequence specific processes, debug them, source control them, and achieve repeatable processes that are far less likely to have security defects in them. This is provided that the automation is written by people who are sufficiently skilled and knowledgeable of the security topics involved. This also has the positive side effect of speeding processes up.
 
-When an artefact is deployed, how do you know that it will perform the same in production when it did in development? This is what a staging environment is for. A staging environment will never be exactly the same as production unless your infrastructure is codified. This is another place where containers can help. With using containers, you can test the new software anywhere and it will run the same, providing its environment is identical to what you ship.
+When an artefact is deployed, how do you know that it will perform the same in production that it did in development? This is what a staging environment is for. A staging environment will never be exactly the same as production unless your infrastructure is codified. This is another place where containers can help. With using containers, you can test the new software anywhere and it will run the same, providing its environment is identical to what you ship.
 
-The container goes from the developer's machine once tested, to the staging environment, then to production. The staging environment in this case is less important than it used to be, and is just as responsible for testing your infrastructure. All of this should of been built from source controlled infrastructure as code, so it is guaranteed to be repeatable.
+The container goes from the developer's machine once tested, to the staging environment, then to production. The staging environment in this case is less important than it used to be, and is just responsible for testing your infrastructure. All of this should of been built from source controlled infrastructure as code, so it is guaranteed to be repeatable.
 
 1. Pick off repetitious, boring, prone-to-human-error and easily automatable tasks that your team(s) have been doing. Script and source control them
     * **Configuration management**: One of the grassroot types of tooling options required here is a configuration management tool. I have found Ansible to be excellent. If you use Docker containers, most of the configuration management is already taken care of in the [`Dockerfile`](#vps-countermeasures-docker-the-dDefault-user-is-root). The [`docker-compose.yml`](#nodegoat-docker-compose.yml) file, orchestration platforms and tooling take us to "infrastructure as code"
@@ -974,7 +974,7 @@ As mentioned in the [risks subsection](#cloud-identify-risks-aws) for AWS, the [
 
 #### Password-less sudo
 
-Add the password to the default user.
+Add a password to the default user.
 
 We have covered the people aspects, along with exploitation techniques of Weak Password Strategies, in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
 
