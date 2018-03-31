@@ -88,20 +88,20 @@ Most of these questions were already part of my [Cloud vs In-house talk](https:/
    
    How is your data encrypted in transit (as discussed in the Management of Application Secrets subsections of the Web Applications chapter)? In reality, you have no idea what paths it will take once in your CSPs possession, and could very well be intercepted without your knowledge.  
    
-   * You have little to no control over the network path that the data you provide will travel on.
-   * There are more parties involved in your CSPs infrastructure than on your own network.
+   * You have little to no control over the network path that the data you provide will travel on
+   * There are more parties involved in your CSPs infrastructure than on your own network  
    
 4. Do you provide access to logs, if so, what sort of access, and to what sort of logs?  
    
-   Hopefully you will have easy access to any and all logs, just as you would if it was your own network. That includes hosts, routing, firewall, and any other service logs.  
+   Hopefully you will have easy access to any and all logs, just as you would if it was your own network. That includes hosts, routing, firewall, and any other service logs  
    
 5. What is your process around terminating my contract with you and/or moving to another CSP?  
    
-   No CSP is going to last forever, termination or migration is inevitable, it is just a matter of when. 
+   No CSP is going to last forever, termination or migration is inevitable, it is just a matter of when  
    
 6. Where do your servers, processes and data reside physically?  
    
-   As we discuss a little later in the Cloud Services Provider vs In-house subsection of Countermeasures, your data is governed by different people and jurisdictions depending on where it physically resides. CSPs have data centres in different countries and jurisdictions, each having different data security laws.
+   As we discuss a little later in the Cloud Services Provider vs In-house subsection of Countermeasures, your data is governed by different people and jurisdictions depending on where it physically resides. CSPs have data centres in different countries and jurisdictions, each having different data security laws
 
 
 7. Who can view the data I store in the Cloud?  
@@ -112,25 +112,25 @@ Most of these questions were already part of my [Cloud vs In-house talk](https:/
    
    Make sure you are aware of what the uptime promises mean in terms of real time. Some CSPs will allow 99.95% uptime if you are running on a single availability zone, but closer to 100% if you run on multiple availability zones. Some CSPs do not have a SLA at all.  
    
-   CSPs will often provide credits for the downtime, but these credits in many cases may not cover the losses you encounter during high traffic events.  
+   CSPs will often provide credits for the downtime, but these credits in many cases may not cover the losses you encounter during high traffic events  
    
 9. Are you ISO/IEC 27001:2013 Certified? If so, what is within its scope?  
    
-   If the CSP can answer this with a "everything" and prove it, they have done a lot of work to make this possible. This shows a certain level of commitment to their security posture. Just be aware, as with any certification, it is just that, it doesn't necessarily prove sound security.  
+   If the CSP can answer this with a "everything" and prove it, they have done a lot of work to make this possible. This shows a certain level of commitment to their security posture. Just be aware, as with any certification, it is just that, it doesn't necessarily prove sound security  
    
 10. Do you allow your customers to carry out regular penetration testing of production and/or test environments, and allow the network to be in-scope?  
     
-    CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness. If their networks stand up to penetration tests they obviously take security seriously. Ideally, this is what you are looking for. CSPs that do not permit penetration testing of their environments are usually trying to hide something. It may be that they know they have major insecurities, or a skills shortage in terms of security professionals. Worse, they may be unaware of where their security stature lies and are not willing to have their faults demonstrated.  
+    CSPs that allow penetration testing of their environments demonstrate that they embrace transparency and openness. If their networks stand up to penetration tests they obviously take security seriously. Ideally, this is what you are looking for. CSPs that do not permit penetration testing of their environments are usually trying to hide something. It may be that they know they have major insecurities, or a skills shortage in terms of security professionals. Worse, they may be unaware of where their security stature lies and are not willing to have their faults demonstrated  
    
 11. Do you have bug bounty programmes running, if so, what do they look like?  
     
-    This is another example if their programme is run well, it conveys that the CSP is open and transparent about their security faults and are willing to mitigate them as soon as possible.
+    This is another example if their programme is run well, it conveys that the CSP is open and transparent about their security faults and are willing to mitigate them as soon as possible
 
 ### [Cloud Service Provider vs In-house](https://speakerdeck.com/binarymist/does-your-cloud-solution-look-like-a-mushroom) {#cloud-identify-risks-cloud-service-provider-vs-in-house}
 
 A question that I hear frequently is: "What is more secure, building and maintaining your own cloud, or trusting a CSP to take care of your security for you?". That is a defective question, as discussed in the [Shared Responsibility Model ](#cloud-identify-risks-shared-responsibility-model) subsections. There are [some aspects](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) of security that the CSP has no knowledge of, and only you as the CSP customer can better secure those areas.
 
-Choosing a CSP means that you are depending on their security professionals to design, build, and maintain the infrastructure, frameworks, hardware and platforms. Usually large CSPs will do a decent job of this. Though, if you choose to design, build, and maintain your own in-house cloud, you will be subject to the skills of your own engineers who have created the Cloud components you decide to use. You will ultimately be responsible for the following, along other aspects of how these components fit together and interact with each other:
+Choosing a CSP means that you are depending on their security professionals to design, build, and maintain the infrastructure, frameworks, hardware and platforms. Usually large CSPs will do a decent job of this. Though, if you choose to design, build, and maintain your own in-house cloud, you will also be subject to the skills of your own engineers who have created the Cloud components you decide to use. You will ultimately be responsible for the following, along with other aspects of how these components fit together and interact with each other:
 
 * General infrastructure
 * Hardware
@@ -158,7 +158,7 @@ CSPs have the right to change their End User License Agreements (EULA) at any ti
 #### Giving up Secrets {#cloud-identify-risks-cloud-service-provider-vs-in-house-giving-up-secrets}
 
 Hosting providers can be, and in many cases are [forced](http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me) by governing authorities to [give up](https://www.stuff.co.nz/business/95116991/trade-me-fields-thousands-of-requests-for-member-information) your secrets and those of your customers. These are very unfortunate yet common scenarios, you may not even know it has happened.  
-A New Zealand (NZ) media outlet, The NZ Herald [covered a story](http://www.nzherald.co.nz/business/news/article.cfm?c_id=3&objectid=11422509) where senior lawyers and the Privacy Commissioner told the Herald of their concerns of the practise which see companies coerced into giving up information to the police. Instead of seeking a legal order, police asked companies to hand over information to assist with the "maintenance of the law". They threaten them with prosecution if they told the person whom they are interested in, and accept the data with no record keeping to show how often requests are made. The request from the police carries no legal force at all, it yet is regularly complied with.
+A New Zealand (NZ) media outlet, The NZ Herald [covered a story](http://www.nzherald.co.nz/business/news/article.cfm?c_id=3&objectid=11422509) where senior lawyers and the Privacy Commissioner told the Herald of their concerns of the practise which see companies coerced into giving up information to the police. Instead of seeking a legal order, police asked companies to hand over information to assist with the "maintenance of the law". They threatened them with prosecution if they told the person whom they are interested in, and accept the data with no record keeping to show how often requests are made. The request from the police carries no legal force at all, yet is regularly complied with.
 
 #### Location of Data
 
