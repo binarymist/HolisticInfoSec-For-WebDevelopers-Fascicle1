@@ -10,9 +10,9 @@ Take the results from the higher level Asset Identification in the 30,000' View 
 
 ### Productivity
 
-Using IaaS, and even more with PaaS, can provide great productivity gains. However, everything comes at a cost, as you can not gain productivity for free. Something will be scarified, usually that will be your security; which means you will no longer have control of your data.
+Using IaaS, and even more so with PaaS, can provide great productivity gains. However, everything comes at a cost, as you can not gain productivity for free. Something will be scarified, usually that will be your security; which means you will no longer have control of your data.
 
-Using cloud services can be a good thing especially for smaller businesses and startups. However, first of off decisions need to be made whether to use an external cloud provider or to create your own, as there are some very important considerations to be made. We will discuss these in the Identify Risks and Countermeasures subsections.
+Using cloud services can be a good thing especially for smaller businesses and startups. However, firstly decisions need to be made whether to use an external cloud provider or to create your own, as there are some very important considerations to be made. We will discuss these in the Identify Risks and Countermeasures subsections.
 
 ### Competitive Advantage
 
@@ -20,11 +20,11 @@ If you are a startup, be aware that the speed you initially enjoy with PaaS may 
 
 ### Control
 
-With regards to control of our own environments, we are blindly trusting huge amounts of IP to Cloud Service Providers (CSPs). In many instances, I have worked with customers who insist on putting everything in the Cloud without putting any thought into the security aspects of using the Cloud. Some have even commented how they are not concerned with the security risk. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to the market, and how their progress and plans have been intercepted. Bruce Schneier's book, "Data and Goliath" is the best book I have read to date that reveals the problems of blindly yielding everything. It's an eye-opening canon of the sad reality of our risky habits and the results they will yield.
+With regards to control of our own environments, we are blindly trusting huge amounts of IP to Cloud Service Providers (CSPs). In many instances, I have worked with customers who insist on putting everything in the Cloud without putting any thought into the security aspects of using the Cloud. Some have even commented how they are not concerned with the security risk. The problem is, they do not understand what is at risk. They may wonder why their competitor beats them to the market as their progress and plans are intercepted. Bruce Schneier's book, "Data and Goliath" is the best book I have read to date that reveals the problems of blindly yielding everything. It's an eye-opening canon of the sad reality of our risky habits and the results they will yield.
 
-Whenever you see the word "trust", you are yielding all control to the party you are trusting. When you trust another entity with your assets, you are giving them the power to control. Step back and think: Are your assets their primary concern, or is it maximising their profits by using you and/or your data as their asset?
+Whenever you see the word "trust", you are yielding control to the party you are trusting. When you trust another entity with your assets, you are giving them the power to control. Step back and think: Are your assets their primary concern, or is it maximising their profits by using you and/or your data as their asset?
 
-If you decide to use an external cloud provider, you need to be aware that whatever goes into the Cloud is almost completely out of your control. You may not be able to remove your data once it is in there, and have visibility into whether or not the existing data has really removed from the Cloud.
+If you decide to use an external cloud provider, you need to be aware that whatever goes into the Cloud is almost completely out of your control. You may not be able to remove your data once it is there, and have visibility into whether or not the existing data has really been removed from the Cloud.
 
 ### Data
 
@@ -71,11 +71,11 @@ The following are a set of questions (verbatim) I have been asked recently, and 
 ### CSP Evaluation {#cloud-identify-risks-csp-evaluation}
 
 CSPs are constantly changing their terms and conditions, as well as many other components and aspects of what they offer. I have compiled a set of must-answer questions to quiz your CSP with as part of your threat modelling before (or even after) you sign their service agreement.  
-Most of these questions were already part of my [Cloud vs In-house talk](http://blog.binarymist.net/presentations-publications/#does-your-cloud-solution-look-like-a-mushroom) at the Saturn Architects conference I spoke at. I recommend using these as a basis for identifying risks that are important for you to consider. This should make you well armed to come up with countermeasures and think of any additional risks.
+Most of these questions were already part of my [Cloud vs In-house talk](https://binarymist.io/talk/saturn-2015-talk-does-your-cloud-solution-look-like-a-mushroom/) at the Saturn Architects conference I spoke at. I recommend using these as a basis for identifying risks that are important for you to consider. This should make you well armed to come up with countermeasures and think of any additional risks.
 
 1. Do you keep a signed audit log of what actions users performed, and when, via UIs and APIs?  
    
-   Both authorised and unauthorised users are more careful about the actions they take, or do not take, when they know their actions are being recorded and are potentially being watched.  
+   Both authorised and unauthorised users are more careful about the actions they take, or do not take, when they know their actions are being recorded and are potentially being watched  
    
 2. How do you enact the shared responsibility model between CSPs and their customers? Please explain your role and my role in the protection of my and my customers data.  
    
@@ -460,7 +460,7 @@ The following is in response to the set of frequently asked questions under the 
 
 ### CSP Evaluation {#cloud-countermeasures-csp-evaluation}
 
-Once you have sprung the questions from the [CSP Evaluaton](#cloud-identify-risks-csp-evaluation) subsection in the Identify Risks subsection on your service provider and received their answers, you will be in a good position to feed these into the following subsections.
+Once you have sprung the questions from the [CSP Evaluation](#cloud-identify-risks-csp-evaluation) subsection in the Identify Risks subsection on your service provider and received their answers, you will be in a good position to feed these into the following subsections.
 
 
 1. Do you keep a signed audit log on which users performed which actions and when, via UIs and APIs?  
@@ -591,7 +591,7 @@ Some times it can cost more up front to go with an open (non-proprietary) offeri
 
 Often technology choices are chosen because they are the "new shiny", as everyone else using is it, or there is a lot of buzz or hype around it.
 
-**An analogy**: Do Software Developers write code that is untestable because it is cheaper to write? Many development shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascile 0](https://leanpub.com/holistic-infosec-for-web-developers/). I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and offered workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing untestable code is a short sighted approach. Code is read, revised, and extended many times more than it is written initially.
+**An analogy**: Do Software Developers write code that is untestable because it is cheaper to write? Many development shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and offered workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing untestable code is a short sighted approach. Code is read, revised, and extended many times more than it is written initially.
 
 If you are putting all your cost savings in the initial code writing phase, and failing to consider all the times that modification will be attempted, then you are missing huge cost savings. Taking an initial hit up front to write testable code, specifically, code that has the properties of maintainability and extensibility defined by the [Liskov Substitution Principle](https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/), will set you up so that the interface is not coupled to the implementation.
 
@@ -667,7 +667,7 @@ There are also a collection of IAM specific items that you should review in the 
 
 #### Machine Instance Single User Root
 
-As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS, including [SSH access](#cloud-countermeasures-storage-of-secrets-private-key-abuse-ssh) if required (ideally this should be automated). With Docker, I discussed how this is done in the [Dockerfile](#vps-countermeasures-docker-the-default-user-is-root).
+As part of the VPS and container builds, there should be [specific users created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html) for specific jobs, every user within your organisation that needs VPS access should have their own user account on every VPS, including [SSH access](#cloud-countermeasures-storage-of-secrets-private-key-abuse-ssh) if required (ideally this should be automated). With Docker, I discussed how this is done in the [`Dockerfile`](#vps-countermeasures-docker-the-default-user-is-root).
 
 Drive a [least privilege policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) around this, configuring a strong [password policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#configure-strong-password-policy) for your users, and implement [multi-factor authentication](https://aws.amazon.com/iam/details/mfa/), which will help with poor password selection. I discuss this in more depth in the [Storage of Secrets](#cloud-countermeasures-storage-of-secrets) subsection.
 
