@@ -475,7 +475,7 @@ Once you have sprung the questions from the [CSP Evaluation](#cloud-identify-ris
    
 3. Do you encrypt all communications between servers within your data centres?  
    
-   I have discussed in many places that we should aim to have all communications on any given network encrypted. This should not be too onerous to establish on your own network, but in some cases it may not be possible on a CSPs network, especially if you are using proprietary/serverless technologies. If you are using usual machine instances, then in most cases, the CSPs infrastructure is logically not really any different than an in-house network, where you can encrypt your own communications.  
+   I have discussed in many places that we should aim to have all communications on any given network encrypted. Ideally end to end encrypted where possible (as discussed in the [End to End Encryption show](https://binarymist.io/publication/ser-podcast-end-to-end-encryption/) I hosted for Software Engineering Radio with guest Head of Cryptography Engineering at Tresorit, Péter Budai). Proprietary/serverless technologies can make this more difficult. If you are using usual machine instances, then in most cases, the CSPs infrastructure is logically not really any different than an in-house network, where you can encrypt your own communications.  
    
    AWS also provides [Virtual Private Cloud](https://aws.amazon.com/vpc/) (VPC), which you can build your networks within, including [Serverless](https://aws.amazon.com/serverless/) technologies. This allows for segmentation and isolation.  
    
@@ -589,7 +589,7 @@ Many projects are locked into technology decisions, offerings, libraries, and se
 
 Some times it can cost more up front to go with an open (non-proprietary) offering because the proprietary offering has streamlined the development, deployment, and maintainability, that is the whole point of a proprietary offerings, right? Yet, sometimes the open offering can actually be the cheaper option, due to proprietary offerings incurring an additional learning or skills development cost for the teams and people involved.
 
-Often technology choices are chosen because they are the "new shiny", as everyone else using is it, or there is a lot of buzz or hype around it.
+Often technology choices are chosen because they are the "new shiny", as everyone else is using it, or there is a lot of buzz or hype around it.
 
 **An analogy**: Do Software Developers write code that is untestable because it is cheaper to write? Many development shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and offered workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing untestable code is a short sighted approach. Code is read, revised, and extended many times more than it is written initially.
 
