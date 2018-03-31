@@ -1,18 +1,26 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+### Cloud
+
+Status: Technical edited. General edit is WIP
+
+### Web Applications
+
+Status: General edited, ready for technical edit
+
 ## 2018-01-11
 
 ### VPS
 
-Status: Technical edited, ready for general review.
+Status: Technical edited, ready for general edit.
 
 ### Network
 
-Status: Technical edited, ready for general review.
+Status: Technical edited, ready for general edit.
 
 ### Cloud
 
-Status: Technical edited, ready for general review.
+Status: Technical edited, ready for general edit.
 
 ### Web Applications
 

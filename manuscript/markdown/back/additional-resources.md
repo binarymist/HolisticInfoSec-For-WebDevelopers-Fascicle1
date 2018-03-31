@@ -577,7 +577,7 @@ http://null-byte.wonderhowto.com/how-to/hack-like-pro-crack-passwords-part-2-cra
 [http://blog.binarymist.net/2013/06/22/ideas-for-more-effective-meetings-and-presentations/](http://blog.binarymist.net/2013/06/22/ideas-for-more-effective-meetings-and-presentations/)
 
 
-
+{#additional-resources-countermeasures-insufficient-attack-protection-application-intrusion-detection-and-response}
 **Application Intrusion Detection and Response**
 
 **Appsensor home**  
