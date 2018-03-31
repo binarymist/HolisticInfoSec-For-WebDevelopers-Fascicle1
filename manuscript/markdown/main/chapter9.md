@@ -651,7 +651,7 @@ This process was pointed out to me by Scott Piper during our [Cloud Security int
 
 The [Access Advisor](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/) tab, is visible on the IAM console details page for Users, Groups, Roles, or Policies after you select a list item. This provides information about which services are accessible for any of your users, groups, or roles. This can also be helpful for auditing permissions that should not be available to any of your users who are part of the group, role or policy you selected.
 
-The [IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) is accessible from the IAM console This is good for granular reporting on the permissions of your specific Users, Groups and Roles, filtered by service and actions.
+The [IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) is accessible from the IAM console. This is good for granular reporting on the permissions of your specific Users, Groups and Roles, filtered by service and actions.
 
 [AWS Trusted Advisor](https://aws.amazon.com/premiumsupport/trustedadvisor/) should be run periodically to check for security issues. It is accessible from the [Console](https://console.aws.amazon.com/trustedadvisor/), CLI and API. Trusted Advisor has a collection of core checks and recommendations which are free to use. These include security groups, specific ports unrestricted, IAM use, MFA on root user, EBS and RDS public snapshots.
 
@@ -770,7 +770,7 @@ Create and enforce password policies, discussed below.
 
 Oddly enough, in the AWS account root user story I mentioned in the [Risks](#cloud-identify-risks-storage-of-secrets-credentials-and-other-secrets) subsection, I had created a report detailing this as one of the most critical issues that needed addressing, several weeks before all but one person lost access.
 
-If your business is in the Cloud, the account root user is one of your most valuable assets, do not share it with anyone, and only use it when its essential.
+If your business is in the Cloud, the account root user is one of your most valuable assets, do not share it with anyone, and only use it when it's essential.
 
 ##### Entered by People (manually) {#cloud-countermeasures-storage-of-secrets-credentials-and-other-secrets-entered-by-people-manually}
 
