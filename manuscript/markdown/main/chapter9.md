@@ -222,7 +222,7 @@ People chapter
 
 ### People
 
-You might ask what people have to do with cloud security. From my experience working as a consulting Architect, Engineer, and Security Professional for many organisations and their teams. This has shown me, that in the majority of security incidents, reviews, tests and redesigns, the root cause of failures stems back to people defects. This is recognised as the number one issue of the [CSP Customer Responsibility](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) in the Shared Responsibility Model. As people, we are our own worst enemies. We can be the weakest and the strongest links in the security chain. The responsibility falls squarely in our own laps.
+You might ask what people have to do with cloud security. From my experience working as a consulting Architect, Engineer, and Security Professional for many organisations and their teams, has shown me, that in the majority of security incidents, reviews, tests and redesigns, the root cause of failures stems back to people defects. This is recognised as the number one issue of the [CSP Customer Responsibility](#cloud-identify-risks-shared-responsibility-model-csp-customer-responsibility) in the Shared Responsibility Model. As people, we are our own worst enemies. We can be the weakest and the strongest links in the security chain. The responsibility falls squarely in our own laps.
 
 You will notice that most of the defects addressed in this chapter come down to people:
 
@@ -244,7 +244,7 @@ In general, as discussed in the [Shared Responsibility Model](#cloud-identify-ri
 
 ### Network Security {#cloud-identify-risks-network-security}
 
-The network between the components you decide to use in the Cloud will almost certainly no longer be administered by your network administrator(s), but rather by you as a Software Engineer. Networks are now [expressed as code](#cloud-identify-risks-infrastructure-and-configuration-management), and because coding is your responsibility as a Software Engineer, the network will more than likely be left to you to design and code for. You will need to have a good understanding of [Network Security](#network).
+The network between the components you decide to use in the Cloud will almost certainly no longer be administered by your network administrator(s), but rather by you as a Software Engineer. Networks are now [expressed as code](#cloud-identify-risks-infrastructure-and-configuration-management), and because coding is one of your responsibilities as a Software Engineer, the network will more than likely be left to you to design and code for. You will need to have a good understanding of [Network Security](#network).
 
 ### Violations of [Least Privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) {#cloud-identify-risks-violations-of-least-privilege}
 
@@ -264,14 +264,14 @@ Here are some examples of violating least privilege:
 **This Fascicle**:
 
 * VPS chapter: We discussed privilege escalation. This is a direct violation of least privilege, because after escalation, attackers now have additional privileges
-* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio. This for example could allow an attacker to gain control of a network to have unhindered access to all of an organisation's assets. This is often due to a monolithic network segment rather than having assets on alternative network segments with firewalls between them
+* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio. This for example could allow an attacker that has gained control of a network to have unhindered access to all of an organisation's assets. This is often due to a monolithic network segment rather than having assets on alternative network segments with firewalls between them
 * Web Applications chapter: We discuss setting up data-store accounts that only have privileges to query the stored procedures necessary for a given application, thus reducing the power that any possible SQL injection attack may have to carry out arbitrary commands. [Haroon Meer](https://twitter.com/haroonmeer) also discussed this as a technique for exfiltration of data in the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) podcast
 
 Hopefully you are getting more clarity on least privilege, and its propensity to break down in a cloud environment. Some examples:
 
-* **Running services as root**: A perfect example of this is running a docker container that does not specify a non-root user in its image. Docker will default to root if not configured otherwise, as discussed in the [Docker](#vps-identify-risks-docker-the-default-user-is-root) subsection of the VPS chapter.
-* **Configuration Settings Changed Ad Hoc**: Because there are so many features and configurations that can be easily modified, developers and administrators will modify them. For example, someone needs immediate access when we are in the middle of something else, that we quickly modify a permissions setting without realising we have just modified that permission for a group of other people as well. It is so easy to make ad hoc changes, they will be made.
-* **Machine Instance Access To Open**: Is an attacker permitted to access your machine instances from anywhere? If so, this is an additional attack surface.
+* **Running services as root**: A perfect example of this is running a docker container that does not specify a non-root user in its image. Docker will default to root if not configured otherwise, as discussed in the [Docker](#vps-identify-risks-docker-the-default-user-is-root) subsection of the VPS chapter
+* **Configuration Settings Changed Ad Hoc**: Because there are so many features and configurations that can be easily modified, developers and administrators will modify them. For example, someone needs immediate access when we are in the middle of something else, that we quickly modify a permissions setting without realising we have just modified that permission for a group of other people as well. It is so easy to make ad hoc changes, they will be made
+* **Machine Instance Access To Open**: Is an attacker permitted to access your machine instances from anywhere? If so, this is an additional attack surface
 
 #### Machine Instance Single User Root {#cloud-identify-risks-violations-of-least-privilege-machine-instance-single-user-root}
 
@@ -287,7 +287,7 @@ I have seen a lot of mishandling of sensitive information, some examples as foll
 
 #### Private Key Abuse
 
-Below are some of the ways I have see private keys mishandled.
+Below are some of the ways I have seen private keys mishandled.
 
 ##### SSH {#cloud-identify-risks-storage-of-secrets-private-key-abuse-ssh}
 
