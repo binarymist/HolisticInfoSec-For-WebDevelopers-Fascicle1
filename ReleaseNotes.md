@@ -1,12 +1,14 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+## 2018-04-01
+
 ### Cloud
 
-Status: Technical edited. General edit is WIP
+Status: Done
 
 ### Web Applications
 
-Status: General edited, ready for technical edit
+Status: General edited, technical edited, ready for final review/merge
 
 ## 2018-01-11
 
