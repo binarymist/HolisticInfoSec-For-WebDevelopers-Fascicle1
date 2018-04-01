@@ -2080,7 +2080,7 @@ Also, make sure the following permissions and ownership on the server are correc
     # Make sure you are the owner of authorized_keys also.
     chown [you] authorized_keys
 
-##### Tunneling SSH {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh}
+##### Tunnelling SSH {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-tunneling-ssh}
 
 You may need to tunnel SSH once the server is placed into the DMZ. Usually this will be mostly set-up on your router. If you are on the outside of your network, you will just SSH to your external IP address.
 

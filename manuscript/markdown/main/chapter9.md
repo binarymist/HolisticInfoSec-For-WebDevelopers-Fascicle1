@@ -1061,7 +1061,7 @@ In order for an application or service to access the secrets provided by one of 
 
 ### Serverless
 
-Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities that require understanding in order to secure the integration of the components. There is a real danger that developers will fail to understand and implement all the security countermeasures required to achieve a similar security stand point they enjoyed when having their components in a less distributed and running in long-lived processes.
+Many of the gains that attract people to the serverless paradigm are imbalanced by the extra complexities that require understanding in order to secure the integration of the components. There is a real danger that developers will fail to understand and implement all the security countermeasures required to achieve a similar security stand point they enjoyed when having their components in a less distributed manner and running in long-lived processes.
 
 #### Functions
 
