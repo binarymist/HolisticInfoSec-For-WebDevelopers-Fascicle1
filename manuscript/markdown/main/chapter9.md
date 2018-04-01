@@ -232,7 +232,7 @@ You will notice that most of the defects addressed in this chapter come down to 
 
 ### Application Security
 
-On the Software Engineering Radio show, I hosted an interview with Zane Lackey on [Application Security](http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/), it is well worth listening to.
+On the Software Engineering Radio show, I hosted an interview with Zane Lackey on [Application Security](https://binarymist.io/publication/ser-podcast-application-security/), it is well worth listening to.
 
 With the shift to the Cloud, AppSec has become more important than it used to be, recognised and discussed:
 
@@ -264,8 +264,8 @@ Here are some examples of violating least privilege:
 **This Fascicle**:
 
 * VPS chapter: We discussed privilege escalation. This is a direct violation of least privilege, because after escalation, attackers now have additional privileges
-* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio. This for example could allow an attacker that has gained control of a network to have unhindered access to all of an organisation's assets. This is often due to a monolithic network segment rather than having assets on alternative network segments with firewalls between them
-* Web Applications chapter: We discuss setting up data-store accounts that only have privileges to query the stored procedures necessary for a given application, thus reducing the power that any possible SQL injection attack may have to carry out arbitrary commands. [Haroon Meer](https://twitter.com/haroonmeer) also discussed this as a technique for exfiltration of data in the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) podcast
+* Network chapter: We discussed [lack of segmentation](#network-identify-risks-lack-of-segmentation). I also discussed this with [Haroon Meer](https://twitter.com/haroonmeer) on the [Network Security](https://binarymist.io/publication/ser-podcast-network-security/) show I hosted for Software Engineering Radio. This for example could allow an attacker that has gained control of a network to have unhindered access to all of an organisation's assets. This is often due to a monolithic network segment rather than having assets on alternative network segments with firewalls between them
+* Web Applications chapter: We discuss setting up data-store accounts that only have privileges to query the stored procedures necessary for a given application, thus reducing the power that any possible SQL injection attack may have to carry out arbitrary commands. [Haroon Meer](https://twitter.com/haroonmeer) also discussed this as a technique for exfiltration of data in the [Network Security](https://binarymist.io/publication/ser-podcast-network-security/) podcast
 
 Hopefully you are getting more clarity on least privilege, and its propensity to break down in a cloud environment. Some examples:
 
@@ -418,7 +418,7 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
 
-As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are excellent tokens you can drop anywhere on your infrastructure. When an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides an early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones are being added every so often. These tokens are very quick and free to generate, and can be dropped wherever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) show I hosted for Software Engineering Radio near the end of the episode.
+As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are excellent tokens you can drop anywhere on your infrastructure. When an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides an early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones are being added every so often. These tokens are very quick and free to generate, and can be dropped wherever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the [Network Security](https://binarymist.io/publication/ser-podcast-network-security/) show I hosted for Software Engineering Radio near the end of the episode.
 
 ### Shared Responsibility Model
 
@@ -475,7 +475,7 @@ Once you have sprung the questions from the [CSP Evaluation](#cloud-identify-ris
    
 3. Do you encrypt all communications between servers within your data centres?  
    
-   I have discussed in many places that we should aim to have all communications on any given network encrypted. Ideally end to end encrypted where possible (as discussed in the [End to End Encryption show](https://binarymist.io/publication/ser-podcast-end-to-end-encryption/) I hosted for Software Engineering Radio with guest Head of Cryptography Engineering at Tresorit, Péter Budai). Proprietary/serverless technologies can make this more difficult. If you are using usual machine instances, then in most cases, the CSPs infrastructure is logically not really any different than an in-house network, where you can encrypt your own communications.  
+   I have discussed in many places that we should aim to have all communications on any given network encrypted. Ideally end to end encrypted where possible (as discussed in the [End to End Encryption show](https://binarymist.io/publication/ser-podcast-end-to-end-encryption/) I hosted for Software Engineering Radio with guest Head of Cryptography Engineering at Tresorit, Peter Budai). Proprietary/serverless technologies can make this more difficult. If you are using usual machine instances, then in most cases, the CSPs infrastructure is logically not really any different than an in-house network, where you can encrypt your own communications.  
    
    AWS also provides [Virtual Private Cloud](https://aws.amazon.com/vpc/) (VPC), which you can build your networks within, including [Serverless](https://aws.amazon.com/serverless/) technologies. This allows for segmentation and isolation.  
    
@@ -647,7 +647,7 @@ This is the recommended sequence for granting least privilege in AWS, other CSPs
 Regularly review all of the IAM policies you are using, making sure only the required permissions (Services, Access Levels, and Resources) are available to the users and/or groups attached to the specific policies.
 
 Enable [Multi Factor Authentication](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users) (MFA) on the root user, and all IAM users with console access, especially privileged users at a minimum. AWS provides the ability to mandate that users use MFA, you can do this by creating a new managed policy based on the AWS guidance to [Enable Your Users to Configure Their Own Credentials and MFA Settings](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html). Attach the new policy to a group that you have created and add users that must use MFA to that group.  
-This process was pointed out to me by Scott Piper during our [Cloud Security interview](http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/) by way of his [blog post](https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies-for-mfa) and generous Github pull request.
+This process was pointed out to me by Scott Piper during our [Cloud Security interview](https://binarymist.io/publication/ser-podcast-cloud-security/) by way of his [blog post](https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-policies-for-mfa) and generous Github pull request.
 
 The [Access Advisor](https://aws.amazon.com/blogs/security/remove-unnecessary-permissions-in-your-iam-policies-by-using-service-last-accessed-data/) tab, is visible on the IAM console details page for Users, Groups, Roles, or Policies after you select a list item. This provides information about which services are accessible for any of your users, groups, or roles. This can also be helpful for auditing permissions that should not be available to any of your users who are part of the group, role or policy you selected.
 
@@ -682,7 +682,7 @@ Another idea is to set-up monitoring and notifications on activity of your AWS a
 
 There are also a collection of monitoring specific items that you should review in the Monitoring subsection of the [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf).
 
-Another great idea is to generate an AWS key [Canarytoken](https://canarytokens.org/) from canarytokens.org, and put it somewhere more obvious than your real AWS key(s). When someone uses it, you will be automatically notified. I discussed these with Haroon Meer on the Software Engineering Radio [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) podcast. [Jay](https://twitter.com/HeyJayza) also wrote a [blog post](http://blog.thinkst.com/2017/09/canarytokens-new-member-aws-api-key.html) on the thinkst blog on how you can set this up, and what the inner workings look like.
+Another great idea is to generate an AWS key [Canarytoken](https://canarytokens.org/) from canarytokens.org, and put it somewhere more obvious than your real AWS key(s). When someone uses it, you will be automatically notified. I discussed these with Haroon Meer on the Software Engineering Radio [Network Security](https://binarymist.io/publication/ser-podcast-network-security/) podcast. [Jay](https://twitter.com/HeyJayza) also wrote a [blog post](http://blog.thinkst.com/2017/09/canarytokens-new-member-aws-api-key.html) on the thinkst blog on how you can set this up, and what the inner workings look like.
 
 Also consider rotating your IAM access keys for your CSP services. AWS EC2, for example, provides [auto-expire, auto-renew](https://aws.amazon.com/blogs/security/how-to-rotate-access-keys-for-iam-users/) access keys when using roles.
 

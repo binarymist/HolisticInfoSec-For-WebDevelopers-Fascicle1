@@ -383,6 +383,12 @@ These resources in order were helpful for establishing a strategy for the unreli
 
 ## [Cloud](#cloud)
 
+**Interview I hosted with Scott Piper on Cloud Security**  
+[https://binarymist.io/publication/ser-podcast-cloud-security/](https://binarymist.io/publication/ser-podcast-cloud-security/)
+
+**Interview I hosted with Peter Budai on EtEE**  
+[https://binarymist.io/publication/ser-podcast-end-to-end-encryption/](https://binarymist.io/publication/ser-podcast-end-to-end-encryption/)
+
 %% Storage of Secrets, Private Key Abuse, TLS, Countermeasures
 
 **Secrets out of Docker images**  
