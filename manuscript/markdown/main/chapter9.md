@@ -189,9 +189,9 @@ There is a lot in common on the topic of Cloud security in the other chapters of
 
 This point in the chapter, is a good time to orient / reorient yourself with the related topics / concepts from the other chapters. From here on in, I will assume that you can apply the knowledge from the other chapters to the topic of Cloud security without me having to revisit large sections of it, specifically:
 
-**[Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)**:
+**[Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/)**:
 
-People chapter
+[People chapter](https://f0.holisticinfosecforwebdevelopers.com/chap08.html#people)
 
 * Ignorance
 * Morale, Productivity and Engagement Killers
