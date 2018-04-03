@@ -191,7 +191,7 @@ This point in the chapter, is a good time to orient / reorient yourself with the
 
 **[Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/)**:
 
-[People chapter](https://f0.holisticinfosecforwebdevelopers.com/chap08.html#people)
+[People](#people) chapter
 
 * Ignorance
 * Morale, Productivity and Engagement Killers
