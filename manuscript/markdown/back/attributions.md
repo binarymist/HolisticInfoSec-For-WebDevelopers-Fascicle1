@@ -1381,8 +1381,7 @@ ce-store-encryption/
 https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-efs-now-supports-encryptio  
 n-of-data-at-rest/
 
-**I also discuss this in depth in my interview**  
-with Peter Budai, Head of Cryptography Engineering at Tresorit, on the topic of End to End Encryption  
+**I also discuss this in depth in my interview** with Peter Budai, Head of Cryptography Engineering at Tresorit, on the topic of End to End Encryption  
 [https://binarymist.io/publication/ser-podcast-end-to-end-encryption/](https://binarymist.io/publication/ser-podcast-end-to-end-encryption/)
 
 **Ben Humphreys spoke about this at CHCon**  
@@ -1568,7 +1567,7 @@ assword-policy
 **SOLID principles**  
 https://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29
 
-**Serverless** goes a long way to forcing us to write testable code**  
+**Serverless** goes a long way to forcing us to write testable code  
 [https://binarymist.io/blog/2012/12/01/moving-to-tdd/](https://binarymist.io/blog/2012/12/01/moving-to-tdd/)
 
 **Open/closed principle**  
