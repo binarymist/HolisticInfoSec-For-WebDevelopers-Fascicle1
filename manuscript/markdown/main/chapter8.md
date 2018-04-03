@@ -8,7 +8,7 @@ I had the pleasure of interviewing [Haroon Meer](https://twitter.com/haroonmeer)
 * [Canary Tools](https://canary.tools/)
 
 ## 1. SSM Asset Identification
-Take results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable and add any that are newly discovered.
+Take results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Remove any that are not applicable and add any that are newly discovered.
 
 Here are some possibilities to get you started:
 
@@ -20,18 +20,18 @@ Here are some possibilities to get you started:
 There will almost certainly be many others. Think about your network topology, specifically about information, where it's stored where and over which channels it may pass. If you have decided to hand your precious data over to a Cloud Service Provider (CSP), then you are not going to have much control over this and in most cases, your CSP will not have as much control as you would like either. We address this in the [Cloud](#cloud) chapter. Also think about the areas that may be easier to compromise than others, and take this information into the next step.
 
 ## 2. SSM Identify Risks
-Go through the same process as we did at the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but do so for the network.
+Go through the same process as we did at the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), but do so for the network.
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
-Most exploitation of security vulnerabilities involves an aspect of a network. Reconnaissance generally utilises the Internet at a minimum. [Application security](#web-applications) generally requires a network in order to access the target application(s). [Cloud security](#cloud) similarly depends on a network in order to access the target resources. Social Engineering, as discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), leverages a network of people in order to access the human target. Even physical security (also discussed in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)) often involves different types of networks. When we think of networks, try not to be constrained to computer networks.
+Most exploitation of security vulnerabilities involves an aspect of a network. Reconnaissance generally utilises the Internet at a minimum. [Application security](#web-applications) generally requires a network in order to access the target application(s). [Cloud security](#cloud) similarly depends on a network in order to access the target resources. Social Engineering, as discussed in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), leverages a network of people in order to access the human target. Even physical security (also discussed in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)) often involves different types of networks. When we think of networks, try not to be constrained to computer networks.
 
 I also discussed [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) with Haroon Meer on a Software Engineering Radio show, which is well worth a listen during evaluation of both risks and countermeasures.
 
 ### Fortress Mentality {#network-identify-risks-fortress-mentality}
 ![](images/ThreatTags/easy-widespread-easy-severe.png)
 
-This section takes the concepts from the section of the same name in the Physical chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). The largest percentage of successful attacks come from within organisations. Usually, attacks from the inside are covered up. An organisation's public image is affected to a greater extent via an attack from the inside than if the organisation is compromised by someone on the other side of the world.
+This section takes the concepts from the section of the same name in the Physical chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/). The largest percentage of successful attacks come from within organisations. Usually, attacks from the inside are covered up. An organisation's public image is affected to a greater extent via an attack from the inside than if the organisation is compromised by someone on the other side of the world.
 
 There is somehow still a general misconception that having perimeters will save us from attackers. They may stop some of the noise from unmotivated attackers, but usually not much more than that.
 
@@ -95,7 +95,7 @@ Healthcare was impacted such that:
 
 Malicious inside actors can be disgruntled employees that may or not have left the organisation and still have access via an account or a back door they introduced or are aware of. They could also be opportunists looking to make some extra money by selling access or private information.
 
-An inadvertent inside actor is usually someone that does not mean to cause harm, but falls prey to social engineering tactics often from malicious outsiders, as touched on in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). These are attacks such as phishing, or where the victim is somehow tricked or coerced into revealing sensitive information, or carrying out an activity that will provide the attacker a foothold. The Social Engineer's Playbook by Jeremiah Talamantes has many very useful and practical examples of these types of attacks.
+An inadvertent inside actor is usually someone that does not mean to cause harm, but falls prey to social engineering tactics often from malicious outsiders, as touched on in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/). These are attacks such as phishing, or where the victim is somehow tricked or coerced into revealing sensitive information, or carrying out an activity that will provide the attacker a foothold. The Social Engineer's Playbook by Jeremiah Talamantes has many very useful and practical examples of these types of attacks.
 
 In 2016, we saw a significant trend of inside actors shifting to the inadvertent; essentially this points to an emphasis on exploiting the organisation's people (social engineering) with various attack strategies.
 
@@ -142,7 +142,7 @@ Following are some of the different types of network spoofing.
 
 Setting the IP address in your header to the victim's IP address.
 
-Remember we did something similar to this under the "Concealing NMap Source IP Address" of the Reconnaissance section from the Process and Practises chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) with nmap decoy host `-D` and idle scan `-sI`.
+Remember we did something similar to this under the "Concealing NMap Source IP Address" of the Reconnaissance section from the Process and Practises chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) with nmap decoy host `-D` and idle scan `-sI`.
 
 In this type of attack a sending node will spoof its public IP address (not actually change its IP address) (by forging the header) to appear someone else's. When the message is received and a reply crafted, the entity creating the reply will look up its ARP table and send the reply to the impersonated entity because the MAC address is still associated with the IP address of the message it received. This sort of play is commonly used in Denial of Service (DoS) attacks because the attacker does not need or want the response.
 
@@ -209,7 +209,7 @@ Often the sender of a spoofed email will use a from address that you recognise i
 
 <!---Todo: Check out Subterfuge, mentioned in "Basic Security Testing With Kali Linux"-->
 <!---Todo: pg 160 of "The Hacker Playbook" could be worth demoing here-->
-An attacker can clone or imitate a legitimate website (with the likes of the Social Engineering Kit (SET)) or the Browser Exploitation Framework (BeEF), and through social engineering, phishing, email spoofing, or any other number of tricks (as discussed in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)) to coerce a victim to browse the spoofed website. In fact, if you clone a website that you know your victim visits regularly, then you can just do so and sit and wait for them to take the bait. Better still, automote your attack so that when they do take the bait exploits are fired at them automatically. Once the victim is on the spoofed website, the attacker can harvest credentials or carry out many other types of attacks against the non-suspecting user.
+An attacker can clone or imitate a legitimate website (with the likes of the Social Engineering Kit (SET)) or the Browser Exploitation Framework (BeEF), and through social engineering, phishing, email spoofing, or any other number of tricks (as discussed in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)) to coerce a victim to browse the spoofed website. In fact, if you clone a website that you know your victim visits regularly, then you can just do so and sit and wait for them to take the bait. Better still, automote your attack so that when they do take the bait exploits are fired at them automatically. Once the victim is on the spoofed website, the attacker can harvest credentials or carry out many other types of attacks against the non-suspecting user.
 
 The victim may visit the attackers cloned website due to ARP and/or DNS spoofing. Subterfuge is handy to run a plethora of attacks against the victims browser through the likes of the Metasploit Browser AutoPwn module. If >0 attacks are successful (we have managed to install a root-kit), the attacker will usually get a remote command shell to the victims system by way of reverse or bind shell. Then simply forward them onto the legitimate website without them even being aware of the attack.
 
@@ -375,7 +375,7 @@ No anti-virus is run by Dropbox on the files that Dropbox syncs. This means that
 
 #### Physical
 
-If there is no Internet access from the target's environment, physical media can be utilised. We discussed this in the Infectious Media subsection of Identify Risks of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+If there is no Internet access from the target's environment, physical media can be utilised. We discussed this in the Infectious Media subsection of Identify Risks of the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/).
 
 #### Mobile Phone Data
 
@@ -491,7 +491,7 @@ In order to carry out a successful Exfil, the attacker will need:
 1. A domain name registered for this attack
 2. A payload they can drop on one to many hosts inside their target network.
 The [dnscat2 client](https://github.com/iagox86/dnscat2#client) is written in C, modifications can and should be made to the source to help avoid detection.
-Dnscat2 also provides the ability to tunnel SSH from the dnscat2 server (C2) to the dnscat2 client, and even to other machines on the same network. All details are provided on the dnscat2 [github](https://github.com/iagox86/dnscat2#tunnels), and even more details are provided on [Ron's blog](https://blog.skullsecurity.org/2015/dnscat2-0-05-with-tunnels). Once the attacker has modified the client source, they will most likely run it through [VirusTotal](https://www.virustotal.com/) or a similar service to attempt to verify the likelihood of the payload being detected. We have covered quite a few techniques for increasing the chances of getting the payload onto the target systems in the [PowerShell](#vps-identify-risks-powershell) subsections of the VPS chapter, and the Infectious Media subsections of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+Dnscat2 also provides the ability to tunnel SSH from the dnscat2 server (C2) to the dnscat2 client, and even to other machines on the same network. All details are provided on the dnscat2 [github](https://github.com/iagox86/dnscat2#tunnels), and even more details are provided on [Ron's blog](https://blog.skullsecurity.org/2015/dnscat2-0-05-with-tunnels). Once the attacker has modified the client source, they will most likely run it through [VirusTotal](https://www.virustotal.com/) or a similar service to attempt to verify the likelihood of the payload being detected. We have covered quite a few techniques for increasing the chances of getting the payload onto the target systems in the [PowerShell](#vps-identify-risks-powershell) subsections of the VPS chapter, and the Infectious Media subsections of the People chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/).
 3. A command and control (C2) server configured as the domain's authoritative name server that is capable of communicating with the executing payload(s) on the hosts inside the target's network. [izhan](https://github.com/izhan) created a [howto document](https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md) covering the authoritative name server set-up. dnscat2 was created for this very reason.
 
 All the documentation required to set-up the C2 server and client is provided by dnscat2.
@@ -547,18 +547,18 @@ This is a danger for all websites that do not enforce TLS for every page, or bet
 
 ## 3. SSM Countermeasures {#network-countermeasures}
 
-Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
 ### Fortress Mentality {#network-countermeasures-fortress-mentality}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-This section takes the concepts from the section of the same name in the Physical chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+This section takes the concepts from the section of the same name in the Physical chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/).
 
 Once we get past the fact that we are no longer safe behind our firewalls, we can start to progress in realising that our inner components: services, clients, and communications will be attacked, and we need to harden them.
 
-Our largest shortcoming continues to be our people falling victim to common social engineering attacks. I've spoken about this in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), so please refer to that if you have not already read it.
+Our largest shortcoming continues to be our people falling victim to common social engineering attacks. I've spoken about this in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/), so please refer to that if you have not already read it.
 
 The organisation needs to decide on and enforce their own policies, just as you do for your own personal devices and network(s).
 
@@ -931,7 +931,7 @@ Be aware of how attackers think, what is possible and how easy it is. This will 
 
 #### Physical
 
-We discussed this in the Infectious Media subsection of the Countermeasures section in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+We discussed this in the Infectious Media subsection of the Countermeasures section in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/).
 
 #### Mobile Phone Data
 
@@ -1074,7 +1074,7 @@ All of the CAs now use intermediate certificates to sign your certificate, so th
 
 With the Heartbleed attack, the server's private keys were located and stolen from RAM before they expired, so those keys had to be revoked. This allowed attackers who now had the private keys to set up a cloned website with the stolen private key(s), then divert traffic to the cloned website using the following techniques:
 
-* Phishing (as discussed in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers))
+* Phishing (as discussed in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com))
 * [DNS spoofing](#network-identify-risks-spoofing-dns)
 * [ARP spoofing](#network-identify-risks-spoofing-arp)
 * Many other attack vectors
@@ -1238,7 +1238,7 @@ There will be NI[D|P]S configurations required to monitor file sync tools such a
 
 #### Physical
 
-Per the Infectious Media subsection of Risks that Solutions Cause in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+Per the Infectious Media subsection of Risks that Solutions Cause in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/).
 
 #### Mobile Phone Data
 
@@ -1304,7 +1304,7 @@ Your workers still need to connect to the corporate LAN, so put policies in plac
 
 The technical solutions described are costly, but building a motivated and engaged work force is not, it just requires a little thought and action on behalf of those in charge.
 
-The best you can do is care and show you care for your workers. This all comes back to what we discussed in the People chapter of [fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/) around engaged and well looked after workers.
+The best you can do is care and show you care for your workers. This all comes back to what we discussed in the People chapter of [fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/) around engaged and well looked after workers.
 
 People will be your weakest or your strongest line of defence, it is up to you.
 
@@ -1342,7 +1342,7 @@ You will need to determine whether stopping file sync tools will damage producti
 
 #### Physical
 
-Per the Infectious Media subsection of Costs and Trade-offs in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+Per the Infectious Media subsection of Costs and Trade-offs in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/).
 
 #### Mobile Phone Data
 

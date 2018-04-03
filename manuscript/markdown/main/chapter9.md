@@ -6,7 +6,7 @@ In case you skipped the [VPS](#vps) chapter, there are many similarities here me
 
 ## 1. SSM Asset Identification
 
-Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), remove any that are not applicable and add any newly discovered ones.
+Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), remove any that are not applicable and add any newly discovered ones.
 
 ### Productivity
 
@@ -34,7 +34,7 @@ We will keep these assets in mind as we work through the rest of this chapter.
 
 ## 2. SSM Identify Risks {#cloud-identify-risks}
 
-Some of the processes we described at the top level in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) may be worth revisiting.
+Some of the processes we described at the top level in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) may be worth revisiting.
 
 ### Shared Responsibility Model {#cloud-identify-risks-shared-responsibility-model}
 
@@ -256,7 +256,7 @@ In most organisations I have worked for as an architect or engineer, I have seen
 
 Here are some examples of violating least privilege:
 
-**[Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)**:
+**[Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)**:
 
 * Physical chapter: Someone has access to a facility that they do not need access to in order to do their job. For example, a cleaner having access to a server room, or any room where they could possibly exfiltrate or infiltrate anything
 * People chapter: In a phishing attack, the attacker may have access to an email address to use for a FROM address, making an attack appear more legitimate. The attacker should not have access to an email address of an associate of their target, this violates least privilege
@@ -296,7 +296,7 @@ Below are some of the ways I have seen private keys mishandled.
 * Private key is not private if it is shared amongst the team
 * No pass-phrase, means no second factor of authentication
 * Because there is only one user (single key-pair) being used on the VPSs, there is also no audit trail
-* The weakest link is the weakest wiki password of all the developers, and we all know how weak that is likely to be, with a bit of reconnaissance, probably guessable in a few attempts without any password profiling tools. I have discussed this and demonstrated a collection of password profiling tools in the "Weak Password Strategies" subsection of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). Once the attacker has the weakest password, then they own all of the EC2 (if on AWS) instances, or any resource that is using key-pair authentication. If the organisation is failing this badly, then they almost certainly will not have any password complexity constraints on their wiki either
+* The weakest link is the weakest wiki password of all the developers, and we all know how weak that is likely to be, with a bit of reconnaissance, probably guessable in a few attempts without any password profiling tools. I have discussed this and demonstrated a collection of password profiling tools in the "Weak Password Strategies" subsection of the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Once the attacker has the weakest password, then they own all of the EC2 (if on AWS) instances, or any resource that is using key-pair authentication. If the organisation is failing this badly, then they almost certainly will not have any password complexity constraints on their wiki either
 
 Most developers will also blindly accept what they think are the server key fingerprints without verifying them, which opens them up to a MItM attack, as discussed in the VPS chapter under the [SSH subsection](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-establishing-your-ssh-servers-key-fingerprint). This quickly moves from just being a technical issue to a cultural one, where people are trained to accept that the server is who it says it is. The fact that they have to verify the fingerprint is essentially a step that gets in their way.
 
@@ -392,11 +392,9 @@ The glaringly obvious risks with the management of configuration and infrastruct
 
 When you create and configure infrastructure as code, you are essentially combining many technical aspects: machine instances (addressed in the VPS chapter), networking (as addressed in the Network chapter), the Cloud, and your applications (as addressed in the Web Applications chapter), and bake them all into code to be executed. If you create security defects as part of the configuration or infrastructure, then lock them up in code, you will have the same consistent security defects each time that code is run. Hence,  Software Engineers now need to understand much more than they used to about security. We are now responsible for so much more than we used to be.
 
-Now we will focus on a collection of the largest providers.
-
 ### AWS {#cloud-identify-risks-aws}
 
-The AWS section is intended as overflow for items that have not been covered elsewhere in this chapter, and requires some attention.
+The AWS section is intended as overflow for items that have not been covered elsewhere in this chapter, and require some attention.
 
 The [CIS AWS Foundations document](https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf) is very useful in understanding some of the risks in AWS, as well as auditing options to determine if they exist currently. This document also includes countermeasures, including clear direction on how to apply them. This is well worth following along with as you read through this chapter.
 
@@ -416,7 +414,7 @@ Password-less sudo. A low privileged user can operate with root privileges. This
 
 ## 3. SSM Countermeasures
 
-Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+Revisit the Countermeasures subsection of the first chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/).
 
 As I briefly touch on in the [CSP Account Single User Root](#cloud-countermeasures-violations-of-least-privilege-csp-account-single-user-root) subsection, [Canarytokens](https://canarytokens.org/) are excellent tokens you can drop anywhere on your infrastructure. When an attacker opens one of these tokens, an email will be sent to a pre-defined email address with a specific message that you define. This provides an early warning that someone unfamiliar with your infrastructure is running things that do not normally get run. There are quite a few different tokens available and new ones are being added every so often. These tokens are very quick and free to generate, and can be dropped wherever you like on your infrastructure. [Haroon Meer](https://twitter.com/haroonmeer) discusses these on the [Network Security](https://binarymist.io/publication/ser-podcast-network-security/) show I hosted for Software Engineering Radio near the end of the episode.
 
@@ -560,9 +558,9 @@ You can have a more secure cloud environment than any CSP if you decide to do so
 
 You need to consider what are your objectives for using the given CSPs services for. If you are creating and deploying applications, then your applications will be a weaker link in the security chain, this is a very common case and one that is often overlooked. To attempt to address application security, I wrote about this in the [Web Applications](#web-applications) chapter.
 
-Your attackers will attack your weakest area first. In most cases this is not your CSP, but directed at your organisation's people due to lack of knowledge, passion, engagement, or a combination of each. If you have a physical premises, this can also be an easy target. Usually application security follows closely after people security. This is why I include the Physical and People chapters in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) of this book series, they are the most commonly overlooked. I added the Web Applications chapter last in this fascicle in order to first help you build a solid foundation of security in other overlooked areas before we addressed application security. I also wanted it to be what sticks in your mind once you have read this fascicle.
+Your attackers will attack your weakest area first. In most cases this is not your CSP, but directed at your organisation's people due to lack of knowledge, passion, engagement, or a combination of each. If you have a physical premises, this can also be an easy target. Usually application security follows closely after people security. This is why I include the Physical and People chapters in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) of this book series, they are the most commonly overlooked. I added the Web Applications chapter last in this fascicle in order to first help you build a solid foundation of security in other overlooked areas before we addressed application security. I also wanted it to be what sticks in your mind once you have read this fascicle.
 
-Based on the threat modelling I hope you have done through each chapter, as first introduced in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), you should be starting to work out where cloud security rates on your list of risks to your assets. By the end of this chapter, you should have an even better idea.
+Based on the threat modelling I hope you have done through each chapter, as first introduced in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), you should be starting to work out where cloud security rates on your list of risks to your assets. By the end of this chapter, you should have an even better idea.
 
 #### Skills
 
@@ -591,7 +589,7 @@ Some times it can cost more up front to go with an open (non-proprietary) offeri
 
 Often technology choices are chosen because they are the "new shiny", as everyone else is using it, or there is a lot of buzz or hype around it.
 
-**An analogy**: Do Software Developers write code that is untestable because it is cheaper to write? Many development shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/). I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and offered workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing untestable code is a short sighted approach. Code is read, revised, and extended many times more than it is written initially.
+**An analogy**: Do Software Developers write code that is untestable because it is cheaper to write? Many development shops do, I discussed test driven development (TDD) in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). I have [blogged](https://blog.binarymist.net/?s=tdd), [spoken and offered workshops](https://blog.binarymist.net/presentations-publications/) on the topic of testability extensively. Writing untestable code is a short sighted approach. Code is read, revised, and extended many times more than it is written initially.
 
 If you are putting all your cost savings in the initial code writing phase, and failing to consider all the times that modification will be attempted, then you are missing huge cost savings. Taking an initial hit up front to write testable code, specifically, code that has the properties of maintainability and extensibility defined by the [Liskov Substitution Principle](https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/), will set you up so that the interface is not coupled to the implementation.
 
@@ -621,7 +619,7 @@ As I mentioned in the [Identify Risks](#cloud-identify-risks-review-other-chapte
 
 ### People
 
-Most of these countermeasures are discussed in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
+Most of these countermeasures are discussed in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)
 
 ### Application Security
 
@@ -964,7 +962,7 @@ The container goes from the developer's machine once tested, to the staging envi
 1. Pick off repetitious, boring, prone-to-human-error and easily automatable tasks that your team(s) have been doing. Script and source control them
     * **Configuration management**: One of the grassroot types of tooling options required here is a configuration management tool. I have found Ansible to be excellent. If you use Docker containers, most of the configuration management is already taken care of in the [`Dockerfile`](#vps-countermeasures-docker-the-dDefault-user-is-root). The [`docker-compose.yml`](#nodegoat-docker-compose.yml) file, orchestration platforms and tooling take us to "infrastructure as code"
     * **Infrastructure management**: Terraform is one of the tools that can act as a simple version control for cloud infrastructure. One of my co-hosts (lead host Robert Blumen) on Software Engineering Radio ran an excellent [podcast on Terraform](http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarative-programming-with-terraform/)
-    * Ultimately we want to achieve the maturity where we can have an entire front-end and back-end (if Web) deployment automated. There are many things this depends on. A deployment must come from a specific source branch that is production-ready. A production-ready branch is labelled as such because another branch leading into it has passed all the quality checks mentioned in the Agile Development and Practises subsection in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/), as well as [continuous integration](https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/)
+    * Ultimately we want to achieve the maturity where we can have an entire front-end and back-end (if Web) deployment automated. There are many things this depends on. A deployment must come from a specific source branch that is production-ready. A production-ready branch is labelled as such because another branch leading into it has passed all the quality checks mentioned in the Agile Development and Practises subsection in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), as well as [continuous integration](https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/)
 2. Once a few of the above tasks are done, you can start stringing them together in pipelines
 3. Schedule execution of any/all of the above
 
@@ -976,7 +974,7 @@ As mentioned in the [risks subsection](#cloud-identify-risks-aws) for AWS, the [
 
 Add a password to the default user.
 
-We have covered the people aspects, along with exploitation techniques of Weak Password Strategies, in the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/)
+We have covered the people aspects, along with exploitation techniques of Weak Password Strategies, in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)
 
 We have covered the technical aspects of password strategies in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) subsection of the VPS chapter
 
@@ -1007,7 +1005,7 @@ In the [Countermeasures](#cloud-countermeasures-cloud-service-provider-vs-in-hou
 
 ### People
 
-Refer to the "Risks that Solution Causes" subsection of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+Refer to the "Risks that Solution Causes" subsection of the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 ### Application Security
 
@@ -1109,7 +1107,7 @@ There is not a lot to add to the [Risks that Solution Causes](#cloud-risks-that-
 
 ### People
 
-Refer to the "Costs and Trade-offs" subsection of the People chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers/).
+Refer to the "Costs and Trade-offs" subsection of the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 ### Application Security
 

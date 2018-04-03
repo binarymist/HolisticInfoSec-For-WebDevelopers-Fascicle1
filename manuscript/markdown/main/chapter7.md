@@ -5,7 +5,7 @@
 When it makes sense, I usually advocate bringing virtual private servers (VPS) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) where you have more control. Most of my work around VPSs are with GNU/Linux instances. Most of the testing in this chapter was performed on Debian instances, and usually, but not allways, web servers. Unless stated otherwise, the following applies to these type of instances.
 
 ## 1. SSM Asset Identification {#vps-asset-identification}
-Take results from higher level Asset Identification found in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable. Add any newly discovered. Here are some to get you started:
+Take results from higher level Asset Identification found in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Remove any that are not applicable. Add any newly discovered. Here are some to get you started:
 
 * Ownership. At first this may sound strange, you likely assume that it is given that you will always own, or at least have control of your server(s). I am going to dispel this myth. When an attacker wants to compromise your server(s), they want to do so for a reason. It may just be for kicks, or it may be for some more sinister reason. They want an asset that presumably belongs to you, your organisation, or your customers. If they can take control of your server(s) (own it, steal it, abuse it, etc.), then they have a foot hold to launch further attacks and gain control or other assets that do not belong to them. With this in mind, you could think of your server(s) as an asset. On the other hand you could think of your server(s) as a liability. Both may be correct. In any case, you need to protect your server(s) and ensure a hardened security posture. This is covered under the [SSM Countermeasures](#vps-countermeasures) section with items such as HIDS, Logging, and Alerting
 * Visibility into and of many things, such as:
@@ -27,7 +27,7 @@ Take results from higher level Asset Identification found in the 30,000' View ch
 This is probably an incomplete list for your domain, I have merely given you a start. Put your critical thinking to use and populate the rest, or come back to the process as additional assets enter your mind.
 
 ## 2. SSM Identify Risks
-Go through same process as we did at the top level in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for your VPS(s).
+Go through same process as we did at the top level in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), but for your VPS(s).
 
 * [MS Host Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_007)
 * [MS Securing Your Web Server](https://msdn.microsoft.com/en-us/library/ff648653.aspx) This is Windows specific, but does offer some insight into technology agnostic risks and countermeasures
@@ -930,7 +930,7 @@ Allowing root logins is another lost layer of defence in depth, where the user m
 #### SSH
 ![](images/ThreatTags/difficult-uncommon-average-moderate.png)
 
-You may remember we did some fingerprinting of the SSH daemon in the Reconnaissance section of the Processes and Practises chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). SSH, in and of itself, has been proven to be solid. In saying that, SSH is only as strong as the weakest link involved. For example, if you are using password authentication as default, and have not configured which remote hosts are allowed to access the server, and used a weak password, then your SSH security is only as strong as the password. There are many configurations that a default SSH installation uses in order to get up and running quickly, but they need to be modified in order to harden the SSH daemon. Using SSH in this manner can be convienient initially, but it is always recommended to move from defaults to a more secure implementation. I cover many techniques for configuring and hardening SSH in the [SSH Countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) section.
+You may remember we did some fingerprinting of the SSH daemon in the Reconnaissance section of the Processes and Practises chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). SSH, in and of itself, has been proven to be solid. In saying that, SSH is only as strong as the weakest link involved. For example, if you are using password authentication as default, and have not configured which remote hosts are allowed to access the server, and used a weak password, then your SSH security is only as strong as the password. There are many configurations that a default SSH installation uses in order to get up and running quickly, but they need to be modified in order to harden the SSH daemon. Using SSH in this manner can be convienient initially, but it is always recommended to move from defaults to a more secure implementation. I cover many techniques for configuring and hardening SSH in the [SSH Countermeasures](#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh) section.
 
 #### Too Many Boot Options
 ![](images/ThreatTags/difficult-uncommon-difficult-severe.png)
@@ -977,7 +977,7 @@ If installed, the `rpcinfo` command with `-p` will list all RPC programs (such a
     100021    4   udp    679  nlockmgr
     100021    4   tcp    875  nlockmgr
 
-This provides a list of RPC services running that have registered with the port mapper, thus providing an attacker with a lot of useful information to use in the Vulnerability Searching stage as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+This provides a list of RPC services running that have registered with the port mapper, thus providing an attacker with a lot of useful information to use in the Vulnerability Searching stage as discussed in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 The deprecated `portmap` service, as well as the newer `rpcbind`, listen on port 111 for requesting clients, some Unix and Solaris versions will also listen on ports above 32770.
 
@@ -1763,7 +1763,7 @@ Make sure that if your server is not physical hardware and is a VM that the host
 #### SSH {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh}
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
-We covered fingerprinting of SSH under the Reconnaissance section of the Processes and Practises chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Here we will discuss:
+We covered fingerprinting of SSH under the Reconnaissance section of the Processes and Practises chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Here we will discuss:
 
 1. The underlying cyrpto-systems of SSH
 2. Determining the authenticity of the server that you are attempting to log in to

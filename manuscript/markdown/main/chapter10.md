@@ -5,7 +5,7 @@
 I had the pleasure of interviewing [Zane Lackey](https://twitter.com/zanelackey) on Software Engineering Radio for a [show on Application Security](http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/), this is well worth listening to.
 
 ## 1. SSM Asset Identification
-Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable, add any that are relevant from previous chapters, and add any newly discovered. Here are some to get you started:
+Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Remove any that are not applicable, add any that are relevant from previous chapters, and add any newly discovered. Here are some to get you started:
 
 {#web-applications-asset-identification-ownership}
 * Ownership (as addressed in the VPS chapter), does not assume that you will always have ownership, or at least have control of your server(s). An attacker will often attempt to target ownership as one of the first assets in order to execute further exploits. This may sound strange, but that is because of the assumption you may have, that you will always own (have control of) your web application. Hopefully, I have dispelled this myth in the VPS chapter. If an attacker can take control of your web application (own it/steal it/what ever you want to call the act), then they have a foot hold to launch further attacks and can gain access to other assets of greater value. The web application itself can be a stepping stone for the attacker to other assets that you assumed were safe. With this in mind, your web application is an asset or you could think of it as a liability, both may be correct. Whichever way, you need to protect your web application and in many cases take it to school and teach it how to protect itself. I have covered this under the [Insufficient Attack Protection](#web-applications-countermeasures-insufficient-attack-protection) section
@@ -23,7 +23,7 @@ Take the results from the higher level Asset Identification in the 30,000' View 
   Some of the following risks will threaten the sanity of these people if the countermeasures are not employed.
 
 ## 2. SSM Identify Risks
-Go through the same process as we did at the top level, in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for Web Applications. Also [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008) is useful.
+Go through the same process as we did at the top level, in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), but for Web Applications. Also [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008) is useful.
 
 The following is the OWASP Top 10 vulnerabilities for 2003, 2004, 2007, 2010, 2013 and 2017.
 
@@ -73,7 +73,7 @@ How easy is it for you to notice:
 
 The risks here are around accepting untrusted data and parsing it, rendering it, executing it or storing it verbatim to have the same performed on it at a later stage. 
 
-Untrusted territory is usually a location that is not close to your back-end executing code. If your back-end is in the cloud that you do not control, i.e. not your hardware or staff running it, then you may have serious potential issues there as well that you may want to address. I've discussed in depth what these issues are in previous chapters, and how to mitigate these risks. Basically, anywhere outside of your local network is untrusted. Inside your local network is semi-trusted. The amount of trust you afford depends on the relationships you have with your staff, and/or how large your staff base is. Also how large your network is, and how APs are managed and many of the other issues I have discussed in the previous chapters, especially Network, Physical and People from [Fascicle0](https://leanpub.com/holistic-infosec-for-web-developers). The closer data gets to the executing back-end code, the less untrustworthy the territory should be. Of course there are many exceptions to this rule as well.
+Untrusted territory is usually a location that is not close to your back-end executing code. If your back-end is in the cloud that you do not control, i.e. not your hardware or staff running it, then you may have serious potential issues there as well that you may want to address. I've discussed in depth what these issues are in previous chapters, and how to mitigate these risks. Basically, anywhere outside of your local network is untrusted. Inside your local network is semi-trusted. The amount of trust you afford depends on the relationships you have with your staff, and/or how large your staff base is. Also how large your network is, and how APs are managed and many of the other issues I have discussed in the previous chapters, especially Network, Physical and People from [Fascicle0](https://f0.holisticinfosecforwebdevelopers.com). The closer data gets to the executing back-end code, the less untrustworthy the territory should be. Of course there are many exceptions to this rule as well.
 
 I could say, just don't trust anyone or anything, but there comes a time and a place that you have to afford trust. Just keep it as close to the back-end executing code as possible.
 
@@ -143,7 +143,7 @@ Reflected attacks use the web application in question as a proxy. When the user 
 {#wdcnz-demo-1}
 ![](images/HandsOnHack.png)
 
-The following attack was the first one of five that I demonstrated at WDCNZ in 2015. The attack after this one was a credential harvest based on a spoofed website that hypothetically was fetched due to a spear phishing attack. That particular attack can be found in the "Spear Phishing" section of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+The following attack was the first one of five that I demonstrated at WDCNZ in 2015. The attack after this one was a credential harvest based on a spoofed website that hypothetically was fetched due to a spear phishing attack. That particular attack can be found in the "Spear Phishing" section of the People chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 Theoretically in order to get to the point where you carry out this attack, you would have already been through several stages first. If you are carrying out a penetration testing engagement, it is likely you would have been through the following:
 
@@ -154,7 +154,7 @@ Theoretically in order to get to the point where you carry out this attack, you 
 If you are working within a development team you may have found out some other way that your project was vulnerable to XSS.
 
 How ever you got to this point, you are going to want to exhibit the fault. One of the most effective ways to do this, is by using BeEF. BeEF clearly shows what is possible when you have an XSS vulnerability in scope and is an excellent tool for effortlessly demonstrating the severity of the fault to all of your team members and stakeholders.  
-One of BeEFs primary reasons to exist is to exploit the fact that many security philosophies seem to forget, is how easy it is to go straight through hardened network perimeters and attack the soft mushy insides of a sub network, as discussed in the Fortress Mentality section of the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Exposing XSS faults is one of BeEFs attributes. 
+One of BeEFs primary reasons to exist is to exploit the fact that many security philosophies seem to forget, is how easy it is to go straight through hardened network perimeters and attack the soft mushy insides of a sub network, as discussed in the Fortress Mentality section of the Physical chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Exposing XSS faults is one of BeEFs attributes. 
 
 You can find the video of how this attack is played out at [http://youtu.be/92AWyUfJDUw](http://youtu.be/92AWyUfJDUw).
 
@@ -350,7 +350,7 @@ I> Start the machine.
 G> ## The Play
 G>
 G> In your Kali Linux box, run owasp-zap.  
-G> If chromium is not already running, run it and setup foxyproxy for chrome using the burp proxy we set-up in the Tooling Setup chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Zap is now recording your browsing.
+G> If chromium is not already running, run it and setup foxyproxy for chrome using the burp proxy we set-up in the Tooling Setup chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Zap is now recording your browsing.
 G>
 G> Once you have started the VM and browsed to it, select the DVWA and log in as  
 G> user: "user", password "user". Make sure the Security Level is set to low.
@@ -412,7 +412,7 @@ G>
 G> Let's determine the hash type with hash-identifier. Just run it and throw the hash at it and it will tell you that it is most likely a simple MD5. which is a one-way hashing function with no Key derivation. It is so very quick to crack.
 G>
 G> Then take your pick of the following three commands:  
-G> Create `~/hashtocrack.txt` and put the hash(s) you want cracked in it. Now usually you would create a profiled wordlist taylored to your target like we did in the Password Profiling section of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). For this exercise just add the following four words to `~/wordlist-to-throw-at-dvwa`:  
+G> Create `~/hashtocrack.txt` and put the hash(s) you want cracked in it. Now usually you would create a profiled wordlist taylored to your target like we did in the Password Profiling section of the People chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). For this exercise just add the following four words to `~/wordlist-to-throw-at-dvwa`:  
 G> `dogs`, `cats`, `admins`, `admin`. Now you can compare the hashed words from the list with the hash in the `~/hashtocrack.txt`
 
 {icon=bomb}
@@ -891,7 +891,7 @@ This is where [A9 (Using Components with Known Vulnerabilities)](https://www.owa
 
 We are consuming far more free and open source libraries than we ever have before. Most of the code we are pulling into our projects is never intentionally used, but is still adding a surface area for attack. Most of it:
 
-* Is not thoroughly tested for what it should and should not do. We are often relying on developers we do not know a lot about, not to introduce defects. As I have discussed in the "Code Review" section of the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), where most developers focus more on building than breaking, and do not see the defects they are introducing
+* Is not thoroughly tested for what it should and should not do. We are often relying on developers we do not know a lot about, not to introduce defects. As I have discussed in the "Code Review" section of the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), where most developers focus more on building than breaking, and do not see the defects they are introducing
 * Is not reviewed evaluated. That's right, many of the packages we consume are created by solo developers who just focus on creating and have little focus on how their creations can be exploited. Even some teams who have a security champion in them, are not doing a lot better
 * Is created by amateurs that could and do include vulnerabilities. Anyone can write code and publish to an open source repository. A lot of this code ends up in our package management repositories which we consume
 * Does not undergo the same requirement analysis, defining the scope, acceptance criteria, test conditions and sign off by a development team and product owner that our commercial software does
@@ -1355,7 +1355,7 @@ Research:
 
 Attempt to use well tested, battle hardened language specific libraries that know how to validate, filter and sanitise.
 
-Create enough "Evil Test Conditions" as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) to verify that:
+Create enough "Evil Test Conditions" as discussed in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) to verify that:
 
 * **Validation**
   * Only white listed characters can be received (both client and server side)
@@ -3566,7 +3566,7 @@ For Internet Explorer:
 
 * `C:\Documents and Settings\<user_name>\Local Settings\Temporary Internet Files>`
 
-Don't forget to plug all your changes into your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+Don't forget to plug all your changes into your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 #### Cracking
 
@@ -4230,7 +4230,7 @@ Even with the `HttpOnly` flag set on your cookie, it is possible to compromise t
 ![](images/SecuringSessions.png)
 
 Set the [`Secure` attribute](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Secure_Attribute) on the cookie. This instructs web browsers to only send the cookie over a TLS (HTTPS) connection, whereby removing the MItM attack vector.  
-You can and should test this by inspecting the headers with an HTTP intercepting proxy. While you're at it, you may as well add this as a test to your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+You can and should test this by inspecting the headers with an HTTP intercepting proxy. While you're at it, you may as well add this as a test to your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 Turn the `HttpOnly` cookie flag on. This instructs the web browser not to allow access to the cookie via JavaScript. The `Secure` flag must also be enabled as mentioned above, in order to mitigate Session Id theft.
 
@@ -4525,7 +4525,7 @@ RetireJS has the following:
              "pre-commit": ["lint", "validate"]
           }
         
-      Keep in mind that `pre-commit` hooks can be very useful for all sorts of checking of things immediately before your code is committed. For example running [security regression tests](https://github.com/binarymist/NodeGoat/wiki/Security-Regression-Testing-with-Zap-API) mentioned previously in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) with the OWASP ZAP API, as demonstrated here: [https://youtu.be/DrwXUOJWMoo](https://youtu.be/DrwXUOJWMoo).
+      Keep in mind that `pre-commit` hooks can be very useful for all sorts of checking of things immediately before your code is committed. For example running [security regression tests](https://github.com/binarymist/NodeGoat/wiki/Security-Regression-Testing-with-Zap-API) mentioned previously in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) with the OWASP ZAP API, as demonstrated here: [https://youtu.be/DrwXUOJWMoo](https://youtu.be/DrwXUOJWMoo).
 2. Chrome extension
 3. Firefox extension
 4. Grunt plugin
@@ -4567,7 +4567,7 @@ Analysis of opensource projects are free.
 
 ##### [Node Security Platform](https://nodesecurity.io/) (NSP)
 
-NSP at the time of writing is quite popular. It provides Github pull request integration, it has a Code Climate Node Security Engine. Code Climate was discussed briefly in the "Linting, Static Analysis" section of "Code Review" in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Also has a CLI, so is CI friendly.
+NSP at the time of writing is quite popular. It provides Github pull request integration, it has a Code Climate Node Security Engine. Code Climate was discussed briefly in the "Linting, Static Analysis" section of "Code Review" in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Also has a CLI, so is CI friendly.
 
 You can install the NSP CLI like:  
 `npm install -g nsp`  
@@ -4768,7 +4768,7 @@ There is a risk that people will believe this.
 ##### Linux:
 
 As with Microsofts "virtualisation-based security" Linux containers may slow system compromise down, but a determined attacker will find other ways to get around container isolation. Maintaining a small set of user accounts is a worthwhile practise, but that alone will not be enough to stop a highly skilled and determined attacker moving forward.  
-Even when technical security is very good, an experienced attacker will use other mediums to gain what they want, like social engineering and physical as discussed in the People and Physical chapters of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), or some other attack vectors listed in this book. Defence in depth is crucial in achieving good security. Concentrating on the lowest hanging fruit first and working your way up the tree.
+Even when technical security is very good, an experienced attacker will use other mediums to gain what they want, like social engineering and physical as discussed in the People and Physical chapters of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), or some other attack vectors listed in this book. Defence in depth is crucial in achieving good security. Concentrating on the lowest hanging fruit first and working your way up the tree.
 
 Locking file permissions and ownership down is good, but that alone will not save you. 
 
@@ -4784,7 +4784,7 @@ Segmentation is useful, and a common technique in helping to build resistance ag
 
 If you follow the advice in the [countermeasures](#web-applications-countermeasures-data-store-compromise) section, you will be doing more than most other organisations in this area. It is not hard, but if implemented it could increase complacency/over confidence. Always be on your guard. Always expect that although you have done a lot to increase your security stance, a determined and experienced attacker is going to push buttons you may have never realised you had. If they want something enough and have the resources and determination to get it, they probably will. This is where you need to put strategies in place to deal with post compromise. Create processes (ideally partly automated) to deal with theft.
 
-Also consider that once an attacker has made off with your data-store, even if it is currently infeasible to brute-force the secrets, there may be other ways around obtaining the missing pieces of information they need. Think about the paper shredders as discussed in the Physical chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) and the associated [competitions](http://archive.darpa.mil/shredderchallenge/). With patience, most puzzles can be cracked. If the compromise is an opportunistic type of attack, they will most likely just give up and seek an easier target. If it is a targeted attack by determined and experienced attackers, they will probably try other attack vectors until they get what they want.
+Also consider that once an attacker has made off with your data-store, even if it is currently infeasible to brute-force the secrets, there may be other ways around obtaining the missing pieces of information they need. Think about the paper shredders as discussed in the Physical chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) and the associated [competitions](http://archive.darpa.mil/shredderchallenge/). With patience, most puzzles can be cracked. If the compromise is an opportunistic type of attack, they will most likely just give up and seek an easier target. If it is a targeted attack by determined and experienced attackers, they will probably try other attack vectors until they get what they want.
 
 Do not let over confidence be your weakness. An attacker will search out the weakest link. Do your best to remove weak links.
 
@@ -4829,7 +4829,7 @@ There are many stack-overflow questions and answers where many people think they
 ### Consuming Free and Open Source
 
 Adding process and tooling as discussed is a really good start. However, it's not a complete solution alone to take care of the consumption of free and open source packages.  
-Some of these packages we consume may have good test coverage, be up-to-date, and have no known vulnerabilities. Are their tests testing the right things though? Are the tests testing that something bad can "not" happen, as we discussed in the creation of "Evil Test Conditions" in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)? This is where we really need something extra on top of having good process, static analysis and dependency checking tools. This is really where you need to leverage the likes of security regression testing, as I discussed in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+Some of these packages we consume may have good test coverage, be up-to-date, and have no known vulnerabilities. Are their tests testing the right things though? Are the tests testing that something bad can "not" happen, as we discussed in the creation of "Evil Test Conditions" in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)? This is where we really need something extra on top of having good process, static analysis and dependency checking tools. This is really where you need to leverage the likes of security regression testing, as I discussed in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 #### Process
 
