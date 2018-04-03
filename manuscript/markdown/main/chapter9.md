@@ -868,7 +868,7 @@ Also see the [Additional Resources](#additional-resources-cloud-countermeasures-
 
 Serverless is another form of separation of concerns, or decoupling. Serverless is yet another attempt to coerce Software Developers into abiding by the Object Oriented (OO) [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) principles that the vast majority of Developers never quite understood. Serverless forces a microservice way of thinking.
 
-Serverless mandates the reactive, event driven approach that insists that our code features stand alone without the tight coupling of many services that we often use. Serverless forces us to split our databases from our business logic. Serverless goes a long way to forcing us to write [testable code](https://blog.binarymist.net/2012/12/01/moving-to-tdd/), and as I have said so many times, testable code is good code, code that is easy to maintain and extend, thus abiding by the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).
+Serverless mandates the reactive, event driven approach that insists that our code features stand alone without the tight coupling of many services that we often use. Serverless forces us to split our databases from our business logic. Serverless goes a long way to forcing us to write [testable code](https://binarymist.io/blog/2012/12/01/moving-to-tdd/), and as I have said so many times, testable code is good code, code that is easy to maintain and extend, thus abiding by the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).
 
 Serverless raises the bar in terms of abstraction, but at the same time allows you to focus on the code, which as a Developer, is preferred.
 
