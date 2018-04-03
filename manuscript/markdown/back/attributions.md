@@ -1267,7 +1267,7 @@ and also the specification
 ## [Cloud](#cloud)
 
 **Most of these questions were already part of my Cloud vs In-house** talk at the Saturn Architects conference  
-[http://blog.binarymist.net/presentations-publications/#does-your-cloud-solution-look-like-a-mushroom](http://blog.binarymist.net/presentations-publications/#does-your-cloud-solution-look-like-a-mushroom)
+[https://binarymist.io/talk/saturn-2015-talk-does-your-cloud-solution-look-like-a-mushroom/](https://binarymist.io/talk/saturn-2015-talk-does-your-cloud-solution-look-like-a-mushroom/)
 
 **Hosting providers can be, and in many cases are forced** by governing authorities to give up your and your customers secrets  
 [http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me](http://www.stuff.co.nz/business/industries/67546433/Spies-request-data-from-Trade-Me)  
@@ -1281,7 +1281,7 @@ https://cloudacademy.com/blog/how-codespaces-was-killed-by-security-issues-on-aw
 est-practices-to-avoid-it/
 
 **Discussed this with Haroon Meer** on the Network Security show I hosted for Software Engineering Radio  
-[http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/)
+[https://binarymist.io/publication/ser-podcast-network-security/](https://binarymist.io/publication/ser-podcast-network-security/)
 
 **The default on AWS EC2 instances** is to have a single user (root)  
 [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html)
@@ -1381,6 +1381,10 @@ ce-store-encryption/
 https://aws.amazon.com/about-aws/whats-new/2017/08/amazon-efs-now-supports-encryptio  
 n-of-data-at-rest/
 
+**I also discuss this in depth in my interview**  
+with Peter Budai, Head of Cryptography Engineering at Tresorit, on the topic of End to End Encryption  
+[https://binarymist.io/publication/ser-podcast-end-to-end-encryption/](https://binarymist.io/publication/ser-podcast-end-to-end-encryption/)
+
 **Ben Humphreys spoke about this at CHCon**  
 [https://2016.chcon.nz/talks.html#1245](https://2016.chcon.nz/talks.html#1245)
 
@@ -1410,15 +1414,13 @@ tual-machines/
 [https://hackerone.com/azure](https://hackerone.com/azure)
 
 **Physical and People chapters in Fascicle 0** of this book series  
-[https://leanpub.com/holistic-infosec-for-web-developers](https://leanpub.com/holistic-infosec-for-web-developers)
+[https://f0.holisticinfosecforwebdevelopers.com/toc.html](https://f0.holisticinfosecforwebdevelopers.com/toc.html)
 
-**I have blogged**  
-[https://blog.binarymist.net/?s=tdd](https://blog.binarymist.net/?s=tdd)  
-**Spoken and run workshops** on the topic of testability  
-[https://blog.binarymist.net/presentations-publications/](https://blog.binarymist.net/presentations-publications/)
+**I have blogged**, spoken, and run workshops on the topic of testability  
+[https://binarymist.io/tags/tdd/](https://binarymist.io/tags/tdd/)
 
 **Liskov Substitution Principle**  
-[https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/](https://blog.binarymist.net/2010/10/11/lsp-dbc-and-nets-support/)
+[https://binarymist.io/tags/lsp/](https://binarymist.io/tags/lsp/)
 
 **Docker restart policy**  
 [https://docs.docker.com/engine/admin/start-containers-automatically/](https://docs.docker.com/engine/admin/start-containers-automatically/)
@@ -1444,7 +1446,7 @@ https://duo.com/blog/potential-gaps-in-suggested-amazon-web-services-security-po
 
 **Cloud Security** interview for Software Engineering Radio  
 with Scott Piper and Kim Carter  
-[http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/](http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/)
+[https://binarymist.io/publication/ser-podcast-cloud-security/](https://binarymist.io/publication/ser-podcast-cloud-security/)
 
 
 
@@ -1567,7 +1569,7 @@ assword-policy
 https://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29
 
 **Serverless** goes a long way to forcing us to write testable code**  
-[https://blog.binarymist.net/2012/12/01/moving-to-tdd/](https://blog.binarymist.net/2012/12/01/moving-to-tdd/)
+[https://binarymist.io/blog/2012/12/01/moving-to-tdd/](https://binarymist.io/blog/2012/12/01/moving-to-tdd/)
 
 **Open/closed principle**  
 [https://en.wikipedia.org/wiki/Open/closed_principle](https://en.wikipedia.org/wiki/Open/closed_principle)
@@ -1605,7 +1607,7 @@ ion-model-access-policy
 [https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metrics.html](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metrics.html)
 
 **Drive the creation of your functions** the same way you would drive any other production quality code... with unit tests (TDD)  
-[https://blog.binarymist.net/2012/12/01/moving-to-tdd/](https://blog.binarymist.net/2012/12/01/moving-to-tdd/)
+[https://binarymist.io/blog/2012/12/01/moving-to-tdd/](https://binarymist.io/blog/2012/12/01/moving-to-tdd/)
 
 **You can mock, stub, pass spies in the AWS**  
 [https://serverless.zone/unit-and-integration-testing-for-lambda-fc9510963003](https://serverless.zone/unit-and-integration-testing-for-lambda-fc9510963003)
@@ -1642,7 +1644,7 @@ http://www.se-radio.net/2017/04/se-radio-episode-289-james-turnbull-on-declarati
 mming-with-terraform/
 
 **Continuous integration**  
-[https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/](https://blog.binarymist.net/2014/02/22/automating-specification-by-example-for-net/)
+[https://binarymist.io/blog/2014/02/22/automating-specification-by-example-for-.net-web-applications/](https://binarymist.io/blog/2014/02/22/automating-specification-by-example-for-.net-web-applications/)
 
 **Security Monkey Monitors AWS and GCP accounts for policy changes**  
 [https://github.com/Netflix/security_monkey/](https://github.com/Netflix/security_monkey/)
@@ -1674,7 +1676,7 @@ mming-with-terraform/
 [https://blog.cloudsploit.com/the-importance-of-continual-auditing-in-the-cloud-8d22e0554639](https://blog.cloudsploit.com/the-importance-of-continual-auditing-in-the-cloud-8d22e0554639)
 
 **Tunnel RDP through your SSH tunnel** as I have blogged about  
-[https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/](https://blog.binarymist.net/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/)
+[https://binarymist.io/blog/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/](https://binarymist.io/blog/2010/08/26/installation-of-ssh-on-64bit-windows-7-to-tunnel-rdp/)
 
 **Documentation around setting up the bastion host in AWS**  
 [https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/](https://cloudacademy.com/blog/aws-bastion-host-nat-instances-vpc-peering-security/)
