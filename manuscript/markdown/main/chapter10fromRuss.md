@@ -5,10 +5,10 @@
 I had the pleasure of interviewing [Zane Lackey](https://twitter.com/zanelackey) on Software Engineering Radio for a [show on Application Security](http://www.se-radio.net/2017/11/se-radio-episode-309-zane-lackey-on-application-security/), this is well worth listening to.
 
 ## 1. SSM Asset Identification
-Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Remove any that are not applicable, add any that are relevant from previous chapters, and add any newly discovered. Here are some to get you started:
+Take the results from the higher level Asset Identification in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Remove any that are not applicable, add any that are relevant from previous chapters, and add any newly discovered. Here are some to get you started:
 
 {#web-applications-asset-identification-ownership}
-* Ownership (as addressed in the VPS chapter). Do not assume that you will always have ownership, or at least have control of your server(s). An attacker will often attempt to target ownership, as one of the first assets, in order to execute further exploits. This may sound strange, based on your likely assumption, that you will always own (have control of) your web application. Hopefully, I have dispelled this myth in the VPS chapter. If an attacker can take control of your web application (own it/steal it), then they have a foot hold to launch further attacks, and can gain access to other assets of greater value. The web application itself can be a stepping stone for the attacker to other assets that you assumed were safe. With this in mind, your web application is an asset, or you could think of it as a liability, both may be correct. Regardless, you need to protect your web application, and build in the capacity for self-preservation. I have covered this under the [Insufficient Attack Protection](#web-applications-countermeasures-insufficient-attack-protection) section.
+* Ownership (as addressed in the VPS chapter). Do not assume that you will always have ownership, or at least have control of your server(s). An attacker will often attempt to target ownership, as one of the first assets, in order to execute further exploits. This may sound strange, based on your likely assumption, that you will always own (have control of) your web application. Hopefully, I have dispelled this myth in the VPS chapter. If an attacker can take control of your web application (own it/steal it), then they have a foot hold to launch further attacks, and can gain access to other assets of greater value. The web application itself can be a stepping stone for the attacker to other assets that you assumed were safe. With this in mind, your web application is an asset, or you could think of it as a liability, both may be correct. Regardless, you need to protect your web application, and build in the capacity for self-preservation. I have covered this under the [Insufficient Attack Protection](#web-applications-countermeasures-insufficient-attack-protection) section
 * As noted in the [Asset Identification](#vps-asset-identification) section in the VPS chapter, visibility is an asset that is also up for grabs
 * Intellectual property or sensitive information within the code, or configuration files such as email addresses, and account credentials for the likes of datastores, syslog servers, monitoring services. We address this in [Management of Application Secrets](#web-applications-identify-risks-management-of-application-secrets)
 * Sensitive Client/Customer data.
@@ -23,11 +23,15 @@ Take the results from the higher level Asset Identification in the 30,000' View 
   Some of the following risks will threaten the sanity of these people if countermeasures are not employed.
 
 ## 2. SSM Identify Risks
-Go through the same process as we did at the top level, in the 30,000' View chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), but for Web Applications. [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008) is also useful.
+Go through the same process as we did at the top level, in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), but for Web Applications. [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008) is also useful.
 
 The following are the OWASP Top 10 vulnerabilities for 2003, 2004, 2007, 2010, 2013 and 2017.
 
+&nbsp;
+
 ![](images/OWASPTop10OverTime.png)
+
+&nbsp;
 
 As you can see, there are vulnerabilities we continuously fail to remove. I have listed them in order from most to least consistently addressed:
 
@@ -44,7 +48,7 @@ I think we are going to see "Using Components with Known Vulnerabilities" get wo
 
 With the lack of visibility, I see this as an indirect risk to the asset of [web application ownership](#web-applications-asset-identification-ownership). The same sections in the VPS and Network chapters may also be worth reading, if you have not already, as there is some crossover.
 
-A lack of application introspection at any given time, or being able to track its health status, is is not a comfortable place to be. There is no reason to be in this state.
+A lack of application introspection at any given time, or being able to track its health status, is not a comfortable place to be. There is no reason to be in this state.
 
 #### Insufficient Logging and Monitoring
 
@@ -69,17 +73,19 @@ How easy is it for you to notice:
 
 The risks here are specific to accepting untrusted data and parsing it, rendering it, executing it, or storing it verbatim to have the same performed on it at a later stage. 
 
-The further you get from your back-end executing code the more you move into untrusted territory. If your back-end is in the cloud, territory you don't control, i.e. it's not your hardware or staff running it, then you may have serious potential issues there to address. I've discussed in depth what these issues are in previous chapters, and how to mitigate these risks. Basically, anywhere outside of your local network is untrusted. Inside your local network is semi-trusted. The amount of trust you afford depends on the relationships you have with your staff, and/or how large your staff base is. Include the size of your network, how APs are managed, and many of the other issues I have discussed in previous chapters, especially Network, Physical and People from [Fascicle0](https://leanpub.com/holistic-infosec-for-web-developers). The closer data gets to the executing back-end code, the less untrustworthy it can be considered. Of course, there are many exceptions to this rule as well.
+The further you get from your back-end executing code the more you move into untrusted territory. If your back-end is in the cloud, territory you don't control, i.e. it's not your hardware or staff running it, then you may have serious potential issues there to address. I've discussed in depth what these issues are in previous chapters, and how to mitigate these risks. Basically, anywhere outside of your local network is untrusted. Inside your local network is semi-trusted. The amount of trust you afford depends on the relationships you have with your staff, and/or how large your staff base is. Including the size of your network, how access points are managed, and many of the other issues I have discussed in previous chapters, including Physical and People from [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). The closer data gets to the executing back-end code, the less untrustworthy it can be considered. Of course, there are many exceptions to this rule as well. I discus this in depth in the podcast shows I hosted for Software Engineering Radio: [Cloud Security](http://www.se-radio.net/2018/01/se-radio-episode-314-scott-piper-on-cloud-security/) and [End to End Encryption](http://www.se-radio.net/2018/04/se-radio-episode-321-peter-budai-on-end-to-end-encryption/)
 
-I couldn just say don't trust anyone or anything, but there comes a time and a place that you must afford trust. Just keep it as close to the back-end executing code as possible.
+I could just say don't trust anyone or anything, but there comes a time and a place that you must afford trust. Just keep it as close to the back-end executing code as possible.
 
 Today, the web stack is very complicated. We have URLs, CSS, JavaScript, XML and its derivatives, templating languages, and frameworks. Most of these languages have their own encoding, quoting, commenting, escaping, where most of which can be nested inside of each other. This makes the web browser a very treacherous place in terms of security. Browsers succeed on their ability to interpret all of this. All scripts have the same level of privilege within the browser.
 
-This overly complex environment leads to confusion, and becomes a perfect haven for hiding malicious code.
+This overly complex environment leads to confusion, and becomes an effective location for hiding malicious code.
 
 Below are a few widely accepted techniques which we should use on any untrusted data before it makes its way through your system to be stored or hydrated.
 
 ##### What is Validation {#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation}
+
+&nbsp;
 
 Decide what input is valid by way of a white list (list of allowed input characters). Often each input field will have a different white list. Validation is binary, the data is either allowed or denied. If it is not allowed, then it is rejected. It is usually not too complicated differentiating good from bad, and what is and isn't rejected. There are a few strategies to use for white listing, such as the collection of characters, or using regular expressions.
 

@@ -1700,6 +1700,12 @@ astion-host/
 **MS Application Threats and Countermeasures**  
 [https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008)
 
+**Cloud Security**  
+[https://binarymist.io/publication/ser-podcast-cloud-security/](https://binarymist.io/publication/ser-podcast-cloud-security/)
+
+**End to End Encryption**  
+[https://binarymist.io/publication/ser-podcast-end-to-end-encryption/](https://binarymist.io/publication/ser-podcast-end-to-end-encryption/)
+
 **OWASP has the RSnake donated** seminal XSS cheat sheet  
 [https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)  
 which has many tests you can use to check your vulnerability stance to XSS exploitation.
