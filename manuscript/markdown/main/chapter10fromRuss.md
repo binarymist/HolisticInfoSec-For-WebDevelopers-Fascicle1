@@ -85,8 +85,6 @@ Below are a few widely accepted techniques which we should use on any untrusted 
 
 ##### What is Validation {#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation}
 
-&nbsp;
-
 Decide what input is valid by way of a white list (list of allowed input characters). Often each input field will have a different white list. Validation is binary, the data is either allowed or denied. If it is not allowed, then it is rejected. It is usually not too complicated differentiating good from bad, and what is and isn't rejected. There are a few strategies to use for white listing, such as the collection of characters, or using regular expressions.
 
 There are other criteria that you can validate against as well, such as:
@@ -131,7 +129,7 @@ The following hands-on demonstration of a cross-site scripting (XSS) attack prov
 A XSS attack is one in which untrusted data enters a web application, usually through a web request, and is allowed to execute without validation, filtering, or sanitisation. Data is then, at some point, sent to someone else (the adversary) using the same web application without being validated, filtered or sanitised.  
 The input data in question, usually JavaScript, HTML or Flash, is executed by the browser. What the code does is up to the creativity of the initiator.
 
-This can be carried out trivially when buying aadvertisements that inject malicious code via the end user's browser session. Malicious code can be easily hidden in the manner by simply changing additional scripts that are fetched, once live, even going so far as to fetch a script that fetches yet another script under the attacker's control.
+This can be carried out trivially when buying advertisements that inject malicious code via the end user's browser session. Malicious code can be easily hidden in the manner by simply changing additional scripts that are fetched, once live, even going so far as to fetch a script that fetches yet another script under the attacker's control.
 
 The two common types of XSS are Stored/Persistent (Type I) and Reflected/Non-Persistent (Type II).  
 Stored attacks are injected code sent to the server and stored in a medium that the web application uses to retrieve it again to send to another user.  
@@ -140,7 +138,7 @@ Reflected attacks use the web application in question as a proxy. When the user 
 {#wdcnz-demo-1}
 ![](images/HandsOnHack.png)
 
-The following attack was the first one of five that I demonstrated at WDCNZ in 2015. The subsequesnt attack was a credential harvest based on a spoofed website that hypothetically fetched via a spear phishing attack. That particular attack can be found in the "Spear Phishing" section of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+The following attack was the first one of five that I demonstrated at WDCNZ in 2015. The subsequent attack was a credential harvest based on a spoofed website that was hypothetically fetched via a spear phishing attack. That particular attack can be found in the "Spear Phishing" section of the People chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 Theoretically, in order to achieve readiness for this attack, you would have executed several stages first. If you are carrying out a penetration testing engagement, it is likely you would have completed the following:
 
@@ -151,7 +149,7 @@ Theoretically, in order to achieve readiness for this attack, you would have exe
 If you are working within a development team, you may have found other ways that your project was vulnerable to XSS.
 
 Regardless, you are going to want to exhibit the fault. One of the most effective ways to do this, is by using BeEF. BeEF clearly shows what is possible when you have an XSS vulnerability in scope, and is an excellent tool for effortlessly demonstrating the severity of the fault to all of your team members and stakeholders.  
-One of BeEF's primary reasons for existence is to exploit the fact that many security philosophies seem to forget: how easy it is to go straight through hardened network perimeters, and attack the soft insides of a sub network, as discussed in the Fortress Mentality section of the Physical chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Exposing XSS faults is one of BeEFs attributes. 
+One of BeEF's primary reasons for existence is to exploit the fact that many security philosophies seem to forget: how easy it is to go straight through hardened network perimeters, and attack the soft insides of a sub network, as discussed in the Fortress Mentality section of the Physical chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Exposing XSS faults is one of BeEFs attributes. 
 
 You can find the video of how this attack is played out at [http://youtu.be/92AWyUfJDUw](http://youtu.be/92AWyUfJDUw).
 
@@ -177,7 +175,7 @@ G> Enter some text in the Name and Message fields.
 G> 
 G> Enable Foxy Proxy so that your request goes to the same port that Burp Suite is going to be listening on.
 G>
-G> Initialize Burp.
+G> Initialise Burp.
 G>
 G> Back in DVWA, send your request by clicking on the Sign Guest-book button.
 G>
@@ -207,8 +205,8 @@ If you are using cookies (authentication that the browser automatically sends fr
 
 The target needs to submit the request, either intentionally or unintentionally. The request could appear to the target as any action. For example:
 
-1. Intentionally, by clicking a button on a website that does not appear to have anything in common with the website that the target is already authenticated with by way of Session ID stored in a cookie
-2. Unintentionally, by loading a page not appearing to have anything in common with the website that the target is already authenticated with by way of Session ID stored in a cookie, that, for example, contains an `<iframe>` with a form and a script block inside
+1. Intentionally, by clicking a button on a website that does not appear to have anything in common with the website that the target is already authenticated with by way of Session Id stored in a cookie
+2. Unintentionally, by loading a page not appearing to have anything in common with the website that the target is already authenticated with by way of Session Id stored in a cookie, that, for example, contains an `<iframe>` with a form and a script block inside
  
 **For No. 1 above**, the action attribute of the form the target submits could be to the website that the target is already authenticated with, thus a fraudulent request is issued from a web page seemingly unrelated to the website that the target is already authenticated with. This can be seen in the second example below on line 4. The browser plays its part and sends the session Id stored in the cookie. NodeGoat has an excellent example attack step by step:
 
