@@ -3564,13 +3564,13 @@ Slowing down and rendering cracking infeasible is addressed by the type of KDF a
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management}
 ![](images/ThreatTags/PreventionDIFFICULT.png)
 
-I'm going to walk you through some of the important parts of what a possible authentication and authorisation solution might look like. This will address the points raised in the [Identify Risks](#web-applications-identify-risks-lack-of-authentication-authorisation-session-management) section from above.
+I'm going to walk you through some of the important parts of what a possible authentication and authorisation solution might look like. This will address the points raised in the [Identify Risks](#web-applications-identify-risks-lack-of-authentication-authorisation-session-management) section above.
 
 ![](images/RelevantAuthStandards.png)
 
-The following code is one example of how we can establish authentication and authorisation of individuals desiring to work with a system comprised of any number of front-ends (web, mobile, etc), a service layer API that provides an abstraction to, and communicates with the underlying back-end micro-services. The example uses the Resource Owner Password Credentials (ROPC) flow which is quite a common flow with todays front-end -> service API -> back-end micro-service architectures.
+The following code is one example of how we can establish authentication and authorisation for individuals desiring to work with a system comprised of any number of front-ends (web, mobile, etc), a service layer API that provides an abstraction to, and communicates with, the underlying back-end micro-services. The example uses the Resource Owner Password Credentials (ROPC) flow, which is quite a common flow with todays front-end -> service API -> back-end micro-service architectures.
 
-It is also worth checking out the following sections in the OAuth 2.0 specification around the ROPC flow:
+It is also worth checking out the following sections in the OAuth 2.0 specification pertaining to the ROPC flow:
 
 * [Resource Owner Password Credentials](http://tools.ietf.org/html/rfc6749#section-1.3.3)
 * [Resource Owner Password Credentials Grant](http://tools.ietf.org/html/rfc6749#section-4.3)
@@ -3584,38 +3584,38 @@ We will also discuss integrating external identity providers (The Facebooks, Twi
 
 ![](images/ChosenAuthTechnologies.png)
 
-Getting to grips with and understanding enough to create a solution like this can be quite a steep learning experience. The folks from IdentityServer which do this for the love of it, have created an outstanding Open Source Software (OSS) project and in all my dealings with them they have always gone out of their way to help. In all the projects I've worked on, with all the edge cases, there has always been a way to create the solution that satisfied the requirements.
+Coming to grips with and understanding enough to create a solution like this can be quite a steep learning experience. The folks from IdentityServer, who do this for the love of it, have created an outstanding Open Source Software (OSS) project, and in all my dealings with them have always gone out of their way to help. In all the projects I've worked on, with all the edge cases, there have always been ways to create a solution that satisfied the requirements.
 
 #### Technology and Design Decisions
 
 ##### Reference Token vs JSON Web Token (JWT)
 
-Ideally reference access tokens should be used between front-end(s) and the service layer, which they are in this case. Then JWT, which contains a signed list of the users claims, from the service layer to the back-end micro-services.
+Ideally, reference access tokens should be used between front-end(s) and the service layer, as they are in this case, then use JWT, which contains a signed list of the users claims, from the service layer to the back-end micro-services.
 
-JWTs can not be revoked as they are self contained (contain everything about a user that is necessary to make a decision about what the user should be authorised to access).
+JWTs can not be revoked as they are self-contained (contain everything about a user that is necessary to make a decision about what the user should be authorised to access).
 
-Reference tokens on the other hand simply contain a reference to the user account which is managed by an identity server via MembershipReboot in this case. Thus enabling revocation (logging out of the user for example).
+Reference tokens, on the other hand, simply contain a reference to the user account, which is managed by an identity server via MembershipReboot in this case. This enables revocation (logging out of the user for example).
 
-Identity server does not currently support both types of token at once, being able to switch between one or the other (reference for front-end, JWT for back-end), although it is [on the road map](https://github.com/IdentityServer/IdentityServer3/issues/1725). Until this configuration is supported, the service layer can get the users claims by using the reference token. One of those claims being the user GUID. The claims could then be propagated to the micro-services.
+Identity server does not currently support both types of token at once, specifically the ability to switch between one or the other (reference for front-end, JWT for back-end), although it is [on the road map](https://github.com/IdentityServer/IdentityServer3/issues/1725). Until this configuration is supported, the service layer can get the user's claims by using the reference token, one of those claims being the user GUID. These claims can then be propagated to the micro-services.
 
 ##### IdentityServer3
 
-IdentityServer2 was focussed around authentication with some OAuth2 support to assist with authentication.  
+IdentityServer2 was focused on authentication with some OAuth2 support to assist with authentication.  
 AuthorizationServer was more focused on OAuth2 for delegated authorisation.  
-IdentityServer3 is a C#.NET library that focusses on both authentication and authorisation. You don't have to have your surrounding out of process components (service layer, micro-services) in .NET for IdentityServer3 to be a viable option. They could be written in another language, so long as they speak HTTP.
+IdentityServer3 is a C#.NET library that focuses on both authentication and authorisation. You don't have to have your surrounding out of process components (service layer, micro-services) in .NET for IdentityServer3 to be a viable option. They can be written in another language, so long as they speak HTTP.
 
 ##### MembershipReboot {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-technology-and-design-decisions-membershipreboot}
 
-Is a user identity management library with a similar name to the ASP.NET Membership Provider, inspired by it due to [frustrations](http://brockallen.com/2012/09/02/think-twice-about-using-membershipprovider-and-simplemembership/) that Brock Allen (MembershipReboot creator) had from it such as:  
+MembershipReboot is a user identity management library with a similar name to the ASP.NET Membership Provider, which inspired it due to [frustrations](http://brockallen.com/2012/09/02/think-twice-about-using-membershipprovider-and-simplemembership/) that Brock Allen (MembershipReboot creator) had such as:  
 
-1. A misguided false perception of security, to which I agree with
-2. A leaky abstraction due to the 27 abstract methods that may or may not be pertinent to your applications needs. Any custom provider you build will need to implement all of these methods whether they are useful to your application or not, otherwise consumers of your custom provider will receive a NotImplementedException. If you choose to only implement the methods that make sense for your application, then the consumers need to know to much about your custom providers internals. Hence encapsulation has broken down and abstraction is leaking
-3. The lockout feature, where as when a certain number of incorrect login attempts occurred, the account would be locked, preventing any further attempts. Also preventing the legitimate account owner from logging in, thus a denial of service (DoS), as there is no ability to unlock the account after a certain period of time. With MembershipReboot we have the `AccountLockoutFailedLoginAttempts` and the much needed `AccountLockoutDuration` on the `MembershipRebootConfiguration` class which does what you expect it to do
+1. A misguided false perception of security
+2. A leaky abstraction due to the 27 abstract methods that aren't likely pertinent to your applications needs. Any custom provider you build will need to implement all of these methods, whether they are useful to your application or not. Otherwise consumers of your custom provider will receive a NotImplementedException. If you choose to only implement the methods that make sense for your application, then consumers need to know to much about your custom providers internals. As such encapsulation has broken down and abstraction is leaking
+3. The lockout feature, when a certain number of incorrect login attempts occurred, the account would be locked, preventing any further attempts. This also prevents the legitimate account owner from logging in, and is thus a denial of service (DoS), as there is no ability to unlock the account after a certain period of time. MembershipReboot includes the `AccountLockoutFailedLoginAttempts` and the much needed `AccountLockoutDuration` on the `MembershipRebootConfiguration` class, which does exactly what you expect it to do
 4. Others
  
-Some note worthy benefits I've found with MembershipReboot are:
+Some noteworthy benefits I've found with MembershipReboot are:
 
-1. From a project I was working on a few years back, MembershipUser was not providing the properties we needed, so having to hide MembershipUser as an Adaptee within an Adapter pattern implementation, a bit like this:
+1. On a project I was working on some time ago, MembershipUser did not provide the properties I needed, so I had to hide MembershipUser as an Adaptee within an Adapter pattern implementation, a bit like this:
     
     {title="MembershipUser.cs", linenos=off, lang=C#}
         namespace My.MembershipAPI {
@@ -3686,7 +3686,7 @@ Some note worthy benefits I've found with MembershipReboot are:
            }
         }
         
-    Where as going down the path of [MembershipReboot](https://github.com/brockallen/BrockAllen.MembershipReboot) and [IdentityServer3.MembershipReboot](https://github.com/IdentityServer/IdentityServer3.MembershipReboot) which is a "_User Service plugin for IdentityServer v3 that uses MembershipReboot as its identity management library. In other words, you're using IdentityServer v3 and you want to use MembershipReboot as your database for user passwords..._" provides the ability to customise, out of the box. All you need to do is add the properties you require to the already provided [`CustomUser`](https://github.com/IdentityServer/IdentityServer3.MembershipReboot/blob/master/source/WebHost/MR/CustomUser.cs) and the data store schema which is also provided in an Entity Framework project that comes with MembershipReboot.
+    The preferred method is the path of [MembershipReboot](https://github.com/brockallen/BrockAllen.MembershipReboot) and [IdentityServer3.MembershipReboot](https://github.com/IdentityServer/IdentityServer3.MembershipReboot), which is a "_User Service plugin for IdentityServer v3 that uses MembershipReboot as its identity management library. In other words, you're using IdentityServer v3 and you want to use MembershipReboot as your database for user passwords..._", you're provided with the ability to customise, out of the box. All you need to do is add the properties you require to the already provided [`CustomUser`](https://github.com/IdentityServer/IdentityServer3.MembershipReboot/blob/master/source/WebHost/MR/CustomUser.cs) and the data store schema which is also provided in an Entity Framework project that comes with MembershipReboot.
     
     {title="IdentityServer3.MembershipReboot\\source\\WebHost\\MR\\CustomUser.cs", linenos=off, lang=C#}
         namespace WebHost.MR {
@@ -3709,7 +3709,7 @@ Some note worthy benefits I've found with MembershipReboot are:
         }
         
 2. The security focussed [configuration](https://github.com/brockallen/BrockAllen.MembershipReboot/wiki/Security-Settings-Configuration). You can choose to set this within code or config.  
-Password storage (as discussed above under the [Datastore Compromise](#web-applications-countermeasures-data-store-compromise) section is [addressed](http://brockallen.com/2014/02/09/how-membershipreboot-stores-passwords-properly/) by using the mature PBKDF2 and providing a config setting in the form of `passwordHashingIterationCount` on the `MembershipRebootConfiguration` class to dial in the number of iterations (stretching), as seen below on line 29. This provides us with what's known as an adaptive one-way function. Adaptive because the workload increases each year to keep up with advances in hardware technology. You now have control of how slow you want it to be to crack those passwords. What's more, the iteration count can be set to change each year automatically. If the developer chooses not to touch the iteration count at all (or more likely, forgets), then the default of 0 is inferred. 0 means to automatically calculate the number based on the [OWASP recommendations](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet) for the current year. In the year 2000 it should be 1000 iterations. The count should be doubled each subsequent two years, so in 2016 we should be using 256000 iterations and that's what MembershipReboot does if the setting is not changed.
+Password storage, as discussed above under the [Datastore Compromise](#web-applications-countermeasures-data-store-compromise) section, is [addressed](http://brockallen.com/2014/02/09/how-membershipreboot-stores-passwords-properly/) by using the mature PBKDF2 and providing a config setting in the form of `passwordHashingIterationCount` on the `MembershipRebootConfiguration` class to dial in the number of iterations (stretching), as seen below on line 29. This provides us with what's known as an adaptive one-way function. It's adaptive because the workload increases each year to keep up with advances in hardware technology. You now have control of how slow you want it to be to crack those passwords. What's more, the iteration count can be set to change each year automatically. If the developer chooses not to touch the iteration count at all (or more likely, forgets), then the default of 0 is inferred. 0 means to automatically calculate the number based on the [OWASP recommendations](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet) for the current year. In the year 2000 it should be 1000 iterations. The count should be doubled each subsequent two years, so in 2016 we should be using 256000 iterations and that's what MembershipReboot does if the setting is not changed.
     
     {title="backend\\Auth\\AuthService.WebApi\\app.config", linenos=on, lang=XML}
         <!--Lives in Auth Service of Architecture diagram below.-->
@@ -3759,9 +3759,9 @@ Password storage (as discussed above under the [Datastore Compromise](#web-appli
     
     The iteration count of each users password is stored with the hashed password, as can be seen above on lines 36 and 38. This means each password can have a different number of iterations applied over time as required. Beautifully thought out!
     
-    With the ASP.NET Membership Provider you can have salted SHA1 which as already mentioned was not designed for what it was chosen to be used for in this case and there doesn't appear to be any thought to (Moore's Law) the fact that machines keep getting faster. MD5 and SHA were designed to be fast, not slow and able to be slowed down. So storing passwords by SHA-1 hashing means they are incredibly fast to crack.
+    With the ASP.NET Membership Provider you can have salted SHA1 which, as already mentioned, was not designed for what it was chosen to be used for in this case, and there doesn't appear to be any thought to (Moore's Law) the fact that machines keep getting faster. MD5 and SHA were designed to be fast, not slow or slowable. Storing passwords hashed with SHA-1 means that they are incredibly fast to crack.
 
-Sadly the next offering in this space (ASP.NET Identity) that Microsoft produced also seems inferior. Brock Allen blogged about some of the short comings in his post titled "_[The good, the bad and the ugly of ASP.NET Identity](http://brockallen.com/2013/10/20/the-good-the-bad-and-the-ugly-of-asp-net-identity/#ugly)_" in which MembershipReboot caters for, such as the following:
+Sadly the next offering in this space (ASP.NET Identity), produced by Microsoft, also seems inferior. Brock Allen blogged about some of the shortcomings in his post titled "_[The good, the bad and the ugly of ASP.NET Identity](http://brockallen.com/2013/10/20/the-good-the-bad-and-the-ugly-of-asp-net-identity/#ugly)_" to which MembershipReboot caters, per the following:
 
 * Email account verification
 * Password reset
@@ -3787,9 +3787,9 @@ Microsoft Katana provides support for
 * Microsoft Account
 * Facebook
 
-There are also many other community provided [OWIN OAuth middleware providers](https://github.com/RockstarLabs/OwinOAuthProviders) 
+There are also many other community-provided [OWIN OAuth middleware providers](https://github.com/RockstarLabs/OwinOAuthProviders) 
 
-The OWIN startup or config file could look like the following. You can see in the second half of the code file is the configuration of the external identity providers:
+The OWIN startup or config file could look like the following. You can see, in the second half of the code file, the configuration of the external identity providers:
 
 {title="backend\\Auth\\AuthService.WebApi\\Owin\\OwinConfig.cs", linenos=off, lang=C#}
     // Lives in Auth Service of Architecture diagram below.
