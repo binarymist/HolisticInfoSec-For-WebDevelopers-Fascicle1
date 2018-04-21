@@ -300,7 +300,7 @@ The attack code below can be found at the NodeGoat [tutorial for CSRF](https://n
        </body>
     </html>
 
-**For No. 2 above**, it is similar to No. 1, but the target does not have to take any actiononce the fraudulent web page is loaded. The script block submits the form automatically, thus making the request to the website that the target is already authenticated with. the browser again plays its part in sending the Session ID stored in the cookie:
+**For No. 2 above**, it is similar to No. 1, but the target does not have to take any action once the fraudulent web page is loaded. The script block submits the form automatically, thus making the request to the website that the target is already authenticated with. The browser again plays it's part in sending the Session Id stored in the cookie:
 
 {title="Snippet from attackers website", linenos=off, lang=html}
     <form id="theForm" action="http://TARGET_APP_URL_HERE/profile" method="post">
@@ -323,7 +323,7 @@ Some misnomers:
 
 Injection occurs when untrusted data is sent to an interpreter as part of a command or query. The attacker’s hostile data can cause the interpreter to execute commands that would not otherwise execute, or gain access to data without the correct authorization.
 
-In order for injection attacks to be successful, untrusted data must be unsuccessfully validated, filtered, and sanitised before it reaches the interpreter. In worst case scenarios, due to horrible security practices, untrusted data isn't validate, filtered, or unsanitised at all.
+In order for injection attacks to be successful, untrusted data must be unsuccessfully validated, filtered, and sanitised before it reaches the interpreter. In worst case scenarios, due to horrible security practices, untrusted data isn't validated, filtered, or unsanitised at all.
 
 Injection defects are often easy to discover simply by examining the code that handles untrusted data, including internal data. These same defects are often harder to discover when blackbox testing, either manually or via fuzzers. Defects [can range](https://www.owasp.org/index.php/Injection_Flaws) from trivial to complete system compromise.
 
@@ -333,7 +333,7 @@ As part of the discovery stage, the attacker can test their queries to start enu
 
 ![](images/HandsOnHack.png)
 
-One of the simplest and quickest vulnerabilities to fix is SQL Injection, yet it remains at the top of vulnerability lists. I am going to hammer this home some more. Also checkout the [podcast I hosted](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) with [Haroon Meer](https://twitter.com/haroonmeer) as a guest on Network Security for Software Engineering Radio, where Haroon discussed using SQLi for data exfiltration.
+One of the simplest and quickest vulnerabilities to fix is SQL Injection, yet it remains at the top of vulnerability lists. I am going to hammer this home some more. Also checkout the [podcast I hosted](https://binarymist.io/publication/ser-podcast-network-security/) with [Haroon Meer](https://twitter.com/haroonmeer) as a guest on Network Security for Software Engineering Radio, where Haroon discussed using SQLi for data exfiltration.
 
 I> ## Synopsis
 I>
@@ -345,7 +345,7 @@ I> Start the machine.
 G> ## The Play
 G>
 G> In your Kali Linux box, run owasp-zap.  
-G> If Chromium is not already running, run it and setup Foxy Proxy for Chrome using the Burp Proxy we set-up in the Tooling Setup chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). Zap is now recording your browsing.
+G> If Chromium is not already running, run it and setup FoxyProxy for Chrome using the Burp Proxy we set-up in the Tooling Setup chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Zap is now recording your browsing.
 G>
 G> Once you have started the VM and browsed to it, select the DVWA and log in as  
 G> user: "user", password "user". Make sure the Security Level is set to low.
@@ -364,7 +364,7 @@ G>
 G> Then try the following in DVWA input:
 G>
 G> `x' OR full_name LIKE '%bob%`  
-G> Output: Tells us we are in a WHERE clause, and I had an unknown column name.  
+G> Output: Tells us we are in a `WHERE` clause, and I had an unknown column name.  
 G> Thanks, MySQL error reporting!
 G>
 G> Try the following queries:  
@@ -407,7 +407,7 @@ G>
 G> Let's determine the hash type with hash-identifier. Just run the tool, and feed the hash to it. It will tell you that it is most likely a simple MD5, which is a one-way hashing function with no key derivation. It is so very easy to crack.
 G>
 G> Then take your pick of the following three commands:  
-G> Create `~/hashtocrack.txt` and put the hash(s) you want cracked in it. Usually you would create a profiled wordlist tailored to your target as we did in the Password Profiling section of the People chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). For this exercise, just add the following four words to `~/wordlist-to-throw-at-dvwa`:  
+G> Create `~/hashtocrack.txt` and put the hash(s) you want cracked in it. Usually you would create a profiled wordlist tailored to your target as we did in the Password Profiling section of the People chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). For this exercise, just add the following four words to `~/wordlist-to-throw-at-dvwa`:  
 G> `dogs`, `cats`, `admins`, `admin`. Now you can compare the hashed words from the list with the hash in the `~/hashtocrack.txt`
 
 {icon=bomb}
@@ -432,7 +432,7 @@ G> Now we have our admin password and user.
 There are two main problems here.
 
 1. SQL Injection
-2. Poor decisions around sensitive data protection. We discuss this in depth further on in this chapter in the [datastore Compromise](#web-applications-identify-risks-management-of-application-secrets-datastore-compromise) section, and even more so the [Countermeasures](#web-applications-countermeasures-datastore-compromise) section. Do not follow this example of bad practise. Use well salted and quality, strong key derivation functions (KDFs) on all of the sensitive data in your own projects.
+2. Poor decisions around sensitive data protection. We discuss this in depth further on in this chapter in the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) section, and even more so the [Countermeasures](#web-applications-countermeasures-data-store-compromise) section. Do not follow this example of bad practise. Use well salted and quality, strong key derivation functions (KDFs) on all of the sensitive data in your own projects.
 
 #### NoSQLi {#web-applications-identify-risks-nosqli}
 
@@ -446,7 +446,7 @@ Because there are so many types of NoSQL data stores, crafting the attacks is of
 
 NoSQL data store queries are usually written in the programming language of the application, or buried within an API of the same language. Often, the ubiquitous JavaScript is used, which can be executed in the Web UI, the server-side code if it is JavaScript, and then the particular type of NoSQL data store. Therefore, there are many more execution contexts that can be attacked.
 
-I can not possibly cover all of the types of NoSQL data stores, below is an example of specific to mongodb. 
+I can not possibly cover all of the types of NoSQL data stores, below is an example specific to mongodb. 
 
 A typical SQL query used to select a user based on their username and password might look like the following:
 
@@ -526,7 +526,7 @@ XML injection techniques usually consist of a discovery stage, followed by full 
   * Ampersand: `&`
   * CDATA section delimiters: `<![CDATA[` and `]]>` allowing an attacker to form executable code
 2. Injecting an untrusted XML document which is accepted and not contextually validated, filtered or sanitised by the parser, assuming XML documents are accepted. One can also exploit the XML parser that is configured to resolve, validate and process external entities in the form of Document Type Definitions (DTDs) and XML Schema Definitions (XSDs). This is known as [XML External Entity](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) (XXE) exploitation
-3. Attempting to modify the XML structure by injecting various XML data and Tags ([tag injections](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_Injection)) and witnessing how the parser deals with the data.
+3. Attempting to modify the XML structure by injecting various XML data and Tags ([tag injections](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_Injection)) and witnessing how the parser deals with the data
 
 There are a number of XML attack categories exploitable via injection that target weaknesses.
 
@@ -552,7 +552,7 @@ A lot can go wrong with Extensible Stylesheet Language Transformations (XSLT); f
 
 #### XPath Injection {#web-applications-identify-risks-xpath-injection}
 
-XPath injection is similar to generic injection when XPath incorporates untrusted data that has not been validated, filtered, and sanitised based on the execution context in question. This is discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks. The intended logic of the query can be modified, which allows an attacker to inject purposely malformed data into a website. This allows the attacker to make educated guesses based on what is returned, the data,  and any error messages. The attacker can then build a picture of what the XML structure looks like. Similar to XML Injection, the attacker will usually carry out this discovery stage, followed by full exploitation if successful.
+XPath injection is similar to generic injection when XPath incorporates untrusted data that has not been validated, filtered, and sanitised based on the execution context in question. This is discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks. The intended logic of the query can be modified, which allows an attacker to inject purposely malformed data into a website. This allows the attacker to make educated guesses based on what is returned, the data, and any error messages. The attacker can then build a picture of what the XML structure looks like. Similar to XML Injection, the attacker will usually carry out this discovery stage, followed by full exploitation if successful.
 
 Although this attack technique is similar to SQLi, XPath has no provision for [commenting](https://www.owasp.org/index.php/Comment_Injection_Attack#Examples) out tails of expressions:
 
@@ -560,9 +560,9 @@ Although this attack technique is similar to SQLi, XPath has no provision for [c
 * MySQL: `#`
 * MS Access: `%00`
 
-XPath is a standards-based language. Unlike SQL, its syntax is implementation independent, this allows attacks to automate across many targets that accept user input to query XML documents.
+XPath is a standards-based language. Unlike SQL, its syntax is implementation independent, this allows attacks to be automated across many targets that accept user input to query XML documents.
 
-Typically in SQL, certain commands and queries are run as specific users, utilizing the principle of least privilege to be applied to any given command or query based on the user running it. In XPath, there is no notion of Access Control Lists (ACLs). This means that a query can [access every part](https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary) of the XML document. For example, if user credentials are being stored in an XML document, they can be retrieved and allow the attacker to elevate their privileges to those of other users, perhaps even to an administrator if the administrators credentials are stored in the XML document.
+Typically in SQL, certain commands and queries are run as specific users, utilising the principle of least privilege to be applied to any given command or query based on the user running it. In XPath, there is no notion of Access Control Lists (ACLs). This means that a query can [access every part](https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary) of the XML document. For example, if user credentials are being stored in an XML document, they can be retrieved and allow the attacker to elevate their privileges to those of other users, perhaps even to an administrator if the administrators credentials are stored in the XML document.
 
 Use the following XML document for examples:
 
@@ -745,7 +745,7 @@ Also consider reviewing the [Storage of Secrets](#cloud-identify-risks-storage-o
 * Passwords and other secrets for datastores, syslog servers, monitoring services, email accounts, and so on, can be useful to an attacker to compromise datastores, obtain further secrets from email accounts, file servers, system logs, services being monitored, etc. These may even provide credentials to continue moving through the network compromising other machines.
 * Passwords and/or their hashes traveling over the network.
 
-#### datastore Compromise {#web-applications-identify-risks-management-of-application-secrets-datastore-compromise}
+#### Datastore Compromise {#web-applications-identify-risks-management-of-application-secrets-data-store-compromise}
 ![](images/ThreatTags/difficult-widespread-average-moderate.png)
 
 I have tagged this as moderate because, if you take the countermeasures, it doesn't have to be a disaster.
@@ -855,7 +855,7 @@ The following is a list of the best JavaScript crypto libraries we have availabl
   1. AES-CCM. Counter with CBC-MAC (CCM) is a mode of operation for cryptographic block ciphers of 128 bits in length. It is an authenticated encryption algorithm designed to provide both authentication and confidentiality
   2. AES-OCB2. [Offset CodeBook (OCB)](https://en.wikipedia.org/wiki/OCB_mode) is also a mode of operation for cryptographic block ciphers of 128 bits in length. OCB2 is an authenticated encryption algorithm designed to provide both authentication and confidentiality. OCB1 didn't allow associated data to be included with the message. Integrity verification is now part of the decryption step with OCB2. GCM is similar to OCB, but GCM and CCM doesn't have any patents. Although exemptions have been granted, so that OCB can be used in software licensed under the GNU General Public License  
   
-  * Uses PBKDF2 for One way hashing of passwords. More details around password hashing in the [datastore Compromise](#web-applications-countermeasures-datastore-compromise) section.
+  * Uses PBKDF2 for One way hashing of passwords. More details around password hashing in the [Datastore Compromise](#web-applications-countermeasures-datastore-compromise) section.
 * **Forge**
   * Source Code: [https://github.com/digitalbazaar/forge](https://github.com/digitalbazaar/forge)
   * NPM package: [https://www.npmjs.com/package/node-forge](https://www.npmjs.com/package/node-forge)  
@@ -3450,7 +3450,7 @@ Put your services such as datastores on network segments that are as [sheltered]
 
 Maintain as few user accounts as possible on the servers in question and with the least privilege possible. 
 
-#### datastore Compromise {#web-applications-countermeasures-datastore-compromise}
+#### Datastore Compromise {#web-applications-countermeasures-datastore-compromise}
 ![](images/ThreatTags/PreventionEASY.png)
 
 As part of your defence in depth strategy, you should expect that your datastore is going to be stolen, but hope that it does not. You should be thinking about what assets within the datastore are sensitive. How are you going to prevent an attacker that has gained access to the datastore from making sense of the sensitive data?
@@ -3688,7 +3688,7 @@ Some noteworthy benefits I've found with MembershipReboot are:
         }
         
 2. The security focused [configuration](https://github.com/brockallen/BrockAllen.MembershipReboot/wiki/Security-Settings-Configuration). You can choose to set this within code or config.  
-Password storage, as discussed above under the [datastore Compromise](#web-applications-countermeasures-datastore-compromise) section, is [addressed](http://brockallen.com/2014/02/09/how-membershipreboot-stores-passwords-properly/) by using the mature PBKDF2 and providing a config setting in the form of `passwordHashingIterationCount` on the `MembershipRebootConfiguration` class to dial in the number of iterations (stretching), as seen below on line 29. This provides us with what's known as an adaptive one-way function. It's adaptive because the workload increases each year to keep up with advances in hardware technology. You now have control of how slow you want it to be to crack those passwords. What's more, the iteration count can be set to change each year automatically. If the developer chooses not to touch the iteration count at all (or more likely, forgets), then the default of 0 is inferred. 0 means to automatically calculate the number based on the [OWASP recommendations](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet) for the current year. In the year 2000 it should be 1000 iterations. The count should be doubled each subsequent two years, so in 2016 we should be using 256000 iterations and that's what MembershipReboot does if the setting is not changed.
+Password storage, as discussed above under the [Datastore Compromise](#web-applications-countermeasures-datastore-compromise) section, is [addressed](http://brockallen.com/2014/02/09/how-membershipreboot-stores-passwords-properly/) by using the mature PBKDF2 and providing a config setting in the form of `passwordHashingIterationCount` on the `MembershipRebootConfiguration` class to dial in the number of iterations (stretching), as seen below on line 29. This provides us with what's known as an adaptive one-way function. It's adaptive because the workload increases each year to keep up with advances in hardware technology. You now have control of how slow you want it to be to crack those passwords. What's more, the iteration count can be set to change each year automatically. If the developer chooses not to touch the iteration count at all (or more likely, forgets), then the default of 0 is inferred. 0 means to automatically calculate the number based on the [OWASP recommendations](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet) for the current year. In the year 2000 it should be 1000 iterations. The count should be doubled each subsequent two years, so in 2016 we should be using 256000 iterations and that's what MembershipReboot does if the setting is not changed.
     
     {title="backend\\Auth\\AuthService.WebApi\\app.config", linenos=on, lang=XML}
         <!--Lives in Auth Service of Architecture diagram below.-->
@@ -4736,7 +4736,7 @@ Applying least privilege to everything can take quite a bit of work. Yes, it is 
 
 Segmentation is useful, and a common technique in helping to build resistance against attacks. It does introduce some complexity though. With complexity comes the added likelihood of introducing a fault. 
 
-#### datastore Compromise
+#### Datastore Compromise
 
 If you follow the advice in the [countermeasures](#web-applications-countermeasures-datastore-compromise) section, you will be doing more than most other organisations in this area. It is not hard, but if implemented, it could increase complacency/overconfidence. Always be on guard. Always expect that, although you have done a lot to increase your security stance, a determined and experienced attacker is going to push buttons you may have never realised you had. If they want something enough, and have the resources and determination to get it, they probably will. This is where you need to put strategies in place to deal with post-compromise. Create processes (ideally partly automated) to deal with theft.
 
@@ -4910,7 +4910,7 @@ You should be at least consider least privilege, and probably do in every case. 
 
 Segmenting of resources is a common and effective measure to take to slow down attacks and a cost well worth considering if you have not already.
 
-#### datastore Compromise
+#### Datastore Compromise
 
 The countermeasures discussed here go without saying, although many organisations do not do them well, if at all. It is up to you whether you want to be one of the statistics that has all of their secrets revealed. Following the countermeasures here is something that just needs to be done if you have any data that is sensitive in your datastore(s). 
 

