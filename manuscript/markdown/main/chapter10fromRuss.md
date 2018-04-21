@@ -3136,6 +3136,8 @@ This is similar to image recognition, where users have to perform actions that v
 As an offering becomes more popular, creating code to perform the action may not be that hard and would definitely be worth the effort for bot creators.  
 This is obviously not going to work for the visually impaired, or for people with motorskills disabilities.
 
+&nbsp;
+
 In NPM land, as usual there are many options to choose from. The following were the offerings I evaluated. None of which really felt like a good fit:
 
 #### Offerings
@@ -3149,6 +3151,8 @@ In NPM land, as usual there are many options to choose from. The following were 
 * [sweetcaptcha](https://www.npmjs.com/package/sweetcaptcha) uses the sweetcaptcha cloud service where you must abide by their terms and conditions, requires another node package, and requires some integration work. sweetcaptcha is an image recognition type of captcha.  
 ![](images/sweetcaptcha.jpg)
 * [textcaptcha](http://textcaptcha.com/) is a logic question captcha relying on an external service for the questions and md5 hashes of the correct lower cased answers. This looks pretty simple to set up, but again expects your users to use their intellect for things they should not have to.
+
+&nbsp;
 
 After some additional research I worked out why the above types and offerings didn't feel like a good fit. It pretty much came down to user experience. Why should genuine users/customers of your web application be disadvantaged by having to jump through hoops because you have decided you want to stop bots spamming you? Would it not make more sense to make life harder for the bots rather than for your genuine users?
 

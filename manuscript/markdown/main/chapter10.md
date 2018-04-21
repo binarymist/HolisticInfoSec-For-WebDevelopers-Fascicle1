@@ -3100,7 +3100,7 @@ with their [unicode hexidesimal](https://unicode-table.com/en/) number, such as
 
 comma: \2C, back slash: \5C
 
-Respect and implement the principle of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) as discussed in the generic injection countermeasures. Do not use administrative bind accounts in your execution environment, and apply the least privileges to the domain user service account.
+Respect and implement the principle of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege), as discussed in the generic injection countermeasures. Do not use administrative bind accounts in your execution environment, and apply the least privileges to the domain user service account.
 
 The framework and/or libraries you use to interact with LDAP servers should sanitise untrusted data and not allow application code to directly interact with LDAP servers.
 
@@ -3109,33 +3109,31 @@ The framework and/or libraries you use to interact with LDAP servers should sani
 
 #### Types
 
-&nbsp;
-
 **Text Recognition**
 
 recaptcha uses this technique. See below for details.
 
 **Image Recognition**
 
-Uses images where users have to perform certain operations on, such as dragging images to another corresponding image. For example: "Please drag all cat images to the cat mat.", or "Please select all images of things that dogs eat." sweetcaptcha is an example of this type of captcha. This type completely rules out the visually impaired users.
+Uses images where users have to perform certain operations on, such as dragging images to another corresponding image. For example: "Please drag all cat images to the cat mat.", or "Please select all images of things that dogs eat." sweetcaptcha is an example of this type of captcha. This type completely rules out visually impaired users.
 
 **Friend Recognition**
 
-Pioneered by... you guessed it. Facebook. This type of captcha focusses on human hackers, the idea being that they will not know who your friends are. 
+Pioneered by Facebook, this type of captcha focuses on human hackers, the intent being that they will not know who your friends are. 
 
 "_Instead of showing you a traditional captcha on Facebook, one of the ways we may help verify your identity is through social authentication. We will show you a few pictures of your friends and ask you to name the person in those photos. Hackers halfway across the world might know your password, but they don't know who your friends are._"
 
-I disagree with this statement, as a determined hacker will usually be able to find out who your friends are. This also poses another problem; do you know who all of your friends are? Every acquaintance? I am terrible with names and so are many other people. This is supposed to be used to authenticate you, by getting you to answer the questions before you can log in.
+I disagree with this statement, as a determined hacker will usually be able to find out who your friends are. This also poses another problem: do you know who all of your friends are? Every acquaintance? I am terrible with names, and so are many other people. This is supposed to be used to authenticate you, by getting you to answer the questions before you can log in.
 
 **Logic Questions**
 
-Textcaptcha uses simple logic questions which is designed for the intelligence of a seven year old child. These are more accessible than image and textual image recognition, but can take longer than image recognition to answer. Unless the user is visually impaired, the questions are usually language specific, targeting the English language.
+Textcaptcha uses simple logic questions which are designed for the intelligence of a seven year old child. These are more accessible than image and textual image recognition, but can take longer than image recognition to answer. Unless the user is visually impaired, the questions are usually language specific, targeting the English language.
 
 **User Interaction**
 
-This is similar to image recognition, where users have to perform actions that virtual intelligence can not work out... yet. Users are required to drag a slider to a certain number of notches.  
-If an offering gets popular, creating some code to perform the action may not be that hard and would definitely be worth the effort for bot creators.  
-This is obviously not going to work for the visually impaired or for people with handicapped motor skills.
+This is similar to image recognition, where users have to perform actions that virtual intelligence can not work out as of yet. Users are required to drag a slider to a certain number of notches.  
+As an offering becomes more popular, creating code to perform the action may not be that hard and would definitely be worth the effort for bot creators.  
+This is obviously not going to work for the visually impaired, or for people with motorskills disabilities.
 
 &nbsp;
 
@@ -3151,20 +3149,20 @@ In NPM land, as usual there are many options to choose from. The following were 
 ![](images/reCaptcha.jpg)  
 * [sweetcaptcha](https://www.npmjs.com/package/sweetcaptcha) uses the sweetcaptcha cloud service where you must abide by their terms and conditions, requires another node package, and requires some integration work. sweetcaptcha is an image recognition type of captcha.  
 ![](images/sweetcaptcha.jpg)
-* [textcaptcha](http://textcaptcha.com/) is a logic question captcha relying on an external service for the questions and md5 hashes of the correct lower cased answers. This looks pretty simple to set up, but again expects your users to use their brain on things they should not have to.
+* [textcaptcha](http://textcaptcha.com/) is a logic question captcha relying on an external service for the questions and md5 hashes of the correct lower cased answers. This looks pretty simple to set up, but again expects your users to use their intellect for things they should not have to.
 
 &nbsp;
 
 After some additional research I worked out why the above types and offerings didn't feel like a good fit. It pretty much came down to user experience. Why should genuine users/customers of your web application be disadvantaged by having to jump through hoops because you have decided you want to stop bots spamming you? Would it not make more sense to make life harder for the bots rather than for your genuine users?
 
-Some other considerations I had. Ideally I wanted a simple solution requiring few or ideally no external dependencies, no JavaScript required, no reliance on the browser or anything out of my control, no images and it definitely should not cost any money.
+There are additional considerations. Ideally, I wanted a simple solution requiring few or ideally no external dependencies, no JavaScript required, no reliance on the browser or anything out of my control, no images, and it definitely should not cost any money.
 
 #### Alternative Approaches
 
 * Services like Disqus can be good for commenting. Obviously, all comments are stored somewhere in the cloud out of your control, which is an external dependency. For simple text input, this is probably not what you want. Similar services that use social media authentication services, can take things a bit too far I think. They remove all freedoms from your users. Why should your users be disadvantaged by leaving a comment or posting a message on your web application? Disqus tracks users activities from hosting website to website whether you have an account, are logged in or not. Any information they collect such as IP address, web browser details, installed add-ons, referring pages and exit links may be disclosed to any third party. When this data is aggregated it is useful for de-anonymising users. If users choose to block the Disqus script, the comments are not visible. Disqus has also published its registered users entire commenting histories, along with a list of connected blogs and services on publicly viewable user profile pages. Disqus also engage in add targeting and blackhat SEO techniques from the websites in which their script is installed.
-* Services like Akismet and Mollom take user input and analyse for spam signatures. Mollom sometimes presents a captcha if it is unsure. These two services learn from their mistakes if they mark something as spam and you unmark it, but of course you are going to have to be watching for that. Matt Mullenweg created Akismet so that his mother could blog in safety. "_His first attempt was a JavaScript plugin which modified the comment form and hid fields, but within hours of launching it, spammers downloaded it, figured out how it worked, and bypassed it. This is a common pitfall for anti-spam plugins: once they get traction_". My advice would be not to use a common plugin, but to create something custom. I will discuss this soon.
+* Services like Akismet and Mollom take user input and analyse for spam signatures. Mollom sometimes presents a captcha if it is unsure. These two services learn from their mistakes if they mark something as spam and you unmark it, but of course you are going to have to be watching for that. Matt Mullenweg created Akismet so that his mother could blog in safety. "_His first attempt was a JavaScript plugin which modified the comment form and hid fields, but within hours of launching it, spammers downloaded it, figured out how it worked, and bypassed it. This is a common pitfall for anti-spam plugins once they get traction_". My advice is don't use a common plugin, but to create something custom. I will discuss this soon.
 
-The above solutions are excellent targets for creating exploits that will have a large pay off due to the fact that so many websites are using them. There are exploits discovered for these services regularly.
+The above solutions are excellent targets for exploits that will pay off due to the fact that so many websites are using them. There are exploits discovered for these services regularly.
 
 #### Still Not Cutting it
 
@@ -3178,20 +3176,20 @@ The above solutions are excellent targets for creating exploits that will have a
 
 #### User Time Expenditure
 
-Recording how long it takes from fetch to submit, is another technique, where time is measured from fetch to submit. For example if the time span is under five seconds it is more than likely a bot, so handle the message accordingly.
+Another technique is to record how long it takes from fetch to submit, where time is specifically measured. For example, if the time span is under five seconds it is more than likely a bot, so handle the message accordingly.
 
 #### Bot Pot
 
-Spamming bots operating on custom mechanisms will in most cases just try, then move on. If you decide to use one of the common offerings from above, exploits will be more common, depending on how wide spread the offering is. This is one of the cases where going custom is a better option. Worst case is that you get some spam and you can modify your technique, but you also get to keep things simple. It is tailored to your web application, your users needs, no external dependencies and no monthly fees. This is also the simplest technique and requires very little work to implement.
+Spam bots operating against custom mechanisms will, in most cases, just try, then move on. If you decide to use one of the common offerings from above, exploits will be more common, depending on how wide spread the offering is. This is one of the cases where going custom is a better option. Worst case is that you get some spam and can modify your technique, but you can also keep things simple. It is tailored to your web application, your user's needs, no external dependencies, and no monthly fees. This is also the simplest technique and requires very little work to implement.
 
 Spam bots:
 
 * Love to populate form fields
 * Usually ignore CSS. For example, if you have some CSS that hides a form field and especially if the CSS is not inline on the same page, they will usually fail at realising that the field is not supposed to be visible.
 
-So what we do is create a field that is not visible to humans and is supposed to be kept empty. On the server once the form is submitted, we check that it is still empty. If it is not, then we assume a bot has been at it.
+Create a field that is not visible to humans, and is supposed to be kept empty. On the server, once the form is submitted, check that it is still empty. If it is not, then we assume a bot has been at it.
 
-This is so simple, does not get in the way of your users, yet very effective at filtering bot spam.
+This is so simple, doesn't get in the way of users, and is yet very effective at filtering bot spam.
 
 Client side:
 
@@ -3209,7 +3207,7 @@ Client side:
 
 Server side:
 
-This is also shown above in a larger example in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-nodejs) section. I show the validation code middle ware of the route on line 28 below. The validation is performed on line 14
+This is also shown above in a larger example in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-nodejs) section. I show the validation code middleware of the route on line 28 below. The validation is performed on line 14.
 
 {title="routes/home.js", linenos=on, lang=JavaScript}
     //...
