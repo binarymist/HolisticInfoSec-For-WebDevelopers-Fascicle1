@@ -3401,33 +3401,32 @@ node-config also:
 &nbsp;
 
 Encrypting/decrypting credentials in code may provide some obscurity, but not much more than that.  
-There are different answers for different platforms. None of which provide complete security, if there is such a thing, but instead focusing on different levels of obscurity.
+There are different answers for different platforms, none of which provide complete security, if there is such a thing, but instead focusing on different levels of obscurity.
 
 ##### Windows  {#web-applications-countermeasures-management-of-application-secrets-store-configuration-windows}
 
 **Store database credentials as a Local Security Authority (LSA) secret** and create a DSN with the stored credential. Use a SqlServer [connection string](https://www.owasp.org/index.php/Configuration#Secure_connection_strings) with `Trusted_Connection=yes`
 
-The hashed credentials are stored in the SAM file and the registry. If an attacker has physical access to the storage, they can easily copy the hashes if the machine is not running or can be shut-down. The hashes can be sniffed [from the wire](#network-identify-risks-wire-inspecting) in transit. The hashes can be pulled from the running machines memory (specifically the Local Security Authority Subsystem Service (`LSASS.exe`)) using tools such as Mimikatz, WCE, Metasploits [hashdump](https://www.rapid7.com/db/modules/post/windows/gather/hashdump) or fgdump.
+The hashed credentials are stored in the SAM file and the registry. If an attacker has physical access to the storage, they can easily copy the hashes if the machine is not running or can be shut down. The hashes can be sniffed [from the wire](#network-identify-risks-wire-inspecting) in transit. The hashes can be pulled from the running machine's memory (specifically the Local Security Authority Subsystem Service (`LSASS.exe`)) using tools such as Mimikatz, WCE, Metasploits [hashdump](https://www.rapid7.com/db/modules/post/windows/gather/hashdump) or fgdump.
 
-The `NTDS.dit` database file, along with the DBLayer that is running inside the NTDSAI.DLL (DSA), is directly managed by the Extensible Storage Engine (ESE), which tries to read as much as possible into the `LSASS.exe` memory. 
+The `NTDS.dit` database file, along with the DBLayer that is running inside the NTDSAI.DLL (DSA), is directly managed by the Extensible Storage Engine (ESE), which tries to read as much as possible into `LSASS.exe` memory. 
 
-An attacker generally only needs the hash. Trusted tools like psexec (as we [discussed in the VPS chapter](#vps-identify-risks-windows-pth-suite-of-metasploit-modules)) take care of this for us. Also discussed in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation. 
+An attacker generally only needs the hash. Trusted tools such as psexec (as we [discussed in the VPS chapter](#vps-identify-risks-windows-pth-suite-of-metasploit-modules)) take care of this for us. I also discussed this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation. 
 
 &nbsp;
 
-**Encrypt sections** of a web, executable, machine-level, application-level configuration files with `aspnet_regiis.exe` with the `-pe` option and name of the configuration element to encrypt and the configuration provider you want to use. Either `DataProtectionConfigurationProvider` (uses DPAPI) or `RSAProtectedConfigurationProvider` (uses RSA). the `-pd` switch is used to decrypt or programatically:  
+**Encrypt sections** of web, executable, machine-level, and application-level configuration files with `aspnet_regiis.exe` with the `-pe` option, the name of the configuration element to encrypt, and the configuration provider you want to use. `DataProtectionConfigurationProvider` (uses DPAPI) or `RSAProtectedConfigurationProvider` (uses RSA) and the `-pd` switch is used to decrypt or programatically:  
 `string connStr = ConfigurationManager.ConnectionString["MyDbConn1"].ToString();`
 
-There is also a problem with this, as DPAPI uses LSASS, whereby, an attacker can extract the hash from its memory. If the `RSAProtectedConfigurationProvider` has been used, a key container is required. Mimikatz will force an export from the key container to a `.pvk` file.
-Which can then be [read](http://stackoverflow.com/questions/7332722/export-snk-from-non-exportable-key-container) using OpenSSL or tools from the `Mono.Security` assembly.
+There is also a problem with this, as DPAPI uses LSASS, whereby, an attacker can extract the hash from its memory. If the `RSAProtectedConfigurationProvider` has been used, a key container is required. Mimikatz will force an export from the key container to a `.pvk` file, which can then be [read](http://stackoverflow.com/questions/7332722/export-snk-from-non-exportable-key-container) using OpenSSL or tools from the `Mono.Security` assembly.
 
 &nbsp;
 
-I have explored other ways using `PSCredential` and `SecureString` where they too seem to rely on DPAPI, as mentioned use LSASS which is open for exploitation.
+I have explored other methods using `PSCredential` and `SecureString` which also rely on DPAPI and thus LSASS, which is open for exploitation.
 
 &nbsp;
 
-[**Credential Guard**](https://technet.microsoft.com/en-us/library/mt483740) and Device Guard leverage virtualisation-based security, by the look of it are still using LSASS. Bromium have partnered with Microsoft and have coined it Micro-virtualization. The idea is that every user task is isolated into its own micro-VM. There seems to be some confusion as to how this is any better. Tasks still need to communicate outside of their VM, so what is to stop malicious code doing the same? I have seen lots of questions about this, but no compelling answers yet. Credential Guard must run on physical hardware directly. You can not run it on virtual machines. This alone rules out many deployments.
+[**Credential Guard**](https://technet.microsoft.com/en-us/library/mt483740) and Device Guard leverage virtualisation-based security, but by the look of it are still using LSASS. Bromium have partnered with Microsoft and have coined it Micro-virtualization. The idea is that every user task is isolated into its own micro-VM. There seems to be some confusion as to how this is any better. Tasks still need to communicate outside of their VM, so what is to stop malicious code doing the same? I have seen lots of questions about this, but no compelling answers yet. Credential Guard must run on physical hardware directly. You can not run it on virtual machines. This alone rules out many deployments.
 
 "_Bromium vSentry transforms information and infrastructure protection with a revolutionary new architecture that isolates and defeats advanced threats targeting the endpoint through web, email and documents_"
 
@@ -3448,38 +3447,38 @@ This is marketing talk. Please don't take this literally.
 
 These seem like bold claims.
 
-Also worth considering is how Microsofts new virtualization-based security also relies on UEFI Secure Boot, which has been proven [insecure](http://www.itworld.com/article/2707547/endpoint-protection/researchers-demo-exploits-that-bypass-windows-8-secure-boot.html).
+Also consider that Microsoft's new virtualization-based security also relies on UEFI Secure Boot, which has been proven [insecure](http://www.itworld.com/article/2707547/endpoint-protection/researchers-demo-exploits-that-bypass-windows-8-secure-boot.html).
 
 ##### Linux
 
 **Containers** help to provide some form of isolation which allows you to only have the user accounts do what is necessary for the application.
 
-I usually use a **deployment tool that also changes the permissions** and ownership of the files involved with the running web application to a single system user, so unprivileged users can not access the web applications files at all. The [deployment script](https://github.com/binarymist/DeploymentTool) is executed over SSH in a remote shell, enabling only specific commands on the server to run and a very limited set of users have access to the machine. If you are using Linux or Docker Containers then you can reduce this even more if it has not already.
+I usually use a **deployment tool that also changes the permissions** and ownership of the files involved with the running web application to a single system user, so unprivileged users can not access the web applications files at all. The [deployment script](https://github.com/binarymist/DeploymentTool) is executed over SSH in a remote shell, enabling only specific commands on the server to run, and a very limited set of users have access to the machine. If you are using Linux or Docker Containers then you can reduce these vectors even more if you haven't already.
 
-One of the beauties of GNU/Linux is that you can have as much or little security as you decide. No one has made that decision for you already and locked you out of the source. You are not feed lies like all of the closed source OS vendors who are trying to pimp their latest money spinning products. GNU/Linux is a dirty little secret that requires no marketing hype. It provides complete control if you want it. If you do not know what you want, then someone else will probably take that control from you. It is just a matter of time if it hasn't happened already.
+One of the appeals of GNU/Linux is that you can choose as much or little security as you desire. No one has made that decision for you already and locked you out of the source. GNU/Linux is a beloved secret that requires no marketing hype and it provides complete control if you so choose. If you do not know what you want, then someone else will probably take that control from you. It is just a matter of time if it hasn't happened already.
 
 #### Least Privilege {#web-applications-countermeasures-management-of-application-secrets-least-privilege}
 ![](images/ThreatTags/PreventionEASY.png)
 
-An application should have the least privileges possible in order to carry out what it needs to do. Consider creating accounts for each trust distinction. For example, where you only need to read from a data store, create that connection with a users credentials that is only allowed to read, do the same for other privileges. This way the attack surface is minimised. Adhering to the principle of least privilege, also consider removing table access completely from the application and only provide permissions to the application to run stored queries. This way if/when an attacker is able to compromise the machine and retrieve the password for an action on the data-store, they will not be able to do a lot anyway.
+An application should have the least privilege necessary in order to carry out what it needs to do. Consider creating accounts for each trust distinction. For example, where you only need to read from a data store, create that connection with a user's credentials that is only allowed to read, and do the same for other privileges. This way the attack surface is minimised. Adhering to the principle of least privilege, also consider removing table access completely from the application, and only provide permissions to the application to run stored queries. That way, if/when an attacker is able to compromise the machine, and retrieve the password for an action on the datastore, they will not be able to do much with it.
 
 #### Location
 ![](images/ThreatTags/PreventionEASY.png)
 
-Put your services like data-stores on network segments that are as [sheltered](#network-countermeasures-lack-of-segmentation) as possible and only contain similar services.
+Put your services such as datastores on network segments that are as [sheltered](#network-countermeasures-lack-of-segmentation) as possible, and only contain similar services.
 
-Maintain as few user accounts on the servers in question as possible and with the least privileges as possible. 
+Maintain as few user accounts as possible on the servers in question and with the least privilege possible. 
 
 #### Datastore Compromise {#web-applications-countermeasures-data-store-compromise}
 ![](images/ThreatTags/PreventionEASY.png)
 
-As part of your defence in depth strategy, you should expect that your data-store is going to get stolen, but hope that it does not. You should be thinking about what assets within the data-store are sensitive? How are you going to stop an attacker that has gained access to the data-store make sense of the sensitive data?
+As part of your defence in depth strategy, you should expect that your datastore is going to be stolen, but hope that it does not. You should be thinking about what assets within the datastore are sensitive. How are you going to prevent an attacker that has gained access to the datastore from making sense of the sensitive data?
 
-As part of developing the application that uses the data-store, a strategy needs to be developed and implemented so business can carry on as usual when this happens. For example, when your detection mechanisms realise that someone unauthorised has been on the machine(s) that hosts your data-store, as well as the usual alerts being fired off to the people that are going to investigate and audit, your application should take some automatic measures like:
+As part of developing the application that uses the datastore, a strategy needs to be developed and implemented so business can carry on as usual when this happens. For example, when your detection mechanisms realise that someone unauthorised has been on the systems that host your datastore, and alerts have been fired off to the people that are going to investigate and audit, your application should take some automatic measures such as:
 
 * All following logins should be instructed to change passwords
 
-If you follow the recommendations below, data-store theft alone will be an inconvenience, but not a disaster.
+If you follow the recommendations below, datastore theft alone will be an inconvenience, but not a disaster.
 
 Consider what sensitive information you really need to store, also consider using the following key derivation functions (KDFs) for all sensitive data, not just passwords. It is good to continue to [remind your customers](https://speakerdeck.com/binarymist/passwords-lol) to always use unique passwords. Passwords that are made up with a combination of alphanumeric, upper-case, lower-case and special characters. It is also worth considering pushing the use of high quality password vaults. Do not limit password lengths. Encourage the use of long passwords.
 
@@ -3489,7 +3488,7 @@ PBKDF2, bcrypt and [scrypt](http://www.tarsnap.com/scrypt.html), are KDFs that a
 
 PBKDF2, bcrypt and the newer scrypt, apply a Pseudorandom Function (PRF) such as a cryptographic hash, cipher or keyed-Hash Message Authentication Code (HMAC) to the data being received along with a unique salt. The salt should be stored with the hashed data.
 
-Do not use MD5, SHA-1 or the SHA-2 family of cryptographic one-way hashing functions by themselves for cryptographic purposes like hashing your sensitive data. In-fact do not use hashing functions at all for this unless they are leveraged with one of the mentioned KDFs. Why? This is because they were not designed for passwords (to be slow), the hashing speed can not be slowed as hardware continues to get faster. Many organisations that have had their data-stores stolen and continue to on a weekly basis could avoid their secrets being compromised simply by using a decent KDF with salt and a decent number of iterations.
+Do not use MD5, SHA-1, or the SHA-2 family of cryptographic one-way hashing functions by themselves for cryptographic purposes such as hashing your sensitive data. In fact, do not use hashing functions at all for this unless they are leveraged with one of the mentioned KDFs. The hashing functions were not designed to be used alone for passwords (to be slow), the hashing speed can not be slowed as hardware continues to get faster. Many organisations that have had their datastores stolen, and continue to on a weekly basis, could avoid their secrets being compromised simply by using a decent KDF with salt and a decent number of iterations.
 "_Using four AMD Radeon HD6990 graphics cards, I am able to make about 15.5 billion guesses per second using the SHA-1 algorithm._"
 
 > Per Thorsheim
@@ -3498,42 +3497,41 @@ In saying that, PBKDF2 can use MD5, SHA-1 and the SHA-2 family of hashing functi
 
 ##### Which KDF to use? {#web-applications-countermeasures-data-store-compromise-which-kdf-to-use}
 
-You have to consider many things to determine which KDF to use. I can't tell you which is the best one to use. Which one to use depends on many things. You should gain your own understanding of at least all three of the following best of breed KDFs often used for password hashing.
+You have to consider many things to determine which KDF to use. I can't tell you which is the best one to use, which one to use depends on many things. You should gain your own understanding of at least the following best of breed KDFs often used for password hashing.
 
-**PBKDF2** is the oldest KDF, so it is the most battle tested, but there has been lessons learnt from it that have been taken to the latter two. Such as, the fact that its utilised hashing functions (MD5, SHA) are CPU intensive only and easily parallelised on GPUs and Application Specific Integrated Circuts, where it uses very little RAM. We see this in crypto-currency mining.
+**PBKDF2** is the oldest KDF, and the most battle tested, but there have been lessons learned that have been applied to the latter two. These include that its utilised hashing functions (MD5, SHA) are CPU intensive and easily parallelised on GPUs and Application Specific Integrated Circuits, where it uses very little RAM. We see this in cryptocurrency mining.
 
-The next oldest is **bcrypt** which uses the Eksblowfish cipher. This was designed specifically for bcrypt from the blowfish cipher, to be very slow to initiate thus boosting protection against dictionary attacks which were often run on custom Application-specific Integrated Circuits (ASICs) with low gate counts, often found in GPUs of the day (1999).  
-The hashing functions that PBKDF2 uses were a lot easier to get speed increases on GPUs due to the ease of parallelisation as opposed to the Eksblowfish cipher attributes such as:
+The next oldest is **bcrypt** which uses the Eksblowfish cipher. This was designed specifically for bcrypt from the Blowfish cipher, to be very slow to initiate, thus boosting protection against dictionary attacks, which were often run on custom Application-specific Integrated Circuits (ASICs) with low gate counts, often found in GPUs of the day (1999).  
+The hashing functions that PBKDF2 uses achieve speed increases on GPUs due to the ease of parallelisation, as opposed to the Eksblowfish cipher attributes such as:
 
 1. Far greater memory required for each hash
 2. Small and frequent pseudo-random memory accesses and modifications, making it harder to cache the data into faster memory and breaking parallelisation on GPUs.
 
-GPUs are good at carrying out the exact same instruction set concurrently, but when a branch in the logic occurs (which is how the blowfish algorithm works) on one of the sets, all others stop which destroys parallelisation on GPUs.
+GPUs are good at carrying out the exact same instruction set concurrently, but when a branch in the logic occurs (which is how the Blowfish algorithm works) on one of the sets, all others stop, which destroys parallelisation on GPUs.
 
-The Arithmetic Logic Units (ALUs), or shaders of a GPU are partitioned into groups, and each group of ALUs shares management, so members of the group cannot be made to work on separate tasks. They can either all work on nearly identical variations of one single task, in perfect sync with one another, or nothing at all.
+The Arithmetic Logic Units (ALUs), or shaders of a GPU, are partitioned into groups, and each group of ALUs shares management, so members of the group cannot be made to work on separate tasks. They can either all work on nearly identical variations of one single task, in perfect sync with one another, or nothing at all.
 
-Bcrypt was specifically designed to be non GPU friendly, this is why it used the existing blowfish cipher.
+Bcrypt was specifically designed to be non-GPU friendly, this is why it used the existing Blowfish cipher.
 
-Now with hardware utilising large Field-programmable Gate Arrays (FPGAs), bcrypt brute-forcing is becoming more accessible due to easily obtainable cheap hardware such as the [Xeon+FPGA](http://www.extremetech.com/extreme/184828-intel-unveils-new-xeon-chip-with-integrated-fpga-touts-20x-performance-boost). We also have the likes of the [Xeon Phi](http://www.extremetech.com/extreme/133541-intels-64-core-champion-in-depth-on-xeon-phi) which has 60 1GHz cores (- several used by the system), each with 4 hardware threads. The Phi is pretty close to being a general purpose, many core CPU. The FPGAs are not easy to programme for and neither is the Xeon Phi, as it has its own embedded Linux SOC which runs BusyBox, that you need to SSH into. The following board and chip are also worth considering, although you won't get the brute-forcing throughput of the Xeon+FPGA or Phi:
+With hardware utilising large Field-programmable Gate Arrays (FPGAs), bcrypt bruteforcing is becoming more accessible due to easily obtainable cheap hardware such as the [Xeon+FPGA](http://www.extremetech.com/extreme/184828-intel-unveils-new-xeon-chip-with-integrated-fpga-touts-20x-performance-boost). We also have the likes of the [Xeon Phi](http://www.extremetech.com/extreme/133541-intels-64-core-champion-in-depth-on-xeon-phi) which has 60 1GHz cores (- several used by the system), each with 4 hardware threads. The Phi is pretty close to being a general purpose, many core CPU. The FPGAs are not easy to programme for, and neither is the Xeon Phi, as it has its own embedded Linux SOC which runs BusyBox, that you need to SSH into. The following board and chip are also worth considering, although you won't get the bruteforcing throughput of the Xeon+FPGA or Phi:
 
 * [ZedBoard / Zynq 7020](http://picozed.org/product/zedboard)
 * [Haswell](http://www.theplatform.net/2015/06/02/intel-finishes-haswell-xeon-e5-rollout-launches-broadwell-e3/)
 
-**Scrypt** uses PBKDF2-HMAC-SHA-256 (PBKDF2 of HMAC-SHA256) as its PRF, and 
-the [Salsa20/8](https://tools.ietf.org/html/rfc7914) core function, which is not a cryptographic hash function as it is not collision resistant to help make pseudo-random writes to RAM, then repeatedly reads them in a pseudo-random sequence. FPGAs do not generally have a lot of RAM, so this makes leveraging both FPGAs and GPUs a lot less feasible, therefore, narrowing down the field of potential hardware cracking options to many core multi-purpose CPUs, such as the Xeon Phi, ZedBoard, Haswell and others. 
+**Scrypt** uses PBKDF2-HMAC-SHA-256 (PBKDF2 of HMAC-SHA256) as its PRF, and the [Salsa20/8](https://tools.ietf.org/html/rfc7914) core function, which is not a cryptographic hash function as it is not collision resistant to help pseudo-random writes to RAM, then repeatedly reads them in a pseudo-random sequence. FPGAs do not generally have a lot of RAM, so this makes leveraging both FPGAs and GPUs a lot less feasible and narrows down the field of potential hardware cracking options to many core multi-purpose CPUs, such as the Xeon Phi, ZedBoard, Haswell and others. 
 
 &nbsp;
 
-The sensitive data stored within a data-store should be the output of using one of the three key derivation functions we have just discussed. Feed with the data you want protected and a unique salt. All good frameworks will have at least PBKDF2 and bcrypt APIs.
+The sensitive data stored within a datastore should be the output of one of the three key derivation functions we have just discussed. Feed these with the data you want protected, and a unique salt. All good frameworks will have at least PBKDF2 and bcrypt APIs.
 
-Possibly also worth considering if you like the bleeding edge, is the new Argon2.
+The new Argon2 is also worth considering if you like the bleeding edge.
 
 #### Caching of Sensitive Data {#web-applications-countermeasures-management-of-application-secrets-caching-of-sensitive-data}
 ![](images/ThreatTags/PreventionVERYEASY.png)
 
 Logging out from an application obviously does not clear the browser cache of any sensitive information that might have been stored. It is good to test that any sensitive data responses have `Cache-Control` and `Expires` headers set appropriately.
 
-Use an HTTP intercepting proxy such as ZAP, Burp, etc, to search through the server responses that belong to the session, checking that the server instructed the browser not to cache any data for all responses containing sensitive information.
+Use an HTTP intercepting proxy such as ZAP, Burp, etc. to search through the server responses that belong to the session, checking that the server instructed the browser not to cache any data for all responses containing sensitive information.
 
 Use the following headers on such responses:
 

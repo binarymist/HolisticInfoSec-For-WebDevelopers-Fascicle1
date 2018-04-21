@@ -3399,6 +3399,8 @@ node-config also:
 * Provides command line overrides, thus allowing you to override configuration values at application start from command
 * Allows for the overriding of environment variables with [custom environment variables](https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables) from a `custom-environment-variables.json` file
 
+&nbsp;
+
 Encrypting/decrypting credentials in code may provide some obscurity, but not much more than that.  
 There are different answers for different platforms, none of which provide complete security, if there is such a thing, but instead focusing on different levels of obscurity.
 
@@ -3412,12 +3414,18 @@ The `NTDS.dit` database file, along with the DBLayer that is running inside the 
 
 An attacker generally only needs the hash. Trusted tools such as psexec (as we [discussed in the VPS chapter](#vps-identify-risks-windows-pth-suite-of-metasploit-modules)) take care of this for us. I also discussed this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation. 
 
+&nbsp;
+
 **Encrypt sections** of web, executable, machine-level, and application-level configuration files with `aspnet_regiis.exe` with the `-pe` option, the name of the configuration element to encrypt, and the configuration provider you want to use. `DataProtectionConfigurationProvider` (uses DPAPI) or `RSAProtectedConfigurationProvider` (uses RSA) and the `-pd` switch is used to decrypt or programatically:  
 `string connStr = ConfigurationManager.ConnectionString["MyDbConn1"].ToString();`
 
 There is also a problem with this, as DPAPI uses LSASS, whereby, an attacker can extract the hash from its memory. If the `RSAProtectedConfigurationProvider` has been used, a key container is required. Mimikatz will force an export from the key container to a `.pvk` file, which can then be [read](http://stackoverflow.com/questions/7332722/export-snk-from-non-exportable-key-container) using OpenSSL or tools from the `Mono.Security` assembly.
 
+&nbsp;
+
 I have explored other methods using `PSCredential` and `SecureString` which also rely on DPAPI and thus LSASS, which is open for exploitation.
+
+&nbsp;
 
 [**Credential Guard**](https://technet.microsoft.com/en-us/library/mt483740) and Device Guard leverage virtualisation-based security, but by the look of it are still using LSASS. Bromium have partnered with Microsoft and have coined it Micro-virtualization. The idea is that every user task is isolated into its own micro-VM. There seems to be some confusion as to how this is any better. Tasks still need to communicate outside of their VM, so what is to stop malicious code doing the same? I have seen lots of questions about this, but no compelling answers yet. Credential Guard must run on physical hardware directly. You can not run it on virtual machines. This alone rules out many deployments.
 
@@ -3462,7 +3470,7 @@ Put your services such as datastores on network segments that are as [sheltered]
 
 Maintain as few user accounts as possible on the servers in question and with the least privilege possible. 
 
-#### Datastore Compromise {#web-applications-countermeasures-datastore-compromise}
+#### Datastore Compromise {#web-applications-countermeasures-data-store-compromise}
 ![](images/ThreatTags/PreventionEASY.png)
 
 As part of your defence in depth strategy, you should expect that your datastore is going to be stolen, but hope that it does not. You should be thinking about what assets within the datastore are sensitive. How are you going to prevent an attacker that has gained access to the datastore from making sense of the sensitive data?
@@ -3481,14 +3489,14 @@ PBKDF2, bcrypt and [scrypt](http://www.tarsnap.com/scrypt.html), are KDFs that a
 
 PBKDF2, bcrypt and the newer scrypt, apply a Pseudorandom Function (PRF) such as a cryptographic hash, cipher or keyed-Hash Message Authentication Code (HMAC) to the data being received along with a unique salt. The salt should be stored with the hashed data.
 
-Do not use MD5, SHA-1, or the SHA-2 family of cryptographic one-way hashing functions by themselves for cryptographic purposes such as hashing your sensitive data. In fact, do not use hashing functions at all for this unless they are leveraged with one of the mentioned KDFs. Many organisations that have had their datastores stolen, and continue to on a weekly basis, could avoid their secrets being compromised simply by using a decent KDF with salt and a decent number of iterations.
+Do not use MD5, SHA-1, or the SHA-2 family of cryptographic one-way hashing functions by themselves for cryptographic purposes such as hashing your sensitive data. In fact, do not use hashing functions at all for this unless they are leveraged with one of the mentioned KDFs. The hashing functions were not designed to be used alone for passwords (to be slow), the hashing speed can not be slowed as hardware continues to get faster. Many organisations that have had their datastores stolen, and continue to on a weekly basis, could avoid their secrets being compromised simply by using a decent KDF with salt and a decent number of iterations.
 "_Using four AMD Radeon HD6990 graphics cards, I am able to make about 15.5 billion guesses per second using the SHA-1 algorithm._"
 
 > Per Thorsheim
 
 In saying that, PBKDF2 can use MD5, SHA-1 and the SHA-2 family of hashing functions. Bcrypt uses the Blowfish (more specifically the Eksblowfish) cipher. Scrypt does not have user replaceable parts like PBKDF2. The PRF can not be changed from SHA-256 to something else.
 
-##### Which KDF to use? {#web-applications-countermeasures-datastore-compromise-which-kdf-to-use}
+##### Which KDF to use? {#web-applications-countermeasures-data-store-compromise-which-kdf-to-use}
 
 You have to consider many things to determine which KDF to use. I can't tell you which is the best one to use, which one to use depends on many things. You should gain your own understanding of at least the following best of breed KDFs often used for password hashing.
 
@@ -3511,7 +3519,9 @@ With hardware utilising large Field-programmable Gate Arrays (FPGAs), bcrypt bru
 * [ZedBoard / Zynq 7020](http://picozed.org/product/zedboard)
 * [Haswell](http://www.theplatform.net/2015/06/02/intel-finishes-haswell-xeon-e5-rollout-launches-broadwell-e3/)
 
-**Scrypt** uses PBKDF2-HMAC-SHA-256 (PBKDF2 of HMAC-SHA256) as its PRF, and the [Salsa20/8](https://tools.ietf.org/html/rfc7914) core function, which is not a cryptographic hash function as it is not collision resistant. FPGAs do not generally have a lot of RAM, so this makes leveraging both FPGAs and GPUs a lot less feasible and narrows down the field of potential hardware cracking options to many core multi-purpose CPUs, such as the Xeon Phi, ZedBoard, Haswell and others. 
+**Scrypt** uses PBKDF2-HMAC-SHA-256 (PBKDF2 of HMAC-SHA256) as its PRF, and the [Salsa20/8](https://tools.ietf.org/html/rfc7914) core function, which is not a cryptographic hash function as it is not collision resistant to help pseudo-random writes to RAM, then repeatedly reads them in a pseudo-random sequence. FPGAs do not generally have a lot of RAM, so this makes leveraging both FPGAs and GPUs a lot less feasible and narrows down the field of potential hardware cracking options to many core multi-purpose CPUs, such as the Xeon Phi, ZedBoard, Haswell and others. 
+
+&nbsp;
 
 The sensitive data stored within a datastore should be the output of one of the three key derivation functions we have just discussed. Feed these with the data you want protected, and a unique salt. All good frameworks will have at least PBKDF2 and bcrypt APIs.
 
@@ -3546,11 +3556,11 @@ For Internet Explorer:
 
 * `C:\Documents and Settings\<user_name>\Local Settings\Temporary Internet Files>`
 
-Don't forget to plug all your changes into your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+Don't forget to plug all your changes into your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 #### Cracking
 
-Slowing down and rendering cracking infeasible is addressed by the type of KDF and number of rounds you configure. We did this in the "[Which KDF to use](#web-applications-countermeasures-datastore-compromise-which-kdf-to-use)" section.
+Slowing down and rendering cracking infeasible is addressed by the type of KDF and number of rounds you configure. We did this in the "[Which KDF to use](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)" section.
 
 ### Lack of Authentication, Authorisation and Session Management {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management}
 ![](images/ThreatTags/PreventionDIFFICULT.png)
