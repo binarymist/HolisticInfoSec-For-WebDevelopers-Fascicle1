@@ -810,6 +810,8 @@ Authorisation is the process of verifying that an entity (usually making a reque
 
 Being authorised means the entity has the power or right to certain privileges.
 
+&nbsp;
+
 **Don't build your own** authentication, authorisation or session management system unless it's your core business. It is too easy to get things wrong, as it only takes one defect to become compromised. Leave it to those who are experienced, or have it as part of their core business and have already worked through the defects.
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-identify-risks-cryptography-on-the-client}
@@ -855,7 +857,7 @@ The following is a list of the best JavaScript crypto libraries we have availabl
   1. AES-CCM. Counter with CBC-MAC (CCM) is a mode of operation for cryptographic block ciphers of 128 bits in length. It is an authenticated encryption algorithm designed to provide both authentication and confidentiality
   2. AES-OCB2. [Offset CodeBook (OCB)](https://en.wikipedia.org/wiki/OCB_mode) is also a mode of operation for cryptographic block ciphers of 128 bits in length. OCB2 is an authenticated encryption algorithm designed to provide both authentication and confidentiality. OCB1 didn't allow associated data to be included with the message. Integrity verification is now part of the decryption step with OCB2. GCM is similar to OCB, but GCM and CCM doesn't have any patents. Although exemptions have been granted, so that OCB can be used in software licensed under the GNU General Public License  
   
-  * Uses PBKDF2 for One way hashing of passwords. More details around password hashing in the [Datastore Compromise](#web-applications-countermeasures-datastore-compromise) section.
+  * Uses PBKDF2 for One way hashing of passwords. More details around password hashing in the [Datastore Compromise](#web-applications-countermeasures-data-store-compromise) section.
 * **Forge**
   * Source Code: [https://github.com/digitalbazaar/forge](https://github.com/digitalbazaar/forge)
   * NPM package: [https://www.npmjs.com/package/node-forge](https://www.npmjs.com/package/node-forge)  
@@ -882,9 +884,9 @@ here, [A9 (Using Components with Known Vulnerabilities)](https://www.owasp.org/i
 
 We are consuming far more free and open source libraries than we ever have before. Most of the code we are pulling into our projects is never intentionally used, but still adds a surface area for attack. Most of it:
 
-* Is not thoroughly tested for what it should and should not do. We are often relying on developers to not introduce defects. As I have discussed in the "Code Review" section of the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), most developers focus more on building than breaking, and do not see the defects they are introducing
-* Is not reviewed or evaluated. Many of the packages we consume are created by single developers who focus on creating and have little focus on how their creations can be exploited. Even some teams who have a security champion aren't doing a lot better
-* Is created by amateurs who include vulnerabilities. Anyone can write code and publish to an open source repository. A lot of this code ends up in our package management repositories which we consume.
+* Is not thoroughly tested for what it should and should not do. We are often relying on developers to not introduce defects. As I have discussed in the "Code Review" section of the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), most developers focus more on building than breaking, and do not see the defects they are introducing
+* Is not reviewed or evaluated. Many of the packages we consume are created by solo developers who focus on creating and have little focus on how their creations can be exploited. Even some teams who have a security champion aren't doing a lot better
+* Is created by amateurs who include vulnerabilities. Anyone can write code and publish to an open source repository. A lot of this code ends up in our package management repositories which we consume
 * Does not undergo the same requirement analysis, scope definition, acceptance criteria, test conditions, and sign off by a development team and product owner, that our commercial software more often does
 
 There are some very sobering statistics, which Adrian Colyer also details in his blog post "[the morning paper](https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/)", on how many defective libraries we are depending on. We are all trying to get things done faster which, in many cases, means consuming someone else's work rather than writing our own code.
@@ -955,7 +957,7 @@ I have also looked at `express-winston`, but could not determine why it is neede
 
 A lot of people seem to be using [`winston-syslog`](https://www.npmjs.com/package/winston-syslog), simply because `winston-syslog` is the first package that works well for winston and syslog.
 
-If take this route, you will need the following in your `/etc/rsyslog.conf`:
+If taking this route, you will need the following in your `/etc/rsyslog.conf`:
 
 {title="/etc/rsyslog.conf", linenos=off, lang=Bash}
     $ModLoad imudp
@@ -1005,6 +1007,8 @@ Now you can see on line 7 below that the syslog port is no longer open:
     PORT    STATE  SERVICE REASON       VERSION
     514/udp closed syslog  port-unreach
     MAC Address: 34:25:C9:96:AC:E0 (My Computer)
+
+&nbsp;
 
 Your logging configuration should not be in the application startup file, it should be in the configuration files. This is discussed further under the ["Store Configuration in Configuration files"](#web-applications-countermeasures-management-of-application-secrets-store-configuration) section.
 

@@ -802,45 +802,45 @@ Often the line between the following two concepts gets blurred, sometimes becaus
 
 Authentication is the process of determining whether an entity (be it person or something else) is who or what it claims to be.
 
-Being authenticated, means the entity is known to be who or what it/he/she claims to be.
+Being authenticated means the entity is known to be who or what he/she/it claims to be.
 
 #### What is Authorisation
 
-Authorisation is the process of verifying that an entity (usually requesting - be it person or something else) has the right to a particular resource or to carry out an action, before granting the permission requested.
+Authorisation is the process of verifying that an entity (usually making a request, be it person or something else) has the right to a particular resource, or to carry out an action, before granting the permission requested.
 
-Being authorised, means the entity has the power or right to certain privileges.
+Being authorised means the entity has the power or right to certain privileges.
 
 &nbsp;
 
-**Don't build your own** authentication, authorisation or session management system unless it's your core business. It is too easy to get things wrong, as it only takes one defect to become compromised. Leave it to those who are experienced or have it as part of their core business and have already worked through the defects.
+**Don't build your own** authentication, authorisation or session management system unless it's your core business. It is too easy to get things wrong, as it only takes one defect to become compromised. Leave it to those who are experienced, or have it as part of their core business and have already worked through the defects.
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-identify-risks-cryptography-on-the-client}
 
 ![](images/ThreatTags/average-widespread-average-severe.png)
 
-I see things that developers would get into trouble through:
+I see things that developers get into trouble with due to:
 
 1. Lack of understanding of what the tool is, where and how it should be used
-2. Use of low-level primitives with no to little knowledge of which are the most suitable for what purposes. How to make them work together. How to use and configure them, so as to not introduce security defects, usually due to not understanding how the given primitive is designed and its purpose of use
+2. Use of low level primitives with little to no knowledge of which are the most suitable for what purposes, how to make them work together, and how to use and configure them so as to not introduce security defects. This is usually due to not understanding how the given primitive is designed and its purpose of use
 3. Many libraries have either:
-    1. To many options which creates confusion for the developers, as what to use for which purpose. Where the options they do have, are not the best for their intended purpose
+    1. Too many options which creates confusion for the developers regarding what to use for which purpose and where the options they do have are not the best for their intended purpose
     2. The creators may be developers, but are not cryptographers
 
-There are so many use cases within the wider cryptography topic. There is no substitute for learning about your options, which to use in any given situation and how to use them.
+There are so many use cases within the wider cryptography topic. There is no substitute for learning about your options, which to use in any given situation, and how to use them.
 
 JavaScript crypto is wrought with problems.
 
-For example, there is nothing safe about having JavaScript in the browser store, read or manage an entropy pool. This gets a little better with the Web Cryptography APIs (discussed in the [Countermeasures](#web-applications-countermeasures-cryptography-on-the-client) section) `window.crypto.getRandomValues()`. 
+For example, there is nothing safe about having JavaScript in the browser store, read or manage an entropy pool. This improves marginally with the Web Cryptography APIs (discussed in the [Countermeasures](#web-applications-countermeasures-cryptography-on-the-client) section) `window.crypto.getRandomValues()`. 
 
-Little trust should be placed in the browser, as it generally fails to manage attacks due to the complexities discussed in both the [Risks](#web-applications-identify-risks-lack-of-input-validation-and-sanitisation) and [Countermeasures](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) sections of "Lack of Input Validation, Filtering and Sanitisation". The browser has enough trouble getting all the technologies to work together and inside of each other, let alone stopping malicious code fragments that do work from working. As most web developers have worked out, the browser is purposely designed to make even syntactically incorrect code work correctly.
+Little trust should be placed in the browser, as it generally fails to manage attacks due to the complexities discussed in both the [Risks](#web-applications-identify-risks-lack-of-input-validation-and-sanitisation) and [Countermeasures](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) sections of "Lack of Input Validation, Filtering and Sanitisation". The browser has enough trouble getting all the technologies to work together, and inside of each other, let alone stopping malicious code fragments. As most web developers long ago learned, the browser is purposely designed to make even syntactically incorrect code work correctly.
 
 The browser was designed to download and run potentially malicious, untrusted code from arbitrary locations on the fly. The browser in most cases doesn't know what malicious code is, and often the first payload is not malicious, but simply fetches other code that may fetch other code that may become malicious.
 
-JavaScript engines are constantly changing, though developers who are still expecting and relying on the implementation details of the execution environments to stay somewhat stable, will be constantly let down.
+JavaScript engines are constantly changing, though developers, who are still expecting and relying on the implementation details of the execution environments to stay somewhat stable, will be constantly let down.
 
 Web development is hard, though web security is harder still.
 
-The following is a list of the best JavaScript crypto libraries we have available to us. I purposely left many out, as I don't want to muddy the waters and add more lower quality options:
+The following is a list of the best JavaScript crypto libraries we have available to us. I purposely left many out, as I don't want to muddy the water and add more lower quality options:
 
 * **Stanford JavaScript Crypto Library (SJCL)**
   * Home page: [http://bitwiseshiftleft.github.io/sjcl/](http://bitwiseshiftleft.github.io/sjcl/) The default key stretching factor appears to be 1000. This should probably be adaptive to match the advances in hardware technology, as discussed under the [MembershipReboot](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-technology-and-design-decisions-membershipreboot) section. 
@@ -848,11 +848,11 @@ The following is a list of the best JavaScript crypto libraries we have availabl
   * Source Code: [https://github.com/bitwiseshiftleft/sjcl/](https://github.com/bitwiseshiftleft/sjcl/)
   * NPM package: [https://www.npmjs.com/package/sjcl](https://www.npmjs.com/package/sjcl). Yes the download count is way less than Forge, but SJCL is first in my list for a reason. SJCL provides minimal options of algorithms and cipher modes, etc. Just the best, to help ease the burden of having to research many algorithms and cipher modes to find out which are now broken.  
     
-  What is also really good to see is how SJCL is pushing consumers down the right path and issuing warnings around primitives that have issues. For example the [warning](https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers) against using CBC. I discuss this further in the [risks that solution causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
+  It's really good to see how SJCL is pushing consumers down the right path and issuing warnings regarding primitives that have issues, the [warning](https://github.com/bitwiseshiftleft/sjcl/wiki/Directly-Using-Ciphers) against using CBC, as an example. I discuss this further in the [risks that solution causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
   
-  Other than the [countermeasure](#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api), this is probably the best offering we have for crypto in the browser. It has sensible defaults, good warnings, not too many options to understand in order to make good choices. This is one of those libraries that guides the developer down the right path.
+  Other than the [countermeasure](#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api), this is probably the best offering we have for crypto in the browser. It has sensible defaults, good warnings, and not too many options to understand in order to make good choices. This is one of those libraries that guides the developer down the right path.
   
-  Encrypts your plain text using the AES block cypher with a choice of cipher modes CCM or OCB2. AES is the industry-standard block-cipher for this purpose, one of the better choices for crypto in the browser if it must be done. AES comes in three forms. 128 bit (very efficient), 192 bit and 256 bit. The modes of operation that SJCL have provided for use with AES are the following two [Authenticated Encryption with Associated Data (AEAD)](https://en.wikipedia.org/wiki/Authenticated_encryption) ciphers:
+  SJCL encrypts your plain text using the AES block cypher with a choice of cipher modes CCM or OCB2. AES is the industry-standard block-cipher for this purpose, one of the better choices for crypto in the browser, if it must be done. AES comes in three forms, 128 bit (very efficient), 192 bit, and 256 bit. SJCL has provided two modes of operation for use with AES in the following two [Authenticated Encryption with Associated Data (AEAD)](https://en.wikipedia.org/wiki/Authenticated_encryption) ciphers:
   
   1. AES-CCM. Counter with CBC-MAC (CCM) is a mode of operation for cryptographic block ciphers of 128 bits in length. It is an authenticated encryption algorithm designed to provide both authentication and confidentiality
   2. AES-OCB2. [Offset CodeBook (OCB)](https://en.wikipedia.org/wiki/OCB_mode) is also a mode of operation for cryptographic block ciphers of 128 bits in length. OCB2 is an authenticated encryption algorithm designed to provide both authentication and confidentiality. OCB1 didn't allow associated data to be included with the message. Integrity verification is now part of the decryption step with OCB2. GCM is similar to OCB, but GCM and CCM doesn't have any patents. Although exemptions have been granted, so that OCB can be used in software licensed under the GNU General Public License  
@@ -880,20 +880,20 @@ The following is a list of the best JavaScript crypto libraries we have availabl
 ### Consuming Free and Open Source {#web-applications-identify-risks-consuming-free-and-open-source}
 ![](images/ThreatTags/average-common-average-moderate.png)
 
-This is where [A9 (Using Components with Known Vulnerabilities)](https://www.owasp.org/index.php/Top_10_2017-A9-Using_Components_with_Known_Vulnerabilities) of the 2017 OWASP Top 10 comes in.
+here, [A9 (Using Components with Known Vulnerabilities)](https://www.owasp.org/index.php/Top_10_2017-A9-Using_Components_with_Known_Vulnerabilities) of the 2017 OWASP Top 10 applies.
 
-We are consuming far more free and open source libraries than we ever have before. Most of the code we are pulling into our projects is never intentionally used, but is still adding a surface area for attack. Most of it:
+We are consuming far more free and open source libraries than we ever have before. Most of the code we are pulling into our projects is never intentionally used, but still adds a surface area for attack. Most of it:
 
-* Is not thoroughly tested for what it should and should not do. We are often relying on developers we do not know a lot about, not to introduce defects. As I have discussed in the "Code Review" section of the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), where most developers focus more on building than breaking, and do not see the defects they are introducing
-* Is not reviewed evaluated. That's right, many of the packages we consume are created by solo developers who just focus on creating and have little focus on how their creations can be exploited. Even some teams who have a security champion in them, are not doing a lot better
-* Is created by amateurs that could and do include vulnerabilities. Anyone can write code and publish to an open source repository. A lot of this code ends up in our package management repositories which we consume
-* Does not undergo the same requirement analysis, defining the scope, acceptance criteria, test conditions and sign off by a development team and product owner that our commercial software does
+* Is not thoroughly tested for what it should and should not do. We are often relying on developers to not introduce defects. As I have discussed in the "Code Review" section of the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), most developers focus more on building than breaking, and do not see the defects they are introducing
+* Is not reviewed or evaluated. Many of the packages we consume are created by solo developers who focus on creating and have little focus on how their creations can be exploited. Even some teams who have a security champion aren't doing a lot better
+* Is created by amateurs who include vulnerabilities. Anyone can write code and publish to an open source repository. A lot of this code ends up in our package management repositories which we consume
+* Does not undergo the same requirement analysis, scope definition, acceptance criteria, test conditions, and sign off by a development team and product owner, that our commercial software more often does
 
-There are some very sobering statistics, which Adrian Colyer also details in his blog post "[the morning paper](https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/)", on how many defective libraries we are depending on. We are all trying to get things done faster, where in many cases means consuming someone else's work rather than writing our own code.
+There are some very sobering statistics, which Adrian Colyer also details in his blog post "[the morning paper](https://blog.acolyer.org/2017/03/07/thou-shalt-not-depend-on-me-analysing-the-use-of-outdated-javascript-libraries-on-the-web/)", on how many defective libraries we are depending on. We are all trying to get things done faster which, in many cases, means consuming someone else's work rather than writing our own code.
 
-Many vulnerabilities can hide in these external dependencies. It is not just one attack vector any more, it now provides the opportunity for many vulnerabilities to be sitting there waiting to be exploited. If you do not find and deal with them, I can assure you, someone else will.
+Many vulnerabilities hide in these external dependencies. It is not just one attack vector any more, there is opportunity for many vulnerabilities to be exploited. If you do not find and deal with them, I can assure you, someone else will.
 
-Running any type of scripts from non local sources without first downloading and inspecting them, and checking for known vulnerabilities, has the potential to cause massive damage. For example, it can destroy or modify your systems and any other that may be reachable, send sensitive information to an attacker, or many other types of other malicious activity.
+Running any type of scripts from non-local sources, without first downloading and inspecting them, and checking for known vulnerabilities, has the potential to cause massive damage. For example, it can lead to the destruction or modification of your systems and any other that may be reachable, allow sensitive information to be sent to an attacker, and many other types of other malicious activity.
 
 ### Insufficient Attack Protection
 ![](images/ThreatTags/easy-common-average-moderate.png)
@@ -902,35 +902,35 @@ There is a good example of what the Insecure Direct Object References risk looks
 
 #### Lack of Active Automated Prevention
 
-The web application is being attacked with some unusual requests.
+Web applications are often attacked with unusual requests.
 
-Attackers probe for many types of weaknesses within the application, when they think they have found a flaw, they attempt to learn from this and refine their attack technique.
+Attackers probe for many types of weaknesses within the application. When they think they have found a flaw, they attempt to learn from this and refine their attack technique.
 
-Attackers have budgets just like application developers/defenders. As they get closer to depleting their budget without gaining a foothold, the more impulsive they get, and start making more noise. Mistakes then creep into their techniques, which makes it even more obvious that their probes are of a malicious nature.
+Attackers often have budgets, just like application developers/defenders. As they get closer to depleting their budget without gaining a foothold, the more impulsive they get, and start making more noise. Mistakes then creep into their techniques, which makes it even more obvious that their probes are of a malicious nature.
 
 ## 3. SSM Countermeasures
 
-Every decision made throughout a project needs to factor in security. Just as with other non functional requirements, retrofitting means undoing what you've already done and rebuilding. Maintaining the mindset of going back later and bolting on security does not work.
+Every decision made throughout a project needs to factor in security. As with other non-functional requirements, retrofitting means undoing what you've already done and rebuilding. The mindset of going back later and bolting on security does not work.
 
-Often I hear people say "well ... we haven't been hacked so far". This shows a lack of understanding. My response usually is: "Not that you're aware of". Many of the most successful attacks go unnoticed. Even if you or your organisation haven't been compromised, business's are changing all the time, along with the attack surface and your assets. It's more so a matter of when, than if.
+Often I hear people say "well ... we haven't been hacked so far". This shows a lack of understanding. My response usually is: "Not that you're aware of". Many of the most successful attacks go unnoticed. Even if you or your organisation haven't been compromised, businesses are changing all the time, along with attack surfaces and assets. It's a matter of when, not if.
 
 One of the additional resources useful at this stage is the [MS Application Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_008).
 
 ### Lack of Visibility {#web-applications-countermeasures-lack-of-visibility}
 
-Also refer to the ["Lack of Visibility"](#vps-countermeasures-lack-of-visibility) section in the VPS chapter, where I discuss a number of tried and tested solutions. Much of what we discuss here will also make use of, and in some cases, such as the logging and monitoring depend on components being set-up from the VPS chapter's Countermeasures sections within the Lack of Visibility sections.
+Refer to the ["Lack of Visibility"](#vps-countermeasures-lack-of-visibility) section in the VPS chapter where I discuss a number of tried and true solutions. Much of what we discuss here will also make use of it. As an example, logging and monitoring depend on components being set-up from the VPS chapter's Countermeasures sections within the Lack of Visibility sections.
 
 As Bruce Schneier said: "_Detection works where prevention fails and detection is of no use without response_". This leads us to application logging.
 
-With good visibility we can see both anticipated and unanticipated exploitation of vulnerabilities as they occur and should be able to go back and review/audit the events. Though, you are still going to need someone engaged enough (discussed in the People chapter of Fascicle 0) to be reviewing logs and alerts.
+With good visibility we can see both anticipated and unanticipated exploitation of vulnerabilities as they occur and should be able to go back and review/audit the events. Even so, you are still going to need someone engaged enough (discussed in the People chapter of Fascicle 0) to be reviewing logs and alerts.
 
 #### Insufficient Logging {#web-applications-countermeasures-lack-of-visibility-insufficient-logging}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
 
-When it comes to logging in NodeJS, you can't really go past winston. It has a lot of functionality and what it does not have is either provided by extensions, or you can create your own. It is fully featured, reliable and easy to configure like NLog in the .NET world.
+When it comes to logging in NodeJS, you can't really improve on winston. It has a lot of functionality, and what it does not have is either provided by extensions, or you can create your own. It is fully featured, reliable and easy to configure, like NLog in the .NET world.
 
-I have also looked at `express-winston`, but could not see why it needed to exist.
+I have also looked at `express-winston`, but could not determine why it is needed.
 
 {title="package.json", linenos=off, lang=JavaScript}
     {
@@ -953,11 +953,11 @@ I have also looked at `express-winston`, but could not see why it needed to exis
 
 [`winston-email`](https://www.npmjs.com/package/winston-email) also depends on [`nodemailer`](https://www.npmjs.com/package/nodemailer).
 
-##### Opening UDP port
+##### Opening a UDP port
 
-A lot of people seem to be using [`winston-syslog`](https://www.npmjs.com/package/winston-syslog), due to the fact that `winston-syslog` is the first package that works well for winston and syslog.
+A lot of people seem to be using [`winston-syslog`](https://www.npmjs.com/package/winston-syslog), simply because `winston-syslog` is the first package that works well for winston and syslog.
 
-If going down this route, you will need the following in your `/etc/rsyslog.conf`:
+If taking this route, you will need the following in your `/etc/rsyslog.conf`:
 
 {title="/etc/rsyslog.conf", linenos=off, lang=Bash}
     $ModLoad imudp
@@ -974,7 +974,7 @@ If going down this route, you will need the following in your `/etc/rsyslog.conf
 
 I also looked at both `winston-rsyslog2` and `winston-syslogudp`, but they did not measure up for me.
 
-If you do not need to push syslog events to another machine (I don't mean pushing logs), then it does not make much sense to push through a local network interface when you can use your posix syscalls as they are faster and safer. Line 7 below shows the open port.
+If you do not need to push syslog events to another machine, then it does not make much sense to push through a local network interface when you can use your posix syscalls, as they are faster and safer. Line 7 below shows the open port.
 
 {title="nmap with winston-syslog", linenos=on}
     root@kali:~# nmap -p514 -sU -sV <target IP> --reason
@@ -990,7 +990,7 @@ If you do not need to push syslog events to another machine (I don't mean pushin
 
 The [`winston-syslog-posix`](https://www.npmjs.com/package/winston-syslog-posix) package was inspired by [blargh](http://tmont.com/blargh/2013/12/writing-to-the-syslog-with-winston). `winston-syslog-posix` uses [`node-posix`](https://www.npmjs.com/package/posix).
 
-If going down this route, you will need the following in your `/etc/rsyslog.conf` instead of the above. You will still be able to push logs off-site, as discussed in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section in Countermeasures:
+If taking this route, you will need the following in your `/etc/rsyslog.conf`, instead of the above. You will still be able to push logs offsite, as discussed in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section in Countermeasures:
 
 {title="/etc/rsyslog.conf", linenos=off, lang=Bash}    
     # Logging for your app.
@@ -1010,7 +1010,7 @@ Now you can see on line 7 below that the syslog port is no longer open:
 
 &nbsp;
 
-Logging configuration should not be in the application startup file. It should be in the configuration files. This is discussed further under the ["Store Configuration in Configuration files"](#web-applications-countermeasures-management-of-application-secrets-store-configuration) section.
+Your logging configuration should not be in the application startup file, it should be in the configuration files. This is discussed further under the ["Store Configuration in Configuration files"](#web-applications-countermeasures-management-of-application-secrets-store-configuration) section.
 
 Notice the syslog transport in the configuration below starting on line 39. 
 
@@ -1081,7 +1081,7 @@ Notice the syslog transport in the configuration below starting on line 39.
        }   
     }
 
-In development I have chosen here to not use syslog. You can see this on line 3 below. If you want to test syslog in development, you can either remove the logger object override from the `devbox1-development.js` file or modify it to be similar to the above. Then add one line to the `/etc/rsyslog.conf` file to turn on. As mentioned in a comment above in the `default.js` config file on line 44.
+I have chosen to not use syslog here in the development environment. You can see this on line 3 below. If you want to test syslog in development, you can either remove the logger object override from the `devbox1-development.js` file or modify it to be similar to the above. Then add one line to the `/etc/rsyslog.conf` file to turn on, as mentioned in a comment above in the `default.js` config file on line 44.
 
 {title="devbox1-development.js", linenos=on, lang=JavaScript}
     module.exports = {
@@ -1090,11 +1090,11 @@ In development I have chosen here to not use syslog. You can see this on line 3 
        }
     }
 
-In production we log to syslog and because of this we do not need the file transport you can see the configured starting on line 30 above in the `default.js` configuration file, so we set it to null as seen on line 6 below in the `prodbox-production.js` file.
+In production, we log to syslog. As such, we do not need the file transport you can see the configured starting on line 30 above in the `default.js` configuration file, so we set it to null as seen on line 6 below in the `prodbox-production.js` file.
 
-I go into more depth about how we handle syslogs in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section, where all of our logs including these ones get streamed to an off-site syslog server. Whereby, providing easy aggregation of all system logs into one user interface that DevOpps can watch on their monitoring panels in real-time and can easily go back in time to visit past events. This provides excellent visibility as one layer of defence.
+I go into more depth about how we handle syslogs in the VPS chapter under the [Logging and Alerting](#vps-countermeasures-lack-of-visibility-logging-and-alerting) section, where all of our logs are streamed to an offsite syslog server. This provides easy aggregation of all system logs into one user interface that DevOpps can watch on their monitoring panels in realtime and easily audit past events. This provides excellent visibility as a layer of defence.
 
-There were also some other [options](http://help.papertrailapp.com/kb/configuration/configuring-centralized-logging-from-nodejs-apps/) for those using Papertrail as their off-site syslog and aggregation PaaS, but the solutions were not as clean as simply logging to local syslog from your applications and then sending off-site from there. Again this is discussed in more depth in the "Logging and Alerting" section in the VPS chapter.
+There are also some other [options](http://help.papertrailapp.com/kb/configuration/configuring-centralized-logging-from-nodejs-apps/) for those using Papertrail as their offsite syslog and aggregation PaaS, but the solutions were not as clean as simply logging to local syslog from your applications, and then sending offsite from there. Again, this is discussed in more depth in the "Logging and Alerting" section in the VPS chapter.
 
 {title="prodbox-production.js", linenos=on, lang=JavaScript}
     module.exports = {
