@@ -1274,9 +1274,12 @@ As an architectural concern, also consider hiding cross cutting concerns like lo
 #### Insufficient Monitoring
 ![](images/ThreatTags/PreventionEASY.png)
 
-There are a couple of ways of approaching monitoring: 
-a) Only when you want to see and be notified when the state of your application is unhealthy (sometimes called the dark cockpit approach) 
-b) Regardless of state, healthy or unhealthy. Personally, I like both options.
+There are a couple of ways of approaching monitoring:
+
+1. Only when you want to see and be notified when the state of your application is unhealthy (sometimes called the dark cockpit approach)
+2. Regardless of state, healthy or unhealthy
+
+Personally I like to have both options.
 
 ##### Dark Cockpit
 
@@ -1348,7 +1351,7 @@ Research:
 
 Attempt to use well tested, battle hardened language-specific libraries that properly validate, filter and sanitise.
 
-Create enough "Evil Test Conditions" as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) to verify that:
+Create enough "Evil Test Conditions" as discussed in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) to verify that:
 
 * **Validation**
   * Only white listed characters can be received (both client and server side)
@@ -1370,13 +1373,14 @@ Create enough "Evil Test Conditions" as discussed in the Process and Practises c
     The Custom Element author can also decide to define a set of CSS properties as a single Custom CSS property, called a [Custom CSS mixin](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-mixins), and then allow all of the properties within the set to be applied to a specific CSS rule in an elements local DOM. This is done using the [CSS @apply rule](https://tabatkins.github.io/specs/css-apply-rule/). This allows consumers to mix in any styles within the single Custom CSS property, but only intentionally by using the `--` prefix.  
     
     Polymer also has a large [collection of Custom Elements](https://elements.polymer-project.org/) already created for you out of the box. Some of these Custom Elements are perfect for constraining and providing validation and filtering of input types, [credit card details](https://elements.polymer-project.org/browse?package=gold-elements) for example.  
-        
+    
+    
   * You have read, understood and implemented [Validation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) as per Identify Risks section
 * **Filtering**
   * Your filtering routines are doing as expected with valid and non-valid input (both client and server side)
   * You have read, understood, and implemented [Filtering](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-filtering) as per Identify Risks section
 * **Sanitisation**
-  * All valid characters that need modification are modified. Modifying could simply be a case of rounding a float down (removing precision), or changing the case of an alpha character, which is not usually a security issue.
+  * All valid characters that need modification are modified. Modifying could simply be a case of rounding a float down (removing precision), or changing the case of an alpha character, which is not usually a security issue
   * Sanitising or transforming the character signatures known to be dangerous in the [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) you have discovered in your code that character signatures pass through / are placed in and are transformed into their safe counterparts. If your libraries cover all cases which, in my experience, I have not seen yet, is great, but often there will be edge cases that stop the libraries being useful in every case. I provide an example of this below where the available libraries did not cover the edge cases I had in a project I worked on a few years ago. When this happens, you may need to create some sanitisation logic. At this point, you are really going to have to gain good understanding of the execution contexts that will affect you and the different types of escaping you need to know about.
   * You have read, understood and implemented [Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) as per Identify Risks section
 
@@ -1501,7 +1505,7 @@ Each time we changed the page, we cleared the interval, and reset it for the new
     clearInterval(userInputValidationIntervalId);
     setupUserInputValidation();
 
-HTML5 provides the `pattern` attribute on the `input` tag, which allows us to specify a regular expression that the text received is checked against, although this does not apply to `textarea`s. Also, when validation is not specified in the [HTML specification](https://html.spec.whatwg.org/multipage/forms.html#the-pattern-attribute) there may not be enough control provided.
+HTML5 provides the `pattern` attribute on the `input` tag, which allows us to specify a regular expression that the text received is checked against, although this does not apply to `textarea`s. Also, when validation occurs is not specified in the [HTML specification](https://html.spec.whatwg.org/multipage/forms.html#the-pattern-attribute), there may not be enough control provided.
 
 Here we extend the `String` prototype with a function called `htmlEscape`.
 
@@ -1608,7 +1612,7 @@ Now, when we ran our `xslt` transformation on the service, we chained our new ex
     return Transform().SingleDecodeDoubleEncodedHtml();
 
 Turning our attention to the server side, untrusted data (data entered by a user), should always be treated as if it may contain attack code.
-This data should not be sent anywhere without taking the necessary steps to detect and neutralise the malicious code,K7 depending on which [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) it will pass through.
+This data should not be sent anywhere without taking the necessary steps to detect and neutralise the malicious code, depending on which [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) it will pass through.
 
 With applications becoming more interconnected, attacks that are being buried in user input and decoded and/or executed by a downstream interpreter are common. Input validation that restricts user input to allow only certain white listed characters and restricts field lengths represents only two forms of defence. Any decent attacker can get around client side validation, so you will need to employ defence in depth. If you need to validate, filter and sanitise, at the very least, it will need to be done on the server side.
 
@@ -2003,7 +2007,7 @@ Now the code that satisfies the above executable specifications, and more:
                 "'-apos",
                 "<-lt",
                 ">-gt",
-                " -nbsp",
+                " -nbsp",
                 "¡-iexcl",
                 "¢-cent",
                 "£-pound",
@@ -2107,61 +2111,61 @@ Now the code that satisfies the above executable specifications, and more:
                 "ƒ-fnof",
                 "\x02C6-circ",
                 "˜-tilde",
-                "?-Alpha",
-                "?-Beta",
-                "G-Gamma",
-                "?-Delta",
-                "?-Epsilon",
-                "?-Zeta",
-                "?-Eta",
-                "T-Theta",
-                "?-Iota",
-                "?-Kappa",
-                "?-Lambda",
-                "?-Mu",
-                "?-Nu",
-                "?-Xi",
-                "?-Omicron",
-                "?-Pi",
-                "?-Rho",
-                "S-Sigma",
-                "?-Tau",
-                "?-Upsilon",
-                "F-Phi",
-                "?-Chi",
-                "?-Psi",
-                "O-Omega",
-                "a-alpha",
-                "ß-beta",
-                "?-gamma",
-                "d-delta",
-                "e-epsilon",
-                "?-zeta",
-                "?-eta",
-                "?-theta",
-                "?-iota",
-                "?-kappa",
-                "?-lambda",
-                "µ-mu",
-                "?-nu",
-                "?-xi",
-                "?-omicron",
-                "p-pi",
-                "?-rho",
-                "?-sigmaf",
-                "s-sigma",
-                "t-tau",
-                "?-upsilon",
-                "f-phi",
-                "?-chi",
-                "?-psi",
-                "?-omega",
-                "?-thetasym",
-                "?-upsih",
-                "?-piv",
-                " -ensp",
-                " -emsp",
-                "?-thinsp",
+                "Α-Alpha",
+                "Β-Beta",
+                "Γ-Gamma",
+                "Δ-Delta",
+                "Ε-Epsilon",
+                "Ζ-Zeta",
+                "Η-Eta",
+                "Θ-Theta",
+                "Ι-Iota",
+                "Κ-Kappa",
+                "Λ-Lambda",
+                "Μ-Mu",
+                "Ν-Nu",
+                "Ξ-Xi",
+                "Ο-Omicron",
+                "Π-Pi",
+                "Ρ-Rho",
+                "Σ-Sigma",
+                "Τ-Tau",
+                "Υ-Upsilon",
+                "Φ-Phi",
+                "Χ-Chi",
+                "Ψ-Psi",
+                "Ω-Omega",
+                "α-alpha",
+                "β-beta",
+                "γ-gamma",
+                "δ-delta",
+                "ε-epsilon",
+                "ζ-zeta",
+                "η-eta",
+                "θ-theta",
+                "ι-iota",
+                "κ-kappa",
+                "λ-lambda",
+                "μ-mu",
+                "ν-nu",
+                "ξ-xi",
+                "ο-omicron",
+                "π-pi",
+                "ρ-rho",
+                "ς-sigmaf",
+                "σ-sigma",
+                "τ-tau",
+                "υ-upsilon",
+                "φ-phi",
+                "χ-chi",
+                "ψ-psi",
+                "ω-omega",
+                "ϑ-thetasym",
+                "ϒ-upsih",
+                "ϖ-piv",
+                " -ensp",
+                " -emsp",
+                " -thinsp",
                 "\x200C-zwnj",
                 "\x200D-zwj",
                 "\x200E-lrm",
@@ -2179,78 +2183,78 @@ Now the code that satisfies the above executable specifications, and more:
                 "•-bull",
                 "…-hellip",
                 "‰-permil",
-                "'-prime",
-                "?-Prime",
+                "′-prime",
+                "″-Prime",
                 "‹-lsaquo",
                 "›-rsaquo",
-                "?-oline",
-                "/-frasl",
+                "‾-oline",
+                "⁄-frasl",
                 "€-euro",
-                "I-image",
-                "P-weierp",
-                "R-real",
+                "ℑ-image",
+                "℘-weierp",
+                "ℜ-real",
                 "™-trade",
-                "?-alefsym",
-                "?-larr",
-                "?-uarr",
-                "?-rarr",
-                "?-darr",
-                "?-harr",
-                "?-crarr",
-                "?-lArr",
-                "?-uArr",
-                "?-rArr",
-                "?-dArr",
-                "?-hArr",
-                "?-forall",
-                "?-part",
-                "?-exist",
-                "Ø-empty",
-                "?-nabla",
-                "?-isin",
-                "?-notin",
-                "?-ni",
-                "?-prod",
-                "?-sum",
-                "--minus",
-                "*-lowast",
-                "v-radic",
-                "?-prop",
-                "8-infin",
-                "?-ang",
-                "?-and",
-                "?-or",
-                "n-cap",
-                "?-cup",
-                "?-int",
-                "?-there4",
-                "~-sim",
-                "?-cong",
-                "˜-asymp",
-                "?-ne",
-                "=-equiv",
-                "=-le",
-                "=-ge",
-                "?-sub",
-                "?-sup",
-                "?-nsub",
-                "?-sube",
-                "?-supe",
-                "?-oplus",
-                "?-otimes",
-                "?-perp",
-                "·-sdot",
-                "?-lceil",
-                "?-rceil",
-                "?-lfloor",
-                "?-rfloor",
-                "<-lang",
-                ">-rang",
-                "?-loz",
-                "?-spades",
-                "?-clubs",
-                "?-hearts",
-                "?-diams"
+                "ℵ-alefsym",
+                "←-larr",
+                "↑-uarr",
+                "→-rarr",
+                "↓-darr",
+                "↔-harr",
+                "↵-crarr",
+                "⇐-lArr",
+                "⇑-uArr",
+                "⇒-rArr",
+                "⇓-dArr",
+                "⇔-hArr",
+                "∀-forall",
+                "∂-part",
+                "∃-exist",
+                "∅-empty",
+                "∇-nabla",
+                "∈-isin",
+                "∉-notin",
+                "∋-ni",
+                "∏-prod",
+                "∑-sum",
+                "−-minus",
+                "∗-lowast",
+                "√-radic",
+                "∝-prop",
+                "∞-infin",
+                "∠-ang",
+                "∧-and",
+                "∨-or",
+                "∩-cap",
+                "∪-cup",
+                "∫-int",
+                "∴-there4",
+                "∼-sim",
+                "≅-cong",
+                "≈-asymp",
+                "≠-ne",
+                "≡-equiv",
+                "≤-le",
+                "≥-ge",
+                "⊂-sub",
+                "⊃-sup",
+                "⊄-nsub",
+                "⊆-sube",
+                "⊇-supe",
+                "⊕-oplus",
+                "⊗-otimes",
+                "⊥-perp",
+                "⋅-sdot",
+                "⌈-lceil",
+                "⌉-rceil",
+                "⌊-lfloor",
+                "⌋-rfloor",
+                "〈-lang",
+                "〉-rang",
+                "◊-loz",
+                "♠-spades",
+                "♣-clubs",
+                "♥-hearts",
+                "♦-diams"
              };    
 
              private static Dictionary<string, char> _lookupTable = GenerateLookupTable();    

@@ -1274,7 +1274,12 @@ As an architectural concern, also consider hiding cross cutting concerns like lo
 #### Insufficient Monitoring
 ![](images/ThreatTags/PreventionEASY.png)
 
-There are a couple of ways of approaching monitoring: a) only when you want to see and be notified of the health of your application when it is not fine (sometimes called the dark cockpit approach), b) or whether it is fine or not. Personally I like to have both options.
+There are a couple of ways of approaching monitoring:
+
+1. Only when you want to see and be notified when the state of your application is unhealthy (sometimes called the dark cockpit approach)
+2. Regardless of state, healthy or unhealthy
+
+Personally I like to have both options.
 
 ##### Dark Cockpit
 
@@ -1282,13 +1287,11 @@ As discussed in the VPS chapter, Monit is an excellent tool to use for the dark 
 
 ##### Statistics Graphing {#web-applications-countermeasures-lack-of-visibility-insufficient-Monitoring-statistics-graphing}
 
-Continuing on with the [Statistics Graphing](#vps-countermeasures-lack-of-visibility-statistics-graphing) section in the VPS chapter, we look at adding [statsd](https://github.com/etsy/statsd/) as the application instrumentation to our existing collectd -> graphite set-up.
+In the [Statistics Graphing](#vps-countermeasures-lack-of-visibility-statistics-graphing) section in the VPS chapter, we look at adding [statsd](https://github.com/etsy/statsd/) as the application instrumentation to our existing collectd -> graphite setup.
 
-Just as collectd can collect and send data to graphite directly if the collectd agent and server are on the same machine, or indirectly via a collectd server on another machine to provide continual system visibility, statsd can play a similar role as collectd agent/server but for our applications. 
+Just as collectd can collect and send data to graphite directly, if the collectd agent and server are on the same machine, or indirectly via a collectd server on another machine to provide continual system visibility, statsd can play a role similar to collectd agent/server, but for our applications. 
 
-
-
-Statsd is a lightweight NodeJS daemon that collects and stores the statistics sent to it for a configurable amount of time (10 seconds by default). It does this by listening for UDP packets containing the statistics. Statsd then aggregates the statistics and flushes a single value for each statistic to its [`backends`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L125) (graphite in our case) using a TCP connection. The [`flushInterval`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L50) needs to be the same as the `retentions` interval in the Carbon [`/etc/carbon/storage-schemas.conf`](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf) file. This is how statsd [gets around](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#anatomy-of-statsd-data-metrics) the Carbon limitation of only accepting a single value per interval. The protocol that statsd expects to receive looks like the following, expecting a type in the third position instead of the timestamp that [Carbon expects](#vps-countermeasures-lack-of-visibility-statistics-graphing-assembling-the-components-after):
+Statsd is a lightweight NodeJS daemon that collects and stores the statistics sent to it for a configurable amount of time (10 seconds by default). It does this by listening for UDP packets containing the statistics. Statsd then aggregates the statistics and flushes a single value for each statistic to its [`backends`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L125) (graphite in our case) using a TCP connection. The [`flushInterval`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js#L50) needs to be the same as the `retentions` interval in the Carbon [`/etc/carbon/storage-schemas.conf`](https://graphite.readthedocs.io/en/latest/config-carbon.html#storage-schemas-conf) file. This is how statsd [gets around](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#anatomy-of-statsd-data-metrics) the Carbon limitation by only accepting a single value per interval. The protocol that statsd expects to receive looks like the following, expecting a type in the third position instead of the timestamp that [Carbon expects](#vps-countermeasures-lack-of-visibility-statistics-graphing-assembling-the-components-after):
 
 {title="statsd receiving protocol (syntax)", linenos=off}
     <metric-name>:<actual-value>|<type>
@@ -1306,24 +1309,24 @@ So if the statistic is [only being sampled 1/10th of the time](https://github.co
 {title="Timing", linenos=off}
     ms
 
-This value needs to be the timespan in milliseconds between a start and end time. This could be for example, the timespan that it took to hash a piece of data to be stored such as a password, or how long it took to pre-render an isomorphic web view. Just as with the count type, you can also provide a sample rate for timing as well. Statsd does quite a lot of work with timing data, it [works out](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#timing) percentiles, mean, standard deviation, sum, lower and upper bounds for the flush interval. This can be very useful for when you are making changes to your application and want to know if any changes are [slowing it down](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#timers).
+This value needs to be the timespan, in milliseconds, between a start and end time. This could be, for example, the timespan that it took to hash a piece of data to be stored such as a password, or how long it took to pre-render an isomorphic web view. Just as with the count type, you can also provide a sample rate for timing as well. Statsd does quite a lot of work with timing data, it [works out](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#timing) percentiles, mean, standard deviation, sum, lower and upper bounds for the flush interval. This can be very useful when you are making changes to your application and want to know if any changes are [slowing it down](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#timers).
 
 {title="Gauges", linenos=off}
     g
 
-A gauge is a snap-shot of a reading in your application code, like your [cars fuel gauge](https://github.com/b/statsd_spec/blob/master/README.md#gauges) for example. As opposed to the count type which is calculated by statsd, a gauge is calculated at the statsd client.
+A gauge is a snapshot of a reading in your application code, like your [car's fuel gauge](https://github.com/b/statsd_spec/blob/master/README.md#gauges), as opposed to the count type which is calculated by statsd, a gauge is calculated at the statsd client.
 
 {title="Sets", linenos=off}
     s
 
 [Sets](https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04#sets) allows you to send the number of [unique occurrences](https://github.com/etsy/statsd/blob/master/docs/metric_types.md#sets) of events between flushes. Therefore, you could send the source address of every request to your web application and statsd would work out the number of unique source requests per flush interval.
 
-So for example, if you have statsd running on a server called graphing-server with the default port, you can test this by sending a count metric with the following command:
+For example, if you have statsd running on a server called graphing-server with the default port, you can test this by sending a count metric with the following command:
 
 {title="statsd receiving protocol (example)", linenos=off}
     echo "<meteric-name>:<actual-value>|c" | nc -u -w0 graphing-server 8125
 
-The server and port are specified in the config file that you create for yourself. This can be created from the [`exampleConfig.js`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js) as a starting point. In `exampleConfig.js` you will see the server and port properties. The current options for server are tcp or udp, with udp being the default. The server file must exist in the [`./servers/`](https://github.com/etsy/statsd/tree/master/servers) directory.
+The server and port are specified in the config file that you create. This can be created from the [`exampleConfig.js`](https://github.com/etsy/statsd/blob/8d5363cb109cc6363661a1d5813e0b96787c4411/exampleConfig.js) as a starting point. In `exampleConfig.js` you will see the server and port properties. The current options for server are TCP or UDP, with UDP being the default. The server file must exist in the [`./servers/`](https://github.com/etsy/statsd/tree/master/servers) directory.
 
 One of the ways we can generate statistics to send to our listening statsd daemon is by using one of the many language specific [statsd clients](https://github.com/etsy/statsd/wiki#client-implementations), which makes it trivially easy to collect and send application statistics via a single routine call.
 
@@ -1334,9 +1337,9 @@ One of the ways we can generate statistics to send to our listening statsd daemo
 
 #### Generic {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic}
 
-Do what ever you can to help establish clean lines of separation of concerns in terms of both domain and technology, and keep everything as simple as possible. Then it will be harder for defects and malicious code to hide.
+Do what ever you can to help establish clean lines of separation between concerns in terms of both domain and technology, and keep everything as simple as possible. It will then be harder for defects and malicious code to hide.
 
-Your staple practises when it comes to defending against potentially dangerous input should be validation and filtering. There will be cases though when the business requires that input must be accepted, is dangerous yet still valid. At this point, this is when you will need to implement sanitisation. There is a lot more research and thought involved when you need to perform sanitisation. Therefore, the first cause of action should be to confirm that the specific dangerous yet valid input is in-fact essential.
+Your staple practises, when it comes to defending against potentially dangerous input, should be validation and filtering. There will be cases though when the business requires that input must be accepted that is dangerous yet still valid. At this point, you will need to implement sanitisation. There is a lot more research and thought involved when you need to perform sanitisation. Therefore, the first course of action should be to confirm that the specific dangerous-yet-valid input is, in fact, essential.
 
 **Recommendations:**
 
@@ -1346,20 +1349,20 @@ Research:
 * The [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) that your data will flow through and/or be placed in
 * Which character signatures need to be sanitised
 
-Attempt to use well tested, battle hardened language specific libraries that know how to validate, filter and sanitise.
+Attempt to use well tested, battle hardened language-specific libraries that properly validate, filter and sanitise.
 
 Create enough "Evil Test Conditions" as discussed in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) to verify that:
 
 * **Validation**
   * Only white listed characters can be received (both client and server side)
   * Maximum and minimum field lengths are enforced
-  * Constrain fields to well structured data, like: credit card numbers, dates, social security numbers, area codes, e-mail addresses, etc. The more you can define and constrain the types of data that is permitted in any given field, the easier it is to apply a white list and validate effectively.  
+  * Constrain fields to well structured data, such as: credit card numbers, dates, social security numbers, area codes, e-mail addresses, etc. The more you can define and constrain the types of data that is permitted in any given field, the easier it is to apply a white list and validate effectively.  
     
-    WebComponents have come a long way and I think thy are perfect for this task.  
+    WebComponents have come a long way and I think are perfect for this task.  
     
-    With WebComponents, you get to create your own custom elements, an HTML tag. The browser will understand these natively, so they will work with any framework or library you are using. In order to define your own custom element, the tag name you define must be all lower case and must contain at least one hyphen used for separating name-spaces. No elements will be added to HTML, SVG or MathML that contain hyphens.  
+    With WebComponents, you get to create your own custom elements in an HTML tag. The browser will understand these natively, so they will work with any framework or library that you are using. In order to define your own custom element, the tag name you define must be all lower case and must contain at least one hyphen used for separating namespaces. No elements will be added to HTML, SVG or MathML that contain hyphens.  
     
-    Each [Custom Element](https://w3c.github.io/webcomponents/spec/custom/) (`my-password` for example) has a corresponding [HTML Import](https://w3c.github.io/webcomponents/spec/imports/) (`my-password.html` for example) that provides the [definition of the Custom Element](https://www.polymer-project.org/1.0/docs/devguide/quick-tour), behaviour (JavaScript), DOM structure and styling. Nothing in the Custom Elements HTML Import can leak out, it is a component, encapsulated. Styles can also not leak in. So as our applications continue to grow, Custom Elements are a great tool for modularising concerns.  
+    Each [Custom Element](https://w3c.github.io/webcomponents/spec/custom/) (`my-password` for example) has a corresponding [HTML Import](https://w3c.github.io/webcomponents/spec/imports/) (`my-password.html` for example) that provides the [definition of the Custom Element](https://www.polymer-project.org/1.0/docs/devguide/quick-tour), behaviour (JavaScript), DOM structure, and styling. Nothing in the Custom Elements HTML Import can leak, it is a component and encapsulated. Styles can also not permeate. As our applications continue to grow, Custom Elements are a great tool for modularising concerns.  
     
     Custom Elements are currently only natively supported in Chrome and Opera, but we have the [webcomponents.js set of polyfills](http://webcomponents.org/polyfills/) which means we can all use WebComponents.  
     
@@ -1374,11 +1377,11 @@ Create enough "Evil Test Conditions" as discussed in the Process and Practises c
     
   * You have read, understood and implemented [Validation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) as per Identify Risks section
 * **Filtering**
-  * Your filtering routines are doing as expected with valid and non valid input (both client and server side)
-  * You have read, understood and implemented [Filtering](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-filtering) as per Identify Risks section
+  * Your filtering routines are doing as expected with valid and non-valid input (both client and server side)
+  * You have read, understood, and implemented [Filtering](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-filtering) as per Identify Risks section
 * **Sanitisation**
-  * All valid characters that need some modification are modified. Modifying could simply be a case of for example rounding a float down (removing precision), or changing the case of an alpha character. Not usually a security issue.
-  * Sanitising or transforming the character signatures known to be dangerous in the [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) you have discovered you have in your code that these character signatures pass through / are placed in; are transformed into their safe counterparts. If your libraries cover all cases, which from my experience I have not seen yet, that is great, but often there will be edge cases that stop the libraries being useful in every case. I provide an example of this below where the available libraries did not cover the edge cases I had in a project I worked on a few years ago. When this happens you may need to create some sanitisation logic. At this point, you are really going to have to gain good understanding of the execution contexts that will affect you and the different types of escaping you need to know about.
+  * All valid characters that need modification are modified. Modifying could simply be a case of rounding a float down (removing precision), or changing the case of an alpha character, which is not usually a security issue
+  * Sanitising or transforming the character signatures known to be dangerous in the [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) you have discovered in your code that character signatures pass through / are placed in and are transformed into their safe counterparts. If your libraries cover all cases which, in my experience, I have not seen yet, is great, but often there will be edge cases that stop the libraries being useful in every case. I provide an example of this below where the available libraries did not cover the edge cases I had in a project I worked on a few years ago. When this happens, you may need to create some sanitisation logic. At this point, you are really going to have to gain good understanding of the execution contexts that will affect you and the different types of escaping you need to know about.
   * You have read, understood and implemented [Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) as per Identify Risks section
 
 ##### Types of Escaping: {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-types-of-escaping}
@@ -1401,20 +1404,20 @@ The OWASP [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://www.owasp.
 ##### Example in JavaScript and C\# {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-csharp}
 
 A>
-A> When out of the box libraries do not cover all of your sanitisation needs.
+A> When out-of-the-box libraries do not cover all of your sanitisation needs.
 A>
 
 The following example is taken from a project I worked on a few years ago.
 
-Client side validation, filtering and sanitisation is more about UX (User Experience), helping the honest user by saving round trip communications to the server than stopping an attacker. As an attacker will simply by-pass any client side defences.
+Client side validation, filtering, and sanitisation is more about UX (User Experience), more about helping the honest user save round trip communications to the server than stopping an attacker as an attacker will simply bypass any client side defences.
 
-We needed to apply a white list to all characters being entered into the `value` attribute of `input` elements of `type="text"` also `textarea` elements. The requirement was that the end user could not insert invalid characters into one of these fields, by insert we mean:
+We needed to apply a whitelist to all characters being entered into the `value` attribute of `input` elements of `type="text"` also `textarea` elements. The requirement was that the enduser could not insert invalid characters into one of these fields. By insert we mean:
 
 1. type the characters in
 2. [ctrl]+[v] a clipboard full of characters in
 3. right click -> Paste
 
-The following was the strategy that evolved. Performance was measured and even with an interval much lower than the 300 milliseconds, the performance impact was negligible. As soon as any non white list character(s) was entered, it was immediately deleted within 300 milliseconds.
+The following was the strategy that evolved. Performance was measured, and even with an interval much lower than the 300 milliseconds, the performance impact was negligible. As soon as any non-whitelist character(s) were entered, they were immediately deleted within 300 milliseconds.
 
 `$` references jQuery.
 
@@ -1496,15 +1499,15 @@ The following was the strategy that evolved. Performance was measured and even w
        }, 300); // Milliseconds.
     };
 
-Each time we changed the page, we cleared the interval and reset it for the new page.
+Each time we changed the page, we cleared the interval, and reset it for the new page.
 
 {linenos=off, lang=JavaScript}
     clearInterval(userInputValidationIntervalId);
     setupUserInputValidation();
 
-HTML5 provides the `pattern` attribute on the `input` tag, which allows us to specify a regular expression that the text received is checked against. Although this does not apply to `textarea`s. Also when validation occurs is not specified in the [HTML specification](https://html.spec.whatwg.org/multipage/forms.html#the-pattern-attribute), so this may not provide enough control.
+HTML5 provides the `pattern` attribute on the `input` tag, which allows us to specify a regular expression that the text received is checked against, although this does not apply to `textarea`s. Also, when validation occurs is not specified in the [HTML specification](https://html.spec.whatwg.org/multipage/forms.html#the-pattern-attribute), there may not be enough control provided.
 
-Now what we do here is extend the `String` prototype with a function called `htmlEscape`.
+Here we extend the `String` prototype with a function called `htmlEscape`.
 
 
 {id="sanitisation-using-escaping", title="Sanitisation using escaping", linenos=off, lang=JavaScript}
@@ -1556,21 +1559,21 @@ Just before any user input was sent back to the server, we checked each of the f
 {linenos=off, lang=JavaScript}
     element.value.htmlEscape();
 
-"_HTML entity encoding is okay for untrusted data that you put in the body of the HTML document, such as inside a `<div>` tag. It even sort of works for untrusted data that goes into attributes, particularly if you're religious about using quotes around your attributes._"
+"_HTML entity encoding is okay for untrusted data that you put in the body of the HTML document, such as inside a `<div>` tag. It even partially works for untrusted data that goes into attributes, particularly if you're religious about using quotes around your attributes._"
 
 > OWASP XSS Prevention Cheat Sheet
 
-For us, this would be enough, as we would be `HTML` escaping our `textarea` elements and we were happy to make sure we were religious about using quotes around the `value` attribute on `input` of `type="text"`.
+For us, this would be enough, as we are `HTML` escaping our `textarea` elements and are happy to make sure we are religious about using quotes around the `value` attribute on `input` of `type="text"`.
 
-"_But HTML entity encoding doesn't work if you're putting untrusted data inside a `<script>` tag anywhere, or an event handler attribute like `onmouseover`, or inside CSS, or in a URL. So even if you use an HTML entity encoding method everywhere, you are still most likely vulnerable to XSS. You MUST use the escape syntax for the part of the HTML document you're putting untrusted data into._" 
+"_But HTML entity encoding doesn't work if you're putting untrusted data inside a `<script>` tag anywhere, or an event handler attribute like `onmouseover`, or inside CSS, or in a URL. Even if you use an HTML entity encoding method everywhere, you are still most likely vulnerable to XSS. You MUST use the escape syntax for the part of the HTML document you're putting untrusted data into._" 
 
 > OWASP XSS Prevention Cheat Sheet
 
 The escaping rules discussed [above](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-types-of-escaping) detail this. Check out the [OWASP resource](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#Why_Can.27t_I_Just_HTML_Entity_Encode_Untrusted_Data.3F) for full details.
 
-Rule #2 of the OWASP XSS Prevention Cheat Sheet discusses attribute escaping. Since we were only using `value` attributes, we had the luxury of being able to control the fact that we would always be using properly quoted attributes. We didn't have to take this extra step of escaping all (other than alphanumeric) ASCII characters; that is values less than 256 with the `&#xHH` format to prevent switching out of the attribute context.
+Rule #2 of the OWASP XSS Prevention Cheat Sheet discusses attribute escaping. As we were only using `value` attributes, we had the luxury of being able to control the fact that we would always be using properly quoted attributes. We didn't have to take this extra step of escaping all (other than alphanumeric) ASCII characters, that is values less than 256 with the `&#xHH` format to prevent switching out of the attribute context.
 
-I wanted to be certain about not being able to escape out of the attributes context if it was properly quoted when I tested it. To do this, I created a collection of injection attacks, none of which worked. If you enter something like the following into the attribute `value` of an `input` element where `type="text"`, then the first double quote will be interpreted as the corresponding quote and the end double quote will be interpreted as the end quote of the `onmouseover` attribute value.
+I wanted to be certain about not being able to escape out of the attribute's context if it was properly quoted when I tested it. To do this, I created a collection of injection attacks, none of which worked. If you enter something such as the following into the attribute `value` of an `input` element where `type="text"`, then the first double quote will be interpreted as the corresponding quote and the end double quote will be interpreted as the end quote of the `onmouseover` attribute value.
 
 {linenos=off, lang=JavaScript}
     " onmouseover="alert(2)
@@ -1580,7 +1583,7 @@ All the legitimate double quotes are interpreted as the double quote `HTML` enti
 {linenos=off, lang=JavaScript}
     value=" &quot; onmouseover=&quot;alert(2)"
 
-Now in regards to the code comments in the block of code above titled "Sanitisation using escaping", I mentioned having to double escape character references. We were using `XSL` for the `HTML` because we needed to perform transformations before delivering to the browser. Because we were sending the strings to the browser, it was easier to single decode the double encoded `HTML` on the service side only. Since we were still focused on the client side sanitisation and will soon be shifting our focus in making sure that we cover the server side, we knew we were going to have to create some sanitisation routines for our .NET service. Because the routines are likely to be static, we were pretty much just dealing with strings, where we created an extensions class in a new project in a common library we already had. This provided the widest use from our sanitisation routines, while allowing us to wrap any existing libraries or parts of them that we wanted to get use of.
+Now, in regards to the code comments in the block of code above titled "Sanitisation using escaping", I mentioned having to double escape character references. We were using `XSL` for the `HTML` because we needed to perform transformations before delivering to the browser. Because we were sending the strings to the browser, it was easier to single decode the double encoded `HTML` on the service side only. As we were still focused on the client side sanitisation and would soon shift our focus to cover the server side, we knew we were going to have to create some sanitisation routines for our .NET service. Because the routines were likely to be static, we were just dealing with strings, where we created an extensions class in a new project for a common library we already had. This provided the widest use from our sanitisation routines, while allowing us to wrap any existing libraries, or parts of them that we wanted to use.
 
 {title="Common.Security.Encoding.Extensions.SingleDecodeDoubleEncodedHtml", linenos=off, lang=C#}
     namespace Common.Security.Encoding {
@@ -1603,17 +1606,17 @@ Now in regards to the code comments in the block of code above titled "Sanitisat
        }
     }
 
-Now when we ran our `xslt` transformation on the service, we chain our new extension method on the end. This gives us back a single encoded string that the browser is happy to display as the decoded value.
+Now, when we ran our `xslt` transformation on the service, we chained our new extension method on the end. This gave us back a single encoded string that the browser was happy to display as the decoded value.
 
 {linenos=off, lang=C#}
     return Transform().SingleDecodeDoubleEncodedHtml();
 
-We now turn our attention to the server side... Untrusted data (data entered by a user), should always be treated as though it may contain attack code.
-This data should not be sent anywhere without taking the necessary steps to detect and neutralise the malicious code depending on which [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) it will pass through.
+Turning our attention to the server side, untrusted data (data entered by a user), should always be treated as if it may contain attack code.
+This data should not be sent anywhere without taking the necessary steps to detect and neutralise the malicious code, depending on which [execution contexts](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation) it will pass through.
 
-With applications becoming more interconnected, attacks are being buried in user input and decoded and/or executed by a downstream interpreter is common. Input validation that is restricting user input to allow only certain white listed characters and restricting field lengths are only two forms of defence. Any decent attacker can get around client side validation, so you will need to employ defence in depth. If you need to validate, filter and sanitise, at the very least, it will need to be done on the server side.
+With applications becoming more interconnected, attacks that are being buried in user input and decoded and/or executed by a downstream interpreter are common. Input validation that restricts user input to allow only certain white listed characters and restricts field lengths represents only two forms of defence. Any decent attacker can get around client side validation, so you will need to employ defence in depth. If you need to validate, filter and sanitise, at the very least, it will need to be done on the server side.
 
-I found `System.Net.WebUtility` from the `System.Web.dll` assembly to do most of what we needed other than provide us with fine grained information of what had been tampered with. So I took it and extended it slightly. We had not employed AOP at this stage, so there was some copy paste modifying done.
+I found `System.Net.WebUtility` from the `System.Web.dll` assembly to do most of what we needed other than provide us with fine grained information specific to tampering, and I extended it slightly. I had not employed AOP at this stage, so there was some copy paste modifying done.
 
 First up, the exceptions we used:
 
@@ -2273,7 +2276,7 @@ Now the code that satisfies the above executable specifications, and more:
        }
     }
 
-To drive the development of the `Sanitisation` API, we wrote the following tests and created a `MockedOperationContext`, code that is not included here. We also used RhinoMocks as our mocking framework which is no longer being maintained. I would recommend NSubstitute instead, if you were looking for a mocking framework for .NET. We also used NLog and wrapped it in `Common.Wrapper.Log`
+To drive the development of the `Sanitisation` API, I wrote the following tests and created a `MockedOperationContext`, code that is not included here. I also used RhinoMocks as the mocking framework, which is no longer being maintained. I would recommend NSubstitute instead as a mocking framework for .NET. We also used NLog, and wrapped it in `Common.Wrapper.Log`
 
 {title="Drive sanitisation API development", linenos=off, lang=C#}
     using System;
