@@ -3240,34 +3240,32 @@ This is also shown above in a larger example in the [Lack of Input Validation, F
        app.post('/contact', validate(), contact);
     };
 
-So as you can see, a very simple solution. You could even consider combining the above two techniques.
+As you can see, it's a very simple solution. You could even consider combining the above two techniques.
 
 #### Testing
 
-&nbsp;
-
-Check out the "Testing for Captcha (OWASP-AT-008" in v3 of the OWASP Testing Guide for a summary and description of the issue and for testing examples. The Offensive Web Testing Framework (OWTF) also has a [plugin](https://github.com/owtf/owtf/wiki/Listing-Plugins) for it.
+Check out the "Testing for Captcha (OWASP-AT-008" in v3 of the OWASP Testing Guide for a summary and description of the issue, and for testing examples. The Offensive Web Testing Framework (OWTF) also has a [plugin](https://github.com/owtf/owtf/wiki/Listing-Plugins) for it.
 
 ### Management of Application Secrets {#web-applications-countermeasures-management-of-application-secrets}
 
-Secure password management within applications is a case of doing what you can, often relying on obscurity and leaning on other layers of defence to make it harder for compromise. Like many of the layers already discussed in the previous chapters. Review the [Storage of Secrets](#cloud-countermeasures-storage-of-secrets) subsections in the Cloud chapter for some ideas and tooling options to help with this.
+Secure password management within applications is often a case of doing the best you can, relying on obscurity, and leaning on other layers of defence to make it harder for compromise as already discussed in the previous chapters. Review the [Storage of Secrets](#cloud-countermeasures-storage-of-secrets) subsections in the Cloud chapter for some ideas and tooling options to help with this.
 
-Find out how secret the data that is supposed to be secret that is being sent over the network actually is. Consider your internal network just as malicious as the internet. Then you will be starting to get the idea of what defence in depth is about. That way when one defence breaks down, you will still be in good standing.
+Find out how much secrecy is required for the data that is being sent over the network. Consider your internal network just as malicious as the internet. Then you will be starting to get the idea of what defence in depth is all about. When one defence breaks down, you may still be in good standing.
 
 ![](images/DefenceInDepth.png)
 
-You may read in many places that having data-store passwords and other types of secrets in configuration files in clear text is an insecurity that [must be addressed](https://www.owasp.org/index.php/Password_Plaintext_Storage). Then when it comes to mitigation, there seems to be a few techniques for helping, but most of them are based around obscuring the secret rather than securing it. Essentially just making discovery a little more inconvenient like using an alternative port to SSH to other than the default of 22. Maybe surprisingly though, obscurity does significantly reduce the number of opportunistic type attacks from bots and script kiddies.
+You may have read that having datastore passwords and other types of secrets in configuration files in clear text is an insecurity that [must be addressed](https://www.owasp.org/index.php/Password_Plaintext_Storage). When it comes to mitigation, there are techniques that can help, but most of them are based around obscuring the secret rather than securing it. Essentially, this is usually akin to making discovery a little more inconvenient such as using an alternate port for SSH other than the default of 22. Surprisingly though, obscurity does significantly reduce the number of opportunistic types of attack from bots and script kiddies.
 
 #### Store Configuration in Configuration files {#web-applications-countermeasures-management-of-application-secrets-store-configuration}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-Do not hard code passwords in source files for all developers to see. Doing so also means the code has to be patched when services are breached. At the very least, store them in configuration files and use different configuration files for different deployments and consider keeping them out of source control.
+Do not hardcode passwords in source files for all developers to see. Doing so also means the code has to be patched when services are breached. At the very least, store them in configuration files and use different configuration files for different deployments and consider keeping them out of source control.
 
 Here are some examples using the node-config module.
 
 ##### node-config
 
-is a fully featured, well maintained configuration package that I have used on a good number of projects.
+node-config is a fully featured, well maintained configuration package that I have used on a good number of projects.
 
 To install: From the command line within the root directory of your NodeJS application, run:
 
@@ -3301,12 +3299,12 @@ Where ever you use node-config, in your routes for example:
 
 A good collection of different formats can be used for the config files: `.json`, `.json5`, `.hjson`, `.yaml`, `.js`, `.coffee`, `.cson`, `.properties`, `.toml`
 
-There is a specific [file loading order](https://github.com/lorenwest/node-config/wiki/Configuration-Files) which you specify by file naming convention, which provides a lot of flexibility and which caters for:
+There is a specific [file loading order](https://github.com/lorenwest/node-config/wiki/Configuration-Files) which you specify by file naming convention, which provides a lot of flexibility and which caters to:
 
-* Having multiple instances of the same application running on the same machine
+* Multiple instances of the same application running on the same machine
 * The use of short and full host names to mitigate machine naming collisions
 * The type of deployment. This can be anything you set the `$NODE_ENV` environment variable to for example: `development`, `production`, `staging`, `whatever`.
-* Using and creating config files which stay out of source control. These config files have a prefix of `local`. These files are to be managed by external configuration management tools, build scripts, etc. Thus providing even more flexibility about where your sensitive configuration values come from.
+* Using and creating config files which stay out of source control. These config files have a prefix of `local`. These files are to be managed by external configuration management tools, build scripts, etc. thus providing even more flexibility about where your sensitive configuration values come from.
 
 {pagebreak}
 
