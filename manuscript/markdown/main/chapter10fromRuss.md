@@ -4507,7 +4507,7 @@ RetireJS has the following:
              "pre-commit": ["lint", "validate"]
           }
         
-      Keep in mind that `pre-commit` hooks can be very useful for all sorts of checking of things immediately before your code is committed. For example, running [security regression tests](https://github.com/binarymist/NodeGoat/wiki/Security-Regression-Testing-with-Zap-API) mentioned previously in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) with the OWASP ZAP API, as demonstrated here: [https://youtu.be/DrwXUOJWMoo](https://youtu.be/DrwXUOJWMoo).
+      Keep in mind that `pre-commit` hooks can be very useful for all sorts of checking of things immediately before your code is committed. For example, running [security regression tests](https://github.com/binarymist/NodeGoat/wiki/Security-Regression-Testing-with-Zap-API) mentioned previously in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) with the OWASP ZAP API, as demonstrated here: [https://youtu.be/DrwXUOJWMoo](https://youtu.be/DrwXUOJWMoo).
 2. Chrome extension
 3. Firefox extension
 4. Grunt plugin
@@ -4517,7 +4517,7 @@ RetireJS has the following:
 
 ##### requireSafe
 
-requireSafe provides "_intentful auditing as a stream of intel for bithound_". Last time I spoke with [Adam Baldwin](https://twitter.com/adam_baldwin) this project was moving slowly. From all the redirects I'm seeing, it appears to have beeen consumed into Node Security Platform (NSP).
+requireSafe provides "_intentful auditing as a stream of intel for bithound_". Last time I spoke with [Adam Baldwin](https://twitter.com/adam_baldwin) this project was moving slowly. From all the redirects I'm seeing, it appears to have been consumed into Node Security Platform (NSP).
 
 ##### [bithound](https://www.bithound.io/)
 
@@ -4549,7 +4549,7 @@ Analysis of opensource projects is free.
 
 ##### [Node Security Platform](https://nodesecurity.io/) (NSP)
 
-NSP at the time of writing is quite popular. It provides Github pull request integration, it has a Code Climate Node Security Engine. Code Climate was discussed briefly in the "Linting, Static Analysis" section of "Code Review" in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers). It also has a CLI, so it is CI friendly.
+NSP at the time of writing is quite popular. It provides Github pull request integration, it has a Code Climate Node Security Engine. Code Climate was discussed briefly in the "Linting, Static Analysis" section of "Code Review" in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). It also has a CLI, so it is CI friendly.
 
 You can install the NSP CLI like:  
 `npm install -g nsp`  
@@ -4565,6 +4565,8 @@ There is also a:
 2. Visual Studio Code plugin that can run the NSP audit from within the editor. To install, open a command prompt with `Ctrl+Shift+C` and run the following command:  
 `ext install vscode-nsp`
 
+It was announced on April 10, 2018 that NPM had acquired NSP.
+
 ##### [Snyk](https://snyk.io)
 
 Snyk has a fairly similar feature set to NSP, plus more, such as:
@@ -4574,7 +4576,7 @@ Snyk has a fairly similar feature set to NSP, plus more, such as:
 * Automatically create Github pull requests to fix the vulnerability
 * Snyk for [Serverless](https://snyk.io/serverless)
 
-The pricing model seems a little steep for non-opensource projects than NSP.
+The pricing model seems a little steep for non-opensource projects.
 
 %% https://snyk.io/blog/github-integration/
 
@@ -4590,7 +4592,7 @@ OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) 
 
 #### Web Application Firewall (WAF) {#web-applications-countermeasures-insufficient-attack-protection-waf}
 
-[WAFs](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#wafs) are similar to Intrusion Prevention Systems (IPS) except that they operate at the [Application Layer](http://en.wikipedia.org/wiki/Application_layer)(HTTP), Layer 7 of the [OSI model](http://en.wikipedia.org/wiki/OSI_model). WAFs protect your application against a large number of attacks, such as XSS, CSRF, SQLi, [Local File Inclusion (LFI)](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion), session hijacking, invalid requests (requests to things that do not exist (think 404)). WAFs sit inline between a gateway and the web application. They run as a proxy, either on the physical web server, or on another network node, but only the traffic directed to the web application is inspected, whereas an IDS/IPS inspects all network traffic passed through its interfaces. WAFs use signatures that look like specific vulnerabilities to compare the network traffic targeting the web application and apply the associated rule(s) when matches are detected. WAFs are not limited to dealing with known signatures, some can detect and prevent attacks that they have not seen before such as responses containing larger-than-specified payloads. The source code of the web application does not have to be modified.
+[WAFs](http://blog.binarymist.net/2014/12/27/installation-hardening-of-debian-web-server/#wafs) are similar to Intrusion Prevention Systems (IPS) except that they operate at the [Application Layer](http://en.wikipedia.org/wiki/Application_layer)(HTTP), Layer 7 of the [OSI model](http://en.wikipedia.org/wiki/OSI_model). They understand the concerns of your web application at a technical level. WAFs protect your application against a large number of attacks, such as XSS, CSRF, SQLi, [Local File Inclusion (LFI)](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion), session hijacking, invalid requests (requests to things that do not exist (think 404)). WAFs sit inline between a gateway and the web application. They run as a proxy, either on the physical web server, or on another network node, but only the traffic directed to the web application is inspected, whereas an IDS/IPS inspects all network traffic passed through its interfaces. WAFs use signatures that look like specific vulnerabilities to compare the network traffic targeting the web application and apply the associated rule(s) when matches are detected. WAFs are not limited to dealing with known signatures, some can detect and prevent attacks that they have not seen before such as responses containing larger-than-specified payloads. The source code of the web application does not have to be modified.
 
 1. [Fusker](https://www.npmjs.com/package/fusker). I am not sure if this is still actively maintained. At this point, there have not been any recent commits since 2012, but it does look like the best offering we have at this stage for NodeJS.
 2. [express-waf](https://www.npmjs.com/package/express-waf) was last committed to in 2015. There was only one developer working on it when I checked
@@ -4600,7 +4602,7 @@ OWASP [DependencyCheck](https://www.owasp.org/index.php/OWASP_Dependency_Check) 
 
 You can think of this as taking a WAF one step closer to your application, in fact, integrating it with your application and augmenting your application with logic to detect and respond to threats.
 
-[AppSensor](http://appsensor.org/) brings detection -> prevention to the domain level. Most applications today just absorb attacks, then tip over. I have heard so many times that we want our applications to fail securely when they receive bad input
+[AppSensor](http://appsensor.org/) brings detection -> prevention to the domain level. Most applications today just absorb attacks, then tip over. I have heard so many times that we want our applications to fail securely when they receive bad input.
 We don't want them to fail at all in production, but rather defend themselves.
 
 Technically AppSensor is not a WAF because the concepts are used to shape your application logic.
@@ -4621,7 +4623,7 @@ The application should recognise unusual requests. Automated scanning should be 
 
 You, as the application administrator, have the upper hand when it comes to actively defending against attackers. This can be done by creating behaviours that respond to specific out-of-the-ordinary requests with misleading feedback and/or behaviour that builds the attacker's confidence, and ultimately wastes their time.
 
-when spending the attacker's budget for them, you are ultimately depleting their resources, which causes them to make silly mistakes, be caught, and/or just run out of time.
+When spending the attacker's budget for them, you are ultimately depleting their resources, which causes them to make silly mistakes, be caught, and/or just run out of time.
 
 ## 4. SSM Risks that Solution Causes {#web-applications-risks-that-solution-causes}
 
@@ -4746,7 +4748,7 @@ There is a risk that people will believe this.
 ##### Linux:
 
 As with Microsoft's "virtualisation-based security" Linux containers may slow system compromise down, but a determined attacker will find other ways to get around container isolation. Maintaining a small set of user accounts is a worthwhile practise, but that alone will not be enough to stop a highly skilled and determined attacker moving forward.  
-Even when technical security is very good, an experienced attacker will use other mediums to gain what they want, such as social engineering and physical vectors as discussed in the People and Physical chapters of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers), and other attack vectors listed in this book. Defence in depth is crucial in achieving good security. Concentrate on the lowest hanging fruit first and working your way up the tree.
+Even when technical security is very good, an experienced attacker will use other mediums to gain what they want, such as social engineering and physical vectors as discussed in the People and Physical chapters of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), and other attack vectors listed in this book. Defence in depth is crucial in achieving good security. Concentrate on the lowest hanging fruit first and working your way up the tree.
 
 Locking file permissions and ownership down is good, but that alone will not save you. 
 
@@ -4760,9 +4762,9 @@ Segmentation is useful, and a common technique in helping to build resistance ag
 
 #### Datastore Compromise
 
-If you follow the advice in the [countermeasures](#web-applications-countermeasures-datastore-compromise) section, you will be doing more than most other organisations in this area. It is not hard, but if implemented, it could increase complacency/overconfidence. Always be on guard. Always expect that, although you have done a lot to increase your security stance, a determined and experienced attacker is going to push buttons you may have never realised you had. If they want something enough, and have the resources and determination to get it, they probably will. This is where you need to put strategies in place to deal with post-compromise. Create processes (ideally partly automated) to deal with theft.
+If you follow the advice in the [countermeasures](#web-applications-countermeasures-data-store-compromise) section, you will be doing more than most other organisations in this area. It is not hard, but if implemented, it could increase complacency/overconfidence. Always be on guard. Always expect that, although you have done a lot to increase your security stance, a determined and experienced attacker is going to push buttons you may have never realised you had. If they want something enough, and have the resources and determination to get it, they probably will. This is where you need to put strategies in place to deal with post-compromise. Create processes (ideally partly automated) to deal with theft.
 
-Also consider that once an attacker has made off with your datastore, even if it is currently infeasible to bruteforce the secrets, there may be other ways around obtaining the missing pieces of information they need. Think about paper shredders as discussed in the Physical chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers) and the associated [competitions](http://archive.darpa.mil/shredderchallenge/). With patience, most puzzles can be cracked. If the compromise is an opportunistic type of attack, they will most likely just give up and seek an easier target. If it is a targeted attack by determined and experienced attackers, they will probably try other attack vectors until they get what they want.
+Also consider that once an attacker has made off with your datastore, even if it is currently infeasible to bruteforce the secrets, there may be other ways around obtaining the missing pieces of information they need. Think about paper shredders as discussed in the Physical chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) and the associated [competitions](http://archive.darpa.mil/shredderchallenge/). With patience, most puzzles can be cracked. If the compromise is an opportunistic type of attack, they will most likely just give up and seek an easier target. If it is a targeted attack by determined and experienced attackers, they will probably try other attack vectors until they get what they want.
 
 Do not let overconfidence be your weakness. An attacker will search out the weakest link. Do your best to remove weak links.
 
@@ -4798,7 +4800,7 @@ The following table shows the Web Crypto API supported algorithms for Chromium (
 
 ![](images/WebCryptoAPIBrowserSupport.png)
 
-Both are offering AES-GCM, but now you have to make the decision, and too much choice can bring confusion. The only way for web developers to know which choices to make is to spend the time researching what to use where, and ask yourself the questions  "why?" Question everything.
+Both are offering AES-GCM, but now you have to make the decision, and too much choice can bring confusion. The only way for web developers to know which choices to make is to spend the time researching what to use where, and ask yourself the questions "why?" Question everything.
 
 As usual, the [OWASP guidance](https://www.owasp.org/index.php/Cryptographic_Storage_Cheat_Sheet#Rule_-_Use_strong_approved_Authenticated_Encryption) (Cryptographic Storage Cheat Sheet) is excellent.
 
@@ -4807,11 +4809,11 @@ There are many stack-overflow questions and answers where many people think they
 ### Consuming Free and Open Source
 
 Adding process and tooling as discussed is a really good start. However, it's not a complete solution to protect the consumption of free and open source packages.  
-Some of these packages we consume may have good test coverage, be up-to-date, and have no known vulnerabilities. Are their tests testing the right things though? Are the tests testing that something bad can "not" happen, as we discussed in the creation of "Evil Test Conditions" in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers)? This is where we really need something extra on top of having good process, static analysis, and dependency checking tools. This is really where you need to leverage the likes of security regression testing, as I discussed in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+Some of these packages we consume may have good test coverage, be up-to-date, and have no known vulnerabilities. Are their tests testing the right things though? Are the tests testing that something bad can "not" happen, as we discussed in the creation of "Evil Test Conditions" in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)? This is where we really need something extra on top of having good process, static analysis, and dependency checking tools. This is really where you need to leverage the likes of security regression testing, as I discussed in the "Agile Development and Practices" section of the "Process and Practises" chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 #### Process
 
-There is a danger of implementing too many manual processes, which slows down development more than necessary. The way the process is implemented will have a lot to do with its level of success. For example, automating as much as possible, so developers don't have to think about too much, is going to make them more productive, focused, and [happier](https://en.wikipedia.org/wiki/Kaizen).
+There is a danger of implementing too many manual processes, which slows down development more than necessary. The way the process is implemented will have a lot to do with its level of success. For example, automating as much as possible, so developers don't have to think about too much, is going to make them more productive, focussed, and [happier](https://en.wikipedia.org/wiki/Kaizen).
 
 For example, a Development Team needs to pull a library into their project, which often happens in the middle of working on a product backlog item, and is not necessarily planned at the beginning of the Sprint. When programmers have to context switch while a legal review and/or manual code review takes place, this can cause friction and reduce the team's performance even though it may be out of their hands.  
 In this case, the Development Team really needs a dedicated resource to perform the legal review. These sorts of decisions need to be made by the Development Team, not mandated by someone outside of the team that doesn't have skin in the game or does not have the localised understanding that the people working on the project do.
@@ -4822,7 +4824,7 @@ Maintaining a list of the approved libraries really needs to be a process that d
 
 Relying on tooling alone is not enough.
 
-Using the likes of pre-commit hooks with the CLIs, and the other tooling options detailed in the [Countermeasures](#web-applications-countermeasures-consuming-free-and-open-source-tooling) section integrated with CI builds, as well as creating scripts to do most of the work for us, is going to be a good option to start with. Adding security regression testing automation on top of that, and your solution for managing potential vulnerabilities in free and open source packages starts to look pretty solid.
+Using the likes of pre-commit hooks with the CLIs, and the other tooling options detailed in the [Countermeasures](#web-applications-countermeasures-consuming-free-and-open-source-tooling) section integrated with CI builds, as well as creating scripts to do most of the work for us, is going to be a good option to start with. Adding the automation of security regression testing on top of that, and your solution for managing potential vulnerabilities in free and open source packages starts to look pretty solid.
 
 ### Insufficient Attack Protection
 
@@ -4844,7 +4846,7 @@ Same goes for dark cockpit type monitoring. Find a tool that you find working wi
 
 ### Lack of Input Validation, Filtering and Sanitisation
 
-If you can tighten up your validation and filtering, then less work will be required around sanitisation, and that is where most of the effort (effort ˜ time) seems to go. This often reduces the end user experience though.
+If you can tighten up your validation and filtering, then less work will be required around sanitisation, and that is where most of the effort (effort ≈ time) seems to go. This often reduces the end user experience though.
 
 Once you fully understand the dangers you'll be able to make these decisions easier.
 
