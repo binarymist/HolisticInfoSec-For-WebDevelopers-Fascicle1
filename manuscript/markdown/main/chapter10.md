@@ -4887,11 +4887,11 @@ Similar to SQLi
 
 #### Command Injection
 
-Exactly how much will it cost you will depend on how poorly the code is written, and how much has to be refactored.
+Exactly how much will it cost you depends on how poorly the code is written, and how much has to be refactored.
 
 #### XML Injection
 
-If you have had a look at how easily some of these defects are exploitable, then you may realise that the costs to remedy are small in comparison to loosing your assets.
+If you have had a look at how easily some of these defects are exploitable, then you should realise that the costs to remedy are small in comparison to losing your assets.
 
 #### XSLT Injection
 
@@ -4911,13 +4911,13 @@ Similar costs to that of what we have already covered, just different technology
 
 ### Captcha
 
-The proposed solution costs very little time to implement, is simple, has no external dependencies, is not circumvented if JavaScript is disabled. In fact is not dependant on the browser or what is in it at all. Also, humans are not disadvantaged.
+The proposed solution costs very little time to implement, is simple, has no external dependencies, and is not circumvented if JavaScript is disabled. In fact, it is not dependant on the browser or what is in the browser at all.
 
-It means that any spam submitted by a real human will have to be moderated by a real human, although this usually takes less time than the human submitting the spam. For me, this is a trade-off worth taking to provide an optimal user experience for my customers/clients.
+Any spam submitted by a real human will have to be moderated by a real human, although this usually takes less time than the human submitting the spam. For me, this is a trade-off worth taking to provide an optimal user experience for my customers/clients.
 
 ### Management of Application Secrets
 
-There is potential for hidden costs here, as adjacent layers will need to be hardened. There could be trade-offs here that force us to focus on the adjacent layers. This is never a bad thing though. It helps us to step back and take a holistic view of our security.
+There is potential for hidden costs here, as adjacent layers will need to be hardened. There could be tradeoffs here that force us to focus on the adjacent layers. This is never a bad thing though. It helps us to step back and take a holistic view of our security.
 
 #### Store Configuration in Configuration files
 
@@ -4925,49 +4925,49 @@ There should be little cost in moving secrets out of source code and into config
 
 ##### Windows:
 
-You will need to weigh up whether the effort to obfuscate secrets is worth it or not. It can also make the developers job more cumbersome. Some of the options provided may be worthwhile doing.
+You will need to weigh whether the effort to obfuscate secrets is worth it or not. It can also make the developers job more cumbersome. Some of the options provided may be worthwhile doing.
 
 ##### Linux
 
-Containers have many other advantages and you may already be using them for making your deployment processes easier and less likely to have dependency issues. They also help with scaling and load balancing, so they have multiple benefits.
+Containers have many other advantages. You may already be using them for making your deployment processes easier and are less likely to have dependency issues. They also help with scaling and load balancing, so they have multiple benefits.
 
 #### Least Privilege
 
-Is something you should be at least considering and probably doing in every case. It is one of those considerations that is worth while applying to most layers.
+You should at least consider and probably do in every case. It is one of those considerations that is worth while applying to most layers.
 
 #### Location
 
-Segmenting of resources is a common and effective measure to take for at least slowing down attacks and a cost well worth considering if you have not already.
+Segmenting of resources is a common and effective measure to take to slow down attacks and a cost well worth considering if you have not already.
 
 #### Datastore Compromise
 
-The countermeasures discussed here go without saying, although many organisations do not do them well, if at all. It is up to you whether you want to be one of the statistics that has all of their secrets revealed. Following the countermeasures here is something that just needs to be done if you have any data that is sensitive in your data-store(s). 
+The countermeasures discussed here go without saying, although many organisations do not do them well, if at all. It is up to you whether you want to be one of the statistics that has all of their secrets revealed. Following the countermeasures here is something that just needs to be done if you have any data that is sensitive in your datastore(s). 
 
 ### Lack of Authentication, Authorisation and Session Management
 
-The cost of performing enough research and creating Proof of Concepts (PoC) is significant, even more so when your project is micro-service based, as you will have multiple technology environments that cross cutting concerns such as authentication, authorisation and session management affect (server side, client side, mobile, IoT, etc). I've found that if your project has the luxury of being green-fields, then reducing the technologies used to the lowest common denominator can reduce a lot of effort. What I mean by this, is that if you can use the same technologies in all environments, or as many as possible, this will reduce the amount of Research and Development (R&D) that the team will need to do in order to prove a working solution. The lowest common denominator in terms of technology stacks that work in all environments is JavaScript. In case you hadn't noticed, JavaScript is creeping into all environments because of this very reason. Embrace it, and you will likely save a lot of money.
+The cost of performing enough research and creating Proof of Concepts (PoC) is significant, even more so when your project is micro-service based, as you will have multiple technology environments that cross cutting concerns such as authentication, authorisation and session management affect (server side, client side, mobile, IoT, etc). I've found that if your project has the luxury of being green field, then reducing the technologies used to the lowest common denominator can reduce a lot of effort. If you can use the same technologies in all environments, or as many as possible, this will reduce the amount of Research and Development (R&D) that the team will need to do in order to prove a working solution. The lowest common denominator in terms of technology stacks that work in all environments is JavaScript. In case you hadn't noticed, JavaScript is creeping into all environments for this very reason. Embrace it, and you will likely save a lot of money.
 
-I've heard this said many times "but we just can't find enough people with solid JavaScript skills and experience". Now it doesn't matter what the specific speciality is, I've personally struggled with this type of comment. If you think back to the Countermeasures section of the People chapter of Fascicle 0, specifically "Morale, Productivity and Engagement Killers" onwards, there is quite a bit of information around how to treat people with the respect they deserve. Exceptionally talented technical workers have paid a high price to become what and who they are. If you learn to always respect them and build strong meaningful relationships with these highly talented people, when you need the talent, it'll be easy to find, they will be your friends. This has been my experience anyway. You can find these individuals always attending (if not leading) after work tech meetups, tech conferences and other events. They will also often be the last to leave the office each day, as they struggle to tear themselves away from their work due to a high level of engagement. They are always pushing their own technical limits and increasing their knowledge and experience. They are not hard to find if you follow this advice.
+I've heard this said many times "but we just can't find enough people with solid JavaScript skills and experience". It doesn't matter what the specific speciality is, I've personally struggled with this type of comment. If you think back to the Countermeasures section of the People chapter of Fascicle 0, specifically "Morale, Productivity and Engagement Killers" and onward, there is quite a bit of information around how to treat people with the respect they deserve. Exceptionally talented technical workers have paid a high price to become who and what they are. If you learn to respect them, and build strong meaningful relationships with these highly talented people, when you need the talent, it'll be easy to find, they will be your friends. This has been my experience, anyway. You can find these individuals always attending (if not leading) after work tech meetups, tech conferences, and other events. They will also often be the last to leave the office each day, as they struggle to tear themselves away from their work due to a high level of engagement. They are always pushing their own technical limits and increasing their knowledge and experience. They are not hard to find if you follow this advice.
 
 If you still struggle, reach out to me, and I'll do my best to help.
 
 ### Cryptography on the Client (AKA Untrusted Crypto) {#web-applications-costs-and-trade-offs-cryptography-on-the-client}
 
-I have covered many technologies in this chapter and also in others, such as in the Network chapter under Countermeasures:
+I have covered many technologies in this chapter and also in others, as in the Network chapter under Countermeasures:
 
 * "Wrongfully Trusting the Loading of Untrusted Web Resources"  
-  For example doing everything we can to validate that what we're downloading is in-fact what we think it is:
+  For example, do everything we can to validate that what we're downloading is, in fact, what we think it is:
   * Content Security Policy (CSP)
-  * Sub-resource Integrity (SRI), allowing us to cryptographically guarantee that the resources we are downloading have not been tampered with. There is no point in consuming what we think is the crypto library we designated if what we are actually consuming is an attackers side-channel attack
+  * Sub-resource Integrity (SRI) allows us to cryptographically guarantee that the resources we are downloading have not been tampered with. There is no point in consuming what we think is the crypto library we designated if what we are actually consuming is an attackers side-channel attack
 * "TLS Downgrade"
 
-That if adopted and practised properly, along with selecting the right low level primitives for the Web Crypto API, can help us achieve a level of security that will work for us (the web application developers/owners). Of course this puts our best interests at the forefront, but not necessarily the end users. As developers creating solutions for our users, We have a responsibility to put our users concerns first. 
+That, if adopted and practised properly, along with selecting the right low level primitives for the Web Crypto API, can help us achieve a level of security that will work for us (the web application developers/owners). Of course, this puts our best interests at the forefront, but not necessarily the endusers. As developers creating solutions for our users, we have a responsibility to put our user's concerns first. 
 
 ### Consuming Free and Open Source
 
-The process has to be streamlined so that it does not get in the developers way. A good way to do this is to ask the developers how it should be done. They know what will get in their way. In order for the process to be a success, the person(s) mandating it will need to get solid buy-in from the people using it (the developers).
+The process has to be streamlined so that it does not get in the developer's way. A good way to do this is to ask the developers how it should be done. They know what will get in their way. In order for the process to be a success, the person(s) mandating it will need to get solid buyin from the people using it (the developers).
 
-The idea of setting up a process that notifies at least the Development Team if a library they want to use has known security defects, needs to be pitched to all stakeholders (developers, product owner, even external stakeholders) the right way. It needs to provide obvious benefit and not make anyone's life harder than it already is. Everyone has their own agendas. Rather than fighting against them, include consideration for them in your pitch. I think this sort of a pitch is actually reasonably easy if you keep these factors in mind.
+The idea of setting up a process that notifies the Development Team if a library they want to use has known security defects needs to be pitched to all stakeholders (developers, product owner, even external stakeholders) the right way. It needs to provide obvious benefit, and not make anyone's life harder than it already is. Everyone has their own agendas. Rather than fighting against them, include consideration for them in your pitch. I think this sort of a pitch is actually reasonably easy if you keep these factors in mind.
 
 ### Insufficient Attack Protection
 

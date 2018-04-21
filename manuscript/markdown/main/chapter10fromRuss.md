@@ -4906,7 +4906,7 @@ Similar costs to that of what we have already covered, just different technology
 
 ### Captcha
 
-The proposed solution costs very little time to implement, is simple, has no external dependencies, and is not circumvented if JavaScript is disabled. In fact, it is not dependant on the browser or what is in the browser at all. 
+The proposed solution costs very little time to implement, is simple, has no external dependencies, and is not circumvented if JavaScript is disabled. In fact, it is not dependant on the browser or what is in the browser at all.
 
 Any spam submitted by a real human will have to be moderated by a real human, although this usually takes less time than the human submitting the spam. For me, this is a trade-off worth taking to provide an optimal user experience for my customers/clients.
 
@@ -4928,7 +4928,7 @@ Containers have many other advantages. You may already be using them for making 
 
 #### Least Privilege
 
-You should be at least consider least privilege, and probably do in every case. It is one of those considerations that is worth while applying to most layers.
+You should at least consider and probably do in every case. It is one of those considerations that is worth while applying to most layers.
 
 #### Location
 
@@ -4940,7 +4940,7 @@ The countermeasures discussed here go without saying, although many organisation
 
 ### Lack of Authentication, Authorisation and Session Management
 
-The cost of performing enough research and creating Proof of Concepts (PoC) is significant, even more so when your project is micro-service based, as you will have multiple technology environments that concerns such as authentication, authorisation and session management affect (server side, client side, mobile, IoT, etc). I've found that if your project has the luxury of being green field, then reducing the technologies used to the lowest common denominator can reduce a lot of effort. If you can use the same technologies in all environments, or as many as possible, this will reduce the amount of Research and Development (R&D) that the team will need to do in order to prove a working solution. The lowest common denominator in terms of technology stacks that work in all environments is JavaScript. In case you hadn't noticed, JavaScript is creeping into all environments for this very reason. Embrace it, and you will likely save a lot of money.
+The cost of performing enough research and creating Proof of Concepts (PoC) is significant, even more so when your project is micro-service based, as you will have multiple technology environments that cross cutting concerns such as authentication, authorisation and session management affect (server side, client side, mobile, IoT, etc). I've found that if your project has the luxury of being green field, then reducing the technologies used to the lowest common denominator can reduce a lot of effort. If you can use the same technologies in all environments, or as many as possible, this will reduce the amount of Research and Development (R&D) that the team will need to do in order to prove a working solution. The lowest common denominator in terms of technology stacks that work in all environments is JavaScript. In case you hadn't noticed, JavaScript is creeping into all environments for this very reason. Embrace it, and you will likely save a lot of money.
 
 I've heard this said many times "but we just can't find enough people with solid JavaScript skills and experience". It doesn't matter what the specific speciality is, I've personally struggled with this type of comment. If you think back to the Countermeasures section of the People chapter of Fascicle 0, specifically "Morale, Productivity and Engagement Killers" and onward, there is quite a bit of information around how to treat people with the respect they deserve. Exceptionally talented technical workers have paid a high price to become who and what they are. If you learn to respect them, and build strong meaningful relationships with these highly talented people, when you need the talent, it'll be easy to find, they will be your friends. This has been my experience, anyway. You can find these individuals always attending (if not leading) after work tech meetups, tech conferences, and other events. They will also often be the last to leave the office each day, as they struggle to tear themselves away from their work due to a high level of engagement. They are always pushing their own technical limits and increasing their knowledge and experience. They are not hard to find if you follow this advice.
 
