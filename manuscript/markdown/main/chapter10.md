@@ -1582,7 +1582,7 @@ All the legitimate double quotes are interpreted as the double quote `HTML` enti
 {linenos=off, lang=JavaScript}
     value=" &quot; onmouseover=&quot;alert(2)"
 
-Now, in regards to the code comments in the block of code above titled "Sanitisation using escaping", I mentioned having to double escape character references. We were using `XSL` for the `HTML` because we needed to perform transformations before delivering to the browser. Because we were sending the strings to the browser, it was easier to single decode the double encoded `HTML` on the service side only. As we were still focused on the client side sanitisation and would soon shift our focus to cover the server side, we knew we were going to have to create some sanitisation routines for our .NET service. Because the routines were likely to be static, we were just dealing with strings, where we created an extensions class in a new project for a common library we already had. This provided the widest use from our sanitisation routines, while allowing us to wrap any existing libraries, or parts of them that we wanted to use.
+Now, in regards to the code comments in the block of code above titled "Sanitisation using escaping", I mentioned having to double escape character references. We were using `XSL` for the `HTML` because we needed to perform transformations before delivering to the browser. Because we were sending the strings to the browser, it was easier to single decode the double encoded `HTML` on the service side only. As we were still focussed on the client side sanitisation and would soon shift our focus to cover the server side, we knew we were going to have to create some sanitisation routines for our .NET service. Because the routines were likely to be static, we were just dealing with strings, where we created an extensions class in a new project for a common library we already had. This provided the widest use from our sanitisation routines, while allowing us to wrap any existing libraries, or parts of them that we wanted to use.
 
 {title="Common.Security.Encoding.Extensions.SingleDecodeDoubleEncodedHtml", linenos=off, lang=C#}
     namespace Common.Security.Encoding {
@@ -3600,8 +3600,8 @@ Identity server does not currently support both types of token at once, specific
 
 ##### IdentityServer3
 
-IdentityServer2 was focused on authentication with some OAuth2 support to assist with authentication.  
-AuthorizationServer was more focused on OAuth2 for delegated authorisation.  
+IdentityServer2 was focussed on authentication with some OAuth2 support to assist with authentication.  
+AuthorizationServer was more focussed on OAuth2 for delegated authorisation.  
 IdentityServer3 is a C#.NET library that focuses on both authentication and authorisation. You don't have to have your surrounding out of process components (service layer, micro-services) in .NET for IdentityServer3 to be a viable option. They can be written in another language, so long as they speak HTTP.
 
 ##### MembershipReboot {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-technology-and-design-decisions-membershipreboot}
@@ -4211,22 +4211,22 @@ MembershipReboot supports adding secret questions and answers along with the abi
 
 #### Securing Sessions {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions}
 
-In the above example we (were constrained by a business requirement) chose to use cookies to carry the access token. Alternatively the access token could be transported within the end users HTTP response and request bodies and stored in local storage.
+In the above example we (were constrained by a business requirement) chose to use cookies to carry the access token. Alternatively, the access token could be transported within the end user's HTTP response and request bodies, and stored in local storage.
 
-Using local storage means that there is less to be concerned about in terms of protecting the token than with using cookies. LocalStorag is only concerned with XSS, whereas cookies are susceptible to both CSRF and XSS attacks (although XSS to a lesser degree). If you decided to use local storage, Your anti XSS strategy needs to be water-tight.  
-Even with the `HttpOnly` flag set on your cookie, it is possible to compromise the cookie contents if the values of the `Domain` and/or `Path` cookie attributes are too permissive. For example if you have the `Domain` value set to `.localtest.me`, an attacker can attempt to launch attacks on the cookie token between other hosts with the same domain name. Some of these hosts may contain vulnerabilities, thereby increasing the attack surface.
+Using local storage means that there is less to be concerned about in terms of protecting the token than with using cookies. Local storage concerns include XSS, whereas cookies are susceptible to both CSRF and XSS attacks (although XSS to a lesser degree). If you decided to use local storage, your anti-XSS strategy needs to be watertight.  
+Even with the `HttpOnly` flag set on your cookie, it is possible to compromise the cookie contents if the values of the `Domain` and/or `Path` cookie attributes are too permissive. For example, if you have the `Domain` value set to `.localtest.me`, an attacker can attempt to launch attacks on the cookie token between other hosts with the same domain name. Some of these hosts may contain vulnerabilities, thereby increasing the attack surface.
 
 ![](images/SecuringSessions.png)
 
-Set the [`Secure` attribute](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Secure_Attribute) on the cookie. This instructs web browsers to only send the cookie over a TLS (HTTPS) connection, whereby removing the MItM attack vector.  
+Set the [`Secure` attribute](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Secure_Attribute) on the cookie. This instructs web browsers to only send the cookie over a TLS (HTTPS) connection, thereby removing the MItM attack vector.  
 You can and should test this by inspecting the headers with an HTTP intercepting proxy. While you're at it, you may as well add this as a test to your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
-Turn the `HttpOnly` cookie flag on. This instructs the web browser not to allow access to the cookie via JavaScript. The `Secure` flag must also be enabled as mentioned above, in order to mitigate Session Id theft.
+Turn the `HttpOnly` cookie flag on. This instructs the web browser to deny access to the cookie via JavaScript. The `Secure` flag must also be enabled as mentioned above, in order to mitigate Session Id theft.
 
 CSRF is the most common attack used to leverage cookies containing authentication details. In order to mitigate this attack vector, the use of the synchroniser token pattern is recommended. Each server side technology will implement this type of protection differently. CSRF is discussed in more depth in the Cross-Site Request Forgery (CSRF) sections.
 
-As for the `Expires` and `Max-Age` cookie attributes from  
-`client\ServiceLayer\APIControllers\SecureController.cs` (seen above), these will need to be set to the maximum values that the business is prepared to accept along with the `Client.AccessTokenLifetime` from `backend\Auth\AuthService.WebApi\IdSvr\Clients.cs` (seen above) (which need to line up) for the IdentityServer.
+As per the `Expires` and `Max-Age` cookie attributes from  
+`client\ServiceLayer\APIControllers\SecureController.cs` (seen above), these will need to be set to the maximum values that the business is prepared to accept, along with the `Client.AccessTokenLifetime` from `backend\Auth\AuthService.WebApi\IdSvr\Clients.cs` (seen above), which need to align for the IdentityServer.
 
 The OWASP [Session Management Cheat Sheet](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Cookies) has more details around securing cookies.
 
@@ -4234,48 +4234,48 @@ The OWASP [Session Management Cheat Sheet](https://www.owasp.org/index.php/Sessi
 
 ![](images/ThreatTags/PreventionDIFFICULT.png)
 
-There are fundamental principles that we need to examine, understand and embrace before we dive into some details.
+There are fundamental principles that we need to examine, understand, and embrace before we dive into some details.
 
-The attackers will always target the easiest point to compromise of any given encryption protocol.
+Attackers will always target the easiest point to compromise of any given encryption protocol.
 
-Cryptography is one small ingredient that may go into creating a system which is aiming to be secure to a degree. Usually it is just easier to step around or by-pass any crypto. So think of crypto as just one defence. Unless all of your other areas of security are better than your crypto solutions, then an attacker will more than likely be targeting the other weaker areas.
+Cryptography is one small ingredient that may go into creating a system which is aiming to be secure. Usually it is just easier to step around or by-pass any crypto. Think of crypto as just one defence. Unless all of your other areas of security are better than your crypto solutions, an attacker will more than likely target other weaker areas.
 
 #### [Web Cryptography API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API) {#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api}
 
-Has been implemented across browser vendors now.
+The Web Cryptography API has been implemented across browser vendors now.
 
 [![](images/WebCryptoApi.png)](http://caniuse.com/cryptography)
 
 > Above image from [http://caniuse.com/cryptography](http://caniuse.com/cryptography)  
 > Licensed under [CC by 4.0](https://creativecommons.org/licenses/by/4.0/)  
-Removed part of the unsupported versions for Firefox, Chrome and Opera.
+Part of it was removed from the unsupported versions for Firefox, Chrome and Opera.
 
-For those browsers still not playing ball, you can use a polyfill. Although those are dropping off due to better browsers now supporting the Web Crypto API. Plus the whole point of the Web Crypto API was to remove JavaScript crypto, so that the underlying key(s) weren't accessible to JavaScript.
+For those browsers still not up to speed, you can use a polyfill, although those are diminishing due to better browsers that support the Web Crypto API. Plus, the whole point of the Web Crypto API was to remove JavaScript crypto so that the underlying key(s) weren't accessible to JavaScript.
 
-The browser is insecure and should never be trusted. HTML5 has added a lot of extra attack surface without adding much in the way of security.
+The browser is insecure, and should never be trusted. HTML5 has added a lot of extra attack surface without adding much in the way of security.
 
 From the [W3C Web Cryptography API](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html)  
-"_The Web Crypto API defines a low-level interface to interacting with cryptographic key material that is managed or exposed by user agents._" but not exposed to the JavaScript application environment.
+"_The Web Crypto API defines a low-level interface to interacting with cryptographic key material that is managed or exposed by user agents_" but not exposed to the JavaScript application environment.
 
 For starters:
 
 * The user is untrusted, therefore their agent is untrusted
 * The key is the only thing that needs to be, and should be secret and trustworthy. Everything else should be public
-* If the key is managed by something that is untrusted (from the servers perspective), then the Web Crypto API is untrusted (from the servers perspective). Therefore crypto in the browser can not be trusted by the server, that is, if the server needs to trust it. 
+* If the key is managed by something that is untrusted (from the server's perspective), then the Web Crypto API is untrusted (from the server's perspective). Therefore, crypto in the browser cannot be trusted by the server, that is, if the server needs to trust it. 
 
-The usual perspective in client/server relationships is that the server holds the single source of truth (the key). Where crypto in the browser comes into the picture is that the client holds the single source of truth. If the key is accessible to the JavaScript application environment (which it is if you are using your own JavaScript crypto or someone else's crypto libraries), then we're on very shaky ground. If however we can hide this key away from the JavaScript application environment and have the browser expose an API, then we have a little more privacy.  
+The usual perspective in client/server relationships is that the server holds the single source of truth (the key). Crypto in the browser comes into the picture when the client holds the single source of truth. If the key is accessible to the JavaScript application environment (which it is if you are using your own JavaScript crypto or someone else's crypto libraries), then you're on very shaky ground. However, if we can hide this key away from the JavaScript application environment and have the browser expose an API, then we have a little more privacy.  
 
-Relying on the Web Cryptography API as opposed to using low-level primitives provides a slightly better and more secure starting point. Why it's only slightly better is discussed in the [Risks that Solution Causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
+Relying on the Web Cryptography API as opposed to using low-level primitives provides a slightly better and more secure starting point. But it's only slightly better as discussed in the [Risks that Solution Causes](#web-applications-risks-that-solution-causes-cryptography-on-the-client) section.
 
-In order, from the lower level to higher level, the following Web Crypto API concepts need to be understood:
+In order, from the lowest to highest, the following Web Crypto API concepts need to be understood:
 
 #### user agent
 
-"_The specification assumes, but does not require, that conforming user agents do not and will not be directly implementing cryptographic operations within the user agent itself_" Often user agents will defer cryptographic operations to existing APIs available as part of the underlying operating system or to third-party modules not directly managed by the user agent. As you can see, the responsibility doesn't belong to the server, but rather to the client or more specifically the end user.
+"_The specification assumes, but does not require, that conforming user agents do not and will not be directly implementing cryptographic operations within the user agent itself_" Often user agents will defer cryptographic operations to existing APIs available as part of the underlying operating system, or to third-party modules not directly managed by the user agent. As you can see, the responsibility doesn't belong to the server, but rather to the client or more specifically the end user.
 
 #### `[[handle]]`
 
-Internal slots and methods in the ECMA-262 (3, 5 and 6) standards are usually represented within "`[[`", "`]]`" in the ECMA-262 specifications. Internal slots and methods are pseudo-properties/pseudo-methods that the specification uses to define required state (for internal slots), behaviour (for internal methods). Internal slots and methods are hidden from user code, never exposed to applications. They may or may not correspond to properties of objects used by the engine and/or exposed via the implementation of the public API. The internal slot named `[[handle]]`, just as all other internal slots and methods, represents an opaque, implementation specific type. The `[[handle]]` slot contains whatever data the underlying cryptographic implementation uses to represent a logical key. So in theory, the key material is never exposed to the JavaScript application environment, but rather via a user agent which manages or exposes to the internal `[[handle]]` slot.
+Internal slots and methods in the ECMA-262 (3, 5 and 6) standards are usually represented within "`[[`", "`]]`" in the ECMA-262 specifications. Internal slots and methods are pseudo-properties/pseudo-methods that the specification uses to define required state (for internal slots), behaviour (for internal methods). Internal slots and methods are hidden from user code, never exposed to applications. They may or may not correspond to properties of objects used by the engine and/or exposed via the implementation of the public API. The internal slot named `[[handle]]`, just as all other internal slots and methods, represents an opaque, implementation specific type. The `[[handle]]` slot contains whatever data the underlying cryptographic implementation uses to represent a logical key. So, in theory, the key material is never exposed to the JavaScript application environment, but rather via a user agent which manages or exposes to the internal `[[handle]]` slot.
 
 #### `CryptoKey` (Web API interface)
 
@@ -4292,7 +4292,7 @@ Check the [specification](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec
 
 ##### [`Crypto`](https://developer.mozilla.org/en-US/docs/Web/API/Crypto) (Web API interface)
 
-The `Crypto` interface was implemented in some browsers without being well defined or cryptographically sound. Browsers implementing the Web Crypto API have removed the `Crypto` methods and properties other than `Crypto.subtle` which provides access to the below `SubtleCrypto` interface, which provides all of the Web Crypto API methods.
+The `Crypto` interface was implemented in some browsers without being well defined or cryptographically sound. Browsers implementing the Web Crypto API have removed the `Crypto` methods and properties other than `Crypto.subtle`. This provides access to the below `SubtleCrypto` interface, which provides all of the Web Crypto API methods.
 
 Check the [specification](https://w3c.github.io/webcrypto/Overview.html#crypto-interface) for further details.
 
@@ -4308,20 +4308,20 @@ Cryptography on the client does have its place. Use it in its designated place a
 
 #### Cloud Storage
 
-Is one use case. In this scenario, the server doesn't need to trust the client. It receives data from the client, stores it and returns it. The user is exchanging their own data with themselves in the future. So long as the server never attempts to parse or execute it and the only browser that it may end up in is from the client that sent it to start with. The client is responsible for the key. The data is usually encrypted on the client, sent to the server encrypted, then fetched back to the client and then finally decrypted again with the key that the client is responsible for.
+This is one use case. In this scenario, the server doesn't need to trust the client. It receives data from the client, stores it and returns it. The user is exchanging their own data with themselves in the future. So long as the server never attempts to parse or execute it and the only browser that it may end up in is from the client that sent it to start with. The client is responsible for the key. The data is usually encrypted on the client, sent to the server encrypted, then fetched back to the client, and then finally decrypted again with the key that the client is responsible for.
 
 #### Protected Data and Document Exchange
 
-which uses a similar concept as the cloud storage, but the data doesn't necessarily have to ever touch the server. A couple of offerings that come to mind are:
+These concepts use a similar approach as the cloud storage, but the data doesn't necessarily have to ever touch the server. A couple of offerings that come to mind are:
 
 1. Chris Campbell's [DeadDrop](https://deaddrop.jadeworld.com/) which has been lovingly crafted and offered free of charge.
 2. [Tresorit](https://tresorit.com) which has a large price tag.
 
 &nbsp;
 
-Basically client centric applications.
+These are basically client-centric applications.
 
-My preference is still for any crypto to be performed on the server where you have more control, less attack surface and greater visibility.
+My preference is still for any crypto to be performed on the server where you have more control, less attack surface, and greater visibility.
 
 ### Consuming Free and Open Source {#web-applications-countermeasures-consuming-free-and-open-source}
 ![](images/ThreatTags/PreventionEASY.png)
@@ -4333,14 +4333,13 @@ Dibbe Edwards [discusses](https://soundcloud.com/owasp-podcast/dibbe-edwards-dev
 * Implement process and governance around which open source libraries you can use
 * Legal review: checking licenses
 * Scanning the code for vulnerabilities, manual and automated code review
-* Maintain a list containing all the libraries that have been approved for use.  
-If not on the list, make a request and it should go through the same process
-* Once the libraries are in your product they should become a part of your own code so that they get the same rigour over them as any of your other in-house written code
-* There needs to be an automated process that runs over the code base to check that nothing that is not on the approved list is included
+* Maintain a list containing all the libraries that have been approved for use. If not on the list, make a request and it should go through the same process
+* Once the libraries are in your product, they should become a part of your own code so that they are treated with the same rigour as any of your other in-house written code
+* There needs to be an automated process that runs over the code base to check that nothing is included that is not on the approved list
 * Consider automating some of the suggested tooling options below
 
 There is an excellent paper by the SANS Institute on [Security Concerns in Using Open Source Software
-for Enterprise Requirements](http://www.sans.org/reading-room/whitepapers/awareness/security-concerns-open-source-software-enterprise-requirements-1305) which is well worth a read. It confirms what the likes of IBM are doing in regards to their consumption of free and open source libraries.
+for Enterprise Requirements](http://www.sans.org/reading-room/whitepapers/awareness/security-concerns-open-source-software-enterprise-requirements-1305), which is well worth a read. It confirms what the likes of IBM are doing in regards to their consumption of free and open source libraries.
 
 #### Consumption is Your Responsibility
 
@@ -4363,7 +4362,7 @@ A> Inspect the code before you run it.
 A>
 
 1. The repository could have been tampered with
-2. The transmission from the repository to you could have been intercepted and modified.
+2. The transmission from the repository to you could have been intercepted and modified
 
 {title="curl", linenos=off}
     # Fetching install.sh and running immediately in your shell.
@@ -4391,7 +4390,7 @@ As part of an `npm install`, package creators, maintainers (or even a malicious 
 
 Recommended procedure:
 
-1. Verify the source that you are about to download, if it is good:
+1. Verify the source that you are about to download, and if it is good;
 2. `npm show [module-you-want-to-install] scripts`
 3. Download the module without installing it and inspect it. You can download it from `http://registry.npmjs.org/[module-you-want-to-install]/-/[module-you-want-to-install]-VERSION.tgz`
 
@@ -4399,13 +4398,13 @@ The most important step here is downloading and inspecting before you run.
 
 ##### Doppelganger Packages {#web-applications-countermeasures-consuming-free-and-open-source-keeping-safe-doppelganger-packages}
 
-Similarly to [Doppelganger Domains](#network-identify-risks-doppelganger-domains), people often miss-type what they want to install. If you were someone that wanted to do something malicious like have consumers of your package destroy or modify their systems, send sensitive information to you, or any number of other malicious activities (ideally identified in the [Identify Risks](#web-applications-identify-risks-consuming-free-and-open-source) section. If not already, add), doppelganger packages are an excellent avenue for raising the likelihood that someone will install your malicious package by miss typing the name of it with the name of another package that has a very similar name. I covered this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation, with demos.
+As with [Doppelganger Domains](#network-identify-risks-doppelganger-domains), people often mistype what they want to install. There is likely someone who wants to do something malicious such as have consumers of your package destroy or modify their systems, send sensitive information to you, or any number of other malicious activities (ideally identified in the [Identify Risks](#web-applications-identify-risks-consuming-free-and-open-source) section). Doppelganger packages are an excellent avenue for increased likelihood that someone will install your malicious package by mistyping the name of it with the name of another package that has a very similar name. I covered this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation, with demos.
 
 Make sure you are typing the correct package name. Copy -> Pasting works.
 
 ##### [Whitelisting Packages](https://npme.npmjs.com/docs/workflow/whitelisting.html) via npm Enterprise
 
-Reviewing and deciding as an organisation which packages you allow your developers to consume is another good safety measure. Yes it means someone has to do the reviewing, but partly relying on the vetting that the tooling and other options discussed in this section can make this process quicker. Then via the Enterprise admin console, set `Read through cache` to `Off` so that only whitelisted packages can be fetched.
+Reviewing, and deciding as an organisation, which packages you allow your developers to consume is another good safety measure. Yes, it means someone has to do the reviewing, but partly relying on the vetting that the tooling and other options discussed in this section can make this process quicker. Then, via the Enterprise admin console, set `Read through cache` to `Off` so that only whitelisted packages can be fetched.
 
 Whitelisted packages are those that are added to the Enterprise instance with:  
 `npme add-package <packagename>`
@@ -4418,11 +4417,11 @@ Tooling for JavaScript package security defects is moving quickly, although the 
 
 ##### [npm-outdated](https://docs.npmjs.com/cli/outdated)
 
-Simply checking the NPM registry to see if any of your installed or specific packages are currently out of date.
+Simply check the NPM registry to see if any of your installed or specific packages are currently out of date.
 
 Running the following command in your application directory:  
 `npm outdated`  
-May produce output like the following:
+It may produce output like the following:
 
 {title="npm-outdated", linenos=off}
     Package               Current  Wanted  Latest  Location
@@ -4440,20 +4439,20 @@ May produce output like the following:
     winston-email          0.0.10  0.0.10  0.0.11  winston-email
     winston-syslog-posix    0.1.5   0.1.5   1.1.0  winston-syslog
 
-* `Wanted` is the maximum version of the package that satisfies the semver range specified in `package.json`
+* `Wanted` is the maximum version of the package that satisfies the semantic versioning range specified in `package.json`
 * `latest` is the version of the package tagged as latest in the registry.
 
 ##### [npm-check](https://www.npmjs.com/package/npm-check)
 
-Is a similar tool to npm-outdated, but provides more information and an API is useful for using in a CI tool-chain. npm-check can also inform you of missing or packages that are not currently being used.
+npm-check is a similar tool to npm-outdated, but provides more information and an API is useful for using in a CI tool-chain. npm-check can also inform you of missing or packages that are not currently being used.
 
 ##### [David](https://david-dm.org/)
 
-Uses your `package.json` file in your NodeJS project to check whether your dependencies are up to date and that no known vulnerabilities are found. You embed a badge on your Github page giving immediate feedback, which links to a page with details of any issues for your dependencies.
+David uses your `package.json` file in your NodeJS project to check whether your dependencies are up to date and that no known vulnerabilities are found. You embed a badge on your Github page giving immediate feedback, which links to a page with details of any issues for your dependencies.
 
 ##### [RetireJS](https://github.com/RetireJS/retire.js)
 
-Is useful to help you find JavaScript libraries with known vulnerabilities.  
+RetireJS is useful to help you find JavaScript libraries with known vulnerabilities.  
 RetireJS has the following:
 
 1. Command line scanner
@@ -4472,7 +4471,7 @@ RetireJS has the following:
             http://bugs.jquery.com/ticket/11290
 
     * To install RetireJS locally to your project and run as a git `precommit-hook`.  
-    There is an NPM package that can help us with this, called `precommit-hook`, which installs the git `pre-commit` hook into the usual `.git/hooks/pre-commit` file of your projects repository. This will allow us to run any scripts immediately before a commit is issued.  
+    There is an NPM package that can help us with this, called `precommit-hook`, which installs the git `pre-commit` hook into the usual `.git/hooks/pre-commit` file of your projects repository. This allows us to run any scripts immediately before a commit is issued.  
     Install both packages locally and save to `devDependencies` of your `package.json`. This will make sure that when other team members fetch your code, the same `retire` script will be run on their `pre-commit` action.
     
       {linenos=off}
@@ -4822,7 +4821,7 @@ Some of these packages we consume may have good test coverage, be up-to-date, an
 
 #### Process
 
-There is a danger of implementing too many manual processes which slows down development more than necessary. The way the process is implemented will have a lot to do with its level of success. For example automating as much as possible, so developers don't have to think about too much, is going to make them more productive, focused and [happier](https://en.wikipedia.org/wiki/Kaizen) developers.
+There is a danger of implementing too many manual processes which slows down development more than necessary. The way the process is implemented will have a lot to do with its level of success. For example automating as much as possible, so developers don't have to think about too much, is going to make them more productive, focussed and [happier](https://en.wikipedia.org/wiki/Kaizen) developers.
 
 For example, when a Development Team needs to pull a library into their project, which often happens in the middle of working on a product backlog item, not necessarily planned at the beginning of the Sprint. When programmers have to context switch while a legal review and/or manual code review takes place, this can cause friction and reduce the teams performance even though it may be out of their hands.  
 In this case, the Development Team really needs a dedicated resource to perform the legal review. The manual review could be done by another team member or even themselves with perhaps another team member having a quicker review after the fact. These sorts of decisions need to be made by the Development Team, not mandated by someone outside of the team that doesn't have skin in the game or does not have the localised understanding that the people working on the project do.

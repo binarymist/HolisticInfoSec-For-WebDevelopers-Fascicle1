@@ -1392,8 +1392,7 @@ There are numerous types of escaping you may need to know about depending on whe
 
 1. HTML Escape
 2. Attribute Escape
-3. JavaScript Escape
-  1. HTML Escape JSON values in HTML context
+3. JavaScript Escape. Including HTML Escape JSON values in HTML context
 4. CSS Escape
 5. URL Escape
 6. Sanitise HTML
@@ -1583,7 +1582,7 @@ All the legitimate double quotes are interpreted as the double quote `HTML` enti
 {linenos=off, lang=JavaScript}
     value=" &quot; onmouseover=&quot;alert(2)"
 
-Now, in regards to the code comments in the block of code above titled "Sanitisation using escaping", I mentioned having to double escape character references. We were using `XSL` for the `HTML` because we needed to perform transformations before delivering to the browser. Because we were sending the strings to the browser, it was easier to single decode the double encoded `HTML` on the service side only. As we were still focused on the client side sanitisation and would soon shift our focus to cover the server side, we knew we were going to have to create some sanitisation routines for our .NET service. Because the routines were likely to be static, we were just dealing with strings, where we created an extensions class in a new project for a common library we already had. This provided the widest use from our sanitisation routines, while allowing us to wrap any existing libraries, or parts of them that we wanted to use.
+Now, in regards to the code comments in the block of code above titled "Sanitisation using escaping", I mentioned having to double escape character references. We were using `XSL` for the `HTML` because we needed to perform transformations before delivering to the browser. Because we were sending the strings to the browser, it was easier to single decode the double encoded `HTML` on the service side only. As we were still focussed on the client side sanitisation and would soon shift our focus to cover the server side, we knew we were going to have to create some sanitisation routines for our .NET service. Because the routines were likely to be static, we were just dealing with strings, where we created an extensions class in a new project for a common library we already had. This provided the widest use from our sanitisation routines, while allowing us to wrap any existing libraries, or parts of them that we wanted to use.
 
 {title="Common.Security.Encoding.Extensions.SingleDecodeDoubleEncodedHtml", linenos=off, lang=C#}
     namespace Common.Security.Encoding {
@@ -3601,8 +3600,8 @@ Identity server does not currently support both types of token at once, specific
 
 ##### IdentityServer3
 
-IdentityServer2 was focused on authentication with some OAuth2 support to assist with authentication.  
-AuthorizationServer was more focused on OAuth2 for delegated authorisation.  
+IdentityServer2 was focussed on authentication with some OAuth2 support to assist with authentication.  
+AuthorizationServer was more focussed on OAuth2 for delegated authorisation.  
 IdentityServer3 is a C#.NET library that focuses on both authentication and authorisation. You don't have to have your surrounding out of process components (service layer, micro-services) in .NET for IdentityServer3 to be a viable option. They can be written in another language, so long as they speak HTTP.
 
 ##### MembershipReboot {#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-technology-and-design-decisions-membershipreboot}
@@ -4220,13 +4219,14 @@ Even with the `HttpOnly` flag set on your cookie, it is possible to compromise t
 ![](images/SecuringSessions.png)
 
 Set the [`Secure` attribute](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Secure_Attribute) on the cookie. This instructs web browsers to only send the cookie over a TLS (HTTPS) connection, thereby removing the MItM attack vector.  
-You can and should test this by inspecting the headers with an HTTP intercepting proxy. While you're at it, you may as well add this as a test to your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://leanpub.com/holistic-infosec-for-web-developers).
+You can and should test this by inspecting the headers with an HTTP intercepting proxy. While you're at it, you may as well add this as a test to your Zap Regression Test suite as discussed in the Process and Practises chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com).
 
 Turn the `HttpOnly` cookie flag on. This instructs the web browser to deny access to the cookie via JavaScript. The `Secure` flag must also be enabled as mentioned above, in order to mitigate Session Id theft.
 
 CSRF is the most common attack used to leverage cookies containing authentication details. In order to mitigate this attack vector, the use of the synchroniser token pattern is recommended. Each server side technology will implement this type of protection differently. CSRF is discussed in more depth in the Cross-Site Request Forgery (CSRF) sections.
 
-As per the `Expires` and `Max-Age` cookie attributes from `client\ServiceLayer\APIControllers\SecureController.cs` (seen above), these will need to be set to the maximum values that the business is prepared to accept, along with the `Client.AccessTokenLifetime` from `backend\Auth\AuthService.WebApi\IdSvr\Clients.cs` (seen above), which need to align for the IdentityServer.
+As per the `Expires` and `Max-Age` cookie attributes from  
+`client\ServiceLayer\APIControllers\SecureController.cs` (seen above), these will need to be set to the maximum values that the business is prepared to accept, along with the `Client.AccessTokenLifetime` from `backend\Auth\AuthService.WebApi\IdSvr\Clients.cs` (seen above), which need to align for the IdentityServer.
 
 The OWASP [Session Management Cheat Sheet](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Cookies) has more details around securing cookies.
 
@@ -4238,7 +4238,7 @@ There are fundamental principles that we need to examine, understand, and embrac
 
 Attackers will always target the easiest point to compromise of any given encryption protocol.
 
-Cryptography is one small ingredient that may go into creating a system which is aiming to be secur. Usually it is just easier to step around or by-pass any crypto. Think of crypto as just one defence. Unless all of your other areas of security are better than your crypto solutions, an attacker will more than likely target other weaker areas.
+Cryptography is one small ingredient that may go into creating a system which is aiming to be secure. Usually it is just easier to step around or by-pass any crypto. Think of crypto as just one defence. Unless all of your other areas of security are better than your crypto solutions, an attacker will more than likely target other weaker areas.
 
 #### [Web Cryptography API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API) {#web-applications-countermeasures-cryptography-on-the-client-web-cryptography-api}
 
@@ -4250,7 +4250,7 @@ The Web Cryptography API has been implemented across browser vendors now.
 > Licensed under [CC by 4.0](https://creativecommons.org/licenses/by/4.0/)  
 Part of it was removed from the unsupported versions for Firefox, Chrome and Opera.
 
-For those browsers still not up to speed, you can use a polyfill, although those are diminshing due to better browsers that support the Web Crypto API. Plus, the whole point of the Web Crypto API was to remove JavaScript crypto so that the underlying key(s) weren't accessible to JavaScript.
+For those browsers still not up to speed, you can use a polyfill, although those are diminishing due to better browsers that support the Web Crypto API. Plus, the whole point of the Web Crypto API was to remove JavaScript crypto so that the underlying key(s) weren't accessible to JavaScript.
 
 The browser is insecure, and should never be trusted. HTML5 has added a lot of extra attack surface without adding much in the way of security.
 
@@ -4260,7 +4260,7 @@ From the [W3C Web Cryptography API](https://dvcs.w3.org/hg/webcrypto-api/raw-fil
 For starters:
 
 * The user is untrusted, therefore their agent is untrusted
-* The key is the only thing that needs to be, and should be secret and trustworthy. Everything else should be public.
+* The key is the only thing that needs to be, and should be secret and trustworthy. Everything else should be public
 * If the key is managed by something that is untrusted (from the server's perspective), then the Web Crypto API is untrusted (from the server's perspective). Therefore, crypto in the browser cannot be trusted by the server, that is, if the server needs to trust it. 
 
 The usual perspective in client/server relationships is that the server holds the single source of truth (the key). Crypto in the browser comes into the picture when the client holds the single source of truth. If the key is accessible to the JavaScript application environment (which it is if you are using your own JavaScript crypto or someone else's crypto libraries), then you're on very shaky ground. However, if we can hide this key away from the JavaScript application environment and have the browser expose an API, then we have a little more privacy.  
@@ -4275,11 +4275,11 @@ In order, from the lowest to highest, the following Web Crypto API concepts need
 
 #### `[[handle]]`
 
-Internal slots and methods in the ECMA-262 (3, 5 and 6) standards are usually represented within "`[[`", "`]]`" in the ECMA-262 specifications. Internal slots and methods are pseudo-properties/pseudo-methods that the specification uses to define required state (for internal slots), behaviour (for internal methods). Internal slots and methods are hidden from user code, never exposed to applications. They may or may not correspond to properties of objects used by the engine and/or exposed via the implementation of the public API. The internal slot named `[[handle]]`, just as all other internal slots and methods, represents an opaque, implementation specific type. The `[[handle]]` slot contains whatever data the underlying cryptographic implementation uses to represent a logical key. So, in theory, the key matterial is never exposed to the JavaScript application environment, but rather via a user agent which manages or exposes to the internal `[[handle]]` slot.
+Internal slots and methods in the ECMA-262 (3, 5 and 6) standards are usually represented within "`[[`", "`]]`" in the ECMA-262 specifications. Internal slots and methods are pseudo-properties/pseudo-methods that the specification uses to define required state (for internal slots), behaviour (for internal methods). Internal slots and methods are hidden from user code, never exposed to applications. They may or may not correspond to properties of objects used by the engine and/or exposed via the implementation of the public API. The internal slot named `[[handle]]`, just as all other internal slots and methods, represents an opaque, implementation specific type. The `[[handle]]` slot contains whatever data the underlying cryptographic implementation uses to represent a logical key. So, in theory, the key material is never exposed to the JavaScript application environment, but rather via a user agent which manages or exposes to the internal `[[handle]]` slot.
 
 #### `CryptoKey` (Web API interface)
 
-"_The CryptoKey object represents an opaque reference to keying matterial that is managed by the user agent_"  
+"_The CryptoKey object represents an opaque reference to keying material that is managed by the user agent_"  
 "_All CryptoKey objects have internal slots named [[type]], [[extractable]], [[algorithm]], [[algorithm\_cached]], [[usages]], [[usages\_cached]], and [[handle]]._" The CryptoKey object represents the bridge between the JavaScript execution environment and the underlying libraries, through the use of the internal slot named `[[handle]]`
 
 A `CryptoKey` object can be obtained by using `SubtleCrypto.generateKey()`, `SubtleCrypto.deriveKey()` or `SubtleCrypto.importKey()`. See below for details on `SubtleCrypto`
@@ -4328,7 +4328,7 @@ Dibbe Edwards [discusses](https://soundcloud.com/owasp-podcast/dibbe-edwards-dev
 * Legal review: checking licenses
 * Scanning the code for vulnerabilities, manual and automated code review
 * Maintain a list containing all the libraries that have been approved for use. If not on the list, make a request and it should go through the same process
-* Once the libraries are in your product, they should become a part of your own code so that they are treated with the same rigor as any of your other in-house written code
+* Once the libraries are in your product, they should become a part of your own code so that they are treated with the same rigour as any of your other in-house written code
 * There needs to be an automated process that runs over the code base to check that nothing is included that is not on the approved list
 * Consider automating some of the suggested tooling options below
 
@@ -4392,7 +4392,7 @@ The most important step here is downloading and inspecting before you run.
 
 ##### Doppelganger Packages {#web-applications-countermeasures-consuming-free-and-open-source-keeping-safe-doppelganger-packages}
 
-As with [Doppelganger Domains](#network-identify-risks-doppelganger-domains), people often mistype what they want to install. There is likely someone who wants to do something malicious such as have consumers of your package destroy or modify their systems, send sensitive information to you, or any number of other malicious activities (ideally identified in the [Identify Risks](#web-applications-identify-risks-consuming-free-and-open-source) section. Doppelganger packages are an excellent avenue for increased likelihood that someone will install your malicious package by mistyping the name of it with the name of another package that has a very similar name. I covered this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation, with demos.
+As with [Doppelganger Domains](#network-identify-risks-doppelganger-domains), people often mistype what they want to install. There is likely someone who wants to do something malicious such as have consumers of your package destroy or modify their systems, send sensitive information to you, or any number of other malicious activities (ideally identified in the [Identify Risks](#web-applications-identify-risks-consuming-free-and-open-source) section). Doppelganger packages are an excellent avenue for increased likelihood that someone will install your malicious package by mistyping the name of it with the name of another package that has a very similar name. I covered this in my ["0wn1ng The Web"](https://speakerdeck.com/binarymist/0wn1ng-the-web-at-www-dot-wdcnz-dot-com) presentation, with demos.
 
 Make sure you are typing the correct package name. Copy -> Pasting works.
 
@@ -4459,7 +4459,7 @@ RetireJS has the following:
 
         {linenos=off}
             public/plugins/jquery/jquery-1.4.4.min.js
-            ? jquery 1.4.4.min has known vulnerabilities:
+            ↳ jquery 1.4.4.min has known vulnerabilities:
             http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969
             http://research.insecurelabs.org/jquery/test/
             http://bugs.jquery.com/ticket/11290
