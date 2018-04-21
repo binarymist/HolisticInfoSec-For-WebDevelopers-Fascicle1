@@ -689,7 +689,7 @@ which would form the following query:
 {linenos=off, lang="XQuery"}
     doc("users.xml")/userlist/user[uname="something" or ""=""]
 
-which, upon execution, would yield all of the users.
+which, upon execution would yield all of the `user`s.
 
 Also, keep in mind that XQuery [has an extension](https://www.mssqltips.com/sqlservertip/2738/examples-of-using-xquery-to-update-xml-data-in-sql-server/) called the XML Data Modification Language ([DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)), which is commonly used to update (`insert`, `delete` and `replace value of`) XML documents.
 
@@ -784,8 +784,8 @@ This is also brought to light by the OWASP Top 10 risks "[_No. 2 Broken Authenti
 In this category of attacks, your attacker could be someone known by you, or someone you do not know. It may be somebody already with an account, perhaps an insider maybe looking to take the next step such as privilege escalation, or just an alteration giving them access to different resources by way of acquiring other accounts. Some possible attack vectors could be:
 
 * Password acquisition: by way of datastore theft (off-line attack) or poor password hashing strategies (susceptible to off-line and on-line attacks), discussed in the Countermeasures section but in more depth in the Management of Application Secrets sections
-* Passwords or session IDs traveling over unsecured channels susceptible to Man In the Middle (MItM) attacks, discussed in the Countermeasures section. Also refer to the TLS Downgrade sections of the Network chapter
-* Buggy Session Management, Session IDs exposed in URLs
+* Passwords or Session Ids traveling over unsecured channels susceptible to Man In the Middle (MItM) attacks, discussed in the Countermeasures section. Also refer to the TLS Downgrade sections of the Network chapter
+* Buggy Session Management, Session Ids exposed in URLs
 * Faulty logout (not invalidating authentication tokens)
 * Faulty remember me functionality
 * Long session timeouts can exacerbate other weak areas of defence

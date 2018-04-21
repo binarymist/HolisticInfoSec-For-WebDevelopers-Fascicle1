@@ -689,23 +689,23 @@ which would form the following query:
 {linenos=off, lang="XQuery"}
     doc("users.xml")/userlist/user[uname="something" or ""=""]
 
-which upon execution would yield all of the `user`s.
+which, upon execution would yield all of the `user`s.
 
 Also, keep in mind that XQuery [has an extension](https://www.mssqltips.com/sqlservertip/2738/examples-of-using-xquery-to-update-xml-data-in-sql-server/) called the XML Data Modification Language ([DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml)), which is commonly used to update (`insert`, `delete` and `replace value of`) XML documents.
 
 #### LDAP Injection {#web-applications-identify-risks-ldap-injection}
 
-The same generic injection information is applicable to LDAP
+The same generic injection information is applicable to LDAP.
 
 [Successful LDAP injection](https://www.owasp.org/index.php/LDAP_Injection_Prevention_Cheat_Sheet#Introduction) attacks could result in granting permissions to unauthorised queries and/or adding, deleting or modifying of entries in the LDAP tree. Because LDAP is used extensively for user authentication, this is a particularly viable area for attackers.
 
-As we have discussed, the usage of metacharacters in [XML Injection](#web-applications-identify-risks-xml-injection), LDAP search filter metacharacters [can be injected](https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary) into the dynamic parts of the queries and thus executed by the application. 
+As per our discussion of the use of metacharacters in [XML Injection](#web-applications-identify-risks-xml-injection), LDAP search filter metacharacters [can be injected](https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006)#Summary) into the dynamic parts of the queries, and thus executed by the application. 
 
 LDAP uses [Polish notation](https://en.wikipedia.org/wiki/Polish_notation) (PN), or normal Polish notation (NPN), or simply prefix notation, which has the distinguishing feature of placing operators to the left of their operands.
 
-One of the canonical examples, is when a web application takes the users credentials and verifies their authenticity. If successful, the user is then authenticated and granted access to specific resources.
+One of the canonical examples is noted when a web application takes user credentials and verifies their authenticity. If successful, the user is then authenticated, and granted access to specific resources.
 
-The LDAP filter used to check whether the supplied username and password of a user is correct, might look similar to the following:
+The LDAP filter used to check whether the supplied username and password of a user is correct might look similar to the following:
 
 {linenos=off}
     string ldapLoginQuery = "(&(uId="jdeer")(userPassword="3xp10it3d"))";
@@ -725,32 +725,32 @@ the search filter would look similar to the following:
 {linenos=off}
     string ldapLoginQuery = "(&(uId="jdeer")(&))("")(userPassword="incorrectpass"))";
 
-The `(&)` we used that did not contain any embedded filters is called the [LDAP true filter](https://docs.oracle.com/cd/E19476-01/821-0510/def-and-search-filter.html), and will always match any target entry. This allows the attacker to compare a valid `uid` with `true`, the attacker can subsequently use any password as [only the first filter](https://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf) is processed by the LDAP server.
+The `(&)` we used, that did not contain any embedded filters, is called the [LDAP true filter](https://docs.oracle.com/cd/E19476-01/821-0510/def-and-search-filter.html), and will always match any target entry. This allows the attacker to compare a valid `uid` with `true`; the attacker can subsequently use any password as [only the first filter](https://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf) is processed by the LDAP server.
 
 ### Captcha
 ![](images/ThreatTags/easy-verywidespread-easy-low.png)
 
-Lack of captchas are a risk, but so are captchas themselves...
+Lack of captchas are a risk, but so are captchas themselves.
 
 What is the problem here? What are we trying to stop?
 
-Bots submitting. Whatever it is, whether it's advertising, creating an unfair advantage over real humans, link creation in attempt to increase SEO, malicious code insertion, you are more than likely not interested in accepting it.
+Perhaps it's bots submissions. Whatever it is, whether it's advertising, creating an unfair advantage over real humans, link creation in attempt to increase SEO, or malicious code insertion, you are more than likely not interested in accepting it.
 
-We do not want to block people submitting genuinely innocent input. If a person is prepared to fill out a form manually, even if it is spam, then a person can view the submission and very quickly delete the validated, filtered and possibly sanitised message.
+We do not want to block people submitting genuinely safe input. If a person is prepared to fill out a form manually, even if it is spam, then a person can view the submission and very quickly delete the validated, filtered and possibly sanitised message.
 
 ### Management of Application Secrets {#web-applications-identify-risks-management-of-application-secrets}
 
 Also consider reviewing the [Storage of Secrets](#cloud-identify-risks-storage-of-secrets) subsections in the Cloud chapter.
 
-* Passwords and other secrets for things like data-stores, syslog servers, monitoring services, email accounts and so on can be useful to an attacker to compromise data-stores, obtain further secrets from email accounts, file servers, system logs, services being monitored, etc, and may even provide credentials to continue moving through the network compromising other machines.
-* Passwords and/or their hashes travelling over the network.
+* Passwords and other secrets for datastores, syslog servers, monitoring services, email accounts, and so on, can be useful to an attacker to compromise datastores, obtain further secrets from email accounts, file servers, system logs, services being monitored, etc. These may even provide credentials to continue moving through the network compromising other machines.
+* Passwords and/or their hashes traveling over the network.
 
 #### Datastore Compromise {#web-applications-identify-risks-management-of-application-secrets-data-store-compromise}
 ![](images/ThreatTags/difficult-widespread-average-moderate.png)
 
-The reason I have tagged this as moderate is because if you take the countermeasures, it doesn't have to be a disaster.
+I have tagged this as moderate because, if you take the countermeasures, it doesn't have to be a disaster.
 
-The New Zealand Intelligence Service [told](http://www.stuff.co.nz/national/politics/73704551/homegrown-threats-more-serious-says-spy-boss-rebecca-kitteridge) New Zealand's previous Prime Minister John Key, that one of the 6 top threats facing New Zealand is a "_Cyber attack or loss of information and data, which poses financial and reputational risks._"
+The New Zealand Intelligence Service [told](http://www.stuff.co.nz/national/politics/73704551/homegrown-threats-more-serious-says-spy-boss-rebecca-kitteridge) New Zealand's previous Prime Minister John Key that one of the 6 top threats facing New Zealand is a "_Cyber attack or loss of information and data, which poses financial and reputational risks._"
 
 There are numerous examples of datastore compromise that happen on a daily basis. If only organisations put in place what I outlined in the countermeasures section, then millions of users would not have their identifies stolen. Sadly the advice security expets suggest is rarely followed. What happened in the Ashley Madison debacle is a very good example, as Ashley Madison's entire business relied on its commitment to keep its clients (37 million of them) data secret, and provide their clients discretion and anonymity. 
 
@@ -762,17 +762,17 @@ There are numerous examples of datastore compromise that happen on a daily basis
 
 > Dark Reading
 
-Another notable datastore compromise is [LinkedIn](https://en.wikipedia.org/wiki/2012_LinkedIn_hack) where 6.5 million user accounts where compromised and 95% of the users passwords cracked within days. Why so fast? Because they used simple hashing, specifically SHA-1. Also when [EBay](http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-employee-credentials-/d/d-id/1269093) got hacked affecting their 145 million active buyers. Many others coming to light regularly.
+Another notable datastore compromise is [LinkedIn](https://en.wikipedia.org/wiki/2012_LinkedIn_hack) where 6.5 million user accounts where compromised and 95% of the users passwords cracked within days. Why so fast? Because they used simple hashing, specifically SHA-1. Another is when [EBay](http://www.darkreading.com/attacks-breaches/ebay-database-hacked-with-stolen-employee-credentials-/d/d-id/1269093) were hacked affecting their 145 million active buyers. Many others come to light regularly.
 
 Are you using well salted and quality strong key derivation functions (KDFs) for all of your sensitive data? Are you making sure you are notifying your customers about using high quality passwords? Are you informing them what a high quality password is? Consider checking new user credentials against a list of the most frequently used and insecure passwords collected. I have discussed Password Lists in the Tooling Setup chapter. You could also use wordlists targeting the most commonly used passwords, or create an algorithm that works out what an easy to guess password looks like, and inform the user that their password would be easy to guess by an attacker.
 
 #### Cracking {#web-applications-identify-risks-management-of-application-secrets-cracking}
 
-Password profiling was covered in the People chapter where we talked about how we essentially make good guesses, both manually and by using profiling tools around the end users passwords, and then feed the short-list to a brute forcing tool. Here we already have the password hashes, we just need to find the source passwords that created the hashes. This is where cracking comes in.
+Password profiling was covered in the People chapter where we talked about how we essentially make good guesses, both manually and by using profiling tools around the enduser's passwords, and then feed the short-list to a brute forcing tool. Here we already have the password hashes, we just need to find the source passwords that created the hashes. This is where cracking comes in.
 
-When an attacker acquires a data-store or domain controller dump of hashed passwords, they will need to crack the hashes in order to get the passwords. This works when an attacker finds or creates a suitable wordlist of possible passwords. The tool used in attempting to create a hash of each of these passwords, is based on the hashing algorithm used on the dump of hashes. Then compare each dumped hash with the hashes just created and when a match is found, we know that the password in our wordlist was used to create the hash and what matches the dumped hash is in fact a legitimate password.
+When an attacker acquires a datastore or domain controller dump of hashed passwords, they will need to crack the hashes in order to acquire the passwords. This works when an attacker finds or creates a suitable wordlist of possible passwords. The tool used in attempting to create a hash of each of these passwords is based on the hashing algorithm used on the dump of hashes. Then compare each dumped hash with the hashes just created and when a match is found, we know that the password in our wordlist was used to create the hash, and what matches the dumped hash is in fact a legitimate password.
 
-A smaller wordlist takes less time to create the hashes, as this is often an off-line attack. A larger wordlist is often preferred over the smaller one, as a greater number of hashes is generated, increasing the likelihood of a greater number of matches.
+A smaller wordlist takes less time to create the hashes, as this is often an offline attack. A larger wordlist is often preferred over the smaller one, as a greater number of hashes is generated, increasing the likelihood of a greater number of matches.
 
 As part of the hands on hack in the [SQLi](#web-applications-identify-risks-sqli) section, we obtained password hashes via SQL injection from the target web application DVWA (part of the OWASP Broken Web Application suite (VM)). We witnessed how an attacker could obtain the passwords from the hashed values retrieved from the database.
 
@@ -781,22 +781,22 @@ As part of the hands on hack in the [SQLi](#web-applications-identify-risks-sqli
 
 This is also brought to light by the OWASP Top 10 risks "[_No. 2 Broken Authentication and Session Management_](https://www.owasp.org/index.php/Top_10_2017-A2-Broken_Authentication_and_Session_Management)".
 
-In this category of attacks, your attacker could be someone known by you, or someone you do not know. Possibly somebody already with an account; an insider maybe looking to take the next step which could be a privilege escalation or just an alteration so that they can have access to different resources by way of acquiring other accounts. Some possible attack vectors could be:
+In this category of attacks, your attacker could be someone known by you, or someone you do not know. It may be somebody already with an account, perhaps an insider maybe looking to take the next step such as privilege escalation, or just an alteration giving them access to different resources by way of acquiring other accounts. Some possible attack vectors could be:
 
-* Password acquisition: by way of data-store theft (off-line attack) or poor password hashing strategies (susceptible to off-line and on-line attacks), discussed in the Countermeasures section but in more depth in the Management of Application Secrets sections
-* Passwords or sessionIds travelling over unsecured channels susceptible to Man In the Middle (MItM) attacks, discussed in the Countermeasures section but also refer to the TLS Downgrade sections of the Network chapter
-* Buggy Session Management, SessionIds exposed in URLs
+* Password acquisition: by way of datastore theft (off-line attack) or poor password hashing strategies (susceptible to off-line and on-line attacks), discussed in the Countermeasures section but in more depth in the Management of Application Secrets sections
+* Passwords or Session Ids traveling over unsecured channels susceptible to Man In the Middle (MItM) attacks, discussed in the Countermeasures section. Also refer to the TLS Downgrade sections of the Network chapter
+* Buggy Session Management, Session Ids exposed in URLs
 * Faulty logout (not invalidating authentication tokens)
 * Faulty remember me functionality
-* Long session time-outs can exacerbate other weak areas of defence
+* Long session timeouts can exacerbate other weak areas of defence
 * Secret questions
 * Updating account details
 
 In the Countermeasures section I will go through some mature and well tested libraries, plus other technologies, and details around making them fit into a specific business architecture.
 
-Consider what data could be exposed from any of the accounts and how this could be used to gain a foot hold to launch further alternative attacks. Each step allowing the attacker to move closer to their ultimate target, the ultimate target being something hopefully discussed during the Asset Identification phase or taking another iteration of it as you learn and think of additional possible targeted assets.
+Consider what data could be exposed from any of the accounts and how this could be used to gain a foot hold to launch further alternative attacks. Each step allows the attacker to move closer to their ultimate target, the ultimate target being something hopefully discussed during the Asset Identification phase. Conduct another iteration of it as you learn and think of additional possible targeted assets.
 
-Often the line between the following two concepts gets blurred, sometimes because where one starts and one ends is often not absolute or clear, and sometimes intentionally. Neither help new comers and even those used to working with the concepts get to grips with which is which and what the responsibilities of each include.
+Often the line between the following two concepts gets blurred, sometimes because where one starts and one ends is often not absolute or clear, and sometimes intentionally. Neither help newcomers, and even those used to working with the concepts struggle to come to terms with which is which and what the responsibilities of each include.
 
 #### What is Authentication
 
