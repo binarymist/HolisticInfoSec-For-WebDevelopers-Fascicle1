@@ -1392,8 +1392,7 @@ There are numerous types of escaping you may need to know about depending on whe
 
 1. HTML Escape
 2. Attribute Escape
-3. JavaScript Escape
-  1. HTML Escape JSON values in HTML context
+3. JavaScript Escape. Including HTML Escape JSON values in HTML context
 4. CSS Escape
 5. URL Escape
 6. Sanitise HTML
@@ -2673,9 +2672,9 @@ A>
 A> Without sanitisation, things are a lot simpler.
 A>
 
-For the next example, we use a single page app. Switching to `jQuery.validator` on the client side and `express-form` on the server side. Our example is a simple contact form. I have only shown the parts relevant to validation and filtering.
+For the next example, we use a single page app, switching to `jQuery.validator` on the client side and `express-form` on the server side. Our example is a simple contact form. I have only shown the parts relevant to validation and filtering.
 
-Once the jQuery plugin (which is a module) `validate` is loaded, jQuery is passed to it. The plugin extends the jQuery prototype with its `validate` method. Our contact.js script then loads in the browser. We then call `ContactForm.initContactForm();`. ContactForm is immediately invoked and returns an object, of which we call `initContactForm()` on.
+Once the jQuery plugin (which is a module) `validate` is loaded, jQuery is passed to it. The plugin extends the jQuery prototype with its `validate` method. Our contact.js script then loads in the browser. We then call `ContactForm.initContactForm();`. ContactForm is immediately invoked and returns an object, upon which we call `initContactForm()`.
 
 We add a custom validation function to our `validator` by way of `addMethod`. This function will take the value being tested, the element itself and a regular expression to test against. You can see we use this function when we pass our rules within the `options` object to `validate` which internally passes them to its `validator`.
 
@@ -2765,7 +2764,7 @@ There are many other options you can provide. I think the code is fairly self ex
        };
     }();
 
-Shifting our attention to the server side now. First up we have got the home route of the single page app. Within the home route, we have also got the `/contact` route which uses the `express-form` middleware. You can see the middleware first in action on line 82.
+Shifting our attention to the server side now, we have the home route of the single page app. Within the home route, we also have the `/contact` route which uses the `express-form` middleware. You can see the middleware first in action on line 82.
 
 {title="routes/home.js", linenos=on, lang=JavaScript}
     var logger = require('../util/logger');
@@ -2921,21 +2920,21 @@ Now our entry point into the application. We load routes on line 30.
        );
     });
 
-As I mentioned previously in the ["What is Validation"](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) section, some of the libraries seem confused about the differences between the practises of validation, filtering and sanitisation. For example `express-form` has sanitisation functions that are under their ["Filter API"](https://github.com/freewil/express-form#filter-api). 
-`entityEncode`, `entityDecode`, even the Type Coercion functions are actually sanitisation rather than filtering.
+As I mentioned previously in the ["What is Validation"](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) section, some of the libraries appear confused about the differences in the practises of validation, filtering, and sanitisation. For example, `express-form` has sanitisation functions that are under their ["Filter API"](https://github.com/freewil/express-form#filter-api). 
+`entityEncode`, `entityDecode`, even the Type Coercion functions are actually sanitising rather than filtering.
 
-Maybe it is semantics, but `toFloat`, `toInt`, ... `ifNull` are actually sanitisation functions.
+Maybe it's semantics, but `toFloat`, `toInt`, and `ifNull` are actually sanitisation functions.
 
-`trim`, ... is filtering, but `toLower`, ... is sanitisation again. These functions listed in the documentation under the Filter API should be in their specific sections.
+`trim` is filtering, but `toLower` is sanitisation again. These functions, listed in the documentation under the Filter API, should be in their specific sections to save confusion.
 
-Refer to the section [above](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) for a refresher on validation, filtering and sanitisation if you need it.
+Refer to the section [above](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) for a refresher on validation, filtering, and sanitisation if you need it.
 
 ##### Other things to think about {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about}
 
-* Try and make all of your specific input fields conform to well structured semantic types. Like dates, social security numbers, zip codes, email addresses, etc. This way the developer should be able to define a very strong validation, filtering and sanitisation (if needed) specification for each one. Thus making the task of assuring all input is safe before it reaches any execution contexts easier
-* If the input field comes from a fixed set of options, like a drop down list or radio buttons, then the input needs to match exactly one of the values offered to the user in the first place
+* Try and make all of your specific input fields conform to well structured semantic types, such as dates, social security numbers, zip codes, email addresses, etc. This way the developer should be able to define a very strong validation, filtering, and sanitisation (if needed) specification for each one. This makes the task of assuring all input is safe before it reaches any execution contexts easier
+* If the input field comes from a fixed set of options, such as a drop down list or radio buttons, then the input needs to match exactly one of the values offered to the user in the first place
 * Database accounts (in fact all accounts) should use [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege)
-* Well structured data, like dates, social security numbers, zip codes, email addresses, etc. then the developer should be able to define a very strong validation pattern
+* Well structured data, such as dates, social security numbers, zip codes, email addresses, etc. then the developer should be able to define a very strong validation pattern
 
 #### Cross-Site Scripting (XSS) {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-cross-site-scripting}
 
@@ -2944,7 +2943,7 @@ This is a place holder section. The countermeasures are covered in the [Lack of 
 ### Cross-Site Request Forgery (CSRF)
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-CSRF syncroniser/challenge tokens are one approach commonly used to help defend against CSRF. This approach should also be used with other techniques like Identifying the source origin by checking the Origin and Referer headers, along with other useful techniques that have been well documented in the [OWASP CSRF Prevention Cheat Sheet](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet). Also the [OWASP CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) page has links to many useful resources, also check the [Additional Resources](#additional-resources-countermeasures-for-csrf) chapter.
+CSRF syncroniser/challenge tokens are one approach commonly used to help defend against CSRF. This approach should also be used with other techniques like Identifying the source origin by checking the Origin and Referer headers, along with other useful techniques that have been well documented in the [OWASP CSRF Prevention Cheat Sheet](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet). Also the [OWASP CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) page has links to many useful resources. Also, check the [Additional Resources](#additional-resources-countermeasures-for-csrf) chapter.
 
 With the CSRF syncroniser/challenge token pattern, a token (often called the CSRF syncroniser/challenge token) is sent as part of a response to a legitimate request from a client browser. The application on the client side holds this syncroniser/challenge token and sends it on subsequent requests to the legitimate website.
 
@@ -2977,40 +2976,40 @@ To enable this CSRF middleware, simply uncomment the CSRF fix in the NodeGoat [s
        next(); 
     }); 
 
-You can see and play with all this at [https://nodegoat.herokuapp.com/tutorial/](https://nodegoat.herokuapp.com/tutorial/a8)
+You can experiment with all this at [https://nodegoat.herokuapp.com/tutorial/](https://nodegoat.herokuapp.com/tutorial/a8)
 
-Also check the "[Securing Sessions](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions)" countermeasures section along with the "[Lack of Authentication, Authorisation and Session Management](#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management)" Risks that Solution Causes section for pertinent information. 
+Check the "[Securing Sessions](#web-applications-countermeasures-lack-of-authentication-authorisation-session-management-securing-sessions)" countermeasures section, along with the "[Lack of Authentication, Authorisation and Session Management](#web-applications-risks-that-solution-causes-lack-of-authentication-authorisation-and-session-management)" Risks that Solution Causes section for pertinent information. 
 
-Other techniques such as requiring the user to reauthenticate, or even providing [CAPTCHA](#web-applications-countermeasures-captcha)'s are often used, although I am not a fan of such techniques. I fail to see why we as developers should make our problems the users. We need to make sure we make it hard enough for the attackers that the end user is not affected.
+Other techniques such as requiring the user to reauthenticate, or providing [CAPTCHA](#web-applications-countermeasures-captcha)'s are often used, although I am not a fan of such techniques. I fail to see why we as developers should make our problems the user's. We need to make sure we make it hard enough for the attackers that the enduser is not affected.
 
-As an end user, make sure you invalidate your authentication by logging out or deleting your session cookies when you finish working with a website that requires authentication or move away from the browser, then the browser will be unable to send authentication as part of a CSRF attack.
+As an enduser, make sure you invalidate your authentication by logging out or deleting your session cookies when you finish working with a website that requires authentication, or leave the browser, which will then be unable to send authentication as part of a CSRF attack.
 
 ### [Injection](https://www.owasp.org/index.php/Top_10_2017-A1-Injection) {#web-applications-countermeasures-injection}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Usually the most effective technique for determining if/where your application is vulnerable to injection attacks, is to review your code for all calls out to external resources, including interpreters, and determine whether the data you are passing is untrusted.
+Usually the most effective technique for determining if/where your application is vulnerable to injection attacks is to review your code for all calls out to external resources, including interpreters, and determine whether the data you are passing is untrusted.
 
-If you can avoid external interpreters altogether, then they can no longer be tricked into executing untrusted data, whether directly or indirectly from untrusted actors or even stored.
+If you can avoid external interpreters altogether, then they can no longer be tricked into executing untrusted data, whether directly or indirectly from untrusted actors, or even stored.
 
 Use a parametrised API for the specific technology you are working with, whether it be SQL, NoSQL, execution of Operating System commands, XML, XPath, XSLT, XQuery, LDAP, etc. 
 
-Similarly to the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) section, validation, filtering, sanitisation, and [constraining](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about) all untrusted data to well structured semantic types is also necessary. Granularly isolating and semantic typing each piece of untrusted data from the command or query allows you to tightly define constraints on what you expect each specific piece of data to conform too.
+Similar to the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) section, validation, filtering, sanitisation, and [constraining](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about) all untrusted data to well structured semantic types is also necessary. Granularly isolating and semantically typing each piece of untrusted data from the command or query allows you to tightly define constraints on what you expect each specific piece of data to conform too.
 
-Keep the principle of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) in mind during implementation. When any attacks are successful, how much damage can they currently do? By enforcing the least amount of privileges possible for the given operation, you are minimising the possible risk.
+Keep the principle of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege) in mind during implementation. When any attacks are successful, how much damage can they currently do? Enforcing the least amount of privileges possible for the given operation minimises the possible risk.
 
-Make sure the feedback and error messages that are provided on invalid input only provide the necessary detail that the user needs in order to provide correct input. Don't provide unnecessary details on internal workings: exceptions, stack traces, etc. Make sure you capture and handle internal errors in software, rather than letting them bubble to the user interface.
+Make sure the feedback and error messages that are provided on invalid input only provide the necessary detail that the user needs in order to provide correct input. Don't provide unnecessary details on internal workings: exceptions, stack traces, etc. Make sure you capture and handle internal errors in software, rather than letting them bubble up to the user interface.
 
 #### SQLi {#web-applications-countermeasures-sqli}
 
 There are a few options here:
 
-* Use prepared statements and/or parameterised queries with bind variables to take untrusted data if you have to deal with dynamic queries. Using bind variables not only help to diffuse SQL injection, but also improve performance by [20 to 30 percent](https://www.ibm.com/developerworks/library/se-bindvariables/) by allowing the same execution plan to be used even though the arguments supplied may be different.
+* Use prepared statements and/or parameterised queries with bind variables to take untrusted data if you have to deal with dynamic queries. Using bind variables not only helps diffuse SQL injection, but also improve performance by [20 to 30 percent](https://www.ibm.com/developerworks/library/se-bindvariables/) in allowing the same execution plan to be used even though the arguments supplied may be different.
 * Consider using parameterised Stored Procedures, but also review the code within to ensure that the parameters are being handled with semantic typing at a minimum. Concatenating parameters and the use of `exec()` within stored procedures can be prone to SQLi exploitation
 * Read up on the [OWASP SQLi Prevention Cheat Sheet](https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet)
-* Even before doing any of these points above, make sure you have the generic input [Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic) that we have already covered. So all user input is validated, filtered and sanitised, both the client and server side, before it gets anywhere near your queries
-* ORMs, such as Hibernate with its Query Language (HQL) is not safe unless you use named parameters
+* Before doing any of the above, make sure you have the generic input [Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic) that we have already covered so all user input is validated, filtered, and sanitised, both the client and server side, before it gets anywhere near your queries
+* ORMs, such as Hibernate with its Query Language (HQL), are not safe unless you use named parameters
 
-There are plenty of resources around that are easy to find and understand on the Internet for SQLi mitigations and countermeasures which are generally very easy to implement.
+There are plenty of resources that are easy to find and understand on the Internet for SQLi mitigations and countermeasures which are generally very easy to implement.
 
 #### NoSQLi {#web-applications-countermeasures-nosqli}
 
@@ -3018,50 +3017,50 @@ Take the advice from the generic [Injection](#web-applications-countermeasures-i
 
 For any dynamic queries, rather than piecing together strings with unvalidated user input, use prepared statements with strongly defined semantic types allowing you to use as short as possible white list of allowed characters. Then follow up with filtering and sanitisation of any characters that must be allowed through.
 
-Queries can be formatted in many different types of conventions depending on the type of NoSQL data store, such as [XML, JSON, LINQ, etc](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary). As well as these execution contexts, there will also be the execution contexts of the application itself before the untrusted data reaches the particular type of NoSQL data store API. This means, as discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section on the Lack of Input Validation, Filtering and Sanitisation section of Identify Risks, you must validate, filter and sanitise based on **all** of the execution contexts that the untrusted data may pass through. With NoSQL this is usually far more tedious.
+Queries can be formatted in many different types of conventions, depending on the type of NoSQL data store, such as [XML, JSON, LINQ, etc](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Summary). As well as these execution contexts, there will also be the execution contexts of the application itself before the untrusted data reaches the particular type of NoSQL data store API. This means, as discussed in the "[What is Sanitisation](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-sanitisation)" section on the Lack of Input Validation, Filtering, and Sanitisation section of Identify Risks, you must validate, filter, and sanitise based on **all** of the execution contexts that the untrusted data may pass through. With NoSQL this is usually far more tedious.
 
 Countermeasures will need to be carefully thought about once the type of NoSQL data store syntax, data model, and programming language(s) used throughout the application are thoroughly understood.
 
-Ideally the NoSQL client library you decide to use will provide the logic to perform validation on characters that are potentially dangerous in the execution context of the NoSQL library. It may also provide some filtering, but you will often have to provide some configuration to help it know what you want. Ideally the NoSQL client library will also provide sanitisation for its own execution context. As discussed above, you will still need to define your own semantic types, white lists for the semantic types, filtering and sanitisation for your application specific execution contexts that the NoSQL client library has no knowledge of. 
+Ideally, the NoSQL client library you decide to use will provide the logic to perform validation on characters that are potentially dangerous in the execution context of the NoSQL library. It may also provide some filtering, but you will often have to provide some configuration to help it know what you want. The NoSQL client library should also provide sanitisation for its own execution context. As discussed above, you will still need to define your own semantic types, whitelists for the semantic types, filtering, and sanitisation for your application-specific execution contexts that the NoSQL client library has no knowledge of. 
 
 In regards to **MongoDB** (one of the 225 + types of NoSQL data stores):
 
 Server-side execution of JavaScript can be disabled by passing the `--noscripting` option on the command line or setting [`security.javascriptEnabled`](https://docs.mongodb.com/manual/reference/configuration-options/#security.javascriptEnabled) to `false` in the configuration file, which stops you executing legitimate JavaScript operations. These are not defaults, so you must read the documentation of the type of NoSQL data store you are working with. Turning JavaScript off in this manner may be quite debilitating.
 
-MongoDB attempts to [address injection](https://docs.mongodb.com/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection) by using Binary JSON ([BSON](http://bsonspec.org/))
+MongoDB attempts to [address injection](https://docs.mongodb.com/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection) by using Binary JSON ([BSON](http://bsonspec.org/)).
 
-Just as the MongoDB [docs say](https://docs.mongodb.com/manual/faq/fundamentals/#javascript): You need to exercise care in these cases to prevent users submitting malicious JavaScript. Most queries can be expressed without JavaScript, and for those that require JavaScript, both JavaScript and non-JavaScript can be mixed into a query, placing the untrusted data into BSON fields and trusted JavaScript into the `$where` property value.
+Per the MongoDB [documentation](https://docs.mongodb.com/manual/faq/fundamentals/#javascript): You need to exercise care in these cases to prevent users submitting malicious JavaScript. Most queries can be expressed without JavaScript, and for those that require JavaScript, both JavaScript and non-JavaScript can be mixed into a query, placing the untrusted data into BSON fields and trusted JavaScript into the `$where` property value.
 
-So in essence, make sure you read and understand your NoSQL data store documentation before building your queries.
+In essence, make sure you read and understand your NoSQL data store documentation before building your queries.
 
-Looking at the MongoDB query example from the [Risks](#web-applications-identify-risks-nosqli) section, the untrusted users password should be inserted to the query only after being processed by your Key Derivation Function ([KDF](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)), this would mitigate any JavaScript being inserted into the password property. The username should only permit alphanumeric characters.
+Looking at the MongoDB query example from the [Risks](#web-applications-identify-risks-nosqli) section, the untrusted user's password should be inserted to the query only after being processed by your Key Derivation Function ([KDF](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)). This mitigates any JavaScript being inserted into the password property. The username should only permit alphanumeric characters.
 
 #### Command Injection {#web-applications-countermeasures-command-injection}
 
-On top of the points mentioned above under [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation), your greatest defence is to think through the path of where untrusted data flows, carefully considering each execution context you encounter.
+In addition to the points mentioned above under [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation), your greatest defence is to think through the path of where untrusted data flows, carefully considering each execution context you encounter.
 
-Untrusted data should [never be inserted](https://blog.binarymist.net/2012/12/19/javascript-coding-standards-and-guidelines/#JavaScript-evalisEvil) to `eval`, `setTimeout`, `setInterval` or as the last argument to `Function` without properly validating, filtering, and sanitising if required. It is generally [not good practise](https://blog.binarymist.net/2013/07/06/javascript-object-creation-patterns/#object-creation-via-constructor) to use the `Function` constructor anyway. I have [written](https://blog.binarymist.net/2011/08/17/function-declarations-vs-function-expressions/) about this on several [occasions](https://blog.binarymist.net/2014/05/31/javascript-closures/#what-are-closures).
+Untrusted data should [never be inserted](https://blog.binarymist.net/2012/12/19/javascript-coding-standards-and-guidelines/#JavaScript-evalisEvil) to `eval`, `setTimeout`, `setInterval`, or as the last argument to `Function` without properly validating, filtering, and sanitising, if required. It is generally [not good practise](https://blog.binarymist.net/2013/07/06/javascript-object-creation-patterns/#object-creation-via-constructor) to use the `Function` constructor regardless. I have [written](https://blog.binarymist.net/2011/08/17/function-declarations-vs-function-expressions/) about this on several [occasions](https://blog.binarymist.net/2014/05/31/javascript-closures/#what-are-closures).
 
 The NodeGoat Web Application also provides a very minimal [countermeasure example](https://github.com/OWASP/NodeGoat/blob/b475010f2de3d601eda3ad2498d9e6c729204a09/app/routes/contributions.js#L30-L32)
 
-If you are still constrained to using ES5 and earlier, then add [`use strict`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode) mode to the beginning of your function bodies, MDN provides [details](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode#Securing_JavaScript) of how it helps secure your JavaScirpt environment.
+If you are still constrained to using ES5 and earlier, then add [`use strict`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode) mode to the beginning of your function bodies, MDN provides [details](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Strict_mode#Securing_JavaScript) on how it helps secure your JavaScirpt environment.
 
 #### XML Injection {#web-applications-countermeasures-xml-injection}
 
-First of all, as discussed in the generic [Injection](#web-applications-countermeasures-injection) section above, your application should validate, filter and sanitise all untrusted data before incorporating it into an XML document. If you can:
+First of all, as discussed in the generic [Injection](#web-applications-countermeasures-injection) section above, your application should validate, filter, and sanitise all untrusted data before incorporating it into an XML document. If you can:
 
-1. Validate out as many XML metacharacters as possible, and sanitise those that must be accepted depending on their execution contexts. All discussed in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) Countermeasures section
+1. Validate (eliminate) out as many XML metacharacters as possible, and sanitise those that must be accepted, depending on their execution contexts, as discussed in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation) Countermeasures section
 2. Constrain untrusted data to well structured semantic types, as discussed in the [Lack of Input Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about) Countermeasures section
 
 Use **local static**: Document Type Definitions (DTDs) or better, [XML Schemas](http://www.ws-attacks.org/XML_Injection#Attack_mitigation_.2F_countermeasures). This will mitigate XXE attacks.
 
-If the XML parser you are using is vulnerable to XXE attacks by default, investigate disabling the XML parsers ability to follow all external resource inclusions, often available by flags. If the ability to disable the following of external resource inclusions is not available, consider using an alternative library. Failing that, make sure your untrusted data is validated, filtered and sanitised by a secure parser before passing to the defective parser.
+If the XML parser you are using is vulnerable to XXE attacks by default, investigate disabling the XML parsers ability to follow all external resource inclusions, often available by flags. If the ability to disable external resource inclusion following is not available, consider using an alternative library. Failing that, make sure your untrusted data is validated, filtered, and sanitised by a secure parser before passing to the defective parser.
 
 OWASP also has an XML External Entity (XXE) Prevention [Cheat Sheet](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet) that is quite useful.
 
 #### XSLT Injection {#web-applications-countermeasures-xslt-injection}
 
-All [mitigations discussed](https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf) and explored in the excellent paper by Emanuel Duss and Roland Bischofberger presented at an OWASP Switzerland meeting.
+All [mitigations discussed](https://www.owasp.org/images/a/ae/OWASP_Switzerland_Meeting_2015-06-17_XSLT_SSRF_ENG.pdf) are explored in the excellent paper by Emanuel Duss and Roland Bischofberger presented at an OWASP Switzerland meeting.
 
 #### XPath Injection {#web-applications-countermeasures-xpath-injection}
 
@@ -3071,7 +3070,7 @@ By performing some simple validation, the attacker is no longer able to escape t
 
 Try to use a language library that supports parameterised queries. If the language you code in does not have support or libraries available with a parameterised XPath interface, you will need to sanitise the untrusted data being inserted to any dynamically constructed queries. What ever type of quote you are using to delimit the untrusted input, you need to sanitise the same type of quote with the XML encoded derivative. I discussed this in the [Sanitisation using escaping](#sanitisation-using-escaping) code sample in the Types of Escaping section of Countermeasures. The OWASP [XPath Injection Defences](https://www.owasp.org/index.php/XPATH_Injection#XPath_Injection_Defenses) also goes over this.
 
-Also check the [Additional Resources](#additional-resources-countermeasures-for-xpath-injection) chapter for both identifying risks and countermeasures in regards to XPath injection.
+Also, check the [Additional Resources](#additional-resources-countermeasures-for-xpath-injection) chapter for both identifying risks and countermeasures in regards to XPath injection.
 
 #### XQuery Injection {#web-applications-countermeasures-xquery-injection}
 
@@ -3079,9 +3078,9 @@ Because XQuery is a superset of XPath with the SQL-like FLWOR expression abiliti
 
 #### LDAP Injection {#web-applications-countermeasures-ldap-injection}
 
-The same [generic injection countermeasures](#web-applications-countermeasures-injection) as well as many of the more specific countermeasures that we have already discussed, are applicable to LDAP also.
+The same [generic injection countermeasures](#web-applications-countermeasures-injection), as well as many of the more specific countermeasures that we have already discussed, are applicable to LDAP also.
 
-As part of your validation, define your semantic types for each dynamic section, this will help you define what is accepted as the white list of allowed characters for each untrusted section. If you can constrain what is an allowable character for your given semantic types, then this as in many cases (such as where a username is only allowed alphanumeric characters for example) will stop any potential characters being able to break out of the intended context and change the logic of the LDAP query. This is why we always put the validation -> filtering -> sanitisation in this order, because often the first step will catch everything.
+As part of your validation, define your semantic types for each dynamic section, this will help you define what is accepted as the white list of allowed characters for each untrusted section. If you can constrain what is an allowable character for your given semantic types, then this, as in many cases (such as where a username is only allowed alphanumeric characters for example), will stop any potential characters being able to break out of the intended context and change the logic of the LDAP query. This is why we always put the validation -> filtering -> sanitisation in this order, because often the first step will catch everything.
 
 For each semantic type of untrusted data, for any characters that pass the white list validation, define filters, and sanitise all of the following [validated characters](http://www.rlmueller.net/CharactersEscaped.htm):
 

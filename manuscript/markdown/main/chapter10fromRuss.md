@@ -2665,7 +2665,7 @@ And finally the API code we used to perform the sanitisation:
        }
     }
 
-top ,As you can see, there is a lot more work on the server side than the client side.
+As you can see, there is a lot more work on the server side than the client side.
 
 ##### Example in JavaScript and NodeJS {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-example-in-javascript-and-nodejs}
 
@@ -2779,7 +2779,7 @@ Shifting our attention to the server side now, we have the home route of the sin
 
     function index(req, res) {
        res.render('home', { title: 'Home', id: 'home', brand: 'your brand' });
-    }, we
+    }
 
     function validate() {
        return form(
@@ -2922,18 +2922,18 @@ Now our entry point into the application. We load routes on line 30.
     });
 
 As I mentioned previously in the ["What is Validation"](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) section, some of the libraries appear confused about the differences in the practises of validation, filtering, and sanitisation. For example, `express-form` has sanitisation functions that are under their ["Filter API"](https://github.com/freewil/express-form#filter-api). 
-In `entityEncode` and `entityDecode`, the Type Coercion functions are actually sanitising rather than filtering.
+`entityEncode`, `entityDecode`, even the Type Coercion functions are actually sanitising rather than filtering.
 
 Maybe it's semantics, but `toFloat`, `toInt`, and `ifNull` are actually sanitisation functions.
 
-`trim` is filtering, but `toLower` is sanitisation again. These functions, listed in the documentation under the Filter API, should be in their specific sections.
+`trim` is filtering, but `toLower` is sanitisation again. These functions, listed in the documentation under the Filter API, should be in their specific sections to save confusion.
 
 Refer to the section [above](#web-applications-identify-risks-lack-of-input-validation-filtering-and-sanitisation-generic-what-is-validation) for a refresher on validation, filtering, and sanitisation if you need it.
 
 ##### Other things to think about {#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic-other-things-to-think-about}
 
-* Try and make all of your specific input fields conform to well structured semantic types, such as dates, social security numbers, zip codes, email addresses, etc. This way the developer should be able to define a very strong validation, filtering, and sanitisation (if needed) specification for each one. This makes the task of assuring all input is safe before it reaches any execution contexts easier.
-* If the input field comes from a fixed set of options, such as a drop down list or radio buttons, then the input needs to match exactly the values offered to the user in the first place
+* Try and make all of your specific input fields conform to well structured semantic types, such as dates, social security numbers, zip codes, email addresses, etc. This way the developer should be able to define a very strong validation, filtering, and sanitisation (if needed) specification for each one. This makes the task of assuring all input is safe before it reaches any execution contexts easier
+* If the input field comes from a fixed set of options, such as a drop down list or radio buttons, then the input needs to match exactly one of the values offered to the user in the first place
 * Database accounts (in fact all accounts) should use [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege)
 * Well structured data, such as dates, social security numbers, zip codes, email addresses, etc. then the developer should be able to define a very strong validation pattern
 
@@ -3005,7 +3005,7 @@ Make sure the feedback and error messages that are provided on invalid input onl
 There are a few options here:
 
 * Use prepared statements and/or parameterised queries with bind variables to take untrusted data if you have to deal with dynamic queries. Using bind variables not only helps diffuse SQL injection, but also improve performance by [20 to 30 percent](https://www.ibm.com/developerworks/library/se-bindvariables/) in allowing the same execution plan to be used even though the arguments supplied may be different.
-* Consider using parameterised Stored Procedures, but also review the code within to ensure that the parameters are being handled with semantic typing at a minimum. Concatenating parameters and the use of `exec()` within stored procedures can be prone to SQLi exploitation.
+* Consider using parameterised Stored Procedures, but also review the code within to ensure that the parameters are being handled with semantic typing at a minimum. Concatenating parameters and the use of `exec()` within stored procedures can be prone to SQLi exploitation
 * Read up on the [OWASP SQLi Prevention Cheat Sheet](https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet)
 * Before doing any of the above, make sure you have the generic input [Validation, Filtering and Sanitisation](#web-applications-countermeasures-lack-of-input-validation-filtering-and-sanitisation-generic) that we have already covered so all user input is validated, filtered, and sanitised, both the client and server side, before it gets anywhere near your queries
 * ORMs, such as Hibernate with its Query Language (HQL), are not safe unless you use named parameters
@@ -3034,7 +3034,7 @@ Per the MongoDB [documentation](https://docs.mongodb.com/manual/faq/fundamentals
 
 In essence, make sure you read and understand your NoSQL data store documentation before building your queries.
 
-Looking at the MongoDB query example from the [Risks](#web-applications-identify-risks-nosqli) section, the untrusted user's password should be inserted to the query only after being processed by your Key Derivation Function ([KDF](#web-applications-countermeasures-datastore-compromise-which-kdf-to-use)). This mitigates any JavaScript being inserted into the password property. The username should only permit alphanumeric characters.
+Looking at the MongoDB query example from the [Risks](#web-applications-identify-risks-nosqli) section, the untrusted user's password should be inserted to the query only after being processed by your Key Derivation Function ([KDF](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)). This mitigates any JavaScript being inserted into the password property. The username should only permit alphanumeric characters.
 
 #### Command Injection {#web-applications-countermeasures-command-injection}
 
@@ -3065,7 +3065,7 @@ All [mitigations discussed](https://www.owasp.org/images/a/ae/OWASP_Switzerland_
 
 #### XPath Injection {#web-applications-countermeasures-xpath-injection}
 
-Follow the precautions discussed in the generic [Injection](#web-applications-countermeasures-injection) countermeasures section, when handling dynamically constructed queries. A little validation of untrusted data will go a long way. For example, the username should only contain alphanumeric characters, filtering to a maximum length sometimes helps. In the case of usernames, because we have created a semantic type, it is easy to apply the white list of allowed characters to the untrusted data before inserting to your XPath query. In regards to the password, it should be the result of the untrusted user input password once processed by your Key Derivation Function ([KDF](#web-applications-countermeasures-datastore-compromise-which-kdf-to-use)), only then should it be inserted to your XPath query. 
+Follow the precautions discussed in the generic [Injection](#web-applications-countermeasures-injection) countermeasures section, when handling dynamically constructed queries. A little validation of untrusted data will go a long way. For example, the username should only contain alphanumeric characters, filtering to a maximum length sometimes helps. In the case of usernames, because we have created a semantic type, it is easy to apply the white list of allowed characters to the untrusted data before inserting to your XPath query. In regards to the password, it should be the result of the untrusted user input password once processed by your Key Derivation Function ([KDF](#web-applications-countermeasures-data-store-compromise-which-kdf-to-use)), only then should it be inserted to your XPath query. 
 
 By performing some simple validation, the attacker is no longer able to escape the quotes and modify the intended logic of the query.
 
