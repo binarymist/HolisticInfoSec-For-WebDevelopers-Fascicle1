@@ -1,5 +1,15 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+## 2018-04-22
+
+### VPS
+
+Status: Technical edited, WIP general review
+
+### Web Applications
+
+Status: Done
+
 ## 2018-04-01
 
 ### Cloud
