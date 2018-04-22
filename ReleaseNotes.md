@@ -10,6 +10,11 @@ Status: Technical edited, WIP general review
 
 Status: Done
 
+### What's Left?
+
+* VPS general review -> Kim's acceptance and merge
+* Network general review -> Kim's acceptance and merge
+
 ## 2018-04-01
 
 ### Cloud
