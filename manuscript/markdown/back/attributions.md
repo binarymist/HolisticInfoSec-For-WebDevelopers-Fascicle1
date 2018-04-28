@@ -813,7 +813,7 @@ it-and-vulnerability-assessment/
 [http://man7.org/linux/man-pages/man1/nsenter.1.html](http://man7.org/linux/man-pages/man1/nsenter.1.html)
 
 **Understand container communication**  
-[https://docs.docker.com/engine/userguide/networking/default_network/container-communication/](https://docs.docker.com/engine/userguide/networking/default_network/container-communication/)
+[https://docs.docker.com/v17.09/engine/userguide/networking/default_network/container-communication/](https://docs.docker.com/v17.09/engine/userguide/networking/default_network/container-communication/)
 
 **The username must exist** in the `/etc/passwd` file, the `sbin/nologin` users are valid also  
 [https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine](https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine)
