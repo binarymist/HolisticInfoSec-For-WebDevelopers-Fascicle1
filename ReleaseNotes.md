@@ -1,5 +1,7 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+VPS has been general reviewed and edited, now waiting on Kim's acceptance and merge 
+
 ## 2018-04-22
 
 ### VPS
