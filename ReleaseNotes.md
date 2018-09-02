@@ -1,6 +1,14 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
-VPS has been [general reviewed and edited](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/pull/4), now waiting on Kim's acceptance and merge
+## 2018-09-02
+
+### VPS
+
+Status: [Done](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/pull/4)
+
+### Network
+
+Status: Technical edited, WIP general edit -> Kim's acceptance and merge 
 
 ## 2018-04-22
 
