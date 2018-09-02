@@ -1799,7 +1799,7 @@ The algorithm selected to be used for encrypting the connection is decided by bo
 
 Also known as public-key or key-pair encryption, utilises a pair of keys, one which is public and one which by design is to be kept private. You will see where this is used below when we set-up the SSH connection. Below are the most commonly used public-key algorithms: 
 
-* RSA (or Rivest-Shamir-Adleman is the most widely used asymmetric cipher and my preference at this point in time). RDA was claimed to be patented by Public Key Partners, Inc (PKP). The algorithm is now in the public domain, and was added to SSH-2 not long after its patent expired.
+* RSA (or Rivest-Shamir-Adleman is the most widely used asymmetric cipher and my preference at this point in time). RSA was claimed to be patented by Public Key Partners, Inc (PKP). The algorithm is now in the public domain, and was added to SSH-2 not long after its patent expired.
 * DH (Diffie-Hellman key agreement was the first public-key system published in open literature.) Invented in 1976 and patented in 1977, now expired and in the public domain. It allows two parties to derive a shared secret key (sounds similar to symmetric encryption, but it is not similar) securely over an open channel. "_The parties engage in an exchange of messages, at the end of which they share a secret key. It's not feasible for an eavesdropper to determine the shared secret merely from observing the exchanged messages. SSH-2 uses the DH algorithm as its required (and currently, its only defined) key-exchange method._"
 * DSA (or Digital Signature Algorithm was developed by the the National Security Agency (NSA), but covered up by NIST first claiming that it had designed DSA.). Was originally the only key-exchange method for SSH-2
 * ECDSA (or Elliptic Curve Digital Signature Algorithm), was accepted in 1999 as an ANSI standard, NIST and IEEE standards in 2000.
@@ -2013,7 +2013,7 @@ Start with the changes I list here. It is a good idea when you change things suc
     # noise if your web server is open to the internet, as many automated scanns target port 22.
     Port 202
 
-As you can see, these changes are very simple, but not so many people do not do it. Every positive security change you make to low hanging fruit elevates it that much higher for the attacker to reach, making it less economical for them.
+As you can see, these changes are very simple, but many people do not do it. Every positive security change you make to low hanging fruit elevates it that much higher for the attacker to reach, making it less economical for them.
 
 You can also consider installing and configuring [denyhosts](https://www.digitalocean.com/community/articles/how-to-install-denyhosts-on-ubuntu-12-04)
 
@@ -2031,7 +2031,7 @@ If you want to see successful logins, enter the following:
     # Or list the last logged in users from /var/log/wtmp unless modified by an attacker.
     last -ad
 
-If you are sending your logs off-site in real-time, it will not matter too much if the attacker tries to cover their tracks by modifying these types of files. If you are checking the integrity of your system files frequently with one of the Host Intrusion Detection Systems ([HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids))then you will know you are under attack, and will be able to take measures quickly, provided that you have someone engaged watching out for these attacks, as discussed in the People chapter of Fascicle 0 and further in this chapter. If your HIDS is on the same machine that is under attack, then it is quite likely that any decent attacker is going to find it before they start modifying files and somehow render it ineffective. That is where [Stealth](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth) shines, as it is so much harder to find where it is operating from, assuming the attacker even knows it is there.
+If you are sending your logs off-site in real-time, it will not matter too much if the attacker tries to cover their tracks by modifying these types of files. If you are checking the integrity of your system files frequently with one of the Host Intrusion Detection Systems ([HIDS](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids)), then you will know you are under attack, and will be able to take measures quickly, provided that you have someone engaged watching out for these attacks, as discussed in the People chapter of Fascicle 0 and further in this chapter. If your HIDS is on the same machine that is under attack, then it is quite likely that any decent attacker is going to find it before they start modifying files and somehow render it ineffective. That is where [Stealth](#vps-countermeasures-lack-of-visibility-host-intrusion-detection-systems-hids-deeper-with-stealth) shines, as it is so much harder to find where it is operating from, assuming the attacker even knows it is there.
 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-ssh-key-pair-authentication}
 **Key-pair Authentication**
@@ -2095,7 +2095,7 @@ If you want to SSH from your LAN host to your DMZ web server:
 
 Before you try that though, you will need to set up the port forwards and add the WAN and/or LAN rule to your router. How you do this will depend on what you are using for a router.
 
-I have blogged extensively over the years on SSH. In the Additional Resources chapter there are links to my resources which has a plethora of information on configuring and using SSH in many different ways.
+I have blogged extensively over the years on SSH. In the Additional Resources chapter there are links to my resources which have a plethora of information on configuring and using SSH in many different ways.
 
 **sshuttle**
 
@@ -2508,7 +2508,7 @@ You can also remove unused dependencies now, after you receive the following mes
  {linenos=off, lang=Bash}
     sudo apt-get -s autoremove
 
-I always want to simulate what is going to be removed because I am paranoid and have made stupid mistakes with auto-remove years ago, and that pain has stuck with me ever since. I once auto-removed a meta-package which depended on many other packages. A subsequent auto-remove for packages that had a sole dependency on the meta-package meant they would be removed. Yes, it was a painful experience. `/var/log/apt/history.log` has your recent apt history. I used this to piece back together my system.
+I always want to simulate what is going to be removed because I am paranoid and have made stupid mistakes with autoremove years ago, and that pain has stuck with me ever since. I once auto-removed a meta-package which depended on many other packages. A subsequent autoremove for packages that had a sole dependency on the meta-package meant they would be removed. Yes, it was a painful experience. `/var/log/apt/history.log` has your recent apt history. I used this to piece back together my system.
 
 Then follow up with the real thing: remove the `-s` and run it again. Just remember, the less packages your system has, the less code there is for an attacker to exploit.
 
@@ -2601,7 +2601,7 @@ As you can see, it is quite conceivable that a user may become confused as to wh
 
 One thing that you really do not want, when it comes to privacy, is confusion. When it comes to SFTP or any protocol over SSH, everything is encrypted, simple as that.
 
-Similar to a web server serving HTTPS with a public key certificate, an FTPS server will also respond with its public key certificate (keeping its private key private). The public key certificate responds which needs to be generated from a Certificate Authority (CA), whether it is one the server administrator has created (self signed), or a public "trusted" CA (often paid for). The CA (root) certificate must be copied and/or reside locally to the FTPS client. The checksum of the CA (root) certificate will need to be verified as well.
+Similar to a web server serving HTTPS with a public key certificate, an FTPS server will also respond with its public key certificate (keeping its private key private). The public key certificate it responds with needs to be generated from a Certificate Authority (CA), whether it is one the server administrator has created (self signed), or a public "trusted" CA (often paid for). The CA (root) certificate must be copied and/or reside locally to the FTPS client. The checksum of the CA (root) certificate will need to be verified as well.
 
 If the FTPS client does not already have the CA (root) certificate when the user initiates a connection, the FTPS client should generate a warning due to the fact that the CA (root) certificate is not yet trusted.
 
@@ -2623,7 +2623,7 @@ The CA root certificate must be removed from all clients, and you will need to g
 SSH not only offers excellent security, but is also extremely versatile.
 
 {#vps-countermeasures-disable-remove-services-harden-what-is-left-remove-ftp-scp}
-[**SCP**](https://blog.binarymist.net/2012/03/25/copying-with-scp/), or Secure Copy, leverages the security of SSH, and provides a simple copy to and from. Once you have SSH set-up and hardened, you are safe to pull and push files around your networks securely with SSH. The SFTP protocol provides remote file system capabilities, such as remote file deletion, directory listings, and resumption of interrupted transfers. If you do not require the additional features of (S)FTP, SCP may be a good option for you. Like SSH, SCP does not have native platform support on Windows, although Windows support is available, and easy enough to set up, as I [have done many times](https://blog.binarymist.net/2011/12/27/openssh-from-linux-to-windows-7-via-tunneled-rdp/).
+[**SCP**](https://blog.binarymist.net/2012/03/25/copying-with-scp/), or Secure Copy, leverages the security of SSH, and provides simple copy to and from. Once you have SSH set-up and hardened, you are safe to pull and push files around your networks securely with SSH. The SFTP protocol provides remote file system capabilities, such as remote file deletion, directory listings, and resumption of interrupted transfers. If you do not require the additional features of (S)FTP, SCP may be a good option for you. Like SSH, SCP does not have native platform support on Windows, although Windows support is available, and easy enough to set up, as I [have done many times](https://blog.binarymist.net/2011/12/27/openssh-from-linux-to-windows-7-via-tunneled-rdp/).
 
 Any features that you may think missing when using SCP rather than SFTP are more than made up for simply by using SSH, which in itself provides a complete remote Secure Shell, and is very flexible as to how you can use it.
 
