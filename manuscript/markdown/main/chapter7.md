@@ -2,12 +2,12 @@
 
 ![10,000' view and lower of VPS Security](images/10000VPS.png)
 
-Most of my work around VPSs are with GNU/Linux instances and when it makes sense for an organisation, I usually advocate that they bring in virtual private servers (VPS) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) as this gives you have more control. Most of the testing in this chapter was performed on Debian instances, and usually, but not always, web servers. Unless stated, the following applies to these type of instances.
+Most of my work around VPSs are with GNU/Linux instances and when it makes sense for an organisation, I usually advocate that they bring virtual private servers (VPS) [in-house](http://blog.binarymist.net/2014/11/29/journey-to-self-hosting/) as this gives you more control. Most of the testing in this chapter was performed on Debian instances, and usually, but not always, web servers. Unless stated, the following applies to these type of instances.
 
 ## 1. SSM Asset Identification {#vps-asset-identification}
 Take results from higher level Asset Identification which is found in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Remove any that are not applicable and add any that are newly discovered. Here are some to get you started:
 
-* Ownership. At first this may sound strange as you would likely assume that it is a given that you will always own, or at least have control of your server(s). I am going to dispel this myth. When an attacker wants to compromise your server(s), they will do so for a reason. It may just be for kicks, or it may be for a more sinister reason. They will want an asset that presumably belongs to you, your organisation, or your customers. If they are able to take control of your server(s) (own it, steal it, abuse it, etc.), then they have a foot hold to launch further attacks, or gain control of other assets that do not belong to them. With this in mind, you could think of your server(s) as an asset, also a liability. Both may be correct, either-way, you need to protect your server(s) and ensure a hardened security posture. This is covered under the [SSM Countermeasures](#vps-countermeasures) section looking at HIDS, Logging, and Alerting.
+* Ownership. At first this may sound strange as you would likely assume that it is a given that you will always own, or at least have control of your server(s). I am going to dispel this myth. When an attacker wants to compromise your server(s), they will do so for a reason. It may just be for kicks, or it may be for a more sinister reason. They will want an asset that presumably belongs to you, your organisation, or your customers. If they are able to take control of your server(s) (own it, steal it, abuse it, etc.), then they have a foot hold to launch further attacks, or gain control of other assets that do not belong to them. With this in mind, you could think of your server(s) as an asset, also a liability. Both may be correct, either-way, you need to protect your server(s) and ensure a hardened security posture. This is covered under the [SSM Countermeasures](#vps-countermeasures) section looking at HIDS, Logging, and Alerting
 * Visibility into and of many things, such as:
   * Disk space
   * Disk IO
@@ -22,7 +22,7 @@ Take results from higher level Asset Identification which is found in the 30,000
   * Etc
 * Taking the confidential business and client information from the "Starting with the 30,000' view" chapter, we can solidify these concepts into forms such as:
   * Email, Web, Data-store servers and of course the data on them
-  * You could even convey this to individuals PCs and other devices which may be carrying this sort of confidential information on them, also Mobile devices are a huge risk (see the Mobile chapter of [Fascicle 2](https://leanpub.com/holistic-infosec-for-web-developers-fascicle2-mobile-iot))
+  * You could even convey this to individuals PCs and other devices which may be carrying this sort of confidential information on them, also mobile devices are a huge risk (see the Mobile chapter of [Fascicle 2](https://leanpub.com/holistic-infosec-for-web-developers-fascicle2-mobile-iot))
 
 More than likely this is an incomplete list for your domain, as I have merely given you a starting point. Use you critical thinking skills and populate the rest, or come back to the process as additional assets enter your mind.
 
@@ -44,7 +44,7 @@ In terms of security, unless your provider is [Swiss](http://www.computerweekly.
 * Do you have enough control with your data in the cloud and if it has been compromised, will you actually know about it, and can it invoke your incident response team(s) and procedures?
 * Cloud and hosting providers are readily giving up your secrets to government organisations, and to the highest bidders. In many cases you will not know about it
 * Your provider may go out of business, and you may get little notice of this
-* Providers are often outsourcing their services to several different provider. Even they don't have visibility themselves, meaning further control is lost
+* Providers are often outsourcing their services to several different providers deep. Even they don't have visibility themselves, meaning further control is lost
 * Distribution = attack surface. Where is your data? Where are your VM images running from? Further distributed on iSCSI targets? Where are the targets?
 * Your provider knows little (at best) about your domain, how you operate, or what you have running on their system(s). How are they supposed to protect you if they have no knowledge of your domain?
 
@@ -65,7 +65,7 @@ PsExec does [require](https://community.rapid7.com/community/metasploit/blog/201
 1. The Server Message Block (SMB) service must be available and reachable (not blocked by a fire wall for example)
 2. File and Print Sharing must be enabled
 3. Simple File Sharing must be disabled
-4. The Admin`$` share (which maps to the Windows directory) must be available and accessible, test it first
+4. The Admin$ share (which maps to the Windows directory) must be available and accessible, test it first
 5. The credentials supplied to the PsExec utility must have permissions to access the Admin$ share
 
 There are several [behavioural techniques](https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified), or [targets](https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/windows/smb/psexec.md#scenarios) as Metasploit calls them, for the `psexec` module. In this case we use the Native Upload Target, but also use a custom compiled payload (`set exe::custom`); you can see this in The Play below. Our payload is embedded into a Windows Service executable within the PsExec executable, which it then deploys to the Admin$ share on the target machine. The DCE/RPC interface is then used over SMB to access the Windows Service Control Manager (SCM) API. PsExec then turns on its Windows Service on the target machine. This service then creates a named pipe which can be used to send commands to the system.
@@ -158,7 +158,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
 (2012-08-01) `exploit/windows/local/current_user_psexec`  
 "PsExec via Current User Token"  
    
-   1. This module uploads an executable file to the victim system, then creates a share containing that's executable
+   1. This module uploads an executable file to the victim system, then creates a share containing that executable
    2. It then creates a remote service on each target system similar to the `psexec` module, using a UNC path to the file on the victim system. This is essentially a pivot, or lateral movement
    3. It then starts the service(s) on the target hosts which run the executable from step 1. The reason the service(s) on the target(s) can be placed and run, is because we are using the victim's legitimate current session's authentication token to pivot to the target(s), we do not need to know the credentials for the target(s)  
    
@@ -202,7 +202,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
 (2013-09-21) `exploit/windows/local/wmi`  
 "Windows Management Instrumentation (WMI) Remote Command Execution"  
    
-   Before we cover the Metasploit module, let's gain a little more understanding around what WMI is, when it was introduced, how wide spread its consumption is, etc. 
+   Before we cover the Metasploit module, let's gain a little more understanding around what WMI is, when it was introduced, how wide spread its consumption is, etc.  
    
    Windows NT 4.0 (1996-07-29): During this time period, Microsoft released an out-of-band WMI implementation that could be downloaded and installed. Since then, Microsoft has consistently added WMI providers.  
    
@@ -227,7 +227,7 @@ We have just detailed and demonstrated the first of the Metasploit PTH suite abo
 
 PowerShell "_is going to be on all boxes and is going to provide access to everything on the box_". This is excellent news for penetration testers and other attackers!
 
-On Windows Server, PowerShell's 4.0 onwards (Windows 8.1, Server 2012 R2) default execution policy will be RemoteSigned, but that can be easily overridden in a script, as you will see soon. We:
+On Windows Server, PowerShell 4.0 onwards (Windows 8.1, Server 2012 R2) the default execution policy will be RemoteSigned, but that can be easily overridden in a script, as you will see soon. We:
 
 * Have full direct access to the Win32 API
 * Have full access to the .Net framework
