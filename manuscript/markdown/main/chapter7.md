@@ -757,7 +757,7 @@ When an executable (usually run as a daemon) is called by one of these privilege
 
 It doesn't pay to take the path of least resistance when setting up our VPS partitions during installation. Combining file system resources with lesser requirements for higher privileges, with those that have greater requirements, contradicts the principle of least privilege. Simply, some resources that don't need extra privileges to do their job, are granted them regardless. This allows attackers to exploit the opportunity, by swapping in (writing) and executing malicious files, directly or indirectly.
 
-If a target file of interest to an attacker is word writeable, user writeable, or even group writeable, then the attacker will be able to swap or trojanize the file. Only if the mounted file system is restrictive will the action be mitigated.
+If a target file of interest to an attacker is world writeable, user writeable, or even group writeable, then the attacker will be able to swap or trojanize the file. Only if the mounted file system is restrictive will the action be mitigated.
 
 {#vps-identify-risks-unnecessary-and--vulnerable-services-overly-permissive-file-permissions-ownership-and-lack-of-segmentation-mitigations}
 1. The first risk is at the file permission and ownership level
@@ -813,7 +813,7 @@ I> First we carry out some reconnaissance on our target machine. I am using Meta
 I> Then find a suitable open port with a defective service listening, this is the Vulnerability Scanning / Discovery stage.  
 I> Then we search for an exploit that may be effective at giving us at least low privilege access to the machine.  
 I> Then use the tools I have just discussed above to help us find possible writeable, executable directories and/or files.  
-I> Then we can search for exploits that may help us escalate our privileges, based on a part of the file system that we know we can write and execute permissions on.  
+I> Then we can search for exploits that may help us escalate our privileges, based on a part of the file system that we now know we have write and execute permissions on.  
 I> We then walk through understanding a chosen exploit and preparing it to be run.
 
 {icon=bomb}
@@ -1067,7 +1067,7 @@ The NIS master server maintains canonical database files called maps. There are 
 
 **Vulnerabilities and exploits**:
 
-NIS has had it's day because of it is vulnerable to many exploits, such as DoS attacks using the finger service against multiple clients, buffer overflows in libnasl, 
+NIS has had its day because it is vulnerable to many exploits, such as DoS attacks using the finger service against multiple clients, buffer overflows in libnasl, 
 
 "_lax authentication while querying of NIS maps (easy for a compromised client to take advantage of), as well as the various daemons each having their own individual issues. Not to mention that misconfiguration of NIS or netgroups can also provide easy holes that can be exploited. NIS databases can also be easily accessed by someone who doesn't belong on your network. How? They simply can guess the name of your NIS domain, bind their client to that domain, and run a ypcat command to get the information they are after._"
 
@@ -1090,11 +1090,11 @@ Telnet is still often enabled by default on many cheap hardware appliances, whic
 #### FTP
 ![](images/ThreatTags/easy-widespread-average-moderate.png)
 
-The FTP protocol was [not designed with security in mind](https://archive.fo/KyJUa), it does not use any form of encryption. The credentials you use to authenticate all of your traffic including any sensitive information you have in the files you send or receive, or to and from the FTP server, will all be on the wire in plain text. Even if you think your files do not contain any sensitive information, often there will still be details hiding within, for example, if you are `[m]put`ting / `[m]get`ing source files, there could be database credentials or other useful bits of information in these config files.
+The FTP protocol was [not designed with security in mind](https://archive.fo/KyJUa), it does not use any form of encryption. The credentials you use to authenticate all of your traffic including any sensitive information you have in the files you send or receive, to and from the FTP server, will all be on the wire in plain text. Even if you think your files do not contain any sensitive information, often there will still be details hiding within, for example, if you are `[m]put`ting / `[m]get`ing source files, there could be database credentials or other useful bits of information in config files.
 
 Many people have been using FTP for years and in many cases have never considered the fact that FTP adds no privacy to anything it touches.
 
-Also, most FTP clients store user credentials in plain text, this completely neglects defence in depth. It should be considered that your clients machine is already compromised. If credentials are stored encrypted, then it is one more challenge the attacker must conquer. All software created with security in mind realises this, and, if they must store credentials, they will be hashed via a best of breed KDF (as discussed in the [Data-store Compromise](#web-applications-countermeasures-data-store-compromise) section of the Web Applications chapter) with the recommended number of iterations (as discussed in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section a little later in this chapter). Regarding FTP, clients are designed to store multiple credentials, one set for each site. For the convenience of not having to remember them, they need to be encrypted, rather than hashed (one way, not reversible), so they can be decrypted.
+Also, most FTP clients store user credentials in plain text, this completely violates the principle of defence in depth. It should be considered that your client's machine is already compromised. If credentials are stored encrypted, then it is one more challenge the attacker must conquer. All software created with security in mind realises this, and, if they must store credentials, they will be hashed via a best of breed KDF (as discussed in the [Data-store Compromise](#web-applications-countermeasures-data-store-compromise) section of the Web Applications chapter) with the recommended number of iterations (as discussed in the [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies) section a little later in this chapter). Regarding FTP, clients are designed to store multiple credentials, one set for each site. For the convenience of not having to remember them, they need to be encrypted, rather than hashed (one way, not reversible), so they can be decrypted.
 
 A couple of the most popular clients are:
 
@@ -1195,7 +1195,7 @@ Docker security is similar to VPS security, except that there is a much larger a
 
 A monolithic kernel, such as the Linux kernel, which contains tens of millions of lines of code, and can be reached by untrusted applications via all sorts of networking, USB, and driver APIs, has a huge attack surface. Adding Docker into the mix has the potential to expose all these vulnerabilities to each and every running container, and its applications within, thus making the attack surface of the kernel grow exponentially.
 
-Docker leverage many features that have been in the Linux kernel for years, and provide many security enhancements out of the box. The Docker Security Team are working hard to add additional tooling and techniques to further harden their components. This has become obvious as I have investigated many of them. You will still need to know what all the features, tooling and techniques are, and how to use them, in order to determine whether your container security is adequate for your needs.
+Docker leverage's many features that have been in the Linux kernel for years, and provides many security enhancements out of the box. The Docker Security Team are working hard to add additional tooling and techniques to further harden their components. This has become obvious as I have investigated many of them. You will still need to know what all the features, tooling and techniques are, and how to use them, in order to determine whether your container security is adequate for your needs.
 
 From the [Docker overview](https://docs.docker.com/engine/docker-overview/), it states: “_Docker provides the ability to package and run an application in a loosely isolated environment_”. Later in the same document it says: "_Each container is an isolated and secure application platform, but can be given access to resources running in a different host or container_" leaving the "loosely" out. It continues to say: “_Encapsulate your applications (and supporting components) into Docker containers_”. The meaning of encapsulate is to enclose, but if we are only loosely isolating, then we're not really enclosing are we? I will address this concern in the following Docker sections and subsections.
 
@@ -1289,7 +1289,7 @@ Docker leverages the Linux (kernel) namespaces which provide an isolated workspa
         ]
         ...
     
-    An empty string for Mode means that it is set to its read-write default. For example, a container can mount sensitive host system directories such as `/`, `/boot`, `/etc` (as seen in [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies)), `/lib`, `/proc`, `/sys`, along with the rest as discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section, particularly if that advice was not followed. If it was followed, you have some in depth defence working for you, and although Docker may have mounted a directory as read-write, the underlying mount may be read-only, which stops the container from being able to modify files in these locations on the host system. If the host does not have the above directories mounted with constrained permissions, then we are relying on the user running any given Docker container that mounts a sensitive host volume to mount it as read-only. For example, after the following command has been run, users within the container can modify files in the hosts `/etc` directory:
+    An empty string for Mode means that it is set to its read-write default. For example, a container can mount sensitive host system directories such as `/`, `/boot`, `/etc` (as seen in [Review Password Strategies](#vps-countermeasures-disable-remove-services-harden-what-is-left-review-password-strategies)), `/lib`, `/proc`, `/sys`, along with the rest as discussed in the [Lock Down the Mounting of Partitions](#vps-countermeasures-disable-remove-services-harden-what-is-left-lock-down-the-mounting-of-partitions) section, particularly if that advice was not followed. If it was followed, you have some defence in depth working for you, and although Docker may have mounted a directory as read-write, the underlying mount may be read-only, which stops the container from being able to modify files in these locations on the host system. If the host does not have the above directories mounted with constrained permissions, then we are relying on the user running any given Docker container that mounts a sensitive host volume to mount it as read-only. For example, after the following command has been run, users within the container can modify files in the hosts `/etc` directory:
     
     {title="Vulnerable mount", linenos=off, lang=bash}
         docker run -it --rm -v /etc:/hosts-etc --name=lets-mount-etc ubuntu
