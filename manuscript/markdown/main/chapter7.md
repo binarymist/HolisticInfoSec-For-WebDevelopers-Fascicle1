@@ -4491,7 +4491,7 @@ Each network interface, whether physical or virtual, can only reside in one name
     `Error response from daemon: network kimsdockernet has active endpoints`  
     Stop your container and try again.
     
-    It also pays to [understand container communication](https://docs.docker.com/engine/userguide/networking/default_network/container-communication/) with each other.
+    It also pays to [understand container communication](https://docs.docker.com/v17.09/engine/userguide/networking/default_network/container-communication/) with each other.
     
     Also checkout the [Additional Resources](#additional-resources-vps-countermeasures-docker-hardening-docker-host-engine-and-containers-namespaces).  
     
