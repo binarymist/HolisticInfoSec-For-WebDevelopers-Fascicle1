@@ -427,6 +427,8 @@ Forked from maxvt.
 **Collection of AWS Security Tools**  
 [https://blyx.com/2018/07/18/my-arsenal-of-aws-security-tools/](https://blyx.com/2018/07/18/my-arsenal-of-aws-security-tools/)
 
+**ASecure Cloud**  
+[https://asecure.cloud/](https://asecure.cloud/)
 
 
 
