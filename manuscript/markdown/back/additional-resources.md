@@ -422,7 +422,10 @@ Forked from maxvt.
 **flaws.cloud** AWS CTF by Scott Piper  
 [http://flaws.cloud/](http://flaws.cloud/)
 
+%% Not book content related
 
+**Collection of AWS Security Tools**  
+[https://blyx.com/2018/07/18/my-arsenal-of-aws-security-tools/](https://blyx.com/2018/07/18/my-arsenal-of-aws-security-tools/)
 
 
 
