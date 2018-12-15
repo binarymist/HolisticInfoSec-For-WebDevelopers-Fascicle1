@@ -1665,6 +1665,18 @@ mming-with-terraform/
 **Awesome AWS**  
 [https://github.com/donnemartin/awesome-aws](https://github.com/donnemartin/awesome-aws)
 
+**Pacu**  
+[https://github.com/RhinoSecurityLabs/pacu](https://github.com/RhinoSecurityLabs/pacu) is an open source AWS exploitation framework
+
+**Pacu wiki**  
+[https://github.com/RhinoSecurityLabs/pacu/wiki/Installation](https://github.com/RhinoSecurityLabs/pacu/wiki/Installation)
+
+**Blog post on Pacu**  
+[https://rhinosecuritylabs.com/aws/pacu-open-source-aws-exploitation-framework/](https://rhinosecuritylabs.com/aws/pacu-open-source-aws-exploitation-framework/)
+
+**Podcast on Pacu**  
+[https://brakeingsecurity.com/2018-024-pacu-a-tool-for-pentesting-aws-environments](https://brakeingsecurity.com/2018-024-pacu-a-tool-for-pentesting-aws-environments)
+
 **Tools that can break password databases**  
 [https://github.com/denandz/KeeFarce](https://github.com/denandz/KeeFarce)
 
