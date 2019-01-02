@@ -2,13 +2,13 @@
 
 ![10,000' view and lower of Network Security](images/10000Network.png)
 
-I had the pleasure of interviewing [Haroon Meer](https://twitter.com/haroonmeer) on the Software Engineering Radio for a [show on Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/). Do your self a favour and listen to it. We cover most of the topics in this chapter, plus more. While you are at it, check out the great Thinkst tools, also discussed near the end of the show:
+I had the pleasure of interviewing [Haroon Meer](https://twitter.com/haroonmeer) on the Software Engineering Radio for a [show on Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/). Do yourself a favour and listen to it, as we covered most of the topics in this chapter, plus more. While you are at it, check out the great Thinkst tools, that we also discussed towards the end of the show:
 
 * [Canarytokens](https://canarytokens.org/)
 * [Canary Tools](https://canary.tools/)
 
 ## 1. SSM Asset Identification
-Take results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Remove any that are not applicable and add any that are newly discovered.
+Take the results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Remove any that are not applicable and add ones that are newly discovered.
 
 Here are some possibilities to get you started:
 
@@ -17,29 +17,29 @@ Here are some possibilities to get you started:
 * Syslog servers: For similar reasons to routers, as well as events and sensitive information from all sorts of systems collected in one place
 * Visibility into what is actually happening specific to communications between devices on your network
 
-There will almost certainly be many others. Think about your network topology, specifically about information, where it's stored where and over which channels it may pass. If you have decided to hand your precious data over to a Cloud Service Provider (CSP), then you are not going to have much control over this and in most cases, your CSP will not have as much control as you would like either. We address this in the [Cloud](#cloud) chapter. Also think about the areas that may be easier to compromise than others, and take this information into the next step.
+There will almost certainly be many others. Think about your network topology, specifically about information, where it's stored where and over which channels it may pass. If you have decided to hand your precious data over to a Cloud Service Provider (CSP), then you are not going to have much control over this and in most cases, your CSP will not have as much control as you would like either. We address this in the [Cloud](#cloud) chapter. Also think about the areas that may be more vulnerable to be compromised than others, and take this information into the next step.
 
 ## 2. SSM Identify Risks
-Go through the same process as we did at the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), but do so for the network.
+Also,go through the same process we did in the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), but do so for the network.
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
-Most exploitation of security vulnerabilities involves an aspect of a network. Reconnaissance generally utilises the Internet at a minimum. [Application security](#web-applications) generally requires a network in order to access the target application(s). [Cloud security](#cloud) similarly depends on a network in order to access the target resources. Social Engineering, as discussed in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), leverages a network of people in order to access the human target. Even physical security (also discussed in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)) often involves different types of networks. When we think of networks, try not to be constrained to computer networks.
+Most exploitation of security vulnerabilities involves some aspect of a network. Reconnaissance generally utilises the Internet at a minimum. [Application security](#web-applications) generally requires a network in order to access the target application(s). [Cloud security](#cloud) similarly depends on a network in order to access the target resources. Social Engineering, as discussed in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), leverage's a network of people in order to access the human target. Even physical security (also discussed in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)) often involves different types of networks. When thinking of networks, try not to be constrained to just computer networks.
 
-I also discussed [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) with Haroon Meer on a Software Engineering Radio show, which is well worth a listen during evaluation of both risks and countermeasures.
+I also discussed [Network Security](http://www.se-radio.net/2017/09/se-radio-episode-302-haroon-meer-on-network-security/) with Haroon Meer on the Software Engineering Radio show, it is well worth listening right through to the evaluation of both risks and countermeasures.
 
 ### Fortress Mentality {#network-identify-risks-fortress-mentality}
 ![](images/ThreatTags/easy-widespread-easy-severe.png)
 
-This section takes the concepts from the section of the same name in the Physical chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/). The largest percentage of successful attacks come from within organisations. Usually, attacks from the inside are covered up. An organisation's public image is affected to a greater extent via an attack from the inside than if the organisation is compromised by someone on the other side of the world.
+This section takes concepts from the section of the same name in the Physical chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/). The largest percentage of successful attacks come from within organisations. Usually, these form of attacks are covered up, as an organisation's public image is affected to a greater extent with an attack happening from the inside than if the organisation is compromised by someone on the other side of the world.
 
-There is somehow still a general misconception that having perimeters will save us from attackers. They may stop some of the noise from unmotivated attackers, but usually not much more than that.
+There is still somehow a general misconception that having perimeters will save us from attackers. This may stop some of the noise from unmotivated attackers, but usually not much more than that.
 
 IBM X-Force [2016 Cyber Security Intelligence Index](http://ibm.biz/2016CyberIndex) provides the following information for 2014 and 2015, plus a lot more:
 
 **2014**:
 
-Industries that experienced the highest incident rates were listed in descending order:
+Industries that experienced the highest incident rates were listed in the following descending order:
 
 1. Financial services
 2. Information and communication
@@ -53,7 +53,7 @@ Industries that experienced the highest incident rates were listed in descending
 
 **2015**:
 
-Industries that experienced the highest incident rates were listed in descending order:
+Industries that experienced the highest incident rates were listed in the following descending order:
 
 1. Healthcare
 2. Manufacturing
@@ -67,7 +67,7 @@ Industries that experienced the highest incident rates were listed in descending
 
 The 2017 IBM X-Force [Threat Intelligence Index](https://public.dhe.ibm.com/common/ssi/ecm/wg/en/wgl03140usen/WGL03140USEN.PDF) provides the following information for 2016, plus a lot more:
 
-Industries that experienced the highest incident rates were listed in descending order:
+Industries that experienced the highest incident rates were listed in the following descending order:
 
 1. Financial services
 2. Information and communications
@@ -93,15 +93,15 @@ Healthcare was impacted such that:
 * 25% were malicious inside actors
 * 46% were inadvertent inside actors
 
-Malicious inside actors can be disgruntled employees that may or not have left the organisation and still have access via an account or a back door they introduced or are aware of. They could also be opportunists looking to make some extra money by selling access or private information.
+Malicious inside actors can either be disgruntled employees that may or may not of left the organisation. Those who have left, could still have access of an account or access of back door they introduced or are aware of. Or current employees who are opportunists looking to make some extra money by selling access or private information.
 
-An inadvertent inside actor is usually someone that does not mean to cause harm, but falls prey to social engineering tactics often from malicious outsiders, as touched on in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/). These are attacks such as phishing, or where the victim is somehow tricked or coerced into revealing sensitive information, or carrying out an activity that will provide the attacker a foothold. The Social Engineer's Playbook by Jeremiah Talamantes has many very useful and practical examples of these types of attacks.
+An inadvertent inside actor is usually someone that does not mean to cause harm, but often falls prey to social engineering tactics usually from malicious outsiders, as touched on in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/). These types of attacks are usually phishing, or where the victim is somehow tricked or coerced into revealing sensitive information, or carrying out an activity that will provide the attacker a foothold. The Social Engineer's Playbook by Jeremiah Talamantes has many useful and practical examples of these types of attacks.
 
 In 2016, we saw a significant trend of inside actors shifting to the inadvertent; essentially this points to an emphasis on exploiting the organisation's people (social engineering) with various attack strategies.
 
-This clearly shows, that although our technological defences are improving slowly, our people are much slower to improve. Spending resources on areas such as network perimeters, while neglecting our most valuable assets (our people), does not make sense.
+This clearly shows, that although our technological defences are improving slowly, people are still much slower to improve. Spending resources on areas such as network perimeters, while neglecting our most valuable assets (our people), does not make sense.
 
-Often workers bring their own devices to work, and bring their work devices home and back, potentially transferring malware from network to network, whether they be wired or wireless. Again though, people are the real issue here. No matter how good your technological solution is, people will circumvent it.
+Often workers bring their own devices to work, and take their work devices home and back, potentially transferring malware from network to network, whether they're wired or wireless. Again, people are the real issue here. No matter how good your technological solution is, people will circumvent it.
 
 ### Lack of Segmentation {#network-identify-risks-lack-of-segmentation}
 ![](images/ThreatTags/average-common-easy-moderate.png)
@@ -110,9 +110,9 @@ Similar to the "[Overly Permissive File Permissions, Ownership and Lack of Segme
 
 Network segmentation is the act of splitting a network of computers that share network resources into multiple sub-networks, whether it be real via routers and Layer 3 switches, or virtual via VLANs.
 
-Without segmentation, attackers, once on the network, have direct access to the resources on that network.
+Without segmentation, attackers, once on the network will have direct access to the resources on that network.
 
-Having all or many resources that cross different trust boundaries on a monolithic network does nothing to constrain attackers or the transfer of malware. When we talk about trust boundaries we are talking about a configured firewall rather than just a router. A router routes, a firewall should deny or drop everything other than what you specify. This requires some thought as to what should be allowed to enter the gateway interface, and how it is then treated.
+Having all or many resources that cross different trust boundaries on a monolithic network, does nothing to constrain attackers or the transfer of malware. When we talk about trust boundaries we are talking about a configured firewall, rather than just a router. A router routes, a firewall should deny or drop everything other than what you specify. This requires some thought as to what should be allowed to enter the gateway interface, and how it is then treated.
 
 A good example specific to the lack of segmentation is what is currently happening with the explosion of IoT devices. Why would your household appliances need to be on the Internet other than to perform tasks such as a refrigerator ordering food, or an oven telling you when your dinner is cooked. Worse still, it may be to provide functionality to turn the appliance on and off or be [commandeered by attackers](http://www.mirror.co.uk/news/technology-science/technology/hackers-use-fridge-send-spam-3046733#) to do their bidding. This is quite common now for home appliances that have next to no security-related capabilities. Even if these functions were considered important enough to reveal open sockets from your home to the Internet, surely it would be much safer to have these devices on a network segment with the least privilege available, tight egress filtering, encrypted communications, and managed by someone who knows how to configure the firewall rules on the segment's gateway.
 
@@ -144,7 +144,7 @@ Setting the IP address in your header to the victim's IP address.
 
 Remember we did something similar to this under the "Concealing NMap Source IP Address" of the Reconnaissance section from the Process and Practises chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) with nmap decoy host `-D` and idle scan `-sI`.
 
-In this type of attack a sending node will spoof its public IP address (not actually change its IP address) (by forging the header) to appear someone else's. When the message is received and a reply crafted, the entity creating the reply will look up its ARP table and send the reply to the impersonated entity because the MAC address is still associated with the IP address of the message it received. This sort of play is commonly used in Denial of Service (DoS) attacks because the attacker does not need or want the response.
+In this type of attack a sending node, will spoof its public IP address (not actually change its IP address) (by forging the header) to appear as someone else's. When the message is received and a reply crafted, the entity creating the reply will look up its ARP table and send the reply to the impersonated entity because the MAC address is still associated with the IP address of the message it received. This sort of play is commonly used in Denial of Service (DoS) attacks because the attacker does not need or want the response.
 
 In a Distributed DoS (D-DoS) attack, often the attacker will impersonate the target (usually a router or some server it wants to be brought down) and broadcast messages. The nodes that receive these messages consult their ARP tables to look up the spoofed IP address, find the target's associated MAC address, and reply to it. This ensures that the replies will be sourced from many nodes, thus swamping the target's network interface.  
 Many load testing tools also use this technique to stress a server or application.
@@ -154,7 +154,7 @@ Many load testing tools also use this technique to stress a server or applicatio
 
 This attack convinces your target that the MAC address it associates with a particular legitimate node (by way of IP address) is now your (the attackers/MItM) MAC address.
 
-Elaborating on IP spoofing attacks further, the man-in-the-middle (MItM) sends out ARP replies across the LAN to the target, telling it that the legitimate MAC address that the target associates with the MItM host has now changed to the routers IP address, as an example. When the target wants to send a message to the router, it looks up its ARP table for the router's IP address in order to find its MAC address, and now receives the MItM MAC address as the routers IP address. Thus, the target's ARP cache is said to be poisoned with the MItM MAC address. The target goes ahead and sends its messages to the MItM host, which can do what ever it likes with the data, perhaps choose to drop the message, or forward it on to the router in its original or altered state.  
+Elaborating on IP spoofing attacks further, the man-in-the-middle (MItM) sends out ARP replies across the LAN to the target, telling it that the legitimate MAC address the target associates with the MItM host has now changed to the routers IP address, as an example. When the target wants to send a message to the router, it looks up its ARP table for the router's IP address in order to find its MAC address, and then receives the MItM MAC address as the routers IP address. Thus, the target's ARP cache is said to be poisoned with the MItM MAC address. The target goes ahead and sends its messages to the MItM host, which can do what ever it likes with the data, perhaps choose to drop the message, or forward it on to the router in its original or altered state.  
 This attack only works on a local area network (LAN).  
 The attack is often used as a component of larger attacks, including harvesting credentials, cookies, CSRF tokens, and hijacking. Even TLS can be used, and in many cases TLS can be [downgraded](#network-identify-risks-tls-downgrade). 
 
@@ -166,7 +166,7 @@ Remember we set up [MItM with ARP spoofing](#confirm-that-our-logs-are-commuting
 ![](images/ThreatTags/difficult-uncommon-average-severe.png)
 
 This attack affects any domain name lookup, including email.
-This type of attack can allow an intermediary to intercept and read all company emails for example, completely destroying any competitive advantage. The victim may never know it has happened. DNS spoofing refers to an end goal rather than a specific type of attack. There are many ways to spoof a name server.
+This type of attack can allow an intermediary to intercept and read all of a companies emails for example, which completely destroys any competitive advantage. The victim may never know this has happened. DNS spoofing refers to an end goal rather than a specific type of attack. There are many ways to spoof a name server.
 
 * Compromise the name server itself, potentially through its own vulnerabilities, the ([Kaminsky bug](http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-1447) for example)
 * Poison the cache of the name server
@@ -187,20 +187,20 @@ This type of attack can allow an intermediary to intercept and read all company 
 This attack appears in the [OWASP Top 10 A7 Missing Function Level Access Control](https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control)
 
 Often, websites will allow access to certain resources so long as the request was referred from a specific page defined by the `referer` header.  
-The referrer (spelled `referer`) field in HTTP requests can be intercepted and modified, so it is not a good idea to use it for authentication or authorisation. The Social Engineering Toolkit (SET) also exploits the `referer` header, as discussed in the hands-on hack in the Spear Phishing section of the Identify Risks in the People chapter of Fascicle 0.
+The referrer (spelled `referer`) field in HTTP requests can be intercepted and modified, so it is not a good idea to use it for authentication or authorisation. The Social Engineering Toolkit (SET) also exploits the `referer`header, as discussed in the hands-on hack in the Spear Phishing section of the Identify Risks in the People chapter of Fascicle 0.
 
 #### EMail Address {#network-identify-risks-spoofing-email-address}
 ![](images/ThreatTags/easy-widespread-average-moderate.png)
 
 This is the act of creating and sending an email with a forged sender address.
-It is useful for spam campaigns in sending large numbers of email, and for social engineers often sending small amounts of email. The headers can be specified easily on the command line. The tools used essentially modify the headers: `From` and `Reply-To`.
+It is useful for spam campaigns in sending large numbers of email, and for social engineers when often sending small amounts of email. The headers can be specified easily on the command line. The tools used essentially modify the headers: `From` and `Reply-To`.
 <!--Useful inof on the From, Reply-To and Return-Path fields http://stackoverflow.com/questions/1235534/what-is-the-behavior-difference-between-return-path-reply-to-and-from-->
-The Social Engineer Toolkit (SET) can be handy for sending emails that appear to be from someone the receiver expects to receive email from. SET is capable of performing many tasks associated with social engineering. It even provides the capability to create executable payloads that the receiver may run once opening the email. Payloads may come in the form of a PDF with an embedded executable. SET allows you to choose between having it do all the work for you, or you can supply the custom payload and file format.
+The Social Engineer Toolkit (SET) can be handy for sending emails that appear to be from someone the receiver expects to receive an email from. SET is capable of performing many tasks associated with social engineering. It even provides the capability to create executable payloads that the receiver may run once opening the email. Payloads may come in the form of a PDF with an embedded executable. SET allows you to choose between having it do all the work for you, or you can supply the custom payload and file format.
 
 Most people just assume that an email they have received came from the address it appears to have been sent from. The email headers are very easy to tamper with.
 Often other types of spoofing attacks are necessary in order to have the `From` and `Reply-To` set to an address that a victim recognises and trusts, rather than the attacker's address, or some other obviously obscure address.
 
-There are also [on-line services](http://www.anonymailer.net/) that allow the sending of email and specifying any from address.
+There are also [on-line services](http://www.anonymailer.net/) that allow the sending of an email and specifying any from address.
 
 Often the sender of a spoofed email will use a from address that you recognise in hope that you will click on a link within the email, thus satisfying their phish.
 
@@ -209,21 +209,21 @@ Often the sender of a spoofed email will use a from address that you recognise i
 
 <!---Todo: Check out Subterfuge, mentioned in "Basic Security Testing With Kali Linux"-->
 <!---Todo: pg 160 of "The Hacker Playbook" could be worth demoing here-->
-An attacker can clone or imitate a legitimate website (with the likes of the Social Engineering Kit (SET)) or the Browser Exploitation Framework (BeEF), and through social engineering, phishing, email spoofing, or any other number of tricks (as discussed in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)) to coerce a victim to browse the spoofed website. In fact, if you clone a website that you know your victim visits regularly, then you can just do so and sit and wait for them to take the bait. Better still, automote your attack so that when they do take the bait exploits are fired at them automatically. Once the victim is on the spoofed website, the attacker can harvest credentials or carry out many other types of attacks against the non-suspecting user.
+An attacker can clone or imitate a legitimate website (with the likes of the Social Engineering Kit (SET)) or the Browser Exploitation Framework (BeEF), and through social engineering, phishing, email spoofing, or any other number of tricks (as discussed in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com)) to coerce a victim to browse the spoofed website. In fact, if you clone a website you know your victim visits regularly, you can then do so, sit and wait for them to take the bait. Better still, automate your attack so that when they do take the bait, exploits are fired at them automatically. Once the victim is on the spoofed website, the attacker can harvest credentials or carry out many other types of attacks against the non-suspecting user.
 
 The victim may visit the attackers cloned website due to ARP and/or DNS spoofing. Subterfuge is handy to run a plethora of attacks against the victims browser through the likes of the Metasploit Browser AutoPwn module. If >0 attacks are successful (we have managed to install a root-kit), the attacker will usually get a remote command shell to the victims system by way of reverse or bind shell. Then simply forward them onto the legitimate website without them even being aware of the attack.
 
 {#wdcnz-demo-3}
 ![](images/HandsOnHack.png)
 
-The following attack was one of five that I demonstrated at WDCNZ in 2015. The two attacks discussed just prior provide some context, review them again if you still need the details reinforced.
+The following attack is just one of five that I demonstrated at WDCNZ in 2015. The two attacks discussed just prior provide some context, review them again if you still need the details reinforced.
 
 You can find the video of the attack exemplified at [http://youtu.be/ymnqTrnF85M](http://youtu.be/ymnqTrnF85M).
 
 I> ## Synopsis
 I>
 I> The average victim will see a valid URL and the spoof will be undetectable.  
-I> Use a website that you know victim is likely to spend some time browsing. This can make it easier if you are running exploits manually in BeEF.  
+I> Use a website that you know the victim is likely to spend some time browsing. This can make it easier if you are running exploits manually in BeEF.  
 I> Can be used to obtain credentials, or simply hook with BeEF and run any number of exploits.  
 I> SET is run against the website you want to clone. As SET only gets the index file, you will have to use the likes of `wget` to get any other missing resources you need to complete the website. Static sites are obviously the easiest. We do not really want to have to create a back-end for the cloned website. You may have to update some of the links to external resources as well in the index.html file that SET creates.  
 I> Ideally you will have cleaned out the public web directory that Apache hosts from `/var/www/`. If you do not, SET archives everything in there.  
@@ -379,7 +379,7 @@ If there is no Internet access from the target's environment, physical media can
 
 #### Mobile Phone Data
 
-In most cases, everyone carries at least one mobile phone capable of connecting to the Internet via their cellular provider. Obviously this bypasses any rules that the target organisation has in place. Data can be easily exfiltrated directly from mobile devices, or via their access point feature if enabled. Bluetooth offers similar functionality.
+Mostly everyone carries at least one mobile phone capable of connecting to the Internet via their cellular provider. Obviously this bypasses any rules that the target organisation has in place. Data can be easily exfiltrated directly from mobile devices, or via their access point feature if enabled. Bluetooth offers similar functionality.
 
 An attacker has options such as using staff member's phones. They can also get a phone within the wireless access coverage range of a computer with a wireless interface and data to be exfiltrated. They then need only force an access point switch. This could be done during a lunch break.
 
@@ -480,9 +480,9 @@ When using `dig +trace` we get feedback on how the given fully qualified domain 
     google.co.nz.    300   IN A  172.217.25.163
     ;; Received 46 bytes from 216.239.32.10#53(ns1.google.com) in 307 ms
 
-Following the above process through, you can see that, although egress may be very restricted, DNS will just about always make it to the authoritative name server(s).
+When following through the above process, you can see that, although the egress may be very restricted, the DNS will just about always make it to the authoritative name server(s).
 
-The most flexible and useful type of DNS record for the attacker is the `TXT` record. We discuss the DNS `TXT` record briefly in the [EMail Address Spoofing Countermeasures](#network-countermeasures-spoofing-email-address) subsection. The `TXT` record is very flexible, useful for transferring arbitrary data, including code, and commands (see section 3.3.14. `TXT RDATA` format of the [specification](https://www.ietf.org/rfc/rfc1035.txt)), which can also be modified at any point along its travels. There is no specific limit on the number of text strings in a  `TXT RDATA` field, but the TXT-DATA can not exceed 65535 bytes (general restriction on all records) in total. Each text string cannot exceed 255 characters in length including the length byte octet of each. This provides plenty of flexibility for the attacker.
+The most flexible and useful type of DNS record for the attacker is the `TXT` record. We discuss the DNS `TXT` record briefly in the [EMail Address Spoofing Countermeasures](#network-countermeasures-spoofing-email-address) subsection. The `TXT` record is very flexible, and useful for transferring arbitrary data, including code, and commands (see section 3.3.14. `TXT RDATA` format of the [specification](https://www.ietf.org/rfc/rfc1035.txt)), which can also be modified at any point along its travels. There is no specific limit on the number of text strings in a  `TXT RDATA` field, but the TXT-DATA can not exceed 65535 bytes (general restriction on all records) in total. Each text string cannot exceed 255 characters in length including the length byte octet of each. This provides plenty of flexibility for the attacker.
 
 The evolution of data exfiltration and infiltration started with [OzymanDNS](https://room362.com/post/2009/2009310ozymandns-tunneling-ssh-over-dns-html/) from Dan Kaminsky in 2004. Shortly after that, Tadeusz Pietraszek created [DNScat](http://tadek.pietraszek.org/projects/DNScat/), providing bi-directional communications through DNS servers. DNScat took the netcat idea and applied it to DNS, allowing penetration testers and attackers alike to pass through firewalls unhindered. DNScat is written in Java, requiring the JVM to be installed. Ron Bowes created the successor called [dnscat2](https://github.com/iagox86/dnscat2), you can check the history of dnscat2 on the github [history section](https://github.com/iagox86/dnscat2#history).
 
@@ -525,7 +525,7 @@ The attacker gleans a lot of potentially sensitive information.
 #### SSH {#network-identify-risks-doppelganger-domains-ssh}
 ![](images/ThreatTags/average-common-difficult-severe.png)
 
-This attack pattern usually sees less traffic, but if/when compromised, includes potentially much larger gains. You do not get better than shell access, especially if they have not disallowed root, as discussed in the VPS chapter under [Hardening SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-sshd_config).
+This attack pattern usually sees less traffic, but if/when compromised, potentially leads to much larger gains. You do not get better than shell access, especially if they have not disallowed root, as discussed in the VPS chapter under [Hardening SSH](#vps-countermeasures-disable-remove-services-harden-what-is-left-sshd_config).
 
 Setup the DNS A record value to be the IP address of the attacker's SSH server and the left most part of the name to be "*", so that all possible substitutions that do not exist (not just absent any matching records) will receive the attacker's SSH server IP address. DNS wild-card rules are complicated.
 
@@ -541,7 +541,7 @@ By default, the browser allows all resources from all locations to be loaded. Wh
 
 When ever a user browses to a HTTPS website, there is the potential for an attacker to intercept the request before the TLS handshake is made, and if the web server accepts an unencrypted request, redirect the user to the same website, but without the TLS.
 
-This is a danger for all websites that do not enforce TLS for every page, or better, at the domain level. For example, many websites are run over plain HTTP until the user wants to log in, at which point the browser issues a request to an HTTPS resource that is listed on an unencrypted page. These requests can easily be intercepted, and the attacker can change the request to HTTP so that the TLS handshake is never made.
+This is a danger for all websites that do not enforce TLS for every page, or better, at the domain level. For example, many websites are run over plain HTTP until the user wants to log in, at which point the browser then issues a request to an HTTPS resource that is listed on an unencrypted page. These requests can easily be intercepted, and the attacker can change the request to HTTP so that the TLS handshake is never made.
 
 [https://httpswatch.nz](https://httpswatch.nz) is an excellent resource for some of the prominent websites in New Zealand, informing them of the issues in regards to HTTPS health.
 
@@ -564,11 +564,11 @@ The organisation needs to decide on and enforce their own policies, just as you 
 
 The organisation could decide to not allow any work devices to be taken from the premises.
 
-Another option is to actually help workers be more secure with everything in their lives that has the potential to impact the business. What effects the workers impacts the business.
+Another option is to actually help workers to be more secure with everything in their lives that has the potential to impact the business. What effects the workers impacts the business.
 
 Additionally, a separate wireless network for your visitors and workers to access the Internet is a good improvement.
 
-In terms of technology, most of the VPS chapter was focused on removing services that are not needed, and hardening those that are, understanding that your corporate network is barely any better than being directly on the Internet without a perimeter anyway.
+In terms of technology, most of the VPS chapter was focused on removing services that are not needed, and hardening those that are. Also, understanding that your corporate network is barely any better than being directly on the Internet without a perimeter anyway.
 
 Once you have made sure your listening services are patched, you are only using security-conscious services, and your communications between services are encrypted, then from a technology perspective, you are doing well.
 
@@ -580,7 +580,7 @@ For file and data sharing from machine to machine no matter where they are, and 
 ### Lack of Segmentation  {#network-countermeasures-lack-of-segmentation}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-When you create network segments containing only the resources specific to the consumers who you authorise access to, you are creating an environment of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege), where only those authorised to access resources can access them.
+When you create network segments containing only the resources specific to the consumers who you have authorise access to, you are creating an environment of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege), where only those authorised to access resources can access them.
 
 For example, if you felt it was essential for your kitchen appliances to be able to talk to the Internet, then put them all on a separate network segment, and tightly constrain their privileges.
 
@@ -668,7 +668,7 @@ Make sure you restart your NTP daemon.
 
 There are two NTP packages to discuss.
 
-1. **ntpdate** is a programme that sets the date on a scheduled occurance via chron, an end user running it manually, or some other means. Ntpdate has been [deprecated](http://support.ntp.org/bin/view/Dev/DeprecatingNtpdate) for several years now. The functionality that ntpdate offered is now provided by the ntp daemon. Running `ntp -q` will run ntp, set the time and exit as soon as it has. This functionality mimics how ntpdate is used, the upstream NTP server must be specified either in the `/etc/ntp.conf` file or overridden by placing it immeiatly after the `-q` option if running manually. 
+1. **ntpdate** is a programme that sets the date on a scheduled occurrence via chron, an end user running it manually, or by some other means. Ntpdate has been [deprecated](http://support.ntp.org/bin/view/Dev/DeprecatingNtpdate) for several years now. The functionality that ntpdate offered is now provided by the ntp daemon. Running `ntp -q` will run ntp, set the time and exit as soon as it has. This functionality mimics how ntpdate is used, the upstream NTP server must be specified either in the `/etc/ntp.conf` file or overridden by placing it immeiatly after the `-q` option if running manually. 
 2. **ntpd** or just ntp, is a daemon that continuously monitors and updates the system time with an upstream NTP server specified in the local systems  
 `/etc/ntp.conf`
 
@@ -815,13 +815,13 @@ With anomaly detection, a known good state must be established and recorded befo
 
 Ideally you will set up NIDS that uses both signature and anomaly based detection.
 
-It is a good idea to have both Host and Network IDS/IPS in place at a minimum. I personally like to have more than one tool doing the same job but with different areas of strength covering the weaker areas of its sibling. An example of this is with HIDS where you might have one HIDS on the system it is protecting and another somewhere else on the network, or even on another network completely, looking into the host and performing its checks. This makes discoverability difficult for an attacker.
+It is a good idea to have both Host and Network IDS/IPS in place at a minimum. I personally like to have more than one tool doing the same job but with different areas of strength covering the weaker areas of its sibling. An example of this is with HIDS where you might have one HIDS on the system where it is protecting and another somewhere else on the network, or even on another network completely, looking into the host and performing its checks. This makes discoverability difficult for an attacker.
 
 **Some excellent free and open Enterprise grade NIDS**
 
-* [Snort](https://www.snort.org/) is the leader in free and open source NIDS, mature with a strong community. Snort can be seen used in many different scenarios. Written in C, and version 3, which is supposed to be multi-threaded, is still [in its third alpha](http://blog.snort.org/2014/12/introducing-snort-30.html). Snort covers both signature and anomaly-based techniques. I've personally used Snort, and found it a joy to work with
-* [Bro](https://www.bro.org/) uses its own domain specific language (DSL), uses anomaly-based detection techniques, and is often used in conjunction with Snort, they complement each other well. Bro has many protocol analysers, and is also often used for forensic analysis
-* [Suricata](https://suricata-ids.org/) is a direct competitor with Snort, is written in C, multi-threaded and supposed to be faster, but possibly only noticed once throughput of 1 Gbps speeds are [well exceeded](https://forum.pfsense.org/index.php?topic=83548.0). SANS produced an [Open Source IDS Performance Shootout](https://www.sans.org/reading-room/whitepapers/intrusion/open-source-ids-high-performance-shootout-35772) document worth reading if performance is an issue for you. Suricata can be thought of as the next generation Snort
+* [Snort](https://www.snort.org/) is the leader in free and open source NIDS, it's mature with a strong community. Snort can be seen used in many different scenarios. Written in C, and version 3, which is supposed to be multi-threaded, is still [in its third alpha](http://blog.snort.org/2014/12/introducing-snort-30.html). Snort covers both signature and anomaly-based techniques. I've personally used Snort, and found it a joy to work with
+* [Bro](https://www.bro.org/) uses its own domain specific language (DSL), it uses anomaly-based detection techniques, and is often used in conjunction with Snort, they complement each other well. Bro has many protocol analysers, and is also often used for forensic analysis
+* [Suricata](https://suricata-ids.org/) is a direct competitor with Snort, it's written in C, multi-threaded and is supposed to be faster, but possibly only noticed once throughput of 1 Gbps speeds are [well exceeded](https://forum.pfsense.org/index.php?topic=83548.0). SANS produced an [Open Source IDS Performance Shootout](https://www.sans.org/reading-room/whitepapers/intrusion/open-source-ids-high-performance-shootout-35772) the document is worth reading if performance is an issue for you. Suricata can be thought of as the next generation Snort
 * [Security Onion](https://securityonion.net/) is an Ubuntu based distribution containing intrusion detection, network security monitoring, and log management tools, such as: OSSEC, Snort, Suricata, Bro, netsniff-ng, Sguil, ELSA, Xplico, NetworkMiner, and many others. This allows you to set up a free and open source, enterprise grade network security appliance
 
 %% https://securityonion.net/#about
@@ -859,7 +859,7 @@ If you have a decent gateway device, you should be able to install and configure
 #### DNS {#network-countermeasures-spoofing-dns}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-Many cache poisoning attacks can be prevented on DNS servers by trusting less of the information passed to them by other DNS servers, and ignoring any DNS records passed back which are not directly relevant to the query.
+Many cache poisoning attacks can be prevented on DNS servers by trusting less of the information passed on to them by other DNS servers, and by ignoring any DNS records passed back which are not directly relevant to the query.
 
 [DNS Security Extensions](http://www.dnssec.net/) does the following for us. You will probably need to configure it though on your name server(s), I did.
 
@@ -900,7 +900,7 @@ GPG/PGP and S/MIME are similar concepts. Both allow the consumer to encrypt data
 See my detailed post on GPG/PGP [here](http://blog.binarymist.net/2015/01/31/gnupg-key-pair-with-sub-keys/) for more details.
 
 I have noticed some confusion surrounding S/MIME vs TLS.
-TLS works at the transport & session layer, as opposed to S/MIME which operates at the Application Layer. The only similarity I see is that they both use Certificate Authorities.
+TLS works at the transport & session layer, as opposed to S/MIME which operates at the Application Layer. The only similarity I can see is that they both use Certificate Authorities.
 
 * Adjust your spam filters
 * Read your message headers and trace IP addresses, although any decent self respecting spammer or social engineer is going to be using proxies.
@@ -947,18 +947,18 @@ Run a decent HIDS on vulnerable hosts, [as discussed](#vps-countermeasures-lack-
 
 Run antivirus/antimalware that leverage decent machine learning algorithms, this will increase your chances of detecting malicious payloads that are dropped on vulnerable hosts.
 
-Run a decent NIDS on your network, [as discussed](#network-countermeasures-lack-of-visibility-nids) in the Lack of Visibility subsection of this chapter, covering both signature-based and anomaly-based analysis and detection.
+Run a decent NIDS on your network, [as discussed](#network-countermeasures-lack-of-visibility-nids) in the Lack of Visibility subsection of this chapter, which covers both signature-based and anomaly-based analysis and detection.
 
-In most cases, the target's vulnerable hosts will not have a reason to query `TXT` records, and especially in the quantity that are used in DNS tunnelling. Consider blocking them.
+In most cases, the target's vulnerable hosts will not have a reason to query `TXT` records, especially in the quantity used in DNS tunnelling. Consider blocking them.
 
 ### Doppelganger Domains {#network-countermeasures-doppelganger-domains}
 
-Purchase as many doppelganger domains related to your own domain as makes sense, and that you can afford. Emulate what the attacker might do on your internal DNS server. If you are embracing defence in depth, then your attacker will have a much harder time compromising you.
+Purchase as many doppelganger domains related to your own domain - which makes sense, and what you can afford. Emulate what the attacker might do on your internal DNS server. If you are embracing defence in depth, then your attacker will have a much harder time compromising you.
 
 #### Web-sites {#network-countermeasures-doppelganger-domains-websites}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-Train users to be wary of these things. Just awareness that this is a technique used by attackers is often enough to prevent its success.
+Train users to be wary of these things. Just awareness, is a technique used by attackers is often enough to prevent its success.
 
 #### SMTP {#network-countermeasures-doppelganger-domains-smtp}
 ![](images/ThreatTags/PreventionAVERAGE.png)
@@ -981,7 +981,7 @@ Consider the likes of [Consuming Free and Open Source](#web-applications-counter
 When using CSP, we are providing the browser with a whitelist of allowed types of resources, and from where they are allowed to be loaded.  
 We do this by specifying particular response headers (more specifically, directives).
 
-Names are removed here to save embarrassment. Sadly most banks do not take their web security very seriously. They seem to take the same approach as credit card companies. At this time, it appears to be cheaper to reimburse victims rather than make sure targets are never victimised in the first place. I think this strategy will change as cybercrime becomes more prevalent, and it becomes cheaper to reduce the occurrences than to react once they have happened.
+Names are removed here to save embarrassment, as sadly most banks do not take their web security seriously enough and seem to take the same approach as credit card companies. Whereby, it appears to be cheaper for them to reimburse victims rather than making sure targets are never victimised in the first place. I would hope that this strategy will change as cybercrime becomes more prevalent, as it becomes cheaper to reduce the occurrences than to react after it has happened.
 
 {linenos=off, lang=bash}
     curl --head https://reputable.kiwi.bank.co.nz/
@@ -996,18 +996,18 @@ Names are removed here to save embarrassment. Sadly most banks do not take their
     script-src 'self' 'unsafe-eval' 'unsafe-inline' secure.reputable.kiwi.bank.co.nz seal.entrust.net www.googletagmanager.com www.googleadservices.com www.google-analytics.com;
     style-src 'self' 'unsafe-inline' secure.reputable.kiwi.bank.co.nz seal.entrust.net;
 
-Of course, this is only as good as a trusted client connection. If the connection is not over TLS, then there is no real safety from headers being changed. If the connection is over TLS, but the connection is intercepted before the TLS hand-shake, the same lack of trust applies. See the section on [TLS Downgrade](#network-countermeasures-tls-downgrade) for more information.  
-This is not to be confused with Cross Origin Resource Sharing (CORS). CORS instructs the browser to override the "same origin policy" thus allowing AJAX requests to be made to header-specified alternative domains. For example, a web site allows restricted resources on its web page to be requested from another domain outside the domain from which the resource originated. This specifically allows other domains access to its resources.
+Of course, this is also only as good as a trusted client connection. If their connection is not over TLS, then there is no real safety from headers being changed. If the connection is over TLS, and the connection is intercepted before the TLS hand-shake, then the same lack of trust applies. See the section on [TLS Downgrade](#network-countermeasures-tls-downgrade) for more information.  
+This is not to be confused with Cross Origin Resource Sharing (CORS). CORS instructs the browser to override the "same origin policy" thus allowing AJAX requests to be made to header-specified alternative domains. For example, a web site allows restricted resources on its web page to be requested from another domain outside the domain from where the resource originated. This specifically allows other domains access to its resources.
 
 You can also evaluate the strength of a CSP policy by using the [google CSP evaluator](https://csp-evaluator.withgoogle.com/).
 
 #### Sub-resource Integrity (SRI) {#network-countermeasures-wrongfully-trusting-the-loading-of-untrusted-web-resources-sri}
 ![](images/ThreatTags/PreventionEASY.png)
 
-SRI provides the browser with the ability to verify that fetched resources (the actual content) have not been tampered with, specifically where expected resources may have been swapped or modified for a malicious resource, no matter where it comes from.
+SRI provides the browser with the ability to verify fetched resources (the actual content) that have not been tampered with, specifically where expected resources may have been swapped or modified for a malicious resource, no matter where it comes from.
 
 How it operates:  
-Requested resources also have an `integrity` attribute with the cryptographic hash of the expected resource. The browser checks the actual hash against the expected hash. If they do not match the requested resource will be blocked.
+Requested resources also have an `integrity` attribute with the cryptographic hash of the expected resource. The browser checks the actual hash against the expected hash. If they do not match, the requested resource will be blocked.
 
 {linenos=off}
     <script src="https://example.com/example-framework.js"
@@ -1015,23 +1015,23 @@ Requested resources also have an `integrity` attribute with the cryptographic ha
         crossorigin="anonymous"></script>
 
 
-This is only useful for content that changes rarely, or is under your direct control. Scripts that are dynamically generated and out of your control are not really a good fit for SRI. If they are dynamically generated as part of your build, then you can also embed the hash into the requesting resource as part of your build process. 
+This is only useful for content that changes rarely, or is under your direct control. Scripts that are dynamically generated and out of your control, are not really a good fit for SRI. If they are dynamically generated as part of your build, then you can also embed the hash into the requesting resource as part of your build process. 
 Currently, `script` and `link` tags are supported. Future versions of the specification are likely to expand this coverage to other tags.
 
 SRI is also useful for applying the hash of minified, concatenated and compressed resources to their name in order to invalidate browser cache.
 
 SRI can be used right now. While only the latest browsers are currently supporting SRI, the extra attributes are simply ignored by browsers that do not currently provide support.
 
-Tools such as openssl and the standard SHA[256|512]sum programmes normally supplied with your operating system will do the job. The hash value provided needs to be base64 encoded.
+Tools such as openssl and the standard SHA[256|512]sum programmes that are normally supplied with your operating system, will do the job. The hash value provided needs to be base64 encoded.
 
 ### TLS Downgrade {#network-countermeasures-tls-downgrade}
 
-There are some great resources listed on the [https://httpswatch.nz/about.html](https://httpswatch.nz/about.html) page for improving the HTTPS health of your web resources.
+There are some great resources listed on the [https://httpswatch.nz/about.html](https://httpswatch.nz/about.html) page, for improving the HTTPS health of your web resources.
 
 #### HTTP Strict Transport Security (HSTS) {#network-countermeasures-tls-downgrade-hsts}
 ![](images/ThreatTags/PreventionEASY.png)
 
-Make sure your web server sends back the HSTS header. If you are using [hapijs](https://hapijs.com/api/) as your NodeJS web framework, this is on by default. In fact, hapi is one of the NodeJS web frameworks that has many security features on by default. This is also fairly straight forward if you are using ExpressJS, but you do need to use [helmetjs/hsts](https://github.com/helmetjs/hsts) to [enforce](https://helmetjs.github.io/docs/hsts/) `Strict-Transport-Security` in Express. For other environments it should be pretty straight forward as well, but do not just assume that HSTS is on by default, read the manual.
+Make sure your web server sends back the HSTS header. If you are using [hapijs](https://hapijs.com/api/) as your NodeJS web framework, it is on by default. In fact, hapi is one of the NodeJS web frameworks that has many security features on by default. This is also fairly straight forward if you are using ExpressJS, but you do need to use [helmetjs/hsts](https://github.com/helmetjs/hsts) to [enforce](https://helmetjs.github.io/docs/hsts/) `Strict-Transport-Security` in Express. For other environments it should be pretty straight forward as well, but do not just assume that HSTS is on by default, read the manual.
 
 Then, trust the browser to do something to stop **downgrades**.
 
@@ -1103,11 +1103,11 @@ You can check the CRL yourself by just browsing to the CRL distribution point, t
 `-text` specifies the output format  
 `-in` specifies the CRL file you want printed  
 
-CRLs these days are getting larger and larger because more and more entities are using certificates. Now the certificate's serial number only stays on the CRL until shortly after the certificate expires, at which point the serial number is removed from the CRL, but even so, because there are more and more certificates being created, the CRLs are getting larger. Of course, we only care about one certificates serial number, the browser fetches this entire CRL file just to find one serial number.
+CRLs these days are getting larger and larger because more and more entities are using certificates. Now the certificate's serial number only stays on the CRL until shortly after the certificate expires, at which point the serial number is removed from the CRL. This is because there are more and more certificates being created, and the CRLs are getting larger. Of course, we only care about one certificates serial number, the browser fetches this entire CRL file just to find one serial number.
 
 When you fetch a web page over TLS, before the browser will actually do so, it fetches the certificate from your web server, then downloads the CRL, then looks for your certificate's serial number, just in case it's on the list. All this is done before any page is fetched over TLS.
 
-CRLs are generally published daily with a week expiration, you can see this in the CRL that you download. This, of course, allows a window of opportunity where the browser could still be using a cached CRL, even though a new CRL is available from the distribution point with a revoked certificate.
+CRLs are generally published daily with a week expiration, which is shown in the CRL that you download. This, of course, allows a window of opportunity where the browser could still be using a cached CRL, even though a new CRL is available from the distribution point with a revoked certificate.
 
 This wasn't such a big deal in the early days of the Internet when there were so few CAs, and in many cases the CRL that your browser had already downloaded was useful for many websites that you would visit.
 
@@ -1120,8 +1120,8 @@ URI: http://<ocsp.specific-certificate-authorities-domain.com>`
 
 With OCSP, instead of querying the CRL distribution point and getting back a potentially large list of certificate serial number revocations, the browser can query the OCSP for the specific single certificate's serial number, and ask whether it's still valid.
 
-There have been some proposals to OCSP such that instead of having certificates last years, they could instead last only a few days, and it be the responsibility of the web server to update the CA with a new certificate every few days. If it failed to do so, then the CA would be presenting an expired certificate, for which the browser would produce a warning to the user.  
-The problem with this initiative was that we have long standing reliance on long-lived certificates with the likes of [**pinning**](http://en.wikipedia.org/wiki/HTTP_Public_Key_Pinning). This short lived certificate proposal didn't stick. You can read more about pinning on the [OWASP Certificate and Public Key Pinning](https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning) page, and the [specification](https://tools.ietf.org/html/draft-ietf-websec-key-pinning-21).
+There have been some proposals to OCSP such that instead of having certificates last years, they could instead last only a few days, and it would be the responsibility of the web server to update the CA with a new certificate every few days. If it failed to do so, then the CA would be present an expired certificate, for which the browser would produce a warning to the user.  
+The problem with this initiative was that we would have a long standing reliance on long-lived certificates with the likes of [**pinning**](http://en.wikipedia.org/wiki/HTTP_Public_Key_Pinning). This short lived certificate proposal didn't stick. You can read more about pinning on the [OWASP Certificate and Public Key Pinning](https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning) page, and the [specification](https://tools.ietf.org/html/draft-ietf-websec-key-pinning-21).
 
 Details of what an OCSP request should look like can be seen in 2.1 of the [OCSP specification](http://tools.ietf.org/html/rfc6960#section-2.1). There are plenty of examples to follow.
 
@@ -1136,7 +1136,7 @@ The `thisUpdate` and the `nextUpdate` define the recommended validity interval. 
 
 ##### One of the Big Problems
 
-All CAs now support both CRLs and OCSP. One problem that we've seen is that some responses for both CRLs and OCSP have been very slow or non-existent, in which case browsers just continue to trust the validity of the certificate. If the revocation response can be blocked by an attacker, then the browser just continues to trust a certificate that was valid only the last time it managed to get a response of `good`.
+All CAs now support both CRLs and OCSP. One problem that we've seen, is that some of the responses for both CRLs and OCSP have been very slow or non-existent.  In which case browsers just continue to trust the validity of the certificate. If the revocation response can be blocked by an attacker, then the browser will continue to trust a certificate that was valid only the last time it managed to get a response of `good`.
 
 ##### Initiative 3: Welcome to [OCSP Stapling](http://en.wikipedia.org/wiki/OCSP_stapling)
 
@@ -1154,7 +1154,7 @@ You can read the specification for OCSP stapling (officially known as the TLS "C
 
 OCSP stapling has been available since at least 2003. Windows Server 2003 and later all have it enabled by default. Most other web servers have it disabled by default.
 
-For sake of compatibility the browser must initiate the request for stapling. This happens after the transports TCP connection is established.
+For sake of compatibility, the browser must initiate the request for stapling. This happens after the transports TCP connection is established.
 
 Most web servers currently on the Internet don't support OCSP stapling, because it's off by default on most non-Windows servers.
 
@@ -1173,18 +1173,18 @@ The client doesn't know whether the web server supports OCSP stapling or not. Wh
 
 The browser, on its first request to the web server, tells the web server that it supports stapling, and if the web server can provide a certificate with a stapled OCSP response, we want it. The web server then responds with the certificate that has "must staple" cryptographically bound to it. Now, if the legitimate web server says "no I don't support stapling", the browser won't accept it, because "must staple" is part of the certificate.
 
-There are two ways that "must staple" is being looked at as a solution. The [OCSP Must-Staple](https://casecurity.org/2014/06/18/ocsp-must-staple/) section of the article of the same name on the casecurity.org blog provides details.
+There are two ways that "must staple" is being looked at as a solution. The [OCSP Must-Staple](https://casecurity.org/2014/06/18/ocsp-must-staple/) section of the article of the same name on the casecurity.org blog provides some details.
 
 1. [In the certificate](http://tools.ietf.org/html/draft-hallambaker-tlssecuritypolicy-03) as discussed above
-2. An [interim solution](https://wiki.mozilla.org/CA:ImprovingRevocation#OCSP_Must-Staple) that doesn't look like much of a solution to me. It adds a `Must-Staple` header to the response, which can easily be stripped out by a MItM attack on the very first response. This solution is very similar to HSTS as discussed [above](#network-countermeasures-tls-downgrade-hsts). If you want similar behaviour to the [HSTS Preload](#network-countermeasures-tls-downgrade-hsts-preload), also discussed above, then "must staple" must be part of the certificate.
+2. An [interim solution](https://wiki.mozilla.org/CA:ImprovingRevocation#OCSP_Must-Staple) that doesn't look like much of a solution to me. It adds a `Must-Staple` header to the response, which can be easily stripped out by a MItM attack on the very first response. This solution is very similar to HSTS as discussed [above](#network-countermeasures-tls-downgrade-hsts). If you want similar behaviour to the [HSTS Preload](#network-countermeasures-tls-downgrade-hsts-preload), also discussed above, then "must staple" has be part of the certificate.
 
-As far as I know, Firefox and Chrome are both working toward implementing Must-Staple in certificates, but I haven't seen or heard anything yet for Internet Explorer and Edge.
+As far as I know, Firefox and Chrome are both working toward implementing Must-Staple in their certificates, but I haven't seen or heard anything yet for Internet Explorer and Edge.
 
 ## 4. SSM Risks that Solution Causes {#network-risks-that-solution-causes}
 
 ### Fortress Mentality
 
-Preventing work devices to be taken from the premises is a fairly archaic technique that is likely to significantly negatively impact the business. Businesses want their traveling personnel, and even their developers and engineers to take their work home for use on evenings and weekends.
+Preventing work devices to be taken from the premises is a fairly archaic technique which would likely have a significant negative impact on the business. Businesses want their travelling personnel, and even their developers and engineers to be able to take their work devices home on evenings and weekends.
 
 Having a separate wireless network for your workers to access the Internet is not sufficient for them to get their work done.
 
@@ -1192,9 +1192,9 @@ All of the technical solutions are costly, and they are only part of the solutio
 
 ### Lack of Segmentation
 
-If you make it harder for a determined attacker to compromise your network resources, they may change their approach to exploiting your people, or whatever is now easier. When you raise the low hanging fruit, then something else becomes the new low hanging opportunity. 
+If you make it harder for a determined attacker to compromise your network resources, they may change their approach towards exploiting your people, or find other means that are easier. When you raise the low hanging fruit, then something else becomes the new low hanging opportunity. 
 
-Firewalling your network segment's gateway interface, and inspecting everything that should be permitted safe passage out of the given network segment, imposes restrictions. I often find people expecting to be able to access something via the network segment's gateway interface but unable to do so because it has not been explicitly allowed.
+Firewalling your network segment's gateway interface, and inspecting everything that should be a permitted safe passage out of the given network segment, imposes restrictions. I often find that people are expecting to be able to access something via the network segment's gateway interface but unable to do so because it has not been explicitly allowed.
 
 Applications exist that continue to target random ports in order to function, the real-time chat application Discord is one of these. These can be a real pain for tightened gateway interfaces if the application is mandatory.
 
@@ -1204,7 +1204,7 @@ Following are some of the risks inherent to the mentioned solutions.
 
 #### Insufficient Logging
 
-With the test cases we set up, there was no ideal solution, it would be a matter of choosing the options that worked best for you, or finding something else that worked.
+With the test cases we set up there was no ideal solution, it would be a matter of choosing the options that worked best for you, or finding something else that worked.
 
 #### Lack of Network Intrusion Detection Systems (NIDS)
 
@@ -1234,7 +1234,7 @@ No risks here, if you work out who should be able to access what, and make the a
 
 #### Dropbox
 
-There will be NI[D|P]S configurations required to monitor file sync tools such as Dropbox, which is extra work, and depending on how Dropbox is used, may just fail. Blocking file sync tools may be an option.
+There will be NI[D|P]S configurations required to monitor file sync tools, such as Dropbox, which is extra work, and depending on how Dropbox is used, may just fail. Blocking file sync tools may be an option.
 
 #### Physical
 
@@ -1242,7 +1242,7 @@ Per the Infectious Media subsection of Risks that Solutions Cause in the People 
 
 #### Mobile Phone Data
 
-In most cases, what ever you do to stop cell phone signals escaping your premises, servers or compute, is either going to be ineffective, or significantly disadvantage your organisation, both in terms of productivity and morale. Since when have attackers played by the rules of their victims?
+In most cases, what ever you do to stop cell phone signals escaping your premises, servers or computers. It is either going to be ineffective, or significantly disadvantage your organisation, both in terms of productivity and morale. Since when have attackers played by the rules of their victims?
 
 #### DNS, SSH
 
@@ -1250,7 +1250,7 @@ Employees will always find a way to get around organisational policy if it stops
 
 It can be a lot of work to have HIDS running on all systems, and it's impractical.
 
-Not all antivirus is created equal. The next generation antivirus/antimalware with machine learning is expensive.
+Not all antivirus' are created equal. The next generation antivirus/antimalware with machine learning is expensive.
 
 NIDS setup and administration takes a lot of work for any security operations team. Often organisations will outsource this.
 
@@ -1283,13 +1283,13 @@ Make sure your web server only ever responds over HTTPS, including the very firs
 
 #### HTTP Strict Transport Security (HSTS) {#network-risks-that-solution-causes-tls-downgrade-hsts}
 
-Unless browsers know about your domain, and have it added to their HSTS Preload list, the connection is still not safe on the very first request, unless your server refuses to serve without TLS, which should be the case.
+Unless browsers know about your domain, and have it added to their HSTS Preload list, the connection will still not be safe on the very first request, unless your server refuses to serve without TLS, which should be the case.
 
 #### HTTP Strict Transport Security (HSTS) Preload {#network-risks-that-solution-causes-tls-downgrade-hsts-preload}
 
-Ultimately, if you have done you job correctly, you are trusting the browser to honour your decision to not communicate at all unless TLS is supported.
+Ultimately, if you have done you job correctly, you are trusting the browser to honour your decision not to communicate at all unless TLS is supported.
 
-If you make sure your web server only ever responds over HTTPS, including the very first response, then the HSTS preload may work for you, just beware that once your domain is in the list, it is only reachable over HTTPS
+If you make sure your web server only ever responds over HTTPS, including the very first response, then the HSTS preload may work for you, just be aware that once your domain is in the list, it is only reachable over HTTPS
 
 ## 5. SSM Costs and Trade-offs {#network-costs-and-trade-offs}
 
@@ -1310,11 +1310,11 @@ People will be your weakest or your strongest line of defence, it is up to you.
 
 ### Lack of Segmentation
 
-Depending on your scenario, threat model and determine what the next lowest hanging fruit is, and harden or remove that attack surface, then keep working your way up the tree.
+Depending on your scenario and threat model, determine what the next lowest hanging fruit is, then you can harden or remove that attack surface, and continue working your way up the tree.
 
-If you can explain why you have tight egress rules, people will usually be accepting.
+If you can explain why you have tight egress rules, then people will usually be accepting.
 
-If you are constrained to use software that insists on changing what port it wants to communicate on, discuss this along with the perils of leaving large port spaces open with those mandating the tool. If you can not have the tool configured to communicate on a specific port and you do not get any traction with changing the tool, at least lock the outbound port space down to specific hosts and protocols.
+If you are constrained to using software that insists on changing what port it wants to communicate on, discuss this along with the perils of leaving large port spaces open with those mandating the tool. If you can not have the tool configured to communicate on a specific port and you do not get any traction with changing the tool, at least lock the outbound port space down to specific hosts and protocols.
 
 ### Lack of Visibility
 
@@ -1322,7 +1322,7 @@ Following are some costs and trade-offs for lack of visibility. Your mileage may
 
 #### Insufficient Logging
 
-Any of the options I detailed take time to set up, depending on the size of your network. Taking into consideration what you are protecting will help you decide which of the options will work the best, or investigate some other options.
+Any of the options I have detailed take time to set up, depending on the size of your network. Taking into consideration what you are protecting will help you decide on which of the options will work the best, or investigate some other options.
 
 This is one area that moving to the cloud makes sense, let your cloud provider take care of the infrastructure, and you make sure you have your configuration and application security water tight.
 
@@ -1356,7 +1356,7 @@ You should consider having host intrusion detection systems (HIDS) running on cr
 
 In many cases, the extra expense of the newer anti-virus products is worth the expenditure. You will have to weigh this up.
 
-Setting up and maintaining a network intrusion detection system (NIDS) is pretty much a given for any medium to large sized business's network. There are many arguments whether an organisation should run their own in house security operations team. This will often come down to the size of the organisation, whether or not you already have some of the specialities required in house, what your assets are, who your adversaries are, how long you plan on staying in business, and many other considerations. This is all part of your threat modelling.
+Setting up and maintaining a network intrusion detection system (NIDS) is pretty much a given for any medium to large sized business network. There are many arguments whether an organisation should run their own in house security operations team. This will often come down to the size of the organisation, whether or not you already have some of the specialities required in house, what your assets are, who your adversaries are, how long you plan on staying in business, and many other considerations. This is all part of your threat modelling.
 
 You could inspect the DNS records, this is where your NIDS comes in.
 
