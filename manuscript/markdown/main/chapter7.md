@@ -1300,7 +1300,7 @@ Docker leverages the Linux (kernel) namespaces which provide an isolated workspa
     {title="Result", linenos=off, lang=bash}
         [
           {
-            "Type":"bind",
+            "Type":"volume",
             "Source":"/etc",
             "Destination":"/hosts-etc",
             "Mode":"",
@@ -4341,7 +4341,7 @@ Features of Runtime:
     {title="Result", linenos=off, lang=bash}
         [
           {
-            "Type":"bind",
+            "Type":"volume",
             "Source":"/etc",
             "Destination":"/hosts-etc",
             "Mode":"ro",
@@ -4366,7 +4366,7 @@ Each network interface, whether physical or virtual, can only reside in one name
     
     A Docker network is analogous to a Linux kernel network namespace.
     
-    When Docker is installed, three networks are created `bridge`, `host` and `null`, which you can think of as network namespaces. These can be seen by running: [`docker network ls`](https://docs.docker.com/engine/reference/commandline/network_ls/)
+    When Docker is installed, three networks are created `bridge`, `host` and `none`, which you can think of as network namespaces. These can be seen by running: [`docker network ls`](https://docs.docker.com/engine/reference/commandline/network_ls/)
     
     {linenos=off, lang=bash}
         NETWORK ID    NAME              DRIVER   SCOPE
