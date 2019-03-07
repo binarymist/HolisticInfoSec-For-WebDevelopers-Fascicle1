@@ -247,7 +247,7 @@ Traditionally the payload would have to be saved to the targets file system, but
 
 What we are ultimately doing is building malware and payloads with chameleon-like characteristics, which look like business as usual (BAU) software, to detection mechanisms.
 
-#### PowerShell Exploitation via Executable C/- [Psmsf](https://github.com/nixawk/psmsf) {#vps-identify-risks-powershell-exploitation-via-executable-psmsf}
+#### PowerShell Exploitation via Executable C/- [Psmsf](https://github.com/nixawk/hello-python2/tree/master/misc/psmsf) {#vps-identify-risks-powershell-exploitation-via-executable-psmsf}
 ![](images/ThreatTags/average-common-average-severe.png)
 
 ![](images/HandsOnHack.png)
@@ -465,11 +465,11 @@ When `psmsf` is run as per above, the Metasploit `windows/meterpreter/reverse_tc
     # msfvenom --help-formats # Lists all the formats available with description.
     # msfvenom --list encoders # Lists all the encoders available with description.
 
-`psmsf` then takes the generated output and in a function called [`extract_msf_shellcode`](https://github.com/nixawk/psmsf/blob/2e599d5a757ea1540794b46a25825e5317b66fc6/psmsf#L47) strips out the characters that do not actually form part of the raw shellcode, such as an assignment to a char array, double quotes, new lines, semicolons, white space, etc, and just leaves the raw shellcode.
+`psmsf` then takes the generated output and in a function called [`extract_msf_shellcode`](https://github.com/nixawk/hello-python2/blob/bc378fd22ddc700891fe7f34ab0d5b341141e434/misc/psmsf/psmsf#L47-L61) strips out the characters that do not actually form part of the raw shellcode, such as an assignment to a char array, double quotes, new lines, semicolons, white space, etc, and just leaves the raw shellcode.
 
 `psmsf` then replaces any instances of `\x` with `0x`.
 
-`psmsf` then passes the cleaned up `reverse_tcp` shellcode to a function called [`generate_powershell_script`](https://github.com/nixawk/psmsf/blob/2e599d5a757ea1540794b46a25825e5317b66fc6/psmsf#L83-L103) that embeds it into a PowerShell script that is going to become the main part of our payload.
+`psmsf` then passes the cleaned up `reverse_tcp` shellcode to a function called [`generate_powershell_script`](https://github.com/nixawk/hello-python2/blob/bc378fd22ddc700891fe7f34ab0d5b341141e434/misc/psmsf/psmsf#L83-L105) that embeds it into a PowerShell script that is going to become the main part of our payload.
 
 That code appears as follows, I have added the annotations to help you understand how it works:
 
@@ -548,9 +548,9 @@ That code appears as follows, I have added the annotations to help you understan
     
       return shellcode
 
-psmsf is [licensed](https://github.com/nixawk/psmsf/blob/master/License.txt) with BSD License.
+psmsf is [licensed](https://github.com/nixawk/hello-python2/blob/master/misc/psmsf/License.txt) with BSD License.
 
-The `powershell_hacking.bat` file that we copy to our web hosting directory as `payload.txt` is the result of the content referenced above returned to the shellcode variable after it has been `utf_16_le` encoded, then base 64 encoded. This occurs in the [`generate_powershell_command`](https://github.com/nixawk/psmsf/blob/2e599d5a757ea1540794b46a25825e5317b66fc6/psmsf#L108) as follows:
+The `powershell_hacking.bat` file that we copy to our web hosting directory as `payload.txt` is the result of the content referenced above returned to the shellcode variable after it has been `utf_16_le` encoded, then base 64 encoded. This occurs in the [`generate_powershell_command`](https://github.com/nixawk/hello-python2/blob/bc378fd22ddc700891fe7f34ab0d5b341141e434/misc/psmsf/psmsf#L108-L110) as follows:
 
 {id="powershell_hacking-bat", linenos=off, lang=python}
     # Gives us powershell_hacking.bat
