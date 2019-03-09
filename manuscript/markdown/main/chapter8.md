@@ -17,10 +17,10 @@ Here are some possibilities to get you started:
 * Syslog servers: For similar reasons to routers, as well as events and sensitive information from all sorts of systems collected in one place
 * Visibility into what is actually happening specific to communications between devices on your network
 
-There will almost certainly be many others. Think about your network topology, specifically about information, where it's stored where and over which channels it may pass. If you have decided to hand your precious data over to a Cloud Service Provider (CSP), then you are not going to have much control over this and in most cases, your CSP will not have as much control as you would like either. We address this in the [Cloud](#cloud) chapter. Also think about the areas that may be more vulnerable to be compromised than others, and take this information into the next step.
+There will almost certainly be many others. Think about your network topology, specifically about information, where it's stored where and over which channels it may pass. If you have decided to hand your precious data over to a Cloud Service Provider (CSP), then you are not going to have much control over this and in most cases, your CSP will not have as much control as you would like either. We address this in the [Cloud](#cloud) chapter. Also think about the areas that may be more vulnerable to compromise than others, and take this information into the next step.
 
 ## 2. SSM Identify Risks
-Also,go through the same process we did in the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), but do so for the network.
+Also, go through the same process we did in the top level Identify Risks section in the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com), but do so for the network.
 
 * [MS Network Threats and Countermeasures](https://msdn.microsoft.com/en-us/library/ff648641.aspx#c02618429_006)
 
@@ -93,7 +93,7 @@ Healthcare was impacted such that:
 * 25% were malicious inside actors
 * 46% were inadvertent inside actors
 
-Malicious inside actors can either be disgruntled employees that may or may not of left the organisation. Those who have left, could still have access of an account or access of back door they introduced or are aware of. Or current employees who are opportunists looking to make some extra money by selling access or private information.
+Malicious inside actors can either be disgruntled employees that may or may not of left the organisation. Those who have left, could still have access via an account or back door they introduced or are aware of. Or current employees who are opportunists looking to make some extra money by selling access or private information.
 
 An inadvertent inside actor is usually someone that does not mean to cause harm, but often falls prey to social engineering tactics usually from malicious outsiders, as touched on in the People chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com/). These types of attacks are usually phishing, or where the victim is somehow tricked or coerced into revealing sensitive information, or carrying out an activity that will provide the attacker a foothold. The Social Engineer's Playbook by Jeremiah Talamantes has many useful and practical examples of these types of attacks.
 
