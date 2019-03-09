@@ -144,7 +144,7 @@ Setting the IP address in your header to the victim's IP address.
 
 Remember we did something similar to this under the "Concealing NMap Source IP Address" of the Reconnaissance section from the Process and Practises chapter in [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com) with nmap decoy host `-D` and idle scan `-sI`.
 
-In this type of attack a sending node, will spoof its public IP address (not actually change its IP address) (by forging the header) to appear as someone else's. When the message is received and a reply crafted, the entity creating the reply will look up its ARP table and send the reply to the impersonated entity because the MAC address is still associated with the IP address of the message it received. This sort of play is commonly used in Denial of Service (DoS) attacks because the attacker does not need or want the response.
+In this type of attack a sending node will spoof its public IP address (not actually change its IP address) (by forging the header) to appear as someone else's. When the message is received and a reply crafted, the entity creating the reply will look up its ARP table and send the reply to the impersonated entity because the MAC address is still associated with the IP address of the message it received. This sort of play is commonly used in Denial of Service (DoS) attacks because the attacker does not need or want the response.
 
 In a Distributed DoS (D-DoS) attack, often the attacker will impersonate the target (usually a router or some server it wants to be brought down) and broadcast messages. The nodes that receive these messages consult their ARP tables to look up the spoofed IP address, find the target's associated MAC address, and reply to it. This ensures that the replies will be sourced from many nodes, thus swamping the target's network interface.  
 Many load testing tools also use this technique to stress a server or application.
@@ -187,7 +187,7 @@ This type of attack can allow an intermediary to intercept and read all of a com
 This attack appears in the [OWASP Top 10 A7 Missing Function Level Access Control](https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control)
 
 Often, websites will allow access to certain resources so long as the request was referred from a specific page defined by the `referer` header.  
-The referrer (spelled `referer`) field in HTTP requests can be intercepted and modified, so it is not a good idea to use it for authentication or authorisation. The Social Engineering Toolkit (SET) also exploits the `referer`header, as discussed in the hands-on hack in the Spear Phishing section of the Identify Risks in the People chapter of Fascicle 0.
+The referrer (spelled `referer`) field in HTTP requests can be intercepted and modified, so it is not a good idea to use it for authentication or authorisation. The Social Engineering Toolkit (SET) also exploits the `referer` header, as discussed in the hands-on hack in the Spear Phishing section of the Identify Risks in the People chapter of Fascicle 0.
 
 #### EMail Address {#network-identify-risks-spoofing-email-address}
 ![](images/ThreatTags/easy-widespread-average-moderate.png)
