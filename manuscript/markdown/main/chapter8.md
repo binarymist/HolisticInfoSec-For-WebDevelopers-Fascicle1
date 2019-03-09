@@ -580,7 +580,7 @@ For file and data sharing from machine to machine no matter where they are, and 
 ### Lack of Segmentation  {#network-countermeasures-lack-of-segmentation}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-When you create network segments containing only the resources specific to the consumers who you have authorise access to, you are creating an environment of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege), where only those authorised to access resources can access them.
+When you create network segments containing only the resources specific to the consumers who you have authorised access to, you are creating an environment of [least privilege](#web-applications-countermeasures-management-of-application-secrets-least-privilege), where only those authorised to access resources can access them.
 
 For example, if you felt it was essential for your kitchen appliances to be able to talk to the Internet, then put them all on a separate network segment, and tightly constrain their privileges.
 
