@@ -1120,7 +1120,7 @@ URI: http://<ocsp.specific-certificate-authorities-domain.com>`
 
 With OCSP, instead of querying the CRL distribution point and getting back a potentially large list of certificate serial number revocations, the browser can query the OCSP for the specific single certificate's serial number, and ask whether it's still valid.
 
-There have been some proposals to OCSP such that instead of having certificates last years, they could instead last only a few days, and it would be the responsibility of the web server to update the CA with a new certificate every few days. If it failed to do so, then the CA would be present an expired certificate, for which the browser would produce a warning to the user.  
+There have been some proposals to OCSP such that instead of having certificates last years, they could instead last only a few days, and it would be the responsibility of the web server to update the CA with a new certificate every few days. If it failed to do so, then the CA would present an expired certificate, for which the browser would produce a warning to the user.  
 The problem with this initiative was that we would have a long standing reliance on long-lived certificates with the likes of [**pinning**](http://en.wikipedia.org/wiki/HTTP_Public_Key_Pinning). This short lived certificate proposal didn't stick. You can read more about pinning on the [OWASP Certificate and Public Key Pinning](https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning) page, and the [specification](https://tools.ietf.org/html/draft-ietf-websec-key-pinning-21).
 
 Details of what an OCSP request should look like can be seen in 2.1 of the [OCSP specification](http://tools.ietf.org/html/rfc6960#section-2.1). There are plenty of examples to follow.
