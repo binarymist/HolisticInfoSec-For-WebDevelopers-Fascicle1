@@ -988,6 +988,7 @@ We have covered the technical aspects of password strategies in the [Review Pass
 * [Amazon Inspector](https://console.aws.amazon.com/inspector/): At this time only targets EC2 instances. Inspector agent needs to be installed on all target EC2 instances
 * [CloudMapper](https://github.com/duo-labs/cloudmapper) by Scott Piper for visualising your AWS environments. Along with his blog post at [duo.com](https://duo.com/blog/introducing-cloudmapper-an-aws-visualization-tool)
 * [Awesome AWS](https://github.com/donnemartin/awesome-aws) has many useful resources
+* [Pacu](https://github.com/RhinoSecurityLabs/pacu) is an open source AWS exploitation framework, with a [wiki](https://github.com/RhinoSecurityLabs/pacu/wiki/Installation). There is a [blog post](https://rhinosecuritylabs.com/aws/pacu-open-source-aws-exploitation-framework/) and an excellent [podcast](https://brakeingsecurity.com/2018-024-pacu-a-tool-for-pentesting-aws-environments) by BreakingDownSecurity.
 
 ## 4. SSM Risks that Solution Causes
 
