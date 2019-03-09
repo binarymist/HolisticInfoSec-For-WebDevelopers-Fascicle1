@@ -1136,7 +1136,7 @@ The `thisUpdate` and the `nextUpdate` define the recommended validity interval. 
 
 ##### One of the Big Problems
 
-All CAs now support both CRLs and OCSP. One problem that we've seen, is that some of the responses for both CRLs and OCSP have been very slow or non-existent.  In which case browsers just continue to trust the validity of the certificate. If the revocation response can be blocked by an attacker, then the browser will continue to trust a certificate that was valid only the last time it managed to get a response of `good`.
+All CAs now support both CRLs and OCSP. One problem that we've seen, is that some of the responses for both CRLs and OCSP have been very slow or non-existent. In which case browsers just continue to trust the validity of the certificate. If the revocation response can be blocked by an attacker, then the browser will continue to trust a certificate that was valid only the last time it managed to get a response of `good`.
 
 ##### Initiative 3: Welcome to [OCSP Stapling](http://en.wikipedia.org/wiki/OCSP_stapling)
 
