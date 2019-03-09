@@ -8,7 +8,7 @@ I had the pleasure of interviewing [Haroon Meer](https://twitter.com/haroonmeer)
 * [Canary Tools](https://canary.tools/)
 
 ## 1. SSM Asset Identification
-Take the results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Remove any that are not applicable and add ones that are newly discovered.
+Take the results from the higher level Asset Identification section of the 30,000' View chapter of [Fascicle 0](https://f0.holisticinfosecforwebdevelopers.com). Remove any that are not applicable and add those that are newly discovered.
 
 Here are some possibilities to get you started:
 
