@@ -958,7 +958,7 @@ Purchase as many doppelganger domains related to your own domain - which makes s
 #### Web-sites {#network-countermeasures-doppelganger-domains-websites}
 ![](images/ThreatTags/PreventionAVERAGE.png)
 
-Train users to be wary of these things. Just awareness, is a technique used by attackers is often enough to prevent its success.
+Train users to be wary of these things. Just awareness that this is a technique used by attackers is often enough to prevent its success.
 
 #### SMTP {#network-countermeasures-doppelganger-domains-smtp}
 ![](images/ThreatTags/PreventionAVERAGE.png)
