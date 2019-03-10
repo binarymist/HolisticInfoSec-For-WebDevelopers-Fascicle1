@@ -5,7 +5,7 @@
 
 The contents of Fascicle 1 which is content complete and in technical review, can be found at the books [landing page](https://f1.holisticinfosecforwebdevelopers.com/).
 
-[![Complete](https://img.shields.io/badge/complete-98%25-brightgreen.svg)](https://f1.holisticinfosecforwebdevelopers.com/) &nbsp; [![Read online](https://img.shields.io/badge/read%20free-book%20landing%20page-green.svg)](https://f1.holisticinfosecforwebdevelopers.com/) &nbsp; [![Buy on Leanpub](https://img.shields.io/badge/buy-leanpub-green.svg)](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications) &nbsp; [![Authors other books](https://img.shields.io/badge/author%27s-other%20books-blue.svg)](https://binarymist.io/publication/kims-selected-publications/)
+[![Complete](https://img.shields.io/badge/complete-100%25-brightgreen.svg)](https://f1.holisticinfosecforwebdevelopers.com/) &nbsp; [![Read online](https://img.shields.io/badge/read%20free-book%20landing%20page-green.svg)](https://f1.holisticinfosecforwebdevelopers.com/) &nbsp; [![Buy on Leanpub](https://img.shields.io/badge/buy-leanpub-green.svg)](https://leanpub.com/holistic-infosec-for-web-developers-fascicle1-vps-network-cloud-webapplications) &nbsp; [![Authors other books](https://img.shields.io/badge/author%27s-other%20books-blue.svg)](https://binarymist.io/publication/kims-selected-publications/)
 
 The entire book series can be found [here](https://holisticinfosecforwebdevelopers.com/) at [www.holisticinfosecforwebdevelopers.com](https://holisticinfosecforwebdevelopers.com/)
 
