@@ -1,5 +1,13 @@
 # Holistic InfoSec For Web Developers - F1 - Release Notes
 
+## 2019-03-10
+
+Fascicle complete!
+
+### Network
+
+Status: [Done](https://github.com/binarymist/HolisticInfoSec-For-WebDevelopers-Fascicle1/pull/5)
+
 ## 2018-09-02
 
 ### VPS
