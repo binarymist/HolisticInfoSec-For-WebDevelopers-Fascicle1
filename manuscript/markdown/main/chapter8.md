@@ -1176,9 +1176,9 @@ The browser, on its first request to the web server, tells the web server that i
 There are two ways that "must staple" is being looked at as a solution. The [OCSP Must-Staple](https://casecurity.org/2014/06/18/ocsp-must-staple/) section of the article of the same name on the casecurity.org blog provides some details.
 
 1. [In the certificate](http://tools.ietf.org/html/draft-hallambaker-tlssecuritypolicy-03) as discussed above
-2. An [interim solution](https://wiki.mozilla.org/CA:ImprovingRevocation#OCSP_Must-Staple) that doesn't look like much of a solution to me. It adds a `Must-Staple` header to the response, which can be easily stripped out by a MItM attack on the very first response. This solution is very similar to HSTS as discussed [above](#network-countermeasures-tls-downgrade-hsts). If you want similar behaviour to the [HSTS Preload](#network-countermeasures-tls-downgrade-hsts-preload), also discussed above, then "must staple" has be part of the certificate.
+2. An [interim solution](https://wiki.mozilla.org/CA:ImprovingRevocation#OCSP_Must-Staple) that doesn't look like much of a solution to me. It adds a `Must-Staple` header to the response, which can be easily stripped out by a MItM attack on the very first response. This solution is very similar to HSTS as discussed [above](#network-countermeasures-tls-downgrade-hsts). If you want similar behaviour to the [HSTS Preload](#network-countermeasures-tls-downgrade-hsts-preload), also discussed above, then "must staple" has to be part of the certificate.
 
-As far as I know, Firefox and Chrome are both working toward implementing Must-Staple in their certificates, but I haven't seen or heard anything yet for Internet Explorer and Edge.
+As far as I know, Firefox and Chrome are both working toward implementing Must-Staple in certificates, but I haven't seen or heard anything yet for Internet Explorer and Edge.
 
 ## 4. SSM Risks that Solution Causes {#network-risks-that-solution-causes}
 
